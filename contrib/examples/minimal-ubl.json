@@ -1,0 +1,77 @@
+{
+	"ubl:Invoice": {
+		"cbc:CustomizationID": "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0",
+		"cbc:ProfileID": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+		"cbc:IssueDate": "2024-10-12",
+		"cbc:InvoiceTypeCode": "380",
+		"cbc:DocumentCurrencyCode": "EUR",
+		"cbc:ID": "1234567890",
+		"cac:AccountingSupplierParty": {
+			"cac:Party": {
+				"cbc:EndpointID": "DE16520503531004885412",
+				"cbc:EndpointID@schemeID": "9918",
+				"cac:PostalAddress": {
+					"cac:Country": {
+						"cbc:IdentificationCode": "DE"
+					}
+				},
+				"cac:PartyLegalEntity": {
+					"cbc:RegistrationName": "Krusty's Toy Factory"
+				}
+			}
+		},
+		"cac:AccountingCustomerParty": {
+			"cac:Party": {
+				"cbc:EndpointID": "DE279247134",
+				"cbc:EndpointID@schemeID": "9930",
+				"cac:PostalAddress": {
+					"cac:Country": {
+						"cbc:IdentificationCode": "DE"
+					}
+				},
+				"cac:PartyLegalEntity": {
+					"cbc:RegistrationName": "Moe's Tavern"
+				}
+			}
+		},
+		"cac:TaxTotal": [
+			{
+				"cbc:TaxAmount": "437.93",
+				"cbc:TaxAmount@currencyID": "EUR"
+			}
+		],
+		"cac:MonetaryTotal": {},
+		"cac:LegalMonetaryTotal": {
+			"cbc:LineExtensionAmount": "2304.89",
+			"cbc:LineExtensionAmount@currencyID": "EUR",
+			"cbc:TaxExclusiveAmount": "2304.89",
+			"cbc:TaxExclusiveAmount@currencyID": "EUR",
+			"cbc:TaxInclusiveAmount": "2778.82",
+			"cbc:TaxInclusiveAmount@currencyID": "EUR",
+			"cbc:PayableAmount": "2778.82",
+			"cbc:PayableAmount@currencyID": "EUR"
+		},
+		"cac:InvoiceLine": [
+			{
+				"cbc:ID": "1",
+				"cbc:InvoicedQuantity": "133",
+				"cbc:InvoicedQuantity@unitCode": "H87",
+				"cbc:LineExtensionAmount": "2304.89",
+				"cbc:LineExtensionAmount@currencyID": "EUR",
+				"cac:Item": {
+					"cbc:Name": "Itchy & Scratchy Official Plush Set",
+					"cac:ClassifiedTaxCategory": {
+						"cbc:ID": "S",
+						"cac:TaxScheme": {
+							"cbc:ID": "VAT"
+						}
+					}
+				},
+				"cac:Price": {
+					"cbc:PriceAmount": "17.33",
+					"cbc:PriceAmount@currencyID": "EUR"
+				}
+			}
+		]
+	}
+}

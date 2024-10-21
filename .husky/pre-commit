@@ -1,0 +1,1 @@
+bun run test -- --changedSince=origin/main && bun run lint:staged

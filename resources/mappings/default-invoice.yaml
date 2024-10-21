@@ -1,0 +1,57 @@
+meta:
+  sectionColumn:
+    Invoice: L
+ubl:Invoice:
+  cbc:CustomizationID: urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0
+  cbc:ProfileID: urn:fdc:peppol.eu:2017:poacc:billing:01:1.0
+  cbc:ID: =R2
+  cbc:IssueDate: =I6
+  cbc:InvoiceTypeCode: "380"
+  cbc:DocumentCurrencyCode: =O11
+  cac:AccountingSupplierParty:
+    cac:Party:
+      cbc:EndpointID: =O6
+      cbc:EndpointID@schemeID: "9930"
+      cac:PostalAddress:
+        cac:Country:
+          cbc:IdentificationCode: =O3
+      cac:PartyLegalEntity:
+        cbc:RegistrationName: =O1
+  cac:AccountingCustomerParty:
+    cac:Party:
+      cbc:EndpointID: =I7
+      cbc:EndpointID@schemeID: "9930"
+      cac:PostalAddress:
+        cac:Country:
+          cbc:IdentificationCode: =O10
+      cac:PartyLegalEntity:
+        cbc:RegistrationName: =A1
+  cac:TaxTotal:
+    section: :TaxSubtotal
+    cbc:TaxAmount: =:TaxTotal.J1
+    cbc:TaxAmount@currencyID: EUR
+  cac:LegalMonetaryTotal:
+    cbc:LineExtensionAmount: =:Footer.J1
+    cbc:LineExtensionAmount@currencyID: EUR
+    cbc:TaxExclusiveAmount: =:netTotal.J1
+    cbc:TaxExclusiveAmount@currencyID: EUR
+    cbc:TaxInclusiveAmount: =:GrandTotal.J1
+    cbc:TaxInclusiveAmount@currencyID: EUR
+    cbc:PayableAmount: =GrandTotal:J1
+    cbc:PayableAmount@currencyID: EUR
+  cac:InvoiceLine:
+    section: :InvoiceLine
+    cbc:ID: =:InvoiceLine.A1
+    cbc:InvoicedQuantity: =:InvoiceLine.E1
+    cbc:InvoicedQuantity@unitCode: =:InvoiceLine.M1
+    cbc:LineExtensionAmount: =:InvoiceLine.J1
+    cbc:LineExtensionAmount@currencyID: EUR
+    cac:Item:
+      cbc:Name: =:InvoiceLine.B1
+      cac:ClassifiedTaxCategory:
+        cbc:ID: =:TaxSubtotal.M1
+        cac:TaxScheme:
+          cbc:ID: VAT
+    cac:Price:
+      cbc:PriceAmount: =:InvoiceLine.F1
+      cbc:PriceAmount@currencyID: =O11
