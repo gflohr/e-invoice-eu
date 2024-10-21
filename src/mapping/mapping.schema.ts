@@ -1432,11 +1432,11 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 		valueRef: {
 			type: 'string',
 			pattern:
-				"^=(?:([^:.]+|'[^']+')?(?::([^.:]+)?)?\\.)?([A-Z]+[1-9][0-9]*)|('[^']+'|[^=].*)$",
+				"^=(?:([^:.]+|'.+')?(?::([^.:]+)).)?([A-Z]+[1-9][0-9]*)|('.+|[^=].*)$",
 		},
 		sectionRef: {
 			type: 'string',
-			pattern: "(?:([^:.]+|'[^']+')?(?::([^.:]+)?))",
+			pattern: "(?:([^:.]+|'.+')?(?::([^.:]+)))",
 		},
 	},
 } as unknown as JSONSchemaType<Mapping>;

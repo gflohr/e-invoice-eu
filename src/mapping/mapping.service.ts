@@ -231,13 +231,13 @@ export class MappingService {
 			const instancePath = schemaPath.filter(
 				item => item !== 'properties' && item !== 'items',
 			);
+			const keyword = 'EN16931/' + schema.$ref;
 			const error: ErrorObject = {
 				instancePath: '/' + instancePath.join('/'),
-				schemaPath:
-					'#/' + schemaPath.map(encodeURIComponent).join('/') + '/type',
-				keyword: 'type',
-				params: { type: 'string' },
-				message: `mapping '${ref}' resolves to null: ${x.message}`,
+				schemaPath: '#/' + schemaPath.map(encodeURIComponent).join('/'),
+				keyword: keyword,
+				params: {},
+				message: `reference '${ref}': ${x.message}`,
 			};
 
 			throw new Ajv2019.ValidationError([error]);
@@ -248,23 +248,13 @@ export class MappingService {
 		return literal[0] === "'" ? literal.substring(1) : literal;
 	}
 
-	/**
-	 * Get a value from a spreadsheet cell.  The only possible error is that
-	 * the cell does not exist.  Reporting other errors is left to the
-	 * schema validation that happens, when processing the data.
-	 *
-	 * @param worksheet the XLSX.Worksheet
-	 * @param cellName a cell name like 'A1'
-	 * @param schema the schema for this value
-	 * @returns the value from the cell
-	 */
 	private getCellValue(
 		worksheet: XLSX.WorkSheet,
 		cellName: string,
 		schema: JSONSchemaType<any>,
-	): string {
+	): string | null {
 		if (!(cellName in worksheet)) {
-			throw new Error(`no such cell '${cellName}'`);
+			return null;
 		}
 
 		const cell = worksheet[cellName];
@@ -276,6 +266,8 @@ export class MappingService {
 				if (cell.t === 'd') {
 					value = this.getDateValue(cell.v as Date);
 				} else {
+					// FIXME! Throw an exception of the date is not in the
+					// format 'YYYY-MM-DD'.
 					value = cell.v;
 				}
 				break;
@@ -288,6 +280,27 @@ export class MappingService {
 
 	private getDateValue(value: Date): string {
 		return value.toISOString().substring(0, 10);
+	}
+
+	private isValidDate(dateStr: string): boolean {
+		// Step 1: Check if the format is correct (YYYY-MM-DD)
+		const dateFormatRegex = /^\d{4}-\d{2}-\d{2}$/;
+		if (!dateFormatRegex.test(dateStr)) {
+			return false;
+		}
+
+		// Step 2: Parse the date and check if it's valid
+		const [year, month, day] = dateStr.split('-').map(Number);
+
+		// Create a Date object
+		const date = new Date(year, month - 1, day); // Note: Month is zero-based in JS Date
+
+		// Check that the date is valid
+		return (
+			date.getFullYear() === year &&
+			date.getMonth() === month - 1 &&
+			date.getDate() === day
+		);
 	}
 
 	private getSchema(path: string[]): JSONSchemaType<any> {

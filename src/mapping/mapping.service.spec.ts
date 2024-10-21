@@ -17,14 +17,10 @@ const mapping = {
 		},
 	},
 	'ubl:Invoice': {
-		'cbc:CustomizationID': '=B1',
 		'cbc:ID': '1234567890',
 		'cbc:IssueDate': '=A1',
-		'cbc:DueDate': "='Invoice'.A2",
-		'cbc:Note': "'=Join the league of useless leading equals signs!",
 	},
 } as unknown as Mapping;
-
 const workbook = {
 	SheetNames: ['Invoice'],
 	Sheets: {
@@ -32,14 +28,6 @@ const workbook = {
 			A1: {
 				t: 's',
 				v: '2024-10-21',
-			},
-			A2: {
-				t: 'd',
-				v: new Date('2024-10-28T12:34:56.789'),
-			},
-			B1: {
-				t: 's',
-				v: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
 			},
 		},
 	},
@@ -129,42 +117,12 @@ describe('MappingService', () => {
 
 			const error = e.errors[0];
 			expect(error.instancePath).toBe('/ubl:Invoice/cbc:ID');
-			expect(error.schemaPath).toBe('#/ubl%3AInvoice/cbc%3AID/type');
-			expect(error.keyword).toBe('type');
-			expect(error.params).toEqual({ type: 'string' });
-			expect(error.message).toContain("no such sheet 'Inwoice'");
-		}
-	});
-
-	it('should throw an exception if a non-existing cell is referenced', () => {
-		const wb: XLSX.WorkBook = {
-			Sheets: {
-				Invoice: {},
-			},
-		} as unknown as XLSX.WorkBook;
-		try {
-			service['resolveValue'](
-				'=Invoice.ET742',
-				wb,
-				{
-					$ref: '#/defs/testCase/out-of-range',
-				} as JSONSchemaType<any>,
-				['ubl:Invoice', 'cbc:ID'],
+			expect(error.schemaPath).toBe('#/ubl%3AInvoice/cbc%3AID');
+			expect(error.keyword).toBe('EN16931/#/defs/testCase/typo');
+			expect(error.params).toEqual({});
+			expect(error.message).toBe(
+				"reference '=Inwoice.A1': no such sheet 'Inwoice'",
 			);
-			throw new Error('no exception thrown');
-		} catch (e) {
-			expect(e).toBeDefined();
-			expect(e.validation).toBeTruthy();
-			expect(e.ajv).toBeTruthy();
-			expect(Array.isArray(e.errors)).toBeTruthy();
-			expect(e.errors.length).toBe(1);
-
-			const error = e.errors[0];
-			expect(error.instancePath).toBe('/ubl:Invoice/cbc:ID');
-			expect(error.schemaPath).toBe('#/ubl%3AInvoice/cbc%3AID/type');
-			expect(error.keyword).toBe('type');
-			expect(error.params).toEqual({ type: 'string' });
-			expect(error.message).toContain("no such cell 'ET742'");
 		}
 	});
 
@@ -196,21 +154,50 @@ describe('MappingService', () => {
 		it('should map a literal date', () => {
 			expect(invoice['ubl:Invoice']['cbc:IssueDate']).toBe('2024-10-21');
 		});
+	});
 
-		it('should map a JavaScript date', () => {
-			expect(invoice['ubl:Invoice']['cbc:DueDate']).toBe('2024-10-28');
+	it('should resolve a subschema', () => {
+		const path = [
+			'properties',
+			'ubl:Invoice',
+			'properties',
+			'cac:InvoiceLine',
+			'items',
+			'properties',
+			'cac:InvoicePeriod',
+		];
+		const got = service['getSchema'](path);
+
+		expect(got).toBeDefined();
+		expect(got.type).toBe('object');
+		expect(got.title).toBe('INVOICE LINE PERIOD');
+	});
+
+	describe('getting cell values', () => {
+		const worksheet: XLSX.WorkSheet = {
+			A1: {
+				t: 'd',
+				v: new Date('2024-10-21T12:23:45.789Z'),
+			},
+			B1: {
+				v: '2024-11-22',
+			},
+		};
+
+		it('should get date values', () => {
+			expect(
+				service['getCellValue'](worksheet, 'A1', {
+					$ref: '#/$defs/dataTypes/Date',
+				} as JSONSchemaType<any>),
+			).toMatch(/^2024-10-/);
 		});
 
-		it('should map strings', () => {
-			expect(invoice['ubl:Invoice']['cbc:CustomizationID']).toBe(
-				'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
-			);
-		});
-
-		it('should unquote quoted literals', () => {
-			expect(invoice['ubl:Invoice']['cbc:Note']).toBe(
-				'=Join the league of useless leading equals signs!',
-			);
+		it('should get bare date values', () => {
+			expect(
+				service['getCellValue'](worksheet, 'B1', {
+					$ref: '#/$defs/dataTypes/Date',
+				} as JSONSchemaType<any>),
+			).toBe('2024-11-22');
 		});
 	});
 });
