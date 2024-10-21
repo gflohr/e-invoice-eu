@@ -252,9 +252,9 @@ export class MappingService {
 		worksheet: XLSX.WorkSheet,
 		cellName: string,
 		schema: JSONSchemaType<any>,
-	): string | null {
+	): string {
 		if (!(cellName in worksheet)) {
-			return null;
+			throw new Error(`no such cell '${cellName}'`)
 		}
 
 		const cell = worksheet[cellName];
@@ -280,27 +280,6 @@ export class MappingService {
 
 	private getDateValue(value: Date): string {
 		return value.toISOString().substring(0, 10);
-	}
-
-	private isValidDate(dateStr: string): boolean {
-		// Step 1: Check if the format is correct (YYYY-MM-DD)
-		const dateFormatRegex = /^\d{4}-\d{2}-\d{2}$/;
-		if (!dateFormatRegex.test(dateStr)) {
-			return false;
-		}
-
-		// Step 2: Parse the date and check if it's valid
-		const [year, month, day] = dateStr.split('-').map(Number);
-
-		// Create a Date object
-		const date = new Date(year, month - 1, day); // Note: Month is zero-based in JS Date
-
-		// Check that the date is valid
-		return (
-			date.getFullYear() === year &&
-			date.getMonth() === month - 1 &&
-			date.getDate() === day
-		);
 	}
 
 	private getSchema(path: string[]): JSONSchemaType<any> {
