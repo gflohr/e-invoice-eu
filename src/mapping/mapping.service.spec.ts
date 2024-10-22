@@ -20,7 +20,7 @@ const mapping = {
 		'cbc:CustomizationID': '=B1',
 		'cbc:ID': '1234567890',
 		'cbc:IssueDate': '=A1',
-		'cbc:DueDate': '=A2',
+		'cbc:DueDate': "='Invoice'.A2",
 		'cbc:Note': "'= not equals eagles",
 	},
 } as unknown as Mapping;
