@@ -20,6 +20,7 @@ const mapping = {
 		'cbc:CustomizationID': '=B1',
 		'cbc:ID': '1234567890',
 		'cbc:IssueDate': '=A1',
+		'cbc:DueDate': '=A2',
 	},
 } as unknown as Mapping;
 const workbook = {
@@ -29,6 +30,10 @@ const workbook = {
 			A1: {
 				t: 's',
 				v: '2024-10-21',
+			},
+			A2: {
+				t: 'd',
+				v: new Date('2024-10-28T12:34:56Z'),
 			},
 			B1: {
 				t: 's',
@@ -129,7 +134,6 @@ describe('MappingService', () => {
 		}
 	});
 
-
 	it('should throw an exception if a non-existing cell is referenced', () => {
 		debugger;
 		const wb: XLSX.WorkBook = {
@@ -191,6 +195,10 @@ describe('MappingService', () => {
 
 		it('should map a literal date', () => {
 			expect(invoice['ubl:Invoice']['cbc:IssueDate']).toBe('2024-10-21');
+		});
+
+		it('should map a date', () => {
+			expect(invoice['ubl:Invoice']['cbc:DueDate']).toBe('2024-10-28');
 		});
 
 		it('should map a string value', () => {
