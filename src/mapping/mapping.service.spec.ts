@@ -252,6 +252,7 @@ describe('MappingService', () => {
 			const target = invoice['ubl:Invoice']['cac:InvoiceLine'];
 			expect(target).toBeDefined();
 			expect(Array.isArray(target)).toBe(true);
+			expect(target.length).toBe(3);
 		});
 	});
 });
