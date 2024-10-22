@@ -4,7 +4,7 @@ import * as fs from 'fs/promises';
 import { ValidationService } from '../validation/validation.service';
 import { JSONSchemaType } from 'ajv';
 import * as XLSX from '@e965/xlsx';
-import { Mapping } from './mapping.interface';
+import { Mapping, MappingMetaInformation } from './mapping.interface';
 import { Invoice } from '../invoice/invoice.interface';
 
 jest.mock('fs/promises');
@@ -138,11 +138,14 @@ describe('MappingService', () => {
 		const wb: XLSX.WorkBook = {
 			Sheets: {},
 		} as XLSX.WorkBook;
+
 		try {
-			service['resolveValue']('=Inwoice.A1', wb, {} as JSONSchemaType<any>, [
-				'ubl:Invoice',
-				'cbc:ID',
-			]);
+			service['resolveValue']('=Inwoice.A1', {} as JSONSchemaType<any>, {
+				meta: {} as MappingMetaInformation,
+				workbook: wb,
+				schemaPath: ['ubl:Invoice', 'cbc:ID'],
+				sectionRanges: {},
+			});
 			throw new Error('no exception thrown');
 		} catch (e) {
 			expect(e).toBeDefined();
@@ -171,10 +174,12 @@ describe('MappingService', () => {
 			SheetNames: ['Invoice'],
 		} as XLSX.WorkBook;
 		try {
-			service['resolveValue']('=ET742', wb, {} as JSONSchemaType<any>, [
-				'ubl:Invoice',
-				'cbc:ID',
-			]);
+			service['resolveValue']('=ET742', {} as JSONSchemaType<any>, {
+				meta: {} as MappingMetaInformation,
+				workbook: wb,
+				schemaPath: ['ubl:Invoice', 'cbc:ID'],
+				sectionRanges: {},
+			});
 			throw new Error('no exception thrown');
 		} catch (e) {
 			expect(e).toBeDefined();

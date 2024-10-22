@@ -115,12 +115,7 @@ export class MappingService {
 			ctx.schemaPath.push('properties', property);
 			const schema = this.getSchema(ctx.schemaPath);
 			if (typeof mapping[property] === 'string') {
-				target[property] = this.resolveValue(
-					mapping[property],
-					ctx.workbook,
-					schema,
-					ctx.schemaPath,
-				);
+				target[property] = this.resolveValue(mapping[property], schema, ctx);
 			} else if (schema.type === 'array') {
 				target[property] = [];
 				this.transformArray(target[property], mapping[property], ctx);
@@ -157,9 +152,8 @@ export class MappingService {
 
 	private resolveValue(
 		ref: string,
-		workbook: XLSX.WorkBook,
 		schema: JSONSchemaType<any>,
-		schemaPath: Array<string>,
+		ctx: MappingContext,
 	): string {
 		const matches = ref.match(mappingValueRe) as RegExpMatchArray;
 		if (typeof matches[4] !== 'undefined') {
@@ -171,9 +165,11 @@ export class MappingService {
 		const cellName = matches[3];
 
 		const sheetName =
-			typeof sheetMatch === 'undefined' ? workbook.SheetNames[0] : sheetMatch;
+			typeof sheetMatch === 'undefined'
+				? ctx.workbook.SheetNames[0]
+				: sheetMatch;
 
-		const worksheet = workbook.Sheets[sheetName];
+		const worksheet = ctx.workbook.Sheets[sheetName];
 
 		try {
 			if (typeof worksheet === 'undefined') {
@@ -182,12 +178,12 @@ export class MappingService {
 
 			return this.getCellValue(worksheet, cellName, schema);
 		} catch (x) {
-			const instancePath = schemaPath.filter(
+			const instancePath = ctx.schemaPath.filter(
 				item => item !== 'properties' && item !== 'items',
 			);
 			const error: ErrorObject = {
 				instancePath: '/' + instancePath.join('/'),
-				schemaPath: '#/' + schemaPath.map(encodeURIComponent).join('/'),
+				schemaPath: '#/' + ctx.schemaPath.map(encodeURIComponent).join('/'),
 				keyword: 'type',
 				params: { type: 'string' },
 				message: `reference '${ref}' resolves to null: ${x.message}`,
@@ -242,10 +238,6 @@ export class MappingService {
 			path: jsonPath,
 			json: invoiceSchema,
 		})[0] as JSONSchemaType<any>;
-	}
-
-	private maxRow(sheet: XLSX.WorkSheet): number {
-		return XLSX.utils.decode_range(sheet['!ref'] as string).e.r + 1;
 	}
 
 	private getSectionRanges(
