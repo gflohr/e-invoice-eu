@@ -17,6 +17,7 @@ const mapping = {
 		},
 	},
 	'ubl:Invoice': {
+		'cbc:CustomizationID': '=B1',
 		'cbc:ID': '1234567890',
 		'cbc:IssueDate': '=A1',
 	},
@@ -28,6 +29,10 @@ const workbook = {
 			A1: {
 				t: 's',
 				v: '2024-10-21',
+			},
+			B1: {
+				t: 's',
+				v: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
 			},
 		},
 	},
@@ -153,6 +158,11 @@ describe('MappingService', () => {
 
 		it('should map a literal date', () => {
 			expect(invoice['ubl:Invoice']['cbc:IssueDate']).toBe('2024-10-21');
+		});
+
+		it('should map a string value', () => {
+			const wanted = workbook.Sheets.Invoice.B1.v;
+			expect(invoice['ubl:Invoice']['cbc:CustomizationID']).toBe(wanted);
 		});
 	});
 
