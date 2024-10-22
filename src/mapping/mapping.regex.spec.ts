@@ -63,6 +63,17 @@ describe('Mapping value pattern', () => {
 		}
 	});
 
+	it('should match a bare cell reference', () => {
+		const mappingValue = '=ET742';
+		const matches = mappingValue.match(mappingValueRe);
+		expect(matches).not.toBeNull();
+		if (matches !== null) {
+			expect(matches[1]).toBeUndefined();
+			expect(matches[2]).toBeUndefined();
+			expect(matches[3]).toBe('ET742');
+		}
+	});
+
 	it('should match quoted sheet references', () => {
 		const mappingValue = "='Proforma Invoice':Line.ET742";
 		const matches = mappingValue.match(mappingValueRe);
