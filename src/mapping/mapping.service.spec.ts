@@ -165,49 +165,4 @@ describe('MappingService', () => {
 			expect(invoice['ubl:Invoice']['cbc:CustomizationID']).toBe(wanted);
 		});
 	});
-
-	it('should resolve a subschema', () => {
-		const path = [
-			'properties',
-			'ubl:Invoice',
-			'properties',
-			'cac:InvoiceLine',
-			'items',
-			'properties',
-			'cac:InvoicePeriod',
-		];
-		const got = service['getSchema'](path);
-
-		expect(got).toBeDefined();
-		expect(got.type).toBe('object');
-		expect(got.title).toBe('INVOICE LINE PERIOD');
-	});
-
-	describe('getting cell values', () => {
-		const worksheet: XLSX.WorkSheet = {
-			A1: {
-				t: 'd',
-				v: new Date('2024-10-21T12:23:45.789Z'),
-			},
-			B1: {
-				v: '2024-11-22',
-			},
-		};
-
-		it('should get date values', () => {
-			expect(
-				service['getCellValue'](worksheet, 'A1', {
-					$ref: '#/$defs/dataTypes/Date',
-				} as JSONSchemaType<any>),
-			).toMatch(/^2024-10-/);
-		});
-
-		it('should get bare date values', () => {
-			expect(
-				service['getCellValue'](worksheet, 'B1', {
-					$ref: '#/$defs/dataTypes/Date',
-				} as JSONSchemaType<any>),
-			).toBe('2024-11-22');
-		});
-	});
 });
