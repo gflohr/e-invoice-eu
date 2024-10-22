@@ -28,6 +28,7 @@ const mapping = {
 		},
 	},
 } as unknown as Mapping;
+
 const workbook = {
 	SheetNames: ['Invoice'],
 	Sheets: {
@@ -145,6 +146,7 @@ describe('MappingService', () => {
 				workbook: wb,
 				schemaPath: ['ubl:Invoice', 'cbc:ID'],
 				sectionRanges: {},
+				arrayPath: [],
 			});
 			throw new Error('no exception thrown');
 		} catch (e) {
@@ -179,6 +181,7 @@ describe('MappingService', () => {
 				workbook: wb,
 				schemaPath: ['ubl:Invoice', 'cbc:ID'],
 				sectionRanges: {},
+				arrayPath: [],
 			});
 			throw new Error('no exception thrown');
 		} catch (e) {

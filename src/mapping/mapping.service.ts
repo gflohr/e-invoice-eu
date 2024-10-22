@@ -23,6 +23,7 @@ type MappingContext = {
 	workbook: XLSX.WorkBook;
 	sectionRanges: SectionRanges;
 	schemaPath: string[];
+	arrayPath: Array<[string, number]>;
 };
 
 @Injectable()
@@ -99,6 +100,7 @@ export class MappingService {
 			workbook,
 			sectionRanges: this.getSectionRanges(mapping, workbook),
 			schemaPath: ['properties', 'ubl:Invoice'],
+			arrayPath: [],
 		};
 
 		this.transformObject(invoice['ubl:Invoice'], mapping['ubl:Invoice'], ctx);
@@ -134,9 +136,13 @@ export class MappingService {
 		ctx: MappingContext,
 	): any {
 		ctx.schemaPath.push('items');
+		const section = mapping.section.substring(1);
 
-		//const section = mapping.section.substring(1);
+		const arrayPathIndex = ctx.arrayPath.length;
 
+		ctx.arrayPath[arrayPathIndex] = [section, -1];
+
+		ctx.arrayPath.pop();
 		ctx.schemaPath.pop();
 	}
 
