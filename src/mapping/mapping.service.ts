@@ -22,6 +22,7 @@ type MappingContext = {
 	meta: MappingMetaInformation,
 	workbook: XLSX.WorkBook,
 	sectionRanges: SectionRanges,
+	schemaPath: string[],
 };
 
 @Injectable()
@@ -97,12 +98,12 @@ export class MappingService {
 			meta: mapping.meta,
 			workbook,
 			sectionRanges: this.getSectionRanges(mapping, workbook),
+			schemaPath: ['properties', 'ubl:Invoice'],
 		};
 
 		this.transformObject(
 			invoice['ubl:Invoice'],
 			mapping['ubl:Invoice'],
-			['properties', 'ubl:Invoice'],
 			ctx,
 		);
 
@@ -112,25 +113,23 @@ export class MappingService {
 	private transformObject(
 		target: { [key: string]: any },
 		mapping: { [key: string]: any },
-		schemaPath: Array<string>,
 		ctx: MappingContext,
 	): any {
 		for (const property in mapping) {
-			schemaPath.push('properties', property);
-			const schema = this.getSchema(schemaPath);
+			ctx.schemaPath.push('properties', property);
+			const schema = this.getSchema(ctx.schemaPath);
 			if (typeof mapping[property] === 'string') {
 				target[property] = this.resolveValue(
 					mapping[property],
 					ctx.workbook,
 					schema,
-					schemaPath,
+					ctx.schemaPath,
 				);
 			} else if (schema.type === 'array') {
 				target[property] = [];
 				this.transformArray(
 					target[property],
 					mapping[property],
-					schemaPath,
 					ctx,
 				);
 			} else {
@@ -138,26 +137,24 @@ export class MappingService {
 				this.transformObject(
 					target[property],
 					mapping[property],
-					schemaPath,
 					ctx,
 				);
 			}
-			schemaPath.pop();
-			schemaPath.pop();
+			ctx.schemaPath.pop();
+			ctx.schemaPath.pop();
 		}
 	}
 
 	private transformArray(
 		target: Array<any>,
 		mapping: { [key: string]: any },
-		schemaPath: Array<string>,
 		ctx: MappingContext,
 	): any {
-		schemaPath.push('items');
+		ctx.schemaPath.push('items');
 
-		const section = mapping.section.substring(1);
+		//const section = mapping.section.substring(1);
 
-		schemaPath.pop();
+		ctx.schemaPath.pop();
 	}
 
 	private getSectionRows(
