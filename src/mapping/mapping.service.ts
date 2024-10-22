@@ -16,6 +16,14 @@ import * as jsonpath from 'jsonpath-plus';
 import { invoiceSchema } from '../invoice/invoice.schema';
 import { mappingValueRe, sectionReferenceRe } from './mapping.regex';
 
+type SectionRanges = { [key: string]: { [key: string]: number[]} };
+
+type MappingContext = {
+	meta: MappingMetaInformation,
+	workbook: XLSX.WorkBook,
+	sectionRanges: SectionRanges,
+};
+
 @Injectable()
 export class MappingService {
 	private readonly logger = new Logger(MappingService.name);
@@ -83,15 +91,19 @@ export class MappingService {
 			cellDates: true,
 		});
 
-		const invoice: { [key: string]: any } = {
-			'ubl:Invoice': {},
+		const invoice: { [key: string]: any } = { 'ubl:Invoice': {} };
+
+		const ctx: MappingContext = {
+			meta: mapping.meta,
+			workbook,
+			sectionRanges: this.getSectionRanges(mapping, workbook),
 		};
+
 		this.transformObject(
 			invoice['ubl:Invoice'],
-			mapping.meta,
 			mapping['ubl:Invoice'],
-			workbook,
 			['properties', 'ubl:Invoice'],
+			ctx,
 		);
 
 		return invoice as unknown as Invoice;
@@ -99,10 +111,9 @@ export class MappingService {
 
 	private transformObject(
 		target: { [key: string]: any },
-		meta: MappingMetaInformation,
 		mapping: { [key: string]: any },
-		workbook: XLSX.WorkBook,
 		schemaPath: Array<string>,
+		ctx: MappingContext,
 	): any {
 		for (const property in mapping) {
 			schemaPath.push('properties', property);
@@ -110,7 +121,7 @@ export class MappingService {
 			if (typeof mapping[property] === 'string') {
 				target[property] = this.resolveValue(
 					mapping[property],
-					workbook,
+					ctx.workbook,
 					schema,
 					schemaPath,
 				);
@@ -118,19 +129,17 @@ export class MappingService {
 				target[property] = [];
 				this.transformArray(
 					target[property],
-					meta,
 					mapping[property],
-					workbook,
 					schemaPath,
+					ctx,
 				);
 			} else {
 				target[property] = {}; // FIXME! Maybe type array.
 				this.transformObject(
 					target[property],
-					meta,
 					mapping[property],
-					workbook,
 					schemaPath,
+					ctx,
 				);
 			}
 			schemaPath.pop();
@@ -140,19 +149,14 @@ export class MappingService {
 
 	private transformArray(
 		target: Array<any>,
-		meta: MappingMetaInformation,
 		mapping: { [key: string]: any },
-		workbook: XLSX.WorkBook,
 		schemaPath: Array<string>,
+		ctx: MappingContext,
 	): any {
 		schemaPath.push('items');
-		//const schema = this.getSchema(schemaPath);
-		//console.warn(schema);
 
-		const rows = this.getSectionRows(workbook, meta, mapping.section);
-		console.warn(rows);
-		//const sectionRows = this.getSectionRows(mapping.section);
-		//console.warn(sectionRows);
+		const section = mapping.section.substring(1);
+
 		schemaPath.pop();
 	}
 
@@ -289,5 +293,40 @@ export class MappingService {
 			path: jsonPath,
 			json: invoiceSchema,
 		})[0] as JSONSchemaType<any>;
+	}
+
+	private maxRow(sheet: XLSX.WorkSheet): number {
+		return XLSX.utils.decode_range(sheet['!ref'] as string).e.r + 1;
+	}
+
+	private getSectionRanges(mapping: Mapping, workbook: XLSX.WorkBook): SectionRanges {
+		const ranges: SectionRanges = {};
+
+		for (const sheetName in mapping.meta.sectionColumn) {
+			if (!(sheetName in workbook.Sheets)) {
+				continue;
+			}
+
+			const column = mapping.meta.sectionColumn[sheetName] as string;
+			const sheet = workbook.Sheets[sheetName];
+			const range = XLSX.utils.decode_range(sheet['!ref'] as string);
+
+			ranges[sheetName] = {};
+
+			for (let row = range.s.r; row <= range.e.r; ++row) {
+				const cellAddress = `${column}${row + 1}`;
+				const cell = sheet[cellAddress];
+				if (cell) {
+					ranges[sheetName][cell.v] ??= [];
+					ranges[sheetName][cell.v].push(row + 1);
+				}
+			}
+
+			for (const section in ranges[sheetName]) {
+				ranges[sheetName][section].push(range.e.r + 1);
+			}
+		}
+
+		return ranges;
 	}
 }

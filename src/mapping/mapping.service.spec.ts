@@ -13,7 +13,7 @@ jest.mock('fs/promises');
 const mapping = {
 	meta: {
 		sectionColumn: {
-			Invoice: 'S',
+			Invoice: 'K',
 		},
 	},
 	'ubl:Invoice': {
@@ -22,6 +22,10 @@ const mapping = {
 		'cbc:IssueDate': '=A1',
 		'cbc:DueDate': "='Invoice'.A2",
 		'cbc:Note': "'= not equals eagles",
+		'cac:InvoiceLine': {
+			section: ':Line',
+			'cbc:ID': '=:Line.A1',
+		},
 	},
 } as unknown as Mapping;
 const workbook = {
@@ -40,6 +44,31 @@ const workbook = {
 				t: 's',
 				v: 'urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0',
 			},
+			A20: {
+				t: 's',
+				v: '1',
+			},
+			A22: {
+				t: 's',
+				v: '2',
+			},
+			A23: {
+				t: 's',
+				v: '3',
+			},
+			K20: {
+				t: 's',
+				v: 'Line',
+			},
+			K22: {
+				t: 's',
+				v: 'Line',
+			},
+			K23: {
+				t: 's',
+				v: 'Line',
+			},
+			'!ref': 'A1:Z999',
 		},
 	},
 } as XLSX.WorkBook;
