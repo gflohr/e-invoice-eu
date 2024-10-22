@@ -14,15 +14,15 @@ import { Invoice } from '../invoice/invoice.interface';
 import * as XLSX from '@e965/xlsx';
 import * as jsonpath from 'jsonpath-plus';
 import { invoiceSchema } from '../invoice/invoice.schema';
-import { mappingValueRe, sectionReferenceRe } from './mapping.regex';
+import { mappingValueRe } from './mapping.regex';
 
-type SectionRanges = { [key: string]: { [key: string]: number[]} };
+type SectionRanges = { [key: string]: { [key: string]: number[] } };
 
 type MappingContext = {
-	meta: MappingMetaInformation,
-	workbook: XLSX.WorkBook,
-	sectionRanges: SectionRanges,
-	schemaPath: string[],
+	meta: MappingMetaInformation;
+	workbook: XLSX.WorkBook;
+	sectionRanges: SectionRanges;
+	schemaPath: string[];
 };
 
 @Injectable()
@@ -101,11 +101,7 @@ export class MappingService {
 			schemaPath: ['properties', 'ubl:Invoice'],
 		};
 
-		this.transformObject(
-			invoice['ubl:Invoice'],
-			mapping['ubl:Invoice'],
-			ctx,
-		);
+		this.transformObject(invoice['ubl:Invoice'], mapping['ubl:Invoice'], ctx);
 
 		return invoice as unknown as Invoice;
 	}
@@ -127,18 +123,10 @@ export class MappingService {
 				);
 			} else if (schema.type === 'array') {
 				target[property] = [];
-				this.transformArray(
-					target[property],
-					mapping[property],
-					ctx,
-				);
+				this.transformArray(target[property], mapping[property], ctx);
 			} else {
 				target[property] = {}; // FIXME! Maybe type array.
-				this.transformObject(
-					target[property],
-					mapping[property],
-					ctx,
-				);
+				this.transformObject(target[property], mapping[property], ctx);
 			}
 			ctx.schemaPath.pop();
 			ctx.schemaPath.pop();
@@ -155,42 +143,6 @@ export class MappingService {
 		//const section = mapping.section.substring(1);
 
 		ctx.schemaPath.pop();
-	}
-
-	private getSectionRows(
-		workbook: XLSX.WorkBook,
-		meta: MappingMetaInformation,
-		sectionRef: string,
-	): number[] {
-		const matches = sectionRef.match(sectionReferenceRe) as RegExpMatchArray;
-		const sheetName =
-			this.unquoteSheetName(matches[1]) ?? workbook.SheetNames[0];
-		const section = matches[2];
-
-		if (!workbook.SheetNames.includes(sheetName)) {
-			throw new Error(`Sheet '${sheetName}' referenced in mapping not found!`);
-		} else if (!(sheetName in meta.sectionColumn)) {
-			throw new Error(
-				`Sheet '${sheetName} referenced in mapping has no section column`,
-			);
-		}
-
-		const sheet = workbook.Sheets[sheetName];
-		const column = meta.sectionColumn[sheetName];
-		const rows: number[] = [];
-
-		const range = XLSX.utils.decode_range(sheet['!ref'] as string);
-
-		for (let rowNum = range.s.r; rowNum <= range.e.r; rowNum++) {
-			const cellAddress = `${column}${rowNum + 1}`;
-			const cell = sheet[cellAddress];
-
-			if (cell && cell.v === section) {
-				rows.push(rowNum);
-			}
-		}
-
-		return rows;
 	}
 
 	private unquoteSheetName(name: string): string | undefined {
@@ -255,7 +207,7 @@ export class MappingService {
 		schema: JSONSchemaType<any>,
 	): string {
 		if (!(cellName in worksheet)) {
-			throw new Error(`no such cell '${cellName}'`)
+			throw new Error(`no such cell '${cellName}'`);
 		}
 
 		const cell = worksheet[cellName];
@@ -296,7 +248,10 @@ export class MappingService {
 		return XLSX.utils.decode_range(sheet['!ref'] as string).e.r + 1;
 	}
 
-	private getSectionRanges(mapping: Mapping, workbook: XLSX.WorkBook): SectionRanges {
+	private getSectionRanges(
+		mapping: Mapping,
+		workbook: XLSX.WorkBook,
+	): SectionRanges {
 		const ranges: SectionRanges = {};
 
 		for (const sheetName in mapping.meta.sectionColumn) {
