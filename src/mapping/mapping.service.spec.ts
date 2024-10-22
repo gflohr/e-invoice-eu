@@ -74,6 +74,15 @@ const workbook = {
 	},
 } as XLSX.WorkBook;
 
+const defaultMappingContext = {
+	meta: {} as MappingMetaInformation,
+	workbook,
+	schemaPath: ['ubl:Invoice', 'cbc:ID'],
+	sectionRanges: {},
+	arrayPath: [],
+	rowRange: [1, Infinity] as [number, number],
+};
+
 describe('MappingService', () => {
 	let service: MappingService;
 
@@ -142,11 +151,8 @@ describe('MappingService', () => {
 
 		try {
 			service['resolveValue']('=Inwoice.A1', {} as JSONSchemaType<any>, {
-				meta: {} as MappingMetaInformation,
+				...defaultMappingContext,
 				workbook: wb,
-				schemaPath: ['ubl:Invoice', 'cbc:ID'],
-				sectionRanges: {},
-				arrayPath: [],
 			});
 			throw new Error('no exception thrown');
 		} catch (e) {
@@ -177,11 +183,8 @@ describe('MappingService', () => {
 		} as XLSX.WorkBook;
 		try {
 			service['resolveValue']('=ET742', {} as JSONSchemaType<any>, {
-				meta: {} as MappingMetaInformation,
+				...defaultMappingContext,
 				workbook: wb,
-				schemaPath: ['ubl:Invoice', 'cbc:ID'],
-				sectionRanges: {},
-				arrayPath: [],
 			});
 			throw new Error('no exception thrown');
 		} catch (e) {
@@ -243,6 +246,12 @@ describe('MappingService', () => {
 		it('should map a quoted literal value', () => {
 			const wanted = '= not equals eagles';
 			expect(invoice['ubl:Invoice']['cbc:Note']).toBe(wanted);
+		});
+
+		it('should map an array of invoice lines', () => {
+			const target = invoice['ubl:Invoice']['cac:InvoiceLine'];
+			expect(target).toBeDefined();
+			expect(Array.isArray(target)).toBe(true);
 		});
 	});
 });

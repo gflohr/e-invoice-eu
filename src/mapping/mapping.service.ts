@@ -14,7 +14,7 @@ import { Invoice } from '../invoice/invoice.interface';
 import * as XLSX from '@e965/xlsx';
 import * as jsonpath from 'jsonpath-plus';
 import { invoiceSchema } from '../invoice/invoice.schema';
-import { mappingValueRe } from './mapping.regex';
+import { mappingValueRe, sectionReferenceRe } from './mapping.regex';
 
 type SectionRanges = { [key: string]: { [key: string]: number[] } };
 
@@ -24,6 +24,7 @@ type MappingContext = {
 	sectionRanges: SectionRanges;
 	schemaPath: string[];
 	arrayPath: Array<[string, number]>;
+	rowRange: [number, number];
 };
 
 @Injectable()
@@ -101,6 +102,7 @@ export class MappingService {
 			sectionRanges: this.getSectionRanges(mapping, workbook),
 			schemaPath: ['properties', 'ubl:Invoice'],
 			arrayPath: [],
+			rowRange: [1, Infinity],
 		};
 
 		this.transformObject(invoice['ubl:Invoice'], mapping['ubl:Invoice'], ctx);
@@ -112,8 +114,11 @@ export class MappingService {
 		target: { [key: string]: any },
 		mapping: { [key: string]: any },
 		ctx: MappingContext,
-	): any {
+	) {
 		for (const property in mapping) {
+			if (property === 'section') {
+				continue;
+			}
 			ctx.schemaPath.push('properties', property);
 			const schema = this.getSchema(ctx.schemaPath);
 			if (typeof mapping[property] === 'string') {
@@ -134,16 +139,80 @@ export class MappingService {
 		target: Array<any>,
 		mapping: { [key: string]: any },
 		ctx: MappingContext,
-	): any {
+	) {
 		ctx.schemaPath.push('items');
-		const section = mapping.section.substring(1);
 
+		const sectionRef = mapping.section;
+
+		const matches = sectionRef.match(sectionReferenceRe);
+		const sheetName =
+			typeof matches[1] === 'undefined'
+				? ctx.workbook.SheetNames[0]
+				: matches[1];
+		const section = matches[2];
+
+		try {
+			if (!(sheetName in ctx.sectionRanges)) {
+				throw new Error(
+					`section reference '${sectionRef}' resolves to null:` +
+						` no section column for sheet ${sheetName}`,
+				);
+			}
+			if (!(section in ctx.sectionRanges[sheetName])) {
+				throw new Error(`section re`);
+			}
+		} catch (e) {
+			const instancePath = this.getInstancePath(ctx);
+			const message =
+				`section reference '${sectionRef}' resolves to null: ` + e.message;
+
+			const error: ErrorObject = {
+				instancePath,
+				schemaPath: '#/' + ctx.schemaPath.map(encodeURIComponent).join('/'),
+				keyword: 'type',
+				params: { type: 'string' },
+				message,
+			};
+			throw new Ajv2019.ValidationError([error]);
+		}
+
+		const sectionIndices = this.computeSectionIndices(sheetName, section, ctx);
 		const arrayPathIndex = ctx.arrayPath.length;
-
 		ctx.arrayPath[arrayPathIndex] = [section, -1];
+
+		const savedRowRange = ctx.rowRange;
+		for (let i = 0; i < sectionIndices.length - 1; ++i) {
+			const sectionIndex = sectionIndices[i];
+			const start = ctx.sectionRanges[sheetName][section][sectionIndex];
+			const end = ctx.sectionRanges[sheetName][section][sectionIndex + 1];
+			ctx.rowRange = [start, end];
+			target[i] = {};
+			this.transformObject(target[i], mapping, ctx);
+		}
+		ctx.rowRange = savedRowRange;
 
 		ctx.arrayPath.pop();
 		ctx.schemaPath.pop();
+	}
+
+	private computeSectionIndices(
+		sheetName: string,
+		section: string,
+		ctx: MappingContext,
+	): number[] {
+		const result: number[] = [];
+
+		for (let i = 0; i < ctx.sectionRanges[sheetName][section].length; ++i) {
+			const row = ctx.sectionRanges[sheetName][section][i];
+			if (row < ctx.rowRange[0]) {
+				continue;
+			} else if (row >= ctx.rowRange[1]) {
+				break;
+			}
+			result.push(i as unknown as number);
+		}
+
+		return result;
 	}
 
 	private unquoteSheetName(name: string): string | undefined {
@@ -184,11 +253,9 @@ export class MappingService {
 
 			return this.getCellValue(worksheet, cellName, schema);
 		} catch (x) {
-			const instancePath = ctx.schemaPath.filter(
-				item => item !== 'properties' && item !== 'items',
-			);
+			const instancePath = this.getInstancePath(ctx);
 			const error: ErrorObject = {
-				instancePath: '/' + instancePath.join('/'),
+				instancePath,
 				schemaPath: '#/' + ctx.schemaPath.map(encodeURIComponent).join('/'),
 				keyword: 'type',
 				params: { type: 'string' },
@@ -278,5 +345,14 @@ export class MappingService {
 		}
 
 		return ranges;
+	}
+
+	private getInstancePath(ctx: MappingContext): string {
+		return (
+			'/' +
+			ctx.schemaPath
+				.filter(item => item !== 'properties' && item !== 'items')
+				.join('/')
+		);
 	}
 }
