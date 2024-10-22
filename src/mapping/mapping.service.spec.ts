@@ -107,9 +107,7 @@ describe('MappingService', () => {
 			service['resolveValue'](
 				'=Inwoice.A1',
 				wb,
-				{
-					$ref: '#/defs/testCase/typo',
-				} as JSONSchemaType<any>,
+				{} as JSONSchemaType<any>,
 				['ubl:Invoice', 'cbc:ID'],
 			);
 			throw new Error('no exception thrown');
@@ -123,10 +121,45 @@ describe('MappingService', () => {
 			const error = e.errors[0];
 			expect(error.instancePath).toBe('/ubl:Invoice/cbc:ID');
 			expect(error.schemaPath).toBe('#/ubl%3AInvoice/cbc%3AID');
-			expect(error.keyword).toBe('EN16931/#/defs/testCase/typo');
-			expect(error.params).toEqual({});
+			expect(error.keyword).toBe('type');
+			expect(error.params).toEqual({ type: 'string' });
+			expect(error.message).toMatch(
+				"reference '=Inwoice.A1' resolves to null: no such sheet 'Inwoice'",
+			);
+		}
+	});
+
+
+	it('should throw an exception if a non-existing cell is referenced', () => {
+		debugger;
+		const wb: XLSX.WorkBook = {
+			Sheets: {
+				Invoice: {},
+			},
+			SheetNames: ['Invoice'],
+		} as XLSX.WorkBook;
+		try {
+			service['resolveValue'](
+				'=ET742',
+				wb,
+				{} as JSONSchemaType<any>,
+				['ubl:Invoice', 'cbc:ID'],
+			);
+			throw new Error('no exception thrown');
+		} catch (e) {
+			expect(e).toBeDefined();
+			expect(e.validation).toBeTruthy();
+			expect(e.ajv).toBeTruthy();
+			expect(Array.isArray(e.errors)).toBeTruthy();
+			expect(e.errors.length).toBe(1);
+
+			const error = e.errors[0];
+			expect(error.instancePath).toBe('/ubl:Invoice/cbc:ID');
+			expect(error.schemaPath).toBe('#/ubl%3AInvoice/cbc%3AID');
+			expect(error.keyword).toBe('type');
+			expect(error.params).toEqual({ type: 'string' });
 			expect(error.message).toBe(
-				"reference '=Inwoice.A1': no such sheet 'Inwoice'",
+				"reference '=ET742' resolves to null: no such cell 'ET742'",
 			);
 		}
 	});

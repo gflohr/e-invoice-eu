@@ -226,18 +226,18 @@ export class MappingService {
 			if (typeof worksheet === 'undefined') {
 				throw new Error(`no such sheet '${sheetName}'`);
 			}
+
 			return this.getCellValue(worksheet, cellName, schema);
 		} catch (x) {
 			const instancePath = schemaPath.filter(
 				item => item !== 'properties' && item !== 'items',
 			);
-			const keyword = 'EN16931/' + schema.$ref;
 			const error: ErrorObject = {
 				instancePath: '/' + instancePath.join('/'),
 				schemaPath: '#/' + schemaPath.map(encodeURIComponent).join('/'),
-				keyword: keyword,
-				params: {},
-				message: `reference '${ref}': ${x.message}`,
+				keyword: 'type',
+				params: { type: 'string' },
+				message: `reference '${ref}' resolves to null: ${x.message}`,
 			};
 
 			throw new Ajv2019.ValidationError([error]);
