@@ -25,6 +25,7 @@ type MappingContext = {
 	schemaPath: string[];
 	arrayPath: Array<[string, number]>;
 	rowRange: [number, number];
+	boundSections: string[];
 };
 
 @Injectable()
@@ -99,11 +100,14 @@ export class MappingService {
 		const ctx: MappingContext = {
 			meta: mapping.meta,
 			workbook,
-			sectionRanges: this.getSectionRanges(mapping, workbook),
+			sectionRanges: {},
 			schemaPath: ['properties', 'ubl:Invoice'],
 			arrayPath: [],
 			rowRange: [1, Infinity],
+			boundSections: [],
 		};
+		this.fillSectionRanges(mapping, workbook, ctx);
+		this.findBoundSections(mapping, ctx);
 
 		this.transformObject(invoice['ubl:Invoice'], mapping['ubl:Invoice'], ctx);
 
@@ -236,8 +240,17 @@ export class MappingService {
 		}
 
 		const sheetMatch = this.unquoteSheetName(matches[1]);
-		//const section = matches[2];
-		const cellName = matches[3];
+		const section = matches[2];
+		let cellName = matches[3];
+
+		if (typeof section !== 'undefined') {
+			const match = cellName.match(/^([A-Z]+)(\d+)$/) as RegExpMatchArray;
+			const letters = match[1];
+			const offset = 1;
+			const number = offset + parseInt(match[2], 10);
+
+			cellName = letters + number;
+		}
 
 		const sheetName =
 			typeof sheetMatch === 'undefined'
@@ -313,12 +326,11 @@ export class MappingService {
 		})[0] as JSONSchemaType<any>;
 	}
 
-	private getSectionRanges(
+	private fillSectionRanges(
 		mapping: Mapping,
 		workbook: XLSX.WorkBook,
-	): SectionRanges {
-		const ranges: SectionRanges = {};
-
+		ctx: MappingContext,
+	) {
 		for (const sheetName in mapping.meta.sectionColumn) {
 			if (!(sheetName in workbook.Sheets)) {
 				continue;
@@ -328,23 +340,41 @@ export class MappingService {
 			const sheet = workbook.Sheets[sheetName];
 			const range = XLSX.utils.decode_range(sheet['!ref'] as string);
 
-			ranges[sheetName] = {};
+			ctx.sectionRanges[sheetName] = {};
 
 			for (let row = range.s.r; row <= range.e.r; ++row) {
 				const cellAddress = `${column}${row + 1}`;
 				const cell = sheet[cellAddress];
 				if (cell) {
-					ranges[sheetName][cell.v] ??= [];
-					ranges[sheetName][cell.v].push(row + 1);
+					ctx.sectionRanges[sheetName][cell.v] ??= [];
+					ctx.sectionRanges[sheetName][cell.v].push(row + 1);
 				}
 			}
 
-			for (const section in ranges[sheetName]) {
-				ranges[sheetName][section].push(range.e.r + 1);
+			for (const section in ctx.sectionRanges[sheetName]) {
+				ctx.sectionRanges[sheetName][section].push(range.e.r + 1);
 			}
 		}
+	}
 
-		return ranges;
+	private findBoundSections(
+		mapping: { [key: string]: any },
+		ctx: MappingContext,
+	) {
+		if ('section' in mapping) {
+			const section = mapping.section as string;
+			if (ctx.boundSections.includes(section)) {
+				throw new Error(`duplicate section '${section}'`);
+			}
+			ctx.boundSections.push(section);
+		}
+
+		for (const key in mapping) {
+			const property = mapping[key];
+			if (typeof property === 'object') {
+				this.findBoundSections(property, ctx);
+			}
+		}
 	}
 
 	private getInstancePath(ctx: MappingContext): string {
