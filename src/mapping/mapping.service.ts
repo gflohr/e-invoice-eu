@@ -159,11 +159,14 @@ export class MappingService {
 			if (!(sheetName in ctx.sectionRanges)) {
 				throw new Error(
 					`section reference '${sectionRef}' resolves to null:` +
-						` no section column for sheet ${sheetName}`,
+						` no section column for sheet '${sheetName}'`,
 				);
 			}
 			if (!(section in ctx.sectionRanges[sheetName])) {
-				throw new Error(`section re`);
+				throw new Error(
+					`section reference '${sectionRef}' resolves to null:` +
+						` no section '${section}' in sheet '${sheetName}'`,
+				);
 			}
 		} catch (e) {
 			const instancePath = this.getInstancePath(ctx);
@@ -191,6 +194,7 @@ export class MappingService {
 			const end = ctx.sectionRanges[sheetName][section][sectionIndex + 1];
 			ctx.rowRange = [start, end];
 			target[i] = {};
+			ctx.arrayPath[arrayPathIndex][1] = i;
 			this.transformObject(target[i], mapping, ctx);
 		}
 		ctx.rowRange = savedRowRange;
@@ -243,19 +247,19 @@ export class MappingService {
 		const section = matches[2];
 		let cellName = matches[3];
 
-		if (typeof section !== 'undefined') {
-			const match = cellName.match(/^([A-Z]+)(\d+)$/) as RegExpMatchArray;
-			const letters = match[1];
-			const offset = 1;
-			const number = offset + parseInt(match[2], 10);
-
-			cellName = letters + number;
-		}
-
 		const sheetName =
 			typeof sheetMatch === 'undefined'
 				? ctx.workbook.SheetNames[0]
 				: sheetMatch;
+
+		if (typeof section !== 'undefined') {
+			const match = cellName.match(/^([A-Z]+)(\d+)$/) as RegExpMatchArray;
+			const letters = match[1];
+			const offset = this.getOffset(sheetName, section, ctx);
+			const number = offset + parseInt(match[2], 10) - 1;
+
+			cellName = letters + number;
+		}
 
 		const worksheet = ctx.workbook.Sheets[sheetName];
 
@@ -355,6 +359,33 @@ export class MappingService {
 				ctx.sectionRanges[sheetName][section].push(range.e.r + 1);
 			}
 		}
+	}
+
+	private getOffset(
+		sheetName: string,
+		cellSection: string,
+		ctx: MappingContext,
+	): number {
+		let offset = 0;
+
+		for (const pathInfo of ctx.arrayPath) {
+			const section = pathInfo[0];
+			const index = pathInfo[1];
+
+			if (index >= ctx.sectionRanges[sheetName][section].length) {
+				throw new Error(
+					`section '${section}' out of range for sheet '${sheetName}'`,
+				);
+			}
+
+			offset = ctx.sectionRanges[sheetName][section][index];
+
+			if (section === cellSection) {
+				return offset;
+			}
+		}
+
+		throw new Error(`cannot find section '${cellSection}' in tree`);
 	}
 
 	private findBoundSections(

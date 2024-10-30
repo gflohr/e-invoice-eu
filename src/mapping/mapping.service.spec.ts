@@ -254,9 +254,9 @@ describe('MappingService', () => {
 			expect(target).toBeDefined();
 			expect(Array.isArray(target)).toBe(true);
 			expect(target.length).toBe(3);
-			//expect(target[0]['cbc:ID']).toBe('1');
-			//expect(target[1]['cbc:ID']).toBe('2');
-			//expect(target[2]['cbc:ID']).toBe('3');
+			expect(target[0]['cbc:ID']).toBe('1');
+			expect(target[1]['cbc:ID']).toBe('2');
+			expect(target[2]['cbc:ID']).toBe('3');
 		});
 	});
 });
