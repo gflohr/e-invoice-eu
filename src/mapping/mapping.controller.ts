@@ -24,9 +24,10 @@ import { ValidationError } from 'ajv';
 @ApiTags('mapping')
 @Controller('mapping')
 export class MappingController {
-	private readonly logger = new Logger(MappingController.name);
-
-	constructor(private readonly mappingService: MappingService) {}
+	constructor(
+		private readonly mappingService: MappingService,
+		private readonly logger: Logger,
+	) {}
 
 	@Get('list')
 	@ApiResponse({

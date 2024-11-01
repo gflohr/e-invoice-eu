@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MappingController } from './mapping.controller';
 import { MappingService } from './mapping.service';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, Logger } from '@nestjs/common';
 import * as request from 'supertest';
 import { Invoice } from '../invoice/invoice.interface';
 import { ErrorObject, ValidationError } from 'ajv/dist/2019';
@@ -9,6 +9,10 @@ import { ErrorObject, ValidationError } from 'ajv/dist/2019';
 describe('MappingController', () => {
 	let app: INestApplication;
 	let service: MappingService;
+
+	const mockedLogger = {
+		error: jest.fn(),
+	};
 
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
@@ -21,6 +25,10 @@ describe('MappingController', () => {
 						list: jest.fn(),
 					},
 				},
+				{
+					provide: Logger,
+					useValue: mockedLogger,
+				},
 			],
 		}).compile();
 
@@ -30,6 +38,7 @@ describe('MappingController', () => {
 	});
 
 	afterEach(async () => {
+		jest.clearAllMocks();
 		await app.close();
 	});
 
@@ -82,6 +91,23 @@ describe('MappingController', () => {
 		expect(details.validation).toBe(true);
 		expect(details.errors.length).toBe(1);
 		expect(details.errors[0]).toEqual(error);
+	});
+
+	it('should return 500 if an unexpected exception is thrown', async () => {
+		jest.spyOn(service, 'transform').mockImplementation(() => {
+			throw new Error('boum!');
+		});
+
+		const response = await request(app.getHttpServer())
+			.post('/mapping/transform/test-id')
+			.attach('file', Buffer.from('test data'), 'test.xlsx');
+
+		expect(response.status).toBe(500);
+		expect(response.body.statusCode).toBe(500);
+		expect(mockedLogger.error).toHaveBeenCalledTimes(1);
+		expect(mockedLogger.error).toHaveBeenCalledWith(
+			expect.stringMatching(/^unknown error: boum!/),
+		);
 	});
 
 	it('should return 404 if mapping is not found', async () => {
