@@ -247,6 +247,18 @@ describe('MappingService', () => {
 		}
 	});
 
+	it('should throw an exception if a non-existing section is referenced', () => {
+		try {
+			service['getOffset']('Invoice', 'Lines', {
+				...defaultMappingContext,
+				arrayPath: [],
+			});
+			throw new Error('no exception thrown');
+		} catch (e) {
+			expect(e.message).toMatch(/cannot find section 'Lines' in tree/);
+		}
+	});
+
 	describe('should transform invoice data', () => {
 		let invoice: Invoice;
 
