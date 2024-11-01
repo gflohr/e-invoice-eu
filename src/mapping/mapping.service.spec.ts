@@ -27,7 +27,10 @@ const mapping = {
 			'cbc:ID': '=:Line.A1',
 			'cac:AllowanceCharge': {
 				section: ':ACLine',
+				// This is relative to the allowanche/charge section.
 				'cbc:Amount': '=:ACLine.B1',
+				// And this is relative to the invoice line section.
+				'cbc:Amount@currencyID': '=:Line.B1',
 			},
 		},
 	},
@@ -61,9 +64,21 @@ const workbook = {
 				t: 's',
 				v: '3',
 			},
+			B20: {
+				t: 's',
+				v: 'EUR',
+			},
 			B21: {
 				t: 's',
 				v: '23.04',
+			},
+			B22: {
+				t: 's',
+				v: 'EUR',
+			},
+			B23: {
+				t: 's',
+				v: 'EUR',
 			},
 			B24: {
 				t: 's',
@@ -294,6 +309,7 @@ describe('MappingService', () => {
 				expect(Array.isArray(target)).toBe(true);
 				expect(target.length).toBe(1);
 				expect(target[0]['cbc:Amount']).toBe('23.04');
+				expect(target[0]['cbc:Amount@currencyID']).toBe('EUR');
 			}
 		});
 
@@ -315,7 +331,9 @@ describe('MappingService', () => {
 				expect(Array.isArray(target)).toBe(true);
 				expect(target.length).toBe(2);
 				expect(target[0]['cbc:Amount']).toBe('13.03');
+				expect(target[0]['cbc:Amount@currencyID']).toBe('EUR');
 				expect(target[1]['cbc:Amount']).toBe('42.00');
+				expect(target[1]['cbc:Amount@currencyID']).toBe('EUR');
 			}
 		});
 	});
