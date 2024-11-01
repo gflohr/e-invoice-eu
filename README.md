@@ -52,6 +52,31 @@ $ bun run test:e2e
 $ bun run test:cov
 ```
 
+## Curl Examples
+
+The following assumes that you run the application with `start:dev` and the
+API is exposed at http://localhost:3000.
+
+### OpenAPI/Swagger documentation
+
+```bash
+curl http://localhost:3000/api
+```
+
+It probably makes more sense to open that URL in the browser.
+
+### Transform Data from Spreadsheet
+
+The application ships with a mapping in `resources/default-invoice.yaml`.
+You can use it with the spreadsheet data from
+`contrib/templates/1234567890-consulting/default-invoice.ods` like this:
+
+```bash
+$ curl -X POST http://localhost:3000/api/mapping/transform/default-invoice \
+	-F mapping=@contrib/mappings/default-invoice.yaml \
+	-F data=@contrib/templates/1234567890-consulting/default-invoice.ods
+```
+
 ## Frequently Asked Questions
 
 ### Why are no Numbers Used in the JSON Schema?

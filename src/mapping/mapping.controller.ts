@@ -1,25 +1,18 @@
 import {
 	BadRequestException,
 	Controller,
-	Get,
 	InternalServerErrorException,
 	Logger,
 	NotFoundException,
-	Param,
 	Post,
-	UploadedFile,
+	UploadedFiles,
 	UseInterceptors,
 } from '@nestjs/common';
-import {
-	ApiBody,
-	ApiConsumes,
-	ApiParam,
-	ApiResponse,
-	ApiTags,
-} from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { MappingService } from './mapping.service';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ValidationError } from 'ajv';
+import { Invoice } from '../invoice/invoice.interface';
 
 @ApiTags('mapping')
 @Controller('mapping')
@@ -29,22 +22,7 @@ export class MappingController {
 		private readonly logger: Logger,
 	) {}
 
-	@Get('list')
-	@ApiResponse({
-		status: 200,
-		description: 'get a list of all valid mapping IDs',
-		type: [String],
-	})
-	async list(): Promise<string[]> {
-		return this.mappingService.list();
-	}
-
-	@Post('transform/:mappingId')
-	@ApiParam({
-		name: 'mappingId',
-		description: 'The ID of the mapping to apply.',
-		required: true,
-	})
+	@Post('transform')
 	@ApiConsumes('multipart/form-data')
 	@ApiBody({
 		description: 'The spreadsheet to be transformed.',
@@ -52,7 +30,11 @@ export class MappingController {
 		schema: {
 			type: 'object',
 			properties: {
-				file: {
+				data: {
+					type: 'string',
+					format: 'binary',
+				},
+				mapping: {
 					type: 'string',
 					format: 'binary',
 				},
@@ -61,9 +43,10 @@ export class MappingController {
 	})
 	@ApiResponse({
 		status: 201,
-		description: 'Transformation successful. The output is an invoice'
-			+ ' document that can be used as input for the'
-			+ ' `/api/invoice/generate` endpoint.',
+		description:
+			'Transformation successful. The output is an invoice' +
+			' document that can be used as input for the' +
+			' `/api/invoice/generate` endpoint.',
 		links: {
 			generateInvoice: {
 				operationRef: './invoice/generate',
@@ -81,13 +64,34 @@ export class MappingController {
 		status: 404,
 		description: 'Mapping ID not found',
 	})
-	@UseInterceptors(FileInterceptor('file'))
-	async transformMapping(
-		@Param('mappingId') mappingId: string,
-		@UploadedFile() file: Express.Multer.File,
-	) {
+	@UseInterceptors(
+		FileFieldsInterceptor([
+			{ name: 'data', maxCount: 1 },
+			{ name: 'mapping', maxCount: 1 },
+		]),
+	)
+	transformMapping(
+		@UploadedFiles()
+		files: {
+			data?: Express.Multer.File[];
+			mapping?: Express.Multer.File[];
+		},
+	): Invoice {
+		const dataFile = files.data?.[0];
+		if (!dataFile) {
+			throw new BadRequestException('No invoice file uploaded');
+		}
+
+		const mappingFile = files.mapping?.[0];
+		if (!mappingFile) {
+			throw new BadRequestException('No mapping file uploaded');
+		}
+
 		try {
-			return await this.mappingService.transform(mappingId, file.buffer);
+			return this.mappingService.transform(
+				mappingFile.buffer.toString(),
+				dataFile.buffer,
+			);
 		} catch (error) {
 			if (error.code && error.code === 'ENOENT') {
 				throw new NotFoundException();

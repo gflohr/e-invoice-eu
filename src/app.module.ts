@@ -6,9 +6,10 @@ import { InvoiceModule } from './invoice/invoice.module';
 import { ValidationModule } from './validation/validation.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './utils/logging.interceptor';
+import { SchemaModule } from './schema/schema.module';
 
 @Module({
-	imports: [MappingModule, InvoiceModule, ValidationModule],
+	imports: [MappingModule, InvoiceModule, ValidationModule, SchemaModule],
 	providers: [
 		MappingService,
 		{

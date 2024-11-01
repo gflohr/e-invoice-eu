@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MappingService } from './mapping.service';
-import * as fs from 'fs/promises';
 import { ValidationService } from '../validation/validation.service';
 import { JSONSchemaType } from 'ajv';
 import * as XLSX from '@e965/xlsx';
@@ -162,125 +161,7 @@ describe('MappingService', () => {
 		expect(service).toBeDefined();
 	});
 
-	describe('should list mappings', () => {
-		beforeEach(() => {
-			jest
-				.spyOn(service, 'loadMapping')
-				.mockImplementation(async (id: string) => {
-					if (id === 'invalid') throw new Error('Invalid mapping');
-					return {} as Mapping;
-				});
-
-			jest.spyOn(service['logger'], 'error').mockImplementation(() => {});
-		});
-
-		afterEach(() => {
-			jest.clearAllMocks();
-		});
-
-		it('should return all valid mappings in the directory', async () => {
-			jest.spyOn(fs, 'readdir').mockResolvedValue([
-				{ name: 'valid.yaml', isFile: () => true },
-				{ name: 'invalid.yaml', isFile: () => true },
-				{ name: 'other.txt', isFile: () => true },
-			] as any);
-
-			const result = await service.list();
-
-			expect(result).toEqual(['valid']);
-			expect(service.loadMapping).toHaveBeenCalledWith('valid');
-			expect(service.loadMapping).toHaveBeenCalledWith('invalid');
-			expect(service['logger'].error).toHaveBeenCalledWith(
-				expect.stringContaining('invalid mapping'),
-			);
-		});
-
-		it('should handle an empty directory', async () => {
-			jest.spyOn(fs, 'readdir').mockResolvedValue([] as any);
-
-			const result = await service.list();
-
-			expect(result).toEqual([]);
-			expect(service.loadMapping).not.toHaveBeenCalled();
-			expect(service['logger'].error).not.toHaveBeenCalled();
-		});
-	});
-
-	describe('should load mappings and map data', () => {
-		it('should load a mapping', async () => {
-			const id = 'default';
-			const yaml = 'meta: something';
-
-			const readFileMock = fs.readFile as jest.MockedFunction<
-				typeof fs.readFile
-			>;
-			readFileMock.mockResolvedValue(yaml);
-
-			const validateMock = jest
-				.spyOn(ValidationService.prototype, 'validate')
-				.mockImplementation((id, validatorFunction, data) => data);
-
-			const wanted = { meta: 'something' };
-
-			const got = await service.loadMapping(id);
-
-			expect(got).toEqual(wanted);
-			expect(readFileMock).toHaveBeenCalledWith(
-				`resources/mappings/${id}.yaml`,
-				'utf-8',
-			);
-			expect(validateMock).toHaveBeenCalledTimes(1);
-		});
-
-		it('should load a mapping with extension .yml', async () => {
-			const id = 'default';
-			const yaml = 'meta: something';
-
-			const readFileMock = fs.readFile as jest.MockedFunction<
-				typeof fs.readFile
-			>;
-			readFileMock.mockImplementation(async (path: string) => {
-				if (path === 'resources/mappings/default.yml') {
-					return yaml;
-				} else {
-					const error = new Error(
-						`ENOENT: no such file or directory, open '${path}'`,
-					) as NodeJS.ErrnoException;
-					error.code = 'ENOENT';
-					throw error;
-				}
-			});
-
-			const validateMock = jest
-				.spyOn(ValidationService.prototype, 'validate')
-				.mockImplementation((id, validatorFunction, data) => data);
-
-			const wanted = { meta: 'something' };
-
-			const got = await service.loadMapping(id);
-
-			expect(got).toEqual(wanted);
-			expect(readFileMock).toHaveBeenCalledWith(
-				`resources/mappings/${id}.yaml`,
-				'utf-8',
-			);
-			expect(validateMock).toHaveBeenCalledTimes(1);
-		});
-
-		it('should throw an exception if the mapping does not exist', async () => {
-			const id = 'custom';
-			const errorMessage = 'No such file or directory';
-
-			const readFileMock = fs.readFile as jest.MockedFunction<
-				typeof fs.readFile
-			>;
-			readFileMock.mockRejectedValue(new Error(errorMessage));
-
-			await expect(service.loadMapping(id)).rejects.toThrow(errorMessage);
-
-			expect(readFileMock).toHaveBeenCalledTimes(1);
-		});
-
+	describe('should parse mappings and map data', () => {
 		it('should throw an exception if a non-existing sheet is referenced', () => {
 			const wb: XLSX.WorkBook = {
 				Sheets: {},
@@ -350,15 +231,15 @@ describe('MappingService', () => {
 		it('should throw an exception if a non-existing section is referenced', async () => {
 			const localMapping = structuredClone(mapping);
 			localMapping['ubl:Invoice']['cac:InvoiceLine']['cbc:ID'] = '=:Lines.A1';
-			const mockLoadMapping = jest
-				.spyOn(service, 'loadMapping')
-				.mockResolvedValueOnce(localMapping);
+			const mockParseMapping = jest
+				.spyOn(service as any, 'parseMapping')
+				.mockReturnValue(localMapping);
 			const buf: Buffer = [] as unknown as Buffer;
 
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
 			try {
-				await service.transform('test-id', buf);
+				await service.transform('{}', buf);
 				throw new Error('no exception thrown');
 			} catch (e) {
 				expect(e).toBeDefined();
@@ -381,22 +262,22 @@ describe('MappingService', () => {
 				);
 			}
 
-			mockLoadMapping.mockRestore();
+			mockParseMapping.mockRestore();
 		});
 
 		it('should throw an exception if a non-existing sheet is referenced as section', async () => {
 			const localMapping = structuredClone(mapping);
 			localMapping['ubl:Invoice']['cac:InvoiceLine']['section'] =
 				'Infoice:Line';
-			const mockLoadMapping = jest
-				.spyOn(service, 'loadMapping')
-				.mockResolvedValueOnce(localMapping);
+			const mockParseMapping = jest
+				.spyOn(service as any, 'parseMapping')
+				.mockReturnValue(localMapping);
 			const buf: Buffer = [] as unknown as Buffer;
 
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
 			try {
-				await service.transform('test-id', buf);
+				await service.transform('{}', buf);
 				throw new Error('no exception thrown');
 			} catch (e) {
 				expect(e).toBeDefined();
@@ -417,22 +298,22 @@ describe('MappingService', () => {
 				);
 			}
 
-			mockLoadMapping.mockRestore();
+			mockParseMapping.mockRestore();
 		});
 
 		it('should throw an exception if a non-existing section is referenced as section', async () => {
 			const localMapping = structuredClone(mapping);
 			localMapping['ubl:Invoice']['cac:InvoiceLine']['section'] =
 				'Invoice:Lime';
-			const mockLoadMapping = jest
-				.spyOn(service, 'loadMapping')
-				.mockResolvedValueOnce(localMapping);
+			const mockParseMapping = jest
+				.spyOn(service as any, 'parseMapping')
+				.mockReturnValue(localMapping);
 			const buf: Buffer = [] as unknown as Buffer;
 
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
 			try {
-				await service.transform('test-id', buf);
+				await service.transform('{}', buf);
 				throw new Error('no exception thrown');
 			} catch (e) {
 				expect(e).toBeDefined();
@@ -453,23 +334,23 @@ describe('MappingService', () => {
 				);
 			}
 
-			mockLoadMapping.mockRestore();
+			mockParseMapping.mockRestore();
 		});
 
 		describe('should transform invoice data', () => {
 			let invoice: Invoice;
 
 			beforeAll(async () => {
-				const mockLoadMapping = jest
-					.spyOn(service, 'loadMapping')
-					.mockResolvedValueOnce(mapping);
+				const mockParseMapping = jest
+					.spyOn(service as any, 'parseMapping')
+					.mockReturnValue(mapping);
 				const buf: Buffer = [] as unknown as Buffer;
 
 				jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
-				invoice = await service.transform('test-id', buf);
+				invoice = await service.transform('{}', buf);
 
-				mockLoadMapping.mockRestore();
+				mockParseMapping.mockRestore();
 			});
 
 			it('should return an invoice object', () => {

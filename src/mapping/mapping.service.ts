@@ -1,6 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as path from 'path';
-import * as fs from 'fs/promises';
 import * as yaml from 'js-yaml';
 import { Mapping, MappingMetaInformation } from './mapping.interface';
 import Ajv2019, {
@@ -39,58 +38,21 @@ export class MappingService {
 		this.validator = ajv.compile(mappingSchema);
 	}
 
-	async list(): Promise<Array<string>> {
-		const dirEntries = await fs.readdir(this.basePath, { withFileTypes: true });
-
-		const ids: Array<string> = [];
-		for (const entry of dirEntries) {
-			const name = entry.name;
-
-			const id = name.replace(/\.ya?ml$/, '');
-			if (name === id) {
-				continue;
-			}
-
-			try {
-				await this.loadMapping(id);
-				ids.push(id);
-			} catch (e) {
-				this.logger.error(`invalid mapping '${this.basePath}/${name}': ${e}`);
-			}
-		}
-
-		return ids;
-	}
-
-	async loadMapping(id: string): Promise<Mapping> {
-		let filename = path.join(this.basePath, id + '.yaml');
-		let content: string;
-
-		try {
-			content = await fs.readFile(filename, 'utf-8');
-		} catch (e) {
-			if (e.code && e.code === 'ENOENT') {
-				filename = path.join(this.basePath, id + '.yml');
-				content = await fs.readFile(filename, 'utf-8');
-			} else {
-				throw new Error(e);
-			}
-		}
-
-		const data = yaml.load(content);
+	private parseMapping(yamlData: string): Mapping {
+		const obj = yaml.load(yamlData);
 
 		const valid = this.validationService.validate(
-			`mapping '${id}'`,
+			'mapping data',
 			this.validator,
-			data,
+			obj,
 		);
 
 		return valid;
 	}
 
-	async transform(mappingId: string, buffer: Buffer): Promise<Invoice> {
-		const mapping = await this.loadMapping(mappingId);
-		const workbook = XLSX.read(buffer, {
+	transform(yamlMapping: string, dataBuffer: Buffer): Invoice {
+		const mapping = this.parseMapping(yamlMapping);
+		const workbook = XLSX.read(dataBuffer, {
 			type: 'buffer',
 			cellDates: true,
 		});
