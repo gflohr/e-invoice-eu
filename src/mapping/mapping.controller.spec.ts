@@ -4,6 +4,7 @@ import { MappingService } from './mapping.service';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { Invoice } from '../invoice/invoice.interface';
+import { ErrorObject, ValidationError } from 'ajv/dist/2019';
 
 describe('MappingController', () => {
 	let app: INestApplication;
@@ -58,20 +59,29 @@ describe('MappingController', () => {
 		);
 	});
 
-	it.skip('should return 400 if transformation fails', async () => {
-		jest
-			.spyOn(service, 'transform')
-			.mockRejectedValue(new Error('Transformation error'));
+	it('should return 400 if transformation fails', async () => {
+		const error: ErrorObject = {
+			instancePath: '/ubl:Invoice/cbc:ID',
+			schemaPath: '#/properties/ubl%3AInvoice/properties/cbc%3AID',
+			keyword: 'type',
+			params: { type: 'string' },
+			message: 'did not work',
+		};
+		jest.spyOn(service, 'transform').mockImplementation(() => {
+			throw new ValidationError([error]);
+		});
 
 		const response = await request(app.getHttpServer())
 			.post('/mapping/transform/test-id')
 			.attach('file', Buffer.from('test data'), 'test.xlsx');
 
 		expect(response.status).toBe(400);
-		expect(response.body).toEqual({
-			message: 'Transformation failed.',
-			details: {},
-		});
+		expect(response.body.message).toEqual('Transformation failed.');
+		const details = response.body.details;
+		expect(details.ajv).toBe(true);
+		expect(details.validation).toBe(true);
+		expect(details.errors.length).toBe(1);
+		expect(details.errors[0]).toEqual(error);
 	});
 
 	it('should return 404 if mapping is not found', async () => {
