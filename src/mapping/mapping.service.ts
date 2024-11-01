@@ -183,12 +183,20 @@ export class MappingService {
 			throw new Ajv2019.ValidationError([error]);
 		}
 
+		const sectionRanges = ctx.sectionRanges[sheetName][section];
+		const upperBound = sectionRanges[sectionRanges.length - 1];
+		if (upperBound < ctx.rowRange[1]) {
+			// If this is a top-level section, the upper bound of the row range
+			// is plus infinity!
+			ctx.rowRange[1] = upperBound;
+		}
+
 		const sectionIndices = this.computeSectionIndices(sheetName, section, ctx);
 		const arrayPathIndex = ctx.arrayPath.length;
 		ctx.arrayPath[arrayPathIndex] = [section, -1];
 
 		const savedRowRange = ctx.rowRange;
-		for (let i = 0; i < sectionIndices.length - 1; ++i) {
+		for (let i = 0; i < sectionIndices.length; ++i) {
 			const sectionIndex = sectionIndices[i];
 			const start = ctx.sectionRanges[sheetName][section][sectionIndex];
 			const end = ctx.sectionRanges[sheetName][section][sectionIndex + 1];
