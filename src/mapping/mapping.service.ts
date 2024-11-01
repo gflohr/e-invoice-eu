@@ -7,6 +7,7 @@ import Ajv2019, {
 	ErrorObject,
 	JSONSchemaType,
 	ValidateFunction,
+	ValidationError,
 } from 'ajv/dist/2019';
 import { mappingSchema } from './mapping.schema';
 import { ValidationService } from '../validation/validation.service';
@@ -161,23 +162,14 @@ export class MappingService {
 			}
 			if (!(section in ctx.sectionRanges[sheetName])) {
 				throw new Error(
-					`section reference '${sectionRef}' resolves to null:` +
-						` no section '${section}' in sheet '${sheetName}'`,
+					`no section '${section}' in sheet '${sheetName}'`
 				);
 			}
 		} catch (e) {
-			const instancePath = this.getInstancePath(ctx);
 			const message =
 				`section reference '${sectionRef}' resolves to null: ` + e.message;
 
-			const error: ErrorObject = {
-				instancePath,
-				schemaPath: '#/' + ctx.schemaPath.map(encodeURIComponent).join('/'),
-				keyword: 'type',
-				params: { type: 'string' },
-				message,
-			};
-			throw new Ajv2019.ValidationError([error]);
+			throw this.makeValidationError(message, ctx);
 		}
 
 		const sectionRanges = ctx.sectionRanges[sheetName][section];
@@ -206,6 +198,19 @@ export class MappingService {
 
 		ctx.arrayPath.pop();
 		ctx.schemaPath.pop();
+	}
+
+	private makeValidationError(message: string, ctx: MappingContext): ValidationError {
+		const instancePath = this.getInstancePath(ctx);
+		const error: ErrorObject = {
+			instancePath,
+			schemaPath: '#/' + ctx.schemaPath.map(encodeURIComponent).join('/'),
+			keyword: 'type',
+			params: { type: 'string' },
+			message,
+		};
+
+		return new ValidationError([error]);
 	}
 
 	private computeSectionIndices(
@@ -275,16 +280,8 @@ export class MappingService {
 
 			return this.getCellValue(worksheet, cellName, schema);
 		} catch (x) {
-			const instancePath = this.getInstancePath(ctx);
-			const error: ErrorObject = {
-				instancePath,
-				schemaPath: '#/' + ctx.schemaPath.map(encodeURIComponent).join('/'),
-				keyword: 'type',
-				params: { type: 'string' },
-				message: `reference '${ref}' resolves to null: ${x.message}`,
-			};
-
-			throw new Ajv2019.ValidationError([error]);
+			const message = `reference '${ref}' resolves to null: ${x.message}`;
+			throw this.makeValidationError(message, ctx);
 		}
 	}
 
