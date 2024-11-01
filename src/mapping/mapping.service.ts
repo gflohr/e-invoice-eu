@@ -197,12 +197,12 @@ export class MappingService {
 
 		const savedRowRange = ctx.rowRange;
 		for (let i = 0; i < sectionIndices.length; ++i) {
-			const sectionIndex = sectionIndices[i];
-			const start = ctx.sectionRanges[sheetName][section][sectionIndex];
-			const end = ctx.sectionRanges[sheetName][section][sectionIndex + 1];
+			const startIndex = sectionIndices[i];
+			const start = ctx.sectionRanges[sheetName][section][startIndex];
+			const end = ctx.sectionRanges[sheetName][section][startIndex + 1];
 			ctx.rowRange = [start, end];
 			target[i] = {};
-			ctx.arrayPath[arrayPathIndex][1] = i;
+			ctx.arrayPath[arrayPathIndex][1] = startIndex;
 			this.transformObject(target[i], mapping, ctx);
 		}
 		ctx.rowRange = savedRowRange;
@@ -377,8 +377,6 @@ export class MappingService {
 		cellSection: string,
 		ctx: MappingContext,
 	): number {
-		let offset = 0;
-
 		for (const pathInfo of ctx.arrayPath) {
 			const section = pathInfo[0];
 			const index = pathInfo[1];
@@ -389,10 +387,8 @@ export class MappingService {
 				);
 			}
 
-			offset = ctx.sectionRanges[sheetName][section][index];
-
 			if (section === cellSection) {
-				return offset;
+				return ctx.sectionRanges[sheetName][section][index];
 			}
 		}
 

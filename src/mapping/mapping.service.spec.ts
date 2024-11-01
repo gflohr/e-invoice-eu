@@ -25,6 +25,10 @@ const mapping = {
 		'cac:InvoiceLine': {
 			section: ':Line',
 			'cbc:ID': '=:Line.A1',
+			'cac:AllowanceCharge': {
+				section: ':ACLine',
+				'cbc:Amount': '=:ACLine.B1',
+			},
 		},
 	},
 } as unknown as Mapping;
@@ -57,9 +61,25 @@ const workbook = {
 				t: 's',
 				v: '3',
 			},
+			B21: {
+				t: 's',
+				v: '23.04',
+			},
+			B24: {
+				t: 's',
+				v: '13.03',
+			},
+			B25: {
+				t: 's',
+				v: '42.00',
+			},
 			K20: {
 				t: 's',
 				v: 'Line',
+			},
+			K21: {
+				t: 's',
+				v: 'ACLine',
 			},
 			K22: {
 				t: 's',
@@ -68,6 +88,14 @@ const workbook = {
 			K23: {
 				t: 's',
 				v: 'Line',
+			},
+			K24: {
+				t: 's',
+				v: 'ACLine',
+			},
+			K25: {
+				t: 's',
+				v: 'ACLine',
 			},
 			'!ref': 'A1:Z999',
 		},
@@ -175,7 +203,6 @@ describe('MappingService', () => {
 	});
 
 	it('should throw an exception if a non-existing cell is referenced', () => {
-		debugger;
 		const wb: XLSX.WorkBook = {
 			Sheets: {
 				Invoice: {},
@@ -257,6 +284,39 @@ describe('MappingService', () => {
 			expect(target[0]['cbc:ID']).toBe('1');
 			expect(target[1]['cbc:ID']).toBe('2');
 			expect(target[2]['cbc:ID']).toBe('3');
+		});
+
+		it('should map allowances charges of invoice line #1', () => {
+			const target =
+				invoice['ubl:Invoice']['cac:InvoiceLine'][0]['cac:AllowanceCharge'];
+			expect(target).toBeDefined();
+			if (typeof target !== 'undefined') {
+				expect(Array.isArray(target)).toBe(true);
+				expect(target.length).toBe(1);
+				expect(target[0]['cbc:Amount']).toBe('23.04');
+			}
+		});
+
+		it('should map allowances charges of invoice line #2', () => {
+			const target =
+				invoice['ubl:Invoice']['cac:InvoiceLine'][1]['cac:AllowanceCharge'];
+			expect(target).toBeDefined();
+			if (typeof target !== 'undefined') {
+				expect(Array.isArray(target)).toBe(true);
+				expect(target.length).toBe(0);
+			}
+		});
+
+		it('should map allowances charges of invoice line #3', () => {
+			const target =
+				invoice['ubl:Invoice']['cac:InvoiceLine'][2]['cac:AllowanceCharge'];
+			expect(target).toBeDefined();
+			if (typeof target !== 'undefined') {
+				expect(Array.isArray(target)).toBe(true);
+				expect(target.length).toBe(2);
+				expect(target[0]['cbc:Amount']).toBe('13.03');
+				expect(target[1]['cbc:Amount']).toBe('42.00');
+			}
 		});
 	});
 });
