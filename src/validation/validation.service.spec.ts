@@ -1,7 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { ValidationService, ValidationError } from './validation.service';
-import { ErrorObject, ValidateFunction } from 'ajv';
 import { Logger } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { ErrorObject, ValidateFunction } from 'ajv';
+
+import { ValidationService, ValidationError } from './validation.service';
 
 describe('ValidationService', () => {
 	let service: ValidationService;

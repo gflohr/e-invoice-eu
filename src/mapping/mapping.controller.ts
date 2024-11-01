@@ -8,10 +8,11 @@ import {
 	UploadedFiles,
 	UseInterceptors,
 } from '@nestjs/common';
-import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { MappingService } from './mapping.service';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ValidationError } from 'ajv';
+
+import { MappingService } from './mapping.service';
 import { Invoice } from '../invoice/invoice.interface';
 
 @ApiTags('mapping')

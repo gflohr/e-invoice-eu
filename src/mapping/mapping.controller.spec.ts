@@ -1,10 +1,11 @@
+import { INestApplication, Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { ErrorObject, ValidationError } from 'ajv/dist/2019';
+import * as request from 'supertest';
+
 import { MappingController } from './mapping.controller';
 import { MappingService } from './mapping.service';
-import { INestApplication, Logger } from '@nestjs/common';
-import * as request from 'supertest';
 import { Invoice } from '../invoice/invoice.interface';
-import { ErrorObject, ValidationError } from 'ajv/dist/2019';
 
 describe('MappingController', () => {
 	let app: INestApplication;

@@ -1,6 +1,7 @@
-import { LoggingInterceptor } from './logging.interceptor';
 import { ExecutionContext, CallHandler, Logger } from '@nestjs/common';
 import { of } from 'rxjs';
+
+import { LoggingInterceptor } from './logging.interceptor';
 
 describe('LoggingInterceptor', () => {
 	let interceptor: LoggingInterceptor;

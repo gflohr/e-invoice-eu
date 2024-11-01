@@ -1,9 +1,10 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { SchemaController } from './schema.controller';
-import * as request from 'supertest';
 import { INestApplication } from '@nestjs/common';
-import { mappingSchema } from '../mapping/mapping.schema';
+import { Test, TestingModule } from '@nestjs/testing';
+import * as request from 'supertest';
+
+import { SchemaController } from './schema.controller';
 import { invoiceSchema } from '../invoice/invoice.schema';
+import { mappingSchema } from '../mapping/mapping.schema';
 
 describe('SchemaController', () => {
 	let app: INestApplication;

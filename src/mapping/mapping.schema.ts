@@ -4,6 +4,7 @@
  */
 
 import { JSONSchemaType } from 'ajv';
+
 import { Mapping } from './mapping.interface';
 
 export const mappingSchema: JSONSchemaType<Mapping> = {

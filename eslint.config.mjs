@@ -5,6 +5,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
 import { FlatCompat } from '@eslint/eslintrc';
+import importPlugin from 'eslint-plugin-import';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,6 +23,7 @@ export default [
 	{
 		plugins: {
 			'@typescript-eslint': typescriptEslintEslintPlugin,
+			import: importPlugin,
 		},
 
 		languageOptions: {
@@ -45,6 +47,21 @@ export default [
 			'@typescript-eslint/explicit-function-return-type': 'off',
 			'@typescript-eslint/explicit-module-boundary-types': 'off',
 			'@typescript-eslint/no-explicit-any': 'off',
+			'import/order': [
+				'error',
+				{
+					groups: [
+						['builtin', 'external'], // Built-in and external imports
+						'internal', // Internal imports
+						['parent', 'sibling', 'index'], // Parent, sibling, and index imports
+					],
+					'newlines-between': 'always', // Require new lines between groups
+					alphabetize: {
+						order: 'asc', // Sort imports alphabetically
+						caseInsensitive: true, // Ignore case
+					},
+				},
+			],
 		},
 	},
 ];

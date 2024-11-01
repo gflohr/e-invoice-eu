@@ -1,10 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { JSONSchemaType } from 'ajv';
-import { Mapping } from '../mapping/mapping.interface';
-import { mappingSchema } from '../mapping/mapping.schema';
+
 import { Invoice } from '../invoice/invoice.interface';
 import { invoiceSchema } from '../invoice/invoice.schema';
+import { Mapping } from '../mapping/mapping.interface';
+import { mappingSchema } from '../mapping/mapping.schema';
 
 @ApiTags('schema')
 @Controller('schema')

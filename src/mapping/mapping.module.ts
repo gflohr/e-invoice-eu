@@ -1,7 +1,8 @@
 /* istanbul ignore file */
 import { Logger, Module } from '@nestjs/common';
-import { MappingService } from './mapping.service';
+
 import { MappingController } from './mapping.controller';
+import { MappingService } from './mapping.service';
 import { ValidationModule } from '../validation/validation.module';
 
 @Module({

@@ -1,10 +1,11 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { MappingService } from './mapping.service';
-import { ValidationService } from '../validation/validation.service';
-import { JSONSchemaType } from 'ajv';
 import * as XLSX from '@e965/xlsx';
+import { Test, TestingModule } from '@nestjs/testing';
+import { JSONSchemaType } from 'ajv';
+
 import { Mapping, MappingMetaInformation } from './mapping.interface';
+import { MappingService } from './mapping.service';
 import { Invoice } from '../invoice/invoice.interface';
+import { ValidationService } from '../validation/validation.service';
 
 jest.mock('fs/promises');
 

@@ -1,5 +1,6 @@
 /* istanbul ignore file */
 import { Module } from '@nestjs/common';
+
 import { SchemaController } from './schema.controller';
 
 @Module({

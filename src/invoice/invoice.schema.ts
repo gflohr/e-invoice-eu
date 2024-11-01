@@ -4,6 +4,7 @@
  */
 
 import { JSONSchemaType } from 'ajv';
+
 import { Invoice } from './invoice.interface';
 
 export const invoiceSchema: JSONSchemaType<Invoice> = {

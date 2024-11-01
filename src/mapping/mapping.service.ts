@@ -1,20 +1,21 @@
+import * as XLSX from '@e965/xlsx';
 import { Injectable, Logger } from '@nestjs/common';
-import * as path from 'path';
-import * as yaml from 'js-yaml';
-import { Mapping, MappingMetaInformation } from './mapping.interface';
 import Ajv2019, {
 	ErrorObject,
 	JSONSchemaType,
 	ValidateFunction,
 	ValidationError,
 } from 'ajv/dist/2019';
-import { mappingSchema } from './mapping.schema';
-import { ValidationService } from '../validation/validation.service';
-import { Invoice } from '../invoice/invoice.interface';
-import * as XLSX from '@e965/xlsx';
+import * as yaml from 'js-yaml';
 import * as jsonpath from 'jsonpath-plus';
-import { invoiceSchema } from '../invoice/invoice.schema';
+import * as path from 'path';
+
+import { Mapping, MappingMetaInformation } from './mapping.interface';
 import { mappingValueRe, sectionReferenceRe } from './mapping.regex';
+import { mappingSchema } from './mapping.schema';
+import { Invoice } from '../invoice/invoice.interface';
+import { invoiceSchema } from '../invoice/invoice.schema';
+import { ValidationService } from '../validation/validation.service';
 
 type SectionRanges = { [key: string]: { [key: string]: number[] } };
 
