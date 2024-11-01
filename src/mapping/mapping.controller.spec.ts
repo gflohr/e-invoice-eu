@@ -17,6 +17,7 @@ describe('MappingController', () => {
 					provide: MappingService,
 					useValue: {
 						transform: jest.fn(),
+						list: jest.fn(),
 					},
 				},
 			],
@@ -29,6 +30,14 @@ describe('MappingController', () => {
 
 	afterEach(async () => {
 		await app.close();
+	});
+
+	it('should list all mappings', async () => {
+		const ids = ['foo', 'bar', 'baz'];
+		jest.spyOn(service, 'list').mockResolvedValue(ids);
+
+		const response = await request(app.getHttpServer()).get('/mapping/list');
+		expect(response.status).toBe(200);
 	});
 
 	it('should return transformed data successfully', async () => {
