@@ -356,7 +356,10 @@ export class MappingService {
 			}
 
 			for (const section in ctx.sectionRanges[sheetName]) {
-				ctx.sectionRanges[sheetName][section].push(range.e.r + 1);
+				// The last section could be in the last row of the sheet.
+				// Because `range.e.r` is zero-based but our row numbers are
+				// one-based, we have to add 2.
+				ctx.sectionRanges[sheetName][section].push(range.e.r + 2);
 			}
 		}
 	}
