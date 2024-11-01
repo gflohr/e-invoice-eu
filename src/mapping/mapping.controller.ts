@@ -60,8 +60,18 @@ export class MappingController {
 		},
 	})
 	@ApiResponse({
-		status: 200,
-		description: 'Transformation successful',
+		status: 201,
+		description: 'Transformation successful. The output is an invoice'
+			+ ' document that can be used as input for the'
+			+ ' `/api/invoice/generate` endpoint.',
+		links: {
+			generateInvoice: {
+				operationRef: './invoice/generate',
+				parameters: {
+					invoice: '$response.body',
+				},
+			},
+		},
 	})
 	@ApiResponse({
 		status: 400,
