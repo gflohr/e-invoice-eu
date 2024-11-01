@@ -257,18 +257,18 @@ export class MappingService {
 				? ctx.workbook.SheetNames[0]
 				: sheetMatch;
 
-		if (typeof section !== 'undefined') {
-			const match = cellName.match(/^([A-Z]+)(\d+)$/) as RegExpMatchArray;
-			const letters = match[1];
-			const offset = this.getOffset(sheetName, section, ctx);
-			const number = offset + parseInt(match[2], 10) - 1;
-
-			cellName = letters + number;
-		}
-
-		const worksheet = ctx.workbook.Sheets[sheetName];
-
 		try {
+			if (typeof section !== 'undefined') {
+				const match = cellName.match(/^([A-Z]+)(\d+)$/) as RegExpMatchArray;
+				const letters = match[1];
+				const offset = this.getOffset(sheetName, section, ctx);
+				const number = offset + parseInt(match[2], 10) - 1;
+
+				cellName = letters + number;
+			}
+
+			const worksheet = ctx.workbook.Sheets[sheetName];
+
 			if (typeof worksheet === 'undefined') {
 				throw new Error(`no such sheet '${sheetName}'`);
 			}

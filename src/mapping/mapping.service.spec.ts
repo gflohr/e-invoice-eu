@@ -247,16 +247,40 @@ describe('MappingService', () => {
 		}
 	});
 
-	it('should throw an exception if a non-existing section is referenced', () => {
+	it('should throw an exception if a non-existing section is referenced', async () => {
+		const localMapping = structuredClone(mapping);
+		localMapping['ubl:Invoice']['cac:InvoiceLine']['cbc:ID'] = '=:Lines.A1';
+		const localWorkbook = structuredClone(workbook);
+		const mockLoadMapping = jest
+			.spyOn(service, 'loadMapping')
+			.mockResolvedValueOnce(localMapping);
+		const buf: Buffer = [] as unknown as Buffer;
+
+		jest.spyOn(XLSX, 'read').mockReturnValueOnce(localWorkbook);
+
 		try {
-			service['getOffset']('Invoice', 'Lines', {
-				...defaultMappingContext,
-				arrayPath: [],
-			});
+			await service.transform('test-id', buf);
 			throw new Error('no exception thrown');
 		} catch (e) {
-			expect(e.message).toMatch(/cannot find section 'Lines' in tree/);
+			expect(e).toBeDefined();
+			expect(e.validation).toBeTruthy();
+			expect(e.ajv).toBeTruthy();
+			expect(Array.isArray(e.errors)).toBeTruthy();
+			expect(e.errors.length).toBe(1);
+
+			const error = e.errors[0];
+			expect(error.instancePath).toBe('/ubl:Invoice/cac:InvoiceLine/cbc:ID');
+			expect(error.schemaPath).toBe(
+				'#/properties/ubl%3AInvoice/properties/cac%3AInvoiceLine/items/properties/cbc%3AID',
+			);
+			expect(error.keyword).toBe('type');
+			expect(error.params).toEqual({ type: 'string' });
+			expect(error.message).toBe(
+				"reference '=:Lines.A1' resolves to null: cannot find section 'Lines' in tree",
+			);
 		}
+
+		mockLoadMapping.mockRestore();
 	});
 
 	describe('should transform invoice data', () => {
