@@ -25,7 +25,6 @@ type MappingContext = {
 	schemaPath: string[];
 	arrayPath: Array<[string, number]>;
 	rowRange: [number, number];
-	boundSections: string[];
 };
 
 @Injectable()
@@ -104,10 +103,8 @@ export class MappingService {
 			schemaPath: ['properties', 'ubl:Invoice'],
 			arrayPath: [],
 			rowRange: [1, Infinity],
-			boundSections: [],
 		};
 		this.fillSectionRanges(mapping, workbook, ctx);
-		this.findBoundSections(mapping, ctx);
 
 		this.transformObject(invoice['ubl:Invoice'], mapping['ubl:Invoice'], ctx);
 
@@ -393,26 +390,6 @@ export class MappingService {
 		}
 
 		throw new Error(`cannot find section '${cellSection}' in tree`);
-	}
-
-	private findBoundSections(
-		mapping: { [key: string]: any },
-		ctx: MappingContext,
-	) {
-		if ('section' in mapping) {
-			const section = mapping.section as string;
-			if (ctx.boundSections.includes(section)) {
-				throw new Error(`duplicate section '${section}'`);
-			}
-			ctx.boundSections.push(section);
-		}
-
-		for (const key in mapping) {
-			const property = mapping[key];
-			if (typeof property === 'object') {
-				this.findBoundSections(property, ctx);
-			}
-		}
 	}
 
 	private getInstancePath(ctx: MappingContext): string {

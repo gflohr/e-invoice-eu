@@ -124,7 +124,6 @@ const defaultMappingContext = {
 	sectionRanges: {},
 	arrayPath: [],
 	rowRange: [1, Infinity] as [number, number],
-	boundSections: [],
 };
 
 describe('MappingService', () => {
