@@ -24,7 +24,7 @@ type MappingContext = {
 	workbook: XLSX.WorkBook;
 	sectionRanges: SectionRanges;
 	schemaPath: string[];
-	arrayPath: Array<[string, number]>;
+	arrayPath: Array<[string, number, number]>;
 	rowRange: [number, number];
 };
 
@@ -161,9 +161,7 @@ export class MappingService {
 				);
 			}
 			if (!(section in ctx.sectionRanges[sheetName])) {
-				throw new Error(
-					`no section '${section}' in sheet '${sheetName}'`
-				);
+				throw new Error(`no section '${section}' in sheet '${sheetName}'`);
 			}
 		} catch (e) {
 			const message =
@@ -182,7 +180,7 @@ export class MappingService {
 
 		const sectionIndices = this.computeSectionIndices(sheetName, section, ctx);
 		const arrayPathIndex = ctx.arrayPath.length;
-		ctx.arrayPath[arrayPathIndex] = [section, -1];
+		ctx.arrayPath[arrayPathIndex] = [section, -1, -1];
 
 		const savedRowRange = ctx.rowRange;
 		for (let i = 0; i < sectionIndices.length; ++i) {
@@ -192,6 +190,7 @@ export class MappingService {
 			ctx.rowRange = [start, end];
 			target[i] = {};
 			ctx.arrayPath[arrayPathIndex][1] = startIndex;
+			ctx.arrayPath[arrayPathIndex][2] = i;
 			this.transformObject(target[i], mapping, ctx);
 		}
 		ctx.rowRange = savedRowRange;
@@ -200,7 +199,10 @@ export class MappingService {
 		ctx.schemaPath.pop();
 	}
 
-	private makeValidationError(message: string, ctx: MappingContext): ValidationError {
+	private makeValidationError(
+		message: string,
+		ctx: MappingContext,
+	): ValidationError {
 		const instancePath = this.getInstancePath(ctx);
 		const error: ErrorObject = {
 			instancePath,
@@ -384,11 +386,18 @@ export class MappingService {
 	}
 
 	private getInstancePath(ctx: MappingContext): string {
-		return (
-			'/' +
-			ctx.schemaPath
-				.filter(item => item !== 'properties' && item !== 'items')
-				.join('/')
-		);
+		const instancePath = [''];
+		let arrayLevel = -1;
+		ctx.schemaPath
+			.filter(item => item !== 'properties')
+			.forEach(item => {
+				if (item === 'items') {
+					instancePath.push(ctx.arrayPath[++arrayLevel][2].toString());
+				} else {
+					instancePath.push(item);
+				}
+			});
+
+		return instancePath.join('/');
 	}
 }

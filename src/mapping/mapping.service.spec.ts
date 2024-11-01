@@ -196,14 +196,25 @@ describe('MappingService', () => {
 		try {
 			service['resolveValue']('=Inwoice.A1', {} as JSONSchemaType<any>, {
 				...defaultMappingContext,
+				schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
 				workbook: wb,
 			});
 			throw new Error('no exception thrown');
 		} catch (e) {
-			testAjvException(
-				e,
-				'/ubl:Invoice/cbc:ID',
-				'#/ubl%3AInvoice/cbc%3AID',
+			expect(e).toBeDefined();
+			expect(e.validation).toBeTruthy();
+			expect(e.ajv).toBeTruthy();
+			expect(Array.isArray(e.errors)).toBeTruthy();
+			expect(e.errors.length).toBe(1);
+
+			const error = e.errors[0];
+			expect(error.instancePath).toBe('/ubl:Invoice/cbc:ID');
+			expect(error.schemaPath).toBe(
+				'#/properties/ubl%3AInvoice/properties/cbc%3AID',
+			);
+			expect(error.keyword).toBe('type');
+			expect(error.params).toEqual({ type: 'string' });
+			expect(error.message).toBe(
 				"reference '=Inwoice.A1' resolves to null: no such sheet 'Inwoice'",
 			);
 		}
@@ -219,15 +230,25 @@ describe('MappingService', () => {
 		try {
 			service['resolveValue']('=ET742', {} as JSONSchemaType<any>, {
 				...defaultMappingContext,
+				schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
 				workbook: wb,
 			});
 			throw new Error('no exception thrown');
 		} catch (e) {
-			testAjvException(
-				e,
-				'/ubl:Invoice/cbc:ID',
-				// FIXME! Leading 'properties' is missing here!
-				'#/ubl%3AInvoice/cbc%3AID',
+			expect(e).toBeDefined();
+			expect(e.validation).toBeTruthy();
+			expect(e.ajv).toBeTruthy();
+			expect(Array.isArray(e.errors)).toBeTruthy();
+			expect(e.errors.length).toBe(1);
+
+			const error = e.errors[0];
+			expect(error.instancePath).toBe('/ubl:Invoice/cbc:ID');
+			expect(error.schemaPath).toBe(
+				'#/properties/ubl%3AInvoice/properties/cbc%3AID',
+			);
+			expect(error.keyword).toBe('type');
+			expect(error.params).toEqual({ type: 'string' });
+			expect(error.message).toBe(
 				"reference '=ET742' resolves to null: no such cell 'ET742'",
 			);
 		}
@@ -247,11 +268,20 @@ describe('MappingService', () => {
 			await service.transform('test-id', buf);
 			throw new Error('no exception thrown');
 		} catch (e) {
-			testAjvException(
-				e,
-				'/ubl:Invoice/cac:InvoiceLine/cbc:ID',
-				// FIXME! Where is the array index?
+			expect(e).toBeDefined();
+			expect(e.validation).toBeTruthy();
+			expect(e.ajv).toBeTruthy();
+			expect(Array.isArray(e.errors)).toBeTruthy();
+			expect(e.errors.length).toBe(1);
+
+			const error = e.errors[0];
+			expect(error.instancePath).toBe('/ubl:Invoice/cac:InvoiceLine/0/cbc:ID');
+			expect(error.schemaPath).toBe(
 				'#/properties/ubl%3AInvoice/properties/cac%3AInvoiceLine/items/properties/cbc%3AID',
+			);
+			expect(error.keyword).toBe('type');
+			expect(error.params).toEqual({ type: 'string' });
+			expect(error.message).toBe(
 				"reference '=:Lines.A1' resolves to null: cannot find section 'Lines' in tree",
 			);
 		}
@@ -349,23 +379,3 @@ describe('MappingService', () => {
 		});
 	});
 });
-
-function testAjvException(
-	e: any,
-	instancePath: string,
-	schemaPath: string,
-	message: string,
-) {
-	expect(e).toBeDefined();
-	expect(e.validation).toBeTruthy();
-	expect(e.ajv).toBeTruthy();
-	expect(Array.isArray(e.errors)).toBeTruthy();
-	expect(e.errors.length).toBe(1);
-
-	const error = e.errors[0];
-	expect(error.instancePath).toBe(instancePath);
-	expect(error.schemaPath).toBe(schemaPath);
-	expect(error.keyword).toBe('type');
-	expect(error.params).toEqual({ type: 'string' });
-	expect(error.message).toBe(message);
-}
