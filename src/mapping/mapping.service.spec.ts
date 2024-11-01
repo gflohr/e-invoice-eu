@@ -183,6 +183,39 @@ describe('MappingService', () => {
 		expect(validateMock).toHaveBeenCalledTimes(1);
 	});
 
+	it('should load a mapping with extension .yml', async () => {
+		const id = 'default';
+		const yaml = 'meta: something';
+
+		const readFileMock = fs.readFile as jest.MockedFunction<typeof fs.readFile>;
+		readFileMock.mockImplementation(async (path: string) => {
+			if (path === 'resources/mappings/default.yml') {
+				return yaml;
+			} else {
+				const error = new Error(
+					`ENOENT: no such file or directory, open '${path}'`,
+				) as NodeJS.ErrnoException;
+				error.code = 'ENOENT';
+				throw error;
+			}
+		});
+
+		const validateMock = jest
+			.spyOn(ValidationService.prototype, 'validate')
+			.mockImplementation((id, validatorFunction, data) => data);
+
+		const wanted = { meta: 'something' };
+
+		const got = await service.loadMapping(id);
+
+		expect(got).toEqual(wanted);
+		expect(readFileMock).toHaveBeenCalledWith(
+			`resources/mappings/${id}.yaml`,
+			'utf-8',
+		);
+		expect(validateMock).toHaveBeenCalledTimes(1);
+	});
+
 	it('should throw an exception if the mapping does not exist', async () => {
 		const id = 'custom';
 		const errorMessage = 'No such file or directory';
