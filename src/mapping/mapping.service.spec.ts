@@ -289,6 +289,41 @@ describe('MappingService', () => {
 		mockLoadMapping.mockRestore();
 	});
 
+	it('should throw an exception if a non-existing sheet is referenced as section', async () => {
+		const localMapping = structuredClone(mapping);
+		localMapping['ubl:Invoice']['cac:InvoiceLine']['section'] = 'Infoice:Line';
+		const mockLoadMapping = jest
+			.spyOn(service, 'loadMapping')
+			.mockResolvedValueOnce(localMapping);
+		const buf: Buffer = [] as unknown as Buffer;
+
+		jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
+
+		try {
+			await service.transform('test-id', buf);
+			throw new Error('no exception thrown');
+		} catch (e) {
+			expect(e).toBeDefined();
+			expect(e.validation).toBeTruthy();
+			expect(e.ajv).toBeTruthy();
+			expect(Array.isArray(e.errors)).toBeTruthy();
+			expect(e.errors.length).toBe(1);
+
+			const error = e.errors[0];
+			expect(error.instancePath).toBe('/ubl:Invoice/cac:InvoiceLine/section');
+			expect(error.schemaPath).toBe(
+				'#/properties/ubl%3AInvoice/properties/cac%3AInvoiceLine/properties/section',
+			);
+			expect(error.keyword).toBe('type');
+			expect(error.params).toEqual({ type: 'string' });
+			expect(error.message).toBe(
+				"section reference 'Infoice:Line' resolves to null: no section column for sheet 'Infoice'",
+			);
+		}
+
+		mockLoadMapping.mockRestore();
+	});
+
 	describe('should transform invoice data', () => {
 		let invoice: Invoice;
 

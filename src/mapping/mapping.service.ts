@@ -142,8 +142,6 @@ export class MappingService {
 		mapping: { [key: string]: any },
 		ctx: MappingContext,
 	) {
-		ctx.schemaPath.push('items');
-
 		const sectionRef = mapping.section;
 
 		const matches = sectionRef.match(sectionReferenceRe);
@@ -155,10 +153,7 @@ export class MappingService {
 
 		try {
 			if (!(sheetName in ctx.sectionRanges)) {
-				throw new Error(
-					`section reference '${sectionRef}' resolves to null:` +
-						` no section column for sheet '${sheetName}'`,
-				);
+				throw new Error(`no section column for sheet '${sheetName}'`);
 			}
 			if (!(section in ctx.sectionRanges[sheetName])) {
 				throw new Error(`no section '${section}' in sheet '${sheetName}'`);
@@ -167,8 +162,12 @@ export class MappingService {
 			const message =
 				`section reference '${sectionRef}' resolves to null: ` + e.message;
 
+			ctx.schemaPath.push('properties');
+			ctx.schemaPath.push('section');
 			throw this.makeValidationError(message, ctx);
 		}
+
+		ctx.schemaPath.push('items');
 
 		const sectionRanges = ctx.sectionRanges[sheetName][section];
 		const upperBound = sectionRanges[sectionRanges.length - 1];
