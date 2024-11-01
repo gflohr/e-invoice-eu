@@ -13,6 +13,7 @@ jest.mock('fs/promises');
 const mapping = {
 	meta: {
 		sectionColumn: {
+			Unused: 'L',
 			Invoice: 'K',
 		},
 	},
