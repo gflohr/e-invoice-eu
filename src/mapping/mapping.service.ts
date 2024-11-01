@@ -129,7 +129,7 @@ export class MappingService {
 				target[property] = [];
 				this.transformArray(target[property], mapping[property], ctx);
 			} else {
-				target[property] = {}; // FIXME! Maybe type array.
+				target[property] = {};
 				this.transformObject(target[property], mapping[property], ctx);
 			}
 			ctx.schemaPath.pop();

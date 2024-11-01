@@ -23,6 +23,9 @@ const mapping = {
 		'cbc:IssueDate': '=A1',
 		'cbc:DueDate': "='Invoice'.A2",
 		'cbc:Note': "'= not equals eagles",
+		'cac:OrderReference': {
+			'cbc:ID': '=A3',
+		},
 		'cac:InvoiceLine': {
 			section: ':Line',
 			'cbc:ID': '=:Line.A1',
@@ -48,6 +51,10 @@ const workbook = {
 			A2: {
 				t: 'd',
 				v: new Date('2024-10-28T12:34:56Z'),
+			},
+			A3: {
+				t: 's',
+				v: '0815',
 			},
 			B1: {
 				t: 's',
@@ -400,6 +407,13 @@ describe('MappingService', () => {
 		it('should map a quoted literal value', () => {
 			const wanted = '= not equals eagles';
 			expect(invoice['ubl:Invoice']['cbc:Note']).toBe(wanted);
+		});
+
+		it('should map a nested object property', () => {
+			const wanted = '0815';
+			expect(invoice['ubl:Invoice']['cac:OrderReference']?.['cbc:ID']).toBe(
+				wanted,
+			);
 		});
 
 		it('should map an array of invoice lines', () => {
