@@ -378,12 +378,6 @@ export class MappingService {
 			const section = pathInfo[0];
 			const index = pathInfo[1];
 
-			if (index >= ctx.sectionRanges[sheetName][section].length) {
-				throw new Error(
-					`section '${section}' out of range for sheet '${sheetName}'`,
-				);
-			}
-
 			if (section === cellSection) {
 				return ctx.sectionRanges[sheetName][section][index];
 			}

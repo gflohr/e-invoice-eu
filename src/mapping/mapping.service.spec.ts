@@ -250,13 +250,12 @@ describe('MappingService', () => {
 	it('should throw an exception if a non-existing section is referenced', async () => {
 		const localMapping = structuredClone(mapping);
 		localMapping['ubl:Invoice']['cac:InvoiceLine']['cbc:ID'] = '=:Lines.A1';
-		const localWorkbook = structuredClone(workbook);
 		const mockLoadMapping = jest
 			.spyOn(service, 'loadMapping')
 			.mockResolvedValueOnce(localMapping);
 		const buf: Buffer = [] as unknown as Buffer;
 
-		jest.spyOn(XLSX, 'read').mockReturnValueOnce(localWorkbook);
+		jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
 		try {
 			await service.transform('test-id', buf);
