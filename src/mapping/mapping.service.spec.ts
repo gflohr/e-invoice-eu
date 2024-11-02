@@ -26,6 +26,9 @@ const mapping = {
 		'cac:OrderReference': {
 			'cbc:ID': '=A3',
 		},
+		'cac:LegalMonetaryTotal': {
+			'cbc:LineExtensionAmount': '=:SubTotal.F1',
+		},
 		'cac:InvoiceLine': {
 			section: ':Line',
 			'cbc:ID': '=:Line.A1',
@@ -96,6 +99,10 @@ const workbook = {
 				t: 's',
 				v: '42.00',
 			},
+			F27: {
+				t: 's',
+				v: '12345.67',
+			},
 			K20: {
 				t: 's',
 				v: 'Line',
@@ -119,6 +126,10 @@ const workbook = {
 			K25: {
 				t: 's',
 				v: 'ACLine',
+			},
+			K27: {
+				t: 's',
+				v: 'SubTotal',
 			},
 			'!ref': 'A1:Z999',
 		},
@@ -259,7 +270,7 @@ describe('MappingService', () => {
 				expect(error.keyword).toBe('type');
 				expect(error.params).toEqual({ type: 'string' });
 				expect(error.message).toBe(
-					"reference '=:Lines.A1' resolves to null: cannot find section 'Lines' in tree",
+					"reference '=:Lines.A1' resolves to null: cannot find section 'Lines' in sheet 'Invoice'",
 				);
 			}
 
@@ -432,6 +443,14 @@ describe('MappingService', () => {
 					expect(target[1]['cbc:Amount']).toBe('42.00');
 					expect(target[1]['cbc:Amount@currencyID']).toBe('EUR');
 				}
+			});
+
+			it('should map non-array sections', () => {
+				const target =
+					invoice['ubl:Invoice']['cac:LegalMonetaryTotal'][
+						'cbc:LineExtensionAmount'
+					];
+				expect(target).toBe('12345.67');
 			});
 		});
 	});

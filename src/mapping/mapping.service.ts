@@ -344,7 +344,20 @@ export class MappingService {
 			}
 		}
 
-		throw new Error(`cannot find section '${cellSection}' in tree`);
+		if (!(cellSection in ctx.sectionRanges[sheetName])) {
+			throw new Error(
+				`cannot find section '${cellSection}' in sheet '${sheetName}'`,
+			);
+		}
+
+		const rows = ctx.sectionRanges[sheetName][cellSection];
+		if (rows.length !== 2) {
+			throw new Error(
+				`multiple non-array sections '${cellSection}' in sheet '${sheetName}'`,
+			);
+		}
+
+		return rows[0];
 	}
 
 	private getInstancePath(ctx: MappingContext): string {
