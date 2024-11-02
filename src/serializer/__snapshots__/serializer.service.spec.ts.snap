@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SerializerService should serialize a nested object 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<Root xmlns="urn:mine">
+	<foo>
+		<bar>foobar</bar>
+	</foo>
+	<baz>bazoo</baz>
+</Root>"
+`;
