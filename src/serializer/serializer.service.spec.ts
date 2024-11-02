@@ -82,7 +82,6 @@ describe('SerializerService', () => {
 			],
 		};
 		const xml = service.xml('attributes', { xmlns: 'urn:mine' }, data, options);
-		console.warn(xml);
 
 		expect(xml).toMatchSnapshot();
 	});
