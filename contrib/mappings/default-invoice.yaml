@@ -28,7 +28,7 @@ ubl:Invoice:
         cbc:RegistrationName: =A1
   cac:TaxTotal:
     section: :TaxSubtotal
-    cbc:TaxAmount: =:TaxTotal.J1
+    cbc:TaxAmount: =:TaxSubTotal.J1
     cbc:TaxAmount@currencyID: EUR
   cac:LegalMonetaryTotal:
     cbc:LineExtensionAmount: =:Footer.J1
