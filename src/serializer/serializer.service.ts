@@ -41,7 +41,24 @@ export class SerializerService {
 				if (typeof input[key] === 'object') {
 					output[key] = this.convert(input[key]);
 				} else {
-					output[key] = input[key].toString();
+					const [elem, attr] = key.split('@', 2);
+
+					if (typeof attr !== 'undefined') {
+						if (!(elem in output)) {
+							throw new Error(`orphan attribute ${key}`);
+						}
+
+						if (typeof output[elem] === 'string') {
+							output[elem] = {
+								'#': output[elem],
+								[`@${attr}`]: input[key].toString(),
+							};
+						} else {
+							output[elem][`@${attr}`] = input[key].toString();
+						}
+					} else {
+						output[elem] = input[key].toString();
+					}
 				}
 			}
 		}

@@ -41,4 +41,26 @@ describe('SerializerService', () => {
 
 		expect(xml).toMatchSnapshot();
 	});
+
+	it('should serialize attributes of text nodes', () => {
+		const data = {
+			foo: 'bar',
+			'foo@baz': 'bazoo',
+		};
+		const xml = service.xml('attributes', { xmlns: 'urn:mine' }, data, options);
+
+		expect(xml).toMatchSnapshot();
+	});
+
+	it('should serialize attributes of object nodes', () => {
+		const data = {
+			foo: {
+				bar: 'baz',
+			},
+			'foo@baz': 'bazoo',
+		};
+		const xml = service.xml('attributes', { xmlns: 'urn:mine' }, data, options);
+
+		expect(xml).toMatchSnapshot();
+	});
 });
