@@ -10,6 +10,24 @@ exports[`SerializerService should serialize a nested object 1`] = `
 </Root>"
 `;
 
+exports[`SerializerService should serialize arrays 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<attributes xmlns="urn:mine">
+	<foo>
+		<bar>1</bar>
+		<baz>11</baz>
+	</foo>
+	<foo>
+		<bar>2</bar>
+		<baz>22</baz>
+	</foo>
+	<foo>
+		<bar>3</bar>
+		<baz>33</baz>
+	</foo>
+</attributes>"
+`;
+
 exports[`SerializerService should serialize attributes of object nodes 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <attributes xmlns="urn:mine">

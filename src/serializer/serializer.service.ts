@@ -34,9 +34,14 @@ export class SerializerService {
 	}
 
 	private convert(input: { [key: string]: any }): ExpandObject {
-		const output: ExpandObject = {};
+		let output: ExpandObject;
 		if (Array.isArray(input)) {
+			output = [];
+			for (let i = 0; i < input.length; ++i) {
+				output.push(this.convert(input[i]));
+			}
 		} else {
+			output = {};
 			for (const key in input) {
 				if (typeof input[key] === 'object') {
 					output[key] = this.convert(input[key]);
