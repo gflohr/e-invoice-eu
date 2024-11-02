@@ -28,12 +28,12 @@ ubl:Invoice:
         cbc:RegistrationName: =A1
   cac:TaxTotal:
     section: :TaxSubtotal
-    cbc:TaxAmount: =:TaxSubTotal.J1
+    cbc:TaxAmount: =:TaxSubtotal.J1
     cbc:TaxAmount@currencyID: EUR
   cac:LegalMonetaryTotal:
-    cbc:LineExtensionAmount: =:Footer.J1
+    cbc:LineExtensionAmount: =:Subtotal.J1
     cbc:LineExtensionAmount@currencyID: EUR
-    cbc:TaxExclusiveAmount: =:netTotal.J1
+    cbc:TaxExclusiveAmount: =:NetTotal.J1
     cbc:TaxExclusiveAmount@currencyID: EUR
     cbc:TaxInclusiveAmount: =:GrandTotal.J1
     cbc:TaxInclusiveAmount@currencyID: EUR
@@ -49,7 +49,7 @@ ubl:Invoice:
     cac:Item:
       cbc:Name: =:InvoiceLine.B1
       cac:ClassifiedTaxCategory:
-        cbc:ID: =:TaxSubtotal.M1
+        cbc:ID: =:InvoiceLine.N1
         cac:TaxScheme:
           cbc:ID: VAT
     cac:Price:
