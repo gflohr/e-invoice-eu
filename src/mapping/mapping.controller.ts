@@ -71,7 +71,7 @@ export class MappingController {
 			{ name: 'mapping', maxCount: 1 },
 		]),
 	)
-	transformMapping(
+	transform(
 		@UploadedFiles()
 		files: {
 			data?: Express.Multer.File[];
