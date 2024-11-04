@@ -4,6 +4,7 @@ import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 import { FormatXMLService } from './format-xml.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { Invoice } from '../invoice/invoice.interface';
+import { Mapping } from '../mapping/mapping.interface';
 
 @Injectable()
 export class FormatUBLService
@@ -16,6 +17,54 @@ export class FormatUBLService
 
 	get profileID(): string {
 		return 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0';
+	}
+
+	fillMappingDefaults(mapping: Mapping) {
+		if ('automatic' === mapping['ubl:Invoice']['cbc:CustomizationID']) {
+			mapping['ubl:Invoice']['cbc:CustomizationID'] = this.customizationID;
+		}
+
+		if ('automatic' === mapping['ubl:Invoice']['cbc:ProfileID']) {
+			mapping['ubl:Invoice']['cbc:ProfileID'] = this.profileID;
+		}
+
+		// The relevant parts of the mapping and invoice structure are
+		// identical.
+		this.sortKeys(mapping as unknown as Invoice);
+	}
+
+	fillInvoiceDefaults(invoice: Invoice) {
+		if ('automatic' === invoice['ubl:Invoice']['cbc:CustomizationID']) {
+			invoice['ubl:Invoice']['cbc:CustomizationID'] = this.customizationID;
+		}
+
+		if ('automatic' === invoice['ubl:Invoice']['cbc:ProfileID']) {
+			invoice['ubl:Invoice']['cbc:ProfileID'] = this.profileID;
+		}
+
+		this.sortKeys(invoice);
+	}
+
+	/**
+	 * The order of objects is crucial for the XML generation.  We therefore
+	 * have to make sure that the filled in defaults are at the right
+	 * position.
+	 */
+	private sortKeys(invoice: Invoice) {
+		const customizationID = invoice['ubl:Invoice']['cbc:CustomizationID'];
+		const profileID = invoice['ubl:Invoice']['cbc:profileID'];
+		const newInvoice: Invoice = {
+			'ubl:Invoice': {
+				'cbc:CustomizationID': customizationID,
+				'cbc:ProfileID': profileID,
+			},
+		} as unknown as Invoice;
+
+		for (const key of Object.keys(invoice['ubl:Invoice'])) {
+			newInvoice['ubl:Invoice'][key] = invoice['ubl:Invoice'][key];
+		}
+
+		invoice['ubl:Invoice'] = newInvoice['ubl:Invoice'];
 	}
 
 	generate(invoice: Invoice): string {

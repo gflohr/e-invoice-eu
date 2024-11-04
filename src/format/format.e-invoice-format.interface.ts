@@ -1,4 +1,5 @@
 import { Invoice } from "../invoice/invoice.interface";
+import { Mapping } from "../mapping/mapping.interface";
 
 export interface EInvoiceFormat {
 	/**
@@ -10,6 +11,16 @@ export interface EInvoiceFormat {
 	 * The default profile ID of that format.
 	 */
 	get profileID(): string;
+
+	/**
+	 * Fill default and computable values in mapping.
+	 */
+	fillMappingDefaults(mapping: Mapping): void;
+
+	/**
+	 * Fill default and computable values in invoice.
+	 */
+	fillInvoiceDefaults(invoice: Invoice): void;
 
 	/**
 	 * Generate an invoice.

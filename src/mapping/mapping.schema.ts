@@ -34,9 +34,11 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 			properties: {
 				'cbc:CustomizationID': {
 					$ref: '#/$defs/valueRef',
+					default: 'automatic',
 				},
 				'cbc:ProfileID': {
 					$ref: '#/$defs/valueRef',
+					default: 'automatic',
 				},
 				'cbc:ID': {
 					$ref: '#/$defs/valueRef',
@@ -1413,6 +1415,8 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 			},
 			required: [
+				'cbc:CustomizationID',
+				'cbc:ProfileID',
 				'cbc:ID',
 				'cbc:IssueDate',
 				'cbc:InvoiceTypeCode',

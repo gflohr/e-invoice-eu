@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { FormatUBLService } from './format-ubl.service';
 import { FormatXMLService } from './format-xml.service';
+import { FormatXRECHNUNGUBLService } from './format-xrechnung-ubl.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { SerializerService } from '../serializer/serializer.service';
 
@@ -9,11 +10,10 @@ import { SerializerService } from '../serializer/serializer.service';
 export class FormatFactoryService {
 	private readonly formatServices: { [key: string]: new (...args: any[]) => EInvoiceFormat } = {
 		UBL: FormatUBLService,
+		'XRECHNUNG-UBL': FormatXRECHNUNGUBLService,
 	};
 
-	constructor(
-		private readonly serializerService: SerializerService,
-	) {}
+	constructor(private readonly serializerService: SerializerService) {}
 
 	createFormatService(format: string): EInvoiceFormat {
 		const FormatService = this.formatServices[format];

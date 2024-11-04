@@ -18,13 +18,11 @@ import { Response } from 'express';
 
 import { FormatFactoryService } from '../format/format.factory.service';
 import { MappingService } from '../mapping/mapping.service';
-import { SerializerService } from '../serializer/serializer.service';
 
 @ApiTags('invoice')
 @Controller('invoice')
 export class InvoiceController {
 	constructor(
-		private readonly serializerService: SerializerService,
 		private readonly mappingService: MappingService,
 		private readonly formatFactoryService: FormatFactoryService,
 		private readonly logger: Logger,
@@ -76,10 +74,6 @@ export class InvoiceController {
 			mapping?: Express.Multer.File[];
 		},
 	) {
-		if (format !== 'UBL') {
-			throw new BadRequestException(`Unsupported format '${format}'`);
-		}
-
 		const dataFile = files.data?.[0];
 		if (!dataFile) {
 			throw new BadRequestException('No invoice file uploaded');
@@ -92,6 +86,7 @@ export class InvoiceController {
 
 		try {
 			const invoice = this.mappingService.transform(
+				format,
 				mappingFile.buffer.toString(),
 				dataFile.buffer,
 			);

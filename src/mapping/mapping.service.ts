@@ -1,5 +1,5 @@
 import * as XLSX from '@e965/xlsx';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import Ajv2019, {
 	ErrorObject,
 	JSONSchemaType,
@@ -8,11 +8,11 @@ import Ajv2019, {
 } from 'ajv/dist/2019';
 import * as yaml from 'js-yaml';
 import * as jsonpath from 'jsonpath-plus';
-import * as path from 'path';
 
 import { Mapping, MappingMetaInformation } from './mapping.interface';
 import { mappingValueRe, sectionReferenceRe } from './mapping.regex';
 import { mappingSchema } from './mapping.schema';
+import { FormatFactoryService } from '../format/format.factory.service';
 import { Invoice } from '../invoice/invoice.interface';
 import { invoiceSchema } from '../invoice/invoice.schema';
 import { ValidationService } from '../validation/validation.service';
@@ -30,16 +30,16 @@ type MappingContext = {
 
 @Injectable()
 export class MappingService {
-	private readonly logger = new Logger(MappingService.name);
 	private readonly validator: ValidateFunction<Mapping>;
-	private readonly basePath = path.join('resources', 'mappings');
 
-	constructor(private readonly validationService: ValidationService) {
-		const ajv = new Ajv2019({ strict: true, allErrors: true });
+	constructor(
+		private readonly formatFactoryService: FormatFactoryService,
+		private readonly validationService: ValidationService) {
+		const ajv = new Ajv2019({ strict: true, allErrors: true, useDefaults: true });
 		this.validator = ajv.compile(mappingSchema);
 	}
 
-	private parseMapping(yamlData: string): Mapping {
+	private parseMapping(format: string, yamlData: string): Mapping {
 		const obj = yaml.load(yamlData);
 
 		const valid = this.validationService.validate(
@@ -48,11 +48,14 @@ export class MappingService {
 			obj,
 		);
 
+		const formatter = this.formatFactoryService.createFormatService(format);
+		formatter.fillMappingDefaults(valid);
+
 		return valid;
 	}
 
-	transform(yamlMapping: string, dataBuffer: Buffer): Invoice {
-		const mapping = this.parseMapping(yamlMapping);
+	transform(format: string, yamlMapping: string, dataBuffer: Buffer): Invoice {
+		const mapping = this.parseMapping(format, yamlMapping);
 		const workbook = XLSX.read(dataBuffer, {
 			type: 'buffer',
 			cellDates: true,

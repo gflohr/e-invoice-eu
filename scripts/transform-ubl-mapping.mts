@@ -3,6 +3,7 @@
 import { JSONSchemaType } from 'ajv';
 import * as fs from 'fs';
 import yaml from 'js-yaml';
+
 import { Invoice } from '../src/invoice/invoice.interface';
 import {
 	mappingValuePattern,
@@ -76,9 +77,14 @@ function transformSchema(schema: JSONSchemaType<any>): void {
 			transformSchema(value as JSONSchemaType<any>);
 
 			const valueObject = value as Record<string, any>;
+
 			// Update type and references
 			if (valueObject.type === 'string' || valueObject.$ref) {
+				const defaultValue = schema.properties[key].default;
 				schema.properties[key] = { $ref: '#/$defs/valueRef' };
+				if (typeof defaultValue !== 'undefined') {
+					schema.properties[key].default = defaultValue;
+				}
 			} else if (valueObject.type === 'array') {
 				// Convert array to object
 				const newObject: Record<string, JSONSchemaType<object>> = {
