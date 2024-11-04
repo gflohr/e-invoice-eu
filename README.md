@@ -1,4 +1,4 @@
-# EInvoice-EU
+# E-Invoice-EU
 
 Tool-chain for generating EN16931 conforming invoices
 
