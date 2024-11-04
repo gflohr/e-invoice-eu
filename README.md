@@ -121,6 +121,12 @@ to four decimal digits.
 For other numerical types, like quantities, we could use numbers but for
 consistency we use strings throughout the schema.
 
+### What Does the Warning 'ODS number format may be incorrect' Mean?
+
+See [SheetJS GitHub issue #1569](https://github.com/SheetJS/sheetjs/issues/1569).
+You can probably ignore this warning, unless you run into a problem with
+number formats.
+
 ## License
 
 This is free software available under the terms of the
