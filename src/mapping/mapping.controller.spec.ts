@@ -5,6 +5,7 @@ import * as request from 'supertest';
 
 import { MappingController } from './mapping.controller';
 import { MappingService } from './mapping.service';
+import { FormatFactoryService } from '../format/format.factory.service';
 import { Invoice } from '../invoice/invoice.interface';
 
 describe('MappingController', () => {
@@ -19,6 +20,10 @@ describe('MappingController', () => {
 		const module: TestingModule = await Test.createTestingModule({
 			controllers: [MappingController],
 			providers: [
+				{
+					provide: FormatFactoryService,
+					useValue: {},
+				},
 				{
 					provide: MappingService,
 					useValue: {
@@ -57,7 +62,11 @@ describe('MappingController', () => {
 
 		expect(response.status).toBe(201);
 		expect(response.body).toEqual(mockTransformedData);
-		expect(service.transform).toHaveBeenCalledWith(mapping, Buffer.from(data));
+		expect(service.transform).toHaveBeenCalledWith(
+			'UBL',
+			mapping,
+			Buffer.from(data),
+		);
 	});
 
 	it.skip('should return 400 if transformation fails', async () => {

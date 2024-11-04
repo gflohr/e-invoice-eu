@@ -4,7 +4,9 @@ import { JSONSchemaType } from 'ajv';
 
 import { Mapping, MappingMetaInformation } from './mapping.interface';
 import { MappingService } from './mapping.service';
+import { FormatFactoryService } from '../format/format.factory.service';
 import { Invoice } from '../invoice/invoice.interface';
+import { SerializerService } from '../serializer/serializer.service';
 import { ValidationService } from '../validation/validation.service';
 
 jest.mock('fs/promises');
@@ -152,6 +154,16 @@ describe('MappingService', () => {
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
 				MappingService,
+				FormatFactoryService,
+				{
+					provide: 'FormatFactoryService',
+					useValue: {},
+				},
+				SerializerService,
+				{
+					provide: 'SerializerService',
+					useValue: {},
+				},
 				ValidationService,
 				{
 					provide: 'ValidationService',
@@ -251,7 +263,7 @@ describe('MappingService', () => {
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
 			try {
-				await service.transform('{}', buf);
+				service.transform('UBL', '{}', buf);
 				throw new Error('no exception thrown');
 			} catch (e) {
 				expect(e).toBeDefined();
@@ -289,7 +301,7 @@ describe('MappingService', () => {
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
 			try {
-				await service.transform('{}', buf);
+				service.transform('UBL', '{}', buf);
 				throw new Error('no exception thrown');
 			} catch (e) {
 				expect(e).toBeDefined();
@@ -325,7 +337,7 @@ describe('MappingService', () => {
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
 			try {
-				await service.transform('{}', buf);
+				service.transform('UBL', '{}', buf);
 				throw new Error('no exception thrown');
 			} catch (e) {
 				expect(e).toBeDefined();
@@ -360,7 +372,7 @@ describe('MappingService', () => {
 
 				jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
-				invoice = await service.transform('{}', buf);
+				invoice = service.transform('UBL', '{}', buf);
 
 				mockParseMapping.mockRestore();
 			});
