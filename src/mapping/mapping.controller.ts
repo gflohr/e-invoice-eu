@@ -4,6 +4,7 @@ import {
 	InternalServerErrorException,
 	Logger,
 	NotFoundException,
+	Param,
 	Post,
 	UploadedFiles,
 	UseInterceptors,
@@ -23,7 +24,7 @@ export class MappingController {
 		private readonly logger: Logger,
 	) {}
 
-	@Post('transform')
+	@Post('transform/:format')
 	@ApiConsumes('multipart/form-data')
 	@ApiBody({
 		description: 'The spreadsheet to be transformed.',
@@ -68,12 +69,17 @@ export class MappingController {
 		]),
 	)
 	transform(
+		@Param('format') format: string,
 		@UploadedFiles()
 		files: {
 			data?: Express.Multer.File[];
 			mapping?: Express.Multer.File[];
 		},
 	): Invoice {
+		if (format !== 'UBL') {
+			throw new BadRequestException(`Unsupported format '${format}'`);
+		}
+
 		const dataFile = files.data?.[0];
 		if (!dataFile) {
 			throw new BadRequestException('No invoice file uploaded');

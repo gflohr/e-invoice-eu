@@ -74,13 +74,13 @@ export class InvoiceController {
 			mapping?: Express.Multer.File[];
 		},
 	) {
+		if (format !== 'UBL') {
+			throw new BadRequestException(`Unsupported format '${format}'`);
+		}
+
 		const dataFile = files.data?.[0];
 		if (!dataFile) {
 			throw new BadRequestException('No invoice file uploaded');
-		}
-
-		if (format !== 'UBL') {
-			throw new BadRequestException(`Unsupported format '${format}'`);
 		}
 
 		const mappingFile = files.mapping?.[0];

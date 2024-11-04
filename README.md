@@ -72,10 +72,13 @@ You can use it with the spreadsheet data from
 `contrib/templates/1234567890-consulting/default-invoice.ods` like this:
 
 ```bash
-$ curl -X POST http://localhost:3000/api/mapping/transform/default-invoice \
+$ curl -X POST http://localhost:3000/api/mapping/transform/UBL \
 	-F mapping=@contrib/mappings/default-invoice.yaml \
 	-F data=@contrib/templates/1234567890-consulting/default-invoice.ods
 ```
+
+This will create invoice data in the internal format from a spreadsheet. The
+intended target format is UBL.
 
 ### Create an Invoice from a Spreadsheet
 

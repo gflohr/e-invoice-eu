@@ -51,7 +51,7 @@ describe('MappingController', () => {
 		const mapping = 'test: data success';
 		const data = 'test data';
 		const response = await request(app.getHttpServer())
-			.post('/mapping/transform')
+			.post('/mapping/transform/UBL')
 			.attach('mapping', Buffer.from(mapping), 'mapping.yaml')
 			.attach('data', Buffer.from(data), 'test.ods');
 
@@ -73,7 +73,7 @@ describe('MappingController', () => {
 		});
 
 		const response = await request(app.getHttpServer())
-			.post('/mapping/transform')
+			.post('/mapping/transform/UBL')
 			.attach('mapping', Buffer.from('test: data fail'), 'mapping.yaml')
 			.attach('data', Buffer.from('test data'), 'test.xlsx');
 
@@ -92,7 +92,7 @@ describe('MappingController', () => {
 		});
 
 		const response = await request(app.getHttpServer())
-			.post('/mapping/transform')
+			.post('/mapping/transform/UBL')
 			.attach('mapping', Buffer.from('test: data exception'), 'mapping.yaml')
 			.attach('data', Buffer.from('test data'), 'test.xlsx');
 
