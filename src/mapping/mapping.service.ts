@@ -34,8 +34,13 @@ export class MappingService {
 
 	constructor(
 		private readonly formatFactoryService: FormatFactoryService,
-		private readonly validationService: ValidationService) {
-		const ajv = new Ajv2019({ strict: true, allErrors: true, useDefaults: true });
+		private readonly validationService: ValidationService,
+	) {
+		const ajv = new Ajv2019({
+			strict: true,
+			allErrors: true,
+			useDefaults: true,
+		});
 		this.validator = ajv.compile(mappingSchema);
 	}
 

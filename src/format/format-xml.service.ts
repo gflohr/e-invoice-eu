@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 
-import { SerializerOptions, SerializerService } from '../serializer/serializer.service';
+import {
+	SerializerOptions,
+	SerializerService,
+} from '../serializer/serializer.service';
 
 @Injectable()
 export class FormatXMLService {

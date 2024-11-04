@@ -1,5 +1,5 @@
-import { Invoice } from "../invoice/invoice.interface";
-import { Mapping } from "../mapping/mapping.interface";
+import { Invoice } from '../invoice/invoice.interface';
+import { Mapping } from '../mapping/mapping.interface';
 
 export interface EInvoiceFormat {
 	/**

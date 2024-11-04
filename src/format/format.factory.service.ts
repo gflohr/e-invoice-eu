@@ -8,7 +8,9 @@ import { SerializerService } from '../serializer/serializer.service';
 
 @Injectable()
 export class FormatFactoryService {
-	private readonly formatServices: { [key: string]: new (...args: any[]) => EInvoiceFormat } = {
+	private readonly formatServices: {
+		[key: string]: new (...args: any[]) => EInvoiceFormat;
+	} = {
 		UBL: FormatUBLService,
 		'XRECHNUNG-UBL': FormatXRECHNUNGUBLService,
 	};

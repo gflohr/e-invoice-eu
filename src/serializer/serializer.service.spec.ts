@@ -111,4 +111,27 @@ describe('SerializerService', () => {
 
 		expect(xml).toMatchSnapshot();
 	});
+
+	it('should bail out on orphaned attributes', () => {
+		expect(() => {
+			service.serialize(
+				{
+					Root: {
+						'foo@bar': 'home alone',
+					},
+				},
+				options,
+			);
+		}).toThrow("orphan attribute 'foo@bar'");
+	});
+
+	it('should work with default options', () => {
+		const xml = service.serialize(
+				{
+					Root: {},
+				}
+			);
+
+		expect(xml).toBe('<?xml version="1.0" encoding="utf-8"?><Root/>');
+	});
 });

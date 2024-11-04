@@ -69,20 +69,17 @@ export class FormatUBLService
 
 	generate(invoice: Invoice): string {
 		const expandObject: ExpandObject = {
-				Invoice: invoice,
-				'Invoice@xmlns':
-					'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',
-				'Invoice@xmlns:cac':
-					'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
-				'Invoice@xmlns:cbc':
-					'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
+			Invoice: invoice,
+			'Invoice@xmlns': 'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',
+			'Invoice@xmlns:cac':
+				'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
+			'Invoice@xmlns:cbc':
+				'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
 		};
 
-		return this.render(expandObject,
-			{
-				prettyPrint: true,
-				indent: '\t',
-			}
-		);
+		return this.render(expandObject, {
+			prettyPrint: true,
+			indent: '\t',
+		});
 	}
 }
