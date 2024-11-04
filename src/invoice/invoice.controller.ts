@@ -93,16 +93,16 @@ export class InvoiceController {
 				mappingFile.buffer.toString(),
 				dataFile.buffer,
 			);
-			const xml = this.serializerService.xml(
-				'Invoice',
+			const xml = this.serializerService.serialize(
 				{
-					xmlns: 'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',
-					'xmlns:cac':
+					Invoice: invoice,
+					'Invoice@xmlns':
+						'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',
+					'Invoice@xmlns:cac':
 						'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
-					'xmlns:cbc':
+					'Invoice@xmlns:cbc':
 						'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
 				},
-				invoice,
 				{
 					prettyPrint: true,
 					indent: '\t',

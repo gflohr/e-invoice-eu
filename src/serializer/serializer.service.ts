@@ -9,21 +9,11 @@ export type SerializerOptions = {
 
 @Injectable()
 export class SerializerService {
-	xml(
-		root: string,
-		attributes: { [attr: string]: string },
-		data: object,
+	serialize(
+		data: { [elem: string]: any },
 		options: SerializerOptions = {},
 	): string {
-		const tree = {
-			[root]: {} as { [prop: string]: any },
-		};
-
-		for (const attr in attributes) {
-			tree[root][`@${attr}`] = attributes[attr];
-		}
-
-		Object.assign(tree[root], this.convert(data));
+		const tree = this.convert(data);
 
 		const doc = create({ version: '1.0', encoding: 'utf-8' }).ele(tree);
 

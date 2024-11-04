@@ -23,7 +23,13 @@ describe('SerializerService', () => {
 	});
 
 	it('should serialize an object', () => {
-		const xml = service.xml('Root', { xmlns: 'urn:mine' }, {}, options);
+		const xml = service.serialize(
+			{
+				Root: {},
+				'Root@xmlns': 'urn:mine',
+			},
+			options,
+		);
 
 		expect(xml).toBe(
 			'<?xml version="1.0" encoding="utf-8"?>\n<Root xmlns="urn:mine"/>',
@@ -31,57 +37,77 @@ describe('SerializerService', () => {
 	});
 
 	it('should serialize a nested object', () => {
-		const data = {
-			foo: {
-				bar: 'foobar',
+		const xml = service.serialize(
+			{
+				Root: {
+					foo: {
+						bar: 'foobar',
+					},
+					baz: 'bazoo',
+				},
+				'Root@xmlns': 'urn:mine',
 			},
-			baz: 'bazoo',
-		};
-		const xml = service.xml('Root', { xmlns: 'urn:mine' }, data, options);
+			options,
+		);
 
 		expect(xml).toMatchSnapshot();
 	});
 
 	it('should serialize attributes of text nodes', () => {
-		const data = {
-			foo: 'bar',
-			'foo@baz': 'bazoo',
-		};
-		const xml = service.xml('attributes', { xmlns: 'urn:mine' }, data, options);
+		const xml = service.serialize(
+			{
+				attributes: {
+					foo: 'bar',
+					'foo@baz': 'bazoo',
+				},
+				'attributes@xmlns': 'urn:mine',
+			},
+			options,
+		);
 
 		expect(xml).toMatchSnapshot();
 	});
 
 	it('should serialize attributes of object nodes', () => {
-		const data = {
-			foo: {
-				bar: 'baz',
+		const xml = service.serialize(
+			{
+				attributes: {
+					foo: {
+						bar: 'baz',
+					},
+					'foo@baz': 'bazoo',
+				},
+				'attributes@xmlns': 'urn:mine',
 			},
-			'foo@baz': 'bazoo',
-		};
-		const xml = service.xml('attributes', { xmlns: 'urn:mine' }, data, options);
+			options,
+		);
 
 		expect(xml).toMatchSnapshot();
 	});
 
 	it('should serialize arrays', () => {
-		const data = {
-			foo: [
-				{
-					bar: 1,
-					baz: 11,
+		const xml = service.serialize(
+			{
+				attributes: {
+					foo: [
+						{
+							bar: 1,
+							baz: 11,
+						},
+						{
+							bar: 2,
+							baz: 22,
+						},
+						{
+							bar: 3,
+							baz: 33,
+						},
+					],
 				},
-				{
-					bar: 2,
-					baz: 22,
-				},
-				{
-					bar: 3,
-					baz: 33,
-				},
-			],
-		};
-		const xml = service.xml('attributes', { xmlns: 'urn:mine' }, data, options);
+				'attributes@xmlns': 'urn:mine',
+			},
+			options,
+		);
 
 		expect(xml).toMatchSnapshot();
 	});
