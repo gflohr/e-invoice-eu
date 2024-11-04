@@ -4,6 +4,7 @@ import { JSONSchemaType } from 'ajv';
 
 import { Mapping, MappingMetaInformation } from './mapping.interface';
 import { MappingService } from './mapping.service';
+import { EInvoiceFormat } from '../format/format.e-invoice-format.interface';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { Invoice } from '../invoice/invoice.interface';
 import { SerializerService } from '../serializer/serializer.service';
@@ -149,6 +150,8 @@ const defaultMappingContext = {
 
 describe('MappingService', () => {
 	let service: MappingService;
+	let formatFactoryService: FormatFactoryService;
+	let validationService: ValidationService;
 
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
@@ -157,7 +160,9 @@ describe('MappingService', () => {
 				FormatFactoryService,
 				{
 					provide: 'FormatFactoryService',
-					useValue: {},
+					useValue: {
+						createFormatService: jest.fn(),
+					},
 				},
 				SerializerService,
 				{
@@ -175,6 +180,9 @@ describe('MappingService', () => {
 		}).compile();
 
 		service = module.get<MappingService>(MappingService);
+		formatFactoryService =
+			module.get<FormatFactoryService>(FormatFactoryService);
+		validationService = module.get<ValidationService>(ValidationService);
 	});
 
 	afterEach(() => {
@@ -359,6 +367,85 @@ describe('MappingService', () => {
 			}
 
 			mockParseMapping.mockRestore();
+		});
+
+		it('should throw an exception if multiple unbound sections are encountered', async () => {
+			const mockParseMapping = jest
+				.spyOn(service as any, 'parseMapping')
+				.mockReturnValue(mapping);
+			const buf: Buffer = [] as unknown as Buffer;
+
+			const localWorkbook = structuredClone(workbook);
+			localWorkbook.Sheets.Invoice.K28 = { t: 's', v: 'SubTotal' };
+
+			jest.spyOn(XLSX, 'read').mockReturnValueOnce(localWorkbook);
+
+			try {
+				service.transform('UBL', '{}', buf);
+				throw new Error('no exception thrown');
+			} catch (e) {
+				expect(e).toBeDefined();
+				expect(e.validation).toBeTruthy();
+				expect(e.ajv).toBeTruthy();
+				expect(Array.isArray(e.errors)).toBeTruthy();
+				expect(e.errors.length).toBe(1);
+
+				const error = e.errors[0];
+				expect(error.instancePath).toBe(
+					'/ubl:Invoice/cac:LegalMonetaryTotal/cbc:LineExtensionAmount',
+				);
+				expect(error.schemaPath).toBe(
+					'#/properties/ubl%3AInvoice/properties/cac%3ALegalMonetaryTotal/properties/cbc%3ALineExtensionAmount',
+				);
+				expect(error.keyword).toBe('type');
+				expect(error.params).toEqual({ type: 'string' });
+				expect(error.message).toBe(
+					"reference '=:SubTotal.F1' resolves to null: multiple unbound sections 'SubTotal' in sheet 'Invoice'",
+				);
+			}
+
+			mockParseMapping.mockRestore();
+		});
+
+		// Test the parseMapping() method.
+		it('should validate mappings and fill defaults', () => {
+			const formatter: EInvoiceFormat = {
+				fillMappingDefaults: jest.fn(),
+			} as unknown as EInvoiceFormat;
+			const formatFactorySpy = jest
+				.spyOn(formatFactoryService, 'createFormatService')
+				.mockReturnValue(formatter);
+			const validateSpy = jest
+				.spyOn(validationService, 'validate')
+				.mockReturnValue({ 'ubl:Invoice': {} });
+
+			const buf: Buffer = [] as unknown as Buffer;
+			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
+
+			const mockFillSectionRanges = jest
+				.spyOn(service as any, 'fillSectionRanges')
+				.mockImplementationOnce(() => {});
+
+			const invoice = service.transform('ZIRKUSFeRD', '{}', buf);
+
+			expect(invoice).toEqual({ 'ubl:Invoice': {} });
+			expect(validateSpy).toHaveBeenCalledTimes(1);
+			expect(validateSpy).toHaveBeenCalledWith(
+				'mapping data',
+				expect.anything(),
+				{},
+			);
+
+			expect(formatFactorySpy).toHaveBeenCalledTimes(1);
+			expect(formatFactorySpy).toHaveBeenCalledWith('ZIRKUSFeRD');
+			expect(formatter.fillMappingDefaults).toHaveBeenCalledTimes(1);
+			expect(formatter.fillMappingDefaults).toHaveBeenCalledWith({
+				'ubl:Invoice': {},
+			});
+
+			formatFactorySpy.mockRestore();
+			validateSpy.mockRestore();
+			mockFillSectionRanges.mockRestore();
 		});
 
 		describe('should transform invoice data', () => {

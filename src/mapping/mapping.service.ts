@@ -361,7 +361,7 @@ export class MappingService {
 		const rows = ctx.sectionRanges[sheetName][cellSection];
 		if (rows.length !== 2) {
 			throw new Error(
-				`multiple non-array sections '${cellSection}' in sheet '${sheetName}'`,
+				`multiple unbound sections '${cellSection}' in sheet '${sheetName}'`,
 			);
 		}
 

@@ -126,11 +126,9 @@ describe('SerializerService', () => {
 	});
 
 	it('should work with default options', () => {
-		const xml = service.serialize(
-				{
-					Root: {},
-				}
-			);
+		const xml = service.serialize({
+			Root: {},
+		});
 
 		expect(xml).toBe('<?xml version="1.0" encoding="utf-8"?><Root/>');
 	});
