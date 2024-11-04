@@ -35,11 +35,6 @@ export default [
 			parser: tsParser,
 			ecmaVersion: 5,
 			sourceType: 'module',
-
-			parserOptions: {
-				project: 'tsconfig.json',
-				tsconfigRootDir: '/Users/guidoflohr/javascript/einvoice-eu',
-			},
 		},
 
 		rules: {

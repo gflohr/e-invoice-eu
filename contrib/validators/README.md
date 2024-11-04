@@ -13,18 +13,18 @@ The following online validators are freely available:
 - ZUGFeRD Community (requires registration): https://www.zugferd-community.net/en/login
 - FNFE Service Validator (requires registration): https://services.fnfe-mpe.org/
 
-Please create an [issue](https://github.com/gflohr/einvoice-eu) if you want to
+Please create an [issue](https://github.com/gflohr/e-invoice-eu) if you want to
 add another freely available validator.
 
 ### Offline Validation
 
 [Mustang project](https://github.com/ZUGFeRD/mustangproject) offers validation
-of Factur-X/ZUGFeRD and XRECHNUNG documents.  You need a Java Runtime
+of Factur-X/ZUGFeRD and XRECHNUNG documents. You need a Java Runtime
 Environment for using it.
 
 If you have Java installed, download the `Mustang-CLI-*VERSION*.jar from their
 [release page](https://github.com/ZUGFeRD/mustangproject/releases) and save
-it as `Mustang-CLI.jar` in the directory `contrib/validators/factur-x`.
+it as `Mustang-CLI.jar`in the directory`contrib/validators/factur-x`.
 
 After that you can validate Factur-X/ZUGFeRD like this:
 
@@ -51,7 +51,7 @@ location of the Mustangproject Jar file if it cannot be found at
 ### Online Validation
 
 - portinvoice: https://www.portinvoice.com
-- EPO Consulting Validator: https://www.epoconsulting.com/erechnung-sap/xrechnung-validator 
+- EPO Consulting Validator: https://www.epoconsulting.com/erechnung-sap/xrechnung-validator
 - Invoice Portal XRechnung https://invoice-portal.de/en/peppol-bis-xrechnung-validator/
 - Ecosio: https://ecosio.com/de/peppol-und-xml-dokumente-online-validieren/
 
@@ -104,7 +104,7 @@ $ node contrib/validators/kosit/validate.mjs invoice.pdf
 
 You will see the result of the validation on the console. Additionally, a
 file `*INVOICE_DOCUMENT*-report.xml` will be generated with a detailed
-validation report and a visualization of the invoice.  Despite the filename
+validation report and a visualization of the invoice. Despite the filename
 extension `.xml`, the report is an HTML file and can be displayed in the
 browser.
 
