@@ -1,9 +1,9 @@
 #! /usr/bin/env node
 
+import { JSONSchemaType } from 'ajv';
+import { XMLParser } from 'fast-xml-parser';
 import * as fs from 'fs';
 import * as path from 'path';
-import { XMLParser } from 'fast-xml-parser';
-import { JSONSchemaType } from 'ajv';
 
 // Data types:
 // - Amount: number >= zero, max. 2 decimal digits.
@@ -83,12 +83,22 @@ for (const element of structure) {
 		sortAttributes(tree);
 		const schema = buildSchema(tree);
 		fixupAttributes(schema);
+		patchSchema(schema);
 		console.log(JSON.stringify(schema, null, '\t'));
 		process.exit(0);
 	}
 }
 
 throw new Error(`error parsing '${rootFilename}'`);
+
+/**
+ * Apply the necessary changes to the schema.
+ */
+function patchSchema(schema: JSONSchemaType<object>) {
+	// The customization and profile ID can be deduced from the format.  We
+	// make them therefore optional.
+	schema.properties['ubl:Invoice'].required = schema.properties['ubl:Invoice'].required.filter(elem => elem !== 'cbc:CustomizationID' && elem !== 'cbc:ProfileID');
+}
 
 /**
  * We treat attributes for an element `cxy:SomeElement` like regular elements

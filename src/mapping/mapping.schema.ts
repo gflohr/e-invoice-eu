@@ -4,7 +4,6 @@
  */
 
 import { JSONSchemaType } from 'ajv';
-
 import { Mapping } from './mapping.interface';
 
 export const mappingSchema: JSONSchemaType<Mapping> = {
@@ -1414,8 +1413,6 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 			},
 			required: [
-				'cbc:CustomizationID',
-				'cbc:ProfileID',
 				'cbc:ID',
 				'cbc:IssueDate',
 				'cbc:InvoiceTypeCode',
@@ -1433,11 +1430,11 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 		valueRef: {
 			type: 'string',
 			pattern:
-				"^=(?:([^:.]+|'.+')?(?::([^.:]+)).)?([A-Z]+[1-9][0-9]*)|('.+|[^=].*)$",
+				"^=(?:([^:.]+|'[^']+')?(?::([^.:]+)?)?\\.)?([A-Z]+[1-9][0-9]*)|('[^']+'|[^=].*)$",
 		},
 		sectionRef: {
 			type: 'string',
-			pattern: "(?:([^:.]+|'.+')?(?::([^.:]+)))",
+			pattern: "(?:([^:.]+|'[^']+')?(?::([^.:]+)?))",
 		},
 	},
 } as unknown as JSONSchemaType<Mapping>;
