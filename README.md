@@ -99,7 +99,7 @@ $ curl -v -X POST \
 This will transform the spreadsheet into the internal format and immediately
 create an invoice in format `UBL`.
 
-The format `UBL` is currently the only supported format.
+The formats `UBL` and `XRECHNUNG-UBL` are currently the only supported formats.
 
 ## Frequently Asked Questions
 
