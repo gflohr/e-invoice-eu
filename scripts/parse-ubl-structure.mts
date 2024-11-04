@@ -97,7 +97,12 @@ throw new Error(`error parsing '${rootFilename}'`);
 function patchSchema(schema: JSONSchemaType<object>) {
 	// The customization and profile ID can be deduced from the format.  We
 	// make them therefore optional.
-	schema.properties['ubl:Invoice'].required = schema.properties['ubl:Invoice'].required.filter(elem => elem !== 'cbc:CustomizationID' && elem !== 'cbc:ProfileID');
+	schema.properties['ubl:Invoice'].required = schema.properties[
+		'ubl:Invoice'
+	].required.filter(
+		(elem: string) =>
+			elem !== 'cbc:CustomizationID' && elem !== 'cbc:ProfileID',
+	);
 }
 
 /**

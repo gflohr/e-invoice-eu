@@ -12,6 +12,13 @@ This repository is an attempt to aid small businesses, especially in France and 
 
 It is quite unlikely that you can use anything here out of the box. See it as a starter template for your own solution.
 
+## Documentation
+
+This `README.md` is probably incomplete. Please see the blog post
+[Creating Electronic Invoices with Free and Open Source
+Software](https://www.guido-flohr.net/creating-electronic-invoices-with-free-and-open-source-software/)
+for more accurate in-depth information!
+
 ## Pre-requisites
 
 - NodeJS 20.x

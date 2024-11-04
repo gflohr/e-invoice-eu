@@ -16,6 +16,7 @@ import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ValidationError } from 'ajv';
 import { Response } from 'express';
 
+import { FormatFactoryService } from '../format/format.factory.service';
 import { MappingService } from '../mapping/mapping.service';
 import { SerializerService } from '../serializer/serializer.service';
 
@@ -25,6 +26,7 @@ export class InvoiceController {
 	constructor(
 		private readonly serializerService: SerializerService,
 		private readonly mappingService: MappingService,
+		private readonly formatFactoryService: FormatFactoryService,
 		private readonly logger: Logger,
 	) {
 		this.logger = new Logger(InvoiceController.name);
@@ -93,21 +95,9 @@ export class InvoiceController {
 				mappingFile.buffer.toString(),
 				dataFile.buffer,
 			);
-			const xml = this.serializerService.serialize(
-				{
-					Invoice: invoice,
-					'Invoice@xmlns':
-						'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',
-					'Invoice@xmlns:cac':
-						'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
-					'Invoice@xmlns:cbc':
-						'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
-				},
-				{
-					prettyPrint: true,
-					indent: '\t',
-				},
-			);
+
+			const formatter = this.formatFactoryService.createFormatService(format);
+			const xml = formatter.generate(invoice);
 
 			response.set('Content-Type', 'application/xml');
 			response.status(HttpStatus.CREATED).send(xml);

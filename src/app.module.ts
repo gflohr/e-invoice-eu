@@ -10,6 +10,7 @@ import { SchemaModule } from './schema/schema.module';
 import { SerializerModule } from './serializer/serializer.module';
 import { LoggingInterceptor } from './utils/logging.interceptor';
 import { ValidationModule } from './validation/validation.module';
+import { FormatModule } from './format/format.module';
 
 @Module({
 	imports: [
@@ -21,6 +22,7 @@ import { ValidationModule } from './validation/validation.module';
 		ValidationModule,
 		SchemaModule,
 		SerializerModule,
+		FormatModule,
 	],
 	providers: [
 		MappingService,
