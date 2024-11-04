@@ -1,5 +1,6 @@
 /* istanbul ignore file */
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 
 import { InvoiceModule } from './invoice/invoice.module';
@@ -12,6 +13,9 @@ import { ValidationModule } from './validation/validation.module';
 
 @Module({
 	imports: [
+		ConfigModule.forRoot({
+			isGlobal: true,
+		}),
 		MappingModule,
 		InvoiceModule,
 		ValidationModule,
