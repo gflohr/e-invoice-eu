@@ -61,10 +61,6 @@ export class MappingController {
 		status: 400,
 		description: 'Bad request with error details',
 	})
-	@ApiResponse({
-		status: 404,
-		description: 'Mapping ID not found',
-	})
 	@UseInterceptors(
 		FileFieldsInterceptor([
 			{ name: 'data', maxCount: 1 },

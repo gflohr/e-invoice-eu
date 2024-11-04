@@ -5,6 +5,7 @@ import {
 	InternalServerErrorException,
 	Logger,
 	NotFoundException,
+	Param,
 	Post,
 	Res,
 	UploadedFiles,
@@ -29,7 +30,7 @@ export class InvoiceController {
 		this.logger = new Logger(InvoiceController.name);
 	}
 
-	@Post('transform-and-create')
+	@Post('transform-and-create/:format')
 	@ApiConsumes('multipart/form-data')
 	@ApiBody({
 		description: 'The spreadsheet to be transformed.',
@@ -58,10 +59,6 @@ export class InvoiceController {
 		status: 400,
 		description: 'Bad request with error details',
 	})
-	@ApiResponse({
-		status: 404,
-		description: 'Mapping ID not found',
-	})
 	@UseInterceptors(
 		FileFieldsInterceptor([
 			{ name: 'data', maxCount: 1 },
@@ -70,6 +67,7 @@ export class InvoiceController {
 	)
 	transformAndCreate(
 		@Res() response: Response,
+		@Param('format') format: string,
 		@UploadedFiles()
 		files: {
 			data?: Express.Multer.File[];
@@ -79,6 +77,10 @@ export class InvoiceController {
 		const dataFile = files.data?.[0];
 		if (!dataFile) {
 			throw new BadRequestException('No invoice file uploaded');
+		}
+
+		if (format !== 'UBL') {
+			throw new BadRequestException(`Unsupported format '${format}'`);
 		}
 
 		const mappingFile = files.mapping?.[0];
