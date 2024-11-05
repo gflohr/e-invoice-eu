@@ -3,7 +3,6 @@ import {
 	Controller,
 	InternalServerErrorException,
 	Logger,
-	NotFoundException,
 	Param,
 	Post,
 	UploadedFiles,
@@ -76,10 +75,6 @@ export class MappingController {
 			mapping?: Express.Multer.File[];
 		},
 	): Invoice {
-		if (format !== 'UBL') {
-			throw new BadRequestException(`Unsupported format '${format}'`);
-		}
-
 		const dataFile = files.data?.[0];
 		if (!dataFile) {
 			throw new BadRequestException('No invoice file uploaded');
@@ -97,9 +92,7 @@ export class MappingController {
 				dataFile.buffer,
 			);
 		} catch (error) {
-			if (error.code && error.code === 'ENOENT') {
-				throw new NotFoundException();
-			} else if (error instanceof ValidationError) {
+			if (error instanceof ValidationError) {
 				throw new BadRequestException({
 					message: 'Transformation failed.',
 					details: error,

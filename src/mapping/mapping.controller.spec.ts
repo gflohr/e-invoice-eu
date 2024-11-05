@@ -69,6 +69,28 @@ describe('MappingController', () => {
 		);
 	});
 
+	it('should throw a BadRequestException if no mapping file is uploaded', async () => {
+		const data = ' data';
+		const response = await request(app.getHttpServer())
+			.post('/mapping/transform/UBL')
+			.attach('data', Buffer.from(data), 'invoice.ods');
+
+		expect(response.status).toBe(400);
+		expect(response.body.statusCode).toBe(400);
+		expect(response.body.message).toBe('No mapping file uploaded');
+	});
+
+	it('should throw a BadRequestException if no invoice file is uploaded', async () => {
+		const mapping = 'test: data success';
+		const response = await request(app.getHttpServer())
+			.post('/mapping/transform/UBL')
+			.attach('mapping', Buffer.from(mapping), 'mapping.yaml');
+
+		expect(response.status).toBe(400);
+		expect(response.body.statusCode).toBe(400);
+		expect(response.body.message).toBe('No invoice file uploaded');
+	});
+
 	it('should return 400 if transformation fails', async () => {
 		const error: ErrorObject = {
 			instancePath: '/ubl:Invoice/cbc:ID',
