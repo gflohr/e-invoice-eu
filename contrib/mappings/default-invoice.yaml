@@ -1,9 +1,11 @@
 meta:
   sectionColumn:
     Invoice: L
+  empty: [ '[:empty:]' ]
 ubl:Invoice:
   cbc:ID: =R2
   cbc:IssueDate: =I6
+  cbc:DueDate: =I11
   cbc:InvoiceTypeCode: "380"
   cbc:DocumentCurrencyCode: =O11
   cac:InvoicePeriod:
@@ -58,6 +60,19 @@ ubl:Invoice:
         cbc:PostalZone: =O8
         cac:Country:
           cbc:IdentificationCode: =O10
+  cac:AllowanceCharge:
+    section: :AllowanceCharge
+    cbc:ChargeIndicator: =:AllowanceCharge.N1
+    cbc:ChargeReasonCode: =:AllowanceCharge.M1
+    cbc:ChargeReason: =:AllowanceCharge.A1
+    cbc:MultiplierFactorNumeric: =:AllowanceCharge.O1
+    cbc:Amount: =:AllowanceCharge.J1
+    cbc:Amount@currencyID: EUR
+    cac:TaxCategory:
+      cbc:ID: =:AllowanceCharge.P1
+      cbc:Percent: =:AllowanceCharge.Q1
+      cac:TaxScheme:
+        cbc:ID: VAT
   cac:TaxTotal:
     section: :TaxTotal
     cbc:TaxAmount: =:TaxTotal.M1

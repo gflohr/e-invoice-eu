@@ -52,7 +52,7 @@ const mappingSchema = {
 						type: 'string',
 						minLength: 1,
 					},
-				}
+				},
 			},
 			required: ['sectionColumn'],
 		},
