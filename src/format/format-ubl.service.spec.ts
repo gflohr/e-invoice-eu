@@ -86,7 +86,7 @@ describe('UBL', () => {
 	});
 
 	it('should generate XML', () => {
-		const invoice: Invoice = {} as unknown as Invoice;
+		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
 		expect(service.generate(invoice)).toMatchSnapshot();
 	});
 });
