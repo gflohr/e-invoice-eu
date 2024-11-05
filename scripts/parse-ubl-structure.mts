@@ -100,7 +100,7 @@ function patchSchema(schema: JSONSchemaType<object>) {
 	schema.properties['ubl:Invoice'].required = schema.properties[
 		'ubl:Invoice'
 	].required.filter(
-		(elem: string) => elem !== 'cbc:CusomizationID' && elem !== 'cbc:ProfileID',
+		(elem: string) => elem !== 'cbc:CustomizationID' && elem !== 'cbc:ProfileID',
 	);
 }
 
