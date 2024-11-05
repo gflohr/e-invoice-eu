@@ -25,9 +25,20 @@ ubl:Invoice:
       cac:PartyLegalEntity:
         cbc:RegistrationName: =A1
   cac:TaxTotal:
-    section: :TaxSubtotal
-    cbc:TaxAmount: =:TaxSubtotal.J1
+    section: :TaxTotal
+    cbc:TaxAmount: =:TaxTotal.M1
     cbc:TaxAmount@currencyID: EUR
+    cac:TaxSubtotal:
+      section: :TaxSubtotal
+      cbc:TaxableAmount: :TaxSubtotal.F1
+      cbc:TaxableAmount@currencyID: EUR
+      cbc:TaxAmount: :TaxSubtotal.J1
+      cbc:TaxAmount@currencyID: EUR
+      cac:TaxCategory:
+        cbc:ID: :TaxSubtotal.N1
+        cbc:Percent: :TaxSubtotal.G1
+        cac:TaxScheme:
+          cbc:ID: VAT
   cac:LegalMonetaryTotal:
     cbc:LineExtensionAmount: =:Subtotal.J1
     cbc:LineExtensionAmount@currencyID: EUR
