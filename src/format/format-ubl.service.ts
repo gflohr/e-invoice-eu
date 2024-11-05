@@ -20,11 +20,11 @@ export class FormatUBLService
 	}
 
 	fillMappingDefaults(mapping: Mapping) {
-		if ('automatic' === mapping['ubl:Invoice']['cbc:CustomizationID']) {
+		if (!('cbc:customizationID' in mapping['ubl:Invoice'])) {
 			mapping['ubl:Invoice']['cbc:CustomizationID'] = this.customizationID;
 		}
 
-		if ('automatic' === mapping['ubl:Invoice']['cbc:ProfileID']) {
+		if (!('cbc:profileID' in mapping['ubl:Invoice'])) {
 			mapping['ubl:Invoice']['cbc:ProfileID'] = this.profileID;
 		}
 
@@ -34,11 +34,11 @@ export class FormatUBLService
 	}
 
 	fillInvoiceDefaults(invoice: Invoice) {
-		if ('automatic' === invoice['ubl:Invoice']['cbc:CustomizationID']) {
+		if (!('cbc:customizationID' in invoice['ubl:Invoice'])) {
 			invoice['ubl:Invoice']['cbc:CustomizationID'] = this.customizationID;
 		}
 
-		if ('automatic' === invoice['ubl:Invoice']['cbc:ProfileID']) {
+		if (!('cbc:profileID' in invoice['ubl:Invoice'])) {
 			invoice['ubl:Invoice']['cbc:ProfileID'] = this.profileID;
 		}
 

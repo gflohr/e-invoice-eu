@@ -10322,7 +10322,7 @@ export type ItemPriceBaseQuantityUnitOfMeasureCode =
 export interface Invoice {
 	'ubl:Invoice': {
 		'cbc:CustomizationID': SpecificationIdentifier;
-		'cbc:ProfileID': BusinessProcessType;
+		'cbc:ProfileID'?: BusinessProcessType;
 		'cbc:ID': InvoiceNumber;
 		'cbc:IssueDate': string;
 		'cbc:DueDate'?: string;

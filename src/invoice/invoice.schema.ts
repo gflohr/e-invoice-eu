@@ -19,14 +19,12 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					title: 'Specification identifier',
 					description:
 						'An identification of the specification containing the total set of rules regarding semantic\n                content, cardinalities and business rules to which the data contained in the instance document conforms.',
-					default: 'automatic',
 				},
 				'cbc:ProfileID': {
 					type: 'string',
 					title: 'Business process type',
 					description:
 						'Identifies the business process context in which the transaction appears, to enable the Buyer to\n                process the Invoice in an appropriate way.',
-					default: 'automatic',
 				},
 				'cbc:ID': {
 					type: 'string',
@@ -1886,7 +1884,6 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 			},
 			required: [
 				'cbc:CustomizationID',
-				'cbc:ProfileID',
 				'cbc:ID',
 				'cbc:IssueDate',
 				'cbc:InvoiceTypeCode',

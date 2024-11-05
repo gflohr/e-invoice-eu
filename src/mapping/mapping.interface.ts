@@ -14,8 +14,8 @@ export type SectionRef = string;
 export interface Mapping {
 	meta: MappingMetaInformation;
 	'ubl:Invoice': {
-		'cbc:CustomizationID': string;
-		'cbc:ProfileID': string;
+		'cbc:CustomizationID': ValueRef;
+		'cbc:ProfileID'?: ValueRef;
 		'cbc:ID': ValueRef;
 		'cbc:IssueDate': ValueRef;
 		'cbc:DueDate'?: ValueRef;

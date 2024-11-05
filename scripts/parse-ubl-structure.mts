@@ -101,7 +101,7 @@ function patchSchema(schema: JSONSchemaType<object>) {
 		'ubl:Invoice'
 	].required.filter(
 		(elem: string) =>
-			elem !== 'cbc:CustomizationID' && elem !== 'cbc:ProfileID',
+			elem !== 'cbc:CusomizationID' && elem !== 'cbc:ProfileID',
 	);
 }
 
