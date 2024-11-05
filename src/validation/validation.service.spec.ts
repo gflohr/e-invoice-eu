@@ -1,8 +1,8 @@
 import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { ErrorObject, ValidateFunction } from 'ajv';
+import { ErrorObject, ValidateFunction, ValidationError } from 'ajv/dist/2019';
 
-import { ValidationService, ValidationError } from './validation.service';
+import { ValidationService } from './validation.service';
 
 describe('ValidationService', () => {
 	let service: ValidationService;
@@ -58,8 +58,8 @@ describe('ValidationService', () => {
 			service.validate('test', mockValidate, invalidData);
 		} catch (error) {
 			expect(error).toBeInstanceOf(ValidationError);
-			expect(error.message).toBe('Invalid test!');
-			expect(error.validationErrors).toEqual(errors);
+			expect(error.message).toBe('validation failed');
+			expect(error.errors).toEqual(errors);
 		}
 	});
 });

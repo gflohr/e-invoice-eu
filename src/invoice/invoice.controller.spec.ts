@@ -4,7 +4,7 @@ import {
 	Logger,
 } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { ErrorObject } from 'ajv';
+import { ErrorObject, ValidationError } from 'ajv/dist/2019';
 import { Response } from 'express';
 import * as request from 'supertest';
 
@@ -13,10 +13,7 @@ import { Invoice } from './invoice.interface';
 import { InvoiceService } from './invoice.service';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { MappingService } from '../mapping/mapping.service';
-import {
-	ValidationError,
-	ValidationService,
-} from '../validation/validation.service';
+import { ValidationService } from '../validation/validation.service';
 
 describe('InvoiceController', () => {
 	let app: INestApplication;
@@ -117,7 +114,7 @@ describe('InvoiceController', () => {
 		const transformMock = jest
 			.spyOn(mappingService, 'transform')
 			.mockImplementation(() => {
-				throw new ValidationError('invoice data', [error]);
+				throw new ValidationError([error]);
 			});
 
 		const response = await request(app.getHttpServer())
@@ -128,9 +125,8 @@ describe('InvoiceController', () => {
 		expect(response.status).toBe(400);
 		expect(response.body.message).toEqual('Transformation failed.');
 		const details = response.body.details;
-		expect(details.name).toBe('ValidationError');
-		expect(details.validationErrors.length).toBe(1);
-		expect(details.validationErrors[0]).toEqual(error);
+		expect(details.errors.length).toBe(1);
+		expect(details.errors[0]).toEqual(error);
 
 		transformMock.mockRestore();
 	});
