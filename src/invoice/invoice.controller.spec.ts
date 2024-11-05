@@ -2,7 +2,7 @@ import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { InvoiceController } from './invoice.controller';
-import { FormatFactoryService } from '../format/format.factory.service';
+import { InvoiceService } from './invoice.service';
 import { MappingService } from '../mapping/mapping.service';
 import { SerializerService } from '../serializer/serializer.service';
 
@@ -18,7 +18,7 @@ describe('InvoiceController', () => {
 			controllers: [InvoiceController],
 			providers: [
 				{
-					provide: FormatFactoryService,
+					provide: InvoiceService,
 					useValue: {},
 				},
 				{

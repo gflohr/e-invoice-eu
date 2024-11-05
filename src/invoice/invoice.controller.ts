@@ -16,15 +16,15 @@ import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ValidationError } from 'ajv';
 import { Response } from 'express';
 
-import { FormatFactoryService } from '../format/format.factory.service';
+import { InvoiceService } from './invoice.service';
 import { MappingService } from '../mapping/mapping.service';
 
 @ApiTags('invoice')
 @Controller('invoice')
 export class InvoiceController {
 	constructor(
+		private readonly invoiceService: InvoiceService,
 		private readonly mappingService: MappingService,
-		private readonly formatFactoryService: FormatFactoryService,
 		private readonly logger: Logger,
 	) {
 		this.logger = new Logger(InvoiceController.name);
@@ -91,8 +91,7 @@ export class InvoiceController {
 				dataFile.buffer,
 			);
 
-			const formatter = this.formatFactoryService.createFormatService(format);
-			const xml = formatter.generate(invoice);
+			const xml = this.invoiceService.generate(format, invoice);
 
 			response.set('Content-Type', 'application/xml');
 			response.status(HttpStatus.CREATED).send(xml);
