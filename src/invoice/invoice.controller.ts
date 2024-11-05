@@ -4,7 +4,6 @@ import {
 	HttpStatus,
 	InternalServerErrorException,
 	Logger,
-	NotFoundException,
 	Param,
 	Post,
 	Res,
@@ -26,9 +25,7 @@ export class InvoiceController {
 		private readonly invoiceService: InvoiceService,
 		private readonly mappingService: MappingService,
 		private readonly logger: Logger,
-	) {
-		this.logger = new Logger(InvoiceController.name);
-	}
+	) {}
 
 	@Post('transform-and-create/:format')
 	@ApiConsumes('multipart/form-data')
@@ -96,9 +93,7 @@ export class InvoiceController {
 			response.set('Content-Type', 'application/xml');
 			response.status(HttpStatus.CREATED).send(xml);
 		} catch (error) {
-			if (error.code && error.code === 'ENOENT') {
-				throw new NotFoundException();
-			} else if (error instanceof ValidationError) {
+			if (error instanceof ValidationError) {
 				throw new BadRequestException({
 					message: 'Transformation failed.',
 					details: error,

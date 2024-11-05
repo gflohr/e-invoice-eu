@@ -69,7 +69,7 @@ describe('MappingController', () => {
 		);
 	});
 
-	it.skip('should return 400 if transformation fails', async () => {
+	it('should return 400 if transformation fails', async () => {
 		const error: ErrorObject = {
 			instancePath: '/ubl:Invoice/cbc:ID',
 			schemaPath: '#/properties/ubl%3AInvoice/properties/cbc%3AID',
@@ -95,7 +95,7 @@ describe('MappingController', () => {
 		expect(details.errors[0]).toEqual(error);
 	});
 
-	it.skip('should return 500 if an unexpected exception is thrown', async () => {
+	it('should return 500 if an unexpected exception is thrown', async () => {
 		jest.spyOn(service, 'transform').mockImplementation(() => {
 			throw new Error('boum!');
 		});

@@ -1,13 +1,26 @@
-import { Logger } from '@nestjs/common';
+import {
+	INestApplication,
+	InternalServerErrorException,
+	Logger,
+} from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import { ErrorObject, ValidationError } from 'ajv';
+import { Response } from 'express';
+import * as request from 'supertest';
 
 import { InvoiceController } from './invoice.controller';
+import { Invoice } from './invoice.interface';
 import { InvoiceService } from './invoice.service';
+import { FormatFactoryService } from '../format/format.factory.service';
 import { MappingService } from '../mapping/mapping.service';
-import { SerializerService } from '../serializer/serializer.service';
+import { ValidationService } from '../validation/validation.service';
 
 describe('InvoiceController', () => {
+	let app: INestApplication;
 	let controller: InvoiceController;
+	let invoiceService: InvoiceService;
+	let mappingService: MappingService;
+	let mockResponse: Partial<Response>;
 
 	const mockedLogger = {
 		error: jest.fn(),
@@ -17,33 +30,129 @@ describe('InvoiceController', () => {
 		const module: TestingModule = await Test.createTestingModule({
 			controllers: [InvoiceController],
 			providers: [
-				{
-					provide: InvoiceService,
-					useValue: {},
-				},
-				{
-					provide: MappingService,
-					useValue: {
-						transform: jest.fn(),
-					},
-				},
-				{
-					provide: SerializerService,
-					useValue: {
-						transform: jest.fn(),
-					},
-				},
-				{
-					provide: Logger,
-					useValue: mockedLogger,
-				},
+				InvoiceService,
+				MappingService,
+				{ provide: FormatFactoryService, useValue: {} },
+				{ provide: ValidationService, useValue: {} },
+				{ provide: Logger, useValue: mockedLogger },
 			],
 		}).compile();
 
 		controller = module.get<InvoiceController>(InvoiceController);
+		invoiceService = module.get<InvoiceService>(InvoiceService);
+		mappingService = module.get<MappingService>(MappingService);
+
+		app = module.createNestApplication();
+		jest.clearAllMocks();
+		await app.init();
 	});
 
-	it('should be defined', () => {
-		expect(controller).toBeDefined();
+	afterEach(async () => {
+		await app.close();
+	});
+
+	it('should successfully transform and create an invoice', async () => {
+		const mockTransformedData = {
+			result: 'some transformed data',
+		} as unknown as Invoice;
+		jest
+			.spyOn(mappingService, 'transform')
+			.mockReturnValue(mockTransformedData);
+		const mockXml = '<Invoice/>';
+		jest.spyOn(invoiceService, 'generate').mockReturnValue(mockXml);
+
+		const mapping = 'test: data success';
+		const data = 'test data';
+		const response = await request(app.getHttpServer())
+			.post('/invoice/transform-and-create/UBL')
+			.attach('mapping', Buffer.from(mapping), 'mapping.yaml')
+			.attach('data', Buffer.from(data), 'invoice.ods');
+
+		expect(response.status).toBe(201);
+		expect(response.text).toEqual(mockXml);
+		expect(mappingService.transform).toHaveBeenCalledWith(
+			'UBL',
+			mapping,
+			Buffer.from(data),
+		);
+		expect(invoiceService.generate).toHaveBeenCalledWith(
+			'UBL',
+			mockTransformedData,
+		);
+	});
+
+	it('should throw a BadRequestException if no mapping file is uploaded', async () => {
+		const data = ' data';
+		const response = await request(app.getHttpServer())
+			.post('/invoice/transform-and-create/UBL')
+			.attach('data', Buffer.from(data), 'invoice.ods');
+
+		expect(response.status).toBe(400);
+		expect(response.body.statusCode).toBe(400);
+		expect(response.body.message).toBe('No mapping file uploaded');
+	});
+
+	it('should throw a BadRequestException if no invoice file is uploaded', async () => {
+		const mapping = 'test: data success';
+		const response = await request(app.getHttpServer())
+			.post('/invoice/transform-and-create/UBL')
+			.attach('mapping', Buffer.from(mapping), 'mapping.yaml');
+
+		expect(response.status).toBe(400);
+		expect(response.body.statusCode).toBe(400);
+		expect(response.body.message).toBe('No invoice file uploaded');
+	});
+
+	it('should return 400 if transformation fails', async () => {
+		const error: ErrorObject = {
+			instancePath: '/ubl:Invoice/cbc:ID',
+			schemaPath: '#/properties/ubl%3AInvoice/properties/cbc%3AID',
+			keyword: 'type',
+			params: { type: 'string' },
+			message: 'did not work',
+		};
+		const transformMock = jest
+			.spyOn(mappingService, 'transform')
+			.mockImplementation(() => {
+				throw new ValidationError([error]);
+			});
+
+		const response = await request(app.getHttpServer())
+			.post('/invoice/transform-and-create/UBL')
+			.attach('mapping', Buffer.from('test: data fail'), 'mapping.yaml')
+			.attach('data', Buffer.from('test data'), 'invoice.ods');
+
+		expect(response.status).toBe(400);
+		expect(response.body.message).toEqual('Transformation failed.');
+		const details = response.body.details;
+		expect(details.ajv).toBe(true);
+		expect(details.validation).toBe(true);
+		expect(details.errors.length).toBe(1);
+		expect(details.errors[0]).toEqual(error);
+
+		transformMock.mockRestore();
+	});
+
+	it('should throw InternalServerErrorException for unknown errors', () => {
+		const format = 'UBL';
+		const dataFile = Buffer.from('data');
+		const mappingFile = Buffer.from('mapping');
+		const files = {
+			data: [{ buffer: dataFile }] as Express.Multer.File[],
+			mapping: [{ buffer: mappingFile }] as Express.Multer.File[],
+		};
+
+		jest.spyOn(mappingService, 'transform').mockImplementation(() => {
+			throw new Error('boum!');
+		});
+
+		expect(() =>
+			controller.transformAndCreate(mockResponse as Response, format, files),
+		).toThrow(InternalServerErrorException);
+
+		expect(mockedLogger.error).toHaveBeenCalledTimes(1);
+		expect(mockedLogger.error).toHaveBeenCalledWith(
+			expect.stringMatching(/^unknown error: boum!/),
+		);
 	});
 });

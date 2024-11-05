@@ -14,7 +14,6 @@ import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ValidationError } from 'ajv';
 
 import { MappingService } from './mapping.service';
-import { FormatFactoryService } from '../format/format.factory.service';
 import { Invoice } from '../invoice/invoice.interface';
 
 @ApiTags('mapping')
@@ -22,7 +21,6 @@ import { Invoice } from '../invoice/invoice.interface';
 export class MappingController {
 	constructor(
 		private readonly mappingService: MappingService,
-		private readonly formatFactoryService: FormatFactoryService,
 		private readonly logger: Logger,
 	) {}
 
