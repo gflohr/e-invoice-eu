@@ -6,37 +6,72 @@ ubl:Invoice:
   cbc:IssueDate: =I6
   cbc:InvoiceTypeCode: "380"
   cbc:DocumentCurrencyCode: =O11
+  cac:InvoicePeriod:
+    cbc:StartDate: =I7
+    cbc:EndDate: =I8
+  cac:OrderReference:
+    cbc:ID: =I10
   cac:AccountingSupplierParty:
     cac:Party:
       cbc:EndpointID: =O6
       cbc:EndpointID@schemeID: "9930"
+      cac:PartyName:
+        cbc:Name: =O1
       cac:PostalAddress:
+        cbc:StreetName: =O2
+        cbc:CityName: =O4
+        cbc:PostalZone: =O3
         cac:Country:
-          cbc:IdentificationCode: =O3
+          cbc:IdentificationCode: =O5
+      cac:PartyTaxScheme:
+        section: :SellerTaxScheme
+        cbc:CompanyID: =:SellerTaxScheme.O1
+        cac:TaxScheme:
+          cbc:ID: VAT
       cac:PartyLegalEntity:
         cbc:RegistrationName: =O1
   cac:AccountingCustomerParty:
     cac:Party:
-      cbc:EndpointID: =I7
+      cbc:EndpointID: =I9
       cbc:EndpointID@schemeID: "9930"
+      cac:PartyName:
+        cbc:Name: =A7
       cac:PostalAddress:
+        cbc:StreetName: =O7
+        cbc:CityName: =O9
+        cbc:PostalZone: =O8
         cac:Country:
           cbc:IdentificationCode: =O10
+      cac:PartyTaxScheme:
+        section: :BuyerTaxScheme
+        cbc:CompanyID: =:BuyerTaxScheme.I1
+        cac:TaxScheme:
+          cbc:ID: VAT
       cac:PartyLegalEntity:
         cbc:RegistrationName: =A1
+  cac:Delivery:
+    cbc:ActualDeliveryDate: =I8
+    cac:DeliveryLocation:
+      cac:Address:
+        cbc:StreetName: =O7
+        cbc:CityName: =O9
+        cbc:PostalZone: =O8
+        cac:Country:
+          cbc:IdentificationCode: =O10
   cac:TaxTotal:
     section: :TaxTotal
     cbc:TaxAmount: =:TaxTotal.M1
     cbc:TaxAmount@currencyID: EUR
     cac:TaxSubtotal:
       section: :TaxSubtotal
-      cbc:TaxableAmount: :TaxSubtotal.F1
+      cbc:TaxableAmount: =:TaxSubtotal.F1
       cbc:TaxableAmount@currencyID: EUR
-      cbc:TaxAmount: :TaxSubtotal.J1
+      cbc:TaxAmount: =:TaxSubtotal.J1
       cbc:TaxAmount@currencyID: EUR
       cac:TaxCategory:
-        cbc:ID: :TaxSubtotal.N1
-        cbc:Percent: :TaxSubtotal.G1
+        cbc:ID: =:TaxSubtotal.N1
+        cbc:Percent: =:TaxSubtotal.O1
+        cbc:TaxExemptionReasonCode: =:TaxSubtotal.Q1
         cac:TaxScheme:
           cbc:ID: VAT
   cac:LegalMonetaryTotal:
@@ -59,6 +94,7 @@ ubl:Invoice:
       cbc:Name: =:InvoiceLine.B1
       cac:ClassifiedTaxCategory:
         cbc:ID: =:InvoiceLine.N1
+        cbc:Percent: =:InvoiceLine.O1
         cac:TaxScheme:
           cbc:ID: VAT
     cac:Price:
