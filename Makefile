@@ -20,9 +20,11 @@ src/schema/invoice.schema.json: scripts/parse-ubl-structure.mts $(INVOICE_SCHEMA
 
 src/invoice/invoice.interface.ts: scripts/json-schema-to-interface.mts src/schema/invoice.schema.json
 	$(NPX) tsx $< src/schema/invoice.schema.json $@
+	$(NPX) eslint $@ --fix
 
 src/invoice/invoice.schema.ts: scripts/json-schema-to-typescript.mts src/schema/invoice.schema.json
 	$(NPX) tsx $< invoice
+	$(NPX) eslint $@ --fix
 	$(NPX) prettier --write $@
 
 src/schema/mapping.schema.json: scripts/transform-ubl-mapping.mts src/schema/invoice.schema.json
@@ -31,9 +33,11 @@ src/schema/mapping.schema.json: scripts/transform-ubl-mapping.mts src/schema/inv
 
 src/mapping/mapping.interface.ts: scripts/json-schema-to-interface.mts src/schema/mapping.schema.json
 	$(NPX) tsx $< src/schema/mapping.schema.json $@
+	$(NPX) eslint $@ --fix
 
 src/mapping/mapping.schema.ts: scripts/json-schema-to-typescript.mts src/schema/mapping.schema.json
 	$(NPX) tsx $< mapping
+	$(NPX) eslint $@ --fix
 	$(NPX) prettier --write $@
 
 .PHONY: clean

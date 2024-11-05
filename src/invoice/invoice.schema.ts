@@ -4,6 +4,7 @@
  */
 
 import { JSONSchemaType } from 'ajv';
+
 import { Invoice } from './invoice.interface';
 
 export const invoiceSchema: JSONSchemaType<Invoice> = {
@@ -1883,7 +1884,6 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 			},
 			required: [
-				'cbc:CustomizationID',
 				'cbc:ID',
 				'cbc:IssueDate',
 				'cbc:InvoiceTypeCode',

@@ -12,11 +12,11 @@ import {
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ValidationError } from 'ajv';
 import { Response } from 'express';
 
 import { InvoiceService } from './invoice.service';
 import { MappingService } from '../mapping/mapping.service';
+import { ValidationError } from '../validation/validation.service';
 
 @ApiTags('invoice')
 @Controller('invoice')

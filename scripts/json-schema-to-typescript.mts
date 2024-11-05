@@ -1,5 +1,5 @@
-import * as path from 'path';
 import { promises as fs } from 'fs';
+import * as path from 'path';
 
 if (process.argv.length !== 3) {
 	console.error(`Usage: ${process.argv[1]} NAME`);

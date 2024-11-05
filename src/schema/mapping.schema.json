@@ -1385,7 +1385,6 @@
 				}
 			},
 			"required": [
-				"cbc:CustomizationID",
 				"cbc:ID",
 				"cbc:IssueDate",
 				"cbc:InvoiceTypeCode",

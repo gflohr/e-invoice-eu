@@ -1,12 +1,13 @@
 import { INestApplication, Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { ErrorObject, ValidationError } from 'ajv/dist/2019';
+import { ErrorObject } from 'ajv/dist/2019';
 import * as request from 'supertest';
 
 import { MappingController } from './mapping.controller';
 import { MappingService } from './mapping.service';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { Invoice } from '../invoice/invoice.interface';
+import { ValidationError } from '../validation/validation.service';
 
 describe('MappingController', () => {
 	let app: INestApplication;
@@ -100,7 +101,7 @@ describe('MappingController', () => {
 			message: 'did not work',
 		};
 		jest.spyOn(service, 'transform').mockImplementation(() => {
-			throw new ValidationError([error]);
+			throw new ValidationError('invoice data', [error]);
 		});
 
 		const response = await request(app.getHttpServer())
@@ -111,10 +112,9 @@ describe('MappingController', () => {
 		expect(response.status).toBe(400);
 		expect(response.body.message).toEqual('Transformation failed.');
 		const details = response.body.details;
-		expect(details.ajv).toBe(true);
-		expect(details.validation).toBe(true);
-		expect(details.errors.length).toBe(1);
-		expect(details.errors[0]).toEqual(error);
+		expect(details.name).toBe('ValidationError');
+		expect(details.validationErrors.length).toBe(1);
+		expect(details.validationErrors[0]).toEqual(error);
 	});
 
 	it('should return 500 if an unexpected exception is thrown', async () => {
