@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
 import { FormatUBLService } from './format-ubl.service';
-import { FormatXMLService } from './format-xml.service';
 import { FormatXRECHNUNGUBLService } from './format-xrechnung-ubl.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { SerializerService } from '../serializer/serializer.service';
@@ -24,10 +23,6 @@ export class FormatFactoryService {
 			throw new NotFoundException(`Format '${format}' not supported.`);
 		}
 
-		if (FormatXMLService.isPrototypeOf(FormatService)) {
-			return new FormatService(this.serializerService);
-		} else {
-			return new FormatService();
-		}
+		return new FormatService(this.serializerService);
 	}
 }

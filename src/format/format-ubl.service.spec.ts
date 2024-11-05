@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { FormatUBLService } from './format-ubl.service';
-import { SerializerService } from '../serializer/serializer.service';
-import { Mapping } from '../mapping/mapping.interface';
 import { Invoice } from '../invoice/invoice.interface';
+import { Mapping } from '../mapping/mapping.interface';
+import { SerializerService } from '../serializer/serializer.service';
 
 describe('UBL', () => {
 	let service: FormatUBLService;
@@ -39,7 +39,9 @@ describe('UBL', () => {
 		const mapping = { 'ubl:Invoice': {} } as unknown as Mapping;
 
 		service.fillMappingDefaults(mapping);
-		expect(mapping['ubl:Invoice']['cbc:CustomizationID']).toBe(service.customizationID);
+		expect(mapping['ubl:Invoice']['cbc:CustomizationID']).toBe(
+			service.customizationID,
+		);
 		expect(mapping['ubl:Invoice']['cbc:ProfileID']).toBe(service.profileID);
 	});
 
@@ -47,14 +49,18 @@ describe('UBL', () => {
 		const invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
 
 		service.fillInvoiceDefaults(invoice);
-		expect(invoice['ubl:Invoice']['cbc:CustomizationID']).toBe(service.customizationID);
+		expect(invoice['ubl:Invoice']['cbc:CustomizationID']).toBe(
+			service.customizationID,
+		);
 		expect(invoice['ubl:Invoice']['cbc:ProfileID']).toBe(service.profileID);
 	});
 
 	it('should order mapping keys correctly', () => {
-		const mapping = { 'ubl:Invoice': {
-			'cbc:ID': '1234567890'
-		} } as unknown as Mapping;
+		const mapping = {
+			'ubl:Invoice': {
+				'cbc:ID': '1234567890',
+			},
+		} as unknown as Mapping;
 
 		service.fillMappingDefaults(mapping);
 		expect(Object.keys(mapping['ubl:Invoice'])).toEqual([
@@ -65,9 +71,11 @@ describe('UBL', () => {
 	});
 
 	it('should order invoice keys correctly', () => {
-		const invoice = { 'ubl:Invoice': {
-			'cbc:ID': '1234567890'
-		} } as unknown as Invoice;
+		const invoice = {
+			'ubl:Invoice': {
+				'cbc:ID': '1234567890',
+			},
+		} as unknown as Invoice;
 
 		service.fillInvoiceDefaults(invoice);
 		expect(Object.keys(invoice['ubl:Invoice'])).toEqual([
