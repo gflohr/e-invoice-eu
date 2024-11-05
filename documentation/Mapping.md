@@ -7,6 +7,7 @@ Mappings map cells from an invoice spreadsheet file to invoice data.
   - [General Structure](#general-structure)
     - [The `meta` Object](#the-meta-object)
       - [The `meta.sectionColumn` Object](#the-metasectioncolumn-object)
+      - [The `meta.empty` Array](#the-metaempty-array)
     - [The `ubl:Invoice` Object](#the-ublinvoice-object)
       - [Literal Values](#literal-values)
       - [Sheet References](#sheet-references)
@@ -38,6 +39,22 @@ letter `A` to `Z`.
 
 The meaning of this key becomes later.
 
+#### The `meta.empty` Array
+
+Cells that are empty, are not mapped. The target element simply gets not
+created for them.
+
+Unfortunately, some empty cells cannot be detected as such. For example,
+in LibreOffice, if a formula `VLOOKUP` finds an empty text cell, it generates
+a number cell with a newline as the value. Probably, more such bugs or
+ideosyncrasies exist.
+
+If you run into such a case (the author did with the example template that
+ships with `e-invoice-eu`), you can define an array `meta.empty` with strings
+that are considered empty values. You can then simply write one of these
+strings into the cell that is causing the trouble. You should obiously use
+stings that will not occur in a regular invoice.
+
 ### The `ubl:Invoice` Object
 
 Did we say that a mapping maps cells to invoice data? It is actually the other
@@ -57,6 +74,7 @@ meta:
 	sectionColumn:
 		# The section column of tab "Invoice" is "K".
 		Invoice: K
+	emtpy: ['[:empty:]'],
 ubl:Invoice:
 	# The invoice id is found in the cell D7 of the sheet "Invoice".
 	cbc:ID: =Invoice.D7
@@ -200,9 +218,6 @@ terribly difficult.
 Cell references consist of one or more uppercase characters `A-Z` followed by
 one decimal digit `1-9` followed by any number of decimal digits `0-9`. You
 know this from your spreadsheet application.
-
-It is your responsability to only reference cells that are actually contained
-in the sheet.
 
 #### Formulas
 

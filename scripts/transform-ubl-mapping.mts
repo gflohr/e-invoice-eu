@@ -46,6 +46,13 @@ const mappingSchema = {
 						pattern: '^[A-Z]+$',
 					},
 				},
+				empty: {
+					type: 'array',
+					items: {
+						type: 'string',
+						minLength: 1,
+					},
+				}
 			},
 			required: ['sectionColumn'],
 		},

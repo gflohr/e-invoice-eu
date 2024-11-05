@@ -95,7 +95,10 @@ export class MappingService {
 			ctx.schemaPath.push('properties', property);
 			const schema = this.getSchema(ctx.schemaPath);
 			if (typeof mapping[property] === 'string') {
-				target[property] = this.resolveValue(mapping[property], schema, ctx);
+				const value = this.resolveValue(mapping[property], schema, ctx);
+				if (value !== '') {
+					target[property] = value;
+				}
 			} else if (schema.type === 'array') {
 				target[property] = [];
 				this.transformArray(target[property], mapping[property], ctx);
@@ -250,7 +253,12 @@ export class MappingService {
 				throw new Error(`no such sheet '${sheetName}'`);
 			}
 
-			return this.getCellValue(worksheet, cellName, schema);
+			const value = this.getCellValue(worksheet, cellName, schema);
+			if (ctx.meta.empty && ctx.meta.empty.includes(value)) {
+				return '';
+			}
+
+			return value;
 		} catch (x) {
 			const message = `reference '${ref}' resolves to null: ${x.message}`;
 			throw this.makeValidationError(message, ctx);
@@ -267,10 +275,15 @@ export class MappingService {
 		schema: JSONSchemaType<any>,
 	): string {
 		if (!(cellName in worksheet)) {
-			throw new Error(`no such cell '${cellName}'`);
+			return '';
 		}
 
 		const cell = worksheet[cellName];
+
+		if (cell.t === 'n' && cell.w === '\n') {
+			return '';
+		}
+
 		const $ref = schema.$ref;
 
 		let value: string;
@@ -279,8 +292,6 @@ export class MappingService {
 				if (cell.t === 'd') {
 					value = this.getDateValue(cell.v as Date);
 				} else {
-					// FIXME! Throw an exception of the date is not in the
-					// format 'YYYY-MM-DD'.
 					value = cell.v;
 				}
 				break;

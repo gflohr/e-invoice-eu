@@ -226,38 +226,62 @@ describe('MappingService', () => {
 			}
 		});
 
-		it('should throw an exception if a non-existing cell is referenced', () => {
+		it('should return an empty string if a non-existing cell is referenced', () => {
 			const wb: XLSX.WorkBook = {
 				Sheets: {
 					Invoice: {},
 				},
 				SheetNames: ['Invoice'],
 			} as XLSX.WorkBook;
-			try {
-				service['resolveValue']('=ET742', {} as JSONSchemaType<any>, {
+			const value = service['resolveValue'](
+				'=ET742',
+				{} as JSONSchemaType<any>,
+				{
 					...defaultMappingContext,
 					schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
 					workbook: wb,
-				});
-				throw new Error('no exception thrown');
-			} catch (e) {
-				expect(e).toBeDefined();
-				expect(e.validation).toBeTruthy();
-				expect(e.ajv).toBeTruthy();
-				expect(Array.isArray(e.errors)).toBeTruthy();
-				expect(e.errors.length).toBe(1);
+				},
+			);
+			expect(value).toBe('');
+		});
 
-				const error = e.errors[0];
-				expect(error.instancePath).toBe('/ubl:Invoice/cbc:ID');
-				expect(error.schemaPath).toBe(
-					'#/properties/ubl%3AInvoice/properties/cbc%3AID',
-				);
-				expect(error.keyword).toBe('type');
-				expect(error.params).toEqual({ type: 'string' });
-				expect(error.message).toBe(
-					"reference '=ET742' resolves to null: no such cell 'ET742'",
-				);
-			}
+		it('should return an empty string for configured empty values', () => {
+			const wb: XLSX.WorkBook = {
+				Sheets: {
+					Invoice: {
+						A1: {
+							t: 's',
+							v: '[:empty:]',
+						},
+						A2: {
+							t: 's',
+							v: 'not empty',
+						},
+					},
+				},
+				SheetNames: ['Invoice'],
+			} as XLSX.WorkBook;
+			const empty = service['resolveValue']('=A1', {} as JSONSchemaType<any>, {
+				...defaultMappingContext,
+				meta: {
+					sectionColumn: {},
+					empty: ['[:empty:]'],
+				},
+				schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
+				workbook: wb,
+			});
+			expect(empty).toBe('');
+
+			const notEmpty = service['resolveValue'](
+				'=A2',
+				{} as JSONSchemaType<any>,
+				{
+					...defaultMappingContext,
+					schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
+					workbook: wb,
+				},
+			);
+			expect(notEmpty).toBe('not empty');
 		});
 
 		it('should throw an exception if a non-existing section is referenced', async () => {

@@ -27,6 +27,13 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						pattern: '^[A-Z]+$',
 					},
 				},
+				empty: {
+					type: 'array',
+					items: {
+						type: 'string',
+						minLength: 1,
+					},
+				},
 			},
 			required: ['sectionColumn'],
 		},

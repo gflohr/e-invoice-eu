@@ -130,6 +130,7 @@ export interface MappingMetaInformation {
 	sectionColumn: {
 		[k: string]: string;
 	};
+	empty?: string[];
 }
 /**
  * A group of business terms providing information on the invoice period. Also called delivery period.
