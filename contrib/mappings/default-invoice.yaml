@@ -35,7 +35,7 @@ ubl:Invoice:
     cbc:TaxExclusiveAmount@currencyID: EUR
     cbc:TaxInclusiveAmount: =:GrandTotal.J1
     cbc:TaxInclusiveAmount@currencyID: EUR
-    cbc:PayableAmount: =GrandTotal:J1
+    cbc:PayableAmount: =:GrandTotal.J1
     cbc:PayableAmount@currencyID: EUR
   cac:InvoiceLine:
     section: :InvoiceLine
