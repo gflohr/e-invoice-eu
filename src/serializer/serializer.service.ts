@@ -40,7 +40,7 @@ export class SerializerService {
 
 					if (typeof attr !== 'undefined') {
 						if (!(elem in output)) {
-							throw new Error(`orphan attribute '${key}'`);
+							continue;
 						}
 
 						if (typeof output[elem] === 'string') {
