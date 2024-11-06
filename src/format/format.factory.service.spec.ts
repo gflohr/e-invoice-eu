@@ -38,4 +38,9 @@ describe('XRECHNUNG-UBL', () => {
 	it('should create an XRECHNUNG-UBL format service', () => {
 		expect(service.createFormatService('XRECHNUNG-UBL')).toBeDefined();
 	});
+
+	it('should list all formats alphabetically', () => {
+		const allFormats = service.listFormatServices().map(f => f.name);
+		expect(allFormats).toEqual(['UBL', 'XRECHNUNG-UBL']);
+	});
 });

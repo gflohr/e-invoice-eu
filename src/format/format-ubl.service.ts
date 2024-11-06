@@ -19,6 +19,10 @@ export class FormatUBLService
 		return 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0';
 	}
 
+	get syntax(): 'UBL' {
+		return 'UBL';
+	}
+
 	fillMappingDefaults(mapping: Mapping) {
 		if (!('cbc:customizationID' in mapping['ubl:Invoice'])) {
 			mapping['ubl:Invoice']['cbc:CustomizationID'] = this.customizationID;
@@ -50,10 +54,10 @@ export class FormatUBLService
 	 * have to make sure that the filled in defaults are at the right
 	 * position.
 	 */
-	private sortKeys(invoice: {[key: string]: any}) {
+	private sortKeys(invoice: { [key: string]: any }) {
 		const customizationID = invoice['ubl:Invoice']['cbc:CustomizationID'];
 		const profileID = invoice['ubl:Invoice']['cbc:ProfileID'];
-		const newInvoice: {[key: string]: any} = {
+		const newInvoice: { [key: string]: any } = {
 			'ubl:Invoice': {
 				'cbc:CustomizationID': customizationID,
 				'cbc:ProfileID': profileID,

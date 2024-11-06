@@ -10,6 +10,10 @@ import {
 export class FormatXMLService {
 	constructor(private readonly serializerService: SerializerService) {}
 
+	get mimeType(): string {
+		return 'application/xml';
+	}
+
 	render(data: ExpandObject, serializerOptions: SerializerOptions): string {
 		return this.serializerService.serialize(data, serializerOptions);
 	}

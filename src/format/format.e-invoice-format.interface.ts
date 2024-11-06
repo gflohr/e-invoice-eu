@@ -13,6 +13,16 @@ export interface EInvoiceFormat {
 	get profileID(): string;
 
 	/**
+	 * The MIME type for that format.
+	 */
+	get mimeType(): string;
+
+	/**
+	 * One of 'UBL' or 'CII'.
+	 */
+	get syntax(): 'UBL' | 'CII';
+
+	/**
 	 * Fill default and computable values in mapping.
 	 */
 	fillMappingDefaults(mapping: Mapping): void;
