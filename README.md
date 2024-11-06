@@ -1,29 +1,31 @@
 # E-Invoice-EU
 
-Tool-chain for generating EN16931 conforming invoices
+Tool-chain for generating EN16931 conforming invoices from popular spreadsheet
+formats or JSON.
 
 - [E-Invoice-EU](#e-invoice-eu)
-  - [Status](#status)
-  - [Description](#description)
-  - [Documentation](#documentation)
-  - [Pre-requisites](#pre-requisites)
-  - [Installation](#installation)
-  - [Running the app](#running-the-app)
-  - [Test](#test)
-  - [Curl Examples](#curl-examples)
-    - [OpenAPI/Swagger documentation](#openapiswagger-documentation)
-    - [Transform Data from Spreadsheet](#transform-data-from-spreadsheet)
-    - [Create an Invoice from a Spreadsheet](#create-an-invoice-from-a-spreadsheet)
-  - [Data Structure](#data-structure)
-  - [Mapping Syntax](#mapping-syntax)
-  - [Frequently Asked Questions](#frequently-asked-questions)
-    - [Why are no Numbers Used in the JSON Schema?](#why-are-no-numbers-used-in-the-json-schema)
-    - [What Does the Warning 'ODS number format may be incorrect' Mean?](#what-does-the-warning-ods-number-format-may-be-incorrect-mean)
-  - [License](#license)
+	- [Status](#status)
+	- [Description](#description)
+	- [Documentation](#documentation)
+	- [Pre-requisites](#pre-requisites)
+	- [Installation](#installation)
+	- [Running the app](#running-the-app)
+	- [Test](#test)
+	- [Curl Examples](#curl-examples)
+		- [OpenAPI/Swagger documentation](#openapiswagger-documentation)
+		- [Transform Data from Spreadsheet](#transform-data-from-spreadsheet)
+		- [Create an Invoice from a Spreadsheet](#create-an-invoice-from-a-spreadsheet)
+	- [Data Structure](#data-structure)
+	- [Mapping Syntax](#mapping-syntax)
+	- [Frequently Asked Questions](#frequently-asked-questions)
+		- [Why are no Numbers Used in the JSON Schema?](#why-are-no-numbers-used-in-the-json-schema)
+		- [What Does the Warning 'ODS number format may be incorrect' Mean?](#what-does-the-warning-ods-number-format-may-be-incorrect-mean)
+		- [Where Can I Get Information About Business Terms?](#where-can-i-get-information-about-business-terms)
+	- [License](#license)
 
 ## Status
 
-This is work-in-progress and not yet ready to use!
+You can currently create invoices in the formats UBL and XRECHNUNG-UBL.
 
 ## Description
 
@@ -46,7 +48,7 @@ for more accurate in-depth information!
 ## Installation
 
 ```bash
-$ bun install
+$ bun install --optional
 ```
 
 This may warn about "husky" missing. Just run `bun install` again in order
@@ -170,6 +172,12 @@ consistency we use strings throughout the schema.
 See [SheetJS GitHub issue #1569](https://github.com/SheetJS/sheetjs/issues/1569).
 You can probably ignore this warning, unless you run into a problem with
 number formats.
+
+### Where Can I Get Information About Business Terms?
+
+You will often see references to business terms in validation error messages.
+You can look up to which elements they belong in the documentation
+file [BusinessTerms.md](documentation/BusinessTerms.md).
 
 ## License
 
