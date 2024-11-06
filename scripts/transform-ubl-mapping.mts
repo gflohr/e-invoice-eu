@@ -96,6 +96,7 @@ function transformSchema(schema: JSONSchemaType<any>): void {
 				// Convert array to object
 				const newObject: Record<string, JSONSchemaType<object>> = {
 					type: 'object',
+					additionalProperties: false,
 					properties: {},
 				} as JSONSchemaType<object>;
 

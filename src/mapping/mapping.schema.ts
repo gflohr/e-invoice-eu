@@ -111,6 +111,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:BillingReference': {
 					type: 'object',
+					additionalProperties: false,
 					properties: {
 						section: {
 							$ref: '#/$defs/sectionRef',
@@ -178,6 +179,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:AdditionalDocumentReference': {
 					type: 'object',
+					additionalProperties: false,
 					properties: {
 						section: {
 							$ref: '#/$defs/sectionRef',
@@ -271,6 +273,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:PartyIdentification': {
 									type: 'object',
+									additionalProperties: false,
 									properties: {
 										section: {
 											$ref: '#/$defs/sectionRef',
@@ -347,6 +350,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:PartyTaxScheme': {
 									type: 'object',
+									additionalProperties: false,
 									properties: {
 										section: {
 											$ref: '#/$defs/sectionRef',
@@ -834,6 +838,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:PaymentMeans': {
 					type: 'object',
+					additionalProperties: false,
 					properties: {
 						section: {
 							$ref: '#/$defs/sectionRef',
@@ -935,6 +940,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:AllowanceCharge': {
 					type: 'object',
+					additionalProperties: false,
 					properties: {
 						section: {
 							$ref: '#/$defs/sectionRef',
@@ -1004,6 +1010,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:TaxTotal': {
 					type: 'object',
+					additionalProperties: false,
 					properties: {
 						section: {
 							$ref: '#/$defs/sectionRef',
@@ -1016,6 +1023,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:TaxSubtotal': {
 							type: 'object',
+							additionalProperties: false,
 							properties: {
 								section: {
 									$ref: '#/$defs/sectionRef',
@@ -1171,6 +1179,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:InvoiceLine': {
 					type: 'object',
+					additionalProperties: false,
 					properties: {
 						section: {
 							$ref: '#/$defs/sectionRef',
@@ -1244,6 +1253,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:AllowanceCharge': {
 							type: 'object',
+							additionalProperties: false,
 							properties: {
 								section: {
 									$ref: '#/$defs/sectionRef',
@@ -1347,6 +1357,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:CommodityClassification': {
 									type: 'object',
+									additionalProperties: false,
 									properties: {
 										section: {
 											$ref: '#/$defs/sectionRef',
@@ -1403,6 +1414,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:AdditionalItemProperty': {
 									type: 'object',
+									additionalProperties: false,
 									properties: {
 										section: {
 											$ref: '#/$defs/sectionRef',

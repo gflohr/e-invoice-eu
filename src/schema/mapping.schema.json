@@ -26,9 +26,7 @@
 					}
 				}
 			},
-			"required": [
-				"sectionColumn"
-			]
+			"required": ["sectionColumn"]
 		},
 		"ubl:Invoice": {
 			"type": "object",
@@ -99,12 +97,11 @@
 							"$ref": "#/$defs/valueRef"
 						}
 					},
-					"required": [
-						"cbc:ID"
-					]
+					"required": ["cbc:ID"]
 				},
 				"cac:BillingReference": {
 					"type": "object",
+					"additionalProperties": false,
 					"properties": {
 						"section": {
 							"$ref": "#/$defs/sectionRef"
@@ -121,15 +118,10 @@
 									"$ref": "#/$defs/valueRef"
 								}
 							},
-							"required": [
-								"cbc:ID"
-							]
+							"required": ["cbc:ID"]
 						}
 					},
-					"required": [
-						"section",
-						"cac:InvoiceDocumentReference"
-					]
+					"required": ["section", "cac:InvoiceDocumentReference"]
 				},
 				"cac:DespatchDocumentReference": {
 					"type": "object",
@@ -140,9 +132,7 @@
 							"$ref": "#/$defs/valueRef"
 						}
 					},
-					"required": [
-						"cbc:ID"
-					]
+					"required": ["cbc:ID"]
 				},
 				"cac:ReceiptDocumentReference": {
 					"type": "object",
@@ -153,9 +143,7 @@
 							"$ref": "#/$defs/valueRef"
 						}
 					},
-					"required": [
-						"cbc:ID"
-					]
+					"required": ["cbc:ID"]
 				},
 				"cac:OriginatorDocumentReference": {
 					"type": "object",
@@ -166,9 +154,7 @@
 							"$ref": "#/$defs/valueRef"
 						}
 					},
-					"required": [
-						"cbc:ID"
-					]
+					"required": ["cbc:ID"]
 				},
 				"cac:ContractDocumentReference": {
 					"type": "object",
@@ -179,12 +165,11 @@
 							"$ref": "#/$defs/valueRef"
 						}
 					},
-					"required": [
-						"cbc:ID"
-					]
+					"required": ["cbc:ID"]
 				},
 				"cac:AdditionalDocumentReference": {
 					"type": "object",
+					"additionalProperties": false,
 					"properties": {
 						"section": {
 							"$ref": "#/$defs/sectionRef"
@@ -224,9 +209,7 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:URI"
-									]
+									"required": ["cbc:URI"]
 								}
 							},
 							"required": [],
@@ -244,14 +227,9 @@
 							}
 						}
 					},
-					"required": [
-						"section",
-						"cbc:ID"
-					],
+					"required": ["section", "cbc:ID"],
 					"dependentRequired": {
-						"cbc:ID@schemeID": [
-							"cbc:ID"
-						]
+						"cbc:ID@schemeID": ["cbc:ID"]
 					}
 				},
 				"cac:ProjectReference": {
@@ -263,9 +241,7 @@
 							"$ref": "#/$defs/valueRef"
 						}
 					},
-					"required": [
-						"cbc:ID"
-					]
+					"required": ["cbc:ID"]
 				},
 				"cac:AccountingSupplierParty": {
 					"type": "object",
@@ -286,6 +262,7 @@
 								},
 								"cac:PartyIdentification": {
 									"type": "object",
+									"additionalProperties": false,
 									"properties": {
 										"section": {
 											"$ref": "#/$defs/sectionRef"
@@ -297,14 +274,9 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"section",
-										"cbc:ID"
-									],
+									"required": ["section", "cbc:ID"],
 									"dependentRequired": {
-										"cbc:ID@schemeID": [
-											"cbc:ID"
-										]
+										"cbc:ID@schemeID": ["cbc:ID"]
 									}
 								},
 								"cac:PartyName": {
@@ -316,9 +288,7 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:Name"
-									]
+									"required": ["cbc:Name"]
 								},
 								"cac:PostalAddress": {
 									"type": "object",
@@ -350,9 +320,7 @@
 													"$ref": "#/$defs/valueRef"
 												}
 											},
-											"required": [
-												"cbc:Line"
-											]
+											"required": ["cbc:Line"]
 										},
 										"cac:Country": {
 											"type": "object",
@@ -363,17 +331,14 @@
 													"$ref": "#/$defs/valueRef"
 												}
 											},
-											"required": [
-												"cbc:IdentificationCode"
-											]
+											"required": ["cbc:IdentificationCode"]
 										}
 									},
-									"required": [
-										"cac:Country"
-									]
+									"required": ["cac:Country"]
 								},
 								"cac:PartyTaxScheme": {
 									"type": "object",
+									"additionalProperties": false,
 									"properties": {
 										"section": {
 											"$ref": "#/$defs/sectionRef"
@@ -390,16 +355,10 @@
 													"$ref": "#/$defs/valueRef"
 												}
 											},
-											"required": [
-												"cbc:ID"
-											]
+											"required": ["cbc:ID"]
 										}
 									},
-									"required": [
-										"section",
-										"cbc:CompanyID",
-										"cac:TaxScheme"
-									]
+									"required": ["section", "cbc:CompanyID", "cac:TaxScheme"]
 								},
 								"cac:PartyLegalEntity": {
 									"type": "object",
@@ -419,13 +378,9 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:RegistrationName"
-									],
+									"required": ["cbc:RegistrationName"],
 									"dependentRequired": {
-										"cbc:CompanyID@schemeID": [
-											"cbc:CompanyID"
-										]
+										"cbc:CompanyID@schemeID": ["cbc:CompanyID"]
 									}
 								},
 								"cac:Contact": {
@@ -452,18 +407,12 @@
 								"cac:PartyLegalEntity"
 							],
 							"dependentRequired": {
-								"cbc:EndpointID": [
-									"cbc:EndpointID@schemeID"
-								],
-								"cbc:EndpointID@schemeID": [
-									"cbc:EndpointID"
-								]
+								"cbc:EndpointID": ["cbc:EndpointID@schemeID"],
+								"cbc:EndpointID@schemeID": ["cbc:EndpointID"]
 							}
 						}
 					},
-					"required": [
-						"cac:Party"
-					]
+					"required": ["cac:Party"]
 				},
 				"cac:AccountingCustomerParty": {
 					"type": "object",
@@ -494,13 +443,9 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:ID"
-									],
+									"required": ["cbc:ID"],
 									"dependentRequired": {
-										"cbc:ID@schemeID": [
-											"cbc:ID"
-										]
+										"cbc:ID@schemeID": ["cbc:ID"]
 									}
 								},
 								"cac:PartyName": {
@@ -512,9 +457,7 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:Name"
-									]
+									"required": ["cbc:Name"]
 								},
 								"cac:PostalAddress": {
 									"type": "object",
@@ -546,9 +489,7 @@
 													"$ref": "#/$defs/valueRef"
 												}
 											},
-											"required": [
-												"cbc:Line"
-											]
+											"required": ["cbc:Line"]
 										},
 										"cac:Country": {
 											"type": "object",
@@ -559,14 +500,10 @@
 													"$ref": "#/$defs/valueRef"
 												}
 											},
-											"required": [
-												"cbc:IdentificationCode"
-											]
+											"required": ["cbc:IdentificationCode"]
 										}
 									},
-									"required": [
-										"cac:Country"
-									]
+									"required": ["cac:Country"]
 								},
 								"cac:PartyTaxScheme": {
 									"type": "object",
@@ -585,15 +522,10 @@
 													"$ref": "#/$defs/valueRef"
 												}
 											},
-											"required": [
-												"cbc:ID"
-											]
+											"required": ["cbc:ID"]
 										}
 									},
-									"required": [
-										"cbc:CompanyID",
-										"cac:TaxScheme"
-									]
+									"required": ["cbc:CompanyID", "cac:TaxScheme"]
 								},
 								"cac:PartyLegalEntity": {
 									"type": "object",
@@ -610,13 +542,9 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:RegistrationName"
-									],
+									"required": ["cbc:RegistrationName"],
 									"dependentRequired": {
-										"cbc:CompanyID@schemeID": [
-											"cbc:CompanyID"
-										]
+										"cbc:CompanyID@schemeID": ["cbc:CompanyID"]
 									}
 								},
 								"cac:Contact": {
@@ -643,18 +571,12 @@
 								"cac:PartyLegalEntity"
 							],
 							"dependentRequired": {
-								"cbc:EndpointID": [
-									"cbc:EndpointID@schemeID"
-								],
-								"cbc:EndpointID@schemeID": [
-									"cbc:EndpointID"
-								]
+								"cbc:EndpointID": ["cbc:EndpointID@schemeID"],
+								"cbc:EndpointID@schemeID": ["cbc:EndpointID"]
 							}
 						}
 					},
-					"required": [
-						"cac:Party"
-					]
+					"required": ["cac:Party"]
 				},
 				"cac:PayeeParty": {
 					"type": "object",
@@ -674,13 +596,9 @@
 									"$ref": "#/$defs/valueRef"
 								}
 							},
-							"required": [
-								"cbc:ID"
-							],
+							"required": ["cbc:ID"],
 							"dependentRequired": {
-								"cbc:ID@schemeID": [
-									"cbc:ID"
-								]
+								"cbc:ID@schemeID": ["cbc:ID"]
 							}
 						},
 						"cac:PartyName": {
@@ -692,9 +610,7 @@
 									"$ref": "#/$defs/valueRef"
 								}
 							},
-							"required": [
-								"cbc:Name"
-							]
+							"required": ["cbc:Name"]
 						},
 						"cac:PartyLegalEntity": {
 							"type": "object",
@@ -708,19 +624,13 @@
 									"$ref": "#/$defs/valueRef"
 								}
 							},
-							"required": [
-								"cbc:CompanyID"
-							],
+							"required": ["cbc:CompanyID"],
 							"dependentRequired": {
-								"cbc:CompanyID@schemeID": [
-									"cbc:CompanyID"
-								]
+								"cbc:CompanyID@schemeID": ["cbc:CompanyID"]
 							}
 						}
 					},
-					"required": [
-						"cac:PartyName"
-					]
+					"required": ["cac:PartyName"]
 				},
 				"cac:TaxRepresentativeParty": {
 					"type": "object",
@@ -737,9 +647,7 @@
 									"$ref": "#/$defs/valueRef"
 								}
 							},
-							"required": [
-								"cbc:Name"
-							]
+							"required": ["cbc:Name"]
 						},
 						"cac:PostalAddress": {
 							"type": "object",
@@ -771,9 +679,7 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:Line"
-									]
+									"required": ["cbc:Line"]
 								},
 								"cac:Country": {
 									"type": "object",
@@ -784,14 +690,10 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:IdentificationCode"
-									]
+									"required": ["cbc:IdentificationCode"]
 								}
 							},
-							"required": [
-								"cac:Country"
-							]
+							"required": ["cac:Country"]
 						},
 						"cac:PartyTaxScheme": {
 							"type": "object",
@@ -810,15 +712,10 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:ID"
-									]
+									"required": ["cbc:ID"]
 								}
 							},
-							"required": [
-								"cbc:CompanyID",
-								"cac:TaxScheme"
-							]
+							"required": ["cbc:CompanyID", "cac:TaxScheme"]
 						}
 					},
 					"required": [
@@ -876,9 +773,7 @@
 													"$ref": "#/$defs/valueRef"
 												}
 											},
-											"required": [
-												"cbc:Line"
-											]
+											"required": ["cbc:Line"]
 										},
 										"cac:Country": {
 											"type": "object",
@@ -889,20 +784,14 @@
 													"$ref": "#/$defs/valueRef"
 												}
 											},
-											"required": [
-												"cbc:IdentificationCode"
-											]
+											"required": ["cbc:IdentificationCode"]
 										}
 									},
-									"required": [
-										"cac:Country"
-									]
+									"required": ["cac:Country"]
 								}
 							},
 							"dependentRequired": {
-								"cbc:ID@schemeID": [
-									"cbc:ID"
-								]
+								"cbc:ID@schemeID": ["cbc:ID"]
 							}
 						},
 						"cac:DeliveryParty": {
@@ -919,19 +808,16 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:Name"
-									]
+									"required": ["cbc:Name"]
 								}
 							},
-							"required": [
-								"cac:PartyName"
-							]
+							"required": ["cac:PartyName"]
 						}
 					}
 				},
 				"cac:PaymentMeans": {
 					"type": "object",
+					"additionalProperties": false,
 					"properties": {
 						"section": {
 							"$ref": "#/$defs/sectionRef"
@@ -961,10 +847,7 @@
 									"$ref": "#/$defs/valueRef"
 								}
 							},
-							"required": [
-								"cbc:PrimaryAccountNumberID",
-								"cbc:NetworkID"
-							]
+							"required": ["cbc:PrimaryAccountNumberID", "cbc:NetworkID"]
 						},
 						"cac:PayeeFinancialAccount": {
 							"type": "object",
@@ -987,14 +870,10 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:ID"
-									]
+									"required": ["cbc:ID"]
 								}
 							},
-							"required": [
-								"cbc:ID"
-							]
+							"required": ["cbc:ID"]
 						},
 						"cac:PaymentMandate": {
 							"type": "object",
@@ -1014,21 +893,14 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:ID"
-									]
+									"required": ["cbc:ID"]
 								}
 							}
 						}
 					},
-					"required": [
-						"section",
-						"cbc:PaymentMeansCode"
-					],
+					"required": ["section", "cbc:PaymentMeansCode"],
 					"dependentRequired": {
-						"cbc:PaymentMeansCode@name": [
-							"cbc:PaymentMeansCode"
-						]
+						"cbc:PaymentMeansCode@name": ["cbc:PaymentMeansCode"]
 					}
 				},
 				"cac:PaymentTerms": {
@@ -1040,12 +912,11 @@
 							"$ref": "#/$defs/valueRef"
 						}
 					},
-					"required": [
-						"cbc:Note"
-					]
+					"required": ["cbc:Note"]
 				},
 				"cac:AllowanceCharge": {
 					"type": "object",
+					"additionalProperties": false,
 					"properties": {
 						"section": {
 							"$ref": "#/$defs/sectionRef"
@@ -1094,15 +965,10 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:ID"
-									]
+									"required": ["cbc:ID"]
 								}
 							},
-							"required": [
-								"cbc:ID",
-								"cac:TaxScheme"
-							]
+							"required": ["cbc:ID", "cac:TaxScheme"]
 						}
 					},
 					"required": [
@@ -1112,22 +978,15 @@
 						"cac:TaxCategory"
 					],
 					"dependentRequired": {
-						"cbc:Amount": [
-							"cbc:Amount@currencyID"
-						],
-						"cbc:BaseAmount": [
-							"cbc:BaseAmount@currencyID"
-						],
-						"cbc:Amount@currencyID": [
-							"cbc:Amount"
-						],
-						"cbc:BaseAmount@currencyID": [
-							"cbc:BaseAmount"
-						]
+						"cbc:Amount": ["cbc:Amount@currencyID"],
+						"cbc:BaseAmount": ["cbc:BaseAmount@currencyID"],
+						"cbc:Amount@currencyID": ["cbc:Amount"],
+						"cbc:BaseAmount@currencyID": ["cbc:BaseAmount"]
 					}
 				},
 				"cac:TaxTotal": {
 					"type": "object",
+					"additionalProperties": false,
 					"properties": {
 						"section": {
 							"$ref": "#/$defs/sectionRef"
@@ -1140,6 +999,7 @@
 						},
 						"cac:TaxSubtotal": {
 							"type": "object",
+							"additionalProperties": false,
 							"properties": {
 								"section": {
 									"$ref": "#/$defs/sectionRef"
@@ -1182,15 +1042,10 @@
 													"$ref": "#/$defs/valueRef"
 												}
 											},
-											"required": [
-												"cbc:ID"
-											]
+											"required": ["cbc:ID"]
 										}
 									},
-									"required": [
-										"cbc:ID",
-										"cac:TaxScheme"
-									]
+									"required": ["cbc:ID", "cac:TaxScheme"]
 								}
 							},
 							"required": [
@@ -1200,32 +1055,17 @@
 								"cac:TaxCategory"
 							],
 							"dependentRequired": {
-								"cbc:TaxableAmount": [
-									"cbc:TaxableAmount@currencyID"
-								],
-								"cbc:TaxAmount": [
-									"cbc:TaxAmount@currencyID"
-								],
-								"cbc:TaxableAmount@currencyID": [
-									"cbc:TaxableAmount"
-								],
-								"cbc:TaxAmount@currencyID": [
-									"cbc:TaxAmount"
-								]
+								"cbc:TaxableAmount": ["cbc:TaxableAmount@currencyID"],
+								"cbc:TaxAmount": ["cbc:TaxAmount@currencyID"],
+								"cbc:TaxableAmount@currencyID": ["cbc:TaxableAmount"],
+								"cbc:TaxAmount@currencyID": ["cbc:TaxAmount"]
 							}
 						}
 					},
-					"required": [
-						"section",
-						"cbc:TaxAmount"
-					],
+					"required": ["section", "cbc:TaxAmount"],
 					"dependentRequired": {
-						"cbc:TaxAmount": [
-							"cbc:TaxAmount@currencyID"
-						],
-						"cbc:TaxAmount@currencyID": [
-							"cbc:TaxAmount"
-						]
+						"cbc:TaxAmount": ["cbc:TaxAmount@currencyID"],
+						"cbc:TaxAmount@currencyID": ["cbc:TaxAmount"]
 					}
 				},
 				"cac:LegalMonetaryTotal": {
@@ -1290,58 +1130,31 @@
 						"cbc:PayableAmount"
 					],
 					"dependentRequired": {
-						"cbc:LineExtensionAmount": [
-							"cbc:LineExtensionAmount@currencyID"
-						],
-						"cbc:TaxExclusiveAmount": [
-							"cbc:TaxExclusiveAmount@currencyID"
-						],
-						"cbc:TaxInclusiveAmount": [
-							"cbc:TaxInclusiveAmount@currencyID"
-						],
-						"cbc:AllowanceTotalAmount": [
-							"cbc:AllowanceTotalAmount@currencyID"
-						],
-						"cbc:ChargeTotalAmount": [
-							"cbc:ChargeTotalAmount@currencyID"
-						],
-						"cbc:PrepaidAmount": [
-							"cbc:PrepaidAmount@currencyID"
-						],
+						"cbc:LineExtensionAmount": ["cbc:LineExtensionAmount@currencyID"],
+						"cbc:TaxExclusiveAmount": ["cbc:TaxExclusiveAmount@currencyID"],
+						"cbc:TaxInclusiveAmount": ["cbc:TaxInclusiveAmount@currencyID"],
+						"cbc:AllowanceTotalAmount": ["cbc:AllowanceTotalAmount@currencyID"],
+						"cbc:ChargeTotalAmount": ["cbc:ChargeTotalAmount@currencyID"],
+						"cbc:PrepaidAmount": ["cbc:PrepaidAmount@currencyID"],
 						"cbc:PayableRoundingAmount": [
 							"cbc:PayableRoundingAmount@currencyID"
 						],
-						"cbc:PayableAmount": [
-							"cbc:PayableAmount@currencyID"
-						],
-						"cbc:LineExtensionAmount@currencyID": [
-							"cbc:LineExtensionAmount"
-						],
-						"cbc:TaxExclusiveAmount@currencyID": [
-							"cbc:TaxExclusiveAmount"
-						],
-						"cbc:TaxInclusiveAmount@currencyID": [
-							"cbc:TaxInclusiveAmount"
-						],
-						"cbc:AllowanceTotalAmount@currencyID": [
-							"cbc:AllowanceTotalAmount"
-						],
-						"cbc:ChargeTotalAmount@currencyID": [
-							"cbc:ChargeTotalAmount"
-						],
-						"cbc:PrepaidAmount@currencyID": [
-							"cbc:PrepaidAmount"
-						],
+						"cbc:PayableAmount": ["cbc:PayableAmount@currencyID"],
+						"cbc:LineExtensionAmount@currencyID": ["cbc:LineExtensionAmount"],
+						"cbc:TaxExclusiveAmount@currencyID": ["cbc:TaxExclusiveAmount"],
+						"cbc:TaxInclusiveAmount@currencyID": ["cbc:TaxInclusiveAmount"],
+						"cbc:AllowanceTotalAmount@currencyID": ["cbc:AllowanceTotalAmount"],
+						"cbc:ChargeTotalAmount@currencyID": ["cbc:ChargeTotalAmount"],
+						"cbc:PrepaidAmount@currencyID": ["cbc:PrepaidAmount"],
 						"cbc:PayableRoundingAmount@currencyID": [
 							"cbc:PayableRoundingAmount"
 						],
-						"cbc:PayableAmount@currencyID": [
-							"cbc:PayableAmount"
-						]
+						"cbc:PayableAmount@currencyID": ["cbc:PayableAmount"]
 					}
 				},
 				"cac:InvoiceLine": {
 					"type": "object",
+					"additionalProperties": false,
 					"properties": {
 						"section": {
 							"$ref": "#/$defs/sectionRef"
@@ -1390,9 +1203,7 @@
 									"$ref": "#/$defs/valueRef"
 								}
 							},
-							"required": [
-								"cbc:LineID"
-							]
+							"required": ["cbc:LineID"]
 						},
 						"cac:DocumentReference": {
 							"type": "object",
@@ -1409,18 +1220,14 @@
 									"$ref": "#/$defs/valueRef"
 								}
 							},
-							"required": [
-								"cbc:ID",
-								"cbc:DocumentTypeCode"
-							],
+							"required": ["cbc:ID", "cbc:DocumentTypeCode"],
 							"dependentRequired": {
-								"cbc:ID@schemeID": [
-									"cbc:ID"
-								]
+								"cbc:ID@schemeID": ["cbc:ID"]
 							}
 						},
 						"cac:AllowanceCharge": {
 							"type": "object",
+							"additionalProperties": false,
 							"properties": {
 								"section": {
 									"$ref": "#/$defs/sectionRef"
@@ -1450,24 +1257,12 @@
 									"$ref": "#/$defs/valueRef"
 								}
 							},
-							"required": [
-								"section",
-								"cbc:ChargeIndicator",
-								"cbc:Amount"
-							],
+							"required": ["section", "cbc:ChargeIndicator", "cbc:Amount"],
 							"dependentRequired": {
-								"cbc:Amount": [
-									"cbc:Amount@currencyID"
-								],
-								"cbc:BaseAmount": [
-									"cbc:BaseAmount@currencyID"
-								],
-								"cbc:Amount@currencyID": [
-									"cbc:Amount"
-								],
-								"cbc:BaseAmount@currencyID": [
-									"cbc:BaseAmount"
-								]
+								"cbc:Amount": ["cbc:Amount@currencyID"],
+								"cbc:BaseAmount": ["cbc:BaseAmount@currencyID"],
+								"cbc:Amount@currencyID": ["cbc:Amount"],
+								"cbc:BaseAmount@currencyID": ["cbc:BaseAmount"]
 							}
 						},
 						"cac:Item": {
@@ -1491,9 +1286,7 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:ID"
-									]
+									"required": ["cbc:ID"]
 								},
 								"cac:SellersItemIdentification": {
 									"type": "object",
@@ -1504,9 +1297,7 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:ID"
-									]
+									"required": ["cbc:ID"]
 								},
 								"cac:StandardItemIdentification": {
 									"type": "object",
@@ -1520,16 +1311,10 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:ID"
-									],
+									"required": ["cbc:ID"],
 									"dependentRequired": {
-										"cbc:ID": [
-											"cbc:ID@schemeID"
-										],
-										"cbc:ID@schemeID": [
-											"cbc:ID"
-										]
+										"cbc:ID": ["cbc:ID@schemeID"],
+										"cbc:ID@schemeID": ["cbc:ID"]
 									}
 								},
 								"cac:OriginCountry": {
@@ -1541,12 +1326,11 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:IdentificationCode"
-									]
+									"required": ["cbc:IdentificationCode"]
 								},
 								"cac:CommodityClassification": {
 									"type": "object",
+									"additionalProperties": false,
 									"properties": {
 										"section": {
 											"$ref": "#/$defs/sectionRef"
@@ -1561,10 +1345,7 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"section",
-										"cbc:ItemClassificationCode"
-									],
+									"required": ["section", "cbc:ItemClassificationCode"],
 									"dependentRequired": {
 										"cbc:ItemClassificationCode": [
 											"cbc:ItemClassificationCode@listID"
@@ -1598,18 +1379,14 @@
 													"$ref": "#/$defs/valueRef"
 												}
 											},
-											"required": [
-												"cbc:ID"
-											]
+											"required": ["cbc:ID"]
 										}
 									},
-									"required": [
-										"cbc:ID",
-										"cac:TaxScheme"
-									]
+									"required": ["cbc:ID", "cac:TaxScheme"]
 								},
 								"cac:AdditionalItemProperty": {
 									"type": "object",
+									"additionalProperties": false,
 									"properties": {
 										"section": {
 											"$ref": "#/$defs/sectionRef"
@@ -1621,17 +1398,10 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"section",
-										"cbc:Name",
-										"cbc:Value"
-									]
+									"required": ["section", "cbc:Name", "cbc:Value"]
 								}
 							},
-							"required": [
-								"cbc:Name",
-								"cac:ClassifiedTaxCategory"
-							]
+							"required": ["cbc:Name", "cac:ClassifiedTaxCategory"]
 						},
 						"cac:Price": {
 							"type": "object",
@@ -1672,39 +1442,20 @@
 											"$ref": "#/$defs/valueRef"
 										}
 									},
-									"required": [
-										"cbc:ChargeIndicator",
-										"cbc:Amount"
-									],
+									"required": ["cbc:ChargeIndicator", "cbc:Amount"],
 									"dependentRequired": {
-										"cbc:Amount": [
-											"cbc:Amount@currencyID"
-										],
-										"cbc:BaseAmount": [
-											"cbc:BaseAmount@currencyID"
-										],
-										"cbc:Amount@currencyID": [
-											"cbc:Amount"
-										],
-										"cbc:BaseAmount@currencyID": [
-											"cbc:BaseAmount"
-										]
+										"cbc:Amount": ["cbc:Amount@currencyID"],
+										"cbc:BaseAmount": ["cbc:BaseAmount@currencyID"],
+										"cbc:Amount@currencyID": ["cbc:Amount"],
+										"cbc:BaseAmount@currencyID": ["cbc:BaseAmount"]
 									}
 								}
 							},
-							"required": [
-								"cbc:PriceAmount"
-							],
+							"required": ["cbc:PriceAmount"],
 							"dependentRequired": {
-								"cbc:PriceAmount": [
-									"cbc:PriceAmount@currencyID"
-								],
-								"cbc:PriceAmount@currencyID": [
-									"cbc:PriceAmount"
-								],
-								"cbc:BaseQuantity@unitCode": [
-									"cbc:BaseQuantity"
-								]
+								"cbc:PriceAmount": ["cbc:PriceAmount@currencyID"],
+								"cbc:PriceAmount@currencyID": ["cbc:PriceAmount"],
+								"cbc:BaseQuantity@unitCode": ["cbc:BaseQuantity"]
 							}
 						}
 					},
@@ -1717,18 +1468,10 @@
 						"cac:Price"
 					],
 					"dependentRequired": {
-						"cbc:InvoicedQuantity": [
-							"cbc:InvoicedQuantity@unitCode"
-						],
-						"cbc:LineExtensionAmount": [
-							"cbc:LineExtensionAmount@currencyID"
-						],
-						"cbc:InvoicedQuantity@unitCode": [
-							"cbc:InvoicedQuantity"
-						],
-						"cbc:LineExtensionAmount@currencyID": [
-							"cbc:LineExtensionAmount"
-						]
+						"cbc:InvoicedQuantity": ["cbc:InvoicedQuantity@unitCode"],
+						"cbc:LineExtensionAmount": ["cbc:LineExtensionAmount@currencyID"],
+						"cbc:InvoicedQuantity@unitCode": ["cbc:InvoicedQuantity"],
+						"cbc:LineExtensionAmount@currencyID": ["cbc:LineExtensionAmount"]
 					}
 				}
 			},
@@ -1745,10 +1488,7 @@
 			]
 		}
 	},
-	"required": [
-		"meta",
-		"ubl:Invoice"
-	],
+	"required": ["meta", "ubl:Invoice"],
 	"$defs": {
 		"valueRef": {
 			"type": "string",
