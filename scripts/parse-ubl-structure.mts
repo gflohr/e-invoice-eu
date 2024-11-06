@@ -1,5 +1,9 @@
 #! /usr/bin/env node
 
+// This script parses the PEPPOL XML sources that are used to generate the
+// site docs.peppol.eu.  It converts the XML files into a JSON schema for
+// the internal invoice format of `e-invoice-eu`.
+
 import { JSONSchemaType } from 'ajv';
 import { XMLParser } from 'fast-xml-parser';
 import * as fs from 'fs';
