@@ -21,19 +21,19 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					type: 'string',
 					title: 'Specification identifier',
 					description:
-						'An identification of the specification containing the total set of rules regarding semantic\n                content, cardinalities and business rules to which the data contained in the instance document conforms.',
+						'An identification of the specification containing the total set of rules regarding semantic\n                content, cardinalities and business rules to which the data contained in the instance document conforms.\nBusiness terms: BT-24',
 				},
 				'cbc:ProfileID': {
 					type: 'string',
 					title: 'Business process type',
 					description:
-						'Identifies the business process context in which the transaction appears, to enable the Buyer to\n                process the Invoice in an appropriate way.',
+						'Identifies the business process context in which the transaction appears, to enable the Buyer to\n                process the Invoice in an appropriate way.\nBusiness terms: BT-23',
 				},
 				'cbc:ID': {
 					type: 'string',
 					title: 'Invoice number',
 					description:
-						'A unique identification of the Invoice. The sequential number required in Article 226(2) of the directive 2006/112/EC [2], to uniquely identify the Invoice \n                within the business context, time-frame, operating systems and records of the Seller. No identification scheme is to be used.',
+						'A unique identification of the Invoice. The sequential number required in Article 226(2) of the directive 2006/112/EC [2], to uniquely identify the Invoice \n                within the business context, time-frame, operating systems and records of the Seller. No identification scheme is to be used.\nBusiness terms: BT-1',
 				},
 				'cbc:IssueDate': {
 					$ref: '#/$defs/dataTypes/Date',
@@ -45,13 +45,14 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					type: 'string',
 					$ref: '#/$defs/codeLists/UNCL1001-inv',
 					title: 'Invoice type code',
-					description: 'A code specifying the functional type of the Invoice.',
+					description:
+						'A code specifying the functional type of the Invoice.\nBusiness terms: BT-3',
 				},
 				'cbc:Note': {
 					type: 'string',
 					title: 'Invoice note',
 					description:
-						'A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or\n                assignment note in case the invoice has been factored.',
+						'A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or\n                assignment note in case the invoice has been factored.\nBusiness terms: BT-22',
 				},
 				'cbc:TaxPointDate': {
 					$ref: '#/$defs/dataTypes/Date',
@@ -61,33 +62,33 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					$ref: '#/$defs/codeLists/ISO4217',
 					title: 'Invoice currency code',
 					description:
-						'The currency in which all Invoice amounts are given, except for the Total VAT amount in accounting\n                currency. Only one currency shall be used in the Invoice, except for the VAT accounting currency code (BT-6) and the invoice total VAT amount in accounting currency (BT-111).',
+						'The currency in which all Invoice amounts are given, except for the Total VAT amount in accounting\n                currency. Only one currency shall be used in the Invoice, except for the VAT accounting currency code (BT-6) and the invoice total VAT amount in accounting currency (BT-111).\nBusiness terms: BT-5',
 				},
 				'cbc:TaxCurrencyCode': {
 					type: 'string',
 					$ref: '#/$defs/codeLists/ISO4217',
 					title: 'VAT accounting currency code',
 					description:
-						'The currency used for VAT accounting and reporting purposes as accepted or required in the country\n                of the Seller. Shall be used in combination with the Invoice total VAT amount in accounting currency (BT-111), when the VAT accounting currency code differs from the \n                Invoice currency code.',
+						'The currency used for VAT accounting and reporting purposes as accepted or required in the country\n                of the Seller. Shall be used in combination with the Invoice total VAT amount in accounting currency (BT-111), when the VAT accounting currency code differs from the \n                Invoice currency code.\nBusiness terms: BT-6',
 				},
 				'cbc:AccountingCost': {
 					type: 'string',
 					title: 'Buyer accounting reference',
 					description:
-						"A textual value that specifies where to book the relevant data into the Buyer's financial\n                accounts.",
+						"A textual value that specifies where to book the relevant data into the Buyer's financial\n                accounts.\nBusiness terms: BT-19",
 				},
 				'cbc:BuyerReference': {
 					type: 'string',
 					title: 'Buyer reference',
 					description:
-						'An identifier assigned by the Buyer used for internal routing purposes. An invoice must have buyer reference or purchase order reference (BT-13).',
+						'An identifier assigned by the Buyer used for internal routing purposes. An invoice must have buyer reference or purchase order reference (BT-13).\nBusiness terms: BT-10',
 				},
 				'cac:InvoicePeriod': {
 					type: 'object',
 					additionalProperties: false,
 					title: 'DELIVERY OR INVOICE PERIOD',
 					description:
-						'A group of business terms providing information on the invoice period. Also called delivery period. \n                If the group is used, the invoiceing period start date and/or end date must be used.',
+						'A group of business terms providing information on the invoice period. Also called delivery period. \n                If the group is used, the invoiceing period start date and/or end date must be used.\nBusiness terms: BG-14',
 					properties: {
 						'cbc:StartDate': {
 							$ref: '#/$defs/dataTypes/Date',
@@ -100,7 +101,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							$ref: '#/$defs/codeLists/UNCL2005',
 							title: 'Value added tax point date code',
 							description:
-								'The code of the date when the VAT becomes accountable for the Seller and for the Buyer.',
+								'The code of the date when the VAT becomes accountable for the Seller and for the Buyer.\nBusiness terms: BT-8',
 						},
 					},
 				},
@@ -113,13 +114,13 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							type: 'string',
 							title: 'Purchase order reference',
 							description:
-								'An identifier of a referenced purchase order, issued by the Buyer. An invoice must have buyer reference (BT-10) or purchase order reference. In cases where sales order reference is provided, but there\'s no purchase order reference, then use value "NA" as this element is mandatory in UBL.',
+								'An identifier of a referenced purchase order, issued by the Buyer. An invoice must have buyer reference (BT-10) or purchase order reference. In cases where sales order reference is provided, but there\'s no purchase order reference, then use value "NA" as this element is mandatory in UBL.\nBusiness terms: BT-13',
 						},
 						'cbc:SalesOrderID': {
 							type: 'string',
 							title: 'Sales order reference',
 							description:
-								'An identifier of a referenced sales order, issued by the Seller. In cases where sales order reference is provided, but there\'s no purchase order reference, then set cac:OrderReference/cbc:ID to value "NA" as this element is mandatory in UBL.',
+								'An identifier of a referenced sales order, issued by the Seller. In cases where sales order reference is provided, but there\'s no purchase order reference, then set cac:OrderReference/cbc:ID to value "NA" as this element is mandatory in UBL.\nBusiness terms: BT-14',
 						},
 					},
 					required: ['cbc:ID'],
@@ -131,7 +132,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						additionalProperties: false,
 						title: 'PRECEDING INVOICE REFERENCE',
 						description:
-							'A group of business terms providing information on one or more preceding Invoices.',
+							'A group of business terms providing information on one or more preceding Invoices.\nBusiness terms: BG-3',
 						properties: {
 							'cac:InvoiceDocumentReference': {
 								type: 'object',
@@ -142,7 +143,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										type: 'string',
 										title: 'Preceding Invoice number',
 										description:
-											'The identification of an Invoice that was previously sent by the Seller.',
+											'The identification of an Invoice that was previously sent by the Seller.\nBusiness terms: BT-25',
 									},
 									'cbc:IssueDate': {
 										$ref: '#/$defs/dataTypes/Date',
@@ -162,7 +163,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						'cbc:ID': {
 							type: 'string',
 							title: 'Despatch advice reference',
-							description: 'An identifier of a referenced despatch advice.',
+							description:
+								'An identifier of a referenced despatch advice.\nBusiness terms: BT-16',
 						},
 					},
 					required: ['cbc:ID'],
@@ -175,7 +177,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						'cbc:ID': {
 							type: 'string',
 							title: 'Receiving advice reference',
-							description: 'An identifier of a referenced receiving advice.',
+							description:
+								'An identifier of a referenced receiving advice.\nBusiness terms: BT-15',
 						},
 					},
 					required: ['cbc:ID'],
@@ -189,7 +192,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							type: 'string',
 							title: 'Tender or lot reference',
 							description:
-								'The identification of the call for tender or lot the invoice relates to.',
+								'The identification of the call for tender or lot the invoice relates to.\nBusiness terms: BT-17',
 						},
 					},
 					required: ['cbc:ID'],
@@ -202,7 +205,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						'cbc:ID': {
 							type: 'string',
 							title: 'Contract reference',
-							description: 'The identification of a contract.',
+							description:
+								'The identification of a contract.\nBusiness terms: BT-12',
 						},
 					},
 					required: ['cbc:ID'],
@@ -214,14 +218,14 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						additionalProperties: false,
 						title: 'ADDITIONAL SUPPORTING DOCUMENTS',
 						description:
-							'A group of business terms providing information about additional supporting documents substantiating the claims made in the Invoice.\n            The additional supporting documents can be used for both referencing a document number which is expected to be known by the receiver, \n            an external document (referenced by a URL) or as an embedded document, Base64 encoded (such as a time report).',
+							'A group of business terms providing information about additional supporting documents substantiating the claims made in the Invoice.\n            The additional supporting documents can be used for both referencing a document number which is expected to be known by the receiver, \n            an external document (referenced by a URL) or as an embedded document, Base64 encoded (such as a time report).\nBusiness terms: BG-24',
 						properties: {
 							'cbc:ID': {
 								type: 'string',
 								title:
 									'Invoiced object identifier, Supporting document reference',
 								description:
-									'An identifier for an object on which the invoice is based, given by the Seller, or the identifier for the supporting document.',
+									'An identifier for an object on which the invoice is based, given by the Seller, or the identifier for the supporting document.\nBusiness terms: BT-18, BT-122',
 							},
 							'cbc:ID@schemeID': {
 								type: 'string',
@@ -234,13 +238,13 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								type: 'string',
 								title: 'Document type code',
 								description:
-									'Code "130" MUST be used to indicate an invoice object reference. Not used for other additional documents',
+									'Code "130" MUST be used to indicate an invoice object reference. Not used for other additional documents\nBusiness terms: BT-18',
 							},
 							'cbc:DocumentDescription': {
 								type: 'string',
 								title: 'Supporting document description',
 								description:
-									'A description of the supporting document, such as: timesheet, usage report etc.',
+									'A description of the supporting document, such as: timesheet, usage report etc.\nBusiness terms: BT-123',
 							},
 							'cac:Attachment': {
 								type: 'object',
@@ -270,7 +274,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 												type: 'string',
 												title: 'External document location',
 												description:
-													'The URL (Uniform Resource Locator) that identifies where the external document is located.  \n                        A means of locating the resource, including its primary access mechanism, e.g. http:// or ftp://.',
+													'The URL (Uniform Resource Locator) that identifies where the external document is located.  \n                        A means of locating the resource, including its primary access mechanism, e.g. http:// or ftp://.\nBusiness terms: BT-124',
 											},
 										},
 										required: ['cbc:URI'],
@@ -306,7 +310,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							type: 'string',
 							title: 'Project reference',
 							description:
-								'The identification of the project the invoice refers to.',
+								'The identification of the project the invoice refers to.\nBusiness terms: BT-11',
 						},
 					},
 					required: ['cbc:ID'],
@@ -316,7 +320,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					additionalProperties: false,
 					title: 'SELLER',
 					description:
-						'A group of business terms providing information about the Seller.',
+						'A group of business terms providing information about the Seller.\nBusiness terms: BG-4',
 					properties: {
 						'cac:Party': {
 							type: 'object',
@@ -327,7 +331,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									type: 'string',
 									title: 'Seller electronic address',
 									description:
-										"Identifies the Seller's electronic address to which the application level response to the invoice may be delivered.",
+										"Identifies the Seller's electronic address to which the application level response to the invoice may be delivered.\nBusiness terms: BT-34",
 								},
 								'cbc:EndpointID@schemeID': {
 									type: 'string',
@@ -349,7 +353,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 												title:
 													'Seller identifier or bank assigned creditor identifier',
 												description:
-													'This element is used for both the identification of the Seller, or the unique banking reference identifier of Seller (assigned by the Seller bank.). For seller identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA.\n                     In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present',
+													'This element is used for both the identification of the Seller, or the unique banking reference identifier of Seller (assigned by the Seller bank.). For seller identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA.\n                     In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present\nBusiness terms: BT-29, BT-90',
 											},
 											'cbc:ID@schemeID': {
 												type: 'string',
@@ -375,7 +379,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											type: 'string',
 											title: 'Seller trading name',
 											description:
-												'A name by which the Seller is known, other than Seller name (also known as Business name).',
+												'A name by which the Seller is known, other than Seller name (also known as Business name).\nBusiness terms: BT-28',
 										},
 									},
 									required: ['cbc:Name'],
@@ -385,35 +389,37 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									additionalProperties: false,
 									title: 'SELLER POSTAL ADDRESS',
 									description:
-										'A group of business terms providing information about the address of the Seller. \n                    Sufficient components of the address are to be filled to comply with legal requirements.',
+										'A group of business terms providing information about the address of the Seller. \n                    Sufficient components of the address are to be filled to comply with legal requirements.\nBusiness terms: BG-5',
 									properties: {
 										'cbc:StreetName': {
 											type: 'string',
 											title: 'Seller address line 1',
-											description: 'The main address line in an address.',
+											description:
+												'The main address line in an address.\nBusiness terms: BT-35',
 										},
 										'cbc:AdditionalStreetName': {
 											type: 'string',
 											title: 'Seller address line 2',
 											description:
-												'An additional address line in an address that can be used to give further details supplementing the main line.',
+												'An additional address line in an address that can be used to give further details supplementing the main line.\nBusiness terms: BT-36',
 										},
 										'cbc:CityName': {
 											type: 'string',
 											title: 'Seller city',
 											description:
-												'The common name of the city, town or village, where the Seller address is located.',
+												'The common name of the city, town or village, where the Seller address is located.\nBusiness terms: BT-37',
 										},
 										'cbc:PostalZone': {
 											type: 'string',
 											title: 'Seller post code',
 											description:
-												'The identifier for an addressable group of properties according to the relevant postal service.',
+												'The identifier for an addressable group of properties according to the relevant postal service.\nBusiness terms: BT-38',
 										},
 										'cbc:CountrySubentity': {
 											type: 'string',
 											title: 'Seller country subdivision',
-											description: 'The subdivision of a country.',
+											description:
+												'The subdivision of a country.\nBusiness terms: BT-39',
 										},
 										'cac:AddressLine': {
 											type: 'object',
@@ -424,7 +430,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 													type: 'string',
 													title: 'Seller address line 3',
 													description:
-														'An additional address line in an address that can be used to give further details supplementing the\n                            main line.',
+														'An additional address line in an address that can be used to give further details supplementing the\n                            main line.\nBusiness terms: BT-162',
 												},
 											},
 											required: ['cbc:Line'],
@@ -438,7 +444,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 													type: 'string',
 													$ref: '#/$defs/codeLists/ISO3166',
 													title: 'Seller country code',
-													description: 'A code that identifies the country.',
+													description:
+														'A code that identifies the country.\nBusiness terms: BT-40',
 												},
 											},
 											required: ['cbc:IdentificationCode'],
@@ -458,7 +465,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 												title:
 													'Seller VAT identifier, Seller tax registration identifier',
 												description:
-													"The Seller's VAT identifier (also known as Seller VAT identification number) or the local identification (defined by the Seller’s address) of the Seller for tax purposes or a\n                        reference that enables the Seller to state his registered tax status. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present",
+													"The Seller's VAT identifier (also known as Seller VAT identification number) or the local identification (defined by the Seller’s address) of the Seller for tax purposes or a\n                        reference that enables the Seller to state his registered tax status. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present\nBusiness terms: BT-31, BT-32",
 											},
 											'cac:TaxScheme': {
 												type: 'object',
@@ -487,13 +494,13 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											type: 'string',
 											title: 'Seller name',
 											description:
-												'The full formal name by which the Seller is registered in the national registry of legal entities\n                        or as a Taxable person or otherwise trades as a person or persons.',
+												'The full formal name by which the Seller is registered in the national registry of legal entities\n                        or as a Taxable person or otherwise trades as a person or persons.\nBusiness terms: BT-27',
 										},
 										'cbc:CompanyID': {
 											type: 'string',
 											title: 'Seller legal registration identifier',
 											description:
-												'An identifier issued by an official registrar that identifies the Seller as a legal entity or\n                        person. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present',
+												'An identifier issued by an official registrar that identifies the Seller as a legal entity or\n                        person. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present\nBusiness terms: BT-30',
 										},
 										'cbc:CompanyID@schemeID': {
 											type: 'string',
@@ -507,7 +514,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											type: 'string',
 											title: 'Seller additional legal information',
 											description:
-												'Additional legal information relevant for the Seller.',
+												'Additional legal information relevant for the Seller.\nBusiness terms: BT-33',
 										},
 									},
 									required: ['cbc:RegistrationName'],
@@ -520,23 +527,25 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									additionalProperties: false,
 									title: 'SELLER CONTACT',
 									description:
-										'A group of business terms providing contact information about the Seller.',
+										'A group of business terms providing contact information about the Seller.\nBusiness terms: BG-6',
 									properties: {
 										'cbc:Name': {
 											type: 'string',
 											title: 'Seller contact point',
 											description:
-												'A contact point for a legal entity or person.',
+												'A contact point for a legal entity or person.\nBusiness terms: BT-41',
 										},
 										'cbc:Telephone': {
 											type: 'string',
 											title: 'Seller contact telephone number',
-											description: 'A phone number for the contact point.',
+											description:
+												'A phone number for the contact point.\nBusiness terms: BT-42',
 										},
 										'cbc:ElectronicMail': {
 											type: 'string',
 											title: 'Seller contact email address',
-											description: 'An e-mail address for the contact point.',
+											description:
+												'An e-mail address for the contact point.\nBusiness terms: BT-43',
 										},
 									},
 								},
@@ -559,7 +568,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					additionalProperties: false,
 					title: 'BUYER',
 					description:
-						'A group of business terms providing information about the Buyer.',
+						'A group of business terms providing information about the Buyer.\nBusiness terms: BG-7',
 					properties: {
 						'cac:Party': {
 							type: 'object',
@@ -570,7 +579,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									type: 'string',
 									title: 'Buyer electronic address',
 									description:
-										"Identifies the Buyer's electronic address to which the invoice is delivered.",
+										"Identifies the Buyer's electronic address to which the invoice is delivered.\nBusiness terms: BT-49",
 								},
 								'cbc:EndpointID@schemeID': {
 									type: 'string',
@@ -588,7 +597,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										'cbc:ID': {
 											type: 'string',
 											title: 'Buyer identifier',
-											description: 'An identifier of the Buyer.',
+											description:
+												'An identifier of the Buyer.\nBusiness terms: BT-46',
 										},
 										'cbc:ID@schemeID': {
 											type: 'string',
@@ -613,7 +623,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											type: 'string',
 											title: 'Buyer trading name',
 											description:
-												'A name by which the Buyer is known, other than Buyer name (also known as Business name).',
+												'A name by which the Buyer is known, other than Buyer name (also known as Business name).\nBusiness terms: BT-45',
 										},
 									},
 									required: ['cbc:Name'],
@@ -623,35 +633,37 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									additionalProperties: false,
 									title: 'BUYER POSTAL ADDRESS',
 									description:
-										'A group of business terms providing information about the postal address for the Buyer.\n                    Sufficient components of the address are to be filled to comply with legal requirements.',
+										'A group of business terms providing information about the postal address for the Buyer.\n                    Sufficient components of the address are to be filled to comply with legal requirements.\nBusiness terms: BG-8',
 									properties: {
 										'cbc:StreetName': {
 											type: 'string',
 											title: 'Buyer address line 1',
-											description: 'The main address line in an address.',
+											description:
+												'The main address line in an address.\nBusiness terms: BT-50',
 										},
 										'cbc:AdditionalStreetName': {
 											type: 'string',
 											title: 'Buyer address line 2',
 											description:
-												'An additional address line in an address that can be used to give further details supplementing the\n                        main line.',
+												'An additional address line in an address that can be used to give further details supplementing the\n                        main line.\nBusiness terms: BT-51',
 										},
 										'cbc:CityName': {
 											type: 'string',
 											title: 'Buyer city',
 											description:
-												"The common name of the city, town or village, where the Buyer's address is located.",
+												"The common name of the city, town or village, where the Buyer's address is located.\nBusiness terms: BT-52",
 										},
 										'cbc:PostalZone': {
 											type: 'string',
 											title: 'Buyer post code',
 											description:
-												'The identifier for an addressable group of properties according to the relevant postal service.',
+												'The identifier for an addressable group of properties according to the relevant postal service.\nBusiness terms: BT-53',
 										},
 										'cbc:CountrySubentity': {
 											type: 'string',
 											title: 'Buyer country subdivision',
-											description: 'The subdivision of a country.',
+											description:
+												'The subdivision of a country.\nBusiness terms: BT-54',
 										},
 										'cac:AddressLine': {
 											type: 'object',
@@ -662,7 +674,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 													type: 'string',
 													title: 'Buyer address line 3',
 													description:
-														'An additional address line in an address that can be used to give further details supplementing the\n                            main line.',
+														'An additional address line in an address that can be used to give further details supplementing the\n                            main line.\nBusiness terms: BT-163',
 												},
 											},
 											required: ['cbc:Line'],
@@ -676,7 +688,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 													type: 'string',
 													$ref: '#/$defs/codeLists/ISO3166',
 													title: 'Buyer country code',
-													description: 'A code that identifies the country.',
+													description:
+														'A code that identifies the country.\nBusiness terms: BT-55',
 												},
 											},
 											required: ['cbc:IdentificationCode'],
@@ -693,7 +706,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											type: 'string',
 											title: 'Buyer VAT identifier',
 											description:
-												"The Buyer's VAT identifier (also known as Buyer VAT identification number).",
+												"The Buyer's VAT identifier (also known as Buyer VAT identification number).\nBusiness terms: BT-48",
 										},
 										'cac:TaxScheme': {
 											type: 'object',
@@ -718,13 +731,14 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										'cbc:RegistrationName': {
 											type: 'string',
 											title: 'Buyer name',
-											description: 'The full name of the Buyer.',
+											description:
+												'The full name of the Buyer.\nBusiness terms: BT-44',
 										},
 										'cbc:CompanyID': {
 											type: 'string',
 											title: 'Buyer legal registration identifier',
 											description:
-												'An identifier issued by an official registrar that identifies the Buyer as a legal entity or\n                        person.',
+												'An identifier issued by an official registrar that identifies the Buyer as a legal entity or\n                        person.\nBusiness terms: BT-47',
 										},
 										'cbc:CompanyID@schemeID': {
 											type: 'string',
@@ -745,23 +759,25 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									additionalProperties: false,
 									title: 'BUYER CONTACT',
 									description:
-										'A group of business terms providing contact information relevant for the Buyer.',
+										'A group of business terms providing contact information relevant for the Buyer.\nBusiness terms: BG-9',
 									properties: {
 										'cbc:Name': {
 											type: 'string',
 											title: 'Buyer contact point',
 											description:
-												'A contact point for a legal entity or person.',
+												'A contact point for a legal entity or person.\nBusiness terms: BT-56',
 										},
 										'cbc:Telephone': {
 											type: 'string',
 											title: 'Buyer contact telephone number',
-											description: 'A phone number for the contact point.',
+											description:
+												'A phone number for the contact point.\nBusiness terms: BT-57',
 										},
 										'cbc:ElectronicMail': {
 											type: 'string',
 											title: 'Buyer contact email address',
-											description: 'An e-mail address for the contact point.',
+											description:
+												'An e-mail address for the contact point.\nBusiness terms: BT-58',
 										},
 									},
 								},
@@ -784,7 +800,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					additionalProperties: false,
 					title: 'PAYEE',
 					description:
-						'A group of business terms providing information about the Payee, i.e. the role that receives the\n            payment.  Shall be used when the Payee is different from the Seller.',
+						'A group of business terms providing information about the Payee, i.e. the role that receives the\n            payment.  Shall be used when the Payee is different from the Seller.\nBusiness terms: BG-10',
 					properties: {
 						'cac:PartyIdentification': {
 							type: 'object',
@@ -796,7 +812,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									title:
 										'Payee identifier or bank assigned creditor identifier',
 									description:
-										'This element is used for both the identification of the Payee, or the unique banking reference identifier of Payee (assigned by the Payee bank.) For payee identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA.',
+										'This element is used for both the identification of the Payee, or the unique banking reference identifier of Payee (assigned by the Payee bank.) For payee identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA.\nBusiness terms: BT-60, BT-90',
 								},
 								'cbc:ID@schemeID': {
 									type: 'string',
@@ -820,7 +836,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								'cbc:Name': {
 									type: 'string',
 									title: 'Payee name',
-									description: 'The name of the Payee.',
+									description: 'The name of the Payee.\nBusiness terms: BT-59',
 								},
 							},
 							required: ['cbc:Name'],
@@ -834,7 +850,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									type: 'string',
 									title: 'Payee legal registration identifier',
 									description:
-										'An identifier issued by an official registrar that identifies the Payee as a legal entity or\n                    person.',
+										'An identifier issued by an official registrar that identifies the Payee as a legal entity or\n                    person.\nBusiness terms: BT-61',
 								},
 								'cbc:CompanyID@schemeID': {
 									type: 'string',
@@ -858,7 +874,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					additionalProperties: false,
 					title: 'SELLER TAX REPRESENTATIVE PARTY',
 					description:
-						"A group of business terms providing information about the Seller's tax representative.",
+						"A group of business terms providing information about the Seller's tax representative.\nBusiness terms: BG-11",
 					properties: {
 						'cac:PartyName': {
 							type: 'object',
@@ -869,7 +885,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									type: 'string',
 									title: 'Seller tax representative name',
 									description:
-										"The full name of the Seller's tax representative party.",
+										"The full name of the Seller's tax representative party.\nBusiness terms: BT-62",
 								},
 							},
 							required: ['cbc:Name'],
@@ -879,35 +895,37 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							additionalProperties: false,
 							title: 'SELLER TAX REPRESENTATIVE POSTAL ADDRESS',
 							description:
-								'A group of business terms providing information about the postal address for the tax representative\n                party. Sufficient components of the address are to be filled to comply with legal requirements.',
+								'A group of business terms providing information about the postal address for the tax representative\n                party. Sufficient components of the address are to be filled to comply with legal requirements.\nBusiness terms: BG-12',
 							properties: {
 								'cbc:StreetName': {
 									type: 'string',
 									title: 'Tax representative address line 1',
-									description: 'The main address line in an address.',
+									description:
+										'The main address line in an address.\nBusiness terms: BT-64',
 								},
 								'cbc:AdditionalStreetName': {
 									type: 'string',
 									title: 'Tax representative address line 2',
 									description:
-										'An additional address line in an address that can be used to give further details supplementing the\n                    main line.',
+										'An additional address line in an address that can be used to give further details supplementing the\n                    main line.\nBusiness terms: BT-65',
 								},
 								'cbc:CityName': {
 									type: 'string',
 									title: 'Tax representative city',
 									description:
-										'The common name of the city, town or village, where the tax representative address is located.',
+										'The common name of the city, town or village, where the tax representative address is located.\nBusiness terms: BT-66',
 								},
 								'cbc:PostalZone': {
 									type: 'string',
 									title: 'Tax representative post code',
 									description:
-										'The identifier for an addressable group of properties according to the relevant postal service.',
+										'The identifier for an addressable group of properties according to the relevant postal service.\nBusiness terms: BT-67',
 								},
 								'cbc:CountrySubentity': {
 									type: 'string',
 									title: 'Tax representative country subdivision',
-									description: 'The subdivision of a country.',
+									description:
+										'The subdivision of a country.\nBusiness terms: BT-68',
 								},
 								'cac:AddressLine': {
 									type: 'object',
@@ -918,7 +936,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											type: 'string',
 											title: 'Tax representative address line 3',
 											description:
-												'An additional address line in an address that can be used to give further details supplementing the\n                        main line.',
+												'An additional address line in an address that can be used to give further details supplementing the\n                        main line.\nBusiness terms: BT-164',
 										},
 									},
 									required: ['cbc:Line'],
@@ -932,7 +950,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											type: 'string',
 											$ref: '#/$defs/codeLists/ISO3166',
 											title: 'Tax representative country code',
-											description: 'A code that identifies the country.',
+											description:
+												'A code that identifies the country.\nBusiness terms: BT-69',
 										},
 									},
 									required: ['cbc:IdentificationCode'],
@@ -949,7 +968,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									type: 'string',
 									title: 'Seller tax representative VAT identifier',
 									description:
-										"The VAT identifier of the Seller's tax representative party.",
+										"The VAT identifier of the Seller's tax representative party.\nBusiness terms: BT-63",
 								},
 								'cac:TaxScheme': {
 									type: 'object',
@@ -978,7 +997,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					additionalProperties: false,
 					title: 'DELIVERY INFORMATION',
 					description:
-						'A group of business terms providing information about where and when the goods and services\n            invoiced are delivered.',
+						'A group of business terms providing information about where and when the goods and services\n            invoiced are delivered.\nBusiness terms: BG-13',
 					properties: {
 						'cbc:ActualDeliveryDate': {
 							$ref: '#/$defs/dataTypes/Date',
@@ -991,7 +1010,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									type: 'string',
 									title: 'Deliver to location identifier',
 									description:
-										'An identifier for the location at which the goods and services are delivered.',
+										'An identifier for the location at which the goods and services are delivered.\nBusiness terms: BT-71',
 								},
 								'cbc:ID@schemeID': {
 									type: 'string',
@@ -1006,35 +1025,37 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									additionalProperties: false,
 									title: 'DELIVER TO ADDRESS',
 									description:
-										'A group of business terms providing information about the address to which goods and services\n                    invoiced were or are delivered.',
+										'A group of business terms providing information about the address to which goods and services\n                    invoiced were or are delivered.\nBusiness terms: BG-15',
 									properties: {
 										'cbc:StreetName': {
 											type: 'string',
 											title: 'Deliver to address line 1',
-											description: 'The main address line in an address.',
+											description:
+												'The main address line in an address.\nBusiness terms: BT-75',
 										},
 										'cbc:AdditionalStreetName': {
 											type: 'string',
 											title: 'Deliver to address line 2',
 											description:
-												'An additional address line in an address that can be used to give further details supplementing the\n                        main line.',
+												'An additional address line in an address that can be used to give further details supplementing the\n                        main line.\nBusiness terms: BT-76',
 										},
 										'cbc:CityName': {
 											type: 'string',
 											title: 'Deliver to city',
 											description:
-												'The common name of the city, town or village, where the deliver to address is located.',
+												'The common name of the city, town or village, where the deliver to address is located.\nBusiness terms: BT-77',
 										},
 										'cbc:PostalZone': {
 											type: 'string',
 											title: 'Deliver to post code',
 											description:
-												'The identifier for an addressable group of properties according to the relevant postal service.',
+												'The identifier for an addressable group of properties according to the relevant postal service.\nBusiness terms: BT-78',
 										},
 										'cbc:CountrySubentity': {
 											type: 'string',
 											title: 'Deliver to country subdivision',
-											description: 'The subdivision of a country.',
+											description:
+												'The subdivision of a country.\nBusiness terms: BT-79',
 										},
 										'cac:AddressLine': {
 											type: 'object',
@@ -1045,7 +1066,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 													type: 'string',
 													title: 'Deliver to address line 3',
 													description:
-														'An additional address line in an address that can be used to give further details supplementing the\n                            main line.',
+														'An additional address line in an address that can be used to give further details supplementing the\n                            main line.\nBusiness terms: BT-165',
 												},
 											},
 											required: ['cbc:Line'],
@@ -1059,7 +1080,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 													type: 'string',
 													$ref: '#/$defs/codeLists/ISO3166',
 													title: 'Deliver to country code',
-													description: 'A code that identifies the country.',
+													description:
+														'A code that identifies the country.\nBusiness terms: BT-80',
 												},
 											},
 											required: ['cbc:IdentificationCode'],
@@ -1086,7 +1108,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											type: 'string',
 											title: 'Deliver to party name',
 											description:
-												'The name of the party to which the goods and services are delivered.',
+												'The name of the party to which the goods and services are delivered.\nBusiness terms: BT-70',
 										},
 									},
 									required: ['cbc:Name'],
@@ -1103,39 +1125,39 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						additionalProperties: false,
 						title: 'PAYMENT INSTRUCTIONS',
 						description:
-							'A group of business terms providing information about the payment.',
+							'A group of business terms providing information about the payment.\nBusiness terms: BG-16',
 						properties: {
 							'cbc:PaymentMeansCode': {
 								type: 'string',
 								$ref: '#/$defs/codeLists/UNCL4461',
 								title: 'Payment means type code',
 								description:
-									'The means, expressed as code, for how a payment is expected to be or has been settled.',
+									'The means, expressed as code, for how a payment is expected to be or has been settled.\nBusiness terms: BT-81',
 							},
 							'cbc:PaymentMeansCode@name': {
 								type: 'string',
 								title: 'Payment means text',
 								description:
-									'The means, expressed as text, for how a payment is expected to be or has been settled.',
+									'The means, expressed as text, for how a payment is expected to be or has been settled.\nBusiness terms: BT-82',
 							},
 							'cbc:PaymentID': {
 								type: 'string',
 								title: 'Remittance information',
 								description:
-									"A textual value used to establish a link between the payment and the Invoice, issued by the\n                Seller. Used for creditor's critical reconciliation information. This information element helps the Seller to assign an incoming payment to the relevant payment process.",
+									"A textual value used to establish a link between the payment and the Invoice, issued by the\n                Seller. Used for creditor's critical reconciliation information. This information element helps the Seller to assign an incoming payment to the relevant payment process.\nBusiness terms: BT-83",
 							},
 							'cac:CardAccount': {
 								type: 'object',
 								additionalProperties: false,
 								title: 'PAYMENT CARD INFORMATION',
 								description:
-									'A group of business terms providing information about card used for payment contemporaneous with\n                invoice issuance.',
+									'A group of business terms providing information about card used for payment contemporaneous with\n                invoice issuance.\nBusiness terms: BG-18',
 								properties: {
 									'cbc:PrimaryAccountNumberID': {
 										type: 'string',
 										title: 'Payment card primary account number',
 										description:
-											'The Primary Account Number (PAN) of the card used for payment.In accordance with card payments security\n                    standards, an invoice should never include a full card primary account number.',
+											'The Primary Account Number (PAN) of the card used for payment.In accordance with card payments security\n                    standards, an invoice should never include a full card primary account number.\nBusiness terms: BT-87',
 									},
 									'cbc:NetworkID': {
 										type: 'string',
@@ -1145,7 +1167,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									'cbc:HolderName': {
 										type: 'string',
 										title: 'Payment card holder name',
-										description: 'The name of the payment card holder.',
+										description:
+											'The name of the payment card holder.\nBusiness terms: BT-88',
 									},
 								},
 								required: ['cbc:PrimaryAccountNumberID', 'cbc:NetworkID'],
@@ -1155,19 +1178,19 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								additionalProperties: false,
 								title: 'CREDIT TRANSFER',
 								description:
-									'A group of business terms to specify credit transfer payments.',
+									'A group of business terms to specify credit transfer payments.\nBusiness terms: BG-17',
 								properties: {
 									'cbc:ID': {
 										type: 'string',
 										title: 'Payment account identifier',
 										description:
-											'A unique identifier of the financial payment account, at a payment service provider, to which\n                payment should be made. Such as IBAN or BBAN.',
+											'A unique identifier of the financial payment account, at a payment service provider, to which\n                payment should be made. Such as IBAN or BBAN.\nBusiness terms: BT-84',
 									},
 									'cbc:Name': {
 										type: 'string',
 										title: 'Payment account name',
 										description:
-											'The name of the payment account, at a payment service provider, to which payment should be made.',
+											'The name of the payment account, at a payment service provider, to which payment should be made.\nBusiness terms: BT-85',
 									},
 									'cac:FinancialInstitutionBranch': {
 										type: 'object',
@@ -1178,7 +1201,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 												type: 'string',
 												title: 'Payment service provider identifier',
 												description:
-													'An identifier for the payment service provider where a payment account is located.\n                    Such as a BIC or a national clearing code where required. No identification scheme Identifier to be used.',
+													'An identifier for the payment service provider where a payment account is located.\n                    Such as a BIC or a national clearing code where required. No identification scheme Identifier to be used.\nBusiness terms: BT-86',
 											},
 										},
 										required: ['cbc:ID'],
@@ -1191,13 +1214,13 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								additionalProperties: false,
 								title: 'DIRECT DEBIT',
 								description:
-									'A group of business terms to specify a direct debit.',
+									'A group of business terms to specify a direct debit.\nBusiness terms: BG-19',
 								properties: {
 									'cbc:ID': {
 										type: 'string',
 										title: 'Mandate reference identifier',
 										description:
-											'Unique identifier assigned by the Payee for referencing the direct debit mandate. Used in order to pre-notify the Buyer of a SEPA direct debit.',
+											'Unique identifier assigned by the Payee for referencing the direct debit mandate. Used in order to pre-notify the Buyer of a SEPA direct debit.\nBusiness terms: BT-89',
 									},
 									'cac:PayerFinancialAccount': {
 										type: 'object',
@@ -1208,7 +1231,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 												type: 'string',
 												title: 'Debited account identifier',
 												description:
-													'The account to be debited by the direct debit.',
+													'The account to be debited by the direct debit.\nBusiness terms: BT-91',
 											},
 										},
 										required: ['cbc:ID'],
@@ -1231,7 +1254,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							type: 'string',
 							title: 'Payment terms',
 							description:
-								'A textual description of the payment terms that apply to the amount due for payment (Including\n                    description of possible penalties). In case the Amount due for payment (BT-115) is positive, either the Payment due date (BT-9) or the Payment terms (BT-20) shall be present.',
+								'A textual description of the payment terms that apply to the amount due for payment (Including\n                    description of possible penalties). In case the Amount due for payment (BT-115) is positive, either the Payment due date (BT-9) or the Payment terms (BT-20) shall be present.\nBusiness terms: BT-20',
 						},
 					},
 					required: ['cbc:Note'],
@@ -1243,7 +1266,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						additionalProperties: false,
 						title: 'DOCUMENT LEVEL ALLOWANCES AND CHARGES',
 						description:
-							'A group of business terms providing information about allowances applicable to the Invoice as a\n            whole. A group of business terms providing information about charges and taxes other than VAT, applicable\n            to the Invoice as a whole.',
+							'A group of business terms providing information about allowances applicable to the Invoice as a\n            whole. A group of business terms providing information about charges and taxes other than VAT, applicable\n            to the Invoice as a whole.\nBusiness terms: BG-20, BG-21',
 						properties: {
 							'cbc:ChargeIndicator': {
 								type: 'string',
@@ -1255,13 +1278,13 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								$ref: '#/$defs/codeLists/UNCL7161',
 								title: 'Document level allowance or charge reason code',
 								description:
-									'The reason for the document level allowance or charge, expressed as a code. For allowances a subset of codelist UNCL5189 is to be used, and for charges codelist UNCL7161 applies.\n                The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason',
+									'The reason for the document level allowance or charge, expressed as a code. For allowances a subset of codelist UNCL5189 is to be used, and for charges codelist UNCL7161 applies.\n                The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason\nBusiness terms: BT-98, BT-105',
 							},
 							'cbc:AllowanceChargeReason': {
 								type: 'string',
 								title: 'Document level allowance or charge reason',
 								description:
-									'The reason for the document level allowance or charge, expressed as text.\n                The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason',
+									'The reason for the document level allowance or charge, expressed as text.\n                The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason\nBusiness terms: BT-97, BT-104',
 							},
 							'cbc:MultiplierFactorNumeric': {
 								$ref: '#/$defs/dataTypes/Percentage',
@@ -1293,7 +1316,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										title:
 											'Document level allowance or charge VAT category code',
 										description:
-											'A coded identification of what VAT category applies to the document level allowance or charge.',
+											'A coded identification of what VAT category applies to the document level allowance or charge.\nBusiness terms: BT-95, BT-102',
 									},
 									'cbc:Percent': {
 										$ref: '#/$defs/dataTypes/Percentage',
@@ -1347,7 +1370,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									additionalProperties: false,
 									title: 'VAT BREAKDOWN',
 									description:
-										'A group of business terms providing information about VAT breakdown by different categories, rates\n                and exemption reasons',
+										'A group of business terms providing information about VAT breakdown by different categories, rates\n                and exemption reasons\nBusiness terms: BG-23',
 									properties: {
 										'cbc:TaxableAmount': {
 											$ref: '#/$defs/dataTypes/Amount',
@@ -1375,7 +1398,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 													$ref: '#/$defs/codeLists/UNCL5305',
 													title: 'VAT category code',
 													description:
-														'Coded identification of a VAT category.',
+														'Coded identification of a VAT category.\nBusiness terms: BT-118',
 												},
 												'cbc:Percent': {
 													$ref: '#/$defs/dataTypes/Percentage',
@@ -1384,13 +1407,13 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 													type: 'string',
 													title: 'VAT exemption reason code',
 													description:
-														'A coded statement of the reason for why the amount is exempted from VAT.',
+														'A coded statement of the reason for why the amount is exempted from VAT.\nBusiness terms: BT-121',
 												},
 												'cbc:TaxExemptionReason': {
 													type: 'string',
 													title: 'VAT exemption reason text',
 													description:
-														'A textual statement of the reason why the amount is exempted from VAT or why no VAT is being\n                        charged.',
+														'A textual statement of the reason why the amount is exempted from VAT or why no VAT is being\n                        charged.\nBusiness terms: BT-120',
 												},
 												'cac:TaxScheme': {
 													type: 'object',
@@ -1436,7 +1459,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					additionalProperties: false,
 					title: 'DOCUMENT TOTALS',
 					description:
-						'A group of business terms providing the monetary totals for the Invoice.',
+						'A group of business terms providing the monetary totals for the Invoice.\nBusiness terms: BG-22',
 					properties: {
 						'cbc:LineExtensionAmount': {
 							$ref: '#/$defs/dataTypes/Amount',
@@ -1539,19 +1562,19 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						additionalProperties: false,
 						title: 'INVOICE LINE',
 						description:
-							'A group of business terms providing information on individual Invoice lines.',
+							'A group of business terms providing information on individual Invoice lines.\nBusiness terms: BG-25',
 						properties: {
 							'cbc:ID': {
 								type: 'string',
 								title: 'Invoice line identifier',
 								description:
-									'A unique identifier for the individual line within the Invoice.',
+									'A unique identifier for the individual line within the Invoice.\nBusiness terms: BT-126',
 							},
 							'cbc:Note': {
 								type: 'string',
 								title: 'Invoice line note',
 								description:
-									'A textual note that gives unstructured information that is relevant to the Invoice line.',
+									'A textual note that gives unstructured information that is relevant to the Invoice line.\nBusiness terms: BT-127',
 							},
 							'cbc:InvoicedQuantity': {
 								$ref: '#/$defs/dataTypes/Quantity',
@@ -1561,7 +1584,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								$ref: '#/$defs/codeLists/UNECERec20',
 								title: 'Invoiced quantity unit of measure',
 								description:
-									'The unit of measure that applies to the invoiced quantity.\n\t\t\t\t\tCodes for unit of packaging from UNECE Recommendation No. 21 can be used in accordance with the descriptions in the "Intro" section of UN/ECE Recommendation 20, Revision 11 (2015):\n\t\t\t\t\tThe 2 character alphanumeric code values in UNECE Recommendation 21 shall be used. To avoid duplication with existing code values in UNECE Recommendation No. 20, each code value from UNECE Recommendation 21 shall be prefixed with an “X”, resulting in a 3 alphanumeric code when used as a unit of measure.',
+									'The unit of measure that applies to the invoiced quantity.\n\t\t\t\t\tCodes for unit of packaging from UNECE Recommendation No. 21 can be used in accordance with the descriptions in the "Intro" section of UN/ECE Recommendation 20, Revision 11 (2015):\n\t\t\t\t\tThe 2 character alphanumeric code values in UNECE Recommendation 21 shall be used. To avoid duplication with existing code values in UNECE Recommendation No. 20, each code value from UNECE Recommendation 21 shall be prefixed with an “X”, resulting in a 3 alphanumeric code when used as a unit of measure.\nBusiness terms: BT-130',
 							},
 							'cbc:LineExtensionAmount': {
 								$ref: '#/$defs/dataTypes/Amount',
@@ -1575,14 +1598,14 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								type: 'string',
 								title: 'Invoice line Buyer accounting reference',
 								description:
-									"A textual value that specifies where to book the relevant data into the Buyer's financial\n                    accounts.",
+									"A textual value that specifies where to book the relevant data into the Buyer's financial\n                    accounts.\nBusiness terms: BT-133",
 							},
 							'cac:InvoicePeriod': {
 								type: 'object',
 								additionalProperties: false,
 								title: 'INVOICE LINE PERIOD',
 								description:
-									'A group of business terms providing information about the period relevant for the Invoice line.',
+									'A group of business terms providing information about the period relevant for the Invoice line.\nBusiness terms: BG-26',
 								properties: {
 									'cbc:StartDate': {
 										$ref: '#/$defs/dataTypes/Date',
@@ -1601,7 +1624,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										type: 'string',
 										title: 'Referenced purchase order line reference',
 										description:
-											'An identifier for a referenced line within a purchase order, issued by the Buyer.',
+											'An identifier for a referenced line within a purchase order, issued by the Buyer.\nBusiness terms: BT-132',
 									},
 								},
 								required: ['cbc:LineID'],
@@ -1615,7 +1638,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										type: 'string',
 										title: 'Invoice line object identifier',
 										description:
-											'An identifier for an object on which the invoice line is based, given by the Seller.',
+											'An identifier for an object on which the invoice line is based, given by the Seller.\nBusiness terms: BT-128',
 									},
 									'cbc:ID@schemeID': {
 										type: 'string',
@@ -1629,7 +1652,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										type: 'string',
 										title: 'Document type code',
 										description:
-											'Code "130" MUST be used to indicate an invoice object reference. Not used for other additional documents',
+											'Code "130" MUST be used to indicate an invoice object reference. Not used for other additional documents\nBusiness terms: BT-128',
 									},
 								},
 								required: ['cbc:ID', 'cbc:DocumentTypeCode'],
@@ -1644,7 +1667,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									additionalProperties: false,
 									title: 'INVOICE LINE ALLOWANCES OR CHARGES',
 									description:
-										'A group of business terms providing information about allowances or charges applicable to the individual\n            Invoice line.',
+										'A group of business terms providing information about allowances or charges applicable to the individual\n            Invoice line.\nBusiness terms: BG-27, BG-28',
 									properties: {
 										'cbc:ChargeIndicator': {
 											type: 'string',
@@ -1656,13 +1679,13 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											$ref: '#/$defs/codeLists/UNCL7161',
 											title: 'Line level allowance or charge reason code',
 											description:
-												'The reason for the line level allowance or charge, expressed as a code.',
+												'The reason for the line level allowance or charge, expressed as a code.\nBusiness terms: BT-140, BT-145',
 										},
 										'cbc:AllowanceChargeReason': {
 											type: 'string',
 											title: 'Line level allowance or charge reason',
 											description:
-												'The reason for the line level allowance or charge, expressed as text.',
+												'The reason for the line level allowance or charge, expressed as text.\nBusiness terms: BT-139, BT-144',
 										},
 										'cbc:MultiplierFactorNumeric': {
 											$ref: '#/$defs/dataTypes/Percentage',
@@ -1698,18 +1721,18 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								additionalProperties: false,
 								title: 'ITEM INFORMATION',
 								description:
-									'A group of business terms providing information about the goods and services invoiced.',
+									'A group of business terms providing information about the goods and services invoiced.\nBusiness terms: BG-31',
 								properties: {
 									'cbc:Description': {
 										type: 'string',
 										title: 'Item description',
 										description:
-											'A description for an item.The item description allows for describing the item and its features in more detail than the Item name.',
+											'A description for an item.The item description allows for describing the item and its features in more detail than the Item name.\nBusiness terms: BT-154',
 									},
 									'cbc:Name': {
 										type: 'string',
 										title: 'Item name',
-										description: 'A name for an item.',
+										description: 'A name for an item.\nBusiness terms: BT-153',
 									},
 									'cac:BuyersItemIdentification': {
 										type: 'object',
@@ -1720,7 +1743,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 												type: 'string',
 												title: "Item Buyer's identifier",
 												description:
-													'An identifier, assigned by the Buyer, for the item.',
+													'An identifier, assigned by the Buyer, for the item.\nBusiness terms: BT-156',
 											},
 										},
 										required: ['cbc:ID'],
@@ -1734,7 +1757,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 												type: 'string',
 												title: "Item Seller's identifier",
 												description:
-													'An identifier, assigned by the Seller, for the item.',
+													'An identifier, assigned by the Seller, for the item.\nBusiness terms: BT-155',
 											},
 										},
 										required: ['cbc:ID'],
@@ -1748,7 +1771,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 												type: 'string',
 												title: 'Item standard identifier',
 												description:
-													'An item identifier based on a registered scheme.',
+													'An item identifier based on a registered scheme.\nBusiness terms: BT-157',
 											},
 											'cbc:ID@schemeID': {
 												type: 'string',
@@ -1775,7 +1798,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 												$ref: '#/$defs/codeLists/ISO3166',
 												title: 'Item country of origin',
 												description:
-													'The code identifying the country from which the item originates.',
+													'The code identifying the country from which the item originates.\nBusiness terms: BT-159',
 											},
 										},
 										required: ['cbc:IdentificationCode'],
@@ -1791,7 +1814,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 													type: 'string',
 													title: 'Item classification identifier',
 													description:
-														'A code for classifying the item by its type or nature.',
+														'A code for classifying the item by its type or nature.\nBusiness terms: BT-158',
 												},
 												'cbc:ItemClassificationCode@listID': {
 													type: 'string',
@@ -1828,14 +1851,14 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										additionalProperties: false,
 										title: 'LINE VAT INFORMATION',
 										description:
-											'A group of business terms providing information about the VAT applicable for the goods and services\n                invoiced on the Invoice line.',
+											'A group of business terms providing information about the VAT applicable for the goods and services\n                invoiced on the Invoice line.\nBusiness terms: BG-30',
 										properties: {
 											'cbc:ID': {
 												type: 'string',
 												$ref: '#/$defs/codeLists/UNCL5305',
 												title: 'Invoiced item VAT category code',
 												description:
-													'The VAT category code for the invoiced item.',
+													'The VAT category code for the invoiced item.\nBusiness terms: BT-151',
 											},
 											'cbc:Percent': {
 												$ref: '#/$defs/dataTypes/Percentage',
@@ -1862,19 +1885,19 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											additionalProperties: false,
 											title: 'ITEM ATTRIBUTES',
 											description:
-												'A group of business terms providing information about properties of the goods and services\n                invoiced.',
+												'A group of business terms providing information about properties of the goods and services\n                invoiced.\nBusiness terms: BG-32',
 											properties: {
 												'cbc:Name': {
 													type: 'string',
 													title: 'Item attribute name',
 													description:
-														'The name of the attribute or property of the item.',
+														'The name of the attribute or property of the item.\nBusiness terms: BT-160',
 												},
 												'cbc:Value': {
 													type: 'string',
 													title: 'Item attribute value',
 													description:
-														'The value of the attribute or property of the item.',
+														'The value of the attribute or property of the item.\nBusiness terms: BT-161',
 												},
 											},
 											required: ['cbc:Name', 'cbc:Value'],
@@ -1888,7 +1911,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								additionalProperties: false,
 								title: 'PRICE DETAILS',
 								description:
-									'A group of business terms providing information about the price applied for the goods and services\n            invoiced on the Invoice line.',
+									'A group of business terms providing information about the price applied for the goods and services\n            invoiced on the Invoice line.\nBusiness terms: BG-29',
 								properties: {
 									'cbc:PriceAmount': {
 										$ref: '#/$defs/dataTypes/Amount',

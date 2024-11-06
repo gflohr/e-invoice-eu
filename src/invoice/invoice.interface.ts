@@ -8,20 +8,24 @@
 /**
  * An identification of the specification containing the total set of rules regarding semantic
  *                 content, cardinalities and business rules to which the data contained in the instance document conforms.
+ * Business terms: BT-24
  */
 export type SpecificationIdentifier = string;
 /**
  * Identifies the business process context in which the transaction appears, to enable the Buyer to
  *                 process the Invoice in an appropriate way.
+ * Business terms: BT-23
  */
 export type BusinessProcessType = string;
 /**
  * A unique identification of the Invoice. The sequential number required in Article 226(2) of the directive 2006/112/EC [2], to uniquely identify the Invoice
  *                 within the business context, time-frame, operating systems and records of the Seller. No identification scheme is to be used.
+ * Business terms: BT-1
  */
 export type InvoiceNumber = string;
 /**
  * A code specifying the functional type of the Invoice.
+ * Business terms: BT-3
  */
 export type InvoiceTypeCode =
 	| '71'
@@ -51,11 +55,13 @@ export type InvoiceTypeCode =
 /**
  * A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or
  *                 assignment note in case the invoice has been factored.
+ * Business terms: BT-22
  */
 export type InvoiceNote = string;
 /**
  * The currency in which all Invoice amounts are given, except for the Total VAT amount in accounting
  *                 currency. Only one currency shall be used in the Invoice, except for the VAT accounting currency code (BT-6) and the invoice total VAT amount in accounting currency (BT-111).
+ * Business terms: BT-5
  */
 export type InvoiceCurrencyCode =
 	| 'AED'
@@ -239,6 +245,7 @@ export type InvoiceCurrencyCode =
  * The currency used for VAT accounting and reporting purposes as accepted or required in the country
  *                 of the Seller. Shall be used in combination with the Invoice total VAT amount in accounting currency (BT-111), when the VAT accounting currency code differs from the
  *                 Invoice currency code.
+ * Business terms: BT-6
  */
 export type VATAccountingCurrencyCode =
 	| 'AED'
@@ -421,46 +428,57 @@ export type VATAccountingCurrencyCode =
 /**
  * A textual value that specifies where to book the relevant data into the Buyer's financial
  *                 accounts.
+ * Business terms: BT-19
  */
 export type BuyerAccountingReference = string;
 /**
  * An identifier assigned by the Buyer used for internal routing purposes. An invoice must have buyer reference or purchase order reference (BT-13).
+ * Business terms: BT-10
  */
 export type BuyerReference = string;
 /**
  * The code of the date when the VAT becomes accountable for the Seller and for the Buyer.
+ * Business terms: BT-8
  */
 export type ValueAddedTaxPointDateCode = '3' | '35' | '432';
 /**
  * An identifier of a referenced purchase order, issued by the Buyer. An invoice must have buyer reference (BT-10) or purchase order reference. In cases where sales order reference is provided, but there's no purchase order reference, then use value "NA" as this element is mandatory in UBL.
+ * Business terms: BT-13
  */
 export type PurchaseOrderReference = string;
 /**
  * An identifier of a referenced sales order, issued by the Seller. In cases where sales order reference is provided, but there's no purchase order reference, then set cac:OrderReference/cbc:ID to value "NA" as this element is mandatory in UBL.
+ * Business terms: BT-14
  */
 export type SalesOrderReference = string;
 /**
  * The identification of an Invoice that was previously sent by the Seller.
+ * Business terms: BT-25
  */
 export type PrecedingInvoiceNumber = string;
 /**
  * An identifier of a referenced despatch advice.
+ * Business terms: BT-16
  */
 export type DespatchAdviceReference = string;
 /**
  * An identifier of a referenced receiving advice.
+ * Business terms: BT-15
  */
 export type ReceivingAdviceReference = string;
 /**
  * The identification of the call for tender or lot the invoice relates to.
+ * Business terms: BT-17
  */
 export type TenderOrLotReference = string;
 /**
  * The identification of a contract.
+ * Business terms: BT-12
  */
 export type ContractReference = string;
 /**
  * An identifier for an object on which the invoice is based, given by the Seller, or the identifier for the supporting document.
+ * Business terms: BT-18, BT-122
  */
 export type InvoicedObjectIdentifierSupportingDocumentReference = string;
 /**
@@ -1286,10 +1304,12 @@ export type SchemeIdentifier =
 	| 'ZZZ';
 /**
  * Code "130" MUST be used to indicate an invoice object reference. Not used for other additional documents
+ * Business terms: BT-18
  */
 export type DocumentTypeCode = string;
 /**
  * A description of the supporting document, such as: timesheet, usage report etc.
+ * Business terms: BT-123
  */
 export type SupportingDocumentDescription = string;
 /**
@@ -1309,14 +1329,17 @@ export type AttachedDocumentFilename = string;
 /**
  * The URL (Uniform Resource Locator) that identifies where the external document is located.
  *                         A means of locating the resource, including its primary access mechanism, e.g. http:// or ftp://.
+ * Business terms: BT-124
  */
 export type ExternalDocumentLocation = string;
 /**
  * The identification of the project the invoice refers to.
+ * Business terms: BT-11
  */
 export type ProjectReference = string;
 /**
  * Identifies the Seller's electronic address to which the application level response to the invoice may be delivered.
+ * Business terms: BT-34
  */
 export type SellerElectronicAddress = string;
 /**
@@ -1407,6 +1430,7 @@ export type SellerElectronicAddressIdentificationSchemeIdentifier =
 /**
  * This element is used for both the identification of the Seller, or the unique banking reference identifier of Seller (assigned by the Seller bank.). For seller identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA.
  *                      In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present
+ * Business terms: BT-29, BT-90
  */
 export type SellerIdentifierOrBankAssignedCreditorIdentifier = string;
 /**
@@ -1416,35 +1440,43 @@ export type SellerOrBankAssignedCreditorIdentifierIdentificationSchemeIdentifier
 	'SEPA';
 /**
  * A name by which the Seller is known, other than Seller name (also known as Business name).
+ * Business terms: BT-28
  */
 export type SellerTradingName = string;
 /**
  * The main address line in an address.
+ * Business terms: BT-35
  */
 export type SellerAddressLine1 = string;
 /**
  * An additional address line in an address that can be used to give further details supplementing the main line.
+ * Business terms: BT-36
  */
 export type SellerAddressLine2 = string;
 /**
  * The common name of the city, town or village, where the Seller address is located.
+ * Business terms: BT-37
  */
 export type SellerCity = string;
 /**
  * The identifier for an addressable group of properties according to the relevant postal service.
+ * Business terms: BT-38
  */
 export type SellerPostCode = string;
 /**
  * The subdivision of a country.
+ * Business terms: BT-39
  */
 export type SellerCountrySubdivision = string;
 /**
  * An additional address line in an address that can be used to give further details supplementing the
  *                             main line.
+ * Business terms: BT-162
  */
 export type SellerAddressLine3 = string;
 /**
  * A code that identifies the country.
+ * Business terms: BT-40
  */
 export type SellerCountryCode =
 	| 'AD'
@@ -1701,16 +1733,19 @@ export type SellerCountryCode =
 /**
  * The Seller's VAT identifier (also known as Seller VAT identification number) or the local identification (defined by the Seller’s address) of the Seller for tax purposes or a
  *                         reference that enables the Seller to state his registered tax status. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present
+ * Business terms: BT-31, BT-32
  */
 export type SellerVATIdentifierSellerTaxRegistrationIdentifier = string;
 /**
  * The full formal name by which the Seller is registered in the national registry of legal entities
  *                         or as a Taxable person or otherwise trades as a person or persons.
+ * Business terms: BT-27
  */
 export type SellerName = string;
 /**
  * An identifier issued by an official registrar that identifies the Seller as a legal entity or
  *                         person. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present
+ * Business terms: BT-30
  */
 export type SellerLegalRegistrationIdentifier = string;
 /**
@@ -1944,22 +1979,27 @@ export type SellerLegalRegistrationIdentifierIdentificationSchemeIdentifier =
 	| '230';
 /**
  * Additional legal information relevant for the Seller.
+ * Business terms: BT-33
  */
 export type SellerAdditionalLegalInformation = string;
 /**
  * A contact point for a legal entity or person.
+ * Business terms: BT-41
  */
 export type SellerContactPoint = string;
 /**
  * A phone number for the contact point.
+ * Business terms: BT-42
  */
 export type SellerContactTelephoneNumber = string;
 /**
  * An e-mail address for the contact point.
+ * Business terms: BT-43
  */
 export type SellerContactEmailAddress = string;
 /**
  * Identifies the Buyer's electronic address to which the invoice is delivered.
+ * Business terms: BT-49
  */
 export type BuyerElectronicAddress = string;
 /**
@@ -2049,6 +2089,7 @@ export type BuyerElectronicAddressIdentificationSchemeIdentifier =
 	| '9959';
 /**
  * An identifier of the Buyer.
+ * Business terms: BT-46
  */
 export type BuyerIdentifier = string;
 /**
@@ -2282,36 +2323,44 @@ export type BuyerIdentifierIdentificationSchemeIdentifier =
 	| '230';
 /**
  * A name by which the Buyer is known, other than Buyer name (also known as Business name).
+ * Business terms: BT-45
  */
 export type BuyerTradingName = string;
 /**
  * The main address line in an address.
+ * Business terms: BT-50
  */
 export type BuyerAddressLine1 = string;
 /**
  * An additional address line in an address that can be used to give further details supplementing the
  *                         main line.
+ * Business terms: BT-51
  */
 export type BuyerAddressLine2 = string;
 /**
  * The common name of the city, town or village, where the Buyer's address is located.
+ * Business terms: BT-52
  */
 export type BuyerCity = string;
 /**
  * The identifier for an addressable group of properties according to the relevant postal service.
+ * Business terms: BT-53
  */
 export type BuyerPostCode = string;
 /**
  * The subdivision of a country.
+ * Business terms: BT-54
  */
 export type BuyerCountrySubdivision = string;
 /**
  * An additional address line in an address that can be used to give further details supplementing the
  *                             main line.
+ * Business terms: BT-163
  */
 export type BuyerAddressLine3 = string;
 /**
  * A code that identifies the country.
+ * Business terms: BT-55
  */
 export type BuyerCountryCode =
 	| 'AD'
@@ -2567,15 +2616,18 @@ export type BuyerCountryCode =
 	| 'XI';
 /**
  * The Buyer's VAT identifier (also known as Buyer VAT identification number).
+ * Business terms: BT-48
  */
 export type BuyerVATIdentifier = string;
 /**
  * The full name of the Buyer.
+ * Business terms: BT-44
  */
 export type BuyerName = string;
 /**
  * An identifier issued by an official registrar that identifies the Buyer as a legal entity or
  *                         person.
+ * Business terms: BT-47
  */
 export type BuyerLegalRegistrationIdentifier = string;
 /**
@@ -2809,18 +2861,22 @@ export type BuyerLegalRegistrationIdentifierIdentificationSchemeIdentifier =
 	| '230';
 /**
  * A contact point for a legal entity or person.
+ * Business terms: BT-56
  */
 export type BuyerContactPoint = string;
 /**
  * A phone number for the contact point.
+ * Business terms: BT-57
  */
 export type BuyerContactTelephoneNumber = string;
 /**
  * An e-mail address for the contact point.
+ * Business terms: BT-58
  */
 export type BuyerContactEmailAddress = string;
 /**
  * This element is used for both the identification of the Payee, or the unique banking reference identifier of Payee (assigned by the Payee bank.) For payee identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA.
+ * Business terms: BT-60, BT-90
  */
 export type PayeeIdentifierOrBankAssignedCreditorIdentifier = string;
 /**
@@ -2830,11 +2886,13 @@ export type PayeeOrBankAssignedCreditorIdentifierIdentificationSchemeIdentifier 
 	'SEPA';
 /**
  * The name of the Payee.
+ * Business terms: BT-59
  */
 export type PayeeName = string;
 /**
  * An identifier issued by an official registrar that identifies the Payee as a legal entity or
  *                     person.
+ * Business terms: BT-61
  */
 export type PayeeLegalRegistrationIdentifier = string;
 /**
@@ -3068,36 +3126,44 @@ export type PayeeLegalRegistrationIdentifierIdentificationSchemeIdentifier =
 	| '230';
 /**
  * The full name of the Seller's tax representative party.
+ * Business terms: BT-62
  */
 export type SellerTaxRepresentativeName = string;
 /**
  * The main address line in an address.
+ * Business terms: BT-64
  */
 export type TaxRepresentativeAddressLine1 = string;
 /**
  * An additional address line in an address that can be used to give further details supplementing the
  *                     main line.
+ * Business terms: BT-65
  */
 export type TaxRepresentativeAddressLine2 = string;
 /**
  * The common name of the city, town or village, where the tax representative address is located.
+ * Business terms: BT-66
  */
 export type TaxRepresentativeCity = string;
 /**
  * The identifier for an addressable group of properties according to the relevant postal service.
+ * Business terms: BT-67
  */
 export type TaxRepresentativePostCode = string;
 /**
  * The subdivision of a country.
+ * Business terms: BT-68
  */
 export type TaxRepresentativeCountrySubdivision = string;
 /**
  * An additional address line in an address that can be used to give further details supplementing the
  *                         main line.
+ * Business terms: BT-164
  */
 export type TaxRepresentativeAddressLine3 = string;
 /**
  * A code that identifies the country.
+ * Business terms: BT-69
  */
 export type TaxRepresentativeCountryCode =
 	| 'AD'
@@ -3353,10 +3419,12 @@ export type TaxRepresentativeCountryCode =
 	| 'XI';
 /**
  * The VAT identifier of the Seller's tax representative party.
+ * Business terms: BT-63
  */
 export type SellerTaxRepresentativeVATIdentifier = string;
 /**
  * An identifier for the location at which the goods and services are delivered.
+ * Business terms: BT-71
  */
 export type DeliverToLocationIdentifier = string;
 /**
@@ -3590,32 +3658,39 @@ export type DeliverToLocationIdentifierIdentificationSchemeIdentifier =
 	| '230';
 /**
  * The main address line in an address.
+ * Business terms: BT-75
  */
 export type DeliverToAddressLine1 = string;
 /**
  * An additional address line in an address that can be used to give further details supplementing the
  *                         main line.
+ * Business terms: BT-76
  */
 export type DeliverToAddressLine2 = string;
 /**
  * The common name of the city, town or village, where the deliver to address is located.
+ * Business terms: BT-77
  */
 export type DeliverToCity = string;
 /**
  * The identifier for an addressable group of properties according to the relevant postal service.
+ * Business terms: BT-78
  */
 export type DeliverToPostCode = string;
 /**
  * The subdivision of a country.
+ * Business terms: BT-79
  */
 export type DeliverToCountrySubdivision = string;
 /**
  * An additional address line in an address that can be used to give further details supplementing the
  *                             main line.
+ * Business terms: BT-165
  */
 export type DeliverToAddressLine3 = string;
 /**
  * A code that identifies the country.
+ * Business terms: BT-80
  */
 export type DeliverToCountryCode =
 	| 'AD'
@@ -3871,10 +3946,12 @@ export type DeliverToCountryCode =
 	| 'XI';
 /**
  * The name of the party to which the goods and services are delivered.
+ * Business terms: BT-70
  */
 export type DeliverToPartyName = string;
 /**
  * The means, expressed as code, for how a payment is expected to be or has been settled.
+ * Business terms: BT-81
  */
 export type PaymentMeansTypeCode =
 	| '1'
@@ -3962,52 +4039,63 @@ export type PaymentMeansTypeCode =
 	| 'ZZZ';
 /**
  * The means, expressed as text, for how a payment is expected to be or has been settled.
+ * Business terms: BT-82
  */
 export type PaymentMeansText = string;
 /**
  * A textual value used to establish a link between the payment and the Invoice, issued by the
  *                 Seller. Used for creditor's critical reconciliation information. This information element helps the Seller to assign an incoming payment to the relevant payment process.
+ * Business terms: BT-83
  */
 export type RemittanceInformation = string;
 /**
  * The Primary Account Number (PAN) of the card used for payment.In accordance with card payments security
  *                     standards, an invoice should never include a full card primary account number.
+ * Business terms: BT-87
  */
 export type PaymentCardPrimaryAccountNumber = string;
 /**
  * The name of the payment card holder.
+ * Business terms: BT-88
  */
 export type PaymentCardHolderName = string;
 /**
  * A unique identifier of the financial payment account, at a payment service provider, to which
  *                 payment should be made. Such as IBAN or BBAN.
+ * Business terms: BT-84
  */
 export type PaymentAccountIdentifier = string;
 /**
  * The name of the payment account, at a payment service provider, to which payment should be made.
+ * Business terms: BT-85
  */
 export type PaymentAccountName = string;
 /**
  * An identifier for the payment service provider where a payment account is located.
  *                     Such as a BIC or a national clearing code where required. No identification scheme Identifier to be used.
+ * Business terms: BT-86
  */
 export type PaymentServiceProviderIdentifier = string;
 /**
  * Unique identifier assigned by the Payee for referencing the direct debit mandate. Used in order to pre-notify the Buyer of a SEPA direct debit.
+ * Business terms: BT-89
  */
 export type MandateReferenceIdentifier = string;
 /**
  * The account to be debited by the direct debit.
+ * Business terms: BT-91
  */
 export type DebitedAccountIdentifier = string;
 /**
  * A textual description of the payment terms that apply to the amount due for payment (Including
  *                     description of possible penalties). In case the Amount due for payment (BT-115) is positive, either the Payment due date (BT-9) or the Payment terms (BT-20) shall be present.
+ * Business terms: BT-20
  */
 export type PaymentTerms = string;
 /**
  * The reason for the document level allowance or charge, expressed as a code. For allowances a subset of codelist UNCL5189 is to be used, and for charges codelist UNCL7161 applies.
  *                 The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason
+ * Business terms: BT-98, BT-105
  */
 export type DocumentLevelAllowanceOrChargeReasonCode =
 	| 'AA'
@@ -4191,10 +4279,12 @@ export type DocumentLevelAllowanceOrChargeReasonCode =
 /**
  * The reason for the document level allowance or charge, expressed as text.
  *                 The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason
+ * Business terms: BT-97, BT-104
  */
 export type DocumentLevelAllowanceOrChargeReason = string;
 /**
  * A coded identification of what VAT category applies to the document level allowance or charge.
+ * Business terms: BT-95, BT-102
  */
 export type DocumentLevelAllowanceOrChargeVATCategoryCode =
 	| 'AE'
@@ -4209,6 +4299,7 @@ export type DocumentLevelAllowanceOrChargeVATCategoryCode =
 	| 'B';
 /**
  * Coded identification of a VAT category.
+ * Business terms: BT-118
  */
 export type VATCategoryCode =
 	| 'AE'
@@ -4223,25 +4314,30 @@ export type VATCategoryCode =
 	| 'B';
 /**
  * A coded statement of the reason for why the amount is exempted from VAT.
+ * Business terms: BT-121
  */
 export type VATExemptionReasonCode = string;
 /**
  * A textual statement of the reason why the amount is exempted from VAT or why no VAT is being
  *                         charged.
+ * Business terms: BT-120
  */
 export type VATExemptionReasonText = string;
 /**
  * A unique identifier for the individual line within the Invoice.
+ * Business terms: BT-126
  */
 export type InvoiceLineIdentifier = string;
 /**
  * A textual note that gives unstructured information that is relevant to the Invoice line.
+ * Business terms: BT-127
  */
 export type InvoiceLineNote = string;
 /**
  * The unit of measure that applies to the invoiced quantity.
  * 					Codes for unit of packaging from UNECE Recommendation No. 21 can be used in accordance with the descriptions in the "Intro" section of UN/ECE Recommendation 20, Revision 11 (2015):
  * 					The 2 character alphanumeric code values in UNECE Recommendation 21 shall be used. To avoid duplication with existing code values in UNECE Recommendation No. 20, each code value from UNECE Recommendation 21 shall be prefixed with an “X”, resulting in a 3 alphanumeric code when used as a unit of measure.
+ * Business terms: BT-130
  */
 export type InvoicedQuantityUnitOfMeasure =
 	| '10'
@@ -6408,14 +6504,17 @@ export type InvoicedQuantityUnitOfMeasure =
 /**
  * A textual value that specifies where to book the relevant data into the Buyer's financial
  *                     accounts.
+ * Business terms: BT-133
  */
 export type InvoiceLineBuyerAccountingReference = string;
 /**
  * An identifier for a referenced line within a purchase order, issued by the Buyer.
+ * Business terms: BT-132
  */
 export type ReferencedPurchaseOrderLineReference = string;
 /**
  * An identifier for an object on which the invoice line is based, given by the Seller.
+ * Business terms: BT-128
  */
 export type InvoiceLineObjectIdentifier = string;
 /**
@@ -7241,10 +7340,12 @@ export type InvoiceLineObjectIdentifierIdentificationSchemeIdentifier =
 	| 'ZZZ';
 /**
  * Code "130" MUST be used to indicate an invoice object reference. Not used for other additional documents
+ * Business terms: BT-128
  */
 export type DocumentTypeCode1 = string;
 /**
  * The reason for the line level allowance or charge, expressed as a code.
+ * Business terms: BT-140, BT-145
  */
 export type LineLevelAllowanceOrChargeReasonCode =
 	| 'AA'
@@ -7427,26 +7528,32 @@ export type LineLevelAllowanceOrChargeReasonCode =
 	| 'ZZZ';
 /**
  * The reason for the line level allowance or charge, expressed as text.
+ * Business terms: BT-139, BT-144
  */
 export type LineLevelAllowanceOrChargeReason = string;
 /**
  * A description for an item.The item description allows for describing the item and its features in more detail than the Item name.
+ * Business terms: BT-154
  */
 export type ItemDescription = string;
 /**
  * A name for an item.
+ * Business terms: BT-153
  */
 export type ItemName = string;
 /**
  * An identifier, assigned by the Buyer, for the item.
+ * Business terms: BT-156
  */
 export type ItemBuyerSIdentifier = string;
 /**
  * An identifier, assigned by the Seller, for the item.
+ * Business terms: BT-155
  */
 export type ItemSellerSIdentifier = string;
 /**
  * An item identifier based on a registered scheme.
+ * Business terms: BT-157
  */
 export type ItemStandardIdentifier = string;
 /**
@@ -7680,6 +7787,7 @@ export type ItemStandardIdentifierIdentificationSchemeIdentifier =
 	| '230';
 /**
  * The code identifying the country from which the item originates.
+ * Business terms: BT-159
  */
 export type ItemCountryOfOrigin =
 	| 'AD'
@@ -7935,6 +8043,7 @@ export type ItemCountryOfOrigin =
 	| 'XI';
 /**
  * A code for classifying the item by its type or nature.
+ * Business terms: BT-158
  */
 export type ItemClassificationIdentifier = string;
 /**
@@ -8132,6 +8241,7 @@ export type ItemClassificationIdentifierVersionIdentificationSchemeIdentifier =
 	string;
 /**
  * The VAT category code for the invoiced item.
+ * Business terms: BT-151
  */
 export type InvoicedItemVATCategoryCode =
 	| 'AE'
@@ -8146,10 +8256,12 @@ export type InvoicedItemVATCategoryCode =
 	| 'B';
 /**
  * The name of the attribute or property of the item.
+ * Business terms: BT-160
  */
 export type ItemAttributeName = string;
 /**
  * The value of the attribute or property of the item.
+ * Business terms: BT-161
  */
 export type ItemAttributeValue = string;
 /**
@@ -10365,6 +10477,7 @@ export interface Invoice {
 /**
  * A group of business terms providing information on the invoice period. Also called delivery period.
  *                 If the group is used, the invoiceing period start date and/or end date must be used.
+ * Business terms: BG-14
  */
 export interface DELIVERYORINVOICEPERIOD {
 	'cbc:StartDate'?: string;
@@ -10377,6 +10490,7 @@ export interface ORDERANDSALESORDERREFERENCE {
 }
 /**
  * A group of business terms providing information on one or more preceding Invoices.
+ * Business terms: BG-3
  */
 export interface PRECEDINGINVOICEREFERENCE {
 	'cac:InvoiceDocumentReference': INVOICEDOCUMENTREFERENCE;
@@ -10401,6 +10515,7 @@ export interface CONTRACTREFERENCE {
  * A group of business terms providing information about additional supporting documents substantiating the claims made in the Invoice.
  *             The additional supporting documents can be used for both referencing a document number which is expected to be known by the receiver,
  *             an external document (referenced by a URL) or as an embedded document, Base64 encoded (such as a time report).
+ * Business terms: BG-24
  */
 export interface ADDITIONALSUPPORTINGDOCUMENTS {
 	'cbc:ID': InvoicedObjectIdentifierSupportingDocumentReference;
@@ -10423,6 +10538,7 @@ export interface PROJECTREFERENCE {
 }
 /**
  * A group of business terms providing information about the Seller.
+ * Business terms: BG-4
  */
 export interface SELLER {
 	'cac:Party': PARTY;
@@ -10453,6 +10569,7 @@ export interface PARTYNAME {
 /**
  * A group of business terms providing information about the address of the Seller.
  *                     Sufficient components of the address are to be filled to comply with legal requirements.
+ * Business terms: BG-5
  */
 export interface SELLERPOSTALADDRESS {
 	'cbc:StreetName'?: SellerAddressLine1;
@@ -10487,6 +10604,7 @@ export interface PARTYLEGALENTITY {
 }
 /**
  * A group of business terms providing contact information about the Seller.
+ * Business terms: BG-6
  */
 export interface SELLERCONTACT {
 	'cbc:Name'?: SellerContactPoint;
@@ -10495,6 +10613,7 @@ export interface SELLERCONTACT {
 }
 /**
  * A group of business terms providing information about the Buyer.
+ * Business terms: BG-7
  */
 export interface BUYER {
 	'cac:Party': PARTY1;
@@ -10519,6 +10638,7 @@ export interface PARTYNAME1 {
 /**
  * A group of business terms providing information about the postal address for the Buyer.
  *                     Sufficient components of the address are to be filled to comply with legal requirements.
+ * Business terms: BG-8
  */
 export interface BUYERPOSTALADDRESS {
 	'cbc:StreetName'?: BuyerAddressLine1;
@@ -10552,6 +10672,7 @@ export interface PARTYLEGALENTITY1 {
 }
 /**
  * A group of business terms providing contact information relevant for the Buyer.
+ * Business terms: BG-9
  */
 export interface BUYERCONTACT {
 	'cbc:Name'?: BuyerContactPoint;
@@ -10561,6 +10682,7 @@ export interface BUYERCONTACT {
 /**
  * A group of business terms providing information about the Payee, i.e. the role that receives the
  *             payment.  Shall be used when the Payee is different from the Seller.
+ * Business terms: BG-10
  */
 export interface PAYEE {
 	'cac:PartyIdentification'?: PARTYIDENTIFICATION2;
@@ -10580,6 +10702,7 @@ export interface PARTYLEGALENTITY2 {
 }
 /**
  * A group of business terms providing information about the Seller's tax representative.
+ * Business terms: BG-11
  */
 export interface SELLERTAXREPRESENTATIVEPARTY {
 	'cac:PartyName': PARTYNAME3;
@@ -10592,6 +10715,7 @@ export interface PARTYNAME3 {
 /**
  * A group of business terms providing information about the postal address for the tax representative
  *                 party. Sufficient components of the address are to be filled to comply with legal requirements.
+ * Business terms: BG-12
  */
 export interface SELLERTAXREPRESENTATIVEPOSTALADDRESS {
 	'cbc:StreetName'?: TaxRepresentativeAddressLine1;
@@ -10621,6 +10745,7 @@ export interface TAXSCHEME2 {
 /**
  * A group of business terms providing information about where and when the goods and services
  *             invoiced are delivered.
+ * Business terms: BG-13
  */
 export interface DELIVERYINFORMATION {
 	'cbc:ActualDeliveryDate'?: string;
@@ -10634,6 +10759,7 @@ export interface DELIVERYINFORMATION {
 /**
  * A group of business terms providing information about the address to which goods and services
  *                     invoiced were or are delivered.
+ * Business terms: BG-15
  */
 export interface DELIVERTOADDRESS {
 	'cbc:StreetName'?: DeliverToAddressLine1;
@@ -10658,6 +10784,7 @@ export interface PARTYNAME4 {
 }
 /**
  * A group of business terms providing information about the payment.
+ * Business terms: BG-16
  */
 export interface PAYMENTINSTRUCTIONS {
 	'cbc:PaymentMeansCode': PaymentMeansTypeCode;
@@ -10670,6 +10797,7 @@ export interface PAYMENTINSTRUCTIONS {
 /**
  * A group of business terms providing information about card used for payment contemporaneous with
  *                 invoice issuance.
+ * Business terms: BG-18
  */
 export interface PAYMENTCARDINFORMATION {
 	'cbc:PrimaryAccountNumberID': PaymentCardPrimaryAccountNumber;
@@ -10681,6 +10809,7 @@ export interface PAYMENTCARDINFORMATION {
 }
 /**
  * A group of business terms to specify credit transfer payments.
+ * Business terms: BG-17
  */
 export interface CREDITTRANSFER {
 	'cbc:ID': PaymentAccountIdentifier;
@@ -10692,6 +10821,7 @@ export interface FINANCIALINSTITUTIONBRANCH {
 }
 /**
  * A group of business terms to specify a direct debit.
+ * Business terms: BG-19
  */
 export interface DIRECTDEBIT {
 	'cbc:ID'?: MandateReferenceIdentifier;
@@ -10707,6 +10837,7 @@ export interface PAYMENTTERMS {
  * A group of business terms providing information about allowances applicable to the Invoice as a
  *             whole. A group of business terms providing information about charges and taxes other than VAT, applicable
  *             to the Invoice as a whole.
+ * Business terms: BG-20, BG-21
  */
 export interface DOCUMENTLEVELALLOWANCESANDCHARGES {
 	/**
@@ -11285,6 +11416,7 @@ export interface TAXTOTAL {
 /**
  * A group of business terms providing information about VAT breakdown by different categories, rates
  *                 and exemption reasons
+ * Business terms: BG-23
  */
 export interface VATBREAKDOWN {
 	'cbc:TaxableAmount': string;
@@ -11668,6 +11800,7 @@ export interface TAXSCHEME4 {
 }
 /**
  * A group of business terms providing the monetary totals for the Invoice.
+ * Business terms: BG-22
  */
 export interface DOCUMENTTOTALS {
 	'cbc:LineExtensionAmount': string;
@@ -13129,6 +13262,7 @@ export interface DOCUMENTTOTALS {
 }
 /**
  * A group of business terms providing information on individual Invoice lines.
+ * Business terms: BG-25
  */
 export interface INVOICELINE {
 	'cbc:ID': InvoiceLineIdentifier;
@@ -13327,6 +13461,7 @@ export interface INVOICELINE {
 }
 /**
  * A group of business terms providing information about the period relevant for the Invoice line.
+ * Business terms: BG-26
  */
 export interface INVOICELINEPERIOD {
 	'cbc:StartDate'?: string;
@@ -13343,6 +13478,7 @@ export interface LINEOBJECTIDENTIFIER {
 /**
  * A group of business terms providing information about allowances or charges applicable to the individual
  *             Invoice line.
+ * Business terms: BG-27, BG-28
  */
 export interface INVOICELINEALLOWANCESORCHARGES {
 	/**
@@ -13720,6 +13856,7 @@ export interface INVOICELINEALLOWANCESORCHARGES {
 }
 /**
  * A group of business terms providing information about the goods and services invoiced.
+ * Business terms: BG-31
  */
 export interface ITEMINFORMATION {
 	'cbc:Description'?: ItemDescription;
@@ -13753,6 +13890,7 @@ export interface COMMODITYCLASSIFICATION {
 /**
  * A group of business terms providing information about the VAT applicable for the goods and services
  *                 invoiced on the Invoice line.
+ * Business terms: BG-30
  */
 export interface LINEVATINFORMATION {
 	'cbc:ID': InvoicedItemVATCategoryCode;
@@ -13768,6 +13906,7 @@ export interface TAXSCHEME5 {
 /**
  * A group of business terms providing information about properties of the goods and services
  *                 invoiced.
+ * Business terms: BG-32
  */
 export interface ITEMATTRIBUTES {
 	'cbc:Name': ItemAttributeName;
@@ -13776,6 +13915,7 @@ export interface ITEMATTRIBUTES {
 /**
  * A group of business terms providing information about the price applied for the goods and services
  *             invoiced on the Invoice line.
+ * Business terms: BG-29
  */
 export interface PRICEDETAILS {
 	'cbc:PriceAmount': string;

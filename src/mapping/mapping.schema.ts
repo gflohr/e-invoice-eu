@@ -82,7 +82,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 					additionalProperties: false,
 					title: 'DELIVERY OR INVOICE PERIOD',
 					description:
-						'A group of business terms providing information on the invoice period. Also called delivery period. \n                If the group is used, the invoiceing period start date and/or end date must be used.',
+						'A group of business terms providing information on the invoice period. Also called delivery period. \n                If the group is used, the invoiceing period start date and/or end date must be used.\nBusiness terms: BG-14',
 					properties: {
 						'cbc:StartDate': {
 							$ref: '#/$defs/valueRef',
@@ -258,7 +258,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 					additionalProperties: false,
 					title: 'SELLER',
 					description:
-						'A group of business terms providing information about the Seller.',
+						'A group of business terms providing information about the Seller.\nBusiness terms: BG-4',
 					properties: {
 						'cac:Party': {
 							type: 'object',
@@ -306,7 +306,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 									additionalProperties: false,
 									title: 'SELLER POSTAL ADDRESS',
 									description:
-										'A group of business terms providing information about the address of the Seller. \n                    Sufficient components of the address are to be filled to comply with legal requirements.',
+										'A group of business terms providing information about the address of the Seller. \n                    Sufficient components of the address are to be filled to comply with legal requirements.\nBusiness terms: BG-5',
 									properties: {
 										'cbc:StreetName': {
 											$ref: '#/$defs/valueRef',
@@ -400,7 +400,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 									additionalProperties: false,
 									title: 'SELLER CONTACT',
 									description:
-										'A group of business terms providing contact information about the Seller.',
+										'A group of business terms providing contact information about the Seller.\nBusiness terms: BG-6',
 									properties: {
 										'cbc:Name': {
 											$ref: '#/$defs/valueRef',
@@ -432,7 +432,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 					additionalProperties: false,
 					title: 'BUYER',
 					description:
-						'A group of business terms providing information about the Buyer.',
+						'A group of business terms providing information about the Buyer.\nBusiness terms: BG-7',
 					properties: {
 						'cac:Party': {
 							type: 'object',
@@ -478,7 +478,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 									additionalProperties: false,
 									title: 'BUYER POSTAL ADDRESS',
 									description:
-										'A group of business terms providing information about the postal address for the Buyer.\n                    Sufficient components of the address are to be filled to comply with legal requirements.',
+										'A group of business terms providing information about the postal address for the Buyer.\n                    Sufficient components of the address are to be filled to comply with legal requirements.\nBusiness terms: BG-8',
 									properties: {
 										'cbc:StreetName': {
 											$ref: '#/$defs/valueRef',
@@ -567,7 +567,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 									additionalProperties: false,
 									title: 'BUYER CONTACT',
 									description:
-										'A group of business terms providing contact information relevant for the Buyer.',
+										'A group of business terms providing contact information relevant for the Buyer.\nBusiness terms: BG-9',
 									properties: {
 										'cbc:Name': {
 											$ref: '#/$defs/valueRef',
@@ -599,7 +599,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 					additionalProperties: false,
 					title: 'PAYEE',
 					description:
-						'A group of business terms providing information about the Payee, i.e. the role that receives the\n            payment.  Shall be used when the Payee is different from the Seller.',
+						'A group of business terms providing information about the Payee, i.e. the role that receives the\n            payment.  Shall be used when the Payee is different from the Seller.\nBusiness terms: BG-10',
 					properties: {
 						'cac:PartyIdentification': {
 							type: 'object',
@@ -654,7 +654,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 					additionalProperties: false,
 					title: 'SELLER TAX REPRESENTATIVE PARTY',
 					description:
-						"A group of business terms providing information about the Seller's tax representative.",
+						"A group of business terms providing information about the Seller's tax representative.\nBusiness terms: BG-11",
 					properties: {
 						'cac:PartyName': {
 							type: 'object',
@@ -672,7 +672,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 							additionalProperties: false,
 							title: 'SELLER TAX REPRESENTATIVE POSTAL ADDRESS',
 							description:
-								'A group of business terms providing information about the postal address for the tax representative\n                party. Sufficient components of the address are to be filled to comply with legal requirements.',
+								'A group of business terms providing information about the postal address for the tax representative\n                party. Sufficient components of the address are to be filled to comply with legal requirements.\nBusiness terms: BG-12',
 							properties: {
 								'cbc:StreetName': {
 									$ref: '#/$defs/valueRef',
@@ -748,7 +748,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 					additionalProperties: false,
 					title: 'DELIVERY INFORMATION',
 					description:
-						'A group of business terms providing information about where and when the goods and services\n            invoiced are delivered.',
+						'A group of business terms providing information about where and when the goods and services\n            invoiced are delivered.\nBusiness terms: BG-13',
 					properties: {
 						'cbc:ActualDeliveryDate': {
 							$ref: '#/$defs/valueRef',
@@ -768,7 +768,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 									additionalProperties: false,
 									title: 'DELIVER TO ADDRESS',
 									description:
-										'A group of business terms providing information about the address to which goods and services\n                    invoiced were or are delivered.',
+										'A group of business terms providing information about the address to which goods and services\n                    invoiced were or are delivered.\nBusiness terms: BG-15',
 									properties: {
 										'cbc:StreetName': {
 											$ref: '#/$defs/valueRef',
@@ -857,7 +857,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 							additionalProperties: false,
 							title: 'PAYMENT CARD INFORMATION',
 							description:
-								'A group of business terms providing information about card used for payment contemporaneous with\n                invoice issuance.',
+								'A group of business terms providing information about card used for payment contemporaneous with\n                invoice issuance.\nBusiness terms: BG-18',
 							properties: {
 								'cbc:PrimaryAccountNumberID': {
 									$ref: '#/$defs/valueRef',
@@ -876,7 +876,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 							additionalProperties: false,
 							title: 'CREDIT TRANSFER',
 							description:
-								'A group of business terms to specify credit transfer payments.',
+								'A group of business terms to specify credit transfer payments.\nBusiness terms: BG-17',
 							properties: {
 								'cbc:ID': {
 									$ref: '#/$defs/valueRef',
@@ -903,7 +903,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 							additionalProperties: false,
 							title: 'DIRECT DEBIT',
 							description:
-								'A group of business terms to specify a direct debit.',
+								'A group of business terms to specify a direct debit.\nBusiness terms: BG-19',
 							properties: {
 								'cbc:ID': {
 									$ref: '#/$defs/valueRef',
@@ -1091,7 +1091,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 					additionalProperties: false,
 					title: 'DOCUMENT TOTALS',
 					description:
-						'A group of business terms providing the monetary totals for the Invoice.',
+						'A group of business terms providing the monetary totals for the Invoice.\nBusiness terms: BG-22',
 					properties: {
 						'cbc:LineExtensionAmount': {
 							$ref: '#/$defs/valueRef',
@@ -1204,7 +1204,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 							additionalProperties: false,
 							title: 'INVOICE LINE PERIOD',
 							description:
-								'A group of business terms providing information about the period relevant for the Invoice line.',
+								'A group of business terms providing information about the period relevant for the Invoice line.\nBusiness terms: BG-26',
 							properties: {
 								'cbc:StartDate': {
 									$ref: '#/$defs/valueRef',
@@ -1290,7 +1290,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 							additionalProperties: false,
 							title: 'ITEM INFORMATION',
 							description:
-								'A group of business terms providing information about the goods and services invoiced.',
+								'A group of business terms providing information about the goods and services invoiced.\nBusiness terms: BG-31',
 							properties: {
 								'cbc:Description': {
 									$ref: '#/$defs/valueRef',
@@ -1384,7 +1384,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 									additionalProperties: false,
 									title: 'LINE VAT INFORMATION',
 									description:
-										'A group of business terms providing information about the VAT applicable for the goods and services\n                invoiced on the Invoice line.',
+										'A group of business terms providing information about the VAT applicable for the goods and services\n                invoiced on the Invoice line.\nBusiness terms: BG-30',
 									properties: {
 										'cbc:ID': {
 											$ref: '#/$defs/valueRef',
@@ -1430,7 +1430,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 							additionalProperties: false,
 							title: 'PRICE DETAILS',
 							description:
-								'A group of business terms providing information about the price applied for the goods and services\n            invoiced on the Invoice line.',
+								'A group of business terms providing information about the price applied for the goods and services\n            invoiced on the Invoice line.\nBusiness terms: BG-29',
 							properties: {
 								'cbc:PriceAmount': {
 									$ref: '#/$defs/valueRef',

@@ -31,6 +31,7 @@ type Element = {
 	Description?: string;
 	DataType?: string;
 	CodeList?: string;
+	BusinessTerms?: string[];
 	children?: Array<Element>;
 	cardinality?: string;
 };
@@ -227,6 +228,12 @@ function buildTree(element: any, parent: any = null): Element {
 				'CODE_LIST' == node[':@']['@_type']
 			) {
 				tree.CodeList = node.Reference[0]['#text'];
+			} else if (
+				'Reference' in node &&
+				':@' in node &&
+				'BUSINESS_TERM' == node[':@']['@_type']
+			) {
+				tree.BusinessTerms = node.Reference[0]['#text'].split(/[ \t]*,[ \t]*/);
 			} else if ('Attribute' in node) {
 				const attribute = buildTree(node.Attribute);
 				attribute.Term = `${tree.Term}@${attribute.Term}`;
@@ -280,10 +287,14 @@ function processNode(node: Element): JSONSchemaType<object> {
 	const common: { [key: string]: string } = {};
 
 	if ('Name' in node) {
-		common.title = node.Name as string;
+		common.title = (node.Name as string).replace(/[ \t\n]+/, ' ');
 	}
 	if ('Description' in node) {
-		common.description = node.Description as string;
+		common.description = (node.Description as string).replace(/[ \t\n]+/, ' ');
+	}
+
+	if ('BusinessTerms' in node) {
+		common.description += '\nBusiness terms: ' + node.BusinessTerms?.join(', ');
 	}
 
 	let schema: JSONSchemaType<any>;

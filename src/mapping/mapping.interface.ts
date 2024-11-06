@@ -127,6 +127,7 @@ export interface MappingMetaInformation {
 /**
  * A group of business terms providing information on the invoice period. Also called delivery period.
  *                 If the group is used, the invoiceing period start date and/or end date must be used.
+ * Business terms: BG-14
  */
 export interface DELIVERYORINVOICEPERIOD {
 	'cbc:StartDate'?: ValueRef;
@@ -167,6 +168,7 @@ export interface PROJECTREFERENCE {
 }
 /**
  * A group of business terms providing information about the Seller.
+ * Business terms: BG-4
  */
 export interface SELLER {
 	'cac:Party': PARTY;
@@ -195,6 +197,7 @@ export interface PARTYNAME {
 /**
  * A group of business terms providing information about the address of the Seller.
  *                     Sufficient components of the address are to be filled to comply with legal requirements.
+ * Business terms: BG-5
  */
 export interface SELLERPOSTALADDRESS {
 	'cbc:StreetName'?: ValueRef;
@@ -222,6 +225,7 @@ export interface PARTYLEGALENTITY {
 }
 /**
  * A group of business terms providing contact information about the Seller.
+ * Business terms: BG-6
  */
 export interface SELLERCONTACT {
 	'cbc:Name'?: ValueRef;
@@ -230,6 +234,7 @@ export interface SELLERCONTACT {
 }
 /**
  * A group of business terms providing information about the Buyer.
+ * Business terms: BG-7
  */
 export interface BUYER {
 	'cac:Party': PARTY1;
@@ -254,6 +259,7 @@ export interface PARTYNAME1 {
 /**
  * A group of business terms providing information about the postal address for the Buyer.
  *                     Sufficient components of the address are to be filled to comply with legal requirements.
+ * Business terms: BG-8
  */
 export interface BUYERPOSTALADDRESS {
 	'cbc:StreetName'?: ValueRef;
@@ -284,6 +290,7 @@ export interface PARTYLEGALENTITY1 {
 }
 /**
  * A group of business terms providing contact information relevant for the Buyer.
+ * Business terms: BG-9
  */
 export interface BUYERCONTACT {
 	'cbc:Name'?: ValueRef;
@@ -293,6 +300,7 @@ export interface BUYERCONTACT {
 /**
  * A group of business terms providing information about the Payee, i.e. the role that receives the
  *             payment.  Shall be used when the Payee is different from the Seller.
+ * Business terms: BG-10
  */
 export interface PAYEE {
 	'cac:PartyIdentification'?: PARTYIDENTIFICATION1;
@@ -312,6 +320,7 @@ export interface PARTYLEGALENTITY2 {
 }
 /**
  * A group of business terms providing information about the Seller's tax representative.
+ * Business terms: BG-11
  */
 export interface SELLERTAXREPRESENTATIVEPARTY {
 	'cac:PartyName': PARTYNAME3;
@@ -324,6 +333,7 @@ export interface PARTYNAME3 {
 /**
  * A group of business terms providing information about the postal address for the tax representative
  *                 party. Sufficient components of the address are to be filled to comply with legal requirements.
+ * Business terms: BG-12
  */
 export interface SELLERTAXREPRESENTATIVEPOSTALADDRESS {
 	'cbc:StreetName'?: ValueRef;
@@ -350,6 +360,7 @@ export interface TAXSCHEME2 {
 /**
  * A group of business terms providing information about where and when the goods and services
  *             invoiced are delivered.
+ * Business terms: BG-13
  */
 export interface DELIVERYINFORMATION {
 	'cbc:ActualDeliveryDate'?: ValueRef;
@@ -363,6 +374,7 @@ export interface DELIVERYINFORMATION {
 /**
  * A group of business terms providing information about the address to which goods and services
  *                     invoiced were or are delivered.
+ * Business terms: BG-15
  */
 export interface DELIVERTOADDRESS {
 	'cbc:StreetName'?: ValueRef;
@@ -388,6 +400,7 @@ export interface PARTYNAME4 {
 /**
  * A group of business terms providing information about card used for payment contemporaneous with
  *                 invoice issuance.
+ * Business terms: BG-18
  */
 export interface PAYMENTCARDINFORMATION {
 	'cbc:PrimaryAccountNumberID': ValueRef;
@@ -396,6 +409,7 @@ export interface PAYMENTCARDINFORMATION {
 }
 /**
  * A group of business terms to specify credit transfer payments.
+ * Business terms: BG-17
  */
 export interface CREDITTRANSFER {
 	'cbc:ID': ValueRef;
@@ -407,6 +421,7 @@ export interface FINANCIALINSTITUTIONBRANCH {
 }
 /**
  * A group of business terms to specify a direct debit.
+ * Business terms: BG-19
  */
 export interface DIRECTDEBIT {
 	'cbc:ID'?: ValueRef;
@@ -438,6 +453,7 @@ export interface TAXSCHEME4 {
 }
 /**
  * A group of business terms providing the monetary totals for the Invoice.
+ * Business terms: BG-22
  */
 export interface DOCUMENTTOTALS {
 	'cbc:LineExtensionAmount': ValueRef;
@@ -459,6 +475,7 @@ export interface DOCUMENTTOTALS {
 }
 /**
  * A group of business terms providing information about the period relevant for the Invoice line.
+ * Business terms: BG-26
  */
 export interface INVOICELINEPERIOD {
 	'cbc:StartDate'?: ValueRef;
@@ -474,6 +491,7 @@ export interface LINEOBJECTIDENTIFIER {
 }
 /**
  * A group of business terms providing information about the goods and services invoiced.
+ * Business terms: BG-31
  */
 export interface ITEMINFORMATION {
 	'cbc:Description'?: ValueRef;
@@ -511,6 +529,7 @@ export interface ORIGINCOUNTRY {
 /**
  * A group of business terms providing information about the VAT applicable for the goods and services
  *                 invoiced on the Invoice line.
+ * Business terms: BG-30
  */
 export interface LINEVATINFORMATION {
 	'cbc:ID': ValueRef;
@@ -523,6 +542,7 @@ export interface TAXSCHEME5 {
 /**
  * A group of business terms providing information about the price applied for the goods and services
  *             invoiced on the Invoice line.
+ * Business terms: BG-29
  */
 export interface PRICEDETAILS {
 	'cbc:PriceAmount': ValueRef;
