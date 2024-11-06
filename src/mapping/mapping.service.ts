@@ -100,8 +100,15 @@ export class MappingService {
 					target[property] = value;
 				}
 			} else if (schema.type === 'array') {
-				target[property] = [];
-				this.transformArray(target[property], mapping[property], ctx);
+				if ('section' in mapping[property]) {
+					target[property] = [];
+					this.transformArray(target[property], mapping[property], ctx);
+				} else {
+					target[property] = {};
+					ctx.schemaPath.push('items');
+					this.transformObject(target[property], mapping[property], ctx);
+					ctx.schemaPath.pop();
+				}
 			} else {
 				target[property] = {};
 				this.transformObject(target[property], mapping[property], ctx);
