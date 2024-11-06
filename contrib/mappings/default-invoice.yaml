@@ -5,9 +5,10 @@ meta:
 ubl:Invoice:
   cbc:ID: =R2
   cbc:IssueDate: =I6
-  cbc:DueDate: =I11
+  cbc:DueDate: =I12
   cbc:InvoiceTypeCode: "380"
   cbc:DocumentCurrencyCode: =O11
+  cbc:BuyerReference: =I11
   cac:InvoicePeriod:
     cbc:StartDate: =I7
     cbc:EndDate: =I8
@@ -32,6 +33,10 @@ ubl:Invoice:
           cbc:ID: VAT
       cac:PartyLegalEntity:
         cbc:RegistrationName: =O1
+      cac:Contact:
+        cbc:Name: =I14
+        cbc:Telephone: =I15
+        cbc:ElectronicMail: =I16
   cac:AccountingCustomerParty:
     cac:Party:
       cbc:EndpointID: =I9
@@ -59,6 +64,17 @@ ubl:Invoice:
         cbc:PostalZone: =O8
         cac:Country:
           cbc:IdentificationCode: =O10
+  cac:PaymentMeans:
+    cbc:PaymentMeansCode: =L13
+    cbc:PaymentMeansCode@name: =I13
+    cbc:PaymentID: =A19
+    cac:PayeeFinancialAccount:
+      cbc:ID: =O15
+      cbc:Name: =O1
+      cac:FinancialInstitutionBranch:
+        cbc:ID: =O16
+  cac:PaymentTerms:
+    cbc:Note: =:PaymentTerms.A1
   cac:AllowanceCharge:
     section: :AllowanceCharge
     cbc:ChargeIndicator: =:AllowanceCharge.N1
@@ -67,6 +83,8 @@ ubl:Invoice:
     cbc:MultiplierFactorNumeric: =:AllowanceCharge.O1
     cbc:Amount: =:AllowanceCharge.R1
     cbc:Amount@currencyID: EUR
+    cbc:BaseAmount: =:AllowanceCharge.S1
+    cbc:BaseAmount@currencyID: EUR
     cac:TaxCategory:
       cbc:ID: =:AllowanceCharge.P1
       cbc:Percent: =:AllowanceCharge.Q1
