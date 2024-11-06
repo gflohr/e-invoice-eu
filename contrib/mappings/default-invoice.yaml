@@ -45,8 +45,7 @@ ubl:Invoice:
         cac:Country:
           cbc:IdentificationCode: =O10
       cac:PartyTaxScheme:
-        section: :BuyerTaxScheme
-        cbc:CompanyID: =:BuyerTaxScheme.I1
+        cbc:CompanyID: =I9
         cac:TaxScheme:
           cbc:ID: VAT
       cac:PartyLegalEntity:
