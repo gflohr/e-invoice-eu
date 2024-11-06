@@ -95,6 +95,10 @@ ubl:Invoice:
     cbc:TaxExclusiveAmount@currencyID: EUR
     cbc:TaxInclusiveAmount: =:GrandTotal.J1
     cbc:TaxInclusiveAmount@currencyID: EUR
+    cbc:AllowanceTotalAmount: =:AllowanceChargeTotal.N1
+    cbc:AllowanceTotalAmount@currencyID: EUR
+    cbc:ChargeTotalAmount: =:AllowanceChargeTotal.P1
+    cbc:ChargeTotalAmount@currencyID: EUR
     cbc:PayableAmount: =:GrandTotal.J1
     cbc:PayableAmount@currencyID: EUR
   cac:InvoiceLine:
