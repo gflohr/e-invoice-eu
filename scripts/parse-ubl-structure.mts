@@ -287,10 +287,10 @@ function processNode(node: Element): JSONSchemaType<object> {
 	const common: { [key: string]: string } = {};
 
 	if ('Name' in node) {
-		common.title = (node.Name as string).replace(/[ \t\n]+/, ' ');
+		common.title = (node.Name as string).replace(/[ \t\n]+/g, ' ');
 	}
 	if ('Description' in node) {
-		common.description = (node.Description as string).replace(/[ \t\n]+/, ' ');
+		common.description = (node.Description as string).replace(/[ \t\n]+/g, ' ');
 	}
 
 	if ('BusinessTerms' in node) {

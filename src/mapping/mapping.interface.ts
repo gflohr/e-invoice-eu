@@ -125,8 +125,7 @@ export interface MappingMetaInformation {
 	empty?: string[];
 }
 /**
- * A group of business terms providing information on the invoice period. Also called delivery period.
- *                 If the group is used, the invoiceing period start date and/or end date must be used.
+ * A group of business terms providing information on the invoice period. Also called delivery period. If the group is used, the invoiceing period start date and/or end date must be used.
  * Business terms: BG-14
  */
 export interface DELIVERYORINVOICEPERIOD {
@@ -195,8 +194,7 @@ export interface PARTYNAME {
 	'cbc:Name': ValueRef;
 }
 /**
- * A group of business terms providing information about the address of the Seller.
- *                     Sufficient components of the address are to be filled to comply with legal requirements.
+ * A group of business terms providing information about the address of the Seller. Sufficient components of the address are to be filled to comply with legal requirements.
  * Business terms: BG-5
  */
 export interface SELLERPOSTALADDRESS {
@@ -257,8 +255,7 @@ export interface PARTYNAME1 {
 	'cbc:Name': ValueRef;
 }
 /**
- * A group of business terms providing information about the postal address for the Buyer.
- *                     Sufficient components of the address are to be filled to comply with legal requirements.
+ * A group of business terms providing information about the postal address for the Buyer. Sufficient components of the address are to be filled to comply with legal requirements.
  * Business terms: BG-8
  */
 export interface BUYERPOSTALADDRESS {
@@ -298,8 +295,7 @@ export interface BUYERCONTACT {
 	'cbc:ElectronicMail'?: ValueRef;
 }
 /**
- * A group of business terms providing information about the Payee, i.e. the role that receives the
- *             payment.  Shall be used when the Payee is different from the Seller.
+ * A group of business terms providing information about the Payee, i.e. the role that receives the payment. Shall be used when the Payee is different from the Seller.
  * Business terms: BG-10
  */
 export interface PAYEE {
@@ -331,8 +327,7 @@ export interface PARTYNAME3 {
 	'cbc:Name': ValueRef;
 }
 /**
- * A group of business terms providing information about the postal address for the tax representative
- *                 party. Sufficient components of the address are to be filled to comply with legal requirements.
+ * A group of business terms providing information about the postal address for the tax representative party. Sufficient components of the address are to be filled to comply with legal requirements.
  * Business terms: BG-12
  */
 export interface SELLERTAXREPRESENTATIVEPOSTALADDRESS {
@@ -358,8 +353,7 @@ export interface TAXSCHEME2 {
 	'cbc:ID': ValueRef;
 }
 /**
- * A group of business terms providing information about where and when the goods and services
- *             invoiced are delivered.
+ * A group of business terms providing information about where and when the goods and services invoiced are delivered.
  * Business terms: BG-13
  */
 export interface DELIVERYINFORMATION {
@@ -372,8 +366,7 @@ export interface DELIVERYINFORMATION {
 	'cac:DeliveryParty'?: DELIVERPARTY;
 }
 /**
- * A group of business terms providing information about the address to which goods and services
- *                     invoiced were or are delivered.
+ * A group of business terms providing information about the address to which goods and services invoiced were or are delivered.
  * Business terms: BG-15
  */
 export interface DELIVERTOADDRESS {
@@ -398,8 +391,7 @@ export interface PARTYNAME4 {
 	'cbc:Name': ValueRef;
 }
 /**
- * A group of business terms providing information about card used for payment contemporaneous with
- *                 invoice issuance.
+ * A group of business terms providing information about card used for payment contemporaneous with invoice issuance.
  * Business terms: BG-18
  */
 export interface PAYMENTCARDINFORMATION {
@@ -527,8 +519,7 @@ export interface ORIGINCOUNTRY {
 	'cbc:IdentificationCode': ValueRef;
 }
 /**
- * A group of business terms providing information about the VAT applicable for the goods and services
- *                 invoiced on the Invoice line.
+ * A group of business terms providing information about the VAT applicable for the goods and services invoiced on the Invoice line.
  * Business terms: BG-30
  */
 export interface LINEVATINFORMATION {
@@ -540,8 +531,7 @@ export interface TAXSCHEME5 {
 	'cbc:ID': ValueRef;
 }
 /**
- * A group of business terms providing information about the price applied for the goods and services
- *             invoiced on the Invoice line.
+ * A group of business terms providing information about the price applied for the goods and services invoiced on the Invoice line.
  * Business terms: BG-29
  */
 export interface PRICEDETAILS {

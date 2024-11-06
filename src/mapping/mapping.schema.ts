@@ -82,7 +82,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 					additionalProperties: false,
 					title: 'DELIVERY OR INVOICE PERIOD',
 					description:
-						'A group of business terms providing information on the invoice period. Also called delivery period. \n                If the group is used, the invoiceing period start date and/or end date must be used.\nBusiness terms: BG-14',
+						'A group of business terms providing information on the invoice period. Also called delivery period. If the group is used, the invoiceing period start date and/or end date must be used.\nBusiness terms: BG-14',
 					properties: {
 						'cbc:StartDate': {
 							$ref: '#/$defs/valueRef',
@@ -306,7 +306,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 									additionalProperties: false,
 									title: 'SELLER POSTAL ADDRESS',
 									description:
-										'A group of business terms providing information about the address of the Seller. \n                    Sufficient components of the address are to be filled to comply with legal requirements.\nBusiness terms: BG-5',
+										'A group of business terms providing information about the address of the Seller. Sufficient components of the address are to be filled to comply with legal requirements.\nBusiness terms: BG-5',
 									properties: {
 										'cbc:StreetName': {
 											$ref: '#/$defs/valueRef',
@@ -478,7 +478,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 									additionalProperties: false,
 									title: 'BUYER POSTAL ADDRESS',
 									description:
-										'A group of business terms providing information about the postal address for the Buyer.\n                    Sufficient components of the address are to be filled to comply with legal requirements.\nBusiness terms: BG-8',
+										'A group of business terms providing information about the postal address for the Buyer. Sufficient components of the address are to be filled to comply with legal requirements.\nBusiness terms: BG-8',
 									properties: {
 										'cbc:StreetName': {
 											$ref: '#/$defs/valueRef',
@@ -599,7 +599,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 					additionalProperties: false,
 					title: 'PAYEE',
 					description:
-						'A group of business terms providing information about the Payee, i.e. the role that receives the\n            payment.  Shall be used when the Payee is different from the Seller.\nBusiness terms: BG-10',
+						'A group of business terms providing information about the Payee, i.e. the role that receives the payment. Shall be used when the Payee is different from the Seller.\nBusiness terms: BG-10',
 					properties: {
 						'cac:PartyIdentification': {
 							type: 'object',
@@ -672,7 +672,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 							additionalProperties: false,
 							title: 'SELLER TAX REPRESENTATIVE POSTAL ADDRESS',
 							description:
-								'A group of business terms providing information about the postal address for the tax representative\n                party. Sufficient components of the address are to be filled to comply with legal requirements.\nBusiness terms: BG-12',
+								'A group of business terms providing information about the postal address for the tax representative party. Sufficient components of the address are to be filled to comply with legal requirements.\nBusiness terms: BG-12',
 							properties: {
 								'cbc:StreetName': {
 									$ref: '#/$defs/valueRef',
@@ -748,7 +748,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 					additionalProperties: false,
 					title: 'DELIVERY INFORMATION',
 					description:
-						'A group of business terms providing information about where and when the goods and services\n            invoiced are delivered.\nBusiness terms: BG-13',
+						'A group of business terms providing information about where and when the goods and services invoiced are delivered.\nBusiness terms: BG-13',
 					properties: {
 						'cbc:ActualDeliveryDate': {
 							$ref: '#/$defs/valueRef',
@@ -768,7 +768,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 									additionalProperties: false,
 									title: 'DELIVER TO ADDRESS',
 									description:
-										'A group of business terms providing information about the address to which goods and services\n                    invoiced were or are delivered.\nBusiness terms: BG-15',
+										'A group of business terms providing information about the address to which goods and services invoiced were or are delivered.\nBusiness terms: BG-15',
 									properties: {
 										'cbc:StreetName': {
 											$ref: '#/$defs/valueRef',
@@ -857,7 +857,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 							additionalProperties: false,
 							title: 'PAYMENT CARD INFORMATION',
 							description:
-								'A group of business terms providing information about card used for payment contemporaneous with\n                invoice issuance.\nBusiness terms: BG-18',
+								'A group of business terms providing information about card used for payment contemporaneous with invoice issuance.\nBusiness terms: BG-18',
 							properties: {
 								'cbc:PrimaryAccountNumberID': {
 									$ref: '#/$defs/valueRef',
@@ -1384,7 +1384,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 									additionalProperties: false,
 									title: 'LINE VAT INFORMATION',
 									description:
-										'A group of business terms providing information about the VAT applicable for the goods and services\n                invoiced on the Invoice line.\nBusiness terms: BG-30',
+										'A group of business terms providing information about the VAT applicable for the goods and services invoiced on the Invoice line.\nBusiness terms: BG-30',
 									properties: {
 										'cbc:ID': {
 											$ref: '#/$defs/valueRef',
@@ -1430,7 +1430,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 							additionalProperties: false,
 							title: 'PRICE DETAILS',
 							description:
-								'A group of business terms providing information about the price applied for the goods and services\n            invoiced on the Invoice line.\nBusiness terms: BG-29',
+								'A group of business terms providing information about the price applied for the goods and services invoiced on the Invoice line.\nBusiness terms: BG-29',
 							properties: {
 								'cbc:PriceAmount': {
 									$ref: '#/$defs/valueRef',
