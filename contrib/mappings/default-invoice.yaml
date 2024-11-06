@@ -62,8 +62,8 @@ ubl:Invoice:
   cac:AllowanceCharge:
     section: :AllowanceCharge
     cbc:ChargeIndicator: =:AllowanceCharge.N1
-    cbc:ChargeReasonCode: =:AllowanceCharge.M1
-    cbc:ChargeReason: =:AllowanceCharge.A1
+    cbc:AllowanceChargeReasonCode: =:AllowanceCharge.M1
+    cbc:AllowanceChargeReason: =:AllowanceCharge.A1
     cbc:MultiplierFactorNumeric: =:AllowanceCharge.O1
     cbc:Amount: =:AllowanceCharge.J1
     cbc:Amount@currencyID: EUR
