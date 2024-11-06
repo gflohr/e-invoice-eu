@@ -49,13 +49,12 @@ function recurseSchema(schema: JSONSchemaType<any>, path: string[]): BusinessTer
 			const newPath = [...path];
 			if (key.match(/^(?:ubl|cac|cbc):[a-zA-Z]+$/)) {
 				newPath.push(key);
-
+			} else if (key === 'description') {
+				const description = schema.description;
 				const re = new RegExp('\nBusiness terms: (B[TG]-[1-9][0-9]*(?:, B[TG]-[1-9][0-9]*)?)$')
-				if (typeof schema[key] === 'object'
-					&& schema[key].description
-					&& schema[key].description.match(re)
+				if (description.match(re)
 				) {
-					const terms = (re.exec(schema[key].description) as RegExpExecArray)[1].split(', ');
+					const terms = (re.exec(description) as RegExpExecArray)[1].split(', ');
 
 					for (const term of terms) {
 						allTerms[term] ??= [];

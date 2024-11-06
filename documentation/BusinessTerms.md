@@ -5,6 +5,7 @@ This table maps allEN16931 business terms and business groups to their respectiv
 
 | Term | Usage |
 |------|-------|
+| BG-3 | [/ubl:Invoice/cac:BillingReference](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-BillingReference/) |
 | BG-4 | [/ubl:Invoice/cac:AccountingSupplierParty](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/) |
 | BG-5 | [/ubl:Invoice/cac:AccountingSupplierParty/cac:Party/cac:PostalAddress](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/cac-Party/cac-PostalAddress/) |
 | BG-6 | [/ubl:Invoice/cac:AccountingSupplierParty/cac:Party/cac:Contact](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/cac-Party/cac-Contact/) |
@@ -17,14 +18,23 @@ This table maps allEN16931 business terms and business groups to their respectiv
 | BG-13 | [/ubl:Invoice/cac:Delivery](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-Delivery/) |
 | BG-14 | [/ubl:Invoice/cac:InvoicePeriod](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoicePeriod/) |
 | BG-15 | [/ubl:Invoice/cac:Delivery/cac:DeliveryLocation/cac:Address](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-Delivery/cac-DeliveryLocation/cac-Address/) |
+| BG-16 | [/ubl:Invoice/cac:PaymentMeans](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-PaymentMeans/) |
 | BG-17 | [/ubl:Invoice/cac:PaymentMeans/cac:PayeeFinancialAccount](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-PaymentMeans/cac-PayeeFinancialAccount/) |
 | BG-18 | [/ubl:Invoice/cac:PaymentMeans/cac:CardAccount](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-PaymentMeans/cac-CardAccount/) |
 | BG-19 | [/ubl:Invoice/cac:PaymentMeans/cac:PaymentMandate](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-PaymentMeans/cac-PaymentMandate/) |
+| BG-20 | [/ubl:Invoice/cac:AllowanceCharge](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AllowanceCharge/) |
+| BG-21 | [/ubl:Invoice/cac:AllowanceCharge](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AllowanceCharge/) |
 | BG-22 | [/ubl:Invoice/cac:LegalMonetaryTotal](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-LegalMonetaryTotal/) |
+| BG-23 | [/ubl:Invoice/cac:TaxTotal/cac:TaxSubtotal](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-TaxTotal/cac-TaxSubtotal/) |
+| BG-24 | [/ubl:Invoice/cac:AdditionalDocumentReference](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AdditionalDocumentReference/) |
+| BG-25 | [/ubl:Invoice/cac:InvoiceLine](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/) |
 | BG-26 | [/ubl:Invoice/cac:InvoiceLine/cac:InvoicePeriod](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-InvoicePeriod/) |
+| BG-27 | [/ubl:Invoice/cac:InvoiceLine/cac:AllowanceCharge](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-AllowanceCharge/) |
+| BG-28 | [/ubl:Invoice/cac:InvoiceLine/cac:AllowanceCharge](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-AllowanceCharge/) |
 | BG-29 | [/ubl:Invoice/cac:InvoiceLine/cac:Price](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-Price/) |
 | BG-30 | [/ubl:Invoice/cac:InvoiceLine/cac:Item/cac:ClassifiedTaxCategory](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-Item/cac-ClassifiedTaxCategory/) |
 | BG-31 | [/ubl:Invoice/cac:InvoiceLine/cac:Item](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-Item/) |
+| BG-32 | [/ubl:Invoice/cac:InvoiceLine/cac:Item/cac:AdditionalItemProperty](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-Item/cac-AdditionalItemProperty/) |
 | BT-1 | [/ubl:Invoice/cbc:ID](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-ID/) |
 | BT-3 | [/ubl:Invoice/cbc:InvoiceTypeCode](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-InvoiceTypeCode/) |
 | BT-5 | [/ubl:Invoice/cbc:DocumentCurrencyCode](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-DocumentCurrencyCode/) |
@@ -38,7 +48,7 @@ This table maps allEN16931 business terms and business groups to their respectiv
 | BT-15 | [/ubl:Invoice/cac:ReceiptDocumentReference/cbc:ID](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-ReceiptDocumentReference/cbc-ID/) |
 | BT-16 | [/ubl:Invoice/cac:DespatchDocumentReference/cbc:ID](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-DespatchDocumentReference/cbc-ID/) |
 | BT-17 | [/ubl:Invoice/cac:OriginatorDocumentReference/cbc:ID](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-OriginatorDocumentReference/cbc-ID/) |
-| BT-18 | [/ubl:Invoice/cac:AdditionalDocumentReference/cbc:ID](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AdditionalDocumentReference/cbc-ID/) [/ubl:Invoice/cac:AdditionalDocumentReference/cbc:DocumentTypeCode](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AdditionalDocumentReference/cbc-DocumentTypeCode/) |
+| BT-18 | [/ubl:Invoice/cac:AdditionalDocumentReference/cbc:DocumentTypeCode](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AdditionalDocumentReference/cbc-DocumentTypeCode/) |
 | BT-19 | [/ubl:Invoice/cbc:AccountingCost](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-AccountingCost/) |
 | BT-20 | [/ubl:Invoice/cac:PaymentTerms/cbc:Note](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-PaymentTerms/cbc-Note/) |
 | BT-22 | [/ubl:Invoice/cbc:Note](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-Note/) |
@@ -97,6 +107,7 @@ This table maps allEN16931 business terms and business groups to their respectiv
 | BT-79 | [/ubl:Invoice/cac:Delivery/cac:DeliveryLocation/cac:Address/cbc:CountrySubentity](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-Delivery/cac-DeliveryLocation/cac-Address/cbc-CountrySubentity/) |
 | BT-80 | [/ubl:Invoice/cac:Delivery/cac:DeliveryLocation/cac:Address/cac:Country/cbc:IdentificationCode](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-Delivery/cac-DeliveryLocation/cac-Address/cac-Country/cbc-IdentificationCode/) |
 | BT-81 | [/ubl:Invoice/cac:PaymentMeans/cbc:PaymentMeansCode](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-PaymentMeans/cbc-PaymentMeansCode/) |
+| BT-82 | [/ubl:Invoice/cac:PaymentMeans](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-PaymentMeans/) |
 | BT-83 | [/ubl:Invoice/cac:PaymentMeans/cbc:PaymentID](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-PaymentMeans/cbc-PaymentID/) |
 | BT-84 | [/ubl:Invoice/cac:PaymentMeans/cac:PayeeFinancialAccount/cbc:ID](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-PaymentMeans/cac-PayeeFinancialAccount/cbc-ID/) |
 | BT-85 | [/ubl:Invoice/cac:PaymentMeans/cac:PayeeFinancialAccount/cbc:Name](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-PaymentMeans/cac-PayeeFinancialAccount/cbc-Name/) |
@@ -120,7 +131,8 @@ This table maps allEN16931 business terms and business groups to their respectiv
 | BT-124 | [/ubl:Invoice/cac:AdditionalDocumentReference/cac:Attachment/cac:ExternalReference/cbc:URI](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AdditionalDocumentReference/cac-Attachment/cac-ExternalReference/cbc-URI/) |
 | BT-126 | [/ubl:Invoice/cac:InvoiceLine/cbc:ID](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cbc-ID/) |
 | BT-127 | [/ubl:Invoice/cac:InvoiceLine/cbc:Note](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cbc-Note/) |
-| BT-128 | [/ubl:Invoice/cac:InvoiceLine/cac:DocumentReference/cbc:ID](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-DocumentReference/cbc-ID/) [/ubl:Invoice/cac:InvoiceLine/cac:DocumentReference/cbc:DocumentTypeCode](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-DocumentReference/cbc-DocumentTypeCode/) |
+| BT-128 | [/ubl:Invoice/cac:InvoiceLine/cac:DocumentReference/cbc:DocumentTypeCode](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-DocumentReference/cbc-DocumentTypeCode/) |
+| BT-130 | [/ubl:Invoice/cac:InvoiceLine](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/) |
 | BT-132 | [/ubl:Invoice/cac:InvoiceLine/cac:OrderLineReference/cbc:LineID](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-OrderLineReference/cbc-LineID/) |
 | BT-133 | [/ubl:Invoice/cac:InvoiceLine/cbc:AccountingCost](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cbc-AccountingCost/) |
 | BT-139 | [/ubl:Invoice/cac:InvoiceLine/cac:AllowanceCharge/cbc:AllowanceChargeReason](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-AllowanceCharge/cbc-AllowanceChargeReason/) |
