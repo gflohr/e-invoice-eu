@@ -3,18 +3,19 @@
 Mappings map cells from an invoice spreadsheet file to invoice data.
 
 - [Mapping](#mapping)
-  - [Format](#format)
-  - [General Structure](#general-structure)
-    - [The `meta` Object](#the-meta-object)
-      - [The `meta.sectionColumn` Object](#the-metasectioncolumn-object)
-      - [The `meta.empty` Array](#the-metaempty-array)
-    - [The `ubl:Invoice` Object](#the-ublinvoice-object)
-      - [Literal Values](#literal-values)
-      - [Sheet References](#sheet-references)
-      - [Section References](#section-references)
-      - [Cell References](#cell-references)
-      - [Formulas](#formulas)
-  - [Examples](#examples)
+	- [Format](#format)
+	- [General Structure](#general-structure)
+		- [The `meta` Object](#the-meta-object)
+			- [The `meta.sectionColumn` Object](#the-metasectioncolumn-object)
+			- [The `meta.empty` Array](#the-metaempty-array)
+		- [The `ubl:Invoice` Object](#the-ublinvoice-object)
+			- [Literal Values](#literal-values)
+			- [Sheet References](#sheet-references)
+			- [Section References](#section-references)
+			- [Cell References](#cell-references)
+			- [Formulas](#formulas)
+	- [Surprising Arrays](#surprising-arrays)
+	- [Examples](#examples)
 
 ## Format
 
@@ -85,7 +86,7 @@ ubl:Invoice:
 	cac:InvoiceLine:
 		# Every invoice line is marked by the string "Line" in the section
 		# column (`meta.sectionColumn`, see above) of that sheet.
-		section: Line
+		section: :Line
 		# All references following can now be made relative to the
 		# corresponding invoice line. The id of the line is found in column
 		# A of the 1st row of the section marked with "Line":
@@ -142,8 +143,8 @@ Section references always start with a color (`:`). A section name cannot
 contain a colon (`:`) or dot (`.`), and it is not possible to escape or
 quote them. Choose names without these characters.
 
-A section reference without a leading sheet reference, you must prepend it
-with a colon. This is necessary to make it distinguishable from sheet
+A section reference without a leading sheet reference must have a leading
+colon `:`. This is necessary to make it distinguishable from sheet
 references.
 
 Example:
@@ -151,7 +152,7 @@ Example:
 ```
 ubl:Invoice:
   cac:InvoiceLine:
-    section: Line
+    section: :Line
 	cbc:ID: =:Line.A1
 	cbc:Note: =SomeSheet.Q23
 ```
@@ -224,6 +225,14 @@ know this from your spreadsheet application.
 Are you joking? Formulas are not supported in the mapping. But you can just
 use them in the spreadsheet because the extractor picks up the result of the
 formular, not the formula itself.
+
+## Surprising Arrays
+
+Some elements are arrays although this will often be surprising.  For example,
+the element [`/ubl:Invoice/cac:TaxTotal`] is an array with 1-2 elements.  But
+you will almost always have just one element here. In this case, there is
+no need for a section, you can simply omit the `section` property.  You will
+probably be using this feature without even noticing it.
 
 ## Examples
 
