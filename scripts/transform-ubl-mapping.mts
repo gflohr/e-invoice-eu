@@ -106,7 +106,7 @@ function transformSchema(schema: JSONSchemaType<any>): void {
 						section: { $ref: '#/$defs/sectionRef' },
 						...valueObject.items.properties,
 					};
-					newObject.required = ['section'] as unknown as JSONSchemaType<object>;
+					newObject.required = [] as unknown as JSONSchemaType<object>;
 					if (valueObject.items.required) {
 						newObject.required.push(...valueObject.items.required);
 					}
