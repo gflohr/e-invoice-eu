@@ -104,9 +104,9 @@ export class MappingService {
 					target[property] = [];
 					this.transformArray(target[property], mapping[property], ctx);
 				} else {
-					target[property] = {};
+					target[property] = [{}];
 					ctx.schemaPath.push('items');
-					this.transformObject(target[property], mapping[property], ctx);
+					this.transformObject(target[property][0], mapping[property], ctx);
 					ctx.schemaPath.pop();
 				}
 			} else {

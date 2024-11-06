@@ -29,6 +29,10 @@ const mapping = {
 		'cac:OrderReference': {
 			'cbc:ID': '=A3',
 		},
+		'cac:PaymentMeans': {
+			// No section.
+			'cbc:PaymentMeansCode': '30',
+		},
 		'cac:LegalMonetaryTotal': {
 			'cbc:LineExtensionAmount': '=:SubTotal.F1',
 		},
@@ -574,6 +578,12 @@ describe('MappingService', () => {
 						'cbc:LineExtensionAmount'
 					];
 				expect(target).toBe('12345.67');
+			});
+
+			it('should map arrays without sections', () => {
+				const target = invoice['ubl:Invoice']['cac:PaymentMeans'];
+				expect(Array.isArray(target)).toBe(true);
+				expect(target?.[0]['cbc:PaymentMeansCode']).toBe('30');
 			});
 		});
 	});
