@@ -287,10 +287,6 @@ export class MappingService {
 
 		const cell = worksheet[cellName];
 
-		if (cell.t === 'n' && cell.w === '\n') {
-			return '';
-		}
-
 		const $ref = schema.$ref;
 
 		let value: string;
