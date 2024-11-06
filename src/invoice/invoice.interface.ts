@@ -10360,9 +10360,7 @@ export interface Invoice {
 		 * @minItems 1
 		 */
 		'cac:InvoiceLine': [INVOICELINE, ...INVOICELINE[]];
-		[k: string]: unknown;
 	};
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information on the invoice period. Also called delivery period.
@@ -10372,40 +10370,32 @@ export interface DELIVERYORINVOICEPERIOD {
 	'cbc:StartDate'?: string;
 	'cbc:EndDate'?: string;
 	'cbc:DescriptionCode'?: ValueAddedTaxPointDateCode;
-	[k: string]: unknown;
 }
 export interface ORDERANDSALESORDERREFERENCE {
 	'cbc:ID': PurchaseOrderReference;
 	'cbc:SalesOrderID'?: SalesOrderReference;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information on one or more preceding Invoices.
  */
 export interface PRECEDINGINVOICEREFERENCE {
 	'cac:InvoiceDocumentReference': INVOICEDOCUMENTREFERENCE;
-	[k: string]: unknown;
 }
 export interface INVOICEDOCUMENTREFERENCE {
 	'cbc:ID': PrecedingInvoiceNumber;
 	'cbc:IssueDate'?: string;
-	[k: string]: unknown;
 }
 export interface DESPATCHADVICEREFERENCE {
 	'cbc:ID': DespatchAdviceReference;
-	[k: string]: unknown;
 }
 export interface RECEIPTADVICEREFERENCE {
 	'cbc:ID': ReceivingAdviceReference;
-	[k: string]: unknown;
 }
 export interface TENDERORLOTREFERENCE {
 	'cbc:ID': TenderOrLotReference;
-	[k: string]: unknown;
 }
 export interface CONTRACTREFERENCE {
 	'cbc:ID': ContractReference;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about additional supporting documents substantiating the claims made in the Invoice.
@@ -10418,29 +10408,24 @@ export interface ADDITIONALSUPPORTINGDOCUMENTS {
 	'cbc:DocumentTypeCode'?: DocumentTypeCode;
 	'cbc:DocumentDescription'?: SupportingDocumentDescription;
 	'cac:Attachment'?: ATTACHMENT;
-	[k: string]: unknown;
 }
 export interface ATTACHMENT {
 	'cbc:EmbeddedDocumentBinaryObject'?: string;
 	'cbc:EmbeddedDocumentBinaryObject@mimeCode'?: AttachedDocumentMimeCode;
 	'cbc:EmbeddedDocumentBinaryObject@filename'?: AttachedDocumentFilename;
 	'cac:ExternalReference'?: EXTERNALREFERENCE;
-	[k: string]: unknown;
 }
 export interface EXTERNALREFERENCE {
 	'cbc:URI': ExternalDocumentLocation;
-	[k: string]: unknown;
 }
 export interface PROJECTREFERENCE {
 	'cbc:ID': ProjectReference;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the Seller.
  */
 export interface SELLER {
 	'cac:Party': PARTY;
-	[k: string]: unknown;
 }
 export interface PARTY {
 	'cbc:EndpointID': SellerElectronicAddress;
@@ -10457,16 +10442,13 @@ export interface PARTY {
 		| [PARTYVATTAXIDENTIFIERS, PARTYVATTAXIDENTIFIERS];
 	'cac:PartyLegalEntity': PARTYLEGALENTITY;
 	'cac:Contact'?: SELLERCONTACT;
-	[k: string]: unknown;
 }
 export interface PARTYIDENTIFICATION {
 	'cbc:ID': SellerIdentifierOrBankAssignedCreditorIdentifier;
 	'cbc:ID@schemeID'?: SellerOrBankAssignedCreditorIdentifierIdentificationSchemeIdentifier;
-	[k: string]: unknown;
 }
 export interface PARTYNAME {
 	'cbc:Name': SellerTradingName;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the address of the Seller.
@@ -10480,34 +10462,28 @@ export interface SELLERPOSTALADDRESS {
 	'cbc:CountrySubentity'?: SellerCountrySubdivision;
 	'cac:AddressLine'?: ADDRESSLINE;
 	'cac:Country': COUNTRY;
-	[k: string]: unknown;
 }
 export interface ADDRESSLINE {
 	'cbc:Line': SellerAddressLine3;
-	[k: string]: unknown;
 }
 export interface COUNTRY {
 	'cbc:IdentificationCode': SellerCountryCode;
-	[k: string]: unknown;
 }
 export interface PARTYVATTAXIDENTIFIERS {
 	'cbc:CompanyID': SellerVATIdentifierSellerTaxRegistrationIdentifier;
 	'cac:TaxScheme': TAXSCHEME;
-	[k: string]: unknown;
 }
 export interface TAXSCHEME {
 	/**
 	 * Mandatory element. For Seller VAT identifier (BT-31), use value “VAT”, for the seller tax registration identifier (BT-32), use != "VAT"
 	 */
 	'cbc:ID': string;
-	[k: string]: unknown;
 }
 export interface PARTYLEGALENTITY {
 	'cbc:RegistrationName': SellerName;
 	'cbc:CompanyID'?: SellerLegalRegistrationIdentifier;
 	'cbc:CompanyID@schemeID'?: SellerLegalRegistrationIdentifierIdentificationSchemeIdentifier;
 	'cbc:CompanyLegalForm'?: SellerAdditionalLegalInformation;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing contact information about the Seller.
@@ -10516,14 +10492,12 @@ export interface SELLERCONTACT {
 	'cbc:Name'?: SellerContactPoint;
 	'cbc:Telephone'?: SellerContactTelephoneNumber;
 	'cbc:ElectronicMail'?: SellerContactEmailAddress;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the Buyer.
  */
 export interface BUYER {
 	'cac:Party': PARTY1;
-	[k: string]: unknown;
 }
 export interface PARTY1 {
 	'cbc:EndpointID': BuyerElectronicAddress;
@@ -10534,16 +10508,13 @@ export interface PARTY1 {
 	'cac:PartyTaxScheme'?: PARTYVATIDENTIFIER;
 	'cac:PartyLegalEntity': PARTYLEGALENTITY1;
 	'cac:Contact'?: BUYERCONTACT;
-	[k: string]: unknown;
 }
 export interface PARTYIDENTIFICATION1 {
 	'cbc:ID': BuyerIdentifier;
 	'cbc:ID@schemeID'?: BuyerIdentifierIdentificationSchemeIdentifier;
-	[k: string]: unknown;
 }
 export interface PARTYNAME1 {
 	'cbc:Name': BuyerTradingName;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the postal address for the Buyer.
@@ -10557,33 +10528,27 @@ export interface BUYERPOSTALADDRESS {
 	'cbc:CountrySubentity'?: BuyerCountrySubdivision;
 	'cac:AddressLine'?: ADDRESSLINE1;
 	'cac:Country': COUNTRY1;
-	[k: string]: unknown;
 }
 export interface ADDRESSLINE1 {
 	'cbc:Line': BuyerAddressLine3;
-	[k: string]: unknown;
 }
 export interface COUNTRY1 {
 	'cbc:IdentificationCode': BuyerCountryCode;
-	[k: string]: unknown;
 }
 export interface PARTYVATIDENTIFIER {
 	'cbc:CompanyID': BuyerVATIdentifier;
 	'cac:TaxScheme': TAXSCHEME1;
-	[k: string]: unknown;
 }
 export interface TAXSCHEME1 {
 	/**
 	 * Mandatory element. Use “VAT”
 	 */
 	'cbc:ID': string;
-	[k: string]: unknown;
 }
 export interface PARTYLEGALENTITY1 {
 	'cbc:RegistrationName': BuyerName;
 	'cbc:CompanyID'?: BuyerLegalRegistrationIdentifier;
 	'cbc:CompanyID@schemeID'?: BuyerLegalRegistrationIdentifierIdentificationSchemeIdentifier;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing contact information relevant for the Buyer.
@@ -10592,7 +10557,6 @@ export interface BUYERCONTACT {
 	'cbc:Name'?: BuyerContactPoint;
 	'cbc:Telephone'?: BuyerContactTelephoneNumber;
 	'cbc:ElectronicMail'?: BuyerContactEmailAddress;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the Payee, i.e. the role that receives the
@@ -10602,21 +10566,17 @@ export interface PAYEE {
 	'cac:PartyIdentification'?: PARTYIDENTIFICATION2;
 	'cac:PartyName': PARTYNAME2;
 	'cac:PartyLegalEntity'?: PARTYLEGALENTITY2;
-	[k: string]: unknown;
 }
 export interface PARTYIDENTIFICATION2 {
 	'cbc:ID': PayeeIdentifierOrBankAssignedCreditorIdentifier;
 	'cbc:ID@schemeID'?: PayeeOrBankAssignedCreditorIdentifierIdentificationSchemeIdentifier;
-	[k: string]: unknown;
 }
 export interface PARTYNAME2 {
 	'cbc:Name': PayeeName;
-	[k: string]: unknown;
 }
 export interface PARTYLEGALENTITY2 {
 	'cbc:CompanyID': PayeeLegalRegistrationIdentifier;
 	'cbc:CompanyID@schemeID'?: PayeeLegalRegistrationIdentifierIdentificationSchemeIdentifier;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the Seller's tax representative.
@@ -10625,11 +10585,9 @@ export interface SELLERTAXREPRESENTATIVEPARTY {
 	'cac:PartyName': PARTYNAME3;
 	'cac:PostalAddress': SELLERTAXREPRESENTATIVEPOSTALADDRESS;
 	'cac:PartyTaxScheme': PARTYVATIDENTIFIER1;
-	[k: string]: unknown;
 }
 export interface PARTYNAME3 {
 	'cbc:Name': SellerTaxRepresentativeName;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the postal address for the tax representative
@@ -10643,27 +10601,22 @@ export interface SELLERTAXREPRESENTATIVEPOSTALADDRESS {
 	'cbc:CountrySubentity'?: TaxRepresentativeCountrySubdivision;
 	'cac:AddressLine'?: ADDRESSLINE2;
 	'cac:Country': COUNTRY2;
-	[k: string]: unknown;
 }
 export interface ADDRESSLINE2 {
 	'cbc:Line': TaxRepresentativeAddressLine3;
-	[k: string]: unknown;
 }
 export interface COUNTRY2 {
 	'cbc:IdentificationCode': TaxRepresentativeCountryCode;
-	[k: string]: unknown;
 }
 export interface PARTYVATIDENTIFIER1 {
 	'cbc:CompanyID': SellerTaxRepresentativeVATIdentifier;
 	'cac:TaxScheme': TAXSCHEME2;
-	[k: string]: unknown;
 }
 export interface TAXSCHEME2 {
 	/**
 	 * Mandatory element. Use “VAT”
 	 */
 	'cbc:ID': string;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about where and when the goods and services
@@ -10675,10 +10628,8 @@ export interface DELIVERYINFORMATION {
 		'cbc:ID'?: DeliverToLocationIdentifier;
 		'cbc:ID@schemeID'?: DeliverToLocationIdentifierIdentificationSchemeIdentifier;
 		'cac:Address'?: DELIVERTOADDRESS;
-		[k: string]: unknown;
 	};
 	'cac:DeliveryParty'?: DELIVERPARTY;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the address to which goods and services
@@ -10692,23 +10643,18 @@ export interface DELIVERTOADDRESS {
 	'cbc:CountrySubentity'?: DeliverToCountrySubdivision;
 	'cac:AddressLine'?: ADDRESSLINE3;
 	'cac:Country': COUNTRY3;
-	[k: string]: unknown;
 }
 export interface ADDRESSLINE3 {
 	'cbc:Line': DeliverToAddressLine3;
-	[k: string]: unknown;
 }
 export interface COUNTRY3 {
 	'cbc:IdentificationCode': DeliverToCountryCode;
-	[k: string]: unknown;
 }
 export interface DELIVERPARTY {
 	'cac:PartyName': PARTYNAME4;
-	[k: string]: unknown;
 }
 export interface PARTYNAME4 {
 	'cbc:Name': DeliverToPartyName;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the payment.
@@ -10720,7 +10666,6 @@ export interface PAYMENTINSTRUCTIONS {
 	'cac:CardAccount'?: PAYMENTCARDINFORMATION;
 	'cac:PayeeFinancialAccount'?: CREDITTRANSFER;
 	'cac:PaymentMandate'?: DIRECTDEBIT;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about card used for payment contemporaneous with
@@ -10733,7 +10678,6 @@ export interface PAYMENTCARDINFORMATION {
 	 */
 	'cbc:NetworkID': string;
 	'cbc:HolderName'?: PaymentCardHolderName;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms to specify credit transfer payments.
@@ -10742,11 +10686,9 @@ export interface CREDITTRANSFER {
 	'cbc:ID': PaymentAccountIdentifier;
 	'cbc:Name'?: PaymentAccountName;
 	'cac:FinancialInstitutionBranch'?: FINANCIALINSTITUTIONBRANCH;
-	[k: string]: unknown;
 }
 export interface FINANCIALINSTITUTIONBRANCH {
 	'cbc:ID': PaymentServiceProviderIdentifier;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms to specify a direct debit.
@@ -10754,15 +10696,12 @@ export interface FINANCIALINSTITUTIONBRANCH {
 export interface DIRECTDEBIT {
 	'cbc:ID'?: MandateReferenceIdentifier;
 	'cac:PayerFinancialAccount'?: PAYERFINANCIALACCOUNT;
-	[k: string]: unknown;
 }
 export interface PAYERFINANCIALACCOUNT {
 	'cbc:ID': DebitedAccountIdentifier;
-	[k: string]: unknown;
 }
 export interface PAYMENTTERMS {
 	'cbc:Note': PaymentTerms;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about allowances applicable to the Invoice as a
@@ -11143,20 +11082,17 @@ export interface DOCUMENTLEVELALLOWANCESANDCHARGES {
 		| 'ZMW'
 		| 'ZWL';
 	'cac:TaxCategory': TAXCATEGORY;
-	[k: string]: unknown;
 }
 export interface TAXCATEGORY {
 	'cbc:ID': DocumentLevelAllowanceOrChargeVATCategoryCode;
 	'cbc:Percent'?: string;
 	'cac:TaxScheme': TAXSCHEME3;
-	[k: string]: unknown;
 }
 export interface TAXSCHEME3 {
 	/**
 	 * Mandatory element. Use “VAT”
 	 */
 	'cbc:ID': string;
-	[k: string]: unknown;
 }
 /**
  * When tax currency code is provided, two instances of the tax total must be present, but only one with tax subtotal.
@@ -11345,7 +11281,6 @@ export interface TAXTOTAL {
 		| 'ZMW'
 		| 'ZWL';
 	'cac:TaxSubtotal'?: VATBREAKDOWN[];
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about VAT breakdown by different categories, rates
@@ -11717,7 +11652,6 @@ export interface VATBREAKDOWN {
 		| 'ZMW'
 		| 'ZWL';
 	'cac:TaxCategory': VATCATEGORY;
-	[k: string]: unknown;
 }
 export interface VATCATEGORY {
 	'cbc:ID': VATCategoryCode;
@@ -11725,14 +11659,12 @@ export interface VATCATEGORY {
 	'cbc:TaxExemptionReasonCode'?: VATExemptionReasonCode;
 	'cbc:TaxExemptionReason'?: VATExemptionReasonText;
 	'cac:TaxScheme': TAXSCHEME4;
-	[k: string]: unknown;
 }
 export interface TAXSCHEME4 {
 	/**
 	 * Mandatory element. Use “VAT”
 	 */
 	'cbc:ID': string;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing the monetary totals for the Invoice.
@@ -13194,7 +13126,6 @@ export interface DOCUMENTTOTALS {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWL';
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information on individual Invoice lines.
@@ -13393,7 +13324,6 @@ export interface INVOICELINE {
 	'cac:AllowanceCharge'?: INVOICELINEALLOWANCESORCHARGES[];
 	'cac:Item': ITEMINFORMATION;
 	'cac:Price': PRICEDETAILS;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the period relevant for the Invoice line.
@@ -13401,17 +13331,14 @@ export interface INVOICELINE {
 export interface INVOICELINEPERIOD {
 	'cbc:StartDate'?: string;
 	'cbc:EndDate'?: string;
-	[k: string]: unknown;
 }
 export interface ORDERLINEREFERENCE {
 	'cbc:LineID': ReferencedPurchaseOrderLineReference;
-	[k: string]: unknown;
 }
 export interface LINEOBJECTIDENTIFIER {
 	'cbc:ID': InvoiceLineObjectIdentifier;
 	'cbc:ID@schemeID'?: InvoiceLineObjectIdentifierIdentificationSchemeIdentifier;
 	'cbc:DocumentTypeCode': DocumentTypeCode1;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about allowances or charges applicable to the individual
@@ -13790,7 +13717,6 @@ export interface INVOICELINEALLOWANCESORCHARGES {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWL';
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the goods and services invoiced.
@@ -13805,30 +13731,24 @@ export interface ITEMINFORMATION {
 	'cac:CommodityClassification'?: COMMODITYCLASSIFICATION[];
 	'cac:ClassifiedTaxCategory': LINEVATINFORMATION;
 	'cac:AdditionalItemProperty'?: ITEMATTRIBUTES[];
-	[k: string]: unknown;
 }
 export interface BUYERSITEMIDENTIFICATION {
 	'cbc:ID': ItemBuyerSIdentifier;
-	[k: string]: unknown;
 }
 export interface SELLERSITEMIDENTIFICATION {
 	'cbc:ID': ItemSellerSIdentifier;
-	[k: string]: unknown;
 }
 export interface STANDARDITEMIDENTIFICATION {
 	'cbc:ID': ItemStandardIdentifier;
 	'cbc:ID@schemeID'?: ItemStandardIdentifierIdentificationSchemeIdentifier;
-	[k: string]: unknown;
 }
 export interface ORIGINCOUNTRY {
 	'cbc:IdentificationCode': ItemCountryOfOrigin;
-	[k: string]: unknown;
 }
 export interface COMMODITYCLASSIFICATION {
 	'cbc:ItemClassificationCode': ItemClassificationIdentifier;
 	'cbc:ItemClassificationCode@listID'?: ItemClassificationIdentifierIdentificationSchemeIdentifier;
 	'cbc:ItemClassificationCode@listVersionID'?: ItemClassificationIdentifierVersionIdentificationSchemeIdentifier;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the VAT applicable for the goods and services
@@ -13838,14 +13758,12 @@ export interface LINEVATINFORMATION {
 	'cbc:ID': InvoicedItemVATCategoryCode;
 	'cbc:Percent'?: string;
 	'cac:TaxScheme': TAXSCHEME5;
-	[k: string]: unknown;
 }
 export interface TAXSCHEME5 {
 	/**
 	 * Mandatory element. Use “VAT”
 	 */
 	'cbc:ID': string;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about properties of the goods and services
@@ -13854,7 +13772,6 @@ export interface TAXSCHEME5 {
 export interface ITEMATTRIBUTES {
 	'cbc:Name': ItemAttributeName;
 	'cbc:Value': ItemAttributeValue;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the price applied for the goods and services
@@ -14046,7 +13963,6 @@ export interface PRICEDETAILS {
 	'cbc:BaseQuantity'?: string;
 	'cbc:BaseQuantity@unitCode'?: ItemPriceBaseQuantityUnitOfMeasureCode;
 	'cac:AllowanceCharge'?: ALLOWANCE;
-	[k: string]: unknown;
 }
 export interface ALLOWANCE {
 	/**
@@ -14417,5 +14333,4 @@ export interface ALLOWANCE {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWL';
-	[k: string]: unknown;
 }

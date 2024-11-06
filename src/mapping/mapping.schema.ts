@@ -39,6 +39,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 		},
 		'ubl:Invoice': {
 			type: 'object',
+			additionalProperties: false,
 			properties: {
 				'cbc:CustomizationID': {
 					$ref: '#/$defs/valueRef',
@@ -78,6 +79,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:InvoicePeriod': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'DELIVERY OR INVOICE PERIOD',
 					description:
 						'A group of business terms providing information on the invoice period. Also called delivery period. \n                If the group is used, the invoiceing period start date and/or end date must be used.',
@@ -95,6 +97,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:OrderReference': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'ORDER AND SALES ORDER REFERENCE',
 					properties: {
 						'cbc:ID': {
@@ -114,6 +117,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:InvoiceDocumentReference': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'INVOICE DOCUMENT REFERENCE',
 							properties: {
 								'cbc:ID': {
@@ -130,6 +134,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:DespatchDocumentReference': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'DESPATCH ADVICE REFERENCE',
 					properties: {
 						'cbc:ID': {
@@ -140,6 +145,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:ReceiptDocumentReference': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'RECEIPT ADVICE REFERENCE',
 					properties: {
 						'cbc:ID': {
@@ -150,6 +156,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:OriginatorDocumentReference': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'TENDER OR LOT REFERENCE',
 					properties: {
 						'cbc:ID': {
@@ -160,6 +167,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:ContractDocumentReference': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'CONTRACT REFERENCE',
 					properties: {
 						'cbc:ID': {
@@ -188,6 +196,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:Attachment': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'ATTACHMENT',
 							properties: {
 								'cbc:EmbeddedDocumentBinaryObject': {
@@ -201,6 +210,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:ExternalReference': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'EXTERNAL REFERENCE',
 									properties: {
 										'cbc:URI': {
@@ -232,6 +242,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:ProjectReference': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'PROJECT REFERENCE',
 					properties: {
 						'cbc:ID': {
@@ -242,12 +253,14 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:AccountingSupplierParty': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'SELLER',
 					description:
 						'A group of business terms providing information about the Seller.',
 					properties: {
 						'cac:Party': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'PARTY',
 							properties: {
 								'cbc:EndpointID': {
@@ -276,6 +289,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:PartyName': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'PARTY NAME',
 									properties: {
 										'cbc:Name': {
@@ -286,6 +300,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:PostalAddress': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'SELLER POSTAL ADDRESS',
 									description:
 										'A group of business terms providing information about the address of the Seller. \n                    Sufficient components of the address are to be filled to comply with legal requirements.',
@@ -307,6 +322,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 										},
 										'cac:AddressLine': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'ADDRESS LINE',
 											properties: {
 												'cbc:Line': {
@@ -317,6 +333,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 										},
 										'cac:Country': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'COUNTRY',
 											properties: {
 												'cbc:IdentificationCode': {
@@ -339,6 +356,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 										},
 										'cac:TaxScheme': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'TAX SCHEME',
 											properties: {
 												'cbc:ID': {
@@ -352,6 +370,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:PartyLegalEntity': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'PARTY LEGAL ENTITY',
 									properties: {
 										'cbc:RegistrationName': {
@@ -374,6 +393,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:Contact': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'SELLER CONTACT',
 									description:
 										'A group of business terms providing contact information about the Seller.',
@@ -405,12 +425,14 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:AccountingCustomerParty': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'BUYER',
 					description:
 						'A group of business terms providing information about the Buyer.',
 					properties: {
 						'cac:Party': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'PARTY',
 							properties: {
 								'cbc:EndpointID': {
@@ -421,6 +443,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:PartyIdentification': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'PARTY IDENTIFICATION',
 									properties: {
 										'cbc:ID': {
@@ -437,6 +460,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:PartyName': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'PARTY NAME',
 									properties: {
 										'cbc:Name': {
@@ -447,6 +471,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:PostalAddress': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'BUYER POSTAL ADDRESS',
 									description:
 										'A group of business terms providing information about the postal address for the Buyer.\n                    Sufficient components of the address are to be filled to comply with legal requirements.',
@@ -468,6 +493,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 										},
 										'cac:AddressLine': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'ADDRESS LINE',
 											properties: {
 												'cbc:Line': {
@@ -478,6 +504,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 										},
 										'cac:Country': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'COUNTRY',
 											properties: {
 												'cbc:IdentificationCode': {
@@ -491,6 +518,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:PartyTaxScheme': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'PARTY VAT IDENTIFIER',
 									properties: {
 										'cbc:CompanyID': {
@@ -498,6 +526,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 										},
 										'cac:TaxScheme': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'TAX SCHEME',
 											properties: {
 												'cbc:ID': {
@@ -511,6 +540,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:PartyLegalEntity': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'PARTY LEGAL ENTITY',
 									properties: {
 										'cbc:RegistrationName': {
@@ -530,6 +560,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:Contact': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'BUYER CONTACT',
 									description:
 										'A group of business terms providing contact information relevant for the Buyer.',
@@ -561,12 +592,14 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:PayeeParty': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'PAYEE',
 					description:
 						'A group of business terms providing information about the Payee, i.e. the role that receives the\n            payment.  Shall be used when the Payee is different from the Seller.',
 					properties: {
 						'cac:PartyIdentification': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'PARTY IDENTIFICATION',
 							properties: {
 								'cbc:ID': {
@@ -583,6 +616,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:PartyName': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'PARTY NAME',
 							properties: {
 								'cbc:Name': {
@@ -593,6 +627,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:PartyLegalEntity': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'PARTY LEGAL ENTITY',
 							properties: {
 								'cbc:CompanyID': {
@@ -612,12 +647,14 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:TaxRepresentativeParty': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'SELLER TAX REPRESENTATIVE PARTY',
 					description:
 						"A group of business terms providing information about the Seller's tax representative.",
 					properties: {
 						'cac:PartyName': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'PARTY NAME',
 							properties: {
 								'cbc:Name': {
@@ -628,6 +665,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:PostalAddress': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'SELLER TAX REPRESENTATIVE POSTAL ADDRESS',
 							description:
 								'A group of business terms providing information about the postal address for the tax representative\n                party. Sufficient components of the address are to be filled to comply with legal requirements.',
@@ -649,6 +687,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:AddressLine': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'ADDRESS LINE',
 									properties: {
 										'cbc:Line': {
@@ -659,6 +698,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:Country': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'COUNTRY',
 									properties: {
 										'cbc:IdentificationCode': {
@@ -672,6 +712,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:PartyTaxScheme': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'PARTY VAT IDENTIFIER',
 							properties: {
 								'cbc:CompanyID': {
@@ -679,6 +720,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:TaxScheme': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'TAX SCHEME',
 									properties: {
 										'cbc:ID': {
@@ -699,6 +741,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:Delivery': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'DELIVERY INFORMATION',
 					description:
 						'A group of business terms providing information about where and when the goods and services\n            invoiced are delivered.',
@@ -708,6 +751,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:DeliveryLocation': {
 							type: 'object',
+							additionalProperties: false,
 							properties: {
 								'cbc:ID': {
 									$ref: '#/$defs/valueRef',
@@ -717,6 +761,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:Address': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'DELIVER TO ADDRESS',
 									description:
 										'A group of business terms providing information about the address to which goods and services\n                    invoiced were or are delivered.',
@@ -738,6 +783,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 										},
 										'cac:AddressLine': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'ADDRESS LINE',
 											properties: {
 												'cbc:Line': {
@@ -748,6 +794,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 										},
 										'cac:Country': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'COUNTRY',
 											properties: {
 												'cbc:IdentificationCode': {
@@ -766,10 +813,12 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:DeliveryParty': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'DELIVER PARTY',
 							properties: {
 								'cac:PartyName': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'PARTY NAME',
 									properties: {
 										'cbc:Name': {
@@ -800,6 +849,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:CardAccount': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'PAYMENT CARD INFORMATION',
 							description:
 								'A group of business terms providing information about card used for payment contemporaneous with\n                invoice issuance.',
@@ -818,6 +868,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:PayeeFinancialAccount': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'CREDIT TRANSFER',
 							description:
 								'A group of business terms to specify credit transfer payments.',
@@ -830,6 +881,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:FinancialInstitutionBranch': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'FINANCIAL INSTITUTION BRANCH',
 									properties: {
 										'cbc:ID': {
@@ -843,6 +895,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:PaymentMandate': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'DIRECT DEBIT',
 							description:
 								'A group of business terms to specify a direct debit.',
@@ -852,6 +905,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:PayerFinancialAccount': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'PAYER FINANCIAL ACCOUNT',
 									properties: {
 										'cbc:ID': {
@@ -870,6 +924,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:PaymentTerms': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'PAYMENT TERMS',
 					properties: {
 						'cbc:Note': {
@@ -910,6 +965,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:TaxCategory': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'TAX CATEGORY',
 							properties: {
 								'cbc:ID': {
@@ -920,6 +976,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:TaxScheme': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'TAX SCHEME',
 									properties: {
 										'cbc:ID': {
@@ -977,6 +1034,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:TaxCategory': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'VAT CATEGORY',
 									properties: {
 										'cbc:ID': {
@@ -993,6 +1051,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 										},
 										'cac:TaxScheme': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'TAX SCHEME',
 											properties: {
 												'cbc:ID': {
@@ -1027,6 +1086,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 				},
 				'cac:LegalMonetaryTotal': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'DOCUMENT TOTALS',
 					description:
 						'A group of business terms providing the monetary totals for the Invoice.',
@@ -1138,6 +1198,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:InvoicePeriod': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'INVOICE LINE PERIOD',
 							description:
 								'A group of business terms providing information about the period relevant for the Invoice line.',
@@ -1152,6 +1213,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:OrderLineReference': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'ORDER LINE REFERENCE',
 							properties: {
 								'cbc:LineID': {
@@ -1162,6 +1224,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:DocumentReference': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'LINE OBJECT IDENTIFIER',
 							properties: {
 								'cbc:ID': {
@@ -1220,6 +1283,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:Item': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'ITEM INFORMATION',
 							description:
 								'A group of business terms providing information about the goods and services invoiced.',
@@ -1232,6 +1296,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:BuyersItemIdentification': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'BUYERS ITEM IDENTIFICATION',
 									properties: {
 										'cbc:ID': {
@@ -1242,6 +1307,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:SellersItemIdentification': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'SELLERS ITEM IDENTIFICATION',
 									properties: {
 										'cbc:ID': {
@@ -1252,6 +1318,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:StandardItemIdentification': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'STANDARD ITEM IDENTIFICATION',
 									properties: {
 										'cbc:ID': {
@@ -1269,6 +1336,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:OriginCountry': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'ORIGIN COUNTRY',
 									properties: {
 										'cbc:IdentificationCode': {
@@ -1308,6 +1376,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:ClassifiedTaxCategory': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'LINE VAT INFORMATION',
 									description:
 										'A group of business terms providing information about the VAT applicable for the goods and services\n                invoiced on the Invoice line.',
@@ -1320,6 +1389,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 										},
 										'cac:TaxScheme': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'TAX SCHEME',
 											properties: {
 												'cbc:ID': {
@@ -1351,6 +1421,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						},
 						'cac:Price': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'PRICE DETAILS',
 							description:
 								'A group of business terms providing information about the price applied for the goods and services\n            invoiced on the Invoice line.',
@@ -1369,6 +1440,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 								},
 								'cac:AllowanceCharge': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'ALLOWANCE',
 									properties: {
 										'cbc:ChargeIndicator': {

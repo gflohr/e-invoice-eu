@@ -24,7 +24,7 @@ const invoiceSchemaYaml = fs.readFileSync(invoiceSchemaFilename, 'utf-8');
 const invoiceSchema = yaml.load(invoiceSchemaYaml, {
 	filename: invoiceSchemaFilename,
 }) as JSONSchemaType<Invoice>;
-transformSchema(invoiceSchema);
+transformSchema(invoiceSchema as JSONSchemaType<any>);
 
 const mappingSchema = {
 	$schema: 'https://json-schema.org/draft/2019-09/schema',

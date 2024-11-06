@@ -120,7 +120,6 @@ export interface Mapping {
 			'cac:Price': PRICEDETAILS;
 			[k: string]: unknown;
 		};
-		[k: string]: unknown;
 	};
 	[k: string]: unknown;
 }
@@ -141,55 +140,44 @@ export interface DELIVERYORINVOICEPERIOD {
 	'cbc:StartDate'?: ValueRef;
 	'cbc:EndDate'?: ValueRef;
 	'cbc:DescriptionCode'?: ValueRef;
-	[k: string]: unknown;
 }
 export interface ORDERANDSALESORDERREFERENCE {
 	'cbc:ID': ValueRef;
 	'cbc:SalesOrderID'?: ValueRef;
-	[k: string]: unknown;
 }
 export interface INVOICEDOCUMENTREFERENCE {
 	'cbc:ID': ValueRef;
 	'cbc:IssueDate'?: ValueRef;
-	[k: string]: unknown;
 }
 export interface DESPATCHADVICEREFERENCE {
 	'cbc:ID': ValueRef;
-	[k: string]: unknown;
 }
 export interface RECEIPTADVICEREFERENCE {
 	'cbc:ID': ValueRef;
-	[k: string]: unknown;
 }
 export interface TENDERORLOTREFERENCE {
 	'cbc:ID': ValueRef;
-	[k: string]: unknown;
 }
 export interface CONTRACTREFERENCE {
 	'cbc:ID': ValueRef;
-	[k: string]: unknown;
 }
 export interface ATTACHMENT {
 	'cbc:EmbeddedDocumentBinaryObject'?: ValueRef;
 	'cbc:EmbeddedDocumentBinaryObject@mimeCode'?: ValueRef;
 	'cbc:EmbeddedDocumentBinaryObject@filename'?: ValueRef;
 	'cac:ExternalReference'?: EXTERNALREFERENCE;
-	[k: string]: unknown;
 }
 export interface EXTERNALREFERENCE {
 	'cbc:URI': ValueRef;
-	[k: string]: unknown;
 }
 export interface PROJECTREFERENCE {
 	'cbc:ID': ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the Seller.
  */
 export interface SELLER {
 	'cac:Party': PARTY;
-	[k: string]: unknown;
 }
 export interface PARTY {
 	'cbc:EndpointID': ValueRef;
@@ -210,11 +198,9 @@ export interface PARTY {
 	};
 	'cac:PartyLegalEntity': PARTYLEGALENTITY;
 	'cac:Contact'?: SELLERCONTACT;
-	[k: string]: unknown;
 }
 export interface PARTYNAME {
 	'cbc:Name': ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the address of the Seller.
@@ -228,26 +214,21 @@ export interface SELLERPOSTALADDRESS {
 	'cbc:CountrySubentity'?: ValueRef;
 	'cac:AddressLine'?: ADDRESSLINE;
 	'cac:Country': COUNTRY;
-	[k: string]: unknown;
 }
 export interface ADDRESSLINE {
 	'cbc:Line': ValueRef;
-	[k: string]: unknown;
 }
 export interface COUNTRY {
 	'cbc:IdentificationCode': ValueRef;
-	[k: string]: unknown;
 }
 export interface TAXSCHEME {
 	'cbc:ID': ValueRef;
-	[k: string]: unknown;
 }
 export interface PARTYLEGALENTITY {
 	'cbc:RegistrationName': ValueRef;
 	'cbc:CompanyID'?: ValueRef;
 	'cbc:CompanyID@schemeID'?: ValueRef;
 	'cbc:CompanyLegalForm'?: ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing contact information about the Seller.
@@ -256,14 +237,12 @@ export interface SELLERCONTACT {
 	'cbc:Name'?: ValueRef;
 	'cbc:Telephone'?: ValueRef;
 	'cbc:ElectronicMail'?: ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the Buyer.
  */
 export interface BUYER {
 	'cac:Party': PARTY1;
-	[k: string]: unknown;
 }
 export interface PARTY1 {
 	'cbc:EndpointID': ValueRef;
@@ -274,16 +253,13 @@ export interface PARTY1 {
 	'cac:PartyTaxScheme'?: PARTYVATIDENTIFIER;
 	'cac:PartyLegalEntity': PARTYLEGALENTITY1;
 	'cac:Contact'?: BUYERCONTACT;
-	[k: string]: unknown;
 }
 export interface PARTYIDENTIFICATION {
 	'cbc:ID': ValueRef;
 	'cbc:ID@schemeID'?: ValueRef;
-	[k: string]: unknown;
 }
 export interface PARTYNAME1 {
 	'cbc:Name': ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the postal address for the Buyer.
@@ -297,30 +273,24 @@ export interface BUYERPOSTALADDRESS {
 	'cbc:CountrySubentity'?: ValueRef;
 	'cac:AddressLine'?: ADDRESSLINE1;
 	'cac:Country': COUNTRY1;
-	[k: string]: unknown;
 }
 export interface ADDRESSLINE1 {
 	'cbc:Line': ValueRef;
-	[k: string]: unknown;
 }
 export interface COUNTRY1 {
 	'cbc:IdentificationCode': ValueRef;
-	[k: string]: unknown;
 }
 export interface PARTYVATIDENTIFIER {
 	'cbc:CompanyID': ValueRef;
 	'cac:TaxScheme': TAXSCHEME1;
-	[k: string]: unknown;
 }
 export interface TAXSCHEME1 {
 	'cbc:ID': ValueRef;
-	[k: string]: unknown;
 }
 export interface PARTYLEGALENTITY1 {
 	'cbc:RegistrationName': ValueRef;
 	'cbc:CompanyID'?: ValueRef;
 	'cbc:CompanyID@schemeID'?: ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing contact information relevant for the Buyer.
@@ -329,7 +299,6 @@ export interface BUYERCONTACT {
 	'cbc:Name'?: ValueRef;
 	'cbc:Telephone'?: ValueRef;
 	'cbc:ElectronicMail'?: ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the Payee, i.e. the role that receives the
@@ -339,21 +308,17 @@ export interface PAYEE {
 	'cac:PartyIdentification'?: PARTYIDENTIFICATION1;
 	'cac:PartyName': PARTYNAME2;
 	'cac:PartyLegalEntity'?: PARTYLEGALENTITY2;
-	[k: string]: unknown;
 }
 export interface PARTYIDENTIFICATION1 {
 	'cbc:ID': ValueRef;
 	'cbc:ID@schemeID'?: ValueRef;
-	[k: string]: unknown;
 }
 export interface PARTYNAME2 {
 	'cbc:Name': ValueRef;
-	[k: string]: unknown;
 }
 export interface PARTYLEGALENTITY2 {
 	'cbc:CompanyID': ValueRef;
 	'cbc:CompanyID@schemeID'?: ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the Seller's tax representative.
@@ -362,11 +327,9 @@ export interface SELLERTAXREPRESENTATIVEPARTY {
 	'cac:PartyName': PARTYNAME3;
 	'cac:PostalAddress': SELLERTAXREPRESENTATIVEPOSTALADDRESS;
 	'cac:PartyTaxScheme': PARTYVATIDENTIFIER1;
-	[k: string]: unknown;
 }
 export interface PARTYNAME3 {
 	'cbc:Name': ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the postal address for the tax representative
@@ -380,24 +343,19 @@ export interface SELLERTAXREPRESENTATIVEPOSTALADDRESS {
 	'cbc:CountrySubentity'?: ValueRef;
 	'cac:AddressLine'?: ADDRESSLINE2;
 	'cac:Country': COUNTRY2;
-	[k: string]: unknown;
 }
 export interface ADDRESSLINE2 {
 	'cbc:Line': ValueRef;
-	[k: string]: unknown;
 }
 export interface COUNTRY2 {
 	'cbc:IdentificationCode': ValueRef;
-	[k: string]: unknown;
 }
 export interface PARTYVATIDENTIFIER1 {
 	'cbc:CompanyID': ValueRef;
 	'cac:TaxScheme': TAXSCHEME2;
-	[k: string]: unknown;
 }
 export interface TAXSCHEME2 {
 	'cbc:ID': ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about where and when the goods and services
@@ -409,10 +367,8 @@ export interface DELIVERYINFORMATION {
 		'cbc:ID'?: ValueRef;
 		'cbc:ID@schemeID'?: ValueRef;
 		'cac:Address'?: DELIVERTOADDRESS;
-		[k: string]: unknown;
 	};
 	'cac:DeliveryParty'?: DELIVERPARTY;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the address to which goods and services
@@ -426,23 +382,18 @@ export interface DELIVERTOADDRESS {
 	'cbc:CountrySubentity'?: ValueRef;
 	'cac:AddressLine'?: ADDRESSLINE3;
 	'cac:Country': COUNTRY3;
-	[k: string]: unknown;
 }
 export interface ADDRESSLINE3 {
 	'cbc:Line': ValueRef;
-	[k: string]: unknown;
 }
 export interface COUNTRY3 {
 	'cbc:IdentificationCode': ValueRef;
-	[k: string]: unknown;
 }
 export interface DELIVERPARTY {
 	'cac:PartyName': PARTYNAME4;
-	[k: string]: unknown;
 }
 export interface PARTYNAME4 {
 	'cbc:Name': ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about card used for payment contemporaneous with
@@ -452,7 +403,6 @@ export interface PAYMENTCARDINFORMATION {
 	'cbc:PrimaryAccountNumberID': ValueRef;
 	'cbc:NetworkID': ValueRef;
 	'cbc:HolderName'?: ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms to specify credit transfer payments.
@@ -461,11 +411,9 @@ export interface CREDITTRANSFER {
 	'cbc:ID': ValueRef;
 	'cbc:Name'?: ValueRef;
 	'cac:FinancialInstitutionBranch'?: FINANCIALINSTITUTIONBRANCH;
-	[k: string]: unknown;
 }
 export interface FINANCIALINSTITUTIONBRANCH {
 	'cbc:ID': ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms to specify a direct debit.
@@ -473,25 +421,20 @@ export interface FINANCIALINSTITUTIONBRANCH {
 export interface DIRECTDEBIT {
 	'cbc:ID'?: ValueRef;
 	'cac:PayerFinancialAccount'?: PAYERFINANCIALACCOUNT;
-	[k: string]: unknown;
 }
 export interface PAYERFINANCIALACCOUNT {
 	'cbc:ID': ValueRef;
-	[k: string]: unknown;
 }
 export interface PAYMENTTERMS {
 	'cbc:Note': ValueRef;
-	[k: string]: unknown;
 }
 export interface TAXCATEGORY {
 	'cbc:ID': ValueRef;
 	'cbc:Percent'?: ValueRef;
 	'cac:TaxScheme': TAXSCHEME3;
-	[k: string]: unknown;
 }
 export interface TAXSCHEME3 {
 	'cbc:ID': ValueRef;
-	[k: string]: unknown;
 }
 export interface VATCATEGORY {
 	'cbc:ID': ValueRef;
@@ -499,11 +442,9 @@ export interface VATCATEGORY {
 	'cbc:TaxExemptionReasonCode'?: ValueRef;
 	'cbc:TaxExemptionReason'?: ValueRef;
 	'cac:TaxScheme': TAXSCHEME4;
-	[k: string]: unknown;
 }
 export interface TAXSCHEME4 {
 	'cbc:ID': ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing the monetary totals for the Invoice.
@@ -525,7 +466,6 @@ export interface DOCUMENTTOTALS {
 	'cbc:PayableRoundingAmount@currencyID'?: ValueRef;
 	'cbc:PayableAmount': ValueRef;
 	'cbc:PayableAmount@currencyID'?: ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the period relevant for the Invoice line.
@@ -533,17 +473,14 @@ export interface DOCUMENTTOTALS {
 export interface INVOICELINEPERIOD {
 	'cbc:StartDate'?: ValueRef;
 	'cbc:EndDate'?: ValueRef;
-	[k: string]: unknown;
 }
 export interface ORDERLINEREFERENCE {
 	'cbc:LineID': ValueRef;
-	[k: string]: unknown;
 }
 export interface LINEOBJECTIDENTIFIER {
 	'cbc:ID': ValueRef;
 	'cbc:ID@schemeID'?: ValueRef;
 	'cbc:DocumentTypeCode': ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the goods and services invoiced.
@@ -569,24 +506,19 @@ export interface ITEMINFORMATION {
 		'cbc:Value': ValueRef;
 		[k: string]: unknown;
 	};
-	[k: string]: unknown;
 }
 export interface BUYERSITEMIDENTIFICATION {
 	'cbc:ID': ValueRef;
-	[k: string]: unknown;
 }
 export interface SELLERSITEMIDENTIFICATION {
 	'cbc:ID': ValueRef;
-	[k: string]: unknown;
 }
 export interface STANDARDITEMIDENTIFICATION {
 	'cbc:ID': ValueRef;
 	'cbc:ID@schemeID'?: ValueRef;
-	[k: string]: unknown;
 }
 export interface ORIGINCOUNTRY {
 	'cbc:IdentificationCode': ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the VAT applicable for the goods and services
@@ -596,11 +528,9 @@ export interface LINEVATINFORMATION {
 	'cbc:ID': ValueRef;
 	'cbc:Percent'?: ValueRef;
 	'cac:TaxScheme': TAXSCHEME5;
-	[k: string]: unknown;
 }
 export interface TAXSCHEME5 {
 	'cbc:ID': ValueRef;
-	[k: string]: unknown;
 }
 /**
  * A group of business terms providing information about the price applied for the goods and services
@@ -612,7 +542,6 @@ export interface PRICEDETAILS {
 	'cbc:BaseQuantity'?: ValueRef;
 	'cbc:BaseQuantity@unitCode'?: ValueRef;
 	'cac:AllowanceCharge'?: ALLOWANCE;
-	[k: string]: unknown;
 }
 export interface ALLOWANCE {
 	'cbc:ChargeIndicator': ValueRef;
@@ -620,5 +549,4 @@ export interface ALLOWANCE {
 	'cbc:Amount@currencyID'?: ValueRef;
 	'cbc:BaseAmount'?: ValueRef;
 	'cbc:BaseAmount@currencyID'?: ValueRef;
-	[k: string]: unknown;
 }

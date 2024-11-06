@@ -11,9 +11,11 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 	$schema: 'https://json-schema.org/draft/2019-09/schema',
 	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v0.1.0',
 	type: 'object',
+	additionalProperties: false,
 	properties: {
 		'ubl:Invoice': {
 			type: 'object',
+			additionalProperties: false,
 			properties: {
 				'cbc:CustomizationID': {
 					type: 'string',
@@ -82,6 +84,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'cac:InvoicePeriod': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'DELIVERY OR INVOICE PERIOD',
 					description:
 						'A group of business terms providing information on the invoice period. Also called delivery period. \n                If the group is used, the invoiceing period start date and/or end date must be used.',
@@ -103,6 +106,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'cac:OrderReference': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'ORDER AND SALES ORDER REFERENCE',
 					properties: {
 						'cbc:ID': {
@@ -124,12 +128,14 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					type: 'array',
 					items: {
 						type: 'object',
+						additionalProperties: false,
 						title: 'PRECEDING INVOICE REFERENCE',
 						description:
 							'A group of business terms providing information on one or more preceding Invoices.',
 						properties: {
 							'cac:InvoiceDocumentReference': {
 								type: 'object',
+								additionalProperties: false,
 								title: 'INVOICE DOCUMENT REFERENCE',
 								properties: {
 									'cbc:ID': {
@@ -150,6 +156,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'cac:DespatchDocumentReference': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'DESPATCH ADVICE REFERENCE',
 					properties: {
 						'cbc:ID': {
@@ -162,6 +169,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'cac:ReceiptDocumentReference': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'RECEIPT ADVICE REFERENCE',
 					properties: {
 						'cbc:ID': {
@@ -174,6 +182,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'cac:OriginatorDocumentReference': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'TENDER OR LOT REFERENCE',
 					properties: {
 						'cbc:ID': {
@@ -187,6 +196,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'cac:ContractDocumentReference': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'CONTRACT REFERENCE',
 					properties: {
 						'cbc:ID': {
@@ -201,6 +211,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					type: 'array',
 					items: {
 						type: 'object',
+						additionalProperties: false,
 						title: 'ADDITIONAL SUPPORTING DOCUMENTS',
 						description:
 							'A group of business terms providing information about additional supporting documents substantiating the claims made in the Invoice.\n            The additional supporting documents can be used for both referencing a document number which is expected to be known by the receiver, \n            an external document (referenced by a URL) or as an embedded document, Base64 encoded (such as a time report).',
@@ -233,6 +244,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							},
 							'cac:Attachment': {
 								type: 'object',
+								additionalProperties: false,
 								title: 'ATTACHMENT',
 								properties: {
 									'cbc:EmbeddedDocumentBinaryObject': {
@@ -251,6 +263,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 									'cac:ExternalReference': {
 										type: 'object',
+										additionalProperties: false,
 										title: 'EXTERNAL REFERENCE',
 										properties: {
 											'cbc:URI': {
@@ -286,6 +299,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'cac:ProjectReference': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'PROJECT REFERENCE',
 					properties: {
 						'cbc:ID': {
@@ -299,12 +313,14 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'cac:AccountingSupplierParty': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'SELLER',
 					description:
 						'A group of business terms providing information about the Seller.',
 					properties: {
 						'cac:Party': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'PARTY',
 							properties: {
 								'cbc:EndpointID': {
@@ -325,6 +341,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									type: 'array',
 									items: {
 										type: 'object',
+										additionalProperties: false,
 										title: 'PARTY IDENTIFICATION',
 										properties: {
 											'cbc:ID': {
@@ -351,6 +368,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								},
 								'cac:PartyName': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'PARTY NAME',
 									properties: {
 										'cbc:Name': {
@@ -364,6 +382,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								},
 								'cac:PostalAddress': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'SELLER POSTAL ADDRESS',
 									description:
 										'A group of business terms providing information about the address of the Seller. \n                    Sufficient components of the address are to be filled to comply with legal requirements.',
@@ -398,6 +417,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										},
 										'cac:AddressLine': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'ADDRESS LINE',
 											properties: {
 												'cbc:Line': {
@@ -411,6 +431,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										},
 										'cac:Country': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'COUNTRY',
 											properties: {
 												'cbc:IdentificationCode': {
@@ -429,6 +450,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									type: 'array',
 									items: {
 										type: 'object',
+										additionalProperties: false,
 										title: 'PARTY VAT/TAX IDENTIFIERS',
 										properties: {
 											'cbc:CompanyID': {
@@ -440,6 +462,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											},
 											'cac:TaxScheme': {
 												type: 'object',
+												additionalProperties: false,
 												title: 'TAX SCHEME',
 												properties: {
 													'cbc:ID': {
@@ -457,6 +480,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								},
 								'cac:PartyLegalEntity': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'PARTY LEGAL ENTITY',
 									properties: {
 										'cbc:RegistrationName': {
@@ -493,6 +517,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								},
 								'cac:Contact': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'SELLER CONTACT',
 									description:
 										'A group of business terms providing contact information about the Seller.',
@@ -531,12 +556,14 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'cac:AccountingCustomerParty': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'BUYER',
 					description:
 						'A group of business terms providing information about the Buyer.',
 					properties: {
 						'cac:Party': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'PARTY',
 							properties: {
 								'cbc:EndpointID': {
@@ -555,6 +582,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								},
 								'cac:PartyIdentification': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'PARTY IDENTIFICATION',
 									properties: {
 										'cbc:ID': {
@@ -578,6 +606,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								},
 								'cac:PartyName': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'PARTY NAME',
 									properties: {
 										'cbc:Name': {
@@ -591,6 +620,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								},
 								'cac:PostalAddress': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'BUYER POSTAL ADDRESS',
 									description:
 										'A group of business terms providing information about the postal address for the Buyer.\n                    Sufficient components of the address are to be filled to comply with legal requirements.',
@@ -625,6 +655,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										},
 										'cac:AddressLine': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'ADDRESS LINE',
 											properties: {
 												'cbc:Line': {
@@ -638,6 +669,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										},
 										'cac:Country': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'COUNTRY',
 											properties: {
 												'cbc:IdentificationCode': {
@@ -654,6 +686,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								},
 								'cac:PartyTaxScheme': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'PARTY VAT IDENTIFIER',
 									properties: {
 										'cbc:CompanyID': {
@@ -664,6 +697,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										},
 										'cac:TaxScheme': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'TAX SCHEME',
 											properties: {
 												'cbc:ID': {
@@ -678,6 +712,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								},
 								'cac:PartyLegalEntity': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'PARTY LEGAL ENTITY',
 									properties: {
 										'cbc:RegistrationName': {
@@ -707,6 +742,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								},
 								'cac:Contact': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'BUYER CONTACT',
 									description:
 										'A group of business terms providing contact information relevant for the Buyer.',
@@ -745,12 +781,14 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'cac:PayeeParty': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'PAYEE',
 					description:
 						'A group of business terms providing information about the Payee, i.e. the role that receives the\n            payment.  Shall be used when the Payee is different from the Seller.',
 					properties: {
 						'cac:PartyIdentification': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'PARTY IDENTIFICATION',
 							properties: {
 								'cbc:ID': {
@@ -776,6 +814,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						},
 						'cac:PartyName': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'PARTY NAME',
 							properties: {
 								'cbc:Name': {
@@ -788,6 +827,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						},
 						'cac:PartyLegalEntity': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'PARTY LEGAL ENTITY',
 							properties: {
 								'cbc:CompanyID': {
@@ -815,12 +855,14 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'cac:TaxRepresentativeParty': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'SELLER TAX REPRESENTATIVE PARTY',
 					description:
 						"A group of business terms providing information about the Seller's tax representative.",
 					properties: {
 						'cac:PartyName': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'PARTY NAME',
 							properties: {
 								'cbc:Name': {
@@ -834,6 +876,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						},
 						'cac:PostalAddress': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'SELLER TAX REPRESENTATIVE POSTAL ADDRESS',
 							description:
 								'A group of business terms providing information about the postal address for the tax representative\n                party. Sufficient components of the address are to be filled to comply with legal requirements.',
@@ -868,6 +911,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								},
 								'cac:AddressLine': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'ADDRESS LINE',
 									properties: {
 										'cbc:Line': {
@@ -881,6 +925,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								},
 								'cac:Country': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'COUNTRY',
 									properties: {
 										'cbc:IdentificationCode': {
@@ -897,6 +942,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						},
 						'cac:PartyTaxScheme': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'PARTY VAT IDENTIFIER',
 							properties: {
 								'cbc:CompanyID': {
@@ -907,6 +953,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								},
 								'cac:TaxScheme': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'TAX SCHEME',
 									properties: {
 										'cbc:ID': {
@@ -928,6 +975,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'cac:Delivery': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'DELIVERY INFORMATION',
 					description:
 						'A group of business terms providing information about where and when the goods and services\n            invoiced are delivered.',
@@ -937,6 +985,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						},
 						'cac:DeliveryLocation': {
 							type: 'object',
+							additionalProperties: false,
 							properties: {
 								'cbc:ID': {
 									type: 'string',
@@ -954,6 +1003,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								},
 								'cac:Address': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'DELIVER TO ADDRESS',
 									description:
 										'A group of business terms providing information about the address to which goods and services\n                    invoiced were or are delivered.',
@@ -988,6 +1038,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										},
 										'cac:AddressLine': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'ADDRESS LINE',
 											properties: {
 												'cbc:Line': {
@@ -1001,6 +1052,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										},
 										'cac:Country': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'COUNTRY',
 											properties: {
 												'cbc:IdentificationCode': {
@@ -1022,10 +1074,12 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						},
 						'cac:DeliveryParty': {
 							type: 'object',
+							additionalProperties: false,
 							title: 'DELIVER PARTY',
 							properties: {
 								'cac:PartyName': {
 									type: 'object',
+									additionalProperties: false,
 									title: 'PARTY NAME',
 									properties: {
 										'cbc:Name': {
@@ -1046,6 +1100,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					type: 'array',
 					items: {
 						type: 'object',
+						additionalProperties: false,
 						title: 'PAYMENT INSTRUCTIONS',
 						description:
 							'A group of business terms providing information about the payment.',
@@ -1071,6 +1126,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							},
 							'cac:CardAccount': {
 								type: 'object',
+								additionalProperties: false,
 								title: 'PAYMENT CARD INFORMATION',
 								description:
 									'A group of business terms providing information about card used for payment contemporaneous with\n                invoice issuance.',
@@ -1096,6 +1152,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							},
 							'cac:PayeeFinancialAccount': {
 								type: 'object',
+								additionalProperties: false,
 								title: 'CREDIT TRANSFER',
 								description:
 									'A group of business terms to specify credit transfer payments.',
@@ -1114,6 +1171,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 									'cac:FinancialInstitutionBranch': {
 										type: 'object',
+										additionalProperties: false,
 										title: 'FINANCIAL INSTITUTION BRANCH',
 										properties: {
 											'cbc:ID': {
@@ -1130,6 +1188,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							},
 							'cac:PaymentMandate': {
 								type: 'object',
+								additionalProperties: false,
 								title: 'DIRECT DEBIT',
 								description:
 									'A group of business terms to specify a direct debit.',
@@ -1142,6 +1201,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 									'cac:PayerFinancialAccount': {
 										type: 'object',
+										additionalProperties: false,
 										title: 'PAYER FINANCIAL ACCOUNT',
 										properties: {
 											'cbc:ID': {
@@ -1164,6 +1224,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'cac:PaymentTerms': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'PAYMENT TERMS',
 					properties: {
 						'cbc:Note': {
@@ -1179,6 +1240,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					type: 'array',
 					items: {
 						type: 'object',
+						additionalProperties: false,
 						title: 'DOCUMENT LEVEL ALLOWANCES AND CHARGES',
 						description:
 							'A group of business terms providing information about allowances applicable to the Invoice as a\n            whole. A group of business terms providing information about charges and taxes other than VAT, applicable\n            to the Invoice as a whole.',
@@ -1222,6 +1284,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							},
 							'cac:TaxCategory': {
 								type: 'object',
+								additionalProperties: false,
 								title: 'TAX CATEGORY',
 								properties: {
 									'cbc:ID': {
@@ -1237,6 +1300,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 									'cac:TaxScheme': {
 										type: 'object',
+										additionalProperties: false,
 										title: 'TAX SCHEME',
 										properties: {
 											'cbc:ID': {
@@ -1263,6 +1327,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					type: 'array',
 					items: {
 						type: 'object',
+						additionalProperties: false,
 						title: 'TAX TOTAL',
 						description:
 							'When tax currency code is provided, two instances of the tax total must be present, but only one with tax subtotal.',
@@ -1279,6 +1344,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								type: 'array',
 								items: {
 									type: 'object',
+									additionalProperties: false,
 									title: 'VAT BREAKDOWN',
 									description:
 										'A group of business terms providing information about VAT breakdown by different categories, rates\n                and exemption reasons',
@@ -1301,6 +1367,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										},
 										'cac:TaxCategory': {
 											type: 'object',
+											additionalProperties: false,
 											title: 'VAT CATEGORY',
 											properties: {
 												'cbc:ID': {
@@ -1327,6 +1394,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 												},
 												'cac:TaxScheme': {
 													type: 'object',
+													additionalProperties: false,
 													title: 'TAX SCHEME',
 													properties: {
 														'cbc:ID': {
@@ -1365,6 +1433,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'cac:LegalMonetaryTotal': {
 					type: 'object',
+					additionalProperties: false,
 					title: 'DOCUMENT TOTALS',
 					description:
 						'A group of business terms providing the monetary totals for the Invoice.',
@@ -1467,6 +1536,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					type: 'array',
 					items: {
 						type: 'object',
+						additionalProperties: false,
 						title: 'INVOICE LINE',
 						description:
 							'A group of business terms providing information on individual Invoice lines.',
@@ -1509,6 +1579,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							},
 							'cac:InvoicePeriod': {
 								type: 'object',
+								additionalProperties: false,
 								title: 'INVOICE LINE PERIOD',
 								description:
 									'A group of business terms providing information about the period relevant for the Invoice line.',
@@ -1523,6 +1594,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							},
 							'cac:OrderLineReference': {
 								type: 'object',
+								additionalProperties: false,
 								title: 'ORDER LINE REFERENCE',
 								properties: {
 									'cbc:LineID': {
@@ -1536,6 +1608,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							},
 							'cac:DocumentReference': {
 								type: 'object',
+								additionalProperties: false,
 								title: 'LINE OBJECT IDENTIFIER',
 								properties: {
 									'cbc:ID': {
@@ -1568,6 +1641,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								type: 'array',
 								items: {
 									type: 'object',
+									additionalProperties: false,
 									title: 'INVOICE LINE ALLOWANCES OR CHARGES',
 									description:
 										'A group of business terms providing information about allowances or charges applicable to the individual\n            Invoice line.',
@@ -1621,6 +1695,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							},
 							'cac:Item': {
 								type: 'object',
+								additionalProperties: false,
 								title: 'ITEM INFORMATION',
 								description:
 									'A group of business terms providing information about the goods and services invoiced.',
@@ -1638,6 +1713,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 									'cac:BuyersItemIdentification': {
 										type: 'object',
+										additionalProperties: false,
 										title: 'BUYERS ITEM IDENTIFICATION',
 										properties: {
 											'cbc:ID': {
@@ -1651,6 +1727,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 									'cac:SellersItemIdentification': {
 										type: 'object',
+										additionalProperties: false,
 										title: 'SELLERS ITEM IDENTIFICATION',
 										properties: {
 											'cbc:ID': {
@@ -1664,6 +1741,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 									'cac:StandardItemIdentification': {
 										type: 'object',
+										additionalProperties: false,
 										title: 'STANDARD ITEM IDENTIFICATION',
 										properties: {
 											'cbc:ID': {
@@ -1689,6 +1767,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 									'cac:OriginCountry': {
 										type: 'object',
+										additionalProperties: false,
 										title: 'ORIGIN COUNTRY',
 										properties: {
 											'cbc:IdentificationCode': {
@@ -1705,6 +1784,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										type: 'array',
 										items: {
 											type: 'object',
+											additionalProperties: false,
 											title: 'COMMODITY CLASSIFICATION',
 											properties: {
 												'cbc:ItemClassificationCode': {
@@ -1745,6 +1825,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 									'cac:ClassifiedTaxCategory': {
 										type: 'object',
+										additionalProperties: false,
 										title: 'LINE VAT INFORMATION',
 										description:
 											'A group of business terms providing information about the VAT applicable for the goods and services\n                invoiced on the Invoice line.',
@@ -1761,6 +1842,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											},
 											'cac:TaxScheme': {
 												type: 'object',
+												additionalProperties: false,
 												title: 'TAX SCHEME',
 												properties: {
 													'cbc:ID': {
@@ -1777,6 +1859,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										type: 'array',
 										items: {
 											type: 'object',
+											additionalProperties: false,
 											title: 'ITEM ATTRIBUTES',
 											description:
 												'A group of business terms providing information about properties of the goods and services\n                invoiced.',
@@ -1802,6 +1885,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							},
 							'cac:Price': {
 								type: 'object',
+								additionalProperties: false,
 								title: 'PRICE DETAILS',
 								description:
 									'A group of business terms providing information about the price applied for the goods and services\n            invoiced on the Invoice line.',
@@ -1826,6 +1910,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 									'cac:AllowanceCharge': {
 										type: 'object',
+										additionalProperties: false,
 										title: 'ALLOWANCE',
 										properties: {
 											'cbc:ChargeIndicator': {

@@ -50,10 +50,10 @@ export class FormatUBLService
 	 * have to make sure that the filled in defaults are at the right
 	 * position.
 	 */
-	private sortKeys(invoice: Invoice) {
+	private sortKeys(invoice: {[key: string]: any}) {
 		const customizationID = invoice['ubl:Invoice']['cbc:CustomizationID'];
-		const profileID = invoice['ubl:Invoice']['cbc:profileID'];
-		const newInvoice: Invoice = {
+		const profileID = invoice['ubl:Invoice']['cbc:ProfileID'];
+		const newInvoice: {[key: string]: any} = {
 			'ubl:Invoice': {
 				'cbc:CustomizationID': customizationID,
 				'cbc:ProfileID': profileID,

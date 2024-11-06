@@ -259,6 +259,7 @@ function buildSchema(tree: Element): JSONSchemaType<object> {
 		$schema: 'https://json-schema.org/draft/2019-09/schema',
 		$id: `https://www.cantanea.com/schemas/ubl-invoice-schema-v${pkg.version}`,
 		type: 'object',
+		additionalProperties: false,
 		properties: {},
 		required: [],
 		$defs,
@@ -315,6 +316,7 @@ function processNode(node: Element): JSONSchemaType<object> {
 
 		schema = {
 			type: 'object',
+			additionalProperties: false,
 			...common,
 			properties,
 		} as JSONSchemaType<any>;
