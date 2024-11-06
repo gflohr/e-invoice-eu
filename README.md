@@ -13,6 +13,7 @@ formats or JSON.
   - [Test](#test)
   - [Curl Examples](#curl-examples)
     - [OpenAPI/Swagger documentation](#openapiswagger-documentation)
+    - [List Supported Formats](#list-supported-formats)
     - [Transform Data from Spreadsheet](#transform-data-from-spreadsheet)
     - [Create an Invoice from a Spreadsheet](#create-an-invoice-from-a-spreadsheet)
   - [Data Structure](#data-structure)
@@ -92,6 +93,16 @@ curl http://localhost:3000/api
 ```
 
 It probably makes more sense to open that URL in the browser.
+
+### List Supported Formats
+
+```bash
+$ curl -X POST http://localhost:3000/api/format/list
+```
+
+This will return a list with format informat. For each format, the name,
+the customization and profile ID, the MIME type, and the syntax (UBL or
+CII) is returned.
 
 ### Transform Data from Spreadsheet
 
