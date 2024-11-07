@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 
 import { FormatUBLService } from './format-ubl.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { Invoice } from '../invoice/invoice.interface';
 
 // This is what we are looking at while traversing the input tree:
-type Node = { [key: string]: Node } | Node[] | 'string';
+type Node = { [key: string]: Node } | Node[] | string;
 type ObjectNode = { [key: string]: Node };
 
 type Transformation =
@@ -22,6 +21,13 @@ type Transformation =
 			dest: string[];
 			children?: never;
 	  };
+
+const invoiceLine: Transformation = {
+	type: 'array',
+	src: ['cac:InvoiceLine'],
+	dest: ['rsm:SupplyChainTradeTransaction', 'ram:IncludedSupplyChainTradeLineItem'],
+	children: [],
+};
 
 const ubl2cii: Transformation = {
 	type: 'object',
@@ -46,6 +52,7 @@ const ubl2cii: Transformation = {
 				'ram:ID',
 			],
 		},
+		invoiceLine,
 	],
 };
 
@@ -69,27 +76,24 @@ export class FormatCIIService
 	generate(invoice: Invoice): string {
 		const cii: Node = {};
 		this.convert(invoice as unknown as ObjectNode, cii, [ubl2cii]);
-		const expandObject: ExpandObject = {
-			'rsm:CrossIndustryInvoice': cii,
-		};
 
-		expandObject['rsm:CrossIndustryInvoice@xmlns:xsi'] =
+		cii['rsm:CrossIndustryInvoice@xmlns:xsi'] =
 			'http://www.w3.org/2001/XMLSchema-instance';
-		expandObject['rsm:CrossIndustryInvoice@xsi:schemaLocation'] =
+		cii['rsm:CrossIndustryInvoice@xsi:schemaLocation'] =
 			'urn:un:unece:uncefact:data' +
 			':standard:CrossIndustryInvoice:100' +
 			' ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact' +
 			'/data/standard/CrossIndustryInvoice_100pD16B.xsd';
-		expandObject['rsm:CrossIndustryInvoice@xmlns:qdt'] =
+		cii['rsm:CrossIndustryInvoice@xmlns:qdt'] =
 			'urn:un:unece:uncefact:data:standard:QualifiedDataType:100';
-		expandObject['rsm:CrossIndustryInvoice@xmlns:udt'] =
+		cii['rsm:CrossIndustryInvoice@xmlns:udt'] =
 			'urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100';
-		expandObject['rsm:CrossIndustryInvoice@xmlns:rsm'] =
+		cii['rsm:CrossIndustryInvoice@xmlns:rsm'] =
 			'urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100';
-		expandObject['rsm:CrossIndustryInvoice@xmlns:ram'] =
+		cii['rsm:CrossIndustryInvoice@xmlns:ram'] =
 			'urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEn';
 
-		return this.render(expandObject, {
+		return this.render(cii, {
 			prettyPrint: true,
 			indent: '\t',
 		});
