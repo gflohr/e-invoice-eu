@@ -30,6 +30,15 @@ const ubl2cii: Transformation = {
 	children: [
 		{
 			type: 'string',
+			src: ['cbc:ProfileID'],
+			dest: [
+				'rsm:ExchangedDocumentContext',
+				'ram:BusinessProcessSpecifiedDocumentContextParameter',
+				'ram:ID',
+			],
+		},
+		{
+			type: 'string',
 			src: ['cbc:CustomizationID'],
 			dest: [
 				'rsm:ExchangedDocumentContext',
@@ -50,7 +59,7 @@ export class FormatCIIService
 	}
 
 	get profileID(): string {
-		return '';
+		return 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0';
 	}
 
 	get syntax(): 'CII' {
@@ -95,21 +104,20 @@ export class FormatCIIService
 		for (const transformation of transformations) {
 			const childSrc = this.resolveSrc(src, transformation.src);
 			if (!childSrc) continue;
+			const srcKey = transformation.src[transformation.src.length - 1];
+			if (!(srcKey in childSrc)) continue;
 
 			const childDest = this.resolveDest(dest, transformation.dest);
-			const srcKey = transformation.src[transformation.src.length - 1];
 			const destKey = transformation.dest[transformation.dest.length - 1];
 
 			switch (transformation.type) {
 				case 'object':
-					if (srcKey in childSrc) {
-						childDest[destKey] ??= {};
-						this.convert(
-							childSrc[srcKey] as ObjectNode,
-							childDest[destKey] as ObjectNode,
-							transformation.children,
-						);
-					}
+					childDest[destKey] ??= {};
+					this.convert(
+						childSrc[srcKey] as ObjectNode,
+						childDest[destKey] as ObjectNode,
+						transformation.children,
+					);
 					break;
 				case 'string':
 					if (srcKey in childSrc) {
