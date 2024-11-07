@@ -19,7 +19,7 @@ export class FormatUBLService
 		return 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0';
 	}
 
-	get syntax(): 'UBL' {
+	get syntax(): 'UBL' | 'CII' {
 		return 'UBL';
 	}
 
