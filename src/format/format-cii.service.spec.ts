@@ -54,4 +54,33 @@ describe('CII', () => {
 		const xml = service.generate(invoice);
 		expect(xml).toMatchSnapshot();
 	});
+
+	it('should convert arrays', () => {
+		const invoice: Invoice = {
+			'ubl:Invoice': {
+				'cac:InvoiceLine': [
+					{
+						'cbc:ID': '1',
+						'cac:Item': {
+							'cbc:Name': 'Duff Beer by the Barrel',
+						},
+					},
+					{
+						'cbc:ID': '2',
+						'cac:Item': {
+							'cbc:Name': 'Do-It-Yourself Nuclear Power Plant Kit',
+						},
+					},
+					{
+						'cbc:ID': '3',
+						'cac:Item': {
+							'cbc:Name': 'Monorail Maintenance Fee ',
+						},
+					},
+				],
+			},
+		} as unknown as Invoice;
+		const xml = service.generate(invoice);
+		expect(xml).toMatchSnapshot();
+	});
 });

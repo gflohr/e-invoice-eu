@@ -25,8 +25,22 @@ type Transformation =
 const invoiceLine: Transformation = {
 	type: 'array',
 	src: ['cac:InvoiceLine'],
-	dest: ['rsm:SupplyChainTradeTransaction', 'ram:IncludedSupplyChainTradeLineItem'],
-	children: [],
+	dest: [
+		'rsm:SupplyChainTradeTransaction',
+		'ram:IncludedSupplyChainTradeLineItem',
+	],
+	children: [
+		{
+			type: 'string',
+			src: ['cbc:ID'],
+			dest: ['ram:AssociatedDocumentLineDocument', 'ram:LineID'],
+		},
+		{
+			type: 'string',
+			src: ['cac:Item', 'cbc:Name'],
+			dest: ['ram:SpecifiedTradeProduct', 'ram:Name'],
+		},
+	],
 };
 
 const ubl2cii: Transformation = {
@@ -122,6 +136,15 @@ export class FormatCIIService
 						childDest[destKey] as ObjectNode,
 						transformation.children,
 					);
+					break;
+				case 'array':
+					childDest[destKey] ??= [];
+					const groups = src[srcKey] as Node[];
+					for (const group of groups) {
+						const node: Node = {};
+						(childDest[destKey] as Node[]).push(node);
+						this.convert(group as ObjectNode, node, transformation.children);
+					}
 					break;
 				case 'string':
 					if (srcKey in childSrc) {
