@@ -52,15 +52,26 @@ const FX_ALL: FXUsage = (FX_MINIMUM |
 	FX_EXTENDED) as FXUsage;
 const FX_MIN_BASIC: FXUsage = (FX_BASIC | FX_EN16931 | FX_EXTENDED) as FXUsage;
 
+type SubType = 'DateTimeString';
+
+// Both `src` and `dest` contain an array of element names that defines the
+// path to that node.
+//
+// For `src`, a special semantic exists.  If an element name begins with the
+// special prefix "fixed:", everything after that prefix is returned.  In
+// general, this should be the last element in the list so that it is only
+// rendered if the elements it depends on exist in the source.
 type Transformation =
 	| {
 			type: 'object' | 'array';
+			subtype?: never;
 			src: string[];
 			dest: string[];
 			children: Transformation[];
 	  }
 	| {
 			type: 'string';
+			subtype?: SubType;
 			src: string[];
 			dest: string[];
 			children?: never;
@@ -113,6 +124,31 @@ const ubl2cii: Transformation = {
 				'ram:GuidelineSpecifiedDocumentContextParameter',
 				'ram:ID',
 			],
+			fxUsage: FX_ALL,
+		},
+		{
+			type: 'string',
+			src: ['cbc:ID'],
+			dest: ['ram:ExchangedDocument', 'ram:ID'],
+			fxUsage: FX_ALL,
+		},
+		{
+			type: 'string',
+			src: ['fx:Name'],
+			dest: ['ram:ExchangedDocument', 'ram:Name'],
+			fxUsage: FX_EXTENDED,
+		},
+		{
+			type: 'string',
+			subtype: 'DateTimeString',
+			src: ['cbc:IssueDate'],
+			dest: ['ram:IssueDateTime', 'udt:DateTimeString'],
+			fxUsage: FX_ALL,
+		},
+		{
+			type: 'string',
+			src: ['cbc:IssueDate', 'fixed:102'],
+			dest: ['ram:IssueDateTime', 'udt:DateTimeString@format'],
 			fxUsage: FX_ALL,
 		},
 		invoiceLine,
@@ -227,7 +263,10 @@ export class FormatCIIService
 					break;
 				case 'string':
 					if (srcKey in childSrc) {
-						childDest[destKey] = childSrc[srcKey];
+						childDest[destKey] = this.renderValue(
+							childSrc[srcKey] as string,
+							transformation,
+						);
 					}
 					break;
 				default:
@@ -236,15 +275,29 @@ export class FormatCIIService
 		}
 	}
 
+	private renderValue(value: string, transformation: Transformation): string {
+		if (transformation.subtype === 'DateTimeString') {
+			return value.replaceAll('-', '');
+		} else {
+			return value;
+		}
+	}
+
 	private resolveSrc(ptr: ObjectNode, keys: string[]): ObjectNode | undefined {
 		if (keys.length) {
 			for (let i = 0; i < keys.length - 1; ++i) {
 				const key = keys[i];
+
 				if (key in ptr) {
 					ptr = ptr[key] as ObjectNode;
 				} else {
 					return undefined;
 				}
+			}
+
+			if (keys[keys.length - 1].startsWith('fixed:')) {
+				const key = keys[keys.length - 1];
+				return { [key]: key.substring(6) };
 			}
 		}
 

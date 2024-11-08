@@ -83,4 +83,14 @@ describe('CII', () => {
 		const xml = service.generate(invoice);
 		expect(xml).toMatchSnapshot();
 	});
+
+	it('should encode date/time strings correctly', () => {
+		const invoice: Invoice = {
+			'ubl:Invoice': {
+				'cbc:IssueDate': '2024-11-08',
+			},
+		} as unknown as Invoice;
+		const xml = service.generate(invoice);
+		expect(xml).toMatchSnapshot();
+	});
 });
