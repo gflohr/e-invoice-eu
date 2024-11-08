@@ -10,6 +10,7 @@ type ObjectNode = { [key: string]: Node };
 
 // Flags for Factur-X usage.
 type FXUsage =
+	| 0x0
 	| 0x1
 	| 0x2
 	| 0x3
@@ -40,12 +41,22 @@ type FXUsage =
 	| 0x1d
 	| 0x1d
 	| 0x1f;
+const FX_NONE: FXUsage = 0x0; // Field not allowed for Factur-X.
 const FX_MINIMUM: FXUsage = 0x1;
 const FX_BASIC_WL: FXUsage = 0x2;
 const FX_BASIC: FXUsage = 0x4;
 const FX_EN16931: FXUsage = 0x8;
 const FX_EXTENDED: FXUsage = 0x10;
 const FX_ALL: FXUsage = (FX_MINIMUM |
+	FX_BASIC_WL |
+	FX_BASIC |
+	FX_EN16931 |
+	FX_EXTENDED) as FXUsage;
+const FX_MIN_BASIC_WL: FXUsage = (FX_BASIC_WL |
+	FX_BASIC |
+	FX_EN16931 |
+	FX_EXTENDED) as FXUsage;
+const FX_MIN_EN16931: FXUsage = (FX_EN16931 |
 	FX_BASIC_WL |
 	FX_BASIC |
 	FX_EN16931 |
@@ -94,9 +105,141 @@ const invoiceLine: Transformation = {
 		},
 		{
 			type: 'string',
+			src: ['cii:ParentLineID'],
+			dest: ['ram:AssociatedDocumentLineDocument', 'ram:ParentLineID'],
+			fxUsage: FX_NONE,
+		},
+		{
+			type: 'string',
+			src: ['cii:LineStatusCode'],
+			dest: ['ram:AssociatedDocumentLineDocument', 'ram:LineStatusCode'],
+			fxUsage: FX_EXTENDED,
+		},
+		{
+			type: 'string',
+			src: ['cii:IncludedNoteContentCode'],
+			dest: [
+				'ram:AssociatedDocumentLineDocument',
+				'ram:IncludedNote',
+				'udt:ContentCode',
+			],
+			fxUsage: FX_EXTENDED,
+		},
+		{
+			type: 'string',
+			src: ['cbc:Note'],
+			dest: [
+				'ram:AssociatedDocumentLineDocument',
+				'ram:IncludedNote',
+				'ram:Content',
+			],
+			fxUsage: FX_MIN_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cii:IncludedNoteSubjectCode'],
+			dest: [
+				'ram:AssociatedDocumentLineDocument',
+				'ram:IncludedNote',
+				'udt:SubjectCode',
+			],
+			fxUsage: FX_MIN_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cac:Item', 'cii:SpecifiedTradeProductID'],
+			dest: ['ram:SpecifiedTradeProduct', 'ram:ID'],
+			fxUsage: FX_NONE,
+		},
+		{
+			type: 'string',
+			src: ['cac:Item', 'cac:StandardItemIdentification', 'cbc:ID'],
+			dest: ['ram:SpecifiedTradeProduct', 'ram:GlobalID'],
+			fxUsage: FX_MIN_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cac:Item', 'cac:StandardItemIdentification', 'cbc:ID@schemeID'],
+			dest: ['ram:SpecifiedTradeProduct', 'ram:GlobalID@schemeID'],
+			fxUsage: FX_MIN_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cac:Item', 'cac:SellersItemIdentification', 'cbc:ID'],
+			dest: ['ram:SpecifiedTradeProduct', 'ram:SellerAssignedID'],
+			fxUsage: FX_MIN_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cac:Item', 'cac:BuyersItemIdentification', 'cbc:ID'],
+			dest: ['ram:SpecifiedTradeProduct', 'ram:BuyerAssignedID'],
+			fxUsage: FX_MIN_EN16931,
+		},
+		{
+			type: 'string',
 			src: ['cac:Item', 'cbc:Name'],
 			dest: ['ram:SpecifiedTradeProduct', 'ram:Name'],
 			fxUsage: FX_MIN_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cac:Item', 'cbc:Description'],
+			dest: ['ram:SpecifiedTradeProduct', 'ram:Description'],
+			fxUsage: FX_MIN_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cac:Item', 'cac:AdditionalItemProperty', 'cii:TypeCode'],
+			dest: [
+				'ram:SpecifiedTradeProduct',
+				'ram:ApplicableProductCharacteristic',
+				'ram:TypeCode',
+			],
+			fxUsage: FX_EXTENDED,
+		},
+		{
+			type: 'string',
+			src: ['cac:Item', 'cac:AdditionalItemProperty', 'cbc:Name'],
+			dest: [
+				'ram:SpecifiedTradeProduct',
+				'ram:ApplicableProductCharacteristic',
+				'ram:Description',
+			],
+			fxUsage: FX_MIN_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cac:Item', 'cac:AdditionalItemProperty', 'cii:ValueMeasure'],
+			dest: [
+				'ram:SpecifiedTradeProduct',
+				'ram:ApplicableProductCharacteristic',
+				'ram:ValueMeasure',
+			],
+			fxUsage: FX_EXTENDED,
+		},
+		{
+			type: 'string',
+			src: [
+				'cac:Item',
+				'cac:AdditionalItemProperty',
+				'cii:ValueMeasure@unitCode',
+			],
+			dest: [
+				'ram:SpecifiedTradeProduct',
+				'ram:ApplicableProductCharacteristic',
+				'ram:ValueMeasure@unitCode',
+			],
+			fxUsage: FX_EXTENDED,
+		},
+		{
+			type: 'string',
+			src: ['cac:Item', 'cac:AdditionalItemProperty', 'cbc:Value'],
+			dest: [
+				'ram:SpecifiedTradeProduct',
+				'ram:ApplicableProductCharacteristic',
+				'ram:Value',
+			],
+			fxUsage: FX_MIN_EN16931,
 		},
 	],
 };
@@ -106,6 +249,16 @@ const ubl2cii: Transformation = {
 	src: ['ubl:Invoice'],
 	dest: ['rsm:CrossIndustryInvoice'],
 	children: [
+		{
+			type: 'string',
+			src: ['cii:TestIndicator'],
+			dest: [
+				'rsm:ExchangedDocumentContext',
+				'ram:TestIndicator',
+				'udt:Indicator',
+			],
+			fxUsage: FX_EXTENDED,
+		},
 		{
 			type: 'string',
 			src: ['cbc:ProfileID'],
@@ -134,7 +287,7 @@ const ubl2cii: Transformation = {
 		},
 		{
 			type: 'string',
-			src: ['fx:Name'],
+			src: ['cii:Name'],
 			dest: ['ram:ExchangedDocument', 'ram:Name'],
 			fxUsage: FX_EXTENDED,
 		},
@@ -142,13 +295,81 @@ const ubl2cii: Transformation = {
 			type: 'string',
 			subtype: 'DateTimeString',
 			src: ['cbc:IssueDate'],
-			dest: ['ram:IssueDateTime', 'udt:DateTimeString'],
+			dest: [
+				'ram:ExchangedDocument',
+				'ram:IssueDateTime',
+				'udt:DateTimeString',
+			],
 			fxUsage: FX_ALL,
 		},
 		{
 			type: 'string',
 			src: ['cbc:IssueDate', 'fixed:102'],
-			dest: ['ram:IssueDateTime', 'udt:DateTimeString@format'],
+			dest: [
+				'ram:ExchangedDocument',
+				'ram:IssueDateTime',
+				'udt:DateTimeString@format',
+			],
+			fxUsage: FX_ALL,
+		},
+		{
+			type: 'string',
+			src: ['cii:CopyIndicator'],
+			dest: ['ram:ExchangedDocument', 'ram:CopyIndicator', 'udt:Indicatory'],
+			fxUsage: FX_EXTENDED,
+		},
+		{
+			type: 'array',
+			src: [],
+			dest: [],
+			children: [
+				{
+					type: 'string',
+					src: ['cii:LanguageID'],
+					dest: ['ram:ExchangedDocument', 'ram:LanguageID'],
+					fxUsage: FX_EXTENDED,
+				},
+			],
+		},
+		{
+			type: 'string',
+			src: ['cii:IncludedNoteContentCode'],
+			dest: ['ram:ExchangedDocument', 'ram:IncludedNote', 'udt:ContentCode'],
+			fxUsage: FX_EXTENDED,
+		},
+		{
+			type: 'string',
+			src: ['cbc:Note'],
+			dest: ['ram:ExchangedDocument', 'ram:IncludedNote', 'ram:Content'],
+			fxUsage: FX_MIN_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cii:IncludedNoteSubjectCode'],
+			dest: ['ram:ExchangedDocument', 'ram:IncludedNote', 'udt:SubjectCode'],
+			fxUsage: FX_MIN_BASIC_WL,
+		},
+		{
+			type: 'string',
+			subtype: 'DateTimeString',
+			src: ['cii:EffectiveSpecifiedPeriod'],
+			dest: [
+				'ram:ExchangedDocument',
+				'ram:EffectiveSpecifiedPeriod',
+				'ram:CompleteDateTime',
+				'udt:DateTimeString',
+			],
+			fxUsage: FX_EXTENDED,
+		},
+		{
+			type: 'string',
+			src: ['cii:EffectiveSpecifiedPeriod', 'fixed:102'],
+			dest: [
+				'ram:ExchangedDocument',
+				'ram:EffectiveSpecifiedPeriod',
+				'ram:CompleteDateTime',
+				'udt:DateTimeString@format',
+			],
 			fxUsage: FX_ALL,
 		},
 		invoiceLine,

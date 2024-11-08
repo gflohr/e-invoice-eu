@@ -49,9 +49,11 @@ exports[`CII should convert string values 1`] = `
 exports[`CII should encode date/time strings correctly 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEn">
-	<ram:IssueDateTime>
-		<udt:DateTimeString format="102">20241108</udt:DateTimeString>
-	</ram:IssueDateTime>
+	<ram:ExchangedDocument>
+		<ram:IssueDateTime>
+			<udt:DateTimeString format="102">20241108</udt:DateTimeString>
+		</ram:IssueDateTime>
+	</ram:ExchangedDocument>
 </rsm:CrossIndustryInvoice>"
 `;
 
