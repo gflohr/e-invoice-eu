@@ -8,6 +8,50 @@ import { Invoice } from '../invoice/invoice.interface';
 type Node = { [key: string]: Node } | Node[] | string;
 type ObjectNode = { [key: string]: Node };
 
+// Flags for Factur-X usage.
+type FXUsage =
+	| 0x1
+	| 0x2
+	| 0x3
+	| 0x4
+	| 0x5
+	| 0x6
+	| 0x7
+	| 0x8
+	| 0xa
+	| 0xb
+	| 0xc
+	| 0xd
+	| 0xe
+	| 0xf
+	| 0x10
+	| 0x11
+	| 0x12
+	| 0x13
+	| 0x4
+	| 0x15
+	| 0x16
+	| 0x17
+	| 0x18
+	| 0x19
+	| 0x1a
+	| 0x1b
+	| 0x1c
+	| 0x1d
+	| 0x1d
+	| 0x1f;
+const FX_MINIMUM: FXUsage = 0x1;
+const FX_BASIC_WL: FXUsage = 0x2;
+const FX_BASIC: FXUsage = 0x4;
+const FX_EN16931: FXUsage = 0x8;
+const FX_EXTENDED: FXUsage = 0x10;
+const FX_ALL: FXUsage = (FX_MINIMUM |
+	FX_BASIC_WL |
+	FX_BASIC |
+	FX_EN16931 |
+	FX_EXTENDED) as FXUsage;
+const FX_MIN_BASIC: FXUsage = (FX_BASIC | FX_EN16931 | FX_EXTENDED) as FXUsage;
+
 type Transformation =
 	| {
 			type: 'object' | 'array';
@@ -20,6 +64,7 @@ type Transformation =
 			src: string[];
 			dest: string[];
 			children?: never;
+			fxUsage: FXUsage;
 	  };
 
 const invoiceLine: Transformation = {
@@ -34,11 +79,13 @@ const invoiceLine: Transformation = {
 			type: 'string',
 			src: ['cbc:ID'],
 			dest: ['ram:AssociatedDocumentLineDocument', 'ram:LineID'],
+			fxUsage: FX_MIN_BASIC,
 		},
 		{
 			type: 'string',
 			src: ['cac:Item', 'cbc:Name'],
 			dest: ['ram:SpecifiedTradeProduct', 'ram:Name'],
+			fxUsage: FX_MIN_BASIC,
 		},
 	],
 };
@@ -56,6 +103,7 @@ const ubl2cii: Transformation = {
 				'ram:BusinessProcessSpecifiedDocumentContextParameter',
 				'ram:ID',
 			],
+			fxUsage: FX_ALL,
 		},
 		{
 			type: 'string',
@@ -65,6 +113,7 @@ const ubl2cii: Transformation = {
 				'ram:GuidelineSpecifiedDocumentContextParameter',
 				'ram:ID',
 			],
+			fxUsage: FX_ALL,
 		},
 		invoiceLine,
 	],
