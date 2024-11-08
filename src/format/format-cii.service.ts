@@ -173,8 +173,6 @@ export class FormatCIIService
 	}
 
 	generate(invoice: Invoice): string {
-		this.showStats();
-
 		const cii: Node = {};
 		this.convert(invoice as unknown as ObjectNode, cii, [ubl2cii]);
 
@@ -198,35 +196,6 @@ export class FormatCIIService
 			prettyPrint: true,
 			indent: '\t',
 		});
-	}
-
-	private showStats() {
-		const transformationNodes = this.countStringNodes(ubl2cii);
-		console.log(`${transformationNodes} schema nodes mapped!`);
-	}
-
-	private countStringNodes(obj: any): number {
-		let count = 0;
-
-		if ('object' === typeof obj) {
-			if (Array.isArray(obj)) {
-				for (const child of obj) {
-					count += this.countStringNodes(child);
-				}
-			} else {
-				if (('type' in obj && obj.type === 'string') || '$ref' in obj) {
-					++count;
-				}
-
-				for (const key in obj) {
-					if (key !== 'dependentRequired') {
-						count += this.countStringNodes(obj[key]);
-					}
-				}
-			}
-		}
-
-		return count;
 	}
 
 	private convert(
