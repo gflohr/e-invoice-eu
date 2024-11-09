@@ -212,6 +212,220 @@ const cacItem: Transformation = {
 	],
 };
 
+const cacOrderLineReference: Transformation = {
+	type: 'object',
+	src: ['cac:OrderLineReference'],
+	dest: ['ram:SpecifiedLineTradeAgreement'],
+	children: [
+		{
+			type: 'string',
+			src: ['cii:BuyerOrderReferencedDocumentID'],
+			dest: ['ram:BuyerOrderReferencedDocument', 'ram:IssuerAssignedID'],
+			fxProfile: FX_EXTENDED,
+		},
+		{
+			type: 'string',
+			src: ['cbc:LineID'],
+			dest: ['ram:BuyerOrderReferencedDocument', 'ram:LineID'],
+			fxProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cii:FormattedIssueDateTime'],
+			dest: [
+				'ram:BuyerOrderReferencedDocument',
+				'ram:FormattedIssueDateTime',
+				'udt:DateTimeString',
+			],
+			fxProfile: FX_EXTENDED,
+		},
+		{
+			type: 'string',
+			src: ['cii:FormattedIssueDateTime', 'fixed:102'],
+			dest: [
+				'ram:BuyerOrderReferencedDocument',
+				'ram:FormattedIssueDateTime',
+				'udt:DateTimeString@format',
+			],
+			fxProfile: FX_EXTENDED,
+		},
+	],
+};
+
+const cacPrice: Transformation = {
+	type: 'object',
+	src: ['cac:Price'],
+	dest: [],
+	children: [
+		{
+			type: 'string',
+			src: ['cac:AllowanceCharge', 'cbc:BaseAmount'],
+			dest: ['ram:GrossProductTradePrice', 'ram:ChargeAmount'],
+			fxProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cbc:BasisQuantity'],
+			dest: ['ram:GrossProductTradePrice', 'ram:BasisQuantity'],
+			fxProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cbc:BasisQuantity@unitCode'],
+			dest: ['ram:GrossProductTradePrice', 'ram:BasisQuantity@unitCode'],
+			fxProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cac:AllowanceCharge', 'cbc:ChargeIndicator'],
+			dest: [
+				'ram:GrossProductTradePrice',
+				'ram:AppliedTradeAllowanceCharge',
+				'ram:ChargeIndicator',
+				'udt:Indicator',
+			],
+			fxProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cac:AllowanceCharge', 'cbc:Amount'],
+			dest: [
+				'ram:GrossProductTradePrice',
+				'ram:AppliedTradeAllowanceCharge',
+				'ram:ActualAmount',
+			],
+			fxProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cac:AllowanceCharge', 'cbc:Amount@currencyID'],
+			dest: [
+				'ram:GrossProductTradePrice',
+				'ram:AppliedTradeAllowanceCharge',
+				'ram:ActualAmount@currencyID',
+			],
+			fxProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cac:AllowanceCharge', 'cii:ReasonCode'],
+			dest: [
+				'ram:GrossProductTradePrice',
+				'ram:AppliedTradeAllowanceCharge',
+				'ram:ReasonCode',
+			],
+			fxProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cac:AllowanceCharge', 'cii:Reason'],
+			dest: [
+				'ram:GrossProductTradePrice',
+				'ram:AppliedTradeAllowanceCharge',
+				'ram:Reason',
+			],
+			fxProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cbc:PriceAmount'],
+			dest: ['ram:NetProductTradePrice', 'ram:ChargeAmount'],
+			fxProfile: FX_EN16931,
+		},
+	],
+};
+
+const cacInvoiceLinePeriod: Transformation[] = [
+	{
+		type: 'string',
+		src: ['cbc:StartDate'],
+		dest: ['ram:StartDateTime', 'udt:DateTimeString'],
+		fxProfile: FX_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cbc:StartDate', 'fixed:102'],
+		dest: [
+			'ram:StartDateTime',
+			'udt:DateTimeString',
+			'udt:DateTimeString@format',
+		],
+		fxProfile: FX_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cbc:EndDate'],
+		dest: ['ram:EndDateTime', 'udt:DateTimeString'],
+		fxProfile: FX_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cbc:EndDate', 'fixed:102'],
+		dest: [
+			'ram:EndDateTime',
+			'udt:DateTimeString',
+			'udt:DateTimeString@format',
+		],
+		fxProfile: FX_EN16931,
+	},
+];
+
+const cacInvoiceLineAllowanceCharge: Transformation = {
+	type: 'object',
+	src: ['cac:AllowanceCharge'],
+	dest: ['ram:SpecifiedTradeAllowanceCharge'],
+	children: [
+		{
+			type: 'string',
+			src: ['cbc:ChargeIndicator'],
+			dest: ['ram:ChargeIndicator', 'udt:Indicator'],
+			fxProfile: FX_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cbc:MultiplierFactorNumeric'],
+			dest: ['ram:CalculationPercent'],
+			fxProfile: FX_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cbc:BaseAmount'],
+			dest: ['ram:BasisAmount'],
+			fxProfile: FX_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cbc:BaseAmount@currencyID'],
+			dest: ['ram:BasisAmount@currencyID'],
+			fxProfile: FX_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cbc:Amount'],
+			dest: ['ram:ActualAmount'],
+			fxProfile: FX_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cbc:Amount@currencyID'],
+			dest: ['ram:ActualAmount@currencyID'],
+			fxProfile: FX_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cbc:AllowanceChargeReasonCode'],
+			dest: ['ram:ReasonCode'],
+			fxProfile: FX_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cbc:AllowanceChargeReason'],
+			dest: ['ram:Reason'],
+			fxProfile: FX_BASIC,
+		},
+	],
+};
+
 const cacInvoiceLine: Transformation = {
 	type: 'array',
 	src: ['cac:InvoiceLine'],
@@ -269,6 +483,52 @@ const cacInvoiceLine: Transformation = {
 			fxProfile: FX_BASIC_WL,
 		},
 		cacItem,
+		cacOrderLineReference,
+		cacPrice,
+		{
+			type: 'string',
+			src: ['cbc:InvoicedQuantity'],
+			dest: ['ram:SpecifiedLineTradeDelivery', 'ram:BilledQuantity'],
+			fxProfile: FX_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cbc:InvoicedQuantity@unitCode'],
+			dest: ['ram:SpecifiedLineTradeDelivery', 'ram:BilledQuantity@unitCode'],
+			fxProfile: FX_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cac:Item', 'cac:ClassifiedTaxCategory', 'cac:TaxScheme', 'cbc:ID'],
+			dest: [
+				'ram:SpecifiedLineTradeSettlement',
+				'ApplicableTradeTax',
+				'ram:TypeCode',
+			],
+			fxProfile: FX_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cac:Item', 'cac:ClassifiedTaxCategory', 'cbc:ID'],
+			dest: [
+				'ram:SpecifiedLineTradeSettlement',
+				'ApplicableTradeTax',
+				'ram:CategoryCode',
+			],
+			fxProfile: FX_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cac:Item', 'cac:ClassifiedTaxCategory', 'cbc:Percent'],
+			dest: [
+				'ram:SpecifiedLineTradeSettlement',
+				'ApplicableTradeTax',
+				'ram:RateApplicablePercent',
+			],
+			fxProfile: FX_BASIC,
+		},
+		...cacInvoiceLinePeriod,
+		cacInvoiceLineAllowanceCharge,
 	],
 };
 

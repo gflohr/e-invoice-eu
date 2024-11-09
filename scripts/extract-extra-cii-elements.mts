@@ -1,4 +1,12 @@
-import { FX_BASIC, FX_BASIC_WL, FX_EN16931, FX_EXTENDED, FX_MINIMUM, Transformation, ublInvoice } from '../src/format/format-cii.service';
+import {
+	FX_BASIC,
+	FX_BASIC_WL,
+	FX_EN16931,
+	FX_EXTENDED,
+	FX_MINIMUM,
+	Transformation,
+	ublInvoice,
+} from '../src/format/format-cii.service';
 
 console.log(`
 <table>
@@ -25,7 +33,7 @@ function extract(
 		const childSrc = [...src, ...transformation.src];
 		const childDest = [...dest, ...transformation.dest];
 
-		switch(transformation.type) {
+		switch (transformation.type) {
 			case 'object':
 				extract(childSrc, childDest, transformation.children);
 				break;
