@@ -82,27 +82,9 @@ const cacAdditionalItemProperty: Transformation = {
 	children: [
 		{
 			type: 'string',
-			src: ['cii:TypeCode'],
-			dest: ['ram:TypeCode'],
-			fxProfile: FX_EXTENDED,
-		},
-		{
-			type: 'string',
 			src: ['cbc:Name'],
 			dest: ['ram:Description'],
 			fxProfile: FX_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cii:ValueMeasure'],
-			dest: ['ram:ValueMeasure'],
-			fxProfile: FX_EXTENDED,
-		},
-		{
-			type: 'string',
-			src: ['cii:ValueMeasure@unitCode'],
-			dest: ['ram:ValueMeasure@unitCode'],
-			fxProfile: FX_EXTENDED,
 		},
 		{
 			type: 'string',
@@ -124,32 +106,6 @@ const cacCommodityClassification: Transformation = {
 			dest: ['ram:ClassCode', 'ram:ListID'],
 			fxProfile: FX_EN16931,
 		},
-		{
-			type: 'string',
-			src: ['cii:ListVersionID'],
-			dest: ['ram:ClassCode', 'ram:ListVersionID'],
-			fxProfile: FX_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cii:ClassName'],
-			dest: ['ram:ClassName'],
-			fxProfile: FX_EXTENDED,
-		},
-	],
-};
-
-const ciiIndividualTradeProductInstance: Transformation = {
-	type: 'object',
-	src: [],
-	dest: ['ram:IndividualTradeProductInstance'],
-	children: [
-		{
-			type: 'string',
-			src: ['cii:BatchID'],
-			dest: ['ram:BatchID'],
-			fxProfile: FX_EXTENDED,
-		},
 	],
 };
 
@@ -158,12 +114,6 @@ const cacItem: Transformation = {
 	src: ['cac:Item'],
 	dest: ['ram:SpecifiedTradeProduct'],
 	children: [
-		{
-			type: 'string',
-			src: ['cii:SpecifiedTradeProductID'],
-			dest: ['ram:ID'],
-			fxProfile: FULL_CII,
-		},
 		{
 			type: 'string',
 			src: ['cac:StandardItemIdentification', 'cbc:ID'],
@@ -202,7 +152,6 @@ const cacItem: Transformation = {
 		},
 		cacAdditionalItemProperty,
 		cacCommodityClassification,
-		ciiIndividualTradeProductInstance,
 		{
 			type: 'string',
 			src: ['cac:OriginCountry', 'cbc:IdentificationCode'],
@@ -219,35 +168,9 @@ const cacOrderLineReference: Transformation = {
 	children: [
 		{
 			type: 'string',
-			src: ['cii:BuyerOrderReferencedDocumentID'],
-			dest: ['ram:BuyerOrderReferencedDocument', 'ram:IssuerAssignedID'],
-			fxProfile: FX_EXTENDED,
-		},
-		{
-			type: 'string',
 			src: ['cbc:LineID'],
 			dest: ['ram:BuyerOrderReferencedDocument', 'ram:LineID'],
 			fxProfile: FX_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cii:FormattedIssueDateTime'],
-			dest: [
-				'ram:BuyerOrderReferencedDocument',
-				'ram:FormattedIssueDateTime',
-				'udt:DateTimeString',
-			],
-			fxProfile: FX_EXTENDED,
-		},
-		{
-			type: 'string',
-			src: ['cii:FormattedIssueDateTime', 'fixed:102'],
-			dest: [
-				'ram:BuyerOrderReferencedDocument',
-				'ram:FormattedIssueDateTime',
-				'udt:DateTimeString@format',
-			],
-			fxProfile: FX_EXTENDED,
 		},
 	],
 };
@@ -303,26 +226,6 @@ const cacPrice: Transformation = {
 				'ram:GrossProductTradePrice',
 				'ram:AppliedTradeAllowanceCharge',
 				'ram:ActualAmount@currencyID',
-			],
-			fxProfile: FX_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cac:AllowanceCharge', 'cii:ReasonCode'],
-			dest: [
-				'ram:GrossProductTradePrice',
-				'ram:AppliedTradeAllowanceCharge',
-				'ram:ReasonCode',
-			],
-			fxProfile: FX_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cac:AllowanceCharge', 'cii:Reason'],
-			dest: [
-				'ram:GrossProductTradePrice',
-				'ram:AppliedTradeAllowanceCharge',
-				'ram:Reason',
 			],
 			fxProfile: FX_EN16931,
 		},
@@ -442,43 +345,11 @@ const cacInvoiceLine: Transformation = {
 		},
 		{
 			type: 'string',
-			src: ['cii:ParentLineID'],
-			dest: ['ram:AssociatedDocumentLineDocument', 'ram:ParentLineID'],
-			fxProfile: FULL_CII,
-		},
-		{
-			type: 'string',
-			src: ['cii:LineStatusCode'],
-			dest: ['ram:AssociatedDocumentLineDocument', 'ram:LineStatusCode'],
-			fxProfile: FX_EXTENDED,
-		},
-		{
-			type: 'string',
-			src: ['cii:IncludedNoteContentCode'],
-			dest: [
-				'ram:AssociatedDocumentLineDocument',
-				'ram:IncludedNote',
-				'udt:ContentCode',
-			],
-			fxProfile: FX_EXTENDED,
-		},
-		{
-			type: 'string',
 			src: ['cbc:Note'],
 			dest: [
 				'ram:AssociatedDocumentLineDocument',
 				'ram:IncludedNote',
 				'ram:Content',
-			],
-			fxProfile: FX_BASIC_WL,
-		},
-		{
-			type: 'string',
-			src: ['cii:IncludedNoteSubjectCode'],
-			dest: [
-				'ram:AssociatedDocumentLineDocument',
-				'ram:IncludedNote',
-				'udt:SubjectCode',
 			],
 			fxProfile: FX_BASIC_WL,
 		},
@@ -539,16 +410,6 @@ export const ublInvoice: Transformation = {
 	children: [
 		{
 			type: 'string',
-			src: ['cii:TestIndicator'],
-			dest: [
-				'rsm:ExchangedDocumentContext',
-				'ram:TestIndicator',
-				'udt:Indicator',
-			],
-			fxProfile: FX_EXTENDED,
-		},
-		{
-			type: 'string',
 			src: ['cbc:ProfileID'],
 			dest: [
 				'rsm:ExchangedDocumentContext',
@@ -575,12 +436,6 @@ export const ublInvoice: Transformation = {
 		},
 		{
 			type: 'string',
-			src: ['cii:Name'],
-			dest: ['ram:ExchangedDocument', 'ram:Name'],
-			fxProfile: FX_EXTENDED,
-		},
-		{
-			type: 'string',
 			subtype: 'DateTimeString',
 			src: ['cbc:IssueDate'],
 			dest: [
@@ -602,63 +457,9 @@ export const ublInvoice: Transformation = {
 		},
 		{
 			type: 'string',
-			src: ['cii:CopyIndicator'],
-			dest: ['ram:ExchangedDocument', 'ram:CopyIndicator', 'udt:Indicatory'],
-			fxProfile: FX_EXTENDED,
-		},
-		{
-			type: 'array',
-			src: [],
-			dest: [],
-			children: [
-				{
-					type: 'string',
-					src: ['cii:LanguageID'],
-					dest: ['ram:ExchangedDocument', 'ram:LanguageID'],
-					fxProfile: FX_EXTENDED,
-				},
-			],
-		},
-		{
-			type: 'string',
-			src: ['cii:IncludedNoteContentCode'],
-			dest: ['ram:ExchangedDocument', 'ram:IncludedNote', 'udt:ContentCode'],
-			fxProfile: FX_EXTENDED,
-		},
-		{
-			type: 'string',
 			src: ['cbc:Note'],
 			dest: ['ram:ExchangedDocument', 'ram:IncludedNote', 'ram:Content'],
 			fxProfile: FX_BASIC_WL,
-		},
-		{
-			type: 'string',
-			src: ['cii:IncludedNoteSubjectCode'],
-			dest: ['ram:ExchangedDocument', 'ram:IncludedNote', 'udt:SubjectCode'],
-			fxProfile: FX_BASIC_WL,
-		},
-		{
-			type: 'string',
-			subtype: 'DateTimeString',
-			src: ['cii:EffectiveSpecifiedPeriod'],
-			dest: [
-				'ram:ExchangedDocument',
-				'ram:EffectiveSpecifiedPeriod',
-				'ram:CompleteDateTime',
-				'udt:DateTimeString',
-			],
-			fxProfile: FX_EXTENDED,
-		},
-		{
-			type: 'string',
-			src: ['cii:EffectiveSpecifiedPeriod', 'fixed:102'],
-			dest: [
-				'ram:ExchangedDocument',
-				'ram:EffectiveSpecifiedPeriod',
-				'ram:CompleteDateTime',
-				'udt:DateTimeString@format',
-			],
-			fxProfile: FX_MINIMUM,
 		},
 		cacInvoiceLine,
 	],
