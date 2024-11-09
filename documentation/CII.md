@@ -9,179 +9,108 @@ Therefore, special elements - all prefixed with `cii:` - have been added
 to the internal schema, so that you can produce these values in CII. In
 UBL formats, they are all ignored.
 
-## List of Extra Attributes
-
-The following types are used:
-
-<table>
-	<thead>
-		<tr>
-			<th>Type</th>
-			<th>Description</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><code>xs:boolean</code></td>
-			<td>Either <code>true</code> or <code>false</code> as a string!</td>
-		</tr>
-		<tr>
-			<td><code>udt:TextType</code></td>
-			<td>Free text.</td>
-		</tr>
-		<tr>
-			<td><code>udt:CodeType</code></td>
-			<td>Text.  Sometimes, the value has to come from a code list.  The validator will tell you that.</td>
-		</tr>
-	</tbody>
-</table>
-
-In the source path, the leading `ubl:Invoice` is omitted.
-In the destination path, the leading `rsm:CrossIndustryInvoice` is omitted.
+Please note that all extra elements are coded manually.
+Be prepared for bugs and missing elements. Please file an issue if you spot
+such a problem!
 
 <table>
 	<thead>
 		<tr>
-			<th>Path</th>
-			<th>Destination</th>
-			<th>Type</th>
-			<th>Semantics</th>
+			<th>Source Path</th>
+			<th>Destination Path</th>
+			<th>Factur-X Profile</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr>
-			<td><code>cii:TestIndicator</code></td>
-			<td><code>rsm:ExchangedDocumentContext<br/>ram:TestIndicator<br/>udt:Indicator</code></td>
-			<td><code>xs:boolean</code></td>
-			<td>The Indicator type may be used when implementing a new system in order to mark the invoice as „trial invoice“.</td>
+			<td><code>ubl:Invoice<br />cii:TestIndicator</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />rsm:ExchangedDocumentContext<br />ram:TestIndicator<br />udt:Indicator</code></td>
+			<td>MINIMUM<br />BASIC WL<br />BASIC<br />EN16931<br />EXTENDED</td>
 		</tr>
 		<tr>
-			<td><code>cii:Name</code></td>
-			<td><code>rsm:ExchangedDocument<br/>ram:Name</code></td>
-			<td><code>udt:TextType</code></td>
-			<td><b>Document name (free text)</b></td>
+			<td><code>ubl:Invoice<br />cii:Name</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />ram:ExchangedDocument<br />ram:Name</code></td>
+			<td>MINIMUM<br />BASIC WL<br />BASIC<br />EN16931<br />EXTENDED</td>
 		</tr>
 		<tr>
-			<td><code>cii:CopyIndicator</code></td>
-			<td><code>rsm:ExchangedDocument<br/>ram:CopyIndicator<br/>udt:Indicator</code></td>
-			<td><code>xs:boolean</code></td>
-			<td>Not documented. A <code>true</code> value probably means that the document is a copy.</td>
+			<td><code>ubl:Invoice<br />cii:CopyIndicator</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />ram:ExchangedDocument<br />ram:CopyIndicator<br />udt:Indicatory</code></td>
+			<td>MINIMUM<br />BASIC WL<br />BASIC<br />EN16931<br />EXTENDED</td>
 		</tr>
 		<tr>
-			<td><code>cii:IncludedNoteContentCode</code></td>
-			<td><code>rsm:ExchangedDocument<br/>ram:IncludedNote<br/>ram:ContentCode</code></td>
-			<td><code>udt:CodeType</code></td>
-			<td>Bilaterally agreed text blocks which, here, are transferred as code.</td>
+			<td><code>ubl:Invoice<br />cii:LanguageID</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />ram:ExchangedDocument<br />ram:LanguageID</code></td>
+			<td>MINIMUM<br />BASIC WL<br />BASIC<br />EN16931<br />EXTENDED</td>
 		</tr>
 		<tr>
-			<td><code>cii:IncludedNoteSubjectCode</code></td>
-			<td><code>rsm:ExchangedDocument<br/>ram:IncludedNote<br/>ram:SubjectCode</code></td>
-			<td><code>udt:CodeType</code></td>
-			<td>
-				<b>Code for qualifying the free text for the invoice</b>
-				<p>The qualification of the free text of an invoice of BT-2. To be selected from UNTDID 4451.</p>
-			</td>
+			<td><code>ubl:Invoice<br />cii:IncludedNoteContentCode</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />ram:ExchangedDocument<br />ram:IncludedNote<br />udt:ContentCode</code></td>
+			<td>MINIMUM<br />BASIC WL<br />BASIC<br />EN16931<br />EXTENDED</td>
 		</tr>
 		<tr>
-			<td><code>cii:EffectiveSpecifiedPeriod</code></td>
-			<td><code>rsm:ExchangedDocument<br/>ram:EffectiveSpecifiedPeriod<br/>ram:CompleteDateTime<br/>udt:DateTimeString</code></td>
-			<td><code>udt:DateTimeType</code></td>
-			<td>
-				<b>Contractual due date of the invoice</b>
-				<p>Information only required if the contractual due date differs from due date of the payment (i.e. for SEPA direct debit).</p>
-			</td>
+			<td><code>ubl:Invoice<br />cii:IncludedNoteSubjectCode</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />ram:ExchangedDocument<br />ram:IncludedNote<br />udt:SubjectCode</code></td>
+			<td>MINIMUM<br />BASIC WL</td>
 		</tr>
 		<tr>
-			<td><code>cba:InvoiceLine<br />cii:ParentLineID</code></td>
-			<td><code>rsm:SupplyChainTradeTransaction<br/>ram:IncludedSupplyChainTradeLineItem<br/>ram:ParentLineID</code></td>
-			<td><code>udt:IDType</code></td>
-			<td>
-				<b>Parent Line ID</b>
-			</td>
+			<td><code>ubl:Invoice<br />cii:EffectiveSpecifiedPeriod</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />ram:ExchangedDocument<br />ram:EffectiveSpecifiedPeriod<br />ram:CompleteDateTime<br />udt:DateTimeString</code></td>
+			<td>MINIMUM<br />BASIC WL<br />BASIC<br />EN16931<br />EXTENDED</td>
 		</tr>
 		<tr>
-			<td><code>cac:InvoiceLine<br />cii:IncludedNoteContentCode</code></td>
-			<td><code>rsm:ExchangedDocument<br/>ram:IncludedNote<br/>ram:ContentCode</code></td>
-			<td><code>udt:CodeType</code></td>
-			<td>Bilaterally agreed text blocks which, here, are transferred as code.</td>
+			<td><code>ubl:Invoice<br />cac:InvoiceLine<br />cii:ParentLineID</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />rsm:SupplyChainTradeTransaction<br />ram:IncludedSupplyChainTradeLineItem<br />ram:AssociatedDocumentLineDocument<br />ram:ParentLineID</code></td>
+			<td></td>
 		</tr>
 		<tr>
-			<td><code>cac:InvoiceLine<br />cii:IncludedNoteSubjectCode</code></td>
-			<td>
-				<code>
-					rsm:SupplyChainTradeTransaction<br />
-					ram:IncludedSupplyChainTradeLineItem<br/>
-					ram:IncludedNote<br/>ram:SubjectCode
-				</code>
-			</td>
-			<td><code>udt:CodeType</code></td>
-			<td>
-				<b>Code for qualifying the free text for the invoice</b>
-				<p>The qualification of the free text of an invoice of BT-2. To be selected from UNTDID 4451.</p>
-			</td>
+			<td><code>ubl:Invoice<br />cac:InvoiceLine<br />cii:LineStatusCode</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />rsm:SupplyChainTradeTransaction<br />ram:IncludedSupplyChainTradeLineItem<br />ram:AssociatedDocumentLineDocument<br />ram:LineStatusCode</code></td>
+			<td>MINIMUM<br />BASIC WL<br />BASIC<br />EN16931<br />EXTENDED</td>
 		</tr>
 		<tr>
-			<td><code>cac:InvoiceLine<br />cii:IncludedNoteSubjectCode</code></td>
-			<td>
-				<code>
-					rsm:SupplyChainTradeTransaction<br />
-					ram:IncludedSupplyChainTradeLineItem<br/>
-					ram:ID
-				</code>
-			</td>
-			<td><code>udt:IDType</code></td>
-			<td>
-				<p>Not documented.</p>
-			</td>
+			<td><code>ubl:Invoice<br />cac:InvoiceLine<br />cii:IncludedNoteContentCode</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />rsm:SupplyChainTradeTransaction<br />ram:IncludedSupplyChainTradeLineItem<br />ram:AssociatedDocumentLineDocument<br />ram:IncludedNote<br />udt:ContentCode</code></td>
+			<td>MINIMUM<br />BASIC WL<br />BASIC<br />EN16931<br />EXTENDED</td>
 		</tr>
 		<tr>
-			<td>
-				<code>
-					cac:InvoiceLine<br />
-					cac:AdditionalItemProperty<br />
-					cii:TypeCode
-				</code>
-			</td>
-			<td>
-				<code>
-					rsm:SupplyChainTradeTransaction<br />
-					ram:IncludedSupplyChainTradeLineItem<br/>
-					ram:ApplicableProductCharacteristic<br />
-					ram:TypeCode
-				</code>
-			</td>
-			<td><code>udt:CodeType</code></td>
-			<td>
-				<b>Item Attribute Type (Code)</b>
-			</td>
+			<td><code>ubl:Invoice<br />cac:InvoiceLine<br />cii:IncludedNoteSubjectCode</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />rsm:SupplyChainTradeTransaction<br />ram:IncludedSupplyChainTradeLineItem<br />ram:AssociatedDocumentLineDocument<br />ram:IncludedNote<br />udt:SubjectCode</code></td>
+			<td>MINIMUM<br />BASIC WL</td>
 		</tr>
 		<tr>
-			<td>
-				<code>
-					cac:InvoiceLine<br />
-					cac:AdditionalItemProperty<br />
-					cii:ValueMeasure
-				</code>
-			</td>
-			<td>
-				<code>
-					rsm:SupplyChainTradeTransaction<br />
-					ram:IncludedSupplyChainTradeLineItem<br/>
-					ram:ApplicableProductCharacteristic<br />
-					ram:ValueMeasure<br />
-					ram:unitCode
-				</code>
-			</td>
-			<td><code>udt:MeasureType</code></td>
-			<td>
-				<b>Item Attribute Value (numerical measurand)</b>
-				<p>
-					Code List: Rec. N°20 Entire code list<br />
-Recommendation N°20 Intro 2.a describes that both lists should be used in combination.<br />
-Code List: Rec. N°21 Entire code list<br />
-Recommendation N°20 Intro 2.a describes that both lists must be used in combination.<br />
-				</p>
-			</td>
+			<td><code>ubl:Invoice<br />cac:InvoiceLine<br />cac:Item<br />cii:SpecifiedTradeProductID</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />rsm:SupplyChainTradeTransaction<br />ram:IncludedSupplyChainTradeLineItem<br />ram:SpecifiedTradeProduct<br />ram:ID</code></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><code>ubl:Invoice<br />cac:InvoiceLine<br />cac:Item<br />cac:AdditionalItemProperty<br />cii:TypeCode</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />rsm:SupplyChainTradeTransaction<br />ram:IncludedSupplyChainTradeLineItem<br />ram:SpecifiedTradeProduct<br />ram:ApplicableProductCharacteristic<br />ram:TypeCode</code></td>
+			<td>MINIMUM<br />BASIC WL<br />BASIC<br />EN16931<br />EXTENDED</td>
+		</tr>
+		<tr>
+			<td><code>ubl:Invoice<br />cac:InvoiceLine<br />cac:Item<br />cac:AdditionalItemProperty<br />cii:ValueMeasure</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />rsm:SupplyChainTradeTransaction<br />ram:IncludedSupplyChainTradeLineItem<br />ram:SpecifiedTradeProduct<br />ram:ApplicableProductCharacteristic<br />ram:ValueMeasure</code></td>
+			<td>MINIMUM<br />BASIC WL<br />BASIC<br />EN16931<br />EXTENDED</td>
+		</tr>
+		<tr>
+			<td><code>ubl:Invoice<br />cac:InvoiceLine<br />cac:Item<br />cac:AdditionalItemProperty<br />cii:ValueMeasure@unitCode</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />rsm:SupplyChainTradeTransaction<br />ram:IncludedSupplyChainTradeLineItem<br />ram:SpecifiedTradeProduct<br />ram:ApplicableProductCharacteristic<br />ram:ValueMeasure@unitCode</code></td>
+			<td>MINIMUM<br />BASIC WL<br />BASIC<br />EN16931<br />EXTENDED</td>
+		</tr>
+		<tr>
+			<td><code>ubl:Invoice<br />cac:InvoiceLine<br />cac:Item<br />cac:CommodityClassification<br />cii:ListVersionID</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />rsm:SupplyChainTradeTransaction<br />ram:IncludedSupplyChainTradeLineItem<br />ram:SpecifiedTradeProduct<br />ram:DesignatedProductClassification<br />ram:ClassCode<br />ram:ListVersionID</code></td>
+			<td>MINIMUM<br />BASIC WL<br />BASIC<br />EN16931</td>
+		</tr>
+		<tr>
+			<td><code>ubl:Invoice<br />cac:InvoiceLine<br />cac:Item<br />cac:CommodityClassification<br />cii:ClassName</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />rsm:SupplyChainTradeTransaction<br />ram:IncludedSupplyChainTradeLineItem<br />ram:SpecifiedTradeProduct<br />ram:DesignatedProductClassification<br />ram:ClassName</code></td>
+			<td>MINIMUM<br />BASIC WL<br />BASIC<br />EN16931<br />EXTENDED</td>
+		</tr>
+		<tr>
+			<td><code>ubl:Invoice<br />cac:InvoiceLine<br />cac:Item<br />cii:BatchID</code></td>
+			<td><code>rsm:CrossIndustryInvoice<br />rsm:SupplyChainTradeTransaction<br />ram:IncludedSupplyChainTradeLineItem<br />ram:SpecifiedTradeProduct<br />ram:IndividualTradeProductInstance<br />ram:BatchID</code></td>
+			<td>MINIMUM<br />BASIC WL<br />BASIC<br />EN16931<br />EXTENDED</td>
 		</tr>
 	</tbody>
 </table>

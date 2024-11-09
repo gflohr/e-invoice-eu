@@ -5,11 +5,11 @@ import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { Invoice } from '../invoice/invoice.interface';
 
 // This is what we are looking at while traversing the input tree:
-type Node = { [key: string]: Node } | Node[] | string;
-type ObjectNode = { [key: string]: Node };
+export type Node = { [key: string]: Node } | Node[] | string;
+export type ObjectNode = { [key: string]: Node };
 
 // Flags for Factur-X usage.
-type FXProfile =
+export type FXProfile =
 	| 0x0
 	| 0x1
 	| 0x2
@@ -41,14 +41,14 @@ type FXProfile =
 	| 0x1d
 	| 0x1d
 	| 0x1f;
-const FULL_CII: FXProfile = 0x0; // Field not allowed for Factur-X.
-const FX_EXTENDED: FXProfile = 0x1;
-const FX_EN16931: FXProfile = 0x2;
-const FX_BASIC: FXProfile = 0x4;
-const FX_BASIC_WL: FXProfile = 0x8;
-const FX_MINIMUM: FXProfile = 0x10;
+export const FULL_CII: FXProfile = 0x0; // Field not allowed for Factur-X.
+export const FX_EXTENDED: FXProfile = 0x1;
+export const FX_EN16931: FXProfile = 0x2;
+export const FX_BASIC: FXProfile = 0x4;
+export const FX_BASIC_WL: FXProfile = 0x8;
+export const FX_MINIMUM: FXProfile = 0x10;
 
-type SubType = 'DateTimeString';
+export type SubType = 'DateTimeString';
 
 // Both `src` and `dest` contain an array of element names that defines the
 // path to that node.
@@ -57,13 +57,14 @@ type SubType = 'DateTimeString';
 // special prefix "fixed:", everything after that prefix is returned.  In
 // general, this should be the last element in the list so that it is only
 // rendered if the elements it depends on exist in the source.
-type Transformation =
+export type Transformation =
 	| {
 			type: 'object' | 'array';
 			subtype?: never;
 			src: string[];
 			dest: string[];
 			children: Transformation[];
+			fxProfile?: never;
 	  }
 	| {
 			type: 'string';
@@ -71,10 +72,10 @@ type Transformation =
 			src: string[];
 			dest: string[];
 			children?: never;
-			FXProfile: FXProfile;
+			fxProfile: FXProfile;
 	  };
 
-const additionalItemProperty: Transformation = {
+const cacAdditionalItemProperty: Transformation = {
 	type: 'object',
 	src: ['cac:AdditionalItemProperty'],
 	dest: ['ram:ApplicableProductCharacteristic'],
@@ -83,36 +84,76 @@ const additionalItemProperty: Transformation = {
 			type: 'string',
 			src: ['cii:TypeCode'],
 			dest: ['ram:TypeCode'],
-			FXProfile: FX_EXTENDED,
+			fxProfile: FX_EXTENDED,
 		},
 		{
 			type: 'string',
 			src: ['cbc:Name'],
 			dest: ['ram:Description'],
-			FXProfile: FX_EN16931,
+			fxProfile: FX_EN16931,
 		},
 		{
 			type: 'string',
 			src: ['cii:ValueMeasure'],
 			dest: ['ram:ValueMeasure'],
-			FXProfile: FX_EXTENDED,
+			fxProfile: FX_EXTENDED,
 		},
 		{
 			type: 'string',
 			src: ['cii:ValueMeasure@unitCode'],
 			dest: ['ram:ValueMeasure@unitCode'],
-			FXProfile: FX_EXTENDED,
+			fxProfile: FX_EXTENDED,
 		},
 		{
 			type: 'string',
 			src: ['cbc:Value'],
 			dest: ['ram:Value'],
-			FXProfile: FX_EN16931,
+			fxProfile: FX_EN16931,
 		},
 	],
 };
 
-const item: Transformation = {
+const cacCommodityClassification: Transformation = {
+	type: 'array',
+	src: ['cac:CommodityClassification'],
+	dest: ['ram:DesignatedProductClassification'],
+	children: [
+		{
+			type: 'string',
+			src: ['cbc:ItemClassificationCode'],
+			dest: ['ram:ClassCode', 'ram:ListID'],
+			fxProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cii:ListVersionID'],
+			dest: ['ram:ClassCode', 'ram:ListVersionID'],
+			fxProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cii:ClassName'],
+			dest: ['ram:ClassName'],
+			fxProfile: FX_EXTENDED,
+		},
+	],
+};
+
+const ciiIndividualTradeProductInstance: Transformation = {
+	type: 'object',
+	src: [],
+	dest: ['ram:IndividualTradeProductInstance'],
+	children: [
+		{
+			type: 'string',
+			src: ['cii:BatchID'],
+			dest: ['ram:BatchID'],
+			fxProfile: FX_EXTENDED,
+		},
+	],
+};
+
+const cacItem: Transformation = {
 	type: 'object',
 	src: ['cac:Item'],
 	dest: ['ram:SpecifiedTradeProduct'],
@@ -121,49 +162,57 @@ const item: Transformation = {
 			type: 'string',
 			src: ['cii:SpecifiedTradeProductID'],
 			dest: ['ram:ID'],
-			FXProfile: FULL_CII,
+			fxProfile: FULL_CII,
 		},
 		{
 			type: 'string',
 			src: ['cac:StandardItemIdentification', 'cbc:ID'],
 			dest: ['ram:GlobalID'],
-			FXProfile: FX_BASIC,
+			fxProfile: FX_BASIC,
 		},
 		{
 			type: 'string',
 			src: ['cac:StandardItemIdentification', 'cbc:ID@schemeID'],
 			dest: ['ram:GlobalID@schemeID'],
-			FXProfile: FX_BASIC,
+			fxProfile: FX_BASIC,
 		},
 		{
 			type: 'string',
 			src: ['cac:SellersItemIdentification', 'cbc:ID'],
 			dest: ['ram:SellerAssignedID'],
-			FXProfile: FX_EN16931,
+			fxProfile: FX_EN16931,
 		},
 		{
 			type: 'string',
 			src: ['cac:BuyersItemIdentification', 'cbc:ID'],
 			dest: ['ram:BuyerAssignedID'],
-			FXProfile: FX_EN16931,
+			fxProfile: FX_EN16931,
 		},
 		{
 			type: 'string',
 			src: ['cbc:Name'],
 			dest: ['ram:Name'],
-			FXProfile: FX_BASIC,
+			fxProfile: FX_BASIC,
 		},
 		{
 			type: 'string',
 			src: ['cbc:Description'],
 			dest: ['ram:Description'],
-			FXProfile: FX_EN16931,
+			fxProfile: FX_EN16931,
 		},
-		additionalItemProperty,
+		cacAdditionalItemProperty,
+		cacCommodityClassification,
+		ciiIndividualTradeProductInstance,
+		{
+			type: 'string',
+			src: ['cac:OriginCountry', 'cbc:IdentificationCode'],
+			dest: ['ram:OriginTradeCountry', 'ram:ID'],
+			fxProfile: FX_EN16931,
+		},
 	],
 };
 
-const invoiceLine: Transformation = {
+const cacInvoiceLine: Transformation = {
 	type: 'array',
 	src: ['cac:InvoiceLine'],
 	dest: [
@@ -175,19 +224,19 @@ const invoiceLine: Transformation = {
 			type: 'string',
 			src: ['cbc:ID'],
 			dest: ['ram:AssociatedDocumentLineDocument', 'ram:LineID'],
-			FXProfile: FX_BASIC,
+			fxProfile: FX_BASIC,
 		},
 		{
 			type: 'string',
 			src: ['cii:ParentLineID'],
 			dest: ['ram:AssociatedDocumentLineDocument', 'ram:ParentLineID'],
-			FXProfile: FULL_CII,
+			fxProfile: FULL_CII,
 		},
 		{
 			type: 'string',
 			src: ['cii:LineStatusCode'],
 			dest: ['ram:AssociatedDocumentLineDocument', 'ram:LineStatusCode'],
-			FXProfile: FX_EXTENDED,
+			fxProfile: FX_EXTENDED,
 		},
 		{
 			type: 'string',
@@ -197,7 +246,7 @@ const invoiceLine: Transformation = {
 				'ram:IncludedNote',
 				'udt:ContentCode',
 			],
-			FXProfile: FX_EXTENDED,
+			fxProfile: FX_EXTENDED,
 		},
 		{
 			type: 'string',
@@ -207,7 +256,7 @@ const invoiceLine: Transformation = {
 				'ram:IncludedNote',
 				'ram:Content',
 			],
-			FXProfile: FX_BASIC_WL,
+			fxProfile: FX_BASIC_WL,
 		},
 		{
 			type: 'string',
@@ -217,13 +266,13 @@ const invoiceLine: Transformation = {
 				'ram:IncludedNote',
 				'udt:SubjectCode',
 			],
-			FXProfile: FX_BASIC_WL,
+			fxProfile: FX_BASIC_WL,
 		},
-		item,
+		cacItem,
 	],
 };
 
-const ubl2cii: Transformation = {
+export const ublInvoice: Transformation = {
 	type: 'object',
 	src: ['ubl:Invoice'],
 	dest: ['rsm:CrossIndustryInvoice'],
@@ -236,7 +285,7 @@ const ubl2cii: Transformation = {
 				'ram:TestIndicator',
 				'udt:Indicator',
 			],
-			FXProfile: FX_EXTENDED,
+			fxProfile: FX_EXTENDED,
 		},
 		{
 			type: 'string',
@@ -246,7 +295,7 @@ const ubl2cii: Transformation = {
 				'ram:BusinessProcessSpecifiedDocumentContextParameter',
 				'ram:ID',
 			],
-			FXProfile: FX_MINIMUM,
+			fxProfile: FX_MINIMUM,
 		},
 		{
 			type: 'string',
@@ -256,19 +305,19 @@ const ubl2cii: Transformation = {
 				'ram:GuidelineSpecifiedDocumentContextParameter',
 				'ram:ID',
 			],
-			FXProfile: FX_MINIMUM,
+			fxProfile: FX_MINIMUM,
 		},
 		{
 			type: 'string',
 			src: ['cbc:ID'],
 			dest: ['ram:ExchangedDocument', 'ram:ID'],
-			FXProfile: FX_MINIMUM,
+			fxProfile: FX_MINIMUM,
 		},
 		{
 			type: 'string',
 			src: ['cii:Name'],
 			dest: ['ram:ExchangedDocument', 'ram:Name'],
-			FXProfile: FX_EXTENDED,
+			fxProfile: FX_EXTENDED,
 		},
 		{
 			type: 'string',
@@ -279,7 +328,7 @@ const ubl2cii: Transformation = {
 				'ram:IssueDateTime',
 				'udt:DateTimeString',
 			],
-			FXProfile: FX_MINIMUM,
+			fxProfile: FX_MINIMUM,
 		},
 		{
 			type: 'string',
@@ -289,13 +338,13 @@ const ubl2cii: Transformation = {
 				'ram:IssueDateTime',
 				'udt:DateTimeString@format',
 			],
-			FXProfile: FX_MINIMUM,
+			fxProfile: FX_MINIMUM,
 		},
 		{
 			type: 'string',
 			src: ['cii:CopyIndicator'],
 			dest: ['ram:ExchangedDocument', 'ram:CopyIndicator', 'udt:Indicatory'],
-			FXProfile: FX_EXTENDED,
+			fxProfile: FX_EXTENDED,
 		},
 		{
 			type: 'array',
@@ -306,7 +355,7 @@ const ubl2cii: Transformation = {
 					type: 'string',
 					src: ['cii:LanguageID'],
 					dest: ['ram:ExchangedDocument', 'ram:LanguageID'],
-					FXProfile: FX_EXTENDED,
+					fxProfile: FX_EXTENDED,
 				},
 			],
 		},
@@ -314,19 +363,19 @@ const ubl2cii: Transformation = {
 			type: 'string',
 			src: ['cii:IncludedNoteContentCode'],
 			dest: ['ram:ExchangedDocument', 'ram:IncludedNote', 'udt:ContentCode'],
-			FXProfile: FX_EXTENDED,
+			fxProfile: FX_EXTENDED,
 		},
 		{
 			type: 'string',
 			src: ['cbc:Note'],
 			dest: ['ram:ExchangedDocument', 'ram:IncludedNote', 'ram:Content'],
-			FXProfile: FX_BASIC_WL,
+			fxProfile: FX_BASIC_WL,
 		},
 		{
 			type: 'string',
 			src: ['cii:IncludedNoteSubjectCode'],
 			dest: ['ram:ExchangedDocument', 'ram:IncludedNote', 'udt:SubjectCode'],
-			FXProfile: FX_BASIC_WL,
+			fxProfile: FX_BASIC_WL,
 		},
 		{
 			type: 'string',
@@ -338,7 +387,7 @@ const ubl2cii: Transformation = {
 				'ram:CompleteDateTime',
 				'udt:DateTimeString',
 			],
-			FXProfile: FX_EXTENDED,
+			fxProfile: FX_EXTENDED,
 		},
 		{
 			type: 'string',
@@ -349,9 +398,9 @@ const ubl2cii: Transformation = {
 				'ram:CompleteDateTime',
 				'udt:DateTimeString@format',
 			],
-			FXProfile: FX_MINIMUM,
+			fxProfile: FX_MINIMUM,
 		},
-		invoiceLine,
+		cacInvoiceLine,
 	],
 };
 
@@ -374,7 +423,7 @@ export class FormatCIIService
 
 	generate(invoice: Invoice): string {
 		const cii: Node = {};
-		this.convert(invoice as unknown as ObjectNode, cii, [ubl2cii]);
+		this.convert(invoice as unknown as ObjectNode, cii, [ublInvoice]);
 
 		cii['rsm:CrossIndustryInvoice@xmlns:xsi'] =
 			'http://www.w3.org/2001/XMLSchema-instance';
