@@ -74,6 +74,95 @@ type Transformation =
 			FXProfile: FXProfile;
 	  };
 
+const additionalItemProperty: Transformation = {
+	type: 'object',
+	src: ['cac:AdditionalItemProperty'],
+	dest: ['ram:ApplicableProductCharacteristic'],
+	children: [
+		{
+			type: 'string',
+			src: ['cii:TypeCode'],
+			dest: ['ram:TypeCode'],
+			FXProfile: FX_EXTENDED,
+		},
+		{
+			type: 'string',
+			src: ['cbc:Name'],
+			dest: ['ram:Description'],
+			FXProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cii:ValueMeasure'],
+			dest: ['ram:ValueMeasure'],
+			FXProfile: FX_EXTENDED,
+		},
+		{
+			type: 'string',
+			src: ['cii:ValueMeasure@unitCode'],
+			dest: ['ram:ValueMeasure@unitCode'],
+			FXProfile: FX_EXTENDED,
+		},
+		{
+			type: 'string',
+			src: ['cbc:Value'],
+			dest: ['ram:Value'],
+			FXProfile: FX_EN16931,
+		},
+	],
+};
+
+const item: Transformation = {
+	type: 'object',
+	src: ['cac:Item'],
+	dest: ['ram:SpecifiedTradeProduct'],
+	children: [
+		{
+			type: 'string',
+			src: ['cii:SpecifiedTradeProductID'],
+			dest: ['ram:ID'],
+			FXProfile: FULL_CII,
+		},
+		{
+			type: 'string',
+			src: ['cac:StandardItemIdentification', 'cbc:ID'],
+			dest: ['ram:GlobalID'],
+			FXProfile: FX_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cac:StandardItemIdentification', 'cbc:ID@schemeID'],
+			dest: ['ram:GlobalID@schemeID'],
+			FXProfile: FX_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cac:SellersItemIdentification', 'cbc:ID'],
+			dest: ['ram:SellerAssignedID'],
+			FXProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cac:BuyersItemIdentification', 'cbc:ID'],
+			dest: ['ram:BuyerAssignedID'],
+			FXProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cbc:Name'],
+			dest: ['ram:Name'],
+			FXProfile: FX_BASIC,
+		},
+		{
+			type: 'string',
+			src: ['cbc:Description'],
+			dest: ['ram:Description'],
+			FXProfile: FX_EN16931,
+		},
+		additionalItemProperty,
+	],
+};
+
 const invoiceLine: Transformation = {
 	type: 'array',
 	src: ['cac:InvoiceLine'],
@@ -130,102 +219,7 @@ const invoiceLine: Transformation = {
 			],
 			FXProfile: FX_BASIC_WL,
 		},
-		{
-			type: 'string',
-			src: ['cac:Item', 'cii:SpecifiedTradeProductID'],
-			dest: ['ram:SpecifiedTradeProduct', 'ram:ID'],
-			FXProfile: FULL_CII,
-		},
-		{
-			type: 'string',
-			src: ['cac:Item', 'cac:StandardItemIdentification', 'cbc:ID'],
-			dest: ['ram:SpecifiedTradeProduct', 'ram:GlobalID'],
-			FXProfile: FX_BASIC,
-		},
-		{
-			type: 'string',
-			src: ['cac:Item', 'cac:StandardItemIdentification', 'cbc:ID@schemeID'],
-			dest: ['ram:SpecifiedTradeProduct', 'ram:GlobalID@schemeID'],
-			FXProfile: FX_BASIC,
-		},
-		{
-			type: 'string',
-			src: ['cac:Item', 'cac:SellersItemIdentification', 'cbc:ID'],
-			dest: ['ram:SpecifiedTradeProduct', 'ram:SellerAssignedID'],
-			FXProfile: FX_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cac:Item', 'cac:BuyersItemIdentification', 'cbc:ID'],
-			dest: ['ram:SpecifiedTradeProduct', 'ram:BuyerAssignedID'],
-			FXProfile: FX_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cac:Item', 'cbc:Name'],
-			dest: ['ram:SpecifiedTradeProduct', 'ram:Name'],
-			FXProfile: FX_BASIC,
-		},
-		{
-			type: 'string',
-			src: ['cac:Item', 'cbc:Description'],
-			dest: ['ram:SpecifiedTradeProduct', 'ram:Description'],
-			FXProfile: FX_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cac:Item', 'cac:AdditionalItemProperty', 'cii:TypeCode'],
-			dest: [
-				'ram:SpecifiedTradeProduct',
-				'ram:ApplicableProductCharacteristic',
-				'ram:TypeCode',
-			],
-			FXProfile: FX_EXTENDED,
-		},
-		{
-			type: 'string',
-			src: ['cac:Item', 'cac:AdditionalItemProperty', 'cbc:Name'],
-			dest: [
-				'ram:SpecifiedTradeProduct',
-				'ram:ApplicableProductCharacteristic',
-				'ram:Description',
-			],
-			FXProfile: FX_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cac:Item', 'cac:AdditionalItemProperty', 'cii:ValueMeasure'],
-			dest: [
-				'ram:SpecifiedTradeProduct',
-				'ram:ApplicableProductCharacteristic',
-				'ram:ValueMeasure',
-			],
-			FXProfile: FX_EXTENDED,
-		},
-		{
-			type: 'string',
-			src: [
-				'cac:Item',
-				'cac:AdditionalItemProperty',
-				'cii:ValueMeasure@unitCode',
-			],
-			dest: [
-				'ram:SpecifiedTradeProduct',
-				'ram:ApplicableProductCharacteristic',
-				'ram:ValueMeasure@unitCode',
-			],
-			FXProfile: FX_EXTENDED,
-		},
-		{
-			type: 'string',
-			src: ['cac:Item', 'cac:AdditionalItemProperty', 'cbc:Value'],
-			dest: [
-				'ram:SpecifiedTradeProduct',
-				'ram:ApplicableProductCharacteristic',
-				'ram:Value',
-			],
-			FXProfile: FX_EN16931,
-		},
+		item,
 	],
 };
 
