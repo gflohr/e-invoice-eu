@@ -329,6 +329,26 @@ const cacInvoiceLineAllowanceCharge: Transformation = {
 	],
 };
 
+const cacDocumentReference: Transformation = {
+	type: 'object',
+	src: ['cac:DocumentReference'],
+	dest: ['ram:AdditionalReferencedDocument'],
+	children: [
+		{
+			type: 'string',
+			src: ['cbc:ID'],
+			dest: ['ram:IssuerAssignedID'],
+			fxProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cbc:DocumentTypeCode'],
+			dest: ['ram:TypeCode'],
+			fxProfile: FX_EN16931,
+		},
+	],
+};
+
 const cacInvoiceLine: Transformation = {
 	type: 'array',
 	src: ['cac:InvoiceLine'],
@@ -400,6 +420,22 @@ const cacInvoiceLine: Transformation = {
 		},
 		...cacInvoiceLinePeriod,
 		cacInvoiceLineAllowanceCharge,
+		{
+			type: 'string',
+			src: ['cbc:LineExtensionAmount'],
+			dest: [
+				'ram:SpecifiedTradeSettlementLineMonetarySummation',
+				'ram:LineTotalAmount',
+			],
+			fxProfile: FX_BASIC,
+		},
+		cacDocumentReference,
+		{
+			type: 'string',
+			src: ['cbc:AccountingCost'],
+			dest: ['ram:ReceivableSpecifiedTradeAccountingAccount', 'ram:ID'],
+			fxProfile: FX_EN16931,
+		},
 	],
 };
 
