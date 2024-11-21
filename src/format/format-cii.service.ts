@@ -439,6 +439,103 @@ const cacInvoiceLine: Transformation = {
 	],
 };
 
+export const cacPostalAddress: Transformation[] = [
+	{
+		type: 'string',
+		src: ['cbc:PostalZone'],
+		dest: ['ram:PostcodeCode'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cbc:StreetName'],
+		dest: ['ram:Line1'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cbc:AdditionalStreetName'],
+		dest: ['ram:Line2'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:AddressLine', 'cbc:Line'],
+		dest: ['ram:Line3'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cbc:CityName'],
+		dest: ['ram:CityName'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:Country', 'cbc:IdentificationCode'],
+		dest: ['ram:CountryID'],
+		fxProfile: FX_MINIMUM,
+	},
+	{
+		type: 'string',
+		src: ['cbc:CountrySubentity'],
+		dest: ['ram:CountrySubdivisionName'],
+		fxProfile: FX_BASIC_WL,
+	},
+];
+
+export const cacParty: Transformation[] = [
+	{
+		type: 'array',
+		src: [],
+		dest: [],
+		children: [
+			{
+				type: 'string',
+				src: ['cac:PartyIdentification', 'cbc:ID'],
+				dest: ['ram:ID'],
+				fxProfile: FX_BASIC_WL,
+			},
+		],
+	},
+	{
+		type: 'string',
+		src: ['cac:PartyLegalEntity', 'cbc:RegistrationName'],
+		dest: ['ram:Name'],
+		fxProfile: FX_MINIMUM,
+	},
+	{
+		type: 'string',
+		src: ['cac:PartyLegalEntity', 'cbc:LegalForm'],
+		dest: ['ram:Description'],
+		fxProfile: FX_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cac:PartyLegalEntity', 'cbc:CompanyID'],
+		dest: ['ram:SpecifiedLegalOrganisation', 'ram:ID'],
+		fxProfile: FX_MINIMUM,
+	},
+	{
+		type: 'string',
+		src: ['cac:PartyLegalEntity', 'cbc:CompanyID@schemeID'],
+		dest: ['ram:SpecifiedLegalOrganisation', 'ram:ID@schemeID'],
+		fxProfile: FX_MINIMUM,
+	},
+	{
+		type: 'string',
+		src: ['cac:PartyName', 'cbc:Name'],
+		dest: ['ram:SpecifiedLegalOrganisation', 'ram:TradingBusinessName'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'object',
+		src: ['cac:PostalAddress'],
+		dest: ['ram:SpecfiedLegalOrganization', 'ram:PostalTradeAddress'],
+		children: cacPostalAddress,
+	},
+];
+
 export const ublInvoice: Transformation = {
 	type: 'object',
 	src: ['ubl:Invoice'],
@@ -498,6 +595,18 @@ export const ublInvoice: Transformation = {
 			fxProfile: FX_BASIC_WL,
 		},
 		cacInvoiceLine,
+		{
+			type: 'string',
+			src: ['cbc:BuyerReference'],
+			dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:BuyerReference'],
+			fxProfile: FX_MINIMUM,
+		},
+		{
+			type: 'object',
+			src: ['cac:AccountingSupplierParty', 'cac:Party'],
+			dest: ['ram:SellerTradeParty'],
+			children: cacParty,
+		},
 	],
 };
 
@@ -520,6 +629,7 @@ export class FormatCIIService
 
 	generate(invoice: Invoice): string {
 		const cii: Node = {};
+
 		this.convert(invoice as unknown as ObjectNode, cii, [ublInvoice]);
 
 		cii['rsm:CrossIndustryInvoice@xmlns:xsi'] =
