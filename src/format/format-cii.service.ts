@@ -484,6 +484,9 @@ export const cacPostalAddress: Transformation[] = [
 	},
 ];
 
+// FIXME! Continue here!
+export const cacPartyTaxScheme: Transformation[] = [];
+
 export const cacParty: Transformation[] = [
 	{
 		type: 'array',
@@ -533,6 +536,24 @@ export const cacParty: Transformation[] = [
 		src: ['cac:PostalAddress'],
 		dest: ['ram:SpecfiedLegalOrganization', 'ram:PostalTradeAddress'],
 		children: cacPostalAddress,
+	},
+	{
+		type: 'string',
+		src: ['cbc:EndpointID'],
+		dest: ['ram:URIUniversalCommunication', 'ram:URIID'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cbc:EndpointID@schemeID'],
+		dest: ['ram:URIUniversalCommunication', 'ram:URIID@schemeID'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'array',
+		src: ['cac:PartyTaxScheme'],
+		dest: ['ram:SpecifiedTaxRegistration'],
+		children: cacPartyTaxScheme,
 	},
 ];
 
