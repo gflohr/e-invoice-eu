@@ -485,7 +485,20 @@ export const cacPostalAddress: Transformation[] = [
 ];
 
 // FIXME! Continue here!
-export const cacPartyTaxScheme: Transformation[] = [];
+export const cacPartyTaxScheme: Transformation[] = [
+	{
+		type: 'string',
+		src: ['cbc:CompanyID'],
+		dest: ['ram:ID'],
+		fxProfile: FX_MINIMUM,
+	},
+	{
+		type: 'string',
+		src: ['cbc:CompanyID@schemeID'],
+		dest: ['ram:ID@schemeID'],
+		fxProfile: FX_MINIMUM,
+	},
+];
 
 export const cacParty: Transformation[] = [
 	{
@@ -628,6 +641,12 @@ export const ublInvoice: Transformation = {
 			dest: ['ram:SellerTradeParty'],
 			children: cacParty,
 		},
+		{
+			type: 'object',
+			src: ['cac:AccountingCustomerParty', 'cac:Party'],
+			dest: ['ram:BuyerTradeParty'],
+			children: cacParty,
+		},
 	],
 };
 
@@ -700,7 +719,15 @@ export class FormatCIIService
 					break;
 				case 'array':
 					childDest[destKey] ??= [];
-					const groups = src[srcKey] as Node[];
+					// cac:AccountingSupplierParty/cac:PartyTaxScheme is an
+					// array of length 0..2 but
+					// cac:AccountingCustomerParty/cac:PartyTaxScheme is *not*
+					// an array but a single optional value.  But we still
+					// want to have a single definition for cac:Party, so
+					// we coerce the single value into an array.
+					const groups = (
+						Array.isArray(src[srcKey]) ? src[srcKey] : [src[srcKey]]
+					) as Node[];
 					for (const group of groups) {
 						const node: Node = {};
 						(childDest[destKey] as Node[]).push(node);
