@@ -484,7 +484,6 @@ export const cacPostalAddress: Transformation[] = [
 	},
 ];
 
-// FIXME! Continue here!
 export const cacPartyTaxScheme: Transformation[] = [
 	{
 		type: 'string',
@@ -570,6 +569,122 @@ export const cacParty: Transformation[] = [
 	},
 ];
 
+export const cacAdditionalDocumentReference: Transformation[] = [
+	{
+		type: 'string',
+		src: ['cbc:ID'],
+		dest: ['udt:IssuerAssignedID'],
+		fxProfile: FX_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cac:Attachment', 'cac:ExternalReference', 'cbc:URI'],
+		dest: ['udt:URIID'],
+		fxProfile: FX_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cbc:DocumentTypeCode'],
+		dest: ['qdt:TypeCode'],
+		fxProfile: FX_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cbc:DocumentDescription'],
+		dest: ['ram:Name'],
+		fxProfile: FX_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cac:Attachment', 'cbc:EmbeddedDocumentBinaryObject'],
+		dest: ['ram:AttachmentBinaryObject'],
+		fxProfile: FX_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cac:Attachment', 'cbc:EmbeddedDocumentBinaryObject@mimeCode'],
+		dest: ['ram:AttachmentBinaryObject@mimeCode'],
+		fxProfile: FX_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cac:Attachment', 'cbc:EmbeddedDocumentBinaryObject@filename'],
+		dest: ['ram:AttachmentBinaryObject@filename'],
+		fxProfile: FX_EN16931,
+	},
+];
+
+export const deliveryAddress: Transformation[] = [
+	{
+		type: 'string',
+		src: ['cbc:PostalZone'],
+		dest: ['ram:PostcodeCode'],
+		fxProfile: FX_EXTENDED,
+	},
+	{
+		type: 'string',
+		src: ['cbc:StreetName'],
+		dest: ['ram:Line1'],
+		fxProfile: FX_EXTENDED,
+	},
+	{
+		type: 'string',
+		src: ['cbc:AdditionalStreetName'],
+		dest: ['ram:Line2'],
+		fxProfile: FX_EXTENDED,
+	},
+	{
+		type: 'string',
+		src: ['cac:AddressLine', 'cbc:Line'],
+		dest: ['ram:Line3'],
+		fxProfile: FX_EXTENDED,
+	},
+	{
+		type: 'string',
+		src: ['cbc:CityName'],
+		dest: ['ram:CityName'],
+		fxProfile: FX_EXTENDED,
+	},
+	{
+		type: 'string',
+		src: ['cac:Country', 'cbc:IdentificationCode'],
+		dest: ['ram:CountryID'],
+		fxProfile: FX_EXTENDED,
+	},
+	{
+		type: 'string',
+		src: ['cbc:CountrySubentity'],
+		dest: ['ram:CountrySubdivisionName'],
+		fxProfile: FX_EXTENDED,
+	},
+	{
+		type: 'string',
+		src: ['cac:Delivery', 'cbc:ActualDeliveryDate'],
+		dest: [
+			'ram:ActualDeliverySupplyChainEvent',
+			'ram:OccurrenceDateTime',
+			'udt:DateTimeString',
+		],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:Delivery', 'cbc:ActualDeliveryDate', 'fixed:102'],
+		dest: [
+			'ram:ActualDeliverySupplyChainEvent',
+			'ram:OccurrenceDateTime',
+			'udt:DateTimeString@format',
+		],
+		fxProfile: FX_MINIMUM,
+	},
+	{
+		type: 'string',
+		src: ['cac:DespatchDocumentReference', 'cbc:ID'],
+		dest: ['ram:DespatchAdviceReferencedDocument', 'ram:IssuerAssignedID'],
+		fxProfile: FX_BASIC_WL,
+	},
+];
+
 export const ublInvoice: Transformation = {
 	type: 'object',
 	src: ['ubl:Invoice'],
@@ -638,26 +753,82 @@ export const ublInvoice: Transformation = {
 		{
 			type: 'object',
 			src: ['cac:AccountingSupplierParty', 'cac:Party'],
-			dest: ['ram:SellerTradeParty'],
+			dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:SellerTradeParty'],
 			children: cacParty,
 		},
 		{
 			type: 'object',
 			src: ['cac:AccountingCustomerParty', 'cac:Party'],
-			dest: ['ram:BuyerTradeParty'],
+			dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:BuyerTradeParty'],
 			children: cacParty,
 		},
 		{
 			type: 'string',
 			src: ['cac:OrderReference', 'cbc:SalesOrderID'],
-			dest: ['ram:SellerOrderReferencedDocument', 'udt:IssuerAssignedID'],
+			dest: [
+				'ram:ApplicableHeaderTradeAgreement',
+				'ram:SellerOrderReferencedDocument',
+				'udt:IssuerAssignedID',
+			],
 			fxProfile: FX_EN16931,
 		},
 		{
 			type: 'string',
 			src: ['cac:OrderReference', 'cbc:ID'],
-			dest: ['ram:BuyerOrderReferencedDocument', 'udt:IssuerAssignedID'],
+			dest: [
+				'ram:ApplicableHeaderTradeAgreement',
+				'ram:BuyerOrderReferencedDocument',
+				'udt:IssuerAssignedID',
+			],
 			fxProfile: FX_EXTENDED,
+		},
+		{
+			type: 'string',
+			src: ['cac:ContractDocumentReference', 'cbc:ID'],
+			dest: [
+				'ram:ApplicableHeaderTradeAgreement',
+				'ram:ContractReferencedDocument',
+				'udt:IssuerAssignedID',
+			],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'object',
+			src: ['cac:AdditionalDocumentReference'],
+			dest: [
+				'ram:ApplicableHeaderTradeAgreement',
+				'ram:AdditionalReferencedDocument',
+			],
+			children: cacAdditionalDocumentReference,
+		},
+		{
+			type: 'string',
+			src: ['cac:ProjectReference', 'cbc:ID'],
+			dest: [
+				'ram:ApplicableHeaderTradeAgreement',
+				'ram:SpecifiedProcuringProject',
+				'ram:ID',
+			],
+			fxProfile: FX_EXTENDED,
+		},
+		// FIXME! This is an array for CII.
+		{
+			type: 'string',
+			src: ['cac:Delivery', 'cac:DeliveryLocation', 'cbc:ID'],
+			dest: ['ram:ShipToTradeParty', 'udt:ID'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cac:Delivery', 'cac:DeliveryParty', 'cac:PartyName', 'cbc:Name'],
+			dest: ['ram:ShipToTradeParty', 'ram:Name'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'object',
+			src: ['cac:Delivery', 'cac:DeliveryLocation', 'cac:Addres'],
+			dest: ['ram:ShipToTradeParty', 'ram:PostalTradeAddress'],
+			children: deliveryAddress,
 		},
 	],
 };
