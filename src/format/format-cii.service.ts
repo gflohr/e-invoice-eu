@@ -647,6 +647,18 @@ export const ublInvoice: Transformation = {
 			dest: ['ram:BuyerTradeParty'],
 			children: cacParty,
 		},
+		{
+			type: 'string',
+			src: ['cac:OrderReference', 'cbc:SalesOrderID'],
+			dest: ['ram:SellerOrderReferencedDocument', 'udt:IssuerAssignedID'],
+			fxProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cac:OrderReference', 'cbc:ID'],
+			dest: ['ram:BuyerOrderReferencedDocument', 'udt:IssuerAssignedID'],
+			fxProfile: FX_EXTENDED,
+		},
 	],
 };
 
