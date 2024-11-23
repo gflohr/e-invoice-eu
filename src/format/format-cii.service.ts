@@ -768,7 +768,7 @@ const cacPaymentMeans: Transformation[] = [
 	},
 ];
 
-export const cacTaxSubTotal: Transformation[] = [
+export const cacTaxSubtotal: Transformation[] = [
 	{
 		type: 'string',
 		src: ['cbc:TaxAmount'],
@@ -890,11 +890,7 @@ export const ublInvoice: Transformation = {
 		},
 		{
 			type: 'object',
-			src: [
-				'rsm:SupplyChainTradeTransaction',
-				'cac:AccountingSupplierParty',
-				'cac:Party',
-			],
+			src: ['cac:AccountingSupplierParty', 'cac:Party'],
 			dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:SellerTradeParty'],
 			children: cacParty,
 		},
@@ -1054,9 +1050,19 @@ export const ublInvoice: Transformation = {
 		},
 		{
 			type: 'array',
-			src: ['cac:TaxTotal', 'cac:TaxSubTotal'],
-			dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:ApplicableTradeTax'],
-			children: cacTaxSubTotal,
+			src: ['cac:TaxTotal'],
+			dest: [],
+			children: [
+				{
+					type: 'array',
+					src: ['cac:TaxSubtotal'],
+					dest: [
+						'ram:ApplicableHeaderTradeSettlement',
+						'ram:ApplicableTradeTax',
+					],
+					children: cacTaxSubtotal,
+				},
+			],
 		},
 	],
 };
@@ -1080,6 +1086,9 @@ export class FormatCIIService
 
 	generate(invoice: Invoice): string {
 		const cii: Node = {};
+
+		invoice['ubl:Invoice']['cac:InvoicePeriod'] ??= {};
+		invoice['ubl:Invoice']['cac:InvoicePeriod']['cbc:DescriptionCode'] = '35';
 
 		this.convert(invoice as unknown as ObjectNode, cii, [ublInvoice]);
 
@@ -1121,15 +1130,25 @@ export class FormatCIIService
 
 			switch (transformation.type) {
 				case 'object':
-					childDest[destKey] ??= {};
-					this.convert(
-						childSrc[srcKey] as ObjectNode,
-						childDest[destKey] as ObjectNode,
-						transformation.children,
-					);
+					if (destKey) {
+						childDest[destKey] ??= {};
+						this.convert(
+							childSrc[srcKey] as ObjectNode,
+							childDest[destKey] as ObjectNode,
+							transformation.children,
+						);
+					} else {
+						this.convert(
+							childSrc[srcKey] as ObjectNode,
+							dest,
+							transformation.children,
+						);
+					}
 					break;
 				case 'array':
-					childDest[destKey] ??= [];
+					if (destKey) {
+						childDest[destKey] ??= [];
+					}
 					// cac:AccountingSupplierParty/cac:PartyTaxScheme is an
 					// array of length 0..2 but
 					// cac:AccountingCustomerParty/cac:PartyTaxScheme is *not*
@@ -1140,9 +1159,13 @@ export class FormatCIIService
 						Array.isArray(src[srcKey]) ? src[srcKey] : [src[srcKey]]
 					) as Node[];
 					for (const group of groups) {
-						const node: Node = {};
-						(childDest[destKey] as Node[]).push(node);
-						this.convert(group as ObjectNode, node, transformation.children);
+						if (destKey) {
+							const node: Node = {};
+							(childDest[destKey] as Node[]).push(node);
+							this.convert(group as ObjectNode, node, transformation.children);
+						} else {
+							this.convert(group as ObjectNode, dest, transformation.children);
+						}
 					}
 					break;
 				case 'string':
