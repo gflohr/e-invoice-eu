@@ -685,6 +685,140 @@ export const deliveryAddress: Transformation[] = [
 	},
 ];
 
+const cacPayeeParty: Transformation[] = [
+	{
+		// FIXME! This is an array for certain CII variants.
+		type: 'string',
+		src: ['cac:PartyIdentification', 'cbc:ID'],
+		dest: ['ram:ID'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:PartyName', 'cbc:Name'],
+		dest: ['ram:Name'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:PartyLegalEntity', 'cbc:CompanyID'],
+		dest: ['ram:SpecifiedLegalOrganization', 'ram:ID'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:PartyLegalEntity', 'cbc:CompanyID@schemeID'],
+		dest: ['ram:SpecifiedLegalOrganization', 'ram:ID@schemeID'],
+		fxProfile: FX_BASIC_WL,
+	},
+];
+
+const cacPaymentMeans: Transformation[] = [
+	{
+		type: 'string',
+		src: ['cbc:PaymentMeansCode'],
+		dest: ['ram:TypeCode'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cbc:PaymentMeansCode@name'],
+		dest: ['ram:Information'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:CardAccount', 'cbc:PrimaryAccountNumberID'],
+		dest: ['ram:ApplicableTradeSettlementFinancialCard', 'ram:ID'],
+		fxProfile: FX_EXTENDED,
+	},
+	{
+		type: 'string',
+		src: ['cac:CardAccount', 'cbc:HolderName'],
+		dest: ['ram:ApplicableTradeSettlementFinancialCard', 'ram:CardHolderName'],
+		fxProfile: FX_EXTENDED,
+	},
+	{
+		type: 'string',
+		src: ['cac:PaymentMandate', 'cac:PayerFinancialAccount', 'cbc:ID'],
+		dest: ['ram:PayerPartyDebtorFinancialAccount', 'ram:IBANID'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:PayeeFinancialAccount', 'cbc:ID'],
+		dest: ['ram:PayeePartyCreditorFinancialAccount', 'ram:IBANID'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:PayeeFinancialAccount', 'cbc:Name'],
+		dest: ['ram:PayeePartyCreditorFinancialAccount', 'ram:AccountName'],
+		fxProfile: FX_EN16931,
+	},
+	{
+		type: 'string',
+		src: [
+			'cac:PayeeFinancialAccount',
+			'cac:FinancialInstitutionBranch',
+			'cbc:ID',
+		],
+		dest: ['ram:PayeeSpecifiedCreditorFinancialInstitution', 'ram:BICID'],
+		fxProfile: FX_EN16931,
+	},
+];
+
+export const cacTaxSubTotal: Transformation[] = [
+	{
+		type: 'string',
+		src: ['cbc:TaxAmount'],
+		dest: ['ram:CalculatedAmount'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:TaxCategory', 'cac:TaxScheme', 'cbc:ID'],
+		dest: ['ram:TypeCode'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:TaxCategory', 'cbc:TaxExemptionReason'],
+		dest: ['ram:ExemptionReason'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:TaxableAmount'],
+		dest: ['ram:BasisAmount'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:TaxCategory', 'cbc:ID'],
+		dest: ['ram:CategoryCode'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:TaxCategory', 'cbc:TaxExemptionReasonCode'],
+		dest: ['ram:ExemptionReasonCode'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['..', '..', 'cac:InvoicePeriod', 'cbc:DescriptionCode'],
+		dest: ['ram:DueDateTypeCode'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:TaxCategory', 'cbc:Percent'],
+		dest: ['ram:RateApplicablePercent'],
+		fxProfile: FX_BASIC_WL,
+	},
+];
+
 export const ublInvoice: Transformation = {
 	type: 'object',
 	src: ['ubl:Invoice'],
@@ -747,25 +881,38 @@ export const ublInvoice: Transformation = {
 		{
 			type: 'string',
 			src: ['cbc:BuyerReference'],
-			dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:BuyerReference'],
+			dest: [
+				'rsm:SupplyChainTradeTransaction',
+				'ram:ApplicableHeaderTradeAgreement',
+				'ram:BuyerReference',
+			],
 			fxProfile: FX_MINIMUM,
 		},
 		{
 			type: 'object',
-			src: ['cac:AccountingSupplierParty', 'cac:Party'],
+			src: [
+				'rsm:SupplyChainTradeTransaction',
+				'cac:AccountingSupplierParty',
+				'cac:Party',
+			],
 			dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:SellerTradeParty'],
 			children: cacParty,
 		},
 		{
 			type: 'object',
 			src: ['cac:AccountingCustomerParty', 'cac:Party'],
-			dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:BuyerTradeParty'],
+			dest: [
+				'rsm:SupplyChainTradeTransaction',
+				'ram:ApplicableHeaderTradeAgreement',
+				'ram:BuyerTradeParty',
+			],
 			children: cacParty,
 		},
 		{
 			type: 'string',
 			src: ['cac:OrderReference', 'cbc:SalesOrderID'],
 			dest: [
+				'rsm:SupplyChainTradeTransaction',
 				'ram:ApplicableHeaderTradeAgreement',
 				'ram:SellerOrderReferencedDocument',
 				'udt:IssuerAssignedID',
@@ -776,6 +923,7 @@ export const ublInvoice: Transformation = {
 			type: 'string',
 			src: ['cac:OrderReference', 'cbc:ID'],
 			dest: [
+				'rsm:SupplyChainTradeTransaction',
 				'ram:ApplicableHeaderTradeAgreement',
 				'ram:BuyerOrderReferencedDocument',
 				'udt:IssuerAssignedID',
@@ -786,6 +934,7 @@ export const ublInvoice: Transformation = {
 			type: 'string',
 			src: ['cac:ContractDocumentReference', 'cbc:ID'],
 			dest: [
+				'rsm:SupplyChainTradeTransaction',
 				'ram:ApplicableHeaderTradeAgreement',
 				'ram:ContractReferencedDocument',
 				'udt:IssuerAssignedID',
@@ -796,6 +945,7 @@ export const ublInvoice: Transformation = {
 			type: 'object',
 			src: ['cac:AdditionalDocumentReference'],
 			dest: [
+				'rsm:SupplyChainTradeTransaction',
 				'ram:ApplicableHeaderTradeAgreement',
 				'ram:AdditionalReferencedDocument',
 			],
@@ -805,6 +955,7 @@ export const ublInvoice: Transformation = {
 			type: 'string',
 			src: ['cac:ProjectReference', 'cbc:ID'],
 			dest: [
+				'rsm:SupplyChainTradeTransaction',
 				'ram:ApplicableHeaderTradeAgreement',
 				'ram:SpecifiedProcuringProject',
 				'ram:ID',
@@ -815,20 +966,97 @@ export const ublInvoice: Transformation = {
 		{
 			type: 'string',
 			src: ['cac:Delivery', 'cac:DeliveryLocation', 'cbc:ID'],
-			dest: ['ram:ShipToTradeParty', 'udt:ID'],
+			dest: [
+				'rsm:SupplyChainTradeTransaction',
+				'ram:ShipToTradeParty',
+				'udt:ID',
+			],
 			fxProfile: FX_BASIC_WL,
 		},
 		{
 			type: 'string',
 			src: ['cac:Delivery', 'cac:DeliveryParty', 'cac:PartyName', 'cbc:Name'],
-			dest: ['ram:ShipToTradeParty', 'ram:Name'],
+			dest: [
+				'rsm:SupplyChainTradeTransaction',
+				'ram:ShipToTradeParty',
+				'ram:Name',
+			],
 			fxProfile: FX_BASIC_WL,
 		},
 		{
 			type: 'object',
 			src: ['cac:Delivery', 'cac:DeliveryLocation', 'cac:Addres'],
-			dest: ['ram:ShipToTradeParty', 'ram:PostalTradeAddress'],
+			dest: [
+				'rsm:SupplyChainTradeTransaction',
+				'ram:ShipToTradeParty',
+				'ram:PostalTradeAddress',
+			],
 			children: deliveryAddress,
+		},
+		{
+			type: 'string',
+			src: ['cac:DespatchDocumentReference', 'cbc:ID'],
+			dest: [
+				'rsm:SupplyChainTradeTransaction',
+				'ram:DespatchAdviceReferencedDocument ',
+				'ram:IssuerAssignedID',
+			],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cac:ReceiptDocumentReference', 'cbc:ID'],
+			dest: [
+				'rsm:SupplyChainTradeTransaction',
+				'ram:ReceivingAdviceReferencedDocument ',
+				'ram:IssuerAssignedID',
+			],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cac:PayeeParty', 'cac:PartyIdentification', 'cbc:ID'],
+			dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:CreditorReferenceID'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cac:PaymentMeans', 'cbc:PaymentID'],
+			dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:PaymentReference'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cbc:TaxCurrencyCode'],
+			dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:TaxCurrencyCode'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cbc:DocumentCurrencyCode'],
+			dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:InvoiceCurrencyCode'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'object',
+			src: ['cac:PayeeParty'],
+			dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:PayeeTradeParty'],
+			children: cacPayeeParty,
+		},
+		{
+			type: 'array',
+			src: ['cac:PaymentMeans'],
+			dest: [
+				'ram:ApplicableHeaderTradeSettlement',
+				'ram:SpecifiedTradeSettlementPaymentMeans',
+			],
+			children: cacPaymentMeans,
+		},
+		{
+			type: 'array',
+			src: ['cac:TaxTotal', 'cac:TaxSubTotal'],
+			dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:ApplicableTradeTax'],
+			children: cacTaxSubTotal,
 		},
 	],
 };
