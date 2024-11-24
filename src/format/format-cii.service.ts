@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import * as jsonpath from 'jsonpath-plus';
 
 import { FormatUBLService } from './format-ubl.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { Invoice } from '../invoice/invoice.interface';
+
 
 // This is what we are looking at while traversing the input tree:
 export type Node = { [key: string]: Node } | Node[] | string;
@@ -393,7 +395,7 @@ const cacInvoiceLine: Transformation = {
 			src: ['cac:Item', 'cac:ClassifiedTaxCategory', 'cac:TaxScheme', 'cbc:ID'],
 			dest: [
 				'ram:SpecifiedLineTradeSettlement',
-				'ApplicableTradeTax',
+				'ram:ApplicableTradeTax',
 				'ram:TypeCode',
 			],
 			fxProfile: FX_BASIC,
@@ -403,7 +405,7 @@ const cacInvoiceLine: Transformation = {
 			src: ['cac:Item', 'cac:ClassifiedTaxCategory', 'cbc:ID'],
 			dest: [
 				'ram:SpecifiedLineTradeSettlement',
-				'ApplicableTradeTax',
+				'ram:ApplicableTradeTax',
 				'ram:CategoryCode',
 			],
 			fxProfile: FX_BASIC,
@@ -413,7 +415,7 @@ const cacInvoiceLine: Transformation = {
 			src: ['cac:Item', 'cac:ClassifiedTaxCategory', 'cbc:Percent'],
 			dest: [
 				'ram:SpecifiedLineTradeSettlement',
-				'ApplicableTradeTax',
+				'ram:ApplicableTradeTax',
 				'ram:RateApplicablePercent',
 			],
 			fxProfile: FX_BASIC,
@@ -1085,12 +1087,13 @@ export class FormatCIIService
 	}
 
 	generate(invoice: Invoice): string {
-		const cii: Node = {};
-
+		// FIXME! Remove this!
 		invoice['ubl:Invoice']['cac:InvoicePeriod'] ??= {};
 		invoice['ubl:Invoice']['cac:InvoicePeriod']['cbc:DescriptionCode'] = '35';
 
-		this.convert(invoice as unknown as ObjectNode, cii, [ublInvoice]);
+		const cii: ObjectNode = {};
+
+		this.convert(invoice, '$', cii, '$', [ublInvoice]);
 
 		cii['rsm:CrossIndustryInvoice@xmlns:xsi'] =
 			'http://www.w3.org/2001/XMLSchema-instance';
@@ -1115,40 +1118,40 @@ export class FormatCIIService
 	}
 
 	private convert(
-		src: ObjectNode,
+		invoice: Invoice,
+		srcPath: string,
 		dest: ObjectNode,
+		destPath: string,
 		transformations: Transformation[],
 	) {
 		for (const transformation of transformations) {
-			const childSrc = this.resolveSrc(src, transformation.src);
-			if (!childSrc) continue;
-			const srcKey = transformation.src[transformation.src.length - 1];
-			if (!(srcKey in childSrc)) continue;
+			// FIXME! If the source node is a fixed node, we have to apply
+			// the fixed value instead!
+			// if (transformation.src[-1].match(/^fixed:/)) ...
+			const lastKey = transformation.src[transformation.src.length - 1];
+			let src: any;
+			let childSrcPath: string;
+			if (transformation.src.length && lastKey.startsWith('fixed:')) {
+				src = lastKey.substring(6);
+				childSrcPath = srcPath;
+			} else {
+				childSrcPath = this.applySubPaths(srcPath, transformation.src);
+				const srcs = jsonpath.JSONPath({ path: childSrcPath, json: invoice });
+				if (srcs.length === 0) {
+					continue;
+				} else if (srcs.length !== 1) {
+					throw new Error(`ambiguous JSONPath expression '${childSrcPath}'`);
+				}
+				src = srcs[0];
+			}
 
-			const childDest = this.resolveDest(dest, transformation.dest);
-			const destKey = transformation.dest[transformation.dest.length - 1];
+			const childDestPath = this.applySubPaths(destPath, transformation.dest);
 
-			switch (transformation.type) {
+			switch(transformation.type) {
 				case 'object':
-					if (destKey) {
-						childDest[destKey] ??= {};
-						this.convert(
-							childSrc[srcKey] as ObjectNode,
-							childDest[destKey] as ObjectNode,
-							transformation.children,
-						);
-					} else {
-						this.convert(
-							childSrc[srcKey] as ObjectNode,
-							dest,
-							transformation.children,
-						);
-					}
+					this.convert(invoice, childSrcPath, dest, childDestPath, transformation.children);
 					break;
 				case 'array':
-					if (destKey) {
-						childDest[destKey] ??= [];
-					}
 					// cac:AccountingSupplierParty/cac:PartyTaxScheme is an
 					// array of length 0..2 but
 					// cac:AccountingCustomerParty/cac:PartyTaxScheme is *not*
@@ -1156,30 +1159,56 @@ export class FormatCIIService
 					// want to have a single definition for cac:Party, so
 					// we coerce the single value into an array.
 					const groups = (
-						Array.isArray(src[srcKey]) ? src[srcKey] : [src[srcKey]]
+						Array.isArray(src) ? src : [src]
 					) as Node[];
-					for (const group of groups) {
-						if (destKey) {
-							const node: Node = {};
-							(childDest[destKey] as Node[]).push(node);
-							this.convert(group as ObjectNode, node, transformation.children);
-						} else {
-							this.convert(group as ObjectNode, dest, transformation.children);
-						}
+					for (let i = 0; i < groups.length; ++i) {
+						const arraySrcPath = `${childSrcPath}[${i}]`;
+						const arrayDestPath = transformation.dest.length ? `${childDestPath}[${i}]` : childDestPath;
+						this.convert(invoice, arraySrcPath, dest, arrayDestPath, transformation.children);
 					}
 					break;
 				case 'string':
-					if (srcKey in childSrc) {
-						childDest[destKey] = this.renderValue(
-							childSrc[srcKey] as string,
-							transformation,
-						);
-					}
-					break;
-				default:
+					this.vivifyDest(dest, childDestPath, this.renderValue(src, transformation));
+
 					break;
 			}
 		}
+	}
+
+	private applySubPaths(path: string, subPaths: string[]) {
+		for (const subPath of subPaths) {
+			if (subPath === '..') {
+				path = path.replace(/[[.][^[.]+$/, '');
+			} else {
+				path += `.${subPath}`;
+			}
+		}
+		return path;
+	}
+
+	private vivifyDest(dest: ObjectNode, path: string, value: string) {
+		const indices = path.replace(/\[([0-9]+)\]/g, '.$1').split('.');
+
+		if (indices[0] === '$') {
+			indices.shift();
+		}
+
+		for (let i = 0; i < indices.length - 1; ++i) {
+			const key = indices[i];
+			const nextIndex = indices[i + 1];
+
+			const isNextArrayIndex = nextIndex.match(/^[0-9]+$/);
+
+			if (isNextArrayIndex) {
+				dest[key] ??= [];
+			} else {
+				dest[key] ??= {};
+			}
+
+			dest = dest[key] as ObjectNode;
+		}
+
+		dest[indices[indices.length - 1]] = value;
 	}
 
 	private renderValue(value: string, transformation: Transformation): string {
@@ -1188,42 +1217,5 @@ export class FormatCIIService
 		} else {
 			return value;
 		}
-	}
-
-	private resolveSrc(ptr: ObjectNode, keys: string[]): ObjectNode | undefined {
-		if (keys.length) {
-			for (let i = 0; i < keys.length - 1; ++i) {
-				const key = keys[i];
-
-				if (key in ptr) {
-					ptr = ptr[key] as ObjectNode;
-				} else {
-					return undefined;
-				}
-			}
-
-			if (keys[keys.length - 1].startsWith('fixed:')) {
-				const key = keys[keys.length - 1];
-				return { [key]: key.substring(6) };
-			}
-		}
-
-		return ptr;
-	}
-
-	private resolveDest(ptr: ObjectNode, keys: string[]) {
-		if (keys.length) {
-			for (let i = 0; i < keys.length - 1; ++i) {
-				const key = keys[i];
-				if (key in ptr) {
-					ptr = ptr[key] as ObjectNode;
-				} else {
-					ptr[key] = {};
-					ptr = ptr[key];
-				}
-			}
-		}
-
-		return ptr;
 	}
 }
