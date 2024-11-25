@@ -234,7 +234,11 @@ const cacPrice: Transformation = {
 		{
 			type: 'string',
 			src: ['cbc:PriceAmount'],
-			dest: ['ram:NetPriceProductTradePrice', 'ram:ChargeAmount'],
+			dest: [
+				'ram:SpecifiedLineTradeAgreement',
+				'ram:NetPriceProductTradePrice',
+				'ram:ChargeAmount',
+			],
 			fxProfile: FX_EN16931,
 		},
 	],
@@ -354,10 +358,7 @@ const cacDocumentReference: Transformation = {
 const cacInvoiceLine: Transformation = {
 	type: 'array',
 	src: ['cac:InvoiceLine'],
-	dest: [
-		'rsm:SupplyChainTradeTransaction',
-		'ram:IncludedSupplyChainTradeLineItem',
-	],
+	dest: ['ram:IncludedSupplyChainTradeLineItem'],
 	children: [
 		{
 			type: 'string',
@@ -426,6 +427,7 @@ const cacInvoiceLine: Transformation = {
 			type: 'string',
 			src: ['cbc:LineExtensionAmount'],
 			dest: [
+				'ram:SpecifiedLineTradeSettlement',
 				'ram:SpecifiedTradeSettlementLineMonetarySummation',
 				'ram:LineTotalAmount',
 			],
@@ -451,19 +453,19 @@ export const cacPostalAddress: Transformation[] = [
 	{
 		type: 'string',
 		src: ['cbc:StreetName'],
-		dest: ['ram:Line1'],
+		dest: ['ram:LineOne'],
 		fxProfile: FX_BASIC_WL,
 	},
 	{
 		type: 'string',
 		src: ['cbc:AdditionalStreetName'],
-		dest: ['ram:Line2'],
+		dest: ['ram:LineTwo'],
 		fxProfile: FX_BASIC_WL,
 	},
 	{
 		type: 'string',
 		src: ['cac:AddressLine', 'cbc:Line'],
-		dest: ['ram:Line3'],
+		dest: ['ram:LineThree'],
 		fxProfile: FX_BASIC_WL,
 	},
 	{
@@ -530,25 +532,25 @@ export const cacParty: Transformation[] = [
 	{
 		type: 'string',
 		src: ['cac:PartyLegalEntity', 'cbc:CompanyID'],
-		dest: ['ram:SpecifiedLegalOrganisation', 'ram:ID'],
+		dest: ['ram:SpecifiedLegalOrganization', 'ram:ID'],
 		fxProfile: FX_MINIMUM,
 	},
 	{
 		type: 'string',
 		src: ['cac:PartyLegalEntity', 'cbc:CompanyID@schemeID'],
-		dest: ['ram:SpecifiedLegalOrganisation', 'ram:ID@schemeID'],
+		dest: ['ram:SpecifiedLegalOrganization', 'ram:ID@schemeID'],
 		fxProfile: FX_MINIMUM,
 	},
 	{
 		type: 'string',
 		src: ['cac:PartyName', 'cbc:Name'],
-		dest: ['ram:SpecifiedLegalOrganisation', 'ram:TradingBusinessName'],
+		dest: ['ram:SpecifiedLegalOrganization', 'ram:TradingBusinessName'],
 		fxProfile: FX_BASIC_WL,
 	},
 	{
 		type: 'object',
 		src: ['cac:PostalAddress'],
-		dest: ['ram:SpecfiedLegalOrganization', 'ram:PostalTradeAddress'],
+		dest: ['ram:PostalTradeAddress'],
 		children: cacPostalAddress,
 	},
 	{
@@ -575,7 +577,7 @@ export const cacAdditionalDocumentReference: Transformation[] = [
 	{
 		type: 'string',
 		src: ['cbc:ID'],
-		dest: ['udt:IssuerAssignedID'],
+		dest: ['ram:IssuerAssignedID'],
 		fxProfile: FX_EN16931,
 	},
 	{
@@ -626,19 +628,19 @@ export const deliveryAddress: Transformation[] = [
 	{
 		type: 'string',
 		src: ['cbc:StreetName'],
-		dest: ['ram:Line1'],
+		dest: ['ram:LineOne'],
 		fxProfile: FX_EXTENDED,
 	},
 	{
 		type: 'string',
 		src: ['cbc:AdditionalStreetName'],
-		dest: ['ram:Line2'],
+		dest: ['ram:LineTwo'],
 		fxProfile: FX_EXTENDED,
 	},
 	{
 		type: 'string',
 		src: ['cac:AddressLine', 'cbc:Line'],
-		dest: ['ram:Line3'],
+		dest: ['ram:LineThree'],
 		fxProfile: FX_EXTENDED,
 	},
 	{
@@ -1075,272 +1077,275 @@ export const ublInvoice: Transformation = {
 			dest: ['rsm:ExchangedDocument', 'ram:IncludedNote', 'ram:Content'],
 			fxProfile: FX_BASIC_WL,
 		},
-		cacInvoiceLine,
-		{
-			type: 'string',
-			src: ['cbc:BuyerReference'],
-			dest: [
-				'rsm:SupplyChainTradeTransaction',
-				'ram:ApplicableHeaderTradeAgreement',
-				'ram:BuyerReference',
-			],
-			fxProfile: FX_MINIMUM,
-		},
 		{
 			type: 'object',
-			src: ['cac:AccountingSupplierParty', 'cac:Party'],
-			dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:SellerTradeParty'],
-			children: cacParty,
-		},
-		{
-			type: 'object',
-			src: ['cac:AccountingCustomerParty', 'cac:Party'],
-			dest: [
-				'rsm:SupplyChainTradeTransaction',
-				'ram:ApplicableHeaderTradeAgreement',
-				'ram:BuyerTradeParty',
-			],
-			children: cacParty,
-		},
-		{
-			type: 'string',
-			src: ['cac:OrderReference', 'cbc:SalesOrderID'],
-			dest: [
-				'rsm:SupplyChainTradeTransaction',
-				'ram:ApplicableHeaderTradeAgreement',
-				'ram:SellerOrderReferencedDocument',
-				'udt:IssuerAssignedID',
-			],
-			fxProfile: FX_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cac:OrderReference', 'cbc:ID'],
-			dest: [
-				'rsm:SupplyChainTradeTransaction',
-				'ram:ApplicableHeaderTradeAgreement',
-				'ram:BuyerOrderReferencedDocument',
-				'udt:IssuerAssignedID',
-			],
-			fxProfile: FX_EXTENDED,
-		},
-		{
-			type: 'string',
-			src: ['cac:ContractDocumentReference', 'cbc:ID'],
-			dest: [
-				'rsm:SupplyChainTradeTransaction',
-				'ram:ApplicableHeaderTradeAgreement',
-				'ram:ContractReferencedDocument',
-				'udt:IssuerAssignedID',
-			],
-			fxProfile: FX_BASIC_WL,
-		},
-		{
-			type: 'object',
-			src: ['cac:AdditionalDocumentReference'],
-			dest: [
-				'rsm:SupplyChainTradeTransaction',
-				'ram:ApplicableHeaderTradeAgreement',
-				'ram:AdditionalReferencedDocument',
-			],
-			children: cacAdditionalDocumentReference,
-		},
-		{
-			type: 'string',
-			src: ['cac:ProjectReference', 'cbc:ID'],
-			dest: [
-				'rsm:SupplyChainTradeTransaction',
-				'ram:ApplicableHeaderTradeAgreement',
-				'ram:SpecifiedProcuringProject',
-				'ram:ID',
-			],
-			fxProfile: FX_EXTENDED,
-		},
-		// FIXME! This is an array for CII.
-		{
-			type: 'string',
-			src: ['cac:Delivery', 'cac:DeliveryLocation', 'cbc:ID'],
-			dest: [
-				'rsm:SupplyChainTradeTransaction',
-				'ram:ShipToTradeParty',
-				'udt:ID',
-			],
-			fxProfile: FX_BASIC_WL,
-		},
-		{
-			type: 'string',
-			src: ['cac:Delivery', 'cac:DeliveryParty', 'cac:PartyName', 'cbc:Name'],
-			dest: [
-				'rsm:SupplyChainTradeTransaction',
-				'ram:ShipToTradeParty',
-				'ram:Name',
-			],
-			fxProfile: FX_BASIC_WL,
-		},
-		{
-			type: 'object',
-			src: ['cac:Delivery', 'cac:DeliveryLocation', 'cac:Addres'],
-			dest: [
-				'rsm:SupplyChainTradeTransaction',
-				'ram:ShipToTradeParty',
-				'ram:PostalTradeAddress',
-			],
-			children: deliveryAddress,
-		},
-		{
-			type: 'string',
-			src: ['cac:DespatchDocumentReference', 'cbc:ID'],
-			dest: [
-				'rsm:SupplyChainTradeTransaction',
-				'ram:DespatchAdviceReferencedDocument ',
-				'ram:IssuerAssignedID',
-			],
-			fxProfile: FX_BASIC_WL,
-		},
-		{
-			type: 'string',
-			src: ['cac:ReceiptDocumentReference', 'cbc:ID'],
-			dest: [
-				'rsm:SupplyChainTradeTransaction',
-				'ram:ReceivingAdviceReferencedDocument ',
-				'ram:IssuerAssignedID',
-			],
-			fxProfile: FX_BASIC_WL,
-		},
-		{
-			type: 'string',
-			src: ['cac:PayeeParty', 'cac:PartyIdentification', 'cbc:ID'],
-			dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:CreditorReferenceID'],
-			fxProfile: FX_BASIC_WL,
-		},
-		{
-			type: 'string',
-			src: ['cac:PaymentMeans', 'cbc:PaymentID'],
-			dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:PaymentReference'],
-			fxProfile: FX_BASIC_WL,
-		},
-		{
-			type: 'string',
-			src: ['cbc:TaxCurrencyCode'],
-			dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:TaxCurrencyCode'],
-			fxProfile: FX_BASIC_WL,
-		},
-		{
-			type: 'string',
-			src: ['cbc:DocumentCurrencyCode'],
-			dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:InvoiceCurrencyCode'],
-			fxProfile: FX_BASIC_WL,
-		},
-		{
-			type: 'object',
-			src: ['cac:PayeeParty'],
-			dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:PayeeTradeParty'],
-			children: cacPayeeParty,
-		},
-		{
-			type: 'array',
-			src: ['cac:PaymentMeans'],
-			dest: [
-				'ram:ApplicableHeaderTradeSettlement',
-				'ram:SpecifiedTradeSettlementPaymentMeans',
-			],
-			children: cacPaymentMeans,
-		},
-		{
-			type: 'array',
-			src: ['cac:TaxTotal'],
-			dest: [],
+			src: [],
+			dest: ['rsm:SupplyChainTradeTransaction'],
 			children: [
+				cacInvoiceLine,
 				{
-					type: 'array',
-					src: ['cac:TaxSubtotal'],
+					type: 'string',
+					src: ['cbc:BuyerReference'],
+					dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:BuyerReference'],
+					fxProfile: FX_MINIMUM,
+				},
+				{
+					type: 'object',
+					src: ['cac:AccountingSupplierParty', 'cac:Party'],
+					dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:SellerTradeParty'],
+					children: cacParty,
+				},
+				{
+					type: 'object',
+					src: ['cac:AccountingCustomerParty', 'cac:Party'],
+					dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:BuyerTradeParty'],
+					children: cacParty,
+				},
+				{
+					type: 'string',
+					src: ['cac:OrderReference', 'cbc:SalesOrderID'],
+					dest: [
+						'ram:ApplicableHeaderTradeAgreement',
+						'ram:SellerOrderReferencedDocument',
+						'ram:IssuerAssignedID',
+					],
+					fxProfile: FX_EN16931,
+				},
+				{
+					type: 'string',
+					src: ['cac:OrderReference', 'cbc:ID'],
+					dest: [
+						'ram:ApplicableHeaderTradeAgreement',
+						'ram:BuyerOrderReferencedDocument',
+						'ram:IssuerAssignedID',
+					],
+					fxProfile: FX_EXTENDED,
+				},
+				{
+					type: 'string',
+					src: ['cac:ContractDocumentReference', 'cbc:ID'],
+					dest: [
+						'ram:ApplicableHeaderTradeAgreement',
+						'ram:ContractReferencedDocument',
+						'ram:IssuerAssignedID',
+					],
+					fxProfile: FX_BASIC_WL,
+				},
+				{
+					type: 'object',
+					src: ['cac:AdditionalDocumentReference'],
+					dest: [
+						'ram:ApplicableHeaderTradeAgreement',
+						'ram:AdditionalReferencedDocument',
+					],
+					children: cacAdditionalDocumentReference,
+				},
+				{
+					type: 'string',
+					src: ['cac:ProjectReference', 'cbc:ID'],
+					dest: [
+						'ram:ApplicableHeaderTradeAgreement',
+						'ram:SpecifiedProcuringProject',
+						'ram:ID',
+					],
+					fxProfile: FX_EXTENDED,
+				},
+				// FIXME! This is an array for CII.
+				{
+					type: 'string',
+					src: ['cac:Delivery', 'cac:DeliveryLocation', 'cbc:ID'],
+					dest: [
+						'ram:ApplicableHeaderTradeDelivery',
+						'ram:ShipToTradeParty',
+						'udt:ID',
+					],
+					fxProfile: FX_BASIC_WL,
+				},
+				{
+					type: 'string',
+					src: [
+						'cac:Delivery',
+						'cac:DeliveryParty',
+						'cac:PartyName',
+						'cbc:Name',
+					],
+					dest: [
+						'ram:ApplicableHeaderTradeDelivery',
+						'ram:ShipToTradeParty',
+						'ram:Name',
+					],
+					fxProfile: FX_BASIC_WL,
+				},
+				{
+					type: 'object',
+					src: ['cac:Delivery', 'cac:DeliveryLocation', 'cac:Addres'],
+					dest: [
+						'ram:ApplicableHeaderTradeDelivery',
+						'ram:ShipToTradeParty',
+						'ram:PostalTradeAddress',
+					],
+					children: deliveryAddress,
+				},
+				{
+					type: 'string',
+					src: ['cac:DespatchDocumentReference', 'cbc:ID'],
+					dest: [
+						'ram:DespatchAdviceReferencedDocument ',
+						'ram:IssuerAssignedID',
+					],
+					fxProfile: FX_BASIC_WL,
+				},
+				{
+					type: 'string',
+					src: ['cac:ReceiptDocumentReference', 'cbc:ID'],
+					dest: [
+						'ram:ReceivingAdviceReferencedDocument ',
+						'ram:IssuerAssignedID',
+					],
+					fxProfile: FX_BASIC_WL,
+				},
+				{
+					type: 'string',
+					src: ['cac:PayeeParty', 'cac:PartyIdentification', 'cbc:ID'],
 					dest: [
 						'ram:ApplicableHeaderTradeSettlement',
-						'ram:ApplicableTradeTax',
+						'ram:CreditorReferenceID',
 					],
-					children: cacTaxSubtotal,
-				},
-			],
-		},
-		cacInvoicePeriod,
-		cacAllowanceCharge,
-		{
-			type: 'string',
-			src: ['cac:PaymentTerms', 'cbc:Note'],
-			dest: [
-				'ram:ApplicableHeaderTradeSettlement',
-				'ram:SpecifiedTradePaymentTerms',
-				'ram:Description',
-			],
-			fxProfile: FX_EN16931,
-		},
-		{
-			type: 'string',
-			subtype: 'DateTimeString',
-			src: ['cbc:DueDate'],
-			dest: [
-				'ram:ApplicableHeaderTradeSettlement',
-				'ram:SpecifiedTradePaymentTerms',
-				'ram:DueDateTime',
-				'udt:DateTimeString',
-			],
-			fxProfile: FX_BASIC_WL,
-		},
-		{
-			type: 'string',
-			src: ['cbc:DueDate', 'fixed:102'],
-			dest: [
-				'ram:ApplicableHeaderTradeSettlement',
-				'ram:SpecifiedTradePaymentTerms',
-				'ram:DueDateTime',
-				'udt:DateTimeString@format',
-			],
-			fxProfile: FX_BASIC_WL,
-		},
-		{
-			type: 'string',
-			src: ['cac:PaymentMeans', 'cac:PaymentMandate', 'cbc:ID'],
-			dest: [
-				'ram:ApplicableHeaderTradeSettlement',
-				'ram:SpecifiedTradePaymentTerms',
-				'ram:DirectDebitMandateID',
-			],
-			fxProfile: FX_BASIC_WL,
-		},
-		cacLegalMonetaryTotal,
-		{
-			type: 'array',
-			src: ['cac:BillingReference'],
-			dest: [
-				'ram:ApplicableHeaderTradeSettlement',
-				'ram:InvoiceReferencedDocument',
-			],
-			children: [
-				{
-					type: 'string',
-					src: ['cbc:ID'],
-					dest: ['ram:IssuerAssignedID'],
 					fxProfile: FX_BASIC_WL,
 				},
 				{
 					type: 'string',
-					src: ['cbc:IssueDate'],
-					dest: ['ram:FormattedIssueDateTime', 'udt:DateTimeString'],
+					src: ['cac:PaymentMeans', 'cbc:PaymentID'],
+					dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:PaymentReference'],
 					fxProfile: FX_BASIC_WL,
 				},
 				{
 					type: 'string',
-					src: ['cbc:IssueDate', 'fixed:102'],
-					dest: ['ram:FormattedIssueDateTime', 'udt:DateTimeString@format'],
+					src: ['cbc:TaxCurrencyCode'],
+					dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:TaxCurrencyCode'],
+					fxProfile: FX_BASIC_WL,
+				},
+				{
+					type: 'string',
+					src: ['cbc:DocumentCurrencyCode'],
+					dest: [
+						'ram:ApplicableHeaderTradeSettlement',
+						'ram:InvoiceCurrencyCode',
+					],
+					fxProfile: FX_BASIC_WL,
+				},
+				{
+					type: 'object',
+					src: ['cac:PayeeParty'],
+					dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:PayeeTradeParty'],
+					children: cacPayeeParty,
+				},
+				{
+					type: 'array',
+					src: ['cac:PaymentMeans'],
+					dest: [
+						'ram:ApplicableHeaderTradeSettlement',
+						'ram:SpecifiedTradeSettlementPaymentMeans',
+					],
+					children: cacPaymentMeans,
+				},
+				{
+					type: 'array',
+					src: ['cac:TaxTotal'],
+					dest: [],
+					children: [
+						{
+							type: 'array',
+							src: ['cac:TaxSubtotal'],
+							dest: [
+								'ram:ApplicableHeaderTradeSettlement',
+								'ram:ApplicableTradeTax',
+							],
+							children: cacTaxSubtotal,
+						},
+					],
+				},
+				cacInvoicePeriod,
+				cacAllowanceCharge,
+				{
+					type: 'string',
+					src: ['cac:PaymentTerms', 'cbc:Note'],
+					dest: [
+						'ram:ApplicableHeaderTradeSettlement',
+						'ram:SpecifiedTradePaymentTerms',
+						'ram:Description',
+					],
+					fxProfile: FX_EN16931,
+				},
+				{
+					type: 'string',
+					subtype: 'DateTimeString',
+					src: ['cbc:DueDate'],
+					dest: [
+						'ram:ApplicableHeaderTradeSettlement',
+						'ram:SpecifiedTradePaymentTerms',
+						'ram:DueDateDateTime',
+						'udt:DateTimeString',
+					],
+					fxProfile: FX_BASIC_WL,
+				},
+				{
+					type: 'string',
+					src: ['cbc:DueDate', 'fixed:102'],
+					dest: [
+						'ram:ApplicableHeaderTradeSettlement',
+						'ram:SpecifiedTradePaymentTerms',
+						'ram:DueDateDateTime',
+						'udt:DateTimeString@format',
+					],
+					fxProfile: FX_BASIC_WL,
+				},
+				{
+					type: 'string',
+					src: ['cac:PaymentMeans', 'cac:PaymentMandate', 'cbc:ID'],
+					dest: [
+						'ram:ApplicableHeaderTradeSettlement',
+						'ram:SpecifiedTradePaymentTerms',
+						'ram:DirectDebitMandateID',
+					],
+					fxProfile: FX_BASIC_WL,
+				},
+				cacLegalMonetaryTotal,
+				{
+					type: 'array',
+					src: ['cac:BillingReference'],
+					dest: [
+						'ram:ApplicableHeaderTradeSettlement',
+						'ram:InvoiceReferencedDocument',
+					],
+					children: [
+						{
+							type: 'string',
+							src: ['cbc:ID'],
+							dest: ['ram:IssuerAssignedID'],
+							fxProfile: FX_BASIC_WL,
+						},
+						{
+							type: 'string',
+							src: ['cbc:IssueDate'],
+							dest: ['ram:FormattedIssueDateTime', 'udt:DateTimeString'],
+							fxProfile: FX_BASIC_WL,
+						},
+						{
+							type: 'string',
+							src: ['cbc:IssueDate', 'fixed:102'],
+							dest: ['ram:FormattedIssueDateTime', 'udt:DateTimeString@format'],
+							fxProfile: FX_BASIC_WL,
+						},
+					],
+				},
+				{
+					type: 'string',
+					src: ['cbc:AccountingCost'],
+					dest: ['ram:ReceivableSpecifiedTradeAccountingAccount', 'ram:ID'],
 					fxProfile: FX_BASIC_WL,
 				},
 			],
-		},
-		{
-			type: 'string',
-			src: ['cbc:AccountingCost'],
-			dest: ['ram:ReceivableSpecifiedTradeAccountingAccount', 'ram:ID'],
-			fxProfile: FX_BASIC_WL,
 		},
 	],
 };
