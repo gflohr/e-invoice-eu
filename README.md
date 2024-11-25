@@ -16,12 +16,14 @@ formats or JSON.
     - [List Supported Formats](#list-supported-formats)
     - [Transform Data from Spreadsheet](#transform-data-from-spreadsheet)
     - [Create an Invoice from a Spreadsheet](#create-an-invoice-from-a-spreadsheet)
+    - [Full-Fledged Examples with Additional Attachments](#full-fledged-examples-with-additional-attachments)
   - [Data Structure](#data-structure)
   - [Mapping Syntax](#mapping-syntax)
   - [Frequently Asked Questions](#frequently-asked-questions)
     - [Why are no Numbers Used in the JSON Schema?](#why-are-no-numbers-used-in-the-json-schema)
     - [What Does the Warning 'ODS number format may be incorrect' Mean?](#what-does-the-warning-ods-number-format-may-be-incorrect-mean)
     - [Where Can I Get Information About Business Terms?](#where-can-i-get-information-about-business-terms)
+    - [How Can I Suppress Auxiliary Sheets in the PDF Output?](#how-can-i-suppress-auxiliary-sheets-in-the-pdf-output)
   - [License](#license)
 
 ## Status
@@ -133,6 +135,23 @@ create an invoice in format `UBL`.
 
 The formats `UBL` and `XRECHNUNG-UBL` are currently the only supported formats.
 
+### Full-Fledged Examples with Additional Attachments
+
+Say you want to add a PDF version `invoice.pdf` and two attachments
+`time-sheet.ods` and `payment-terms.pdf` to the generated invoice:
+
+```bash
+$ curl -v -X POST \
+    http://localhost:3000/api/invoice/transform-and-create/UBL \
+    -F mapping=@contrib/mappings/default-invoice.yaml \
+    -F data=@contrib/templates/1234567890-consulting/default-invoice.ods \
+    -F pdf=@invoice.pdf \
+    -F attachments[0][file]=@time-sheet.ods \
+    -F attachments[0][description]="Detailed description of hours spent." \
+    -F attachments[1][file]=@payment-terms.pdf \
+    -F attachments[1][description]="Our payment terms"
+```
+
 ## Data Structure
 
 The invoice document data structure is documented here:
@@ -189,6 +208,13 @@ number formats.
 You will often see references to business terms in validation error messages.
 You can look up to which elements they belong in the documentation
 file [BusinessTerms.md](documentation/BusinessTerms.md).
+
+### How Can I Suppress Auxiliary Sheets in the PDF Output?
+
+Make sure that only the sheet that contains the printable invoice data has
+a print range defined. You can check that with the menu entry
+`Format -> Print Ranges -> Edit`. For all other sheets, all three options
+have to be set to `None`.
 
 ## License
 

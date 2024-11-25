@@ -10,13 +10,13 @@ import {
 	UploadedFiles,
 	UseInterceptors,
 } from '@nestjs/common';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ValidationError } from 'ajv/dist/2019';
 import { Response } from 'express';
 
 import { InvoiceService } from './invoice.service';
 import { MappingService } from '../mapping/mapping.service';
+import { CustomFilesInterceptor } from '../utils/custom-files.interceptor';
 
 @ApiTags('invoice')
 @Controller('invoice')
@@ -30,7 +30,6 @@ export class InvoiceController {
 	@Post('transform-and-create/:format')
 	@ApiConsumes('multipart/form-data')
 	@ApiBody({
-		description: 'The spreadsheet to be transformed.',
 		required: true,
 		schema: {
 			type: 'object',
@@ -38,10 +37,40 @@ export class InvoiceController {
 				data: {
 					type: 'string',
 					format: 'binary',
+					description: 'The spreadsheet to be transformed.',
 				},
 				mapping: {
 					type: 'string',
 					format: 'binary',
+					description:
+						'The mapping from spreadsheet data to the internal format as YAML or JSON.',
+				},
+				pdf: {
+					type: 'string',
+					format: 'binary',
+					nullable: true,
+					description:
+						'Optional PDF version of the invoice.  For Factur-X/ZUGFeRD, if no PDF is uploaded, one is generated from the Spreadsheet with the help of LibreOffice.',
+				},
+				attachments: {
+					type: 'array',
+					description:
+						'An arbitrary number of supplementary attachments.  For each attachment an object with the key `file` for the upload and an optional key `description` with an optional description must be provided.',
+					items: {
+						type: 'object',
+						properties: {
+							file: {
+								type: 'string',
+								format: 'binary',
+								description: 'A supplementary attachment.',
+							},
+							description: {
+								type: 'string',
+								nullable: true,
+								description: 'An optional description of the attachment.',
+							},
+						},
+					},
 				},
 			},
 		},
@@ -56,27 +85,20 @@ export class InvoiceController {
 		status: 400,
 		description: 'Bad request with error details',
 	})
-	@UseInterceptors(
-		FileFieldsInterceptor([
-			{ name: 'data', maxCount: 1 },
-			{ name: 'mapping', maxCount: 1 },
-		]),
-	)
+	@UseInterceptors(CustomFilesInterceptor())
 	transformAndCreate(
 		@Res() response: Response,
 		@Param('format') format: string,
 		@UploadedFiles()
-		files: {
-			data?: Express.Multer.File[];
-			mapping?: Express.Multer.File[];
-		},
+		files: Express.Multer.File[],
 	) {
-		const dataFile = files.data?.[0];
+		const dataFile = files.find(file => file.fieldname === 'data');
+		const mappingFile = files.find(file => file.fieldname === 'mapping');
+
 		if (!dataFile) {
 			throw new BadRequestException('No invoice file uploaded');
 		}
 
-		const mappingFile = files.mapping?.[0];
 		if (!mappingFile) {
 			throw new BadRequestException('No mapping file uploaded');
 		}

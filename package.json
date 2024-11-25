@@ -19,12 +19,14 @@
 		"js-yaml": "^4.1.0",
 		"jsdom": "^25.0.1",
 		"jsonpath-plus": "^10.0.6",
+		"pdf-lib": "^1.17.1",
 		"reflect-metadata": "^0.2.2",
 		"rxjs": "^7.8.1",
 		"semver": "^7.6.3",
 		"xmlbuilder2": "^3.1.1"
 	},
 	"devDependencies": {
+		"@golevelup/ts-jest": "^0.6.1",
 		"@nestjs/cli": "^10.4.5",
 		"@nestjs/schematics": "^10.1.4",
 		"@nestjs/testing": "^10.4.4",
