@@ -959,33 +959,28 @@ export const cacLegalMonetaryTotal: Transformation = {
 			fxProfile: FX_MINIMUM,
 		},
 		{
-			type: 'string',
-			src: ['cbc:TaxExclusiveAmount'],
-			dest: ['ram:TaxTotalAmount'],
-			fxProfile: FX_MINIMUM,
-		},
-		{
-			type: 'string',
-			src: ['cbc:TaxExclusiveAmount@currencyID'],
-			dest: ['ram:TaxTotalAmount@currencyID'],
-			fxProfile: FX_MINIMUM,
-		},
-		{
 			type: 'array',
 			src: ['..', 'cac:TaxTotal'],
 			dest: ['ram:TaxTotalAmount'],
 			children: [
 				{
-					type: 'string',
-					src: ['cbc:TaxAmount'],
-					dest: ['ram:TaxTotalAmount'],
-					fxProfile: FX_MINIMUM,
-				},
-				{
-					type: 'string',
-					src: ['cbc:TaxAmount@currencyID'],
-					dest: ['ram:TaxTotalAmount@currencyID'],
-					fxProfile: FX_MINIMUM,
+					type: 'object',
+					src: [],
+					dest: [],
+					children: [
+						{
+							type: 'string',
+							src: ['cbc:TaxAmount'],
+							dest: ['#'],
+							fxProfile: FX_MINIMUM,
+						},
+						{
+							type: 'string',
+							src: ['cbc:TaxAmount@currencyID'],
+							dest: ['#@currencyID'],
+							fxProfile: FX_MINIMUM,
+						},
+					],
 				},
 			],
 		},
@@ -1486,10 +1481,21 @@ export class FormatCIIService
 		for (const subPath of subPaths) {
 			if (subPath === '..') {
 				path = path.replace(/[[.][^[.]+$/, '');
+			} else if (subPath.startsWith('@')) {
+				const match = path.match(/^(.*?)(\[[0-9]+\])$/);
+				if (match) {
+					const basePath = match[1]; // The part before the brackets
+					const indexPart = match[2] || ''; // The brackets with the number, if they exist
+
+					path = `${basePath}${subPath}${indexPart}`;
+				} else {
+					path += subPath;
+				}
 			} else {
 				path += `.${subPath}`;
 			}
 		}
+
 		return path;
 	}
 
