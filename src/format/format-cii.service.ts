@@ -5,7 +5,6 @@ import { FormatUBLService } from './format-ubl.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { Invoice } from '../invoice/invoice.interface';
 
-
 // This is what we are looking at while traversing the input tree:
 export type Node = { [key: string]: Node } | Node[] | string;
 export type ObjectNode = { [key: string]: Node };
@@ -1088,8 +1087,8 @@ export class FormatCIIService
 
 	generate(invoice: Invoice): string {
 		// FIXME! Remove this!
-		invoice['ubl:Invoice']['cac:InvoicePeriod'] ??= {};
-		invoice['ubl:Invoice']['cac:InvoicePeriod']['cbc:DescriptionCode'] = '35';
+		//invoice['ubl:Invoice']['cac:InvoicePeriod'] ??= {};
+		//invoice['ubl:Invoice']['cac:InvoicePeriod']['cbc:DescriptionCode'] = '35';
 
 		const cii: ObjectNode = {};
 
@@ -1125,31 +1124,47 @@ export class FormatCIIService
 		transformations: Transformation[],
 	) {
 		for (const transformation of transformations) {
-			// FIXME! If the source node is a fixed node, we have to apply
-			// the fixed value instead!
-			// if (transformation.src[-1].match(/^fixed:/)) ...
-			const lastKey = transformation.src[transformation.src.length - 1];
+			const lastSrcKey = transformation.src[transformation.src.length - 1];
 			let src: any;
 			let childSrcPath: string;
-			if (transformation.src.length && lastKey.startsWith('fixed:')) {
-				src = lastKey.substring(6);
+			// Avoid writing attribute values for non-existing nodes.
+			if (
+				transformation.src.length &&
+				lastSrcKey.startsWith('fixed:') &&
+				transformation.dest.length &&
+				transformation.dest[transformation.dest.length - 1].includes('@')
+			) {
+				const parentPaths = [...transformation.dest];
+				parentPaths[parentPaths.length - 1] = parentPaths[
+					parentPaths.length - 1
+				].replace(/@.+/, '');
+				const parentPath = this.applySubPaths(destPath, parentPaths);
+				const parents = jsonpath.JSONPath({ path: parentPath, json: dest });
+				if (parents.length === 0) {
+					continue;
+				}
+				src = lastSrcKey.substring(6);
 				childSrcPath = srcPath;
 			} else {
 				childSrcPath = this.applySubPaths(srcPath, transformation.src);
 				const srcs = jsonpath.JSONPath({ path: childSrcPath, json: invoice });
 				if (srcs.length === 0) {
 					continue;
-				} else if (srcs.length !== 1) {
-					throw new Error(`ambiguous JSONPath expression '${childSrcPath}'`);
 				}
 				src = srcs[0];
 			}
 
 			const childDestPath = this.applySubPaths(destPath, transformation.dest);
 
-			switch(transformation.type) {
+			switch (transformation.type) {
 				case 'object':
-					this.convert(invoice, childSrcPath, dest, childDestPath, transformation.children);
+					this.convert(
+						invoice,
+						childSrcPath,
+						dest,
+						childDestPath,
+						transformation.children,
+					);
 					break;
 				case 'array':
 					// cac:AccountingSupplierParty/cac:PartyTaxScheme is an
@@ -1158,17 +1173,27 @@ export class FormatCIIService
 					// an array but a single optional value.  But we still
 					// want to have a single definition for cac:Party, so
 					// we coerce the single value into an array.
-					const groups = (
-						Array.isArray(src) ? src : [src]
-					) as Node[];
+					const groups = (Array.isArray(src) ? src : [src]) as Node[];
 					for (let i = 0; i < groups.length; ++i) {
 						const arraySrcPath = `${childSrcPath}[${i}]`;
-						const arrayDestPath = transformation.dest.length ? `${childDestPath}[${i}]` : childDestPath;
-						this.convert(invoice, arraySrcPath, dest, arrayDestPath, transformation.children);
+						const arrayDestPath = transformation.dest.length
+							? `${childDestPath}[${i}]`
+							: childDestPath;
+						this.convert(
+							invoice,
+							arraySrcPath,
+							dest,
+							arrayDestPath,
+							transformation.children,
+						);
 					}
 					break;
 				case 'string':
-					this.vivifyDest(dest, childDestPath, this.renderValue(src, transformation));
+					this.vivifyDest(
+						dest,
+						childDestPath,
+						this.renderValue(src, transformation),
+					);
 
 					break;
 			}
