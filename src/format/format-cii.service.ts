@@ -820,6 +820,33 @@ export const cacTaxSubtotal: Transformation[] = [
 	},
 ];
 
+export const cacInvoicePeriod: Transformation[] = [
+	{
+		type: 'string',
+		src: ['cbc:StartDate'],
+		dest: ['ram:StartDateTime', 'udt:DateTimeString'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cbc:StartDate', 'fixed:102'],
+		dest: ['ram:StartDateTime', 'udt:DateTimeString@format'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cbc:EndDate'],
+		dest: ['ram:EndDateTime', 'udt:DateTimeString'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cbc:EndDate', 'fixed:102'],
+		dest: ['ram:EndDateTime', 'udt:DateTimeString@format'],
+		fxProfile: FX_BASIC_WL,
+	},
+];
+
 export const ublInvoice: Transformation = {
 	type: 'object',
 	src: ['ubl:Invoice'],
@@ -1064,6 +1091,15 @@ export const ublInvoice: Transformation = {
 					children: cacTaxSubtotal,
 				},
 			],
+		},
+		{
+			type: 'object',
+			src: ['cac:InvoicePeriod'],
+			dest: [
+				'ram:ApplicableHeaderTradeSettlement',
+				'ram:BillingSpecifiedPeriod',
+			],
+			children: cacInvoicePeriod,
 		},
 	],
 };
