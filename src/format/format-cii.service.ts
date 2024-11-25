@@ -495,9 +495,10 @@ export const cacPartyTaxScheme: Transformation[] = [
 		dest: ['ram:ID'],
 		fxProfile: FX_MINIMUM,
 	},
+	// FIXME! It must be possible to specify FC instead!
 	{
 		type: 'string',
-		src: ['cbc:CompanyID@schemeID'],
+		src: ['fixed:VA'],
 		dest: ['ram:ID@schemeID'],
 		fxProfile: FX_MINIMUM,
 	},
