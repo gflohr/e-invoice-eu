@@ -199,6 +199,7 @@ const cacPrice: Transformation = {
 			dest: ['ram:GrossProductTradePrice', 'ram:BasisQuantity@unitCode'],
 			fxProfile: FX_EN16931,
 		},
+		// FIXME! This can go into a child object!
 		{
 			type: 'string',
 			src: ['cac:AllowanceCharge', 'cbc:ChargeIndicator'],
@@ -820,32 +821,104 @@ export const cacTaxSubtotal: Transformation[] = [
 	},
 ];
 
-export const cacInvoicePeriod: Transformation[] = [
-	{
-		type: 'string',
-		src: ['cbc:StartDate'],
-		dest: ['ram:StartDateTime', 'udt:DateTimeString'],
-		fxProfile: FX_BASIC_WL,
-	},
-	{
-		type: 'string',
-		src: ['cbc:StartDate', 'fixed:102'],
-		dest: ['ram:StartDateTime', 'udt:DateTimeString@format'],
-		fxProfile: FX_BASIC_WL,
-	},
-	{
-		type: 'string',
-		src: ['cbc:EndDate'],
-		dest: ['ram:EndDateTime', 'udt:DateTimeString'],
-		fxProfile: FX_BASIC_WL,
-	},
-	{
-		type: 'string',
-		src: ['cbc:EndDate', 'fixed:102'],
-		dest: ['ram:EndDateTime', 'udt:DateTimeString@format'],
-		fxProfile: FX_BASIC_WL,
-	},
-];
+export const cacInvoicePeriod: Transformation = {
+	type: 'object',
+	src: ['cac:InvoicePeriod'],
+	dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:BillingSpecifiedPeriod'],
+	children: [
+		{
+			type: 'string',
+			src: ['cbc:StartDate'],
+			dest: ['ram:StartDateTime', 'udt:DateTimeString'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cbc:StartDate', 'fixed:102'],
+			dest: ['ram:StartDateTime', 'udt:DateTimeString@format'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cbc:EndDate'],
+			dest: ['ram:EndDateTime', 'udt:DateTimeString'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cbc:EndDate', 'fixed:102'],
+			dest: ['ram:EndDateTime', 'udt:DateTimeString@format'],
+			fxProfile: FX_BASIC_WL,
+		},
+	],
+};
+
+// Document-level allowances and charges.
+export const cacAllowanceCharge: Transformation = {
+	type: 'array',
+	src: ['cac:AllowanceCharge'],
+	dest: [
+		'ram:ApplicableHeaderTradeSettlement',
+		'ram:SpecifiedTradeAllowanceCharge',
+	],
+	children: [
+		{
+			type: 'string',
+			src: ['cbc:ChargeIndicator'],
+			dest: ['ram:ChargeIndicator', 'udt:Indicator'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cbc:MultiplierFactorNumeric'],
+			dest: ['ram:CalculationPercent'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cbc:BasisAmount'],
+			dest: ['ram:BasisAmount'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cbc:Amount'],
+			dest: ['ram:ActualAmount'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cbc:AllowanceChargeReasonCode'],
+			dest: ['ram:ReasonCode'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cbc:AllowanceChargeReason'],
+			dest: ['ram:Reason'],
+			fxProfile: FX_BASIC_WL,
+		},
+		// FIXME! Next 3 can go into a separate object!
+		{
+			type: 'string',
+			src: ['cac:TaxCategory', 'cac:TaxScheme', 'cbc:ID'],
+			dest: ['ram:CategoryTradeTax', 'ram:TypeCode'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cac:TaxCategory', 'cbc:ID'],
+			dest: ['ram:CategoryTradeTax', 'ram:CategoryCode'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cac:TaxCategory', 'cbc:Percent'],
+			dest: ['ram:CategoryTradeTax', 'ram:RateApplicablePercent'],
+			fxProfile: FX_BASIC_WL,
+		},
+	],
+};
 
 export const ublInvoice: Transformation = {
 	type: 'object',
@@ -1092,15 +1165,8 @@ export const ublInvoice: Transformation = {
 				},
 			],
 		},
-		{
-			type: 'object',
-			src: ['cac:InvoicePeriod'],
-			dest: [
-				'ram:ApplicableHeaderTradeSettlement',
-				'ram:BillingSpecifiedPeriod',
-			],
-			children: cacInvoicePeriod,
-		},
+		cacInvoicePeriod,
+		cacAllowanceCharge,
 	],
 };
 
