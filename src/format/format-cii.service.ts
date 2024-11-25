@@ -857,7 +857,7 @@ export const cacTaxSubtotal: Transformation[] = [
 	},
 	{
 		type: 'string',
-		src: ['cac:TaxableAmount'],
+		src: ['cbc:TaxableAmount'],
 		dest: ['ram:BasisAmount'],
 		fxProfile: FX_BASIC_WL,
 	},
@@ -894,6 +894,7 @@ export const cacInvoicePeriod: Transformation = {
 	children: [
 		{
 			type: 'string',
+			subtype: 'DateTimeString',
 			src: ['cbc:StartDate'],
 			dest: ['ram:StartDateTime', 'udt:DateTimeString'],
 			fxProfile: FX_BASIC_WL,
@@ -906,6 +907,7 @@ export const cacInvoicePeriod: Transformation = {
 		},
 		{
 			type: 'string',
+			subtype: 'DateTimeString',
 			src: ['cbc:EndDate'],
 			dest: ['ram:EndDateTime', 'udt:DateTimeString'],
 			fxProfile: FX_BASIC_WL,
@@ -1019,12 +1021,6 @@ export const cacLegalMonetaryTotal: Transformation = {
 			fxProfile: FX_MINIMUM,
 		},
 		{
-			type: 'string',
-			src: ['cbc:TaxExclusiveAmount@currencyID'],
-			dest: ['ram:TaxBasisTotalAmount@currencyID'],
-			fxProfile: FX_MINIMUM,
-		},
-		{
 			type: 'array',
 			src: ['..', 'cac:TaxTotal'],
 			dest: ['ram:TaxTotalAmount'],
@@ -1060,12 +1056,6 @@ export const cacLegalMonetaryTotal: Transformation = {
 			type: 'string',
 			src: ['cbc:TaxInclusiveAmount'],
 			dest: ['ram:GrandTotalAmount'],
-			fxProfile: FX_MINIMUM,
-		},
-		{
-			type: 'string',
-			src: ['cbc:TaxInclusiveAmount@currencyID'],
-			dest: ['ram:GrandTotalAmount@currencyID'],
 			fxProfile: FX_MINIMUM,
 		},
 		{
@@ -1248,7 +1238,7 @@ export const ublInvoice: Transformation = {
 				},
 				{
 					type: 'object',
-					src: ['cac:Delivery', 'cac:DeliveryLocation', 'cac:Addres'],
+					src: ['cac:Delivery', 'cac:DeliveryLocation', 'cac:Address'],
 					dest: [
 						'ram:ApplicableHeaderTradeDelivery',
 						'ram:ShipToTradeParty',
