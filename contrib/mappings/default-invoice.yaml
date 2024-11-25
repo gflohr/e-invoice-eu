@@ -64,6 +64,9 @@ ubl:Invoice:
         cbc:PostalZone: =O8
         cac:Country:
           cbc:IdentificationCode: =O10
+    cac:DeliveryParty:
+      cac:PartyName:
+        cbc:Name: =A7
   cac:PaymentMeans:
     cbc:PaymentMeansCode: =L13
     cbc:PaymentMeansCode@name: =I13
