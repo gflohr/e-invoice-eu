@@ -26,7 +26,11 @@ formats or JSON.
 
 ## Status
 
-You can currently create invoices in the formats UBL and XRECHNUNG-UBL.
+You can currently create invoices in these formats:
+
+- UBL: customization id `urn:cen.eu:en16931:2017`
+- XRECHNUNG-UBL: customization id `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`
+- CII: customization id `urn:cen.eu:en16931:2017`
 
 ## Description
 
