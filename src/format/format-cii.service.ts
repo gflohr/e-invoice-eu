@@ -234,7 +234,7 @@ const cacPrice: Transformation = {
 		{
 			type: 'string',
 			src: ['cbc:PriceAmount'],
-			dest: ['ram:NetProductTradePrice', 'ram:ChargeAmount'],
+			dest: ['ram:NetPriceProductTradePrice', 'ram:ChargeAmount'],
 			fxProfile: FX_EN16931,
 		},
 	],
@@ -1045,7 +1045,7 @@ export const ublInvoice: Transformation = {
 		{
 			type: 'string',
 			src: ['cbc:ID'],
-			dest: ['ram:ExchangedDocument', 'ram:ID'],
+			dest: ['rsm:ExchangedDocument', 'ram:ID'],
 			fxProfile: FX_MINIMUM,
 		},
 		{
@@ -1053,7 +1053,7 @@ export const ublInvoice: Transformation = {
 			subtype: 'DateTimeString',
 			src: ['cbc:IssueDate'],
 			dest: [
-				'ram:ExchangedDocument',
+				'rsm:ExchangedDocument',
 				'ram:IssueDateTime',
 				'udt:DateTimeString',
 			],
@@ -1063,7 +1063,7 @@ export const ublInvoice: Transformation = {
 			type: 'string',
 			src: ['cbc:IssueDate', 'fixed:102'],
 			dest: [
-				'ram:ExchangedDocument',
+				'rsm:ExchangedDocument',
 				'ram:IssueDateTime',
 				'udt:DateTimeString@format',
 			],
@@ -1072,7 +1072,7 @@ export const ublInvoice: Transformation = {
 		{
 			type: 'string',
 			src: ['cbc:Note'],
-			dest: ['ram:ExchangedDocument', 'ram:IncludedNote', 'ram:Content'],
+			dest: ['rsm:ExchangedDocument', 'ram:IncludedNote', 'ram:Content'],
 			fxProfile: FX_BASIC_WL,
 		},
 		cacInvoiceLine,
@@ -1385,7 +1385,7 @@ export class FormatCIIService
 		cii['rsm:CrossIndustryInvoice@xmlns:rsm'] =
 			'urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100';
 		cii['rsm:CrossIndustryInvoice@xmlns:ram'] =
-			'urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEn';
+			'urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100';
 
 		return this.render(cii, {
 			prettyPrint: true,
