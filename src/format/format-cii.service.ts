@@ -920,6 +920,108 @@ export const cacAllowanceCharge: Transformation = {
 	],
 };
 
+export const cacLegalMonetaryTotal: Transformation = {
+	type: 'object',
+	src: ['cac:LegalMonetaryTotal'],
+	dest: [
+		'ram:ApplicableHeaderTradeSettlement',
+		'ram:SpecifiedTradeSettlementHeaderMonetarySummation',
+	],
+	children: [
+		{
+			type: 'string',
+			src: ['cbc:LineExtensionAmount'],
+			dest: ['ram:LineTotalAmount'],
+			fxProfile: FX_MINIMUM,
+		},
+		{
+			type: 'string',
+			src: ['cbc:ChargeTotalAmount'],
+			dest: ['ram:ChargeTotalAmount'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cbc:AllowanceTotalAmount'],
+			dest: ['ram:AllowanceTotalAmount'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cbc:TaxExclusiveAmount'],
+			dest: ['ram:TaxBasisTotalAmount'],
+			fxProfile: FX_MINIMUM,
+		},
+		{
+			type: 'string',
+			src: ['cbc:TaxExclusiveAmount@currencyID'],
+			dest: ['ram:TaxBasisTotalAmount@currencyID'],
+			fxProfile: FX_MINIMUM,
+		},
+		{
+			type: 'string',
+			src: ['cbc:TaxExclusiveAmount'],
+			dest: ['ram:TaxTotalAmount'],
+			fxProfile: FX_MINIMUM,
+		},
+		{
+			type: 'string',
+			src: ['cbc:TaxExclusiveAmount@currencyID'],
+			dest: ['ram:TaxTotalAmount@currencyID'],
+			fxProfile: FX_MINIMUM,
+		},
+		{
+			type: 'array',
+			src: ['..', 'cac:TaxTotal'],
+			dest: ['ram:TaxTotalAmount'],
+			children: [
+				{
+					type: 'string',
+					src: ['cbc:TaxAmount'],
+					dest: ['ram:TaxTotalAmount'],
+					fxProfile: FX_MINIMUM,
+				},
+				{
+					type: 'string',
+					src: ['cbc:TaxAmount@currencyID'],
+					dest: ['ram:TaxTotalAmount@currencyID'],
+					fxProfile: FX_MINIMUM,
+				},
+			],
+		},
+		{
+			type: 'string',
+			src: ['cbc:PayableRoundingAmount'],
+			dest: ['ram:RoundingAmount'],
+			fxProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cbc:TaxInclusiveAmount'],
+			dest: ['ram:GrandTotalAmount'],
+			fxProfile: FX_MINIMUM,
+		},
+		{
+			type: 'string',
+			src: ['cbc:TaxInclusiveAmount@currencyID'],
+			dest: ['ram:GrandTotalAmount@currencyID'],
+			fxProfile: FX_MINIMUM,
+		},
+		{
+			type: 'string',
+			src: ['cbc:TotalPrepaidAmount'],
+			dest: ['ram:TotalPrepaidAmount'],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cbc:PayableAmount'],
+			dest: ['ram:DuePayableAmount'],
+			fxProfile: FX_MINIMUM,
+		},
+	],
+};
+
 export const ublInvoice: Transformation = {
 	type: 'object',
 	src: ['ubl:Invoice'],
@@ -1167,6 +1269,84 @@ export const ublInvoice: Transformation = {
 		},
 		cacInvoicePeriod,
 		cacAllowanceCharge,
+		{
+			type: 'string',
+			src: ['cac:PaymentTerms', 'cbc:Note'],
+			dest: [
+				'ram:ApplicableHeaderTradeSettlement',
+				'ram:SpecifiedTradePaymentTerms',
+				'ram:Description',
+			],
+			fxProfile: FX_EN16931,
+		},
+		{
+			type: 'string',
+			subtype: 'DateTimeString',
+			src: ['cbc:DueDate'],
+			dest: [
+				'ram:ApplicableHeaderTradeSettlement',
+				'ram:SpecifiedTradePaymentTerms',
+				'ram:DueDateTime',
+				'udt:DateTimeString',
+			],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cbc:DueDate', 'fixed:102'],
+			dest: [
+				'ram:ApplicableHeaderTradeSettlement',
+				'ram:SpecifiedTradePaymentTerms',
+				'ram:DueDateTime',
+				'udt:DateTimeString@format',
+			],
+			fxProfile: FX_BASIC_WL,
+		},
+		{
+			type: 'string',
+			src: ['cac:PaymentMeans', 'cac:PaymentMandate', 'cbc:ID'],
+			dest: [
+				'ram:ApplicableHeaderTradeSettlement',
+				'ram:SpecifiedTradePaymentTerms',
+				'ram:DirectDebitMandateID',
+			],
+			fxProfile: FX_BASIC_WL,
+		},
+		cacLegalMonetaryTotal,
+		{
+			type: 'array',
+			src: ['cac:BillingReference'],
+			dest: [
+				'ram:ApplicableHeaderTradeSettlement',
+				'ram:InvoiceReferencedDocument',
+			],
+			children: [
+				{
+					type: 'string',
+					src: ['cbc:ID'],
+					dest: ['ram:IssuerAssignedID'],
+					fxProfile: FX_BASIC_WL,
+				},
+				{
+					type: 'string',
+					src: ['cbc:IssueDate'],
+					dest: ['ram:FormattedIssueDateTime', 'udt:DateTimeString'],
+					fxProfile: FX_BASIC_WL,
+				},
+				{
+					type: 'string',
+					src: ['cbc:IssueDate', 'fixed:102'],
+					dest: ['ram:FormattedIssueDateTime', 'udt:DateTimeString@format'],
+					fxProfile: FX_BASIC_WL,
+				},
+			],
+		},
+		{
+			type: 'string',
+			src: ['cbc:AccountingCost'],
+			dest: ['ram:ReceivableSpecifiedTradeAccountingAccount', 'ram:ID'],
+			fxProfile: FX_BASIC_WL,
+		},
 	],
 };
 
