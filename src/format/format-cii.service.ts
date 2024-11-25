@@ -503,7 +503,7 @@ export const cacPartyTaxScheme: Transformation[] = [
 	},
 ];
 
-export const cacParty: Transformation[] = [
+export const cacAccountingSupplierParty: Transformation[] = [
 	{
 		type: 'array',
 		src: [],
@@ -567,6 +567,69 @@ export const cacParty: Transformation[] = [
 	},
 	{
 		type: 'array',
+		src: ['cac:PartyTaxScheme'],
+		dest: ['ram:SpecifiedTaxRegistration'],
+		children: cacPartyTaxScheme,
+	},
+];
+
+export const cacAccountingCustomerParty: Transformation[] = [
+	{
+		type: 'string',
+		src: ['cac:PartyIdentification', 'cbc:ID'],
+		dest: ['ram:ID'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:PartyLegalEntity', 'cbc:RegistrationName'],
+		dest: ['ram:Name'],
+		fxProfile: FX_MINIMUM,
+	},
+	{
+		type: 'string',
+		src: ['cac:PartyLegalEntity', 'cbc:LegalForm'],
+		dest: ['ram:Description'],
+		fxProfile: FX_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cac:PartyLegalEntity', 'cbc:CompanyID'],
+		dest: ['ram:SpecifiedLegalOrganization', 'ram:ID'],
+		fxProfile: FX_MINIMUM,
+	},
+	{
+		type: 'string',
+		src: ['cac:PartyLegalEntity', 'cbc:CompanyID@schemeID'],
+		dest: ['ram:SpecifiedLegalOrganization', 'ram:ID@schemeID'],
+		fxProfile: FX_MINIMUM,
+	},
+	{
+		type: 'string',
+		src: ['cac:PartyName', 'cbc:Name'],
+		dest: ['ram:SpecifiedLegalOrganization', 'ram:TradingBusinessName'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'object',
+		src: ['cac:PostalAddress'],
+		dest: ['ram:PostalTradeAddress'],
+		children: cacPostalAddress,
+	},
+	{
+		type: 'string',
+		src: ['cbc:EndpointID'],
+		dest: ['ram:URIUniversalCommunication', 'ram:URIID'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cbc:EndpointID@schemeID'],
+		dest: ['ram:URIUniversalCommunication', 'ram:URIID@schemeID'],
+		fxProfile: FX_BASIC_WL,
+	},
+	{
+		type: 'object',
 		src: ['cac:PartyTaxScheme'],
 		dest: ['ram:SpecifiedTaxRegistration'],
 		children: cacPartyTaxScheme,
@@ -1052,6 +1115,12 @@ export const ublInvoice: Transformation = {
 		},
 		{
 			type: 'string',
+			src: ['cbc:InvoiceTypeCode'],
+			dest: ['rsm:ExchangedDocument', 'ram:TypeCode'],
+			fxProfile: FX_MINIMUM,
+		},
+		{
+			type: 'string',
 			subtype: 'DateTimeString',
 			src: ['cbc:IssueDate'],
 			dest: [
@@ -1093,13 +1162,13 @@ export const ublInvoice: Transformation = {
 					type: 'object',
 					src: ['cac:AccountingSupplierParty', 'cac:Party'],
 					dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:SellerTradeParty'],
-					children: cacParty,
+					children: cacAccountingSupplierParty,
 				},
 				{
 					type: 'object',
 					src: ['cac:AccountingCustomerParty', 'cac:Party'],
 					dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:BuyerTradeParty'],
-					children: cacParty,
+					children: cacAccountingCustomerParty,
 				},
 				{
 					type: 'string',
@@ -1449,14 +1518,7 @@ export class FormatCIIService
 					);
 					break;
 				case 'array':
-					// cac:AccountingSupplierParty/cac:PartyTaxScheme is an
-					// array of length 0..2 but
-					// cac:AccountingCustomerParty/cac:PartyTaxScheme is *not*
-					// an array but a single optional value.  But we still
-					// want to have a single definition for cac:Party, so
-					// we coerce the single value into an array.
-					const groups = (Array.isArray(src) ? src : [src]) as Node[];
-					for (let i = 0; i < groups.length; ++i) {
+					for (let i = 0; i < src.length; ++i) {
 						const arraySrcPath = `${childSrcPath}[${i}]`;
 						const arrayDestPath = transformation.dest.length
 							? `${childDestPath}[${i}]`
