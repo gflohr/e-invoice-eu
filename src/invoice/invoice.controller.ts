@@ -1,5 +1,6 @@
 import {
 	BadRequestException,
+	Body,
 	Controller,
 	HttpStatus,
 	InternalServerErrorException,
@@ -10,18 +11,20 @@ import {
 	UploadedFiles,
 	UseInterceptors,
 } from '@nestjs/common';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ValidationError } from 'ajv/dist/2019';
 import { Response } from 'express';
 
 import { InvoiceService } from './invoice.service';
+import { AppConfigService } from '../app-config/app-config.service';
 import { MappingService } from '../mapping/mapping.service';
-import { CustomFilesInterceptor } from '../utils/custom-files.interceptor';
 
 @ApiTags('invoice')
 @Controller('invoice')
 export class InvoiceController {
 	constructor(
+		private readonly appConfigService: AppConfigService,
 		private readonly invoiceService: InvoiceService,
 		private readonly mappingService: MappingService,
 		private readonly logger: Logger,
@@ -52,24 +55,33 @@ export class InvoiceController {
 					description:
 						'Optional PDF version of the invoice.  For Factur-X/ZUGFeRD, if no PDF is uploaded, one is generated from the Spreadsheet with the help of LibreOffice.',
 				},
-				attachments: {
+				attachment: {
 					type: 'array',
-					description:
-						'An arbitrary number of supplementary attachments.  For each attachment an object with the key `file` for the upload and an optional key `description` with an optional description must be provided.',
+					nullable: true,
+					description: 'An arbitrary number of supplementary attachments',
 					items: {
-						type: 'object',
-						properties: {
-							file: {
-								type: 'string',
-								format: 'binary',
-								description: 'A supplementary attachment.',
-							},
-							description: {
-								type: 'string',
-								nullable: true,
-								description: 'An optional description of the attachment.',
-							},
-						},
+						type: 'string',
+						format: 'binary',
+						description: 'The individual attachment',
+					},
+				},
+				description: {
+					type: 'array',
+					nullable: true,
+					description:
+						'Optional descriptions for each supplementary attachment',
+					items: {
+						type: 'string',
+						description: 'Description for the corresponding attachment',
+					},
+				},
+				mimeType: {
+					type: 'array',
+					nullable: true,
+					description: 'Optional MIME types for each supplementary attachment',
+					items: {
+						type: 'string',
+						description: 'MIME type for the corresponding attachment',
 					},
 				},
 			},
@@ -85,29 +97,47 @@ export class InvoiceController {
 		status: 400,
 		description: 'Bad request with error details',
 	})
-	@UseInterceptors(CustomFilesInterceptor())
+	@UseInterceptors(
+		FileFieldsInterceptor([
+			{ name: 'data', maxCount: 1 },
+			{ name: 'mapping', maxCount: 1 },
+			{ name: 'pdf', maxCount: 1 },
+			{ name: 'attachment' },  // FIXME! How to set maxCount asynchronously?
+		]),
+	)
 	transformAndCreate(
 		@Res() response: Response,
 		@Param('format') format: string,
 		@UploadedFiles()
-		files: Express.Multer.File[],
-	) {
-		const dataFile = files.find(file => file.fieldname === 'data');
-		const mappingFile = files.find(file => file.fieldname === 'mapping');
+		files: {
+			data?: Express.Multer.File[];
+			mapping?: Express.Multer.File[];
+			pdf?: Express.Multer.File[];
+			attachment?: Express.Multer.File[];
+		},
 
-		if (!dataFile) {
+		@Body() body: { description?: string[]; mimeType?: string[] },
+	) {
+		const { data, mapping } = files;
+
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const descriptions = body.description || [];
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const mimeTypes = body.mimeType || [];
+
+		if (!data) {
 			throw new BadRequestException('No invoice file uploaded');
 		}
 
-		if (!mappingFile) {
+		if (!mapping) {
 			throw new BadRequestException('No mapping file uploaded');
 		}
 
 		try {
 			const invoice = this.mappingService.transform(
 				format,
-				mappingFile.buffer.toString(),
-				dataFile.buffer,
+				mapping[0].buffer.toString(),
+				data[0].buffer,
 			);
 
 			const xml = this.invoiceService.generate(format, invoice);
