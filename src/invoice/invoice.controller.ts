@@ -17,14 +17,12 @@ import { ValidationError } from 'ajv/dist/2019';
 import { Response } from 'express';
 
 import { InvoiceService } from './invoice.service';
-import { AppConfigService } from '../app-config/app-config.service';
 import { MappingService } from '../mapping/mapping.service';
 
 @ApiTags('invoice')
 @Controller('invoice')
 export class InvoiceController {
 	constructor(
-		private readonly appConfigService: AppConfigService,
 		private readonly invoiceService: InvoiceService,
 		private readonly mappingService: MappingService,
 		private readonly logger: Logger,
@@ -102,7 +100,7 @@ export class InvoiceController {
 			{ name: 'data', maxCount: 1 },
 			{ name: 'mapping', maxCount: 1 },
 			{ name: 'pdf', maxCount: 1 },
-			{ name: 'attachment' },  // FIXME! How to set maxCount asynchronously?
+			{ name: 'attachment' }, // FIXME! How to set maxCount asynchronously?
 		]),
 	)
 	transformAndCreate(
