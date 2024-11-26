@@ -103,7 +103,7 @@ It probably makes more sense to open that URL in the browser.
 ### List Supported Formats
 
 ```bash
-$ curl -X POST http://localhost:3000/api/format/list
+$ curl http://localhost:3000/api/format/list
 ```
 
 This will return a list with format informat. For each format, the name,
