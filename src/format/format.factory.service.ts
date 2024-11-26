@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
 
+import { FormatCIIService } from './format-cii.service';
 import { FormatUBLService } from './format-ubl.service';
 import { FormatXRECHNUNGUBLService } from './format-xrechnung-ubl.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
@@ -43,6 +44,7 @@ export class FormatFactoryService {
 	private readonly formatServices: {
 		[key: string]: new (...args: any[]) => EInvoiceFormat;
 	} = {
+		CII: FormatCIIService,
 		UBL: FormatUBLService,
 		'XRECHNUNG-UBL': FormatXRECHNUNGUBLService,
 	};

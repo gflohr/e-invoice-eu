@@ -41,6 +41,6 @@ describe('XRECHNUNG-UBL', () => {
 
 	it('should list all formats alphabetically', () => {
 		const allFormats = service.listFormatServices().map(f => f.name);
-		expect(allFormats).toEqual(['UBL', 'XRECHNUNG-UBL']);
+		expect(allFormats).toEqual(['CII', 'UBL', 'XRECHNUNG-UBL']);
 	});
 });
