@@ -133,21 +133,22 @@ describe('InvoiceController', () => {
 
 	it('should throw InternalServerErrorException for unknown errors', () => {
 		const format = 'UBL';
-		const files: Express.Multer.File[] = [
-			{
-				fieldname: 'data',
-			} as Express.Multer.File,
-			{
-				fieldname: 'mapping',
-			} as Express.Multer.File,
-		];
+		const files = {
+			data: [],
+			mapping: [],
+		};
 
 		jest.spyOn(mappingService, 'transform').mockImplementation(() => {
 			throw new Error('boum!');
 		});
 
 		expect(() =>
-			controller.transformAndCreate(mockResponse as Response, format, files),
+			controller.transformAndCreate(
+				mockResponse as Response,
+				format,
+				files,
+				{},
+			),
 		).toThrow(InternalServerErrorException);
 
 		expect(mockedLogger.error).toHaveBeenCalledTimes(1);
