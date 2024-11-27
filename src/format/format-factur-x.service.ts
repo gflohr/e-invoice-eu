@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 
 import { FormatCIIService, FULL_CII, FXProfile } from './format-cii.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
+import { SerializerOptions } from '../serializer/serializer.service';
 
 @Injectable()
 export class FormatFacturXService
@@ -14,5 +16,11 @@ export class FormatFacturXService
 
 	get fxProfile(): FXProfile {
 		return FULL_CII;
+	}
+
+	render(data: ExpandObject, serializerOptions: SerializerOptions): string {
+		const xml = super.render(data, serializerOptions);
+
+		return xml;
 	}
 }
