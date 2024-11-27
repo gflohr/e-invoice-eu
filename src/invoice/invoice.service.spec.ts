@@ -34,7 +34,7 @@ describe('InvoiceService', () => {
 
 	it('should create an invoice', () => {
 		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
-		const got = service.generate('UBL', invoice);
+		const got = service.generate(invoice, { format: 'UBL' });
 
 		expect(got).toMatchSnapshot();
 	});

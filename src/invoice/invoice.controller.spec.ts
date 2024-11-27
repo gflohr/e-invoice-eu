@@ -75,10 +75,9 @@ describe('InvoiceController', () => {
 			mapping,
 			Buffer.from(data),
 		);
-		expect(invoiceService.generate).toHaveBeenCalledWith(
-			'UBL',
-			mockTransformedData,
-		);
+		expect(invoiceService.generate).toHaveBeenCalledWith(mockTransformedData, {
+			format: 'UBL',
+		});
 	});
 
 	it('should throw a BadRequestException if no mapping file is uploaded', async () => {

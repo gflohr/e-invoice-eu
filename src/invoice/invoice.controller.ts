@@ -138,7 +138,9 @@ export class InvoiceController {
 				data[0].buffer,
 			);
 
-			const xml = this.invoiceService.generate(format, invoice);
+			const xml = this.invoiceService.generate(invoice, {
+				format,
+			});
 
 			response.set('Content-Type', 'application/xml');
 			response.status(HttpStatus.CREATED).send(xml);
