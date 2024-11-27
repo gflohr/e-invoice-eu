@@ -18,9 +18,12 @@ export class FormatFacturXService
 		return FULL_CII;
 	}
 
-	render(data: ExpandObject, serializerOptions: SerializerOptions): string {
+	render(
+		data: ExpandObject,
+		serializerOptions: SerializerOptions,
+	): string | Buffer {
 		const xml = super.render(data, serializerOptions);
 
-		return xml;
+		return Buffer.from(xml);
 	}
 }

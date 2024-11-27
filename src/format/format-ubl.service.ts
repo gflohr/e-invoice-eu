@@ -71,7 +71,7 @@ export class FormatUBLService
 		invoice['ubl:Invoice'] = newInvoice['ubl:Invoice'];
 	}
 
-	generate(invoice: Invoice): string {
+	generate(invoice: Invoice): string | Buffer {
 		const expandObject: ExpandObject = {
 			Invoice: invoice['ubl:Invoice'],
 			'Invoice@xmlns': 'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',

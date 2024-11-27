@@ -138,12 +138,15 @@ export class InvoiceController {
 				data[0].buffer,
 			);
 
-			const xml = this.invoiceService.generate(invoice, {
+			const document = this.invoiceService.generate(invoice, {
 				format,
 			});
-
-			response.set('Content-Type', 'application/xml');
-			response.status(HttpStatus.CREATED).send(xml);
+			if (typeof document === 'string') {
+				response.set('Content-Type', 'application/xml');
+			} else {
+				response.set('Content-Type', 'application/pdf');
+			}
+			response.status(HttpStatus.CREATED).send(document);
 		} catch (error) {
 			if (error instanceof ValidationError) {
 				throw new BadRequestException({

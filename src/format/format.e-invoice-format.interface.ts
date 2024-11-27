@@ -39,5 +39,5 @@ export interface EInvoiceFormat {
 	 *
 	 * @returns the rendered invoice
 	 */
-	generate(invoice: Invoice): string;
+	generate(invoice: Invoice): string | Buffer;
 }

@@ -1473,7 +1473,7 @@ export class FormatCIIService
 		return FULL_CII;
 	}
 
-	generate(invoice: Invoice): string {
+	generate(invoice: Invoice): string | Buffer {
 		const cii: ObjectNode = {};
 
 		this.convert(invoice, '$', cii, '$', [ublInvoice]);

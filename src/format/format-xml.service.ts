@@ -14,7 +14,10 @@ export class FormatXMLService {
 		return 'application/xml';
 	}
 
-	render(data: ExpandObject, serializerOptions: SerializerOptions): string {
+	render(
+		data: ExpandObject,
+		serializerOptions: SerializerOptions,
+	): string | Buffer {
 		return this.serializerService.serialize(data, serializerOptions);
 	}
 }
