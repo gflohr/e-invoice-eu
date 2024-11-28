@@ -6,6 +6,7 @@ import { FormatFacturXExtendedService } from './format-factur-x-extended.service
 import { FormatUBLService } from './format-ubl.service';
 import { FormatXRECHNUNGUBLService } from './format-xrechnung-ubl.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
+import { AppConfigService } from '../app-config/app-config.service';
 import { SerializerService } from '../serializer/serializer.service';
 
 export class FormatInfo {
@@ -51,7 +52,10 @@ export class FormatFactoryService {
 		'XRECHNUNG-UBL': FormatXRECHNUNGUBLService,
 	};
 
-	constructor(private readonly serializerService: SerializerService) {}
+	constructor(
+		private readonly appConfigService: AppConfigService,
+		private readonly serializerService: SerializerService,
+	) {}
 
 	listFormatServices(): FormatInfo[] {
 		const infos: FormatInfo[] = [];
@@ -59,7 +63,7 @@ export class FormatFactoryService {
 		for (const format in this.formatServices) {
 			const FormatService = this.formatServices[format];
 
-			const service = new FormatService(this.serializerService);
+			const service = new FormatService(this.appConfigService, this.serializerService);
 			infos.push({
 				name: format,
 				customizationID: service.customizationID,
@@ -79,6 +83,6 @@ export class FormatFactoryService {
 			throw new NotFoundException(`Format '${format}' not supported.`);
 		}
 
-		return new FormatService(this.serializerService);
+		return new FormatService(this.appConfigService, this.serializerService);
 	}
 }

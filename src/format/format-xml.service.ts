@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 
+import { AppConfigService } from '../app-config/app-config.service';
 import {
 	SerializerOptions,
 	SerializerService,
@@ -8,7 +9,10 @@ import {
 
 @Injectable()
 export class FormatXMLService {
-	constructor(private readonly serializerService: SerializerService) {}
+	constructor(
+		protected readonly appConfigService: AppConfigService,
+		private readonly serializerService: SerializerService,
+	) {}
 
 	get mimeType(): string {
 		return 'application/xml';

@@ -19,14 +19,24 @@ export class FormatFacturXService
 	}
 
 	generate(invoice: Invoice, options: InvoiceServiceOptions): string | Buffer {
-		if (!options.data && !options.pdf) {
+		if (options.pdf) {
+			options.pdf = this.generatePDF3A(options.data as Buffer);
+		} else if (options.data) {
+
+		} else {
 			throw new Error(
 				'Either a data spreadsheet file or an invoice PDF' +
 					' are mandatory for Factur-X invoices!',
 			);
 		}
+
 		const xml = super.generate(invoice, options);
 
-		return xml;
+		return options.pdf as Buffer;
+	}
+
+	// const ghostscriptCommand = `gs -dPDFA=3 -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=${outputPath} PDFA_def.ps ${tempPath}`;
+	private generatePDF3A(pdf: Buffer): Buffer {
+		return Buffer.from('todo');
 	}
 }
