@@ -19,6 +19,12 @@ export class FormatFacturXService
 	}
 
 	generate(invoice: Invoice, options: InvoiceServiceOptions): string | Buffer {
+		if (!options.data && !options.pdf) {
+			throw new Error(
+				'Either a data spreadsheet file or an invoice PDF' +
+					' are mandatory for Factur-X invoices!',
+			);
+		}
 		const xml = super.generate(invoice, options);
 
 		return xml;
