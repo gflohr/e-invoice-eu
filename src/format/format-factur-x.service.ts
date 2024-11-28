@@ -18,9 +18,9 @@ export class FormatFacturXService
 		return FULL_CII;
 	}
 
-	generate(invoice: Invoice, options: InvoiceServiceOptions): string | Buffer {
+	async generate(invoice: Invoice, options: InvoiceServiceOptions): Promise<string | Buffer> {
 		if (options.pdf) {
-			options.pdf = this.generatePDF3A(options.data as Buffer);
+			options.pdf = await this.generatePDF3A(options.data as Buffer);
 		} else if (options.data) {
 
 		} else {
@@ -36,7 +36,9 @@ export class FormatFacturXService
 	}
 
 	// const ghostscriptCommand = `gs -dPDFA=3 -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=${outputPath} PDFA_def.ps ${tempPath}`;
-	private generatePDF3A(pdf: Buffer): Buffer {
-		return Buffer.from('todo');
+	private async generatePDF3A(pdf: Buffer): Promise<Buffer> {
+		return new Promise(resolve => {
+			resolve(Buffer.from('todo'));
+		});
 	}
 }

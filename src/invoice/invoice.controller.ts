@@ -103,7 +103,7 @@ export class InvoiceController {
 			{ name: 'attachment' }, // FIXME! How to set maxCount asynchronously?
 		]),
 	)
-	transformAndCreate(
+	async transformAndCreate(
 		@Res() response: Response,
 		@Param('format') format: string,
 		@UploadedFiles()
@@ -138,7 +138,7 @@ export class InvoiceController {
 				data[0].buffer,
 			);
 
-			const document = this.invoiceService.generate(invoice, {
+			const document = await this.invoiceService.generate(invoice, {
 				format,
 				data: data[0].buffer,
 				pdf: pdf ? pdf[0].buffer : undefined,
