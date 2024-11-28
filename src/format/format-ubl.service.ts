@@ -81,7 +81,7 @@ export class FormatUBLService
 				'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
 		};
 
-		return this.render(expandObject, {
+		return this.renderXML(expandObject, {
 			prettyPrint: true,
 			indent: '\t',
 		});

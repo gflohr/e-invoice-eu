@@ -1494,7 +1494,7 @@ export class FormatCIIService
 		cii['rsm:CrossIndustryInvoice@xmlns:ram'] =
 			'urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100';
 
-		return this.render(cii, {
+		return this.renderXML(cii, {
 			prettyPrint: true,
 			indent: '\t',
 		});
