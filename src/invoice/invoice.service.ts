@@ -51,8 +51,7 @@ export class InvoiceService {
 		const formatter = this.formatFactoryService.createFormatService(
 			options.format,
 		);
-		const xml = formatter.generate(invoice);
 
-		return xml;
+		return formatter.generate(invoice, options);
 	}
 }

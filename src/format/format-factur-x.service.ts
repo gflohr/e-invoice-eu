@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { FormatCIIService, FULL_CII, FXProfile } from './format-cii.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { Invoice } from '../invoice/invoice.interface';
+import { InvoiceServiceOptions } from '../invoice/invoice.service';
 
 @Injectable()
 export class FormatFacturXService
@@ -17,8 +18,8 @@ export class FormatFacturXService
 		return FULL_CII;
 	}
 
-	generate(invoice: Invoice): string | Buffer {
-		const xml = super.generate(invoice);
+	generate(invoice: Invoice, options: InvoiceServiceOptions): string | Buffer {
+		const xml = super.generate(invoice, options);
 
 		return xml;
 	}

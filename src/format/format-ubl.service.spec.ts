@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { FormatUBLService } from './format-ubl.service';
 import { Invoice } from '../invoice/invoice.interface';
+import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Mapping } from '../mapping/mapping.interface';
 import { SerializerService } from '../serializer/serializer.service';
 
@@ -87,6 +88,8 @@ describe('UBL', () => {
 
 	it('should generate XML', () => {
 		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
-		expect(service.generate(invoice)).toMatchSnapshot();
+		const options = {} as InvoiceServiceOptions;
+
+		expect(service.generate(invoice, options)).toMatchSnapshot();
 	});
 });

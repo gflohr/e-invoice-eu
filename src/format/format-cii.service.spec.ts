@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { FormatCIIService } from './format-cii.service';
 import { Invoice } from '../invoice/invoice.interface';
+import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { SerializerService } from '../serializer/serializer.service';
 
 describe('CII', () => {
@@ -41,7 +42,8 @@ describe('CII', () => {
 				'cbc:ProfileID': 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
 			},
 		} as unknown as Invoice;
-		const xml = service.generate(invoice);
+		const options = {} as InvoiceServiceOptions;
+		const xml = service.generate(invoice, options);
 		expect(xml).toMatchSnapshot();
 	});
 
@@ -51,7 +53,8 @@ describe('CII', () => {
 				'cbc:CustomizationID': 'urn:cen.eu:en16931:2017',
 			},
 		} as unknown as Invoice;
-		const xml = service.generate(invoice);
+		const options = {} as InvoiceServiceOptions;
+		const xml = service.generate(invoice, options);
 		expect(xml).toMatchSnapshot();
 	});
 
@@ -80,7 +83,8 @@ describe('CII', () => {
 				],
 			},
 		} as unknown as Invoice;
-		const xml = service.generate(invoice);
+		const options = {} as InvoiceServiceOptions;
+		const xml = service.generate(invoice, options);
 		expect(xml).toMatchSnapshot();
 	});
 
@@ -90,7 +94,8 @@ describe('CII', () => {
 				'cbc:IssueDate': '2024-11-08',
 			},
 		} as unknown as Invoice;
-		const xml = service.generate(invoice);
+		const options = {} as InvoiceServiceOptions;
+		const xml = service.generate(invoice, options);
 		expect(xml).toMatchSnapshot();
 	});
 });

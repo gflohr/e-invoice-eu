@@ -4,6 +4,7 @@ import * as jsonpath from 'jsonpath-plus';
 import { FormatUBLService } from './format-ubl.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { Invoice } from '../invoice/invoice.interface';
+import { InvoiceServiceOptions } from '../invoice/invoice.service';
 
 // This is what we are looking at while traversing the input tree:
 export type Node = { [key: string]: Node } | Node[] | string;
@@ -1473,7 +1474,8 @@ export class FormatCIIService
 		return FULL_CII;
 	}
 
-	generate(invoice: Invoice): string | Buffer {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	generate(invoice: Invoice, _options: InvoiceServiceOptions): string | Buffer {
 		const cii: ObjectNode = {};
 
 		this.convert(invoice, '$', cii, '$', [ublInvoice]);

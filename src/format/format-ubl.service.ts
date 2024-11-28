@@ -4,6 +4,7 @@ import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 import { FormatXMLService } from './format-xml.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { Invoice } from '../invoice/invoice.interface';
+import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Mapping } from '../mapping/mapping.interface';
 
 @Injectable()
@@ -71,7 +72,8 @@ export class FormatUBLService
 		invoice['ubl:Invoice'] = newInvoice['ubl:Invoice'];
 	}
 
-	generate(invoice: Invoice): string | Buffer {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	generate(invoice: Invoice, _options: InvoiceServiceOptions): string | Buffer {
 		const expandObject: ExpandObject = {
 			Invoice: invoice['ubl:Invoice'],
 			'Invoice@xmlns': 'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',

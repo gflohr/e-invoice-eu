@@ -1,4 +1,5 @@
 import { Invoice } from '../invoice/invoice.interface';
+import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Mapping } from '../mapping/mapping.interface';
 
 export interface EInvoiceFormat {
@@ -39,5 +40,5 @@ export interface EInvoiceFormat {
 	 *
 	 * @returns the rendered invoice
 	 */
-	generate(invoice: Invoice): string | Buffer;
+	generate(invoice: Invoice, options: InvoiceServiceOptions): string | Buffer;
 }
