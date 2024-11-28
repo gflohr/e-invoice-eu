@@ -5,6 +5,8 @@ formats or JSON.
 
 - [E-Invoice-EU](#e-invoice-eu)
   - [Status](#status)
+    - [Supported Formats](#supported-formats)
+    - [Security](#security)
   - [Description](#description)
   - [Documentation](#documentation)
   - [Pre-requisites](#pre-requisites)
@@ -28,11 +30,22 @@ formats or JSON.
 
 ## Status
 
+### Supported Formats
+
 You can currently create invoices in these formats:
 
 - UBL: customization id `urn:cen.eu:en16931:2017`
 - XRECHNUNG-UBL: customization id `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`
 - CII: customization id `urn:cen.eu:en16931:2017`
+
+### Security
+
+The service in its current state is meant to be run in a network with limited
+access or behind an API gateway that prevents abuse of the service.
+
+One simple solution is to use [`ngninx`](https://nginx.org/) as a
+gateway and configure rate-limiting there. You will also want to limit
+the maximum request body size.
 
 ## Description
 
