@@ -116,7 +116,7 @@ export class InvoiceController {
 
 		@Body() body: { description?: string[]; mimeType?: string[] },
 	) {
-		const { data, mapping } = files;
+		const { data, mapping, pdf } = files;
 
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const descriptions = body.description || [];
@@ -140,6 +140,8 @@ export class InvoiceController {
 
 			const document = this.invoiceService.generate(invoice, {
 				format,
+				data: data[0].buffer,
+				pdf: pdf ? pdf[0].buffer : undefined,
 			});
 			if (typeof document === 'string') {
 				response.set('Content-Type', 'application/xml');

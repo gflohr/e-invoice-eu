@@ -77,6 +77,8 @@ describe('InvoiceController', () => {
 		);
 		expect(invoiceService.generate).toHaveBeenCalledWith(mockTransformedData, {
 			format: 'UBL',
+			data: Buffer.from(data),
+			pdf: undefined,
 		});
 	});
 
