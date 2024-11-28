@@ -63,7 +63,10 @@ export class FormatFactoryService {
 		for (const format in this.formatServices) {
 			const FormatService = this.formatServices[format];
 
-			const service = new FormatService(this.appConfigService, this.serializerService);
+			const service = new FormatService(
+				this.appConfigService,
+				this.serializerService,
+			);
 			infos.push({
 				name: format,
 				customizationID: service.customizationID,

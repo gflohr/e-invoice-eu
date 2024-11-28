@@ -47,7 +47,10 @@ export type InvoiceServiceOptions = {
 export class InvoiceService {
 	constructor(private readonly formatFactoryService: FormatFactoryService) {}
 
-	async generate(invoice: Invoice, options: InvoiceServiceOptions): Promise<string | Buffer> {
+	async generate(
+		invoice: Invoice,
+		options: InvoiceServiceOptions,
+	): Promise<string | Buffer> {
 		const formatter = this.formatFactoryService.createFormatService(
 			options.format,
 		);

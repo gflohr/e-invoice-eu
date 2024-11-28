@@ -72,8 +72,11 @@ export class FormatUBLService
 		invoice['ubl:Invoice'] = newInvoice['ubl:Invoice'];
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	async generate(invoice: Invoice, _options: InvoiceServiceOptions): Promise<string | Buffer> {
+	async generate(
+		invoice: Invoice,
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		_options: InvoiceServiceOptions,
+	): Promise<string | Buffer> {
 		const expandObject: ExpandObject = {
 			Invoice: invoice['ubl:Invoice'],
 			'Invoice@xmlns': 'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',

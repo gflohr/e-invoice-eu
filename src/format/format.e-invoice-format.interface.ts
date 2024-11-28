@@ -40,5 +40,8 @@ export interface EInvoiceFormat {
 	 *
 	 * @returns the rendered invoice
 	 */
-	generate(invoice: Invoice, options: InvoiceServiceOptions): Promise<string | Buffer>;
+	generate(
+		invoice: Invoice,
+		options: InvoiceServiceOptions,
+	): Promise<string | Buffer>;
 }

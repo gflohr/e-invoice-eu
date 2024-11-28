@@ -40,6 +40,7 @@
 		"@types/node": "^22.7.5",
 		"@types/semver": "^7.5.8",
 		"@types/supertest": "^6.0.2",
+		"@types/tmp": "^0.2.6",
 		"@typescript-eslint/eslint-plugin": "^8.8.1",
 		"@typescript-eslint/parser": "^8.8.1",
 		"eslint": "^9.12.0",
