@@ -2,9 +2,9 @@ import { Injectable, Logger } from '@nestjs/common';
 import { spawn } from 'child_process';
 import { promises as fs } from 'fs';
 import * as path from 'path';
-import * as url from 'url';
-import { AFRelationship, PDFDocument } from 'pdf-lib';
+import { AFRelationship, PDFDocument, PDFName } from 'pdf-lib';
 import * as tmp from 'tmp-promise';
+import * as url from 'url';
 
 import { FormatCIIService, FULL_CII, FXProfile } from './format-cii.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
@@ -44,10 +44,60 @@ export class FormatFacturXService
 			);
 		}
 
+		// TODO! Attach other files!
+
 		const xml = await super.generate(invoice, options) as string;
-		pdf = await this.attachFacturX(pdf as Buffer, xml);
+		pdf = await this.attachFacturX(pdf, xml);
+
+		pdf = await this.createPDFA(pdf);
 
 		return pdf as Buffer;
+	}
+
+	private async createPDFA(pdf: Buffer): Promise<Buffer> {
+		const pdfDoc = await PDFDocument.load(pdf);
+		const xmp = this.getMetadata(pdfDoc);
+
+		this.addMetadata(pdfDoc, xmp);
+
+		return pdf;
+	}
+
+	private addMetadata(pdfDoc: PDFDocument, xmp: string) {
+		const metadataStream = pdfDoc.context.stream(xmp, {
+			Type: 'Metadata',
+			Subtype: 'XML',
+			Length: xmp.length,
+		});
+
+		const metadataStreamRef = pdfDoc.context.register(metadataStream);
+
+		pdfDoc.catalog.set(PDFName.of('Metadata'), metadataStreamRef);
+	}
+
+	private getMetadata(pdfDoc: PDFDocument): string {
+		const metadata = pdfDoc.catalog.lookup(PDFName.of('Metadata'));
+		if (metadata) {
+			const textDecoder = new TextDecoder();
+			return textDecoder.decode((metadata as any).contents);
+		} else {
+			return `
+<?xpacket begin="" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/">
+	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	<rdf:Description rdf:about=""
+		xmlns:dc="http://purl.org/dc/elements/1.1/">
+		<dc:title>
+			<rdf:Alt>
+				<rdf:li xml:lang="x-default">Invoice</rdf:li>
+			</rdf:Alt>
+		</dc:title>
+	</rdf:Description>
+	</rdf:RDF>
+</x:xmpmeta>
+<?xpacket end="w"?>
+`;
+		}
 	}
 
 	private async attachFacturX(pdf: Buffer, xml: string): Promise<Buffer> {
