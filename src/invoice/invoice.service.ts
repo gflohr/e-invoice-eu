@@ -32,6 +32,11 @@ export type InvoiceServiceOptions = {
 	data?: Buffer;
 
 	/**
+	 * The filename of the spreadsheet data.
+	 */
+	dataName?: string;
+
+	/**
 	 * A PDF version of the invoice.  For Factur-X, either `data` or `pdf`
 	 * must be present.
 	 */

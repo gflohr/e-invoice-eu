@@ -73,15 +73,6 @@ export class InvoiceController {
 						description: 'Description for the corresponding attachment',
 					},
 				},
-				mimeType: {
-					type: 'array',
-					nullable: true,
-					description: 'Optional MIME types for each supplementary attachment',
-					items: {
-						type: 'string',
-						description: 'MIME type for the corresponding attachment',
-					},
-				},
 			},
 		},
 	})
@@ -141,6 +132,7 @@ export class InvoiceController {
 			const document = await this.invoiceService.generate(invoice, {
 				format,
 				data: data[0].buffer,
+				dataName: data ? data[0].originalname : undefined,
 				pdf: pdf ? pdf[0].buffer : undefined,
 			});
 			if (typeof document === 'string') {
