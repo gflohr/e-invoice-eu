@@ -5,6 +5,7 @@ import { FormatCIIService, FULL_CII, FXProfile } from './format-cii.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { Invoice } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
+import { AFRelationship, PDFDocument } from 'pdf-lib';
 
 @Injectable()
 export class FormatFacturXService
@@ -25,9 +26,12 @@ export class FormatFacturXService
 		invoice: Invoice,
 		options: InvoiceServiceOptions,
 	): Promise<string | Buffer> {
+		let pdf: Buffer;
+
 		if (options.pdf) {
-			options.pdf = await this.generatePDF3A(options.pdf as Buffer);
+			pdf = await this.generatePDF3A(options.pdf as Buffer);
 		} else if (options.data) {
+			pdf = Buffer.from('TODO!');
 		} else {
 			throw new Error(
 				'Either a data spreadsheet file or an invoice PDF' +
@@ -35,9 +39,31 @@ export class FormatFacturXService
 			);
 		}
 
-		const xml = super.generate(invoice, options);
+		const xml = await super.generate(invoice, options) as string;
+		pdf = await this.attachFacturX(pdf as Buffer, xml);
 
-		return options.pdf as Buffer;
+		return pdf as Buffer;
+	}
+
+	private async attachFacturX(pdf: Buffer, xml: string): Promise<Buffer> {
+		try {
+			const pdfDoc = await PDFDocument.load(pdf);
+
+			pdfDoc.attach(Buffer.from(xml), 'factur-x.xml', {
+				mimeType: 'application/xml',
+				description: 'Factur-X',
+				creationDate: new Date(),
+				modificationDate: new Date(),
+				afRelationship: AFRelationship.Alternative,
+			});
+
+			const modifiedPdfBytes = await pdfDoc.save();
+
+			return Buffer.from(modifiedPdfBytes);
+		  } catch (error) {
+			console.error("Error attaching string to PDF:", error);
+			throw new Error("Error modifying PDF");
+		  }
 	}
 
 	private async generatePDF3A(pdf: Buffer): Promise<Buffer> {
