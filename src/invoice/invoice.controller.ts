@@ -149,6 +149,7 @@ export class InvoiceController {
 				});
 			} else {
 				this.logger.error(`unknown error: ${error.message}\n${error.stack}`);
+
 				throw new InternalServerErrorException();
 			}
 		}

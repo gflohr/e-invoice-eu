@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { Invoice } from './invoice.interface';
 import { InvoiceService } from './invoice.service';
+import { AppConfigService } from '../app-config/app-config.service';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { SerializerService } from '../serializer/serializer.service';
 
@@ -12,6 +13,11 @@ describe('InvoiceService', () => {
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
 				InvoiceService,
+				AppConfigService,
+				{
+					provide: 'AppConfigService',
+					useValue: {},
+				},
 				FormatFactoryService,
 				{
 					provide: 'FormatFactoryService',
@@ -32,9 +38,9 @@ describe('InvoiceService', () => {
 		expect(service).toBeDefined();
 	});
 
-	it('should create an invoice', () => {
+	it('should create an invoice', async () => {
 		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
-		const got = service.generate(invoice, { format: 'UBL' });
+		const got = await service.generate(invoice, { format: 'UBL' });
 
 		expect(got).toMatchSnapshot();
 	});

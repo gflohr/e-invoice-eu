@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { FormatFacturXExtendedService } from './format-factur-x-extended.service';
+import { AppConfigService } from '../app-config/app-config.service';
 import { SerializerService } from '../serializer/serializer.service';
 
 describe('XRECHNUNG-UBL', () => {
@@ -10,6 +11,11 @@ describe('XRECHNUNG-UBL', () => {
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
 				FormatFacturXExtendedService,
+				AppConfigService,
+				{
+					provide: 'AppConfigService',
+					useValue: {},
+				},
 				SerializerService,
 				{
 					provide: 'SerializerService',

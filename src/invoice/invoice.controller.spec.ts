@@ -59,7 +59,7 @@ describe('InvoiceController', () => {
 			.spyOn(mappingService, 'transform')
 			.mockReturnValue(mockTransformedData);
 		const mockXml = '<Invoice/>';
-		jest.spyOn(invoiceService, 'generate').mockReturnValue(mockXml);
+		jest.spyOn(invoiceService, 'generate').mockResolvedValue(mockXml);
 
 		const mapping = 'test: data success';
 		const data = 'test data';
@@ -78,6 +78,7 @@ describe('InvoiceController', () => {
 		expect(invoiceService.generate).toHaveBeenCalledWith(mockTransformedData, {
 			format: 'UBL',
 			data: Buffer.from(data),
+			dataName: 'invoice.ods',
 			pdf: undefined,
 		});
 	});
@@ -132,7 +133,7 @@ describe('InvoiceController', () => {
 		transformMock.mockRestore();
 	});
 
-	it('should throw InternalServerErrorException for unknown errors', () => {
+	it('should throw InternalServerErrorException for unknown errors', async () => {
 		const format = 'UBL';
 		const files = {
 			data: [],
@@ -143,14 +144,14 @@ describe('InvoiceController', () => {
 			throw new Error('boum!');
 		});
 
-		expect(() =>
+		await expect(
 			controller.transformAndCreate(
 				mockResponse as Response,
 				format,
 				files,
 				{},
 			),
-		).toThrow(InternalServerErrorException);
+		).rejects.toThrow(InternalServerErrorException);
 
 		expect(mockedLogger.error).toHaveBeenCalledTimes(1);
 	});
