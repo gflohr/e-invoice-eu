@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { FormatXRECHNUNGUBLService } from './format-xrechnung-ubl.service';
+import { FormatFacturXExtendedService } from './format-factur-x-extended.service';
 import { AppConfigService } from '../app-config/app-config.service';
 import { SerializerService } from '../serializer/serializer.service';
 
 describe('XRECHNUNG-UBL', () => {
-	let service: FormatXRECHNUNGUBLService;
+	let service: FormatFacturXExtendedService;
 
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
-				FormatXRECHNUNGUBLService,
+				FormatFacturXExtendedService,
 				AppConfigService,
 				{
 					provide: 'AppConfigService',
@@ -24,7 +24,9 @@ describe('XRECHNUNG-UBL', () => {
 			],
 		}).compile();
 
-		service = module.get<FormatXRECHNUNGUBLService>(FormatXRECHNUNGUBLService);
+		service = module.get<FormatFacturXExtendedService>(
+			FormatFacturXExtendedService,
+		);
 	});
 
 	it('should be defined', () => {

@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { FormatFactoryService } from './format.factory.service';
+import { AppConfigService } from '../app-config/app-config.service';
 import { SerializerService } from '../serializer/serializer.service';
 
 describe('XRECHNUNG-UBL', () => {
@@ -9,6 +10,11 @@ describe('XRECHNUNG-UBL', () => {
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
+				AppConfigService,
+				{
+					provide: 'AppConfigService',
+					useValue: {},
+				},
 				FormatFactoryService,
 				SerializerService,
 				{
@@ -41,6 +47,11 @@ describe('XRECHNUNG-UBL', () => {
 
 	it('should list all formats alphabetically', () => {
 		const allFormats = service.listFormatServices().map(f => f.name);
-		expect(allFormats).toEqual(['CII', 'UBL', 'XRECHNUNG-UBL']);
+		expect(allFormats).toEqual([
+			'CII',
+			'Factur-X-Extended',
+			'UBL',
+			'XRECHNUNG-UBL',
+		]);
 	});
 });

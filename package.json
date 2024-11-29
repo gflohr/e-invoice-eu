@@ -1,6 +1,11 @@
 {
 	"name": "e-invoice-eu",
 	"version": "0.1.0",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/gflohr/e-invoice-eu.git"
+	},
+	"homepage": "https://github.com/gflohr/e-invoice-eu",
 	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
 	"dependencies": {
 		"@e965/xlsx": "^0.20.3",
@@ -14,14 +19,16 @@
 		"@types/xml2js": "^0.4.14",
 		"ajv": "^8.17.1",
 		"class-validator": "^0.14.1",
-		"exiftool-vendored": "^28.6.0",
 		"got": "^14.4.3",
 		"js-yaml": "^4.1.0",
 		"jsdom": "^25.0.1",
 		"jsonpath-plus": "^10.0.6",
+		"pdf-lib": "^1.17.1",
 		"reflect-metadata": "^0.2.2",
 		"rxjs": "^7.8.1",
 		"semver": "^7.6.3",
+		"tmp-promise": "^3.0.3",
+		"valibot": "^1.0.0-beta.8",
 		"xmlbuilder2": "^3.1.1"
 	},
 	"devDependencies": {
@@ -38,6 +45,7 @@
 		"@types/node": "^22.7.5",
 		"@types/semver": "^7.5.8",
 		"@types/supertest": "^6.0.2",
+		"@types/tmp": "^0.2.6",
 		"@typescript-eslint/eslint-plugin": "^8.8.1",
 		"@typescript-eslint/parser": "^8.8.1",
 		"eslint": "^9.12.0",

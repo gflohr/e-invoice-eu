@@ -1,7 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { FormatUBLService } from './format-ubl.service';
+import { AppConfigService } from '../app-config/app-config.service';
 import { Invoice } from '../invoice/invoice.interface';
+import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Mapping } from '../mapping/mapping.interface';
 import { SerializerService } from '../serializer/serializer.service';
 
@@ -12,6 +14,11 @@ describe('UBL', () => {
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
 				FormatUBLService,
+				AppConfigService,
+				{
+					provide: 'AppConfigService',
+					useValue: {},
+				},
 				SerializerService,
 				{
 					provide: 'SerializerService',
@@ -85,8 +92,12 @@ describe('UBL', () => {
 		]);
 	});
 
-	it('should generate XML', () => {
+	it('should generate XML', async () => {
 		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
-		expect(service.generate(invoice)).toMatchSnapshot();
+		const options = {} as InvoiceServiceOptions;
+
+		const xml = await service.generate(invoice, options);
+
+		expect(xml).toMatchSnapshot();
 	});
 });

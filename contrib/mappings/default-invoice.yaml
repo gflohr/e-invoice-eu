@@ -35,8 +35,8 @@ ubl:Invoice:
         cbc:RegistrationName: =O1
       cac:Contact:
         cbc:Name: =I14
-        cbc:Telephone: =I15
-        cbc:ElectronicMail: =I16
+        cbc:Telephone: =I16
+        cbc:ElectronicMail: =I15
   cac:AccountingCustomerParty:
     cac:Party:
       cbc:EndpointID: =I9

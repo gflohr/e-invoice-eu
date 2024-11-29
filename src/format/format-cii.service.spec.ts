@@ -1,7 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { FormatCIIService } from './format-cii.service';
+import { AppConfigService } from '../app-config/app-config.service';
 import { Invoice } from '../invoice/invoice.interface';
+import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { SerializerService } from '../serializer/serializer.service';
 
 describe('CII', () => {
@@ -11,6 +13,11 @@ describe('CII', () => {
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
 				FormatCIIService,
+				AppConfigService,
+				{
+					provide: 'AppConfigService',
+					useValue: {},
+				},
 				SerializerService,
 				{
 					provide: 'SerializerService',
@@ -34,28 +41,30 @@ describe('CII', () => {
 		expect(service.profileID).toBeDefined();
 	});
 
-	it('should convert string values', () => {
+	it('should convert string values', async () => {
 		const invoice: Invoice = {
 			'ubl:Invoice': {
 				'cbc:CustomizationID': 'urn:cen.eu:en16931:2017',
 				'cbc:ProfileID': 'urn:fdc:peppol.eu:2017:poacc:billing:01:1.0',
 			},
 		} as unknown as Invoice;
-		const xml = service.generate(invoice);
+		const options = {} as InvoiceServiceOptions;
+		const xml = await service.generate(invoice, options);
 		expect(xml).toMatchSnapshot();
 	});
 
-	it('should omit missing string values', () => {
+	it('should omit missing string values', async () => {
 		const invoice: Invoice = {
 			'ubl:Invoice': {
 				'cbc:CustomizationID': 'urn:cen.eu:en16931:2017',
 			},
 		} as unknown as Invoice;
-		const xml = service.generate(invoice);
+		const options = {} as InvoiceServiceOptions;
+		const xml = await service.generate(invoice, options);
 		expect(xml).toMatchSnapshot();
 	});
 
-	it('should convert arrays', () => {
+	it('should convert arrays', async () => {
 		const invoice: Invoice = {
 			'ubl:Invoice': {
 				'cac:InvoiceLine': [
@@ -80,17 +89,19 @@ describe('CII', () => {
 				],
 			},
 		} as unknown as Invoice;
-		const xml = service.generate(invoice);
+		const options = {} as InvoiceServiceOptions;
+		const xml = await service.generate(invoice, options);
 		expect(xml).toMatchSnapshot();
 	});
 
-	it('should encode date/time strings correctly', () => {
+	it('should encode date/time strings correctly', async () => {
 		const invoice: Invoice = {
 			'ubl:Invoice': {
 				'cbc:IssueDate': '2024-11-08',
 			},
 		} as unknown as Invoice;
-		const xml = service.generate(invoice);
+		const options = {} as InvoiceServiceOptions;
+		const xml = await service.generate(invoice, options);
 		expect(xml).toMatchSnapshot();
 	});
 });

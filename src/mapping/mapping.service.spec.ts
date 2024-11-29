@@ -4,6 +4,7 @@ import { JSONSchemaType } from 'ajv';
 
 import { Mapping, MappingMetaInformation } from './mapping.interface';
 import { MappingService } from './mapping.service';
+import { AppConfigService } from '../app-config/app-config.service';
 import { EInvoiceFormat } from '../format/format.e-invoice-format.interface';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { Invoice } from '../invoice/invoice.interface';
@@ -161,6 +162,11 @@ describe('MappingService', () => {
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
 				MappingService,
+				AppConfigService,
+				{
+					provide: 'AppConfigService',
+					useValue: {},
+				},
 				FormatFactoryService,
 				{
 					provide: 'FormatFactoryService',

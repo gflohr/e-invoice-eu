@@ -1,5 +1,6 @@
 import {
 	BadRequestException,
+	Body,
 	Controller,
 	HttpStatus,
 	InternalServerErrorException,
@@ -30,7 +31,6 @@ export class InvoiceController {
 	@Post('transform-and-create/:format')
 	@ApiConsumes('multipart/form-data')
 	@ApiBody({
-		description: 'The spreadsheet to be transformed.',
 		required: true,
 		schema: {
 			type: 'object',
@@ -38,10 +38,40 @@ export class InvoiceController {
 				data: {
 					type: 'string',
 					format: 'binary',
+					description: 'The spreadsheet to be transformed.',
 				},
 				mapping: {
 					type: 'string',
 					format: 'binary',
+					description:
+						'The mapping from spreadsheet data to the internal format as YAML or JSON.',
+				},
+				pdf: {
+					type: 'string',
+					format: 'binary',
+					nullable: true,
+					description:
+						'Optional PDF version of the invoice.  For Factur-X/ZUGFeRD, if no PDF is uploaded, one is generated from the Spreadsheet with the help of LibreOffice.',
+				},
+				attachment: {
+					type: 'array',
+					nullable: true,
+					description: 'An arbitrary number of supplementary attachments',
+					items: {
+						type: 'string',
+						format: 'binary',
+						description: 'The individual attachment',
+					},
+				},
+				description: {
+					type: 'array',
+					nullable: true,
+					description:
+						'Optional descriptions for each supplementary attachment',
+					items: {
+						type: 'string',
+						description: 'Description for the corresponding attachment',
+					},
 				},
 			},
 		},
@@ -60,38 +90,57 @@ export class InvoiceController {
 		FileFieldsInterceptor([
 			{ name: 'data', maxCount: 1 },
 			{ name: 'mapping', maxCount: 1 },
+			{ name: 'pdf', maxCount: 1 },
+			{ name: 'attachment' }, // FIXME! How to set maxCount asynchronously?
 		]),
 	)
-	transformAndCreate(
+	async transformAndCreate(
 		@Res() response: Response,
 		@Param('format') format: string,
 		@UploadedFiles()
 		files: {
 			data?: Express.Multer.File[];
 			mapping?: Express.Multer.File[];
+			pdf?: Express.Multer.File[];
+			attachment?: Express.Multer.File[];
 		},
+
+		@Body() body: { description?: string[]; mimeType?: string[] },
 	) {
-		const dataFile = files.data?.[0];
-		if (!dataFile) {
+		const { data, mapping, pdf } = files;
+
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const descriptions = body.description || [];
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const mimeTypes = body.mimeType || [];
+
+		if (!data) {
 			throw new BadRequestException('No invoice file uploaded');
 		}
 
-		const mappingFile = files.mapping?.[0];
-		if (!mappingFile) {
+		if (!mapping) {
 			throw new BadRequestException('No mapping file uploaded');
 		}
 
 		try {
 			const invoice = this.mappingService.transform(
 				format,
-				mappingFile.buffer.toString(),
-				dataFile.buffer,
+				mapping[0].buffer.toString(),
+				data[0].buffer,
 			);
 
-			const xml = this.invoiceService.generate(format, invoice);
-
-			response.set('Content-Type', 'application/xml');
-			response.status(HttpStatus.CREATED).send(xml);
+			const document = await this.invoiceService.generate(invoice, {
+				format,
+				data: data[0].buffer,
+				dataName: data ? data[0].originalname : undefined,
+				pdf: pdf ? pdf[0].buffer : undefined,
+			});
+			if (typeof document === 'string') {
+				response.set('Content-Type', 'application/xml');
+			} else {
+				response.set('Content-Type', 'application/pdf');
+			}
+			response.status(HttpStatus.CREATED).send(document);
 		} catch (error) {
 			if (error instanceof ValidationError) {
 				throw new BadRequestException({
@@ -100,6 +149,7 @@ export class InvoiceController {
 				});
 			} else {
 				this.logger.error(`unknown error: ${error.message}\n${error.stack}`);
+
 				throw new InternalServerErrorException();
 			}
 		}

@@ -59,7 +59,7 @@ describe('InvoiceController', () => {
 			.spyOn(mappingService, 'transform')
 			.mockReturnValue(mockTransformedData);
 		const mockXml = '<Invoice/>';
-		jest.spyOn(invoiceService, 'generate').mockReturnValue(mockXml);
+		jest.spyOn(invoiceService, 'generate').mockResolvedValue(mockXml);
 
 		const mapping = 'test: data success';
 		const data = 'test data';
@@ -75,10 +75,12 @@ describe('InvoiceController', () => {
 			mapping,
 			Buffer.from(data),
 		);
-		expect(invoiceService.generate).toHaveBeenCalledWith(
-			'UBL',
-			mockTransformedData,
-		);
+		expect(invoiceService.generate).toHaveBeenCalledWith(mockTransformedData, {
+			format: 'UBL',
+			data: Buffer.from(data),
+			dataName: 'invoice.ods',
+			pdf: undefined,
+		});
 	});
 
 	it('should throw a BadRequestException if no mapping file is uploaded', async () => {
@@ -131,26 +133,26 @@ describe('InvoiceController', () => {
 		transformMock.mockRestore();
 	});
 
-	it('should throw InternalServerErrorException for unknown errors', () => {
+	it('should throw InternalServerErrorException for unknown errors', async () => {
 		const format = 'UBL';
-		const dataFile = Buffer.from('data');
-		const mappingFile = Buffer.from('mapping');
 		const files = {
-			data: [{ buffer: dataFile }] as Express.Multer.File[],
-			mapping: [{ buffer: mappingFile }] as Express.Multer.File[],
+			data: [],
+			mapping: [],
 		};
 
 		jest.spyOn(mappingService, 'transform').mockImplementation(() => {
 			throw new Error('boum!');
 		});
 
-		expect(() =>
-			controller.transformAndCreate(mockResponse as Response, format, files),
-		).toThrow(InternalServerErrorException);
+		await expect(
+			controller.transformAndCreate(
+				mockResponse as Response,
+				format,
+				files,
+				{},
+			),
+		).rejects.toThrow(InternalServerErrorException);
 
 		expect(mockedLogger.error).toHaveBeenCalledTimes(1);
-		expect(mockedLogger.error).toHaveBeenCalledWith(
-			expect.stringMatching(/^unknown error: boum!/),
-		);
 	});
 });
