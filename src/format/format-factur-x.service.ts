@@ -23,6 +23,26 @@ import * as packageJson from '../../package.json';
 import { Invoice } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 
+type FacturXConformanceLevel =
+	| 'MINIMUM'
+	| 'BASIC'
+	| 'BASIC WL'
+	| 'EN 16931'
+	| 'EXTENDED'
+	| 'XRECHNUNG';
+
+type FacturXFilename = 'factur-x.xml' | 'xrechnung.xml';
+
+type InvoiceMeta = {
+	conformanceLevel: FacturXConformanceLevel;
+	version: string;
+	filename: FacturXFilename;
+	now: string;
+	creator: string;
+	producer: string;
+	subject: string;
+};
+
 const colourProfile = `
 AAAL0AAAAAACAAAAbW50clJHQiBYWVogB98AAgAPAAAAAAAAYWNzcAAAAAAAAAAAAAAAAAAAAAAA
 AAABAAAAAAAAAAAAAPbWAAEAAAAA0y0AAAAAPQ6y3q6Tl76bZybOjApDzgAAAAAAAAAAAAAAAAAA
@@ -80,13 +100,6 @@ bnNvcnRpdW0sIDIwMTUAAHNmMzIAAAAAAAEMRAAABd////MmAAAHlAAA/Y////uh///9ogAAA9sA
 AMB1
 `.trim();
 
-type InvoiceMeta = {
-	now: string;
-	creator: string;
-	producer: string;
-	subject: string;
-};
-
 @Injectable()
 export class FormatFacturXService
 	extends FormatCIIService
@@ -127,17 +140,60 @@ export class FormatFacturXService
 		const xml = (await super.generate(invoice, options)) as string;
 		pdf = await this.attachFacturX(pdf, xml);
 
-		pdf = await this.createPDFA(pdf, invoice);
+		pdf = await this.createPDFA(pdf, options, invoice);
 
 		return pdf as Buffer;
 	}
 
-	private async createPDFA(pdf: Buffer, invoice: Invoice): Promise<Buffer> {
+	private async createPDFA(
+		pdf: Buffer,
+		options: InvoiceServiceOptions,
+		invoice: Invoice,
+	): Promise<Buffer> {
 		const pdfDoc = await PDFDocument.load(pdf, { updateMetadata: false });
 
 		let xmp = create();
 		const bom = '\uFEFF';
 		xmp = xmp.ins('xpacket', `begin="${bom}" id="W5M0MpCehiHzreSzNTczkc9d"`);
+
+		let conformanceLevel: FacturXConformanceLevel;
+		let version: string;
+		let filename: FacturXFilename;
+
+		switch (options.format) {
+			case 'Factur-X-Minimum':
+				filename = 'factur-x.xml';
+				conformanceLevel = 'MINIMUM';
+				version = '1.0';
+				break;
+			case 'Factur-X-Basic-WL':
+				filename = 'factur-x.xml';
+				conformanceLevel = 'BASIC WL';
+				version = '1.0';
+				break;
+			case 'Factur-X-Basic':
+				filename = 'factur-x.xml';
+				conformanceLevel = 'BASIC';
+				version = '1.0';
+				break;
+			case 'Factur-X-EN16931':
+				filename = 'factur-x.xml';
+				conformanceLevel = 'EN 16931';
+				version = '1.0';
+				break;
+			case 'Factur-X-Extended':
+				filename = 'factur-x.xml';
+				conformanceLevel = 'EXTENDED';
+				version = '1.0';
+				break;
+			case 'Factur-X-XRechnung':
+				filename = 'xrechnung.xml';
+				conformanceLevel = 'XRECHNUNG';
+				version = '3.0';
+				break;
+			default:
+				throw new Error(`unknown Factur-X format '${options.format}'`);
+		}
 
 		const now = new Date();
 		const invoiceNumber = invoice['ubl:Invoice']['cbc:ID'];
@@ -148,6 +204,9 @@ export class FormatFacturXService
 		const invoiceDate = invoice['ubl:Invoice']['cbc:IssueDate'];
 		const invoiceSubject = `Invoice ${invoiceNumber} dated ${invoiceDate} issued by ${invoiceCreator}`;
 		const invoiceMeta = {
+			conformanceLevel,
+			version,
+			filename,
 			creator: invoiceCreator,
 			now: this.formatDateWithOffset(now),
 			producer: `${packageJson.name} - ${packageJson.homepage}`,
@@ -170,6 +229,8 @@ export class FormatFacturXService
 		this.setTrailerInfoID(pdfDoc, invoiceMeta);
 		this.setOutputIntent(pdfDoc);
 		this.fixLinkAnnotations(pdfDoc);
+		this.setMarkInfo(pdfDoc);
+		this.setStructTreeRoot(pdfDoc);
 
 		this.addMetadata(
 			pdfDoc,
@@ -181,6 +242,19 @@ export class FormatFacturXService
 		);
 
 		return Buffer.from(await pdfDoc.save());
+	}
+
+	private setStructTreeRoot(pdfDoc: PDFDocument) {
+		const structTreedata = pdfDoc.context.obj({
+			Type: PDFName.of('StructTreeRoot'),
+		});
+		const structTreeref = pdfDoc.context.register(structTreedata);
+		pdfDoc.catalog.set(PDFName.of('StructTreeRoot'), structTreeref);
+	}
+
+	private setMarkInfo(pdfDoc: PDFDocument) {
+		const rootref = pdfDoc.context.obj({ Marked: true });
+		pdfDoc.catalog.set(PDFName.of('MarkInfo'), rootref);
 	}
 
 	private fixLinkAnnotations(pdfDoc: PDFDocument) {
@@ -269,9 +343,9 @@ export class FormatFacturXService
 		this.addPdfAidDescription(rdf);
 		this.addPdfPurl(rdf, invoiceMeta);
 		this.addProducer(rdf);
-		this.addXap(rdf);
+		this.addXap(rdf, invoiceMeta);
 		this.addPdfAExtension(rdf);
-		this.addFacturXStuff(rdf);
+		this.addFacturXStuff(rdf, invoiceMeta);
 	}
 
 	private addPdfAidDescription(node: XMLBuilder) {
@@ -281,7 +355,6 @@ export class FormatFacturXService
 				'rdf:about': '',
 			})
 			.ele('pdfaid:part')
-			// FIXME! Use the correct version!
 			.txt('3')
 			.up()
 			.ele('pdfaid:conformance')
@@ -304,8 +377,6 @@ export class FormatFacturXService
 			.up()
 			.up()
 			.up()
-			// FIXME! Only do this, when the document has a creator! Alternatively,
-			// get the creator from the invoice data.
 			.ele('dc:creator')
 			.ele('rdf:Seq')
 			.ele('rdf:li')
@@ -322,31 +393,26 @@ export class FormatFacturXService
 			.txt('gflohr/e-invoice-eu git+https://github.com/gflohr/e-invoice-eu')
 			.up()
 			.ele('pdf:PDFVersion')
-			// FIXME! Use correct PDF version!
 			.txt('1.7');
 	}
 
-	private addXap(node: XMLBuilder) {
+	private addXap(node: XMLBuilder, invoiceMeta: InvoiceMeta) {
 		node
 			.ele('rdf:Description', {
 				'xmlns:xmp': 'http://ns.adobe.com/xap/1.0/',
 				'rdf:about': '',
 			})
 			.ele('xmp:CreatorTool')
-			// FIXME!
-			.txt('gflohr/e-invoice-eu git+https://github.com/gflohr/e-invoice-eu')
+			.txt(invoiceMeta.creator)
 			.up()
 			.ele('xmp:CreateDate')
-			// FIXME! Use current date and time!
-			.txt('2024-11-26T12:08:03+02:00')
+			.txt(invoiceMeta.now)
 			.up()
 			.ele('xmp:ModifyDate')
-			// FIXME! Use current date and time!
-			.txt('2024-11-26T12:08:03+02:00')
+			.txt(invoiceMeta.now)
 			.up()
 			.ele('xmp:MetadataDate')
-			// FIXME! Use current date and time!
-			.txt('2024-11-26T12:08:03+02:00')
+			.txt(invoiceMeta.now)
 			.up();
 	}
 
@@ -365,7 +431,6 @@ export class FormatFacturXService
 			.txt('Factur-X PDFA Extension Schema')
 			.up()
 			.ele('pdfaSchema:namespaceURI')
-			// FIXME! Is that constant for all profiles?
 			.txt('urn:factur-x:pdfa:CrossIndustryDocument:invoice:1p0#')
 			.up()
 			.ele('pdfaSchema:prefix')
@@ -435,7 +500,7 @@ export class FormatFacturXService
 			.up();
 	}
 
-	private addFacturXStuff(node: XMLBuilder) {
+	private addFacturXStuff(node: XMLBuilder, invoiceMeta: InvoiceMeta) {
 		node
 			.ele('rdf:Description', {
 				'xmlns:fx': 'urn:factur-x:pdfa:CrossIndustryDocument:invoice:1p0#',
@@ -448,11 +513,10 @@ export class FormatFacturXService
 			.txt('factur-x.xml')
 			.up()
 			.ele('fx:Version')
-			.txt('1.0')
+			.txt(invoiceMeta.version)
 			.up()
 			.ele('fx:ConformanceLevel')
-			// FIXME! Use fxProfile here!
-			.txt('EXTENDED')
+			.txt(invoiceMeta.conformanceLevel)
 			.up();
 	}
 

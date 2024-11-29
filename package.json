@@ -19,7 +19,6 @@
 		"@types/xml2js": "^0.4.14",
 		"ajv": "^8.17.1",
 		"class-validator": "^0.14.1",
-		"exiftool-vendored": "^28.6.0",
 		"got": "^14.4.3",
 		"js-yaml": "^4.1.0",
 		"jsdom": "^25.0.1",
