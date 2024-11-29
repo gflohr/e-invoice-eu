@@ -4,9 +4,12 @@ import { promises as fs } from 'fs';
 import * as path from 'path';
 import {
 	AFRelationship,
+	PDFArray,
+	PDFDict,
 	PDFDocument,
 	PDFHexString,
 	PDFName,
+	PDFNumber,
 	PDFString,
 } from 'pdf-lib';
 import * as tmp from 'tmp-promise';
@@ -130,11 +133,11 @@ export class FormatFacturXService
 	}
 
 	private async createPDFA(pdf: Buffer, invoice: Invoice): Promise<Buffer> {
-		// Currently: details passedRules="142" failedRules="3" passedChecks="14196" failedChecks="9"
 		const pdfDoc = await PDFDocument.load(pdf, { updateMetadata: false });
 
 		let xmp = create();
-		xmp = xmp.ins('xpacket', 'begin="" id="W5M0MpCehiHzreSzNTczkc9d"');
+		const bom = '\uFEFF';
+		xmp = xmp.ins('xpacket', `begin="${bom}" id="W5M0MpCehiHzreSzNTczkc9d"`);
 
 		const now = new Date();
 		const invoiceNumber = invoice['ubl:Invoice']['cbc:ID'];
@@ -166,6 +169,7 @@ export class FormatFacturXService
 
 		this.setTrailerInfoID(pdfDoc, invoiceMeta);
 		this.setOutputIntent(pdfDoc);
+		this.fixLinkAnnotations(pdfDoc);
 
 		this.addMetadata(
 			pdfDoc,
@@ -177,6 +181,29 @@ export class FormatFacturXService
 		);
 
 		return Buffer.from(await pdfDoc.save());
+	}
+
+	private fixLinkAnnotations(pdfDoc: PDFDocument) {
+		const pages = pdfDoc.getPages();
+		for (const page of pages) {
+			const annotations = page.node.get(PDFName.of('Annots'));
+
+			if (annotations instanceof PDFArray) {
+				for (let i = 0; i < annotations.size(); ++i) {
+					const annotationRef = annotations.get(i);
+					const annotation = page.node.context.lookup(annotationRef) as PDFDict;
+
+					const subtype = annotation.get(PDFName.of('Subtype'));
+					if (subtype === PDFName.of('Link')) {
+						const flagsObj = annotation.get(PDFName.of('F'));
+						const flags =
+							flagsObj instanceof PDFNumber ? flagsObj.asNumber() : 0;
+
+						annotation.set(PDFName.of('F'), PDFNumber.of(flags | 4));
+					}
+				}
+			}
+		}
 	}
 
 	private setOutputIntent(pdfDoc: PDFDocument) {
@@ -411,7 +438,7 @@ export class FormatFacturXService
 	private addFacturXStuff(node: XMLBuilder) {
 		node
 			.ele('rdf:Description', {
-				'xmlns:fx': 'urn:factur-x:pdfa:CrossIndustryDocument:invoice:1p0#"',
+				'xmlns:fx': 'urn:factur-x:pdfa:CrossIndustryDocument:invoice:1p0#',
 				'rdf:about': '',
 			})
 			.ele('fx:DocumentType')
