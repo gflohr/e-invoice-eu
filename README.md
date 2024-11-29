@@ -26,6 +26,10 @@ formats or JSON.
     - [What Does the Warning 'ODS number format may be incorrect' Mean?](#what-does-the-warning-ods-number-format-may-be-incorrect-mean)
     - [Where Can I Get Information About Business Terms?](#where-can-i-get-information-about-business-terms)
     - [How Can I Suppress Auxiliary Sheets in the PDF Output?](#how-can-i-suppress-auxiliary-sheets-in-the-pdf-output)
+  - [BUGS](#bugs)
+    - [Report a Bug](#report-a-bug)
+    - [PDF/A](#pdfa)
+    - [Missing Invoice Formats](#missing-invoice-formats)
   - [License](#license)
 
 ## Status
@@ -34,9 +38,10 @@ formats or JSON.
 
 You can currently create invoices in these formats:
 
+- CII: customization id `urn:cen.eu:en16931:2017`
+- Factur-X-Extended id `urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended`, also known as ZUGFeRD-Extended
 - UBL: customization id `urn:cen.eu:en16931:2017`
 - XRECHNUNG-UBL: customization id `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`
-- CII: customization id `urn:cen.eu:en16931:2017`
 
 ### Security
 
@@ -234,6 +239,47 @@ Make sure that only the sheet that contains the printable invoice data has
 a print range defined. You can check that with the menu entry
 `Format -> Print Ranges -> Edit`. For all other sheets, all three options
 have to be set to `None`.
+
+## BUGS
+
+### Report a Bug
+
+Please report bugs at https://github.com/gflohr/e-invoice-eu/issues.
+
+### PDF/A
+
+The Factur-X resp. ZUGFeRD standard requires PDF/A compliance for the PDF that
+the invoice is wrapped in. Please search the internet if you do not know what
+PDF/A means.
+
+This library creates PDFs solely with [`pdf-lib`](https://github.com/Hopding/pdf-lib)
+and does some pretty complicated transformations on the PDF to achieve PDF/A
+compliance. This is not battle tested and may fail.
+
+If you encounter a PDF that does not meet the PDF/A requirements, please
+open an issue and attach an anonymized version of the PDF. What you can do
+in the meantime:
+
+- If you have [GhostScript](https://www.ghostscript.com/) installed, convert the PDF to PDF/A with this command: `gs -dVERBOSE -dPDFA=3 -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=OUTPUT_FILE.pdf PDFA_def.ps INPUT_FILE.pdf`
+- Try to create the PDF again with [LibreOffice](https://www.libreoffice.org/).
+- If the normal settings in LibreOffice do not work, enable PDF/A support (in the General section of the PDF options).
+- If you want to automate the process, you can start LibreOffice in headless mode on the commandline: `libreoffice --headless "-env:UserInstallation=file:///tmp/LibreOffice_Conversion_${USER}" --convert-to 'pdf:writer_pdf_Export:{"SelectPdfVersion":{"type":"long","value":"3"}}' SOURCE_FILE.ods`
+
+On Un\*x systems, `libreoffice` should be in your `$PATH`. On MacOS, you will
+find it under `/Applications/LibreOffice.app/Contents/MacOS/soffice`. On
+MS Windows, it is probably somewhere like `C:\\Program Files\\LibreOffice\\libreoffice.exe` (corrections are welcome).
+
+### Missing Invoice Formats
+
+All invoice formats that are variants of UBL or CII should be relatively easy
+to support. Please file an issue if you need an invoice format that is
+currently not supported.
+
+Credit notes and other documents like orders are currently not supported and
+support for it will require more effort.
+
+EDI is also not supported. If you know of a tool that is able to convert
+UBL or CII to EDI, please let us know!
 
 ## License
 
