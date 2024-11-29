@@ -1,6 +1,11 @@
 {
 	"name": "e-invoice-eu",
 	"version": "0.1.0",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/gflohr/e-invoice-eu.git"
+	},
+	"homepage": "https://github.com/gflohr/e-invoice-eu",
 	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
 	"dependencies": {
 		"@e965/xlsx": "^0.20.3",
