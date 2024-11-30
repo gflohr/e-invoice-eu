@@ -41,6 +41,10 @@ describe('XRECHNUNG-UBL', () => {
 		expect(service.createFormatService('UBL')).toBeDefined();
 	});
 
+	it('should treat format identifiers case-insensitively', () => {
+		expect(service.createFormatService('uBl')).toBeDefined();
+	});
+
 	it('should create an XRECHNUNG-UBL format service', () => {
 		expect(service.createFormatService('XRECHNUNG-UBL')).toBeDefined();
 	});

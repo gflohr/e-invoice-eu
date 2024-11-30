@@ -143,6 +143,8 @@ $ curl -X POST http://localhost:3000/api/mapping/transform/UBL \
 This will create invoice data in the internal format from a spreadsheet. The
 intended target format is UBL.
 
+The format parameter (`UBL` in this case) is case-insensitive!
+
 ### Create an Invoice from a Spreadsheet
 
 ```bash

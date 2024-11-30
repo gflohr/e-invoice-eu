@@ -12,7 +12,13 @@ import {
 	UseInterceptors,
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+	ApiBody,
+	ApiConsumes,
+	ApiParam,
+	ApiResponse,
+	ApiTags,
+} from '@nestjs/swagger';
 import { ValidationError } from 'ajv/dist/2019';
 import { Response } from 'express';
 
@@ -29,6 +35,14 @@ export class InvoiceController {
 	) {}
 
 	@Post('transform-and-create/:format')
+	@ApiParam({
+		name: 'format',
+		type: String,
+		description:
+			'The format of the invoice to transform and create, for' +
+			' example "UBL" or "CII". Case does not matter.',
+		example: 'UBL',
+	})
 	@ApiConsumes('multipart/form-data')
 	@ApiBody({
 		required: true,
@@ -56,7 +70,8 @@ export class InvoiceController {
 				attachment: {
 					type: 'array',
 					nullable: true,
-					description: 'An arbitrary number of supplementary attachments',
+					description:
+						'An arbitrary number of supplementary attachments. **Not yet implemented!**',
 					items: {
 						type: 'string',
 						format: 'binary',
