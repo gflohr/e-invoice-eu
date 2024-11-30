@@ -125,7 +125,7 @@ ubl:Invoice:
   cac:InvoiceLine:
     section: :InvoiceLine
     cbc:ID: =:InvoiceLine.A1
-    cbc:InvoicedQuantity: =:InvoiceLine.E1
+    cbc:InvoicedQuantity: =:InvoiceLine.D1
     cbc:InvoicedQuantity@unitCode: =:InvoiceLine.M1
     cbc:LineExtensionAmount: =:InvoiceLine.J1
     cbc:LineExtensionAmount@currencyID: EUR
