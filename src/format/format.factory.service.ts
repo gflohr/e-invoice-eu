@@ -51,11 +51,19 @@ export class FormatFactoryService {
 		UBL: FormatUBLService,
 		'XRECHNUNG-UBL': FormatXRECHNUNGUBLService,
 	};
+	private readonly formatServicesLookup: {
+		[key: string]: new (...args: any[]) => EInvoiceFormat;
+	} = {};
 
 	constructor(
 		private readonly appConfigService: AppConfigService,
 		private readonly serializerService: SerializerService,
-	) {}
+	) {
+		for (const format in this.formatServices) {
+			this.formatServicesLookup[format.toLowerCase()] =
+				this.formatServices[format];
+		}
+	}
 
 	listFormatServices(): FormatInfo[] {
 		const infos: FormatInfo[] = [];
@@ -80,7 +88,7 @@ export class FormatFactoryService {
 	}
 
 	createFormatService(format: string): EInvoiceFormat {
-		const FormatService = this.formatServices[format];
+		const FormatService = this.formatServicesLookup[format.toLowerCase()];
 
 		if (!FormatService) {
 			throw new NotFoundException(`Format '${format}' not supported.`);
