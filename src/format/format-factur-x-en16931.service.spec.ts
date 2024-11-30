@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { FormatFacturXExtendedService } from './format-factur-x-extended.service';
+import { FormatFacturXEN16931Service } from './format-factur-x-en16931.service';
 import { AppConfigService } from '../app-config/app-config.service';
 import { SerializerService } from '../serializer/serializer.service';
 
-describe('Factur-X-Extended', () => {
-	let service: FormatFacturXExtendedService;
+describe('Factur-X-EN16931', () => {
+	let service: FormatFacturXEN16931Service;
 
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
-				FormatFacturXExtendedService,
+				FormatFacturXEN16931Service,
 				AppConfigService,
 				{
 					provide: 'AppConfigService',
@@ -24,8 +24,8 @@ describe('Factur-X-Extended', () => {
 			],
 		}).compile();
 
-		service = module.get<FormatFacturXExtendedService>(
-			FormatFacturXExtendedService,
+		service = module.get<FormatFacturXEN16931Service>(
+			FormatFacturXEN16931Service,
 		);
 	});
 
