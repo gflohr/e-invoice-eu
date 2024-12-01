@@ -39,8 +39,9 @@ formats or JSON.
 You can currently create invoices in these formats:
 
 - CII: customization id `urn:cen.eu:en16931:2017`
-- Factur-X-EN16931 id `urn:cen.eu:en16931:2017`
+- Factur-X-EN16931 id `urn:cen.eu:en16931:2017`, also known as ZUGFeRD-EN16931 or ZUGFeRD-Comfort
 - Factur-X-Extended id `urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended`, also known as ZUGFeRD-Extended
+- Factur-X-XRechung id `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`, also known as ZUGFeRD-XRechnung
 - UBL: customization id `urn:cen.eu:en16931:2017`
 - XRECHNUNG-UBL: customization id `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`
 
