@@ -55,6 +55,7 @@ describe('XRECHNUNG-UBL', () => {
 			'CII',
 			'Factur-X-EN16931',
 			'Factur-X-Extended',
+			'Factur-X-XRechnung',
 			'UBL',
 			'XRECHNUNG-UBL',
 		]);

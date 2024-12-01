@@ -139,13 +139,13 @@ export class InvoiceController {
 
 		try {
 			const invoice = this.mappingService.transform(
-				format,
+				format.toLowerCase(),
 				mapping[0].buffer.toString(),
 				data[0].buffer,
 			);
 
 			const document = await this.invoiceService.generate(invoice, {
-				format,
+				format: format.toLowerCase(),
 				data: data[0].buffer,
 				dataName: data ? data[0].originalname : undefined,
 				pdf: pdf ? pdf[0].buffer : undefined,
