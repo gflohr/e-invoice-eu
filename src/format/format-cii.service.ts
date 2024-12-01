@@ -754,7 +754,7 @@ export const deliveryAddress: Transformation[] = [
 		type: 'string',
 		src: ['cbc:CityName'],
 		dest: ['ram:CityName'],
-		fxProfileMask: FX_MASK_EXTENDED,
+		fxProfileMask: FX_MASK_BASIC_WL,
 	},
 	{
 		type: 'string',
@@ -987,7 +987,7 @@ export const cacAllowanceCharge: Transformation = {
 		},
 		{
 			type: 'string',
-			src: ['cbc:BasisAmount'],
+			src: ['cbc:BaseAmount'],
 			dest: ['ram:BasisAmount'],
 			fxProfileMask: FX_MASK_BASIC_WL,
 		},
