@@ -592,6 +592,32 @@ export const cacAccountingSupplierParty: Transformation[] = [
 		fxProfileMask: FX_MASK_BASIC_WL,
 	},
 	{
+		type: 'string',
+		src: ['cac:Contact', 'cbc:Name'],
+		dest: ['ram:DefinedTradeContact', 'ram:PersonName'],
+		fxProfileMask: FX_MASK_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cac:Contact', 'cbc:Telephone'],
+		dest: [
+			'ram:DefinedTradeContact',
+			'ram:TelephoneUniversalCommunication',
+			'ram:CompleteNumber',
+		],
+		fxProfileMask: FX_MASK_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cac:Contact', 'cbc:ElectronicMail'],
+		dest: [
+			'ram:DefinedTradeContact',
+			'ram:EmailURIUniversalCommunication',
+			'ram:URIID',
+		],
+		fxProfileMask: FX_MASK_EN16931,
+	},
+	{
 		type: 'object',
 		src: ['cac:PostalAddress'],
 		dest: ['ram:PostalTradeAddress'],

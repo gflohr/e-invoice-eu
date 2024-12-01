@@ -138,7 +138,7 @@ export class FormatFacturXService
 		// TODO! Attach other files!
 
 		const xml = (await super.generate(invoice, options)) as string;
-		pdf = await this.attachFacturX(pdf, xml);
+		pdf = await this.attachFacturX(pdf, options, xml);
 
 		pdf = await this.createPDFA(pdf, options, invoice);
 
@@ -160,33 +160,33 @@ export class FormatFacturXService
 		let version: string;
 		let filename: FacturXFilename;
 
-		switch (options.format) {
-			case 'Factur-X-Minimum':
+		switch (options.format.toLowerCase()) {
+			case 'factur-x-minimum':
 				filename = 'factur-x.xml';
 				conformanceLevel = 'MINIMUM';
 				version = '1.0';
 				break;
-			case 'Factur-X-Basic-WL':
+			case 'factur-x-basic-wl':
 				filename = 'factur-x.xml';
 				conformanceLevel = 'BASIC WL';
 				version = '1.0';
 				break;
-			case 'Factur-X-Basic':
+			case 'factur-x-wasic':
 				filename = 'factur-x.xml';
 				conformanceLevel = 'BASIC';
 				version = '1.0';
 				break;
-			case 'Factur-X-EN16931':
+			case 'factur-x-en16931':
 				filename = 'factur-x.xml';
 				conformanceLevel = 'EN 16931';
 				version = '1.0';
 				break;
-			case 'Factur-X-Extended':
+			case 'factur-x-extended':
 				filename = 'factur-x.xml';
 				conformanceLevel = 'EXTENDED';
 				version = '1.0';
 				break;
-			case 'Factur-X-XRechnung':
+			case 'factur-x-xrechnung':
 				filename = 'xrechnung.xml';
 				conformanceLevel = 'XRECHNUNG';
 				version = '3.0';
@@ -510,7 +510,7 @@ export class FormatFacturXService
 			.txt('INVOICE')
 			.up()
 			.ele('fx:DocumentFileName')
-			.txt('factur-x.xml')
+			.txt(invoiceMeta.filename)
 			.up()
 			.ele('fx:Version')
 			.txt(invoiceMeta.version)
@@ -546,11 +546,19 @@ export class FormatFacturXService
 		pdfDoc.catalog.set(PDFName.of('Metadata'), metadataStreamRef);
 	}
 
-	private async attachFacturX(pdf: Buffer, xml: string): Promise<Buffer> {
+	private async attachFacturX(
+		pdf: Buffer,
+		options: InvoiceServiceOptions,
+		xml: string,
+	): Promise<Buffer> {
 		try {
 			const pdfDoc = await PDFDocument.load(pdf);
+			const filename =
+				options.format === 'factur-x-xrechnung'
+					? 'xrechnung.xml'
+					: 'factur-x.xml';
 
-			pdfDoc.attach(Buffer.from(xml), 'factur-x.xml', {
+			pdfDoc.attach(Buffer.from(xml), filename, {
 				mimeType: 'application/xml',
 				description: 'Factur-X',
 				creationDate: new Date(),
