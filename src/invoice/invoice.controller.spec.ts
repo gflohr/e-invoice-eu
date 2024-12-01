@@ -71,12 +71,12 @@ describe('InvoiceController', () => {
 		expect(response.status).toBe(201);
 		expect(response.text).toEqual(mockXml);
 		expect(mappingService.transform).toHaveBeenCalledWith(
-			'UBL',
+			'ubl',
 			mapping,
 			Buffer.from(data),
 		);
 		expect(invoiceService.generate).toHaveBeenCalledWith(mockTransformedData, {
-			format: 'UBL',
+			format: 'ubl',
 			data: Buffer.from(data),
 			dataName: 'invoice.ods',
 			pdf: undefined,
