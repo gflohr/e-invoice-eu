@@ -6,6 +6,7 @@ import { FormatFacturXEN16931Service } from './format-factur-x-en16931.service';
 import { FormatFacturXExtendedService } from './format-factur-x-extended.service';
 import { FormatFacturXXRechnungService } from './format-factur-x-xrechnung.service';
 import { FormatUBLService } from './format-ubl.service';
+import { FormatXRECHNUNGCIIService } from './format-xrechnung-cii.service';
 import { FormatXRECHNUNGUBLService } from './format-xrechnung-ubl.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { AppConfigService } from '../app-config/app-config.service';
@@ -53,6 +54,7 @@ export class FormatFactoryService {
 		'Factur-X-Extended': FormatFacturXExtendedService,
 		'Factur-X-XRechnung': FormatFacturXXRechnungService,
 		UBL: FormatUBLService,
+		'XRECHNUNG-CII': FormatXRECHNUNGCIIService,
 		'XRECHNUNG-UBL': FormatXRECHNUNGUBLService,
 	};
 	private readonly formatServicesLookup: {

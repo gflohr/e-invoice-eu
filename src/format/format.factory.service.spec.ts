@@ -57,6 +57,7 @@ describe('XRECHNUNG-UBL', () => {
 			'Factur-X-Extended',
 			'Factur-X-XRechnung',
 			'UBL',
+			'XRECHNUNG-CII',
 			'XRECHNUNG-UBL',
 		]);
 	});

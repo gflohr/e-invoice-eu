@@ -43,6 +43,7 @@ You can currently create invoices in these formats:
 - Factur-X-Extended id `urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended`, also known as ZUGFeRD-Extended
 - Factur-X-XRechung id `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`, also known as ZUGFeRD-XRechnung
 - UBL: customization id `urn:cen.eu:en16931:2017`
+- XRECHNUNG-CII: customization id `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`
 - XRECHNUNG-UBL: customization id `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`
 
 ### Security
