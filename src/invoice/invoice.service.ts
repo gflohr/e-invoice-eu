@@ -30,7 +30,7 @@ export type InvoiceServiceOptions = {
 	 * A PDF version of the invoice.  For Factur-X, either `data` or `pdf`
 	 * must be present.
 	 */
-	pdf?: Buffer;
+	pdf?: Express.Multer.File;
 
 	/**
 	 * An array of supplementary attachments.
