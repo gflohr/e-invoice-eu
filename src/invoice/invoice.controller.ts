@@ -22,7 +22,7 @@ import {
 import { ValidationError } from 'ajv/dist/2019';
 import { Response } from 'express';
 
-import { InvoiceService } from './invoice.service';
+import { InvoiceAttachment, InvoiceService } from './invoice.service';
 import { MappingService } from '../mapping/mapping.service';
 
 @ApiTags('invoice')
@@ -120,14 +120,12 @@ export class InvoiceController {
 			attachment?: Express.Multer.File[];
 		},
 
-		@Body() body: { description?: string[]; mimeType?: string[] },
+		@Body() body: { description?: string[] },
 	) {
-		const { data, mapping, pdf } = files;
+		const { data, mapping, pdf, attachment } = files;
 
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const descriptions = body.description || [];
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const mimeTypes = body.mimeType || [];
 
 		if (!data) {
 			throw new BadRequestException('No invoice file uploaded');
@@ -135,6 +133,16 @@ export class InvoiceController {
 
 		if (!mapping) {
 			throw new BadRequestException('No mapping file uploaded');
+		}
+
+		const attachments: InvoiceAttachment[] = [];
+		if (attachment) {
+			for (let i = 0; i < attachment.length; ++i) {
+				attachments[i] = {
+					file: attachment[i],
+					description: descriptions[i],
+				};
+			}
 		}
 
 		try {
@@ -149,6 +157,7 @@ export class InvoiceController {
 				data: data[0].buffer,
 				dataName: data ? data[0].originalname : undefined,
 				pdf: pdf ? pdf[0].buffer : undefined,
+				attachments: attachments,
 			});
 			if (typeof document === 'string') {
 				response.set('Content-Type', 'application/xml');

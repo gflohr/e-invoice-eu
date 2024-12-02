@@ -173,13 +173,15 @@ $ curl -v -X POST \
     -F mapping=@contrib/mappings/default-invoice.yaml \
     -F data=@contrib/templates/1234567890-consulting/default-invoice.ods \
     -F pdf=@invoice.pdf \
-    -F attachment=@time-sheet.ods \
+    -F "attachment=@time-sheet.ods;type=application/vnd.oasis.opendocument.spreadsheet" \
     -F description="Detailed description of hours spent." \
-		-F mimeType="application/vnd.oasis.opendocument.spreadsheet" \
     -F attachment=@payment-terms.pdf \
     -F description="Our payment terms" \
-		-F mimeType="application/pdf"
 ```
+
+Note that for the first attachment a MIME type if explicitly specified because
+`curl` probably does not not the correct MIME type of OpenDocument spreadsheet
+files.
 
 ## Data Structure
 

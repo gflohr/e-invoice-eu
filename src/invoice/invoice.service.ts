@@ -5,14 +5,9 @@ import { FormatFactoryService } from '../format/format.factory.service';
 
 export type InvoiceAttachment = {
 	/**
-	 * The binary data.
+	 * The uploaded file.
 	 */
-	data: Buffer;
-
-	/**
-	 * The MIME type.
-	 */
-	mimeType: string;
+	file: Express.Multer.File;
 
 	/**
 	 * A description.
@@ -45,7 +40,7 @@ export type InvoiceServiceOptions = {
 	/**
 	 * A
 	 */
-	attachment?: InvoiceAttachment[];
+	attachments: InvoiceAttachment[];
 };
 
 @Injectable()

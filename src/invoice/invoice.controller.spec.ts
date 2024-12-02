@@ -80,6 +80,7 @@ describe('InvoiceController', () => {
 			data: Buffer.from(data),
 			dataName: 'invoice.ods',
 			pdf: undefined,
+			attachments: [],
 		});
 	});
 

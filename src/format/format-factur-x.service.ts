@@ -135,23 +135,34 @@ export class FormatFacturXService
 			);
 		}
 
-		// TODO! Attach other files!
+		const pdfDoc = await PDFDocument.load(pdf, { updateMetadata: false });
+
+		this.attachFiles(pdfDoc, options);
 
 		const xml = (await super.generate(invoice, options)) as string;
-		pdf = await this.attachFacturX(pdf, options, xml);
+		await this.attachFacturX(pdfDoc, options, xml);
+		await this.createPDFA(pdfDoc, options, invoice);
 
-		pdf = await this.createPDFA(pdf, options, invoice);
+		return Buffer.from(await pdfDoc.save());
+	}
 
-		return pdf as Buffer;
+	private attachFiles(pdfDoc: PDFDocument, options: InvoiceServiceOptions) {
+		for (const attachment of options.attachments) {
+			pdfDoc.attach(attachment.file.buffer, attachment.file.originalname, {
+				mimeType: attachment.file.mimetype,
+				description: attachment.description ?? 'Supplementary file',
+				creationDate: new Date(),
+				modificationDate: new Date(),
+				afRelationship: AFRelationship.Supplement,
+			});
+		}
 	}
 
 	private async createPDFA(
-		pdf: Buffer,
+		pdfDoc: PDFDocument,
 		options: InvoiceServiceOptions,
 		invoice: Invoice,
-	): Promise<Buffer> {
-		const pdfDoc = await PDFDocument.load(pdf, { updateMetadata: false });
-
+	): Promise<void> {
 		let xmp = create();
 		const bom = '\uFEFF';
 		xmp = xmp.ins('xpacket', `begin="${bom}" id="W5M0MpCehiHzreSzNTczkc9d"`);
@@ -240,8 +251,6 @@ export class FormatFacturXService
 				headless: true,
 			}),
 		);
-
-		return Buffer.from(await pdfDoc.save());
 	}
 
 	private setStructTreeRoot(pdfDoc: PDFDocument) {
@@ -547,12 +556,11 @@ export class FormatFacturXService
 	}
 
 	private async attachFacturX(
-		pdf: Buffer,
+		pdfDoc: PDFDocument,
 		options: InvoiceServiceOptions,
 		xml: string,
-	): Promise<Buffer> {
+	): Promise<void> {
 		try {
-			const pdfDoc = await PDFDocument.load(pdf);
 			const filename =
 				options.format === 'factur-x-xrechnung'
 					? 'xrechnung.xml'
@@ -565,10 +573,6 @@ export class FormatFacturXService
 				modificationDate: new Date(),
 				afRelationship: AFRelationship.Alternative,
 			});
-
-			const modifiedPdfBytes = await pdfDoc.save();
-
-			return Buffer.from(modifiedPdfBytes);
 		} catch (error) {
 			console.error('Error attaching string to PDF:', error);
 			throw new Error('Error modifying PDF');
