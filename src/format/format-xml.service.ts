@@ -34,7 +34,7 @@ export class FormatXMLService {
 		options: InvoiceServiceOptions,
 	): Promise<Buffer> {
 		if (options.pdf) {
-			return options.pdf;
+			return options.pdf.buffer;
 		} else if (!options.data) {
 			throw new Error(
 				'Either a data spreadsheet file or an invoice PDF is needed!',
