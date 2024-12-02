@@ -171,8 +171,6 @@ $ curl -v -X POST \
 This will transform the spreadsheet into the internal format and immediately
 create an invoice in format `UBL`.
 
-The formats `UBL` and `XRECHNUNG-UBL` are currently the only supported formats.
-
 ### Full-Fledged Example
 
 Say you want to add a PDF version `invoice.pdf` and two attachments
@@ -195,8 +193,9 @@ $ curl -v -X POST \
 ```
 
 The parameter `embedPDF` should be passed if a PDF version of the document
-should be embedded into the XML. If you have uploaded a file `pdf` it
-is taken. Otherwise it is generated with LibreOffice from the `data` file.
+should be embedded into the XML. It only makes sense if you have specified a
+format that is _not_ Factur-X. Otherwise, it gets ignored. If you have uploaded a file `pdf` it
+is taken. Otherwise, the file is generated with LibreOffice from the `data` file.
 The parameter `pdfID` defaults to the document number.
 
 Note that for the first supplementary attachment 'time-sheet.ods`, a MIME type
