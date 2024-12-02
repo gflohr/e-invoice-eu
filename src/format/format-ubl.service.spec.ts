@@ -62,39 +62,9 @@ describe('UBL', () => {
 		expect(invoice['ubl:Invoice']['cbc:ProfileID']).toBe(service.profileID);
 	});
 
-	it('should order mapping keys correctly', () => {
-		const mapping = {
-			'ubl:Invoice': {
-				'cbc:ID': '1234567890',
-			},
-		} as unknown as Mapping;
-
-		service.fillMappingDefaults(mapping);
-		expect(Object.keys(mapping['ubl:Invoice'])).toEqual([
-			'cbc:CustomizationID',
-			'cbc:ProfileID',
-			'cbc:ID',
-		]);
-	});
-
-	it('should order invoice keys correctly', () => {
-		const invoice = {
-			'ubl:Invoice': {
-				'cbc:ID': '1234567890',
-			},
-		} as unknown as Invoice;
-
-		service.fillInvoiceDefaults(invoice);
-		expect(Object.keys(invoice['ubl:Invoice'])).toEqual([
-			'cbc:CustomizationID',
-			'cbc:ProfileID',
-			'cbc:ID',
-		]);
-	});
-
 	it('should generate XML', async () => {
 		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
-		const options = {} as InvoiceServiceOptions;
+		const options = { attachments: [] } as unknown as InvoiceServiceOptions;
 
 		const xml = await service.generate(invoice, options);
 

@@ -5,17 +5,17 @@ import { FormatFactoryService } from '../format/format.factory.service';
 
 export type InvoiceAttachment = {
 	/**
-	 * The binary data.
+	 * The uploaded file.
 	 */
-	data: Buffer;
+	file: Express.Multer.File;
 
 	/**
-	 * The MIME type.
+	 * An optional ID.
 	 */
-	mimeType: string;
+	id?: string;
 
 	/**
-	 * A description.
+	 * An optional description.
 	 */
 	description?: string;
 };
@@ -29,23 +29,33 @@ export type InvoiceServiceOptions = {
 	/**
 	 * The spreadsheet data.
 	 */
-	data?: Buffer;
-
-	/**
-	 * The filename of the spreadsheet data.
-	 */
-	dataName?: string;
+	data?: Express.Multer.File;
 
 	/**
 	 * A PDF version of the invoice.  For Factur-X, either `data` or `pdf`
 	 * must be present.
 	 */
-	pdf?: Buffer;
+	pdf?: Express.Multer.File;
 
 	/**
-	 * A
+	 * An array of supplementary attachments.
 	 */
-	attachment?: InvoiceAttachment[];
+	attachments: InvoiceAttachment[];
+
+	/**
+	 * Set to invoice description if invoice should be embedded.
+	 */
+	embedPDF?: boolean;
+
+	/**
+	 * ID for an embedded PDF, defaults to the document id.
+	 */
+	pdfID?: string;
+
+	/**
+	 * Description for the embedded PDF.
+	 */
+	pdfDescription?: string;
 };
 
 @Injectable()

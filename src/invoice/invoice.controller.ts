@@ -22,7 +22,7 @@ import {
 import { ValidationError } from 'ajv/dist/2019';
 import { Response } from 'express';
 
-import { InvoiceService } from './invoice.service';
+import { InvoiceAttachment, InvoiceService } from './invoice.service';
 import { MappingService } from '../mapping/mapping.service';
 
 @ApiTags('invoice')
@@ -70,23 +70,57 @@ export class InvoiceController {
 				attachment: {
 					type: 'array',
 					nullable: true,
-					description:
-						'An arbitrary number of supplementary attachments. **Not yet implemented!**',
+					description: 'An arbitrary number of supplementary attachments.',
 					items: {
 						type: 'string',
 						format: 'binary',
-						description: 'The individual attachment',
+						description:
+							'The individual attachment. Note that only' +
+							' the MIME types "text/csv", "application/pdf"' +
+							' "image/png", "image/jpeg"' +
+							' "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",' +
+							' and "application/vnd.oasis.opendocument.spreadsheet"' +
+							' are allowed as MIME types to XML invoices.',
 					},
 				},
-				description: {
+				attachmentID: {
+					type: 'array',
+					nullable: true,
+					description: 'Optional ids for each supplementary attachment',
+					items: {
+						type: 'string',
+						description: 'Description for the corresponding attachment.',
+					},
+				},
+				attachmentDescription: {
 					type: 'array',
 					nullable: true,
 					description:
-						'Optional descriptions for each supplementary attachment',
+						'Optional descriptions for each supplementary attachment.',
 					items: {
 						type: 'string',
-						description: 'Description for the corresponding attachment',
+						description: 'Description for the corresponding attachment.',
 					},
+				},
+				embedPDF: {
+					type: 'boolean',
+					nullable: true,
+					description:
+						'Pass if a PDF version of the invoice should be' +
+						' embedded into the XML; ignored for Factur-X.' +
+						' If no PDF is uploaded, one is generated from the' +
+						' Spreadsheet with the help of LibreOffice.',
+				},
+				pdfID: {
+					type: 'string',
+					nullable: true,
+					description:
+						'ID of the embedded PDF, defaults to the document' + ' number.',
+				},
+				pdfDescription: {
+					type: 'string',
+					nullable: true,
+					description: 'Optional description for the embedded PDF.',
 				},
 			},
 		},
@@ -120,14 +154,23 @@ export class InvoiceController {
 			attachment?: Express.Multer.File[];
 		},
 
-		@Body() body: { description?: string[]; mimeType?: string[] },
+		@Body()
+		body: {
+			attachmentID?: string[];
+			attachmentDescription?: string[];
+			embedPDF?: boolean;
+			pdfID?: string;
+			pdfDescription?: string;
+		},
 	) {
-		const { data, mapping, pdf } = files;
+		const { data, mapping, pdf, attachment } = files;
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const descriptions = body.description || [];
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const mimeTypes = body.mimeType || [];
+		let attachmentIDs = body.attachmentID || [];
+		if (typeof attachmentIDs !== 'object') attachmentIDs = [attachmentIDs];
+
+		let attachmentDescriptions = body.attachmentDescription || [];
+		if (typeof attachmentDescriptions !== 'object')
+			attachmentDescriptions = [attachmentDescriptions];
 
 		if (!data) {
 			throw new BadRequestException('No invoice file uploaded');
@@ -135,6 +178,17 @@ export class InvoiceController {
 
 		if (!mapping) {
 			throw new BadRequestException('No mapping file uploaded');
+		}
+
+		const attachments: InvoiceAttachment[] = [];
+		if (attachment) {
+			for (let i = 0; i < attachment.length; ++i) {
+				attachments[i] = {
+					file: attachment[i],
+					id: attachmentIDs[i],
+					description: attachmentDescriptions[i],
+				};
+			}
 		}
 
 		try {
@@ -146,9 +200,12 @@ export class InvoiceController {
 
 			const document = await this.invoiceService.generate(invoice, {
 				format: format.toLowerCase(),
-				data: data[0].buffer,
-				dataName: data ? data[0].originalname : undefined,
-				pdf: pdf ? pdf[0].buffer : undefined,
+				data: data[0],
+				pdf: pdf ? pdf[0] : undefined,
+				attachments: attachments,
+				embedPDF: body.embedPDF,
+				pdfID: body.pdfID,
+				pdfDescription: body.pdfDescription,
 			});
 			if (typeof document === 'string') {
 				response.set('Content-Type', 'application/xml');

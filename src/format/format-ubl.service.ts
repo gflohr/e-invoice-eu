@@ -1,11 +1,18 @@
 import { Injectable } from '@nestjs/common';
+import * as path from 'path';
 import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 
 import { FormatXMLService } from './format-xml.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
-import { Invoice } from '../invoice/invoice.interface';
+import {
+	ADDITIONALSUPPORTINGDOCUMENTS,
+	AttachedDocumentMimeCode,
+	Invoice,
+} from '../invoice/invoice.interface';
+import { invoiceSchema } from '../invoice/invoice.schema';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Mapping } from '../mapping/mapping.interface';
+import { sortBySchema } from '../utils/sort-by-schema';
 
 @Injectable()
 export class FormatUBLService
@@ -32,10 +39,6 @@ export class FormatUBLService
 		if (!('cbc:profileID' in mapping['ubl:Invoice'])) {
 			mapping['ubl:Invoice']['cbc:ProfileID'] = this.profileID;
 		}
-
-		// The relevant parts of the mapping and invoice structure are
-		// identical.
-		this.sortKeys(mapping as unknown as Invoice);
 	}
 
 	fillInvoiceDefaults(invoice: Invoice) {
@@ -46,37 +49,17 @@ export class FormatUBLService
 		if (!('cbc:profileID' in invoice['ubl:Invoice'])) {
 			invoice['ubl:Invoice']['cbc:ProfileID'] = this.profileID;
 		}
-
-		this.sortKeys(invoice);
-	}
-
-	/**
-	 * The order of objects is crucial for the XML generation.  We therefore
-	 * have to make sure that the filled in defaults are at the right
-	 * position.
-	 */
-	private sortKeys(invoice: { [key: string]: any }) {
-		const customizationID = invoice['ubl:Invoice']['cbc:CustomizationID'];
-		const profileID = invoice['ubl:Invoice']['cbc:ProfileID'];
-		const newInvoice: { [key: string]: any } = {
-			'ubl:Invoice': {
-				'cbc:CustomizationID': customizationID,
-				'cbc:ProfileID': profileID,
-			},
-		} as unknown as Invoice;
-
-		for (const key of Object.keys(invoice['ubl:Invoice'])) {
-			newInvoice['ubl:Invoice'][key] = invoice['ubl:Invoice'][key];
-		}
-
-		invoice['ubl:Invoice'] = newInvoice['ubl:Invoice'];
 	}
 
 	async generate(
 		invoice: Invoice,
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		_options: InvoiceServiceOptions,
+		options: InvoiceServiceOptions,
 	): Promise<string | Buffer> {
+		await this.embedPDF(invoice, options);
+		this.embedAttachments(invoice, options);
+
+		invoice = sortBySchema(invoice, invoiceSchema);
+
 		const expandObject: ExpandObject = {
 			Invoice: invoice['ubl:Invoice'],
 			'Invoice@xmlns': 'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',
@@ -90,5 +73,75 @@ export class FormatUBLService
 			prettyPrint: true,
 			indent: '\t',
 		});
+	}
+
+	async embedPDF(invoice: Invoice, options: InvoiceServiceOptions) {
+		if (typeof options.embedPDF === 'undefined') return;
+
+		const pdf = await this.getInvoicePdf(options);
+		const mimeType = 'application/pdf';
+		let filename: string;
+		if (options.pdf) {
+			filename = options.pdf.originalname;
+		} else {
+			const parsed = path.parse(
+				(options.data as Express.Multer.File).originalname,
+			);
+			filename = parsed.name + '.pdf';
+		}
+
+		const ref: ADDITIONALSUPPORTINGDOCUMENTS = {
+			'cbc:ID': options.pdfID ?? invoice['ubl:Invoice']['cbc:ID'],
+			'cac:Attachment': {
+				'cbc:EmbeddedDocumentBinaryObject': pdf.toString('base64'),
+				'cbc:EmbeddedDocumentBinaryObject@filename': filename,
+				'cbc:EmbeddedDocumentBinaryObject@mimeCode': mimeType,
+			},
+		};
+
+		if (typeof options.pdfDescription !== 'undefined') {
+			ref['cbc:DocumentDescription'] = options.pdfDescription;
+		}
+		invoice['ubl:Invoice']['cac:AdditionalDocumentReference'] ??= [];
+		invoice['ubl:Invoice']['cac:AdditionalDocumentReference'].push(ref);
+	}
+
+	embedAttachments(invoice: Invoice, options: InvoiceServiceOptions) {
+		const validMimeCodes: Set<AttachedDocumentMimeCode> = new Set([
+			'text/csv',
+			'application/pdf',
+			'image/png',
+			'image/jpeg',
+			'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+			'application/vnd.oasis.opendocument.spreadsheet',
+		]);
+
+		for (const attachment of options.attachments) {
+			const buffer = attachment.file.buffer;
+			const mimeType: AttachedDocumentMimeCode = attachment.file
+				.mimetype as AttachedDocumentMimeCode;
+			if (!validMimeCodes.has(mimeType)) {
+				throw new Error(
+					`The attachment MIME type '${mimeType}' is not allowed!`,
+				);
+			}
+			const filename = attachment.file.originalname;
+			const id = attachment.id ?? filename;
+
+			const ref: ADDITIONALSUPPORTINGDOCUMENTS = {
+				'cbc:ID': id,
+				'cac:Attachment': {
+					'cbc:EmbeddedDocumentBinaryObject': buffer.toString('base64'),
+					'cbc:EmbeddedDocumentBinaryObject@filename': filename,
+					'cbc:EmbeddedDocumentBinaryObject@mimeCode': mimeType,
+				},
+			};
+
+			if (typeof attachment.description !== 'undefined') {
+				ref['cbc:DocumentDescription'] = attachment.description;
+			}
+			invoice['ubl:Invoice']['cac:AdditionalDocumentReference'] ??= [];
+			invoice['ubl:Invoice']['cac:AdditionalDocumentReference'].push(ref);
+		}
 	}
 }

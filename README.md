@@ -18,7 +18,7 @@ formats or JSON.
     - [List Supported Formats](#list-supported-formats)
     - [Transform Data from Spreadsheet](#transform-data-from-spreadsheet)
     - [Create an Invoice from a Spreadsheet](#create-an-invoice-from-a-spreadsheet)
-    - [Full-Fledged Examples with Additional Attachments](#full-fledged-examples-with-additional-attachments)
+    - [Full-Fledged Example](#full-fledged-example)
   - [Data Structure](#data-structure)
   - [Mapping Syntax](#mapping-syntax)
   - [Frequently Asked Questions](#frequently-asked-questions)
@@ -162,7 +162,7 @@ create an invoice in format `UBL`.
 
 The formats `UBL` and `XRECHNUNG-UBL` are currently the only supported formats.
 
-### Full-Fledged Examples with Additional Attachments
+### Full-Fledged Example
 
 Say you want to add a PDF version `invoice.pdf` and two attachments
 `time-sheet.ods` and `payment-terms.pdf` to the generated invoice:
@@ -173,13 +173,28 @@ $ curl -v -X POST \
     -F mapping=@contrib/mappings/default-invoice.yaml \
     -F data=@contrib/templates/1234567890-consulting/default-invoice.ods \
     -F pdf=@invoice.pdf \
-    -F attachment=@time-sheet.ods \
-    -F description="Detailed description of hours spent." \
-		-F mimeType="application/vnd.oasis.opendocument.spreadsheet" \
+    -F embedPDF= \
+    -F pdfID=1234567890 \
+    -F pdfDescription="Invoice as PDF." \
+    -F "attachment=@time-sheet.ods;type=application/vnd.oasis.opendocument.spreadsheet" \
+		-F "attachmentID=abc-123-xyz" \
+    -F attachmentDescription="Detailed description of hours spent." \
     -F attachment=@payment-terms.pdf \
-    -F description="Our payment terms" \
-		-F mimeType="application/pdf"
+    -F attachmentDescription="Our payment terms" \
 ```
+
+The parameter `embedPDF` should be passed if a PDF version of the document
+should be embedded into the XML. If you have uploaded a file `pdf` it
+is taken. Otherwise it is generated with LibreOffice from the `data` file.
+The parameter `pdfID` defaults to the document number.
+
+Note that for the first supplementary attachment 'time-sheet.ods`, a MIME type
+is explicitly specified because `curl` probably does not not the correct MIME
+type of OpenDocument spreadsheet files.
+
+For each supplementary attachment, an optional `description` and an optional
+`id` can be specified. If the id is omitted, it defaults to the filename of
+the attached file.
 
 ## Data Structure
 
