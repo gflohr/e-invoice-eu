@@ -4,8 +4,10 @@ import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 import { FormatXMLService } from './format-xml.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { Invoice } from '../invoice/invoice.interface';
+import { invoiceSchema } from '../invoice/invoice.schema';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Mapping } from '../mapping/mapping.interface';
+import { sortBySchema } from '../utils/sort-by-schema';
 
 @Injectable()
 export class FormatUBLService
@@ -32,10 +34,6 @@ export class FormatUBLService
 		if (!('cbc:profileID' in mapping['ubl:Invoice'])) {
 			mapping['ubl:Invoice']['cbc:ProfileID'] = this.profileID;
 		}
-
-		// The relevant parts of the mapping and invoice structure are
-		// identical.
-		this.sortKeys(mapping as unknown as Invoice);
 	}
 
 	fillInvoiceDefaults(invoice: Invoice) {
@@ -46,30 +44,6 @@ export class FormatUBLService
 		if (!('cbc:profileID' in invoice['ubl:Invoice'])) {
 			invoice['ubl:Invoice']['cbc:ProfileID'] = this.profileID;
 		}
-
-		this.sortKeys(invoice);
-	}
-
-	/**
-	 * The order of objects is crucial for the XML generation.  We therefore
-	 * have to make sure that the filled in defaults are at the right
-	 * position.
-	 */
-	private sortKeys(invoice: { [key: string]: any }) {
-		const customizationID = invoice['ubl:Invoice']['cbc:CustomizationID'];
-		const profileID = invoice['ubl:Invoice']['cbc:ProfileID'];
-		const newInvoice: { [key: string]: any } = {
-			'ubl:Invoice': {
-				'cbc:CustomizationID': customizationID,
-				'cbc:ProfileID': profileID,
-			},
-		} as unknown as Invoice;
-
-		for (const key of Object.keys(invoice['ubl:Invoice'])) {
-			newInvoice['ubl:Invoice'][key] = invoice['ubl:Invoice'][key];
-		}
-
-		invoice['ubl:Invoice'] = newInvoice['ubl:Invoice'];
 	}
 
 	async generate(
@@ -77,6 +51,8 @@ export class FormatUBLService
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		_options: InvoiceServiceOptions,
 	): Promise<string | Buffer> {
+		invoice = sortBySchema(invoice, invoiceSchema);
+
 		const expandObject: ExpandObject = {
 			Invoice: invoice['ubl:Invoice'],
 			'Invoice@xmlns': 'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',

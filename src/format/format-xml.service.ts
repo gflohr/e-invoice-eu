@@ -37,8 +37,7 @@ export class FormatXMLService {
 			return options.pdf;
 		} else if (!options.data) {
 			throw new Error(
-				'Either a data spreadsheet file or an invoice PDF' +
-					' are mandatory for Factur-X invoices!',
+				'Either a data spreadsheet file or an invoice PDF is needed!',
 			);
 		}
 
