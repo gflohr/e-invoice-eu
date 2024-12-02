@@ -79,16 +79,19 @@ You can achieve similar results with these projects:
 ## Pre-requisites
 
 - NodeJS 20.x
-- Bun (you can use npm, yarn, pnpm, ... instead if you prefer)
+- A package manager like bun, npm, yarn, pnpm, ...
 
 ## Installation
 
 ```bash
-$ bun install --optional
+$ bun install
 ```
 
 This may warn about "husky" missing. Just run `bun install` again in order
 to fix this.
+
+If you do not like `bun`, replace it with `npm`, `yarn`, `pnpm` or whatever
+is currently hyped.
 
 ## Running the app
 
