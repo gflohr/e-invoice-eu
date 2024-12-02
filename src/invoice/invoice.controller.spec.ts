@@ -62,23 +62,29 @@ describe('InvoiceController', () => {
 		jest.spyOn(invoiceService, 'generate').mockResolvedValue(mockXml);
 
 		const mapping = 'test: data success';
-		const data = 'test data';
+		const data: Express.Multer.File = {
+			buffer: Buffer.from('test data'),
+			encoding: '7bit',
+			fieldname: 'data',
+			mimetype: 'application/vnd.oasis.opendocument.spreadsheet',
+			originalname: 'invoice.ods',
+			size: 9,
+		} as Express.Multer.File;
 		const response = await request(app.getHttpServer())
 			.post('/invoice/transform-and-create/UBL')
 			.attach('mapping', Buffer.from(mapping), 'mapping.yaml')
-			.attach('data', Buffer.from(data), 'invoice.ods');
+			.attach('data', data.buffer, 'invoice.ods');
 
 		expect(response.status).toBe(201);
 		expect(response.text).toEqual(mockXml);
 		expect(mappingService.transform).toHaveBeenCalledWith(
 			'ubl',
 			mapping,
-			Buffer.from(data),
+			data.buffer,
 		);
 		expect(invoiceService.generate).toHaveBeenCalledWith(mockTransformedData, {
 			format: 'ubl',
-			data: Buffer.from(data),
-			dataName: 'invoice.ods',
+			data,
 			pdf: undefined,
 			attachments: [],
 		});

@@ -162,8 +162,7 @@ export class InvoiceController {
 
 			const document = await this.invoiceService.generate(invoice, {
 				format: format.toLowerCase(),
-				data: data[0].buffer,
-				dataName: data ? data[0].originalname : undefined,
+				data: data[0],
 				pdf: pdf ? pdf[0].buffer : undefined,
 				attachments: attachments,
 			});

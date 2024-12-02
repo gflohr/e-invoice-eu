@@ -24,12 +24,7 @@ export type InvoiceServiceOptions = {
 	/**
 	 * The spreadsheet data.
 	 */
-	data?: Buffer;
-
-	/**
-	 * The filename of the spreadsheet data.
-	 */
-	dataName?: string;
+	data?: Express.Multer.File;
 
 	/**
 	 * A PDF version of the invoice.  For Factur-X, either `data` or `pdf`

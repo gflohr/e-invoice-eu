@@ -125,8 +125,8 @@ export class FormatFacturXService
 			pdf = options.pdf;
 		} else if (options.data) {
 			pdf = await this.getPdfFromSpreadsheet(
-				options.data,
-				options.dataName as string,
+				options.data.buffer,
+				options.data.originalname as string,
 			);
 		} else {
 			throw new Error(
