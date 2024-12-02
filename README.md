@@ -9,6 +9,7 @@ formats or JSON.
     - [Security](#security)
   - [Description](#description)
   - [Documentation](#documentation)
+  - [Alternatives](#alternatives)
   - [Pre-requisites](#pre-requisites)
   - [Installation](#installation)
   - [Running the app](#running-the-app)
@@ -67,6 +68,13 @@ This `README.md` is probably incomplete. Please see the blog post
 [Creating Electronic Invoices with Free and Open Source
 Software](https://www.guido-flohr.net/creating-electronic-invoices-with-free-and-open-source-software/)
 for more accurate in-depth information!
+
+## Alternatives
+
+You can achieve similar results with these projects:
+
+- [Factur-X extension for LibreOffice](https://github.com/akretion/factur-x-libreoffice-extension)
+  is a LibreOffice extension to generate Factur-X invoices from LibreOffice Calc published under the GPL licence with a [video tutorial](https://www.youtube.com/watch?v=ldD-1W8yIv0). It is maybe less flexible but easier to set up.
 
 ## Pre-requisites
 
