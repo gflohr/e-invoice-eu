@@ -38,9 +38,14 @@ export type InvoiceServiceOptions = {
 	pdf?: Buffer;
 
 	/**
-	 * A
+	 * An array of supplementary attachments.
 	 */
 	attachments: InvoiceAttachment[];
+
+	/**
+	 * True if invoice should be embedded in XML, ignored for Factur-X.
+	 */
+	embedPDF?: boolean;
 };
 
 @Injectable()

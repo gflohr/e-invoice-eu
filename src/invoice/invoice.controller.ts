@@ -70,23 +70,31 @@ export class InvoiceController {
 				attachment: {
 					type: 'array',
 					nullable: true,
-					description:
-						'An arbitrary number of supplementary attachments. **Not yet implemented!**',
+					description: 'An arbitrary number of supplementary attachments.',
 					items: {
 						type: 'string',
 						format: 'binary',
-						description: 'The individual attachment',
+						description: 'The individual attachment.',
 					},
 				},
 				description: {
 					type: 'array',
 					nullable: true,
 					description:
-						'Optional descriptions for each supplementary attachment',
+						'Optional descriptions for each supplementary attachment.',
 					items: {
 						type: 'string',
-						description: 'Description for the corresponding attachment',
+						description: 'Description for the corresponding attachment.',
 					},
+				},
+				embedPDF: {
+					type: 'boolean',
+					nullable: true,
+					description:
+						'Optional flag for embedding PDF version in' +
+						' XML; ignored for Factur-X.' +
+						' if no PDF is uploaded, one is generated from the' +
+						' Spreadsheet with the help of LibreOffice.',
 				},
 			},
 		},
@@ -120,7 +128,7 @@ export class InvoiceController {
 			attachment?: Express.Multer.File[];
 		},
 
-		@Body() body: { description?: string[] },
+		@Body() body: { description?: string[]; embedPDF?: boolean },
 	) {
 		const { data, mapping, pdf, attachment } = files;
 
