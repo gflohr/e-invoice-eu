@@ -10,7 +10,12 @@ export type InvoiceAttachment = {
 	file: Express.Multer.File;
 
 	/**
-	 * A description.
+	 * An optional ID.
+	 */
+	id?: string;
+
+	/**
+	 * An optional description.
 	 */
 	description?: string;
 };
@@ -38,9 +43,19 @@ export type InvoiceServiceOptions = {
 	attachments: InvoiceAttachment[];
 
 	/**
-	 * True if invoice should be embedded in XML, ignored for Factur-X.
+	 * Set to invoice description if invoice should be embedded.
 	 */
 	embedPDF?: boolean;
+
+	/**
+	 * ID for an embedded PDF, defaults to the document id.
+	 */
+	pdfID?: string;
+
+	/**
+	 * Description for the embedded PDF.
+	 */
+	pdfDescription?: string;
 };
 
 @Injectable()

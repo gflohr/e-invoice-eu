@@ -4,7 +4,11 @@ import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 
 import { FormatXMLService } from './format-xml.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
-import { Invoice } from '../invoice/invoice.interface';
+import {
+	ADDITIONALSUPPORTINGDOCUMENTS,
+	AttachedDocumentMimeCode,
+	Invoice,
+} from '../invoice/invoice.interface';
 import { invoiceSchema } from '../invoice/invoice.schema';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Mapping } from '../mapping/mapping.interface';
@@ -51,7 +55,8 @@ export class FormatUBLService
 		invoice: Invoice,
 		options: InvoiceServiceOptions,
 	): Promise<string | Buffer> {
-		this.embedPDF(invoice, options);
+		await this.embedPDF(invoice, options);
+		this.embedAttachments(invoice, options);
 
 		invoice = sortBySchema(invoice, invoiceSchema);
 
@@ -71,11 +76,11 @@ export class FormatUBLService
 	}
 
 	async embedPDF(invoice: Invoice, options: InvoiceServiceOptions) {
-		if (!options.embedPDF) return;
+		if (typeof options.embedPDF === 'undefined') return;
 
 		const pdf = await this.getInvoicePdf(options);
-		let filename: string;
 		const mimeType = 'application/pdf';
+		let filename: string;
 		if (options.pdf) {
 			filename = options.pdf.originalname;
 		} else {
@@ -85,18 +90,58 @@ export class FormatUBLService
 			filename = parsed.name + '.pdf';
 		}
 
-		invoice['ubl:Invoice']['cac:AdditionalDocumentReference'] ??= [];
-		const idx =
-			invoice['ubl:Invoice']['cac:AdditionalDocumentReference'].length;
-		invoice['ubl:Invoice']['cac:AdditionalDocumentReference'][idx] = {
-			'cbc:ID': invoice['ubl:Invoice']['cbc:ID'],
-			'cbc:DocumentTypeCode': '130',
-			'cbc:DocumentDescription': 'Invoice',
+		const ref: ADDITIONALSUPPORTINGDOCUMENTS = {
+			'cbc:ID': options.pdfID ?? invoice['ubl:Invoice']['cbc:ID'],
 			'cac:Attachment': {
 				'cbc:EmbeddedDocumentBinaryObject': pdf.toString('base64'),
 				'cbc:EmbeddedDocumentBinaryObject@filename': filename,
 				'cbc:EmbeddedDocumentBinaryObject@mimeCode': mimeType,
 			},
 		};
+
+		if (typeof options.pdfDescription !== 'undefined') {
+			ref['cbc:DocumentDescription'] = options.pdfDescription;
+		}
+		invoice['ubl:Invoice']['cac:AdditionalDocumentReference'] ??= [];
+		invoice['ubl:Invoice']['cac:AdditionalDocumentReference'].push(ref);
+	}
+
+	embedAttachments(invoice: Invoice, options: InvoiceServiceOptions) {
+		const validMimeCodes: Set<AttachedDocumentMimeCode> = new Set([
+			'text/csv',
+			'application/pdf',
+			'image/png',
+			'image/jpeg',
+			'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+			'application/vnd.oasis.opendocument.spreadsheet',
+		]);
+
+		for (const attachment of options.attachments) {
+			const buffer = attachment.file.buffer;
+			const mimeType: AttachedDocumentMimeCode = attachment.file
+				.mimetype as AttachedDocumentMimeCode;
+			if (!validMimeCodes.has(mimeType)) {
+				throw new Error(
+					`The attachment MIME type '${mimeType}' is not allowed!`,
+				);
+			}
+			const filename = attachment.file.originalname;
+			const id = attachment.id ?? filename;
+
+			const ref: ADDITIONALSUPPORTINGDOCUMENTS = {
+				'cbc:ID': id,
+				'cac:Attachment': {
+					'cbc:EmbeddedDocumentBinaryObject': buffer.toString('base64'),
+					'cbc:EmbeddedDocumentBinaryObject@filename': filename,
+					'cbc:EmbeddedDocumentBinaryObject@mimeCode': mimeType,
+				},
+			};
+
+			if (typeof attachment.description !== 'undefined') {
+				ref['cbc:DocumentDescription'] = attachment.description;
+			}
+			invoice['ubl:Invoice']['cac:AdditionalDocumentReference'] ??= [];
+			invoice['ubl:Invoice']['cac:AdditionalDocumentReference'].push(ref);
+		}
 	}
 }

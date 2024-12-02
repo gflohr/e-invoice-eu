@@ -64,7 +64,7 @@ describe('UBL', () => {
 
 	it('should generate XML', async () => {
 		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
-		const options = {} as InvoiceServiceOptions;
+		const options = { attachments: [] } as unknown as InvoiceServiceOptions;
 
 		const xml = await service.generate(invoice, options);
 

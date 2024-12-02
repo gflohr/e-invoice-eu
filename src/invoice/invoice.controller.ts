@@ -74,10 +74,25 @@ export class InvoiceController {
 					items: {
 						type: 'string',
 						format: 'binary',
-						description: 'The individual attachment.',
+						description:
+							'The individual attachment. Note that only' +
+							' the MIME types "text/csv", "application/pdf"' +
+							' "image/png", "image/jpeg"' +
+							' "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",' +
+							' and "application/vnd.oasis.opendocument.spreadsheet"' +
+							' are allowed as MIME types to XML invoices.',
 					},
 				},
-				description: {
+				attachmentID: {
+					type: 'array',
+					nullable: true,
+					description: 'Optional ids for each supplementary attachment',
+					items: {
+						type: 'string',
+						description: 'Description for the corresponding attachment.',
+					},
+				},
+				attachmentDescription: {
 					type: 'array',
 					nullable: true,
 					description:
@@ -91,10 +106,21 @@ export class InvoiceController {
 					type: 'boolean',
 					nullable: true,
 					description:
-						'Optional flag for embedding PDF version in' +
-						' XML; ignored for Factur-X.' +
-						' if no PDF is uploaded, one is generated from the' +
+						'Pass if a PDF version of the invoice should be' +
+						' embedded into the XML; ignored for Factur-X.' +
+						' If no PDF is uploaded, one is generated from the' +
 						' Spreadsheet with the help of LibreOffice.',
+				},
+				pdfID: {
+					type: 'string',
+					nullable: true,
+					description:
+						'ID of the embedded PDF, defaults to the document' + ' number.',
+				},
+				pdfDescription: {
+					type: 'string',
+					nullable: true,
+					description: 'Optional description for the embedded PDF.',
 				},
 			},
 		},
@@ -128,12 +154,23 @@ export class InvoiceController {
 			attachment?: Express.Multer.File[];
 		},
 
-		@Body() body: { description?: string[]; embedPDF?: boolean },
+		@Body()
+		body: {
+			attachmentID?: string[];
+			attachmentDescription?: string[];
+			embedPDF?: boolean;
+			pdfID?: string;
+			pdfDescription?: string;
+		},
 	) {
 		const { data, mapping, pdf, attachment } = files;
 
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		const descriptions = body.description || [];
+		let attachmentIDs = body.attachmentID || [];
+		if (typeof attachmentIDs !== 'object') attachmentIDs = [attachmentIDs];
+
+		let attachmentDescriptions = body.attachmentDescription || [];
+		if (typeof attachmentDescriptions !== 'object')
+			attachmentDescriptions = [attachmentDescriptions];
 
 		if (!data) {
 			throw new BadRequestException('No invoice file uploaded');
@@ -148,7 +185,8 @@ export class InvoiceController {
 			for (let i = 0; i < attachment.length; ++i) {
 				attachments[i] = {
 					file: attachment[i],
-					description: descriptions[i],
+					id: attachmentIDs[i],
+					description: attachmentDescriptions[i],
 				};
 			}
 		}
@@ -165,6 +203,9 @@ export class InvoiceController {
 				data: data[0],
 				pdf: pdf ? pdf[0] : undefined,
 				attachments: attachments,
+				embedPDF: body.embedPDF,
+				pdfID: body.pdfID,
+				pdfDescription: body.pdfDescription,
 			});
 			if (typeof document === 'string') {
 				response.set('Content-Type', 'application/xml');
