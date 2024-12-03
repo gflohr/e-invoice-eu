@@ -20,8 +20,8 @@ import { InvoiceServiceOptions } from '../invoice/invoice.service';
 
 type FacturXConformanceLevel =
 	| 'MINIMUM'
-	| 'BASIC'
 	| 'BASIC WL'
+	| 'BASIC'
 	| 'EN 16931'
 	| 'EXTENDED'
 	| 'XRECHNUNG';
