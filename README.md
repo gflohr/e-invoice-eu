@@ -172,12 +172,12 @@ CII) is returned.
 
 The application ships with a mapping in `resources/default-invoice.yaml`.
 You can use it with the spreadsheet data from
-`contrib/templates/1234567890-consulting/default-invoice.ods` like this:
+`contrib/templates/default-invoice.ods` like this:
 
 ```bash
 $ curl -X POST http://localhost:3000/api/mapping/transform/UBL \
 	-F mapping=@contrib/mappings/default-invoice.yaml \
-	-F data=@contrib/templates/1234567890-consulting/default-invoice.ods
+	-F data=@contrib/templates/default-invoice.ods
 ```
 
 This will create invoice data in the internal format from a spreadsheet. The
@@ -191,7 +191,7 @@ The format parameter (`UBL` in this case) is case-insensitive!
 $ curl -v -X POST \
     http://localhost:3000/api/invoice/transform-and-create/UBL \
     -F mapping=@contrib/mappings/default-invoice.yaml \
-    -F data=@contrib/templates/1234567890-consulting/default-invoice.ods
+    -F data=@contrib/templates/default-invoice.ods
 ```
 
 This will transform the spreadsheet into the internal format and immediately
@@ -206,7 +206,7 @@ Say you want to add a PDF version `invoice.pdf` and two attachments
 $ curl -v -X POST \
     http://localhost:3000/api/invoice/transform-and-create/UBL \
     -F mapping=@contrib/mappings/default-invoice.yaml \
-    -F data=@contrib/templates/1234567890-consulting/default-invoice.ods \
+    -F data=@contrib/templates/default-invoice.ods \
     -F pdf=@invoice.pdf \
     -F embedPDF= \
     -F pdfID=1234567890 \
