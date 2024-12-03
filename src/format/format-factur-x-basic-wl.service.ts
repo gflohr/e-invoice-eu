@@ -10,7 +10,7 @@ export class FormatFacturXBasicWLService
 	implements EInvoiceFormat
 {
 	get customizationID(): string {
-		return 'urn:cen.eu:en16931:2017';
+		return 'urn:factur-x.eu:1p0:basicwl';
 	}
 
 	get fxProfile(): FXProfile {

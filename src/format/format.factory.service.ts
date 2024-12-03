@@ -51,7 +51,7 @@ export class FormatFactoryService {
 		[key: string]: new (...args: any[]) => EInvoiceFormat;
 	} = {
 		CII: FormatCIIService,
-		'Factur-X-Basic-WL': FormatFacturXBasicWLService,
+		'Factur-X-BasicWL': FormatFacturXBasicWLService,
 		'Factur-X-EN16931': FormatFacturXEN16931Service,
 		'Factur-X-Extended': FormatFacturXExtendedService,
 		'Factur-X-XRechnung': FormatFacturXXRechnungService,
