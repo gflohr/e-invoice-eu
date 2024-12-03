@@ -3,7 +3,7 @@ meta:
     Invoice: L
   empty: [ '[:empty:]' ]
 ubl:Invoice:
-  cbc:ID: =R2
+  cbc:ID: =O12
   cbc:IssueDate: =I6
   cbc:DueDate: =I12
   cbc:InvoiceTypeCode: "380"
