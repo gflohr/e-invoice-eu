@@ -3,19 +3,19 @@
 Mappings map cells from an invoice spreadsheet file to invoice data.
 
 - [Mapping](#mapping)
-	- [Format](#format)
-	- [General Structure](#general-structure)
-		- [The `meta` Object](#the-meta-object)
-			- [The `meta.sectionColumn` Object](#the-metasectioncolumn-object)
-			- [The `meta.empty` Array](#the-metaempty-array)
-		- [The `ubl:Invoice` Object](#the-ublinvoice-object)
-			- [Literal Values](#literal-values)
-			- [Sheet References](#sheet-references)
-			- [Section References](#section-references)
-			- [Cell References](#cell-references)
-			- [Formulas](#formulas)
-	- [Surprising Arrays](#surprising-arrays)
-	- [Examples](#examples)
+  - [Format](#format)
+  - [General Structure](#general-structure)
+    - [The `meta` Object](#the-meta-object)
+      - [The `meta.sectionColumn` Object](#the-metasectioncolumn-object)
+      - [The `meta.empty` Array](#the-metaempty-array)
+    - [The `ubl:Invoice` Object](#the-ublinvoice-object)
+      - [Literal Values](#literal-values)
+      - [Sheet References](#sheet-references)
+      - [Section References](#section-references)
+      - [Cell References](#cell-references)
+      - [Formulas](#formulas)
+  - [Surprising Arrays](#surprising-arrays)
+  - [Examples](#examples)
 
 ## Format
 
@@ -122,7 +122,7 @@ ubl:Invoice:
 Because of the way that YAML works, you must also quote the strings "null",
 "true", and "false". Especially, the value of `cbc:ChargeIndicator` inside
 `cac:AllowanceCharge` sections must be one of the strings "true" or "false",
-and not
+and not the literals `true` or `false`.
 
 #### Sheet References
 
@@ -228,10 +228,10 @@ formular, not the formula itself.
 
 ## Surprising Arrays
 
-Some elements are arrays although this will often be surprising.  For example,
-the element [`/ubl:Invoice/cac:TaxTotal`] is an array with 1-2 elements.  But
+Some elements are arrays although this will often be surprising. For example,
+the element [`/ubl:Invoice/cac:TaxTotal`] is an array with 1-2 elements. But
 you will almost always have just one element here. In this case, there is
-no need for a section, you can simply omit the `section` property.  You will
+no need for a section, you can simply omit the `section` property. You will
 probably be using this feature without even noticing it.
 
 ## Examples

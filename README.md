@@ -14,6 +14,7 @@ formats or JSON.
   - [Installation](#installation)
   - [Running the app](#running-the-app)
   - [Test](#test)
+  - [Running in a Container](#running-in-a-container)
   - [Curl Examples](#curl-examples)
     - [OpenAPI/Swagger documentation](#openapiswagger-documentation)
     - [List Supported Formats](#list-supported-formats)
@@ -117,6 +118,31 @@ $ bun run test:e2e
 
 # test coverage
 $ bun run test:cov
+```
+
+## Running in a Container
+
+By far the easiest way is to run the application in a software container.
+
+Pull the Docker image:
+
+```sh
+$ docker pull gflohr/e-invoice-eu:latest
+```
+
+Run the container:
+
+```sh
+$ docker run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:1.0.0
+```
+
+If you want to debug issues, omit the option `-d` so that you can see the
+output of the application running inside of the container.
+
+Access the application from your host computer:
+
+```sh
+$ curl http://localhost:3000/api/format/list
 ```
 
 ## Curl Examples
