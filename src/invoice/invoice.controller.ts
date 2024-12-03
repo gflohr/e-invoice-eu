@@ -49,6 +49,10 @@ export class InvoiceController {
 		schema: {
 			type: 'object',
 			properties: {
+				lang: {
+					type: 'string',
+					description: 'Primary language of your document as a locale identifier like en-us',
+				},
 				data: {
 					type: 'string',
 					format: 'binary',
@@ -123,6 +127,7 @@ export class InvoiceController {
 					description: 'Optional description for the embedded PDF.',
 				},
 			},
+			required: ['lang', 'data', 'mapping'],
 		},
 	})
 	@ApiResponse({
@@ -156,6 +161,7 @@ export class InvoiceController {
 
 		@Body()
 		body: {
+			lang: string,
 			attachmentID?: string[];
 			attachmentDescription?: string[];
 			embedPDF?: boolean;
@@ -171,6 +177,10 @@ export class InvoiceController {
 		let attachmentDescriptions = body.attachmentDescription || [];
 		if (typeof attachmentDescriptions !== 'object')
 			attachmentDescriptions = [attachmentDescriptions];
+
+		if (typeof body.lang === 'undefined') {
+			throw new BadRequestException('The \'lang\' parameter is mandatory!');
+		}
 
 		if (!data) {
 			throw new BadRequestException('No invoice file uploaded');
