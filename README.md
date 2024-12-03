@@ -124,17 +124,15 @@ $ bun run test:cov
 
 By far the easiest way is to run the application in a software container.
 
-Pull the Docker image with either one of these commands:
+Pull the Docker image:
 
 ```sh
-$ nerdctl pull gflohr/e-einvoice-eu:latest
 $ docker pull gflohr/e-invoice-eu:latest
 ```
 
-Run the container with either one of these commands:
+Run the container:
 
 ```sh
-$ nerdctl run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:1.0.0
 $ docker run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:1.0.0
 ```
 
