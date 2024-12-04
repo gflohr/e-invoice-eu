@@ -1,3 +1,4 @@
+import { Textdomain } from '@esgettext/runtime';
 import { Injectable } from '@nestjs/common';
 import {
 	AFRelationship,
@@ -100,6 +101,8 @@ export class FormatFacturXService
 	extends FormatCIIService
 	implements EInvoiceFormat
 {
+	private readonly gtx = Textdomain.getInstance('e-invoice-eu');
+
 	get mimeType(): string {
 		return 'application/pdf';
 	}
@@ -192,7 +195,9 @@ export class FormatFacturXService
 				'cac:PartyLegalEntity'
 			]['cbc:RegistrationName'];
 		const invoiceDate = invoice['ubl:Invoice']['cbc:IssueDate'];
-		const invoiceSubject = `Invoice ${invoiceNumber} dated ${invoiceDate} issued by ${invoiceCreator}`;
+		const invoiceSubject = this.gtx._x('Invoice {invoiceNumber} dated {invoiceDate} issued by {invoiceCreator}', {
+			invoiceNumber, invoiceDate, invoiceCreator
+		});
 		const invoiceMeta = {
 			conformanceLevel,
 			version,

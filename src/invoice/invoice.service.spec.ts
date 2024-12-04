@@ -41,6 +41,7 @@ describe('InvoiceService', () => {
 	it('should create an invoice', async () => {
 		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
 		const got = await service.generate(invoice, {
+			lang: 'en-us',
 			format: 'UBL',
 			attachments: [],
 		});
