@@ -195,9 +195,14 @@ export class FormatFacturXService
 				'cac:PartyLegalEntity'
 			]['cbc:RegistrationName'];
 		const invoiceDate = invoice['ubl:Invoice']['cbc:IssueDate'];
-		const invoiceSubject = this.gtx._x('Invoice {invoiceNumber} dated {invoiceDate} issued by {invoiceCreator}', {
-			invoiceNumber, invoiceDate, invoiceCreator
-		});
+		const invoiceSubject = this.gtx._x(
+			'Invoice {invoiceNumber} dated {invoiceDate} issued by {invoiceCreator}',
+			{
+				invoiceNumber,
+				invoiceDate,
+				invoiceCreator,
+			},
+		);
 		const invoiceMeta = {
 			conformanceLevel,
 			version,
@@ -214,8 +219,8 @@ export class FormatFacturXService
 		pdfDoc.setAuthor(invoiceMeta.creator);
 		pdfDoc.setCreationDate(now);
 		pdfDoc.setCreator(invoiceMeta.producer);
-		pdfDoc.setKeywords(['Invoice', 'Factur-X']);
-		pdfDoc.setLanguage('');
+		pdfDoc.setKeywords([this.gtx._('Invoice'), 'Factur-X', 'ZUGFeRD']);
+		pdfDoc.setLanguage(options.lang);
 		pdfDoc.setModificationDate(now);
 		pdfDoc.setProducer(invoiceMeta.producer);
 		pdfDoc.setSubject(invoiceSubject);
@@ -442,7 +447,7 @@ export class FormatFacturXService
 			.txt('external')
 			.up()
 			.ele('pdfaProperty:description')
-			.txt('The name of the embedded XML document')
+			.txt(this.gtx._('The name of the embedded XML document'))
 			.up()
 			.up()
 			.ele('rdf:li', { 'rdf:parseType': 'Resource' })
@@ -457,7 +462,9 @@ export class FormatFacturXService
 			.up()
 			.ele('pdfaProperty:description')
 			.txt(
-				'The type of the hybrid document in capital letters, e.g. INVOICE or ORDER',
+				this.gtx._(
+					'The type of the hybrid document in capital letters, e.g. INVOICE or ORDER',
+				),
 			)
 			.up()
 			.up()
@@ -473,7 +480,9 @@ export class FormatFacturXService
 			.up()
 			.ele('pdfaProperty:description')
 			.txt(
-				'The actual version of the standard applying to the embedded XML document',
+				this.gtx._(
+					'The actual version of the standard applying to the embedded XML document',
+				),
 			)
 			.up()
 			.up()
@@ -488,7 +497,7 @@ export class FormatFacturXService
 			.txt('external')
 			.up()
 			.ele('pdfaProperty:description')
-			.txt('The conformance level of the embedded XML document')
+			.txt(this.gtx._('The conformance level of the embedded XML document'))
 			.up()
 			.up();
 	}
