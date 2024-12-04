@@ -282,7 +282,7 @@ const cacPrice: Transformation = {
 				'ram:NetPriceProductTradePrice',
 				'ram:ChargeAmount',
 			],
-			fxProfileMask: FX_MASK_EN16931,
+			fxProfileMask: FX_MASK_BASIC,
 		},
 	],
 };
@@ -861,19 +861,19 @@ const cacPaymentMeans: Transformation[] = [
 		type: 'string',
 		src: ['cbc:PaymentMeansCode@name'],
 		dest: ['ram:Information'],
-		fxProfileMask: FX_MASK_BASIC_WL,
+		fxProfileMask: FX_MASK_EN16931,
 	},
 	{
 		type: 'string',
 		src: ['cac:CardAccount', 'cbc:PrimaryAccountNumberID'],
 		dest: ['ram:ApplicableTradeSettlementFinancialCard', 'ram:ID'],
-		fxProfileMask: FX_MASK_EXTENDED,
+		fxProfileMask: FX_MASK_EN16931,
 	},
 	{
 		type: 'string',
 		src: ['cac:CardAccount', 'cbc:HolderName'],
 		dest: ['ram:ApplicableTradeSettlementFinancialCard', 'ram:CardHolderName'],
-		fxProfileMask: FX_MASK_EXTENDED,
+		fxProfileMask: FX_MASK_EN16931,
 	},
 	{
 		type: 'string',
@@ -1069,7 +1069,7 @@ export const cacLegalMonetaryTotal: Transformation = {
 			type: 'string',
 			src: ['cbc:LineExtensionAmount'],
 			dest: ['ram:LineTotalAmount'],
-			fxProfileMask: FX_MASK_MINIMUM,
+			fxProfileMask: FX_MASK_BASIC,
 		},
 		{
 			type: 'string',
@@ -1279,6 +1279,12 @@ export const ublInvoice: Transformation = {
 					],
 					fxProfileMask: FX_MASK_EXTENDED,
 				},
+				{
+					type: 'object',
+					src: [],
+					dest: ['ram:ApplicableHeaderTradeDelivery'],
+					children: [],
+				},
 				// FIXME! This is an array for CII.
 				{
 					type: 'string',
@@ -1361,7 +1367,7 @@ export const ublInvoice: Transformation = {
 						'ram:ApplicableHeaderTradeSettlement',
 						'ram:InvoiceCurrencyCode',
 					],
-					fxProfileMask: FX_MASK_BASIC_WL,
+					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				{
 					type: 'object',
@@ -1573,13 +1579,18 @@ export class FormatCIIService
 
 			switch (transformation.type) {
 				case 'object':
-					this.convert(
-						invoice,
-						childSrcPath,
-						dest,
-						childDestPath,
-						transformation.children,
-					);
+					if (!transformation.children.length) {
+						// Special case.  Force the element to exist.
+						this.vivifyDest(dest, childDestPath, {});
+					} else {
+						this.convert(
+							invoice,
+							childSrcPath,
+							dest,
+							childDestPath,
+							transformation.children,
+						);
+					}
 					break;
 				case 'array':
 					for (let i = 0; i < src.length; ++i) {
@@ -1632,7 +1643,11 @@ export class FormatCIIService
 		return path;
 	}
 
-	private vivifyDest(dest: ObjectNode, path: string, value: string) {
+	private vivifyDest(
+		dest: ObjectNode,
+		path: string,
+		value: string | ObjectNode,
+	) {
 		const indices = path.replace(/\[([0-9]+)\]/g, '.$1').split('.');
 
 		if (indices[0] === '$') {

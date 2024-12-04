@@ -40,13 +40,28 @@ formats or JSON.
 
 You can currently create invoices in these formats:
 
-- CII: customization id `urn:cen.eu:en16931:2017`
-- Factur-X-EN16931 id `urn:cen.eu:en16931:2017`, also known as ZUGFeRD-EN16931 or ZUGFeRD-Comfort
-- Factur-X-Extended id `urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended`, also known as ZUGFeRD-Extended
-- Factur-X-XRechung id `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`, also known as ZUGFeRD-XRechnung
-- UBL: customization id `urn:cen.eu:en16931:2017`
-- XRECHNUNG-CII: customization id `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`
-- XRECHNUNG-UBL: customization id `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`
+- `CII`: customization id `urn:cen.eu:en16931:2017`
+- `Factur-X-Minimum` customization id `urn:factur-x.eu:1p0:minimum`
+- `Factur-X-BasicWL` customization id `urn:factur-x.eu:1p0:basicwl`
+- `Factur-X-Basic-WL` is an alias for `Factur-X-BasicWL`
+- `Factur-X-Basic` customization id `'urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic'`
+- `Factur-X-EN16931` customization id `urn:cen.eu:en16931:2017`
+- `Factur-X-Comfort` is an alias for `Factur-X-EN16931`
+- `Factur-X-Extended` customization id `urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended`
+- `Factur-X-XRechung` customization id `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`
+- `UBL`: customization customization id `urn:cen.eu:en16931:2017`
+- `XRECHNUNG-CII`: customization id `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`
+- `XRECHNUNG-UBL`: customization id `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`
+- `ZUGFeRD-Minimum` is an alias for `Factur-X-Minimum`
+- `ZUGFeRD-BasicWL` is an alias for `Factur-X-BasicWL`
+- `ZUGFeRD-Basic-WL` is an alias for `Factur-X-BasicWL`
+- `ZUGFeRD-Basic` is an alias for `Factur-X-Basic`
+- `ZUGFeRD-EN16931` is an alias for `Factur-X-EN16931`
+- `ZUGFeRD-Comfort` is an alias for `Factur-X-EN16931`
+- `ZUGFeRD-Extended` is an alias for `Factur-X-Extended`
+- `ZUGFeRD-XRechung` is an alias for `Factur-X-XRechnung`
+
+Case does not matter, when you specify a format.
 
 ### Security
 

@@ -28,6 +28,7 @@ exports[`CII should convert arrays 1`] = `
 				<ram:Name>Monorail Maintenance Fee </ram:Name>
 			</ram:SpecifiedTradeProduct>
 		</ram:IncludedSupplyChainTradeLineItem>
+		<ram:ApplicableHeaderTradeDelivery/>
 	</rsm:SupplyChainTradeTransaction>
 </rsm:CrossIndustryInvoice>"
 `;
@@ -43,6 +44,9 @@ exports[`CII should convert string values 1`] = `
 			<ram:ID>urn:cen.eu:en16931:2017</ram:ID>
 		</ram:GuidelineSpecifiedDocumentContextParameter>
 	</rsm:ExchangedDocumentContext>
+	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeDelivery/>
+	</rsm:SupplyChainTradeTransaction>
 </rsm:CrossIndustryInvoice>"
 `;
 
@@ -54,6 +58,9 @@ exports[`CII should encode date/time strings correctly 1`] = `
 			<udt:DateTimeString format="102">20241108</udt:DateTimeString>
 		</ram:IssueDateTime>
 	</rsm:ExchangedDocument>
+	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeDelivery/>
+	</rsm:SupplyChainTradeTransaction>
 </rsm:CrossIndustryInvoice>"
 `;
 
@@ -65,5 +72,8 @@ exports[`CII should omit missing string values 1`] = `
 			<ram:ID>urn:cen.eu:en16931:2017</ram:ID>
 		</ram:GuidelineSpecifiedDocumentContextParameter>
 	</rsm:ExchangedDocumentContext>
+	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeDelivery/>
+	</rsm:SupplyChainTradeTransaction>
 </rsm:CrossIndustryInvoice>"
 `;

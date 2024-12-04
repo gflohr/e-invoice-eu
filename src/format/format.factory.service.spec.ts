@@ -53,8 +53,11 @@ describe('XRECHNUNG-UBL', () => {
 		const allFormats = service.listFormatServices().map(f => f.name);
 		expect(allFormats).toEqual([
 			'CII',
+			'Factur-X-Basic',
+			'Factur-X-BasicWL',
 			'Factur-X-EN16931',
 			'Factur-X-Extended',
+			'Factur-X-Minimum',
 			'Factur-X-XRechnung',
 			'UBL',
 			'XRECHNUNG-CII',

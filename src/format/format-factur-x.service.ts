@@ -20,8 +20,8 @@ import { InvoiceServiceOptions } from '../invoice/invoice.service';
 
 type FacturXConformanceLevel =
 	| 'MINIMUM'
-	| 'BASIC'
 	| 'BASIC WL'
+	| 'BASIC'
 	| 'EN 16931'
 	| 'EXTENDED'
 	| 'XRECHNUNG';
@@ -156,7 +156,7 @@ export class FormatFacturXService
 				conformanceLevel = 'MINIMUM';
 				version = '1.0';
 				break;
-			case 'factur-x-basic-wl':
+			case 'factur-x-basicwl':
 				filename = 'factur-x.xml';
 				conformanceLevel = 'BASIC WL';
 				version = '1.0';
