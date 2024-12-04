@@ -282,7 +282,7 @@ const cacPrice: Transformation = {
 				'ram:NetPriceProductTradePrice',
 				'ram:ChargeAmount',
 			],
-			fxProfileMask: FX_MASK_EN16931,
+			fxProfileMask: FX_MASK_BASIC,
 		},
 	],
 };
@@ -861,19 +861,19 @@ const cacPaymentMeans: Transformation[] = [
 		type: 'string',
 		src: ['cbc:PaymentMeansCode@name'],
 		dest: ['ram:Information'],
-		fxProfileMask: FX_MASK_BASIC_WL,
+		fxProfileMask: FX_MASK_EN16931,
 	},
 	{
 		type: 'string',
 		src: ['cac:CardAccount', 'cbc:PrimaryAccountNumberID'],
 		dest: ['ram:ApplicableTradeSettlementFinancialCard', 'ram:ID'],
-		fxProfileMask: FX_MASK_EXTENDED,
+		fxProfileMask: FX_MASK_EN16931,
 	},
 	{
 		type: 'string',
 		src: ['cac:CardAccount', 'cbc:HolderName'],
 		dest: ['ram:ApplicableTradeSettlementFinancialCard', 'ram:CardHolderName'],
-		fxProfileMask: FX_MASK_EXTENDED,
+		fxProfileMask: FX_MASK_EN16931,
 	},
 	{
 		type: 'string',
