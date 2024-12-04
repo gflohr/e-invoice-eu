@@ -3,6 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { FormatCIIService } from './format-cii.service';
 import { FormatFacturXBasicWLService } from './format-factur-x-basic-wl.service';
+import { FormatFacturXBasicService } from './format-factur-x-basic.service';
 import { FormatFacturXEN16931Service } from './format-factur-x-en16931.service';
 import { FormatFacturXExtendedService } from './format-factur-x-extended.service';
 import { FormatFacturXXRechnungService } from './format-factur-x-xrechnung.service';
@@ -51,6 +52,7 @@ export class FormatFactoryService {
 		[key: string]: new (...args: any[]) => EInvoiceFormat;
 	} = {
 		CII: FormatCIIService,
+		'Factur-X-Basic': FormatFacturXBasicService,
 		'Factur-X-BasicWL': FormatFacturXBasicWLService,
 		'Factur-X-EN16931': FormatFacturXEN16931Service,
 		'Factur-X-Extended': FormatFacturXExtendedService,
