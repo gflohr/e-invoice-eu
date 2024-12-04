@@ -6,6 +6,7 @@ import { FormatFacturXBasicWLService } from './format-factur-x-basic-wl.service'
 import { FormatFacturXBasicService } from './format-factur-x-basic.service';
 import { FormatFacturXEN16931Service } from './format-factur-x-en16931.service';
 import { FormatFacturXExtendedService } from './format-factur-x-extended.service';
+import { FormatFacturXMinimumService } from './format-factur-x-minimum.service';
 import { FormatFacturXXRechnungService } from './format-factur-x-xrechnung.service';
 import { FormatUBLService } from './format-ubl.service';
 import { FormatXRECHNUNGCIIService } from './format-xrechnung-cii.service';
@@ -56,6 +57,7 @@ export class FormatFactoryService {
 		'Factur-X-BasicWL': FormatFacturXBasicWLService,
 		'Factur-X-EN16931': FormatFacturXEN16931Service,
 		'Factur-X-Extended': FormatFacturXExtendedService,
+		'Factur-X-Minimum': FormatFacturXMinimumService,
 		'Factur-X-XRechnung': FormatFacturXXRechnungService,
 		UBL: FormatUBLService,
 		'XRECHNUNG-CII': FormatXRECHNUNGCIIService,
@@ -98,12 +100,22 @@ export class FormatFactoryService {
 	}
 
 	createFormatService(format: string): EInvoiceFormat {
-		const FormatService = this.formatServicesLookup[format.toLowerCase()];
+		const normalizedFormat = this.normalizeFormat(format);
+		const FormatService = this.formatServicesLookup[normalizedFormat];
 
 		if (!FormatService) {
 			throw new NotFoundException(`Format '${format}' not supported.`);
 		}
 
 		return new FormatService(this.appConfigService, this.serializerService);
+	}
+
+	normalizeFormat(format: string): string {
+		format = format.toLowerCase();
+		format = format.replace(/-comfort$/, '-en16931');
+		format = format.replace(/-basic-wl$/, '-basic-wl');
+		format = format.replace(/^zugferd-/, 'factur-x-');
+
+		return format;
 	}
 }

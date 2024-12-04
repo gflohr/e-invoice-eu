@@ -4,7 +4,7 @@ import { FormatFacturXBasicService } from './format-factur-x-basic.service';
 import { AppConfigService } from '../app-config/app-config.service';
 import { SerializerService } from '../serializer/serializer.service';
 
-describe('Factur-X-EN16931', () => {
+describe('Factur-X-Basic', () => {
 	let service: FormatFacturXBasicService;
 
 	beforeEach(async () => {

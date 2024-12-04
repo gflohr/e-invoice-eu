@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { FormatFacturXBasicWLService } from './format-factur-x-basic-wl.service';
+import { FormatFacturXMinimumService } from './format-factur-x-minimum.service';
 import { AppConfigService } from '../app-config/app-config.service';
 import { SerializerService } from '../serializer/serializer.service';
 
-describe('Factur-X-BasicWL', () => {
-	let service: FormatFacturXBasicWLService;
+describe('Factur-X-Minimum', () => {
+	let service: FormatFacturXMinimumService;
 
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
-				FormatFacturXBasicWLService,
+				FormatFacturXMinimumService,
 				AppConfigService,
 				{
 					provide: 'AppConfigService',
@@ -24,8 +24,8 @@ describe('Factur-X-BasicWL', () => {
 			],
 		}).compile();
 
-		service = module.get<FormatFacturXBasicWLService>(
-			FormatFacturXBasicWLService,
+		service = module.get<FormatFacturXMinimumService>(
+			FormatFacturXMinimumService,
 		);
 	});
 

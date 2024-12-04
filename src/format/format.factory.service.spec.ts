@@ -57,6 +57,7 @@ describe('XRECHNUNG-UBL', () => {
 			'Factur-X-BasicWL',
 			'Factur-X-EN16931',
 			'Factur-X-Extended',
+			'Factur-X-Minimum',
 			'Factur-X-XRechnung',
 			'UBL',
 			'XRECHNUNG-CII',
