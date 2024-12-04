@@ -1069,7 +1069,7 @@ export const cacLegalMonetaryTotal: Transformation = {
 			type: 'string',
 			src: ['cbc:LineExtensionAmount'],
 			dest: ['ram:LineTotalAmount'],
-			fxProfileMask: FX_MASK_MINIMUM,
+			fxProfileMask: FX_MASK_BASIC,
 		},
 		{
 			type: 'string',
@@ -1367,7 +1367,7 @@ export const ublInvoice: Transformation = {
 						'ram:ApplicableHeaderTradeSettlement',
 						'ram:InvoiceCurrencyCode',
 					],
-					fxProfileMask: FX_MASK_BASIC_WL,
+					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				{
 					type: 'object',
