@@ -1279,6 +1279,12 @@ export const ublInvoice: Transformation = {
 					],
 					fxProfileMask: FX_MASK_EXTENDED,
 				},
+				{
+					type: 'object',
+					src: [],
+					dest: ['ram:ApplicableHeaderTradeDelivery'],
+					children: [],
+				},
 				// FIXME! This is an array for CII.
 				{
 					type: 'string',
@@ -1573,13 +1579,18 @@ export class FormatCIIService
 
 			switch (transformation.type) {
 				case 'object':
-					this.convert(
-						invoice,
-						childSrcPath,
-						dest,
-						childDestPath,
-						transformation.children,
-					);
+					if (!transformation.children.length) {
+						// Special case.  Force the element to exist.
+						this.vivifyDest(dest, childDestPath, {});
+					} else {
+						this.convert(
+							invoice,
+							childSrcPath,
+							dest,
+							childDestPath,
+							transformation.children,
+						);
+					}
 					break;
 				case 'array':
 					for (let i = 0; i < src.length; ++i) {
@@ -1632,7 +1643,11 @@ export class FormatCIIService
 		return path;
 	}
 
-	private vivifyDest(dest: ObjectNode, path: string, value: string) {
+	private vivifyDest(
+		dest: ObjectNode,
+		path: string,
+		value: string | ObjectNode,
+	) {
 		const indices = path.replace(/\[([0-9]+)\]/g, '.$1').split('.');
 
 		if (indices[0] === '$') {
