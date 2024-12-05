@@ -38,6 +38,11 @@ export type InvoiceServiceOptions = {
 	pdf?: Express.Multer.File;
 
 	/**
+	 * A language identifier like "fr-ca".
+	 */
+	lang: string;
+
+	/**
 	 * An array of supplementary attachments.
 	 */
 	attachments: InvoiceAttachment[];

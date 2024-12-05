@@ -220,6 +220,7 @@ Say you want to add a PDF version `invoice.pdf` and two attachments
 ```bash
 $ curl -v -X POST \
     http://localhost:3000/api/invoice/transform-and-create/UBL \
+    -F lang=de
     -F mapping=@contrib/mappings/default-invoice.yaml \
     -F data=@contrib/templates/default-invoice.ods \
     -F pdf=@invoice.pdf \
@@ -232,6 +233,10 @@ $ curl -v -X POST \
     -F attachment=@payment-terms.pdf \
     -F attachmentDescription="Our payment terms" \
 ```
+
+The optional `lang` parameter specifies the language of the document. It
+defaults to `en`. It is currently only used for the Factur-X variants where
+certain canned texts are translated.
 
 The parameter `embedPDF` should be passed if a PDF version of the document
 should be embedded into the XML. It only makes sense if you have specified a
