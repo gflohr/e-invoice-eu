@@ -101,7 +101,7 @@ export class FormatFacturXService
 	extends FormatCIIService
 	implements EInvoiceFormat
 {
-	private readonly gtx = Textdomain.getInstance('e-invoice-eu');
+	private gtx: Textdomain;
 
 	get mimeType(): string {
 		return 'application/pdf';
@@ -115,6 +115,10 @@ export class FormatFacturXService
 		invoice: Invoice,
 		options: InvoiceServiceOptions,
 	): Promise<string | Buffer> {
+		Textdomain.locale = options.lang;
+		this.gtx = Textdomain.getInstance('e-invoice-eu');
+		await this.gtx.resolve();
+
 		const pdf = await this.getInvoicePdf(options);
 
 		const pdfDoc = await PDFDocument.load(pdf, { updateMetadata: false });

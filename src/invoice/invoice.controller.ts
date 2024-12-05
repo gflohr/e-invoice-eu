@@ -51,7 +51,9 @@ export class InvoiceController {
 			properties: {
 				lang: {
 					type: 'string',
-					description: 'Primary language of your document as a locale identifier like fr-ca, defaults to en',
+					nullable: true,
+					description:
+						'Primary language of your document as a locale identifier like fr-ca, defaults to en',
 				},
 				data: {
 					type: 'string',
@@ -161,7 +163,7 @@ export class InvoiceController {
 
 		@Body()
 		body: {
-			lang?: string,
+			lang?: string;
 			attachmentID?: string[];
 			attachmentDescription?: string[];
 			embedPDF?: boolean;
