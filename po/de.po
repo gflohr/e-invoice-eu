@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: e-invoice-eu\n"
 "Report-Msgid-Bugs-To: https://github.com/gflohr/e-invoice-eu/issues\n"
-"POT-Creation-Date: 2024-12-05 12:01+0200\n"
+"POT-Creation-Date: 2024-12-05 12:38+0200\n"
 "PO-Revision-Date: 2024-12-04 22:25+0200\n"
 "Last-Translator: Guido Flohr <guido.flohr@cantanea.com>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
@@ -27,22 +27,25 @@ msgstr ""
 
 #: ../src/format/format-factur-x.service.ts:222
 msgid "Invoice"
-msgstr ""
+msgstr "Rechnung"
 
 #: ../src/format/format-factur-x.service.ts:450
 msgid "The name of the embedded XML document"
-msgstr ""
+msgstr "Der Name des eingebetteten XML-Dokuments"
 
 #: ../src/format/format-factur-x.service.ts:465
 msgid ""
 "The type of the hybrid document in capital letters, e.g. INVOICE or ORDER"
 msgstr ""
+"Der englischsprachige Type des hybriden Dokuments in Großbuchstaben, z. B. "
+"INVOICE oder ORDER"
 
 #: ../src/format/format-factur-x.service.ts:483
 msgid ""
 "The actual version of the standard applying to the embedded XML document"
 msgstr ""
+"Die Version des Standards, dem das eingebettete XML-Dokument entspricht"
 
 #: ../src/format/format-factur-x.service.ts:500
 msgid "The conformance level of the embedded XML document"
-msgstr ""
+msgstr "Der Konformitäts-Level des eingebetteten XML-Dokuments"
