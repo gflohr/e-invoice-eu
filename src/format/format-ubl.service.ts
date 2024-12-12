@@ -32,11 +32,11 @@ export class FormatUBLService
 	}
 
 	fillMappingDefaults(mapping: Mapping) {
-		if (!('cbc:customizationID' in mapping['ubl:Invoice'])) {
+		if (!('cbc:CustomizationID' in mapping['ubl:Invoice'])) {
 			mapping['ubl:Invoice']['cbc:CustomizationID'] = this.customizationID;
 		}
 
-		if (!('cbc:profileID' in mapping['ubl:Invoice'])) {
+		if (!('cbc:ProfileID' in mapping['ubl:Invoice'])) {
 			mapping['ubl:Invoice']['cbc:ProfileID'] = this.profileID;
 		}
 	}
