@@ -1,3 +1,9 @@
+<p align="center">
+	<img
+		src="./assets/e-invoice-eu-logo-2.webp"
+		width="256" height="256" />
+</p>
+
 # E-Invoice-EU
 
 Tool-chain for generating EN16931 conforming invoices from popular spreadsheet
