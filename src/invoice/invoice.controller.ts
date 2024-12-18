@@ -146,8 +146,8 @@ export class InvoiceController {
 	})
 	@UseInterceptors(
 		FileFieldsInterceptor([
+			{ name: 'invoice', maxCount: 1 },
 			{ name: 'data', maxCount: 1 },
-			{ name: 'mapping', maxCount: 1 },
 			{ name: 'pdf', maxCount: 1 },
 			{ name: 'attachment' }, // FIXME! How to set maxCount asynchronously?
 		]),
@@ -157,15 +157,14 @@ export class InvoiceController {
 		@Param('format') format: string,
 		@UploadedFiles()
 		files: {
+			invoice: Express.Multer.File[];
 			data?: Express.Multer.File[];
-			mapping?: Express.Multer.File[];
 			pdf?: Express.Multer.File[];
 			attachment?: Express.Multer.File[];
 		},
 
 		@Body()
 		body: {
-			invoice: Invoice;
 			lang?: string;
 			attachmentID?: string[];
 			attachmentDescription?: string[];
@@ -174,7 +173,11 @@ export class InvoiceController {
 			pdfDescription?: string;
 		},
 	) {
-		const { data, pdf, attachment } = files;
+		const { invoice, data, pdf, attachment } = files;
+
+		if (!invoice) {
+			throw new BadRequestException('No invoice file uploaded');
+		}
 
 		let attachmentIDs = body.attachmentID || [];
 		if (typeof attachmentIDs !== 'object') attachmentIDs = [attachmentIDs];
@@ -195,7 +198,10 @@ export class InvoiceController {
 		}
 
 		try {
-			const document = await this.invoiceService.generate(body.invoice, {
+			const invoiceData = JSON.parse(
+				invoice[0].buffer.toString(),
+			) as unknown as Invoice;
+			const document = await this.invoiceService.generate(invoiceData, {
 				format: format.toLowerCase(),
 				data: data ? data[0] : undefined,
 				pdf: pdf ? pdf[0] : undefined,
