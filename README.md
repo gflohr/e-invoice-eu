@@ -132,7 +132,7 @@ It is quite unlikely that you can use anything here out of the box. See it as a 
 ## Documentation
 
 This `README.md` is probably incomplete. Please see the blog post
-[Creating Electronic Invoices with Free and Open Source
+[Creating E-Invoices with Free and Open Source
 Software](https://www.guido-flohr.net/creating-electronic-invoices-with-free-and-open-source-software/)
 for more accurate in-depth information!
 
