@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import Ajv2019, { ValidateFunction } from 'ajv/dist/2019';
 
 import { Invoice } from './invoice.interface';
+import { invoiceSchema } from './invoice.schema';
 import { FormatFactoryService } from '../format/format.factory.service';
+import { ValidationService } from '../validation/validation.service';
 
 export type InvoiceAttachment = {
 	/**
@@ -65,14 +68,32 @@ export type InvoiceServiceOptions = {
 
 @Injectable()
 export class InvoiceService {
-	constructor(private readonly formatFactoryService: FormatFactoryService) {}
+	private readonly validator: ValidateFunction<Invoice>;
+
+	constructor(
+		private readonly formatFactoryService: FormatFactoryService,
+		private readonly validationService: ValidationService,
+	) {
+		const ajv = new Ajv2019({
+			strict: true,
+			allErrors: true,
+			useDefaults: true,
+		});
+		this.validator = ajv.compile(invoiceSchema);
+	}
 
 	async generate(
-		invoice: Invoice,
+		input: unknown,
 		options: InvoiceServiceOptions,
 	): Promise<string | Buffer> {
 		const formatter = this.formatFactoryService.createFormatService(
 			options.format,
+		);
+
+		const invoice = this.validationService.validate(
+			'invoice data',
+			this.validator,
+			input,
 		);
 
 		return formatter.generate(invoice, options);
