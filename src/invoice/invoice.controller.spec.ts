@@ -51,6 +51,40 @@ describe('InvoiceController', () => {
 		await app.close();
 	});
 
+	describe('create', () => {
+		it('should successfully create an invoice from JSON', async () => {
+			const mockXml = '<Invoice/>';
+			jest.spyOn(invoiceService, 'generate').mockResolvedValue(mockXml);
+
+			const invoice: Express.Multer.File = {
+				buffer: Buffer.from('{}'),
+				encoding: '7bit',
+				fieldname: 'data',
+				mimetype: 'application/json',
+				originalname: 'invoice.json',
+				size: 2,
+			} as Express.Multer.File;
+			const response = await request(app.getHttpServer())
+				.post('/invoice/create/UBL')
+				.attach('invoice', invoice.buffer, 'invoice.json');
+
+			expect(response.status).toBe(201);
+			expect(response.text).toEqual(mockXml);
+
+			expect(invoiceService.generate).toHaveBeenCalledWith(
+				{},
+				{
+					format: 'ubl',
+					lang: 'en',
+					pdf: undefined,
+					pdfDescription: undefined,
+					pdfID: undefined,
+					attachments: [],
+				},
+			);
+		});
+	});
+
 	describe('create and transform', () => {
 		it('should successfully transform and create an invoice', async () => {
 			const mockTransformedData = {
