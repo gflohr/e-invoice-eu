@@ -76,6 +76,7 @@ describe('InvoiceService', () => {
 		const validateSpy = jest
 			.spyOn(validationService, 'validate')
 			.mockImplementationOnce(() => {
+				// FIXME: Use more specific error here!
 				throw new ValidationError([] as ErrorObject[]);
 			});
 
