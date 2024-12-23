@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { ErrorObject, ValidationError } from 'ajv/dist/2019';
 
 import { InvoiceService } from './invoice.service';
 import { AppConfigService } from '../app-config/app-config.service';
@@ -67,5 +68,38 @@ describe('InvoiceService', () => {
 			expect.anything(),
 			input,
 		);
+
+		validateSpy.mockRestore();
+	});
+
+	it('should reject invalid input data', async () => {
+		const validateSpy = jest
+			.spyOn(validationService, 'validate')
+			.mockImplementationOnce(() => {
+				throw new ValidationError([] as ErrorObject[]);
+			});
+
+		const input = {} as unknown;
+
+		try {
+			await service.generate(input, {
+				lang: 'en-us',
+				format: 'UBL',
+				attachments: [],
+			});
+			fail('Expected generate() to throw a ValidationError.');
+		} catch (error) {
+			expect(error).toBeInstanceOf(ValidationError);
+			expect(error.errors).toEqual([]);
+		}
+
+		expect(validateSpy).toHaveBeenCalledTimes(1);
+		expect(validateSpy).toHaveBeenCalledWith(
+			'invoice data',
+			expect.anything(),
+			input,
+		);
+
+		validateSpy.mockRestore();
 	});
 });
