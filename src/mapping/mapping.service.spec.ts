@@ -505,6 +505,7 @@ describe('MappingService', () => {
 
 			it('should map a literal value', () => {
 				expect(invoice['ubl:Invoice']['cbc:ID']).toBe('1234567890');
+				expect(typeof invoice['ubl:Invoice']['cbc:ID']).toBe('string');
 			});
 
 			it('should map a literal date', () => {

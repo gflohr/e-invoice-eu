@@ -86,14 +86,14 @@ export class InvoiceService {
 		input: unknown,
 		options: InvoiceServiceOptions,
 	): Promise<string | Buffer> {
-		const formatter = this.formatFactoryService.createFormatService(
-			options.format,
-		);
-
 		const invoice = this.validationService.validate(
 			'invoice data',
 			this.validator,
 			input,
+		);
+
+		const formatter = this.formatFactoryService.createFormatService(
+			options.format,
 		);
 
 		return formatter.generate(invoice, options);

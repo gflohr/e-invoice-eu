@@ -299,7 +299,7 @@ export class MappingService {
 				}
 				break;
 			default:
-				value = cell.v;
+				value = cell.v.toString();
 		}
 
 		return value;
