@@ -41,13 +41,9 @@ src/mapping/mapping.schema.ts: scripts/json-schema-to-typescript.mts src/schema/
 	$(NPX) eslint $@ --fix
 	$(NPX) prettier --write $@
 
-documentation/BusinessTerms.md: scripts/extract-business-terms.mts src/schema/invoice.schema.json
-	$(NPX) tsx $< src/schema/invoice.schema.json >$@ || rm -f $@
-
 .PHONY: clean
 
 clean:
 	rm -f src/schema/*.json \
 		src/invoice/invoice.interface.ts src/mapping/mapping.interface.ts \
-		src/invoice/invoice.schema.ts src/mapping/mapping.schema.ts \
-		documentation/BusinessTerms.md
+		src/invoice/invoice.schema.ts src/mapping/mapping.schema.ts
