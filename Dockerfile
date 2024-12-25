@@ -18,7 +18,8 @@ WORKDIR /app
 COPY . .
 
 # Avoid "/bin/bash: line 1: husky: command not found"!
-RUN bun install husky
+RUN npm install husky
+RUN rm package-lock.json
 RUN bun install --production
 
 # Stage 2: Runtime stage
