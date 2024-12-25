@@ -39,10 +39,6 @@ export class SerializerService {
 					const [elem, attr] = key.split('@', 2);
 
 					if (typeof attr !== 'undefined') {
-						if (!(elem in output)) {
-							continue;
-						}
-
 						if (typeof output[elem] === 'string') {
 							output[elem] = {
 								'#': output[elem],
