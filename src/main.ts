@@ -15,7 +15,6 @@ async function bootstrap() {
 
 	const gtx = Textdomain.getInstance('e-invoice-eu');
 	const localePath = path.join(__dirname, 'locale');
-	console.warn(`localePath: ${localePath}`);
 	gtx.bindtextdomain(localePath);
 
 	const config = new DocumentBuilder()

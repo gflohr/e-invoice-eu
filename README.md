@@ -29,6 +29,7 @@ formats or JSON.
     - [Transform Data from Spreadsheet](#transform-data-from-spreadsheet)
     - [Create an Invoice from a Spreadsheet](#create-an-invoice-from-a-spreadsheet)
     - [Full-Fledged Example](#full-fledged-example)
+    - [Create an Invoice from JSON](#create-an-invoice-from-json)
   - [Data Structure](#data-structure)
   - [Validation](#validation)
   - [Mapping Syntax](#mapping-syntax)
@@ -236,12 +237,12 @@ CII) is returned.
 
 ### Transform Data from Spreadsheet
 
-The application ships with a mapping in `resources/default-invoice.yaml`.
+The application ships with a sample mapping in `contrib/mappings/default-invoice.yaml`.
 You can use it with the spreadsheet data from
 `contrib/templates/default-invoice.ods` like this:
 
 ```bash
-$ curl -X POST http://localhost:3000/api/mapping/transform/UBL \
+$ curl -X POST http://localhost:3000/api/invoice/transform-and-create/UBL \
 	-F mapping=@contrib/mappings/default-invoice.yaml \
 	-F data=@contrib/templates/default-invoice.ods
 ```
@@ -302,6 +303,22 @@ type of OpenDocument spreadsheet files.
 For each supplementary attachment, an optional `description` and an optional
 `id` can be specified. If the id is omitted, it defaults to the filename of
 the attached file.
+
+### Create an Invoice from JSON
+
+The application ships with sample invoice data in `contrib/data/default-invoice.json`
+that can be transformed into an e-invoice:
+
+```bash
+$ curl -X POST http://localhost:3000/api/invoice/create/UBL \
+	-F invoice=@contrib/data/default-invoice.json
+```
+
+The only differences to the `/api/invoice/transform-and-create` endpoint
+described above are:
+
+- You must upload a JSON file with invoice data in paramater `invoice`.
+- The `data` parameter is optional. If you want to generate the PDF version for Factur-X/ZUGFeRD from a spreadsheet file, you should specify it here.
 
 ## Data Structure
 

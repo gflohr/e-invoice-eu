@@ -30,7 +30,7 @@ type Element = {
 	Name?: string;
 	Description?: string;
 	DataType?: string;
-	CodeList?: string;
+	CodeList?: string[];
 	BusinessTerms?: string[];
 	children?: Array<Element>;
 	cardinality?: string;
@@ -227,7 +227,8 @@ function buildTree(element: any, parent: any = null): Element {
 				':@' in node &&
 				'CODE_LIST' == node[':@']['@_type']
 			) {
-				tree.CodeList = node.Reference[0]['#text'];
+				tree.CodeList ??= [];
+				tree.CodeList.push(node.Reference[0]['#text']);
 			} else if (
 				'Reference' in node &&
 				':@' in node &&
@@ -300,11 +301,22 @@ function processNode(node: Element): JSONSchemaType<object> {
 	let schema: JSONSchemaType<any>;
 
 	if (node.CodeList) {
-		schema = {
-			type: 'string',
-			$ref: `#/$defs/codeLists/${node.CodeList}`,
-			...common,
-		};
+		if (node.CodeList.length > 1) {
+			schema = {
+				type: 'string',
+				oneOf: [],
+				...common,
+			};
+			for (const ref of node.CodeList) {
+				(schema.oneOf as Array<object>).push({ $ref: `#/$defs/codeLists/${ref}` });
+			}
+		} else {
+			schema = {
+				type: 'string',
+				$ref: `#/$defs/codeLists/${node.CodeList[0]}`,
+				...common,
+			};
+		}
 	} else if (node.DataType && node.DataType in $defs.dataTypes) {
 		schema = {
 			$ref: `#/$defs/dataTypes/${node.DataType}`,

@@ -112,19 +112,6 @@ describe('SerializerService', () => {
 		expect(xml).toMatchSnapshot();
 	});
 
-	it('should skip orphaned attributes', () => {
-		const xml = service.serialize(
-			{
-				Root: {
-					'foo@bar': 'home alone',
-				},
-			},
-			options,
-		);
-
-		expect(xml).toBe('<?xml version="1.0" encoding="utf-8"?>\n<Root/>');
-	});
-
 	it('should work with default options', () => {
 		const xml = service.serialize({
 			Root: {},

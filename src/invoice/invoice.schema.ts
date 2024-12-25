@@ -9,7 +9,7 @@ import { Invoice } from './invoice.interface';
 
 export const invoiceSchema: JSONSchemaType<Invoice> = {
 	$schema: 'https://json-schema.org/draft/2019-09/schema',
-	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v0.1.0',
+	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v1.1.1',
 	type: 'object',
 	additionalProperties: false,
 	properties: {
@@ -357,7 +357,14 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											},
 											'cbc:ID@schemeID': {
 												type: 'string',
-												$ref: '#/$defs/codeLists/SEPA',
+												oneOf: [
+													{
+														$ref: '#/$defs/codeLists/ICD',
+													},
+													{
+														$ref: '#/$defs/codeLists/SEPA',
+													},
+												],
 												title:
 													'Seller or bank assigned creditor identifier identification scheme identifier',
 												description:
@@ -816,7 +823,14 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								},
 								'cbc:ID@schemeID': {
 									type: 'string',
-									$ref: '#/$defs/codeLists/SEPA',
+									oneOf: [
+										{
+											$ref: '#/$defs/codeLists/ICD',
+										},
+										{
+											$ref: '#/$defs/codeLists/SEPA',
+										},
+									],
 									title:
 										'Payee or bank assigned creditor identifier identification scheme identifier',
 									description:
@@ -1275,7 +1289,14 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							},
 							'cbc:AllowanceChargeReasonCode': {
 								type: 'string',
-								$ref: '#/$defs/codeLists/UNCL7161',
+								oneOf: [
+									{
+										$ref: '#/$defs/codeLists/UNCL5189',
+									},
+									{
+										$ref: '#/$defs/codeLists/UNCL7161',
+									},
+								],
 								title: 'Document level allowance or charge reason code',
 								description:
 									'The reason for the document level allowance or charge, expressed as a code. For allowances a subset of codelist UNCL5189 is to be used, and for charges codelist UNCL7161 applies. The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason\nBusiness terms: BT-98, BT-105',
@@ -1676,7 +1697,14 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										},
 										'cbc:AllowanceChargeReasonCode': {
 											type: 'string',
-											$ref: '#/$defs/codeLists/UNCL7161',
+											oneOf: [
+												{
+													$ref: '#/$defs/codeLists/UNCL5189',
+												},
+												{
+													$ref: '#/$defs/codeLists/UNCL7161',
+												},
+											],
 											title: 'Line level allowance or charge reason code',
 											description:
 												'The reason for the line level allowance or charge, expressed as a code.\nBusiness terms: BT-140, BT-145',
