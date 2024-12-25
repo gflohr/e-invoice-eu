@@ -20,7 +20,6 @@ describe('InvoiceController', () => {
 	let controller: InvoiceController;
 	let invoiceService: InvoiceService;
 	let mappingService: MappingService;
-	let mockResponse: Partial<Response>;
 
 	const mockedLogger = {
 		error: jest.fn(),
@@ -191,12 +190,7 @@ describe('InvoiceController', () => {
 			});
 
 			await expect(
-				controller.transformAndCreate(
-					mockResponse as Response,
-					format,
-					files,
-					{},
-				),
+				controller.transformAndCreate({} as Response, format, files, {}),
 			).rejects.toThrow(InternalServerErrorException);
 
 			expect(mockedLogger.error).toHaveBeenCalledTimes(1);

@@ -80,7 +80,28 @@ export class MappingService {
 
 		this.transformObject(invoice['ubl:Invoice'], mapping['ubl:Invoice'], ctx);
 
+		this.cleanAttributes(invoice);
+
 		return invoice as unknown as Invoice;
+	}
+
+	private cleanAttributes(data: { [key: string]: any }) {
+		for (const property in data) {
+			const [elem, attr] = property.split('@', 2);
+
+			// Remove hard-coded attributes if the associated element is
+			// missing.
+			if (typeof attr !== 'undefined') {
+				if (!(elem in data)) {
+					delete data[property];
+					continue;
+				}
+			}
+
+			if (typeof data[property] === 'object') {
+				this.cleanAttributes(data[property]);
+			}
+		}
 	}
 
 	private transformObject(
