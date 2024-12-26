@@ -18,9 +18,12 @@ WORKDIR /app
 COPY . .
 
 # Avoid "/bin/bash: line 1: husky: command not found"!
-RUN npm install husky
-RUN rm package-lock.json
-RUN bun install --production
+RUN grep -v 'prepare.*husky' package.json >package-tmp.json
+RUN mv package-tmp.json package.json
+
+# Give the installation two tries because of various issues.
+RUN bun install || true
+RUN bun install
 
 # Stage 2: Runtime stage
 FROM alpine:latest
