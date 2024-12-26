@@ -4,7 +4,6 @@ import { ErrorObject, ValidationError } from 'ajv/dist/2019';
 import { InvoiceService } from './invoice.service';
 import { AppConfigService } from '../app-config/app-config.service';
 import { FormatFactoryService } from '../format/format.factory.service';
-import { SerializerService } from '../serializer/serializer.service';
 import { ValidationService } from '../validation/validation.service';
 
 describe('InvoiceService', () => {
@@ -23,11 +22,6 @@ describe('InvoiceService', () => {
 				FormatFactoryService,
 				{
 					provide: 'FormatFactoryService',
-					useValue: {},
-				},
-				SerializerService,
-				{
-					provide: 'SerializerService',
 					useValue: {},
 				},
 				ValidationService,

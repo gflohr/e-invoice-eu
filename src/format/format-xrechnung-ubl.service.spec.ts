@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { FormatXRECHNUNGUBLService } from './format-xrechnung-ubl.service';
 import { AppConfigService } from '../app-config/app-config.service';
-import { SerializerService } from '../serializer/serializer.service';
 
 describe('XRECHNUNG-UBL', () => {
 	let service: FormatXRECHNUNGUBLService;
@@ -14,11 +13,6 @@ describe('XRECHNUNG-UBL', () => {
 				AppConfigService,
 				{
 					provide: 'AppConfigService',
-					useValue: {},
-				},
-				SerializerService,
-				{
-					provide: 'SerializerService',
 					useValue: {},
 				},
 			],

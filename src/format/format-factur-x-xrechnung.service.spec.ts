@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { FormatFacturXXRechnungService } from './format-factur-x-xrechnung.service';
 import { AppConfigService } from '../app-config/app-config.service';
-import { SerializerService } from '../serializer/serializer.service';
 
 describe('Factur-X-XRechnung', () => {
 	let service: FormatFacturXXRechnungService;
@@ -14,11 +13,6 @@ describe('Factur-X-XRechnung', () => {
 				AppConfigService,
 				{
 					provide: 'AppConfigService',
-					useValue: {},
-				},
-				SerializerService,
-				{
-					provide: 'SerializerService',
 					useValue: {},
 				},
 			],

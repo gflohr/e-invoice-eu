@@ -4,7 +4,6 @@ import { FormatCIIService } from './format-cii.service';
 import { AppConfigService } from '../app-config/app-config.service';
 import { Invoice } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
-import { SerializerService } from '../serializer/serializer.service';
 
 describe('CII', () => {
 	let service: FormatCIIService;
@@ -16,11 +15,6 @@ describe('CII', () => {
 				AppConfigService,
 				{
 					provide: 'AppConfigService',
-					useValue: {},
-				},
-				SerializerService,
-				{
-					provide: 'SerializerService',
 					useValue: {},
 				},
 			],

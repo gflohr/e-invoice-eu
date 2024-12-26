@@ -13,7 +13,6 @@ import { FormatXRECHNUNGCIIService } from './format-xrechnung-cii.service';
 import { FormatXRECHNUNGUBLService } from './format-xrechnung-ubl.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { AppConfigService } from '../app-config/app-config.service';
-import { SerializerService } from '../serializer/serializer.service';
 
 export class FormatInfo {
 	@ApiProperty({
@@ -67,10 +66,7 @@ export class FormatFactoryService {
 		[key: string]: new (...args: any[]) => EInvoiceFormat;
 	} = {};
 
-	constructor(
-		private readonly appConfigService: AppConfigService,
-		private readonly serializerService: SerializerService,
-	) {
+	constructor(private readonly appConfigService: AppConfigService) {
 		for (const format in this.formatServices) {
 			this.formatServicesLookup[format.toLowerCase()] =
 				this.formatServices[format];
@@ -83,10 +79,7 @@ export class FormatFactoryService {
 		for (const format in this.formatServices) {
 			const FormatService = this.formatServices[format];
 
-			const service = new FormatService(
-				this.appConfigService,
-				this.serializerService,
-			);
+			const service = new FormatService(this.appConfigService);
 			infos.push({
 				name: format,
 				customizationID: service.customizationID,
@@ -107,7 +100,7 @@ export class FormatFactoryService {
 			throw new NotFoundException(`Format '${format}' not supported.`);
 		}
 
-		return new FormatService(this.appConfigService, this.serializerService);
+		return new FormatService(this.appConfigService);
 	}
 
 	normalizeFormat(format: string): string {

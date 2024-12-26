@@ -5,12 +5,10 @@ import { FormatController } from './format.controller';
 import { FormatFactoryService } from './format.factory.service';
 import { AppConfigModule } from '../app-config/app-config.module';
 import { AppConfigService } from '../app-config/app-config.service';
-import { SerializerModule } from '../serializer/serializer.module';
-import { SerializerService } from '../serializer/serializer.service';
 
 @Module({
-	providers: [AppConfigService, FormatFactoryService, SerializerService],
-	imports: [AppConfigModule, SerializerModule],
+	providers: [AppConfigService, FormatFactoryService],
+	imports: [AppConfigModule],
 	controllers: [FormatController],
 })
 export class FormatModule {}

@@ -8,7 +8,6 @@ import { AppConfigService } from '../app-config/app-config.service';
 import { EInvoiceFormat } from '../format/format.e-invoice-format.interface';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { Invoice } from '../invoice/invoice.interface';
-import { SerializerService } from '../serializer/serializer.service';
 import { ValidationService } from '../validation/validation.service';
 
 jest.mock('fs/promises');
@@ -173,11 +172,6 @@ describe('MappingService', () => {
 					useValue: {
 						createFormatService: jest.fn(),
 					},
-				},
-				SerializerService,
-				{
-					provide: 'SerializerService',
-					useValue: {},
 				},
 				ValidationService,
 				{

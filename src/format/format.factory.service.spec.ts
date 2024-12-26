@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { FormatFactoryService } from './format.factory.service';
 import { AppConfigService } from '../app-config/app-config.service';
-import { SerializerService } from '../serializer/serializer.service';
 
 describe('XRECHNUNG-UBL', () => {
 	let service: FormatFactoryService;
@@ -16,11 +15,6 @@ describe('XRECHNUNG-UBL', () => {
 					useValue: {},
 				},
 				FormatFactoryService,
-				SerializerService,
-				{
-					provide: 'SerializerService',
-					useValue: {},
-				},
 			],
 		}).compile();
 

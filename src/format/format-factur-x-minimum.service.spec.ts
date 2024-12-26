@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { FormatFacturXMinimumService } from './format-factur-x-minimum.service';
 import { AppConfigService } from '../app-config/app-config.service';
-import { SerializerService } from '../serializer/serializer.service';
 
 describe('Factur-X-Minimum', () => {
 	let service: FormatFacturXMinimumService;
@@ -14,11 +13,6 @@ describe('Factur-X-Minimum', () => {
 				AppConfigService,
 				{
 					provide: 'AppConfigService',
-					useValue: {},
-				},
-				SerializerService,
-				{
-					provide: 'SerializerService',
 					useValue: {},
 				},
 			],

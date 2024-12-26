@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import * as path from 'path';
-import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 
 import { FormatXMLService } from './format-xml.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
@@ -60,19 +59,18 @@ export class FormatUBLService
 
 		invoice = sortBySchema(invoice, invoiceSchema);
 
-		const expandObject: ExpandObject = {
-			Invoice: invoice['ubl:Invoice'],
-			'Invoice@xmlns': 'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',
-			'Invoice@xmlns:cac':
-				'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
-			'Invoice@xmlns:cbc':
-				'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
+		const invoiceObject = {
+			Invoice: {
+				'@xmlns': 'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',
+				'@xmlns:cac':
+					'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
+				'@xmlns:cbc':
+					'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
+				...invoice['ubl:Invoice'],
+			},
 		};
 
-		return this.renderXML(expandObject, {
-			prettyPrint: true,
-			indent: '\t',
-		});
+		return this.renderXML(invoiceObject);
 	}
 
 	async embedPDF(invoice: Invoice, options: InvoiceServiceOptions) {

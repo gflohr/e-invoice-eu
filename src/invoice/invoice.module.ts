@@ -10,8 +10,6 @@ import { FormatFactoryService } from '../format/format.factory.service';
 import { FormatModule } from '../format/format.module';
 import { MappingModule } from '../mapping/mapping.module';
 import { MappingService } from '../mapping/mapping.service';
-import { SerializerModule } from '../serializer/serializer.module';
-import { SerializerService } from '../serializer/serializer.service';
 import { ValidationModule } from '../validation/validation.module';
 import { ValidationService } from '../validation/validation.service';
 
@@ -20,7 +18,6 @@ import { ValidationService } from '../validation/validation.service';
 		AppConfigModule,
 		FormatModule,
 		MappingModule,
-		SerializerModule,
 		ValidationModule,
 		MulterModule.registerAsync({
 			imports: [AppConfigModule],
@@ -38,7 +35,6 @@ import { ValidationService } from '../validation/validation.service';
 		FormatFactoryService,
 		InvoiceService,
 		MappingService,
-		SerializerService,
 		ValidationService,
 	],
 	exports: [InvoiceService],

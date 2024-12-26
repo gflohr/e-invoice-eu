@@ -4,30 +4,48 @@ import { promises as fs } from 'fs';
 import * as path from 'path';
 import * as tmp from 'tmp-promise';
 import * as url from 'url';
-import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
+import { create } from 'xmlbuilder2';
 
 import { AppConfigService } from '../app-config/app-config.service';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
-import {
-	SerializerOptions,
-	SerializerService,
-} from '../serializer/serializer.service';
 
 @Injectable()
 export class FormatXMLService {
 	private readonly logger = new Logger(FormatXMLService.name);
 
-	constructor(
-		protected readonly appConfigService: AppConfigService,
-		private readonly serializerService: SerializerService,
-	) {}
+	constructor(protected readonly appConfigService: AppConfigService) {}
 
 	get mimeType(): string {
 		return 'application/xml';
 	}
 
-	renderXML(data: ExpandObject, serializerOptions: SerializerOptions): string {
-		return this.serializerService.serialize(data, serializerOptions);
+	renderXML(data: object): string {
+		this.cleanAttributes(data);
+
+		return create({ encoding: 'utf-8' }, data).end({
+			prettyPrint: true,
+			indent: '\t',
+		});
+	}
+
+	private cleanAttributes(data: { [key: string]: any }) {
+		for (const property in data) {
+			const [elem, attr] = property.split('@', 2);
+
+			if (typeof attr !== 'undefined' && elem !== '') {
+				if (typeof data[elem] === 'string') {
+					data[elem] = {
+						'#': data[elem],
+					};
+				}
+				data[elem][`@${attr}`] = data[property];
+				delete data[property];
+			}
+
+			if (typeof data[property] === 'object') {
+				this.cleanAttributes(data[property]);
+			}
+		}
 	}
 
 	protected async getInvoicePdf(

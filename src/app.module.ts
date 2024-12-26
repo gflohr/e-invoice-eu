@@ -13,8 +13,6 @@ import { InvoiceModule } from './invoice/invoice.module';
 import { MappingModule } from './mapping/mapping.module';
 import { MappingService } from './mapping/mapping.service';
 import { SchemaModule } from './schema/schema.module';
-import { SerializerModule } from './serializer/serializer.module';
-import { SerializerService } from './serializer/serializer.service';
 import { LoggingInterceptor } from './utils/logging.interceptor';
 import { ValidationModule } from './validation/validation.module';
 
@@ -30,14 +28,12 @@ import { ValidationModule } from './validation/validation.module';
 		InvoiceModule,
 		MappingModule,
 		SchemaModule,
-		SerializerModule,
 		ValidationModule,
 		AppConfigModule,
 	],
 	providers: [
 		MappingService,
 		FormatFactoryService,
-		SerializerService,
 		{
 			provide: APP_INTERCEPTOR,
 			useClass: LoggingInterceptor,
