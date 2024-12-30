@@ -8,10 +8,10 @@ name: Docker Publish (Github)
 on:
   # schedule:
   #   - cron: '35 14 * * *'
-  push:
+  # push:
     # branches: [ "main" ]
     # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
+    # tags: [ 'v*.*.*' ]
   # pull_request:
     # branches: [ "main" ]
   workflow_dispatch:
@@ -82,7 +82,7 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }},${{ env.IMAGE_NAME }}:${{ github.event.inputs.version_tag }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
