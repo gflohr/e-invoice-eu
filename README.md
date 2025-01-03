@@ -272,7 +272,7 @@ Say you want to add a PDF version `invoice.pdf` and two attachments
 ```bash
 $ curl -v -X POST \
     http://localhost:3000/api/invoice/transform-and-create/UBL \
-    -F lang=de
+    -F lang=de \
     -F mapping=@contrib/mappings/default-invoice.yaml \
     -F data=@contrib/templates/default-invoice.ods \
     -F pdf=@invoice.pdf \
