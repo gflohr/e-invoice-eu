@@ -1,5 +1,6 @@
 import { Textdomain } from '@esgettext/runtime';
 import { Injectable } from '@nestjs/common';
+import crypto from 'crypto';
 import {
 	AFRelationship,
 	PDFArray,
