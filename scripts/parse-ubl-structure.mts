@@ -308,7 +308,9 @@ function processNode(node: Element): JSONSchemaType<object> {
 				...common,
 			};
 			for (const ref of node.CodeList) {
-				(schema.oneOf as Array<object>).push({ $ref: `#/$defs/codeLists/${ref}` });
+				(schema.oneOf as Array<object>).push({
+					$ref: `#/$defs/codeLists/${ref}`,
+				});
 			}
 		} else {
 			schema = {
