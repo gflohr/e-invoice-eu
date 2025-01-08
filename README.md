@@ -4,8 +4,8 @@
 		width="256" height="256" />
 </p>
 
-[![licence](https://img.shields.io/badge/Licence-WTFPL-blue)](http://www.wtfpl.net/)
-[![price](https://img.shields.io/badge/Price-FREE-green)](https://github.com/gflohr/qgoda/blob/main/LICENSE)
+[![licence](https://img.shields.io/badge/licence-WTFPL-blue)](http://www.wtfpl.net/)
+[![price](https://img.shields.io/badge/price-FREE-green)](https://github.com/gflohr/qgoda/blob/main/LICENSE)
 [![coverage](https://img.shields.io/coverallsCoverage/github/gflohr/e-invoice-eu?branch=main)](https://coveralls.io/github/gflohr/e-invoice-eu?branch=main)
 
 # E-Invoice-EU
