@@ -146,7 +146,7 @@ You can achieve similar results with these projects:
 
 ## Pre-requisites
 
-- NodeJS 20.x
+- NodeJS 17 or newer (currently tested with NodeJS 18, 20, and 22)
 - A package manager like bun, npm, yarn, pnpm, ...
 
 ## Installation
