@@ -17,19 +17,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-bun@v2
         with:
           node-version: ${{ matrix.node-version }}
-
-      - name: Install Bun
-        run: curl -fsSL https://bun.sh/install | bash
-
-      - name: Set Bun environment path
-        shell: bash
-        run: echo "export PATH=\$HOME/.bun/bin:\$PATH" >> $GITHUB_ENV
 
       - name: Install dependencies
         run: bun install
