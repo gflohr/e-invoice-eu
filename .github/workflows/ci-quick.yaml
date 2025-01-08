@@ -27,5 +27,11 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Node.js Version
+        run: node -v
+
+      - name: List Node Modules
+        run: ls node_modules/
+
       - name: Run tests
         run: bun test
