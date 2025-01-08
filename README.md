@@ -235,7 +235,7 @@ It probably makes more sense to open that URL in the browser.
 $ curl http://localhost:3000/api/format/list
 ```
 
-This will return a list with format informat. For each format, the name,
+This will return a list with format information. For each format, the name,
 the customization and profile ID, the MIME type, and the syntax (UBL or
 CII) is returned.
 
