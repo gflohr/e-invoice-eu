@@ -4,6 +4,10 @@
 		width="256" height="256" />
 </p>
 
+[![WTFPL](https://img.shields.io/badge/Licence-WTFPL-blue)](http://www.wtfpl.net/)
+[![Price](https://img.shields.io/badge/price-FREE-0098f7.svg)](https://github.com/gflohr/qgoda/blob/master/LICENSE)
+[![Coverage](https://img.shields.io/coverallsCoverage/github/gflohr/e-invoice-eu?branch=main)](https://coveralls.io/github/gflohr/e-invoice-eu?branch=main)
+
 # E-Invoice-EU
 
 Free and open source tool chain for generating EN16931 conforming invoices (Factur-X/ZUGFeRD, UBL, CII, XRechnung) from popular spreadsheet
