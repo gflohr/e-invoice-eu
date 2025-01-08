@@ -37,4 +37,4 @@ jobs:
         run: ls node_modules/
 
       - name: Run tests
-        run: bun test
+        run: bun run test
