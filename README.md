@@ -4,6 +4,10 @@
 		width="256" height="256" />
 </p>
 
+[![licence](https://img.shields.io/badge/licence-WTFPL-blue)](http://www.wtfpl.net/)
+[![price](https://img.shields.io/badge/price-FREE-green)](https://github.com/gflohr/qgoda/blob/main/LICENSE)
+[![coverage](https://img.shields.io/coverallsCoverage/github/gflohr/e-invoice-eu?branch=main)](https://coveralls.io/github/gflohr/e-invoice-eu?branch=main)
+
 # E-Invoice-EU
 
 Free and open source tool chain for generating EN16931 conforming invoices (Factur-X/ZUGFeRD, UBL, CII, XRechnung) from popular spreadsheet
@@ -146,7 +150,7 @@ You can achieve similar results with these projects:
 
 ## Pre-requisites
 
-- NodeJS 20.x
+- NodeJS 17 or newer (currently tested with NodeJS 18, 20, and 22)
 - A package manager like bun, npm, yarn, pnpm, ...
 
 ## Installation
