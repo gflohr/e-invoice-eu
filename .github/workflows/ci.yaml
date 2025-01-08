@@ -37,9 +37,12 @@ jobs:
       - name: Run tests
         run: bun run test
 
+      - name: Test with coverage
+        if: ${{ matrix.coverage }}
+        run: bun run test:cov
+
       - name: Upload coverage
         uses: coverallsapp/github-action@v2
         if: ${{ matrix.coverage }}
-        run: bun run test:cov
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
