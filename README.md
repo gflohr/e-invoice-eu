@@ -139,6 +139,7 @@ It is quite unlikely that you can use anything here out of the box. See it as a 
 This `README.md` is probably incomplete. Please see the blog post
 [Creating E-Invoices with Free and Open Source
 Software](https://www.guido-flohr.net/creating-electronic-invoices-with-free-and-open-source-software/)
+or the German version [Elektronische Rechnungen mit freier und quelloffener Software erzeugen](https://www.guido-flohr.net/elektronische-rechnungen-mit-freier-und-quelloffener-software-erzeugen/)
 for more accurate in-depth information!
 
 ## Alternatives
