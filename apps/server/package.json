@@ -1,6 +1,6 @@
 {
-	"name": "e-invoice-eu",
-	"version": "1.2.0",
+	"name": "@e-invoice-eu/server",
+	"version": "2.0.0-alpha",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/gflohr/e-invoice-eu.git"
@@ -102,7 +102,7 @@
 	},
 	"scripts": {
 		"build": "nest build",
-		"format": "prettier --write *.mjs *.json *.md scripts/* \"contrib/**/*.json\" \"src/**/*.{ts,json}\" \"test/**/*.ts\"",
+		"format": "prettier --write *.json *.md scripts/* \"contrib/**/*.json\" \"src/**/*.{ts,json}\" \"test/**/*.ts\"",
 		"start": "nest start",
 		"start:dev": "nest start --watch",
 		"start:debug": "nest start --debug --watch",

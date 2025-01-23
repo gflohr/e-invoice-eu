@@ -4,10 +4,10 @@ This directory contains the required JSON schemas.
 
 ## `ubl-invoice.schema.json`
 
-A JSON Schema for UBL invoice documents.  It is generated from the Peppol
+A JSON Schema for UBL invoice documents. It is generated from the Peppol
 XML definitions.
 
-It requires the JSON Schema version 2019/09.  That means that you have to
+It requires the JSON Schema version 2019/09. That means that you have to
 pass the option `--spec=draft2019` to the `ajv` binary:
 
 ```shell

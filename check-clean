@@ -1,0 +1,15 @@
+#! /bin/sh
+
+offenders=`git ls-files --others --exclude-standard src`
+
+if test "x$offenders" != "x"; then
+	exec 1>&2
+	echo "Files not under version control in 'src':"
+	echo
+	for file in $offenders; do
+		echo "	$file"
+	done
+	echo
+	echo "Remove them before publishing!"
+	exit 1
+fi
