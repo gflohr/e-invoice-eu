@@ -9,7 +9,7 @@
 		"prebuild": "bun install",
 		"build": "webpack",
 		"start": "webpack watch",
-		"server": "browser-sync start --startPath /e-invoice-eu --server ../../docs --files _timestamp",
+		"server": "browser-sync start --startPath /e-invoice-eu --server ../../qgoda-site --files _timestamp",
 		"prestart": "bun install"
 	},
 	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",

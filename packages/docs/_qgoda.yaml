@@ -13,7 +13,7 @@ exclude:
   - /COPYING
   - /README.md
 paths:
-  site: ../../docs/e-invoice-eu
+  site: ../../qgoda-site/e-invoice-eu
 permalink: '/e-invoice-eu/{significant-path}'
 exclude-watch:
   - /assets
