@@ -17,7 +17,6 @@ paths:
 exclude-watch:
   - /assets
   - '!/_timestamp.json'
-  - '!/_includes'
 scm: git
 no-scm:
   - /assets
@@ -39,12 +38,10 @@ defaults:
         - tags
   - files:
       - /en
-      - /_includes/en
     values:
       lingua: en
   - files:
       - /de
-      - /_includes/de
     values:
       lingua: de
   - files: /*/docs/**
