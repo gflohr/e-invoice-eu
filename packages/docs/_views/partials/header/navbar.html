@@ -1,4 +1,5 @@
 [% USE gtx = Gettext('net.qgoda.www', asset.lingua) %]
+[% USE q = Qgoda %]
 <nav class="navbar navbar-expand-md navbar-dark bg-warning">
 	<button
 		class="navbar-toggler"
@@ -14,8 +15,8 @@
 	<div class="qgoda-brand">
 		<a
 			class="navbar-brand"
-			href="/[% asset.lingua %]/docs"
-			title="[% gtx.gettext('E-Invoice-EU Start Page') %]"
+			href="[% q.llink(name='documentation') %]"
+			title="[% gtx.gettext('E-Invoice-EU Documentation') %]"
 		>
 			<img src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"=
 				alt="E-Invoice-EU logo" height="80" />
@@ -26,8 +27,8 @@
 			<li class="d-md-none nav-item">
 				<a
 					class="nav-link"
-					href="/[% asset.lingua %]/docs"
-					title="[% gtx.gettext('E-Invoice-EU Start Page') %]"
+					href="[% q.llink(name='documentation') %]"
+					title="[% gtx.gettext('E-Invoice-EUDocumentation') %]"
 				>
 					<i class="bi-house"></i>&nbsp;[% gtx.gettext('Home') %]
 				</a>
@@ -35,8 +36,8 @@
 			<li class="nav-item[% IF asset.navsection == 'docs' %] active[% END %]">
 				<a
 					class="nav-link"
-					href="/[% asset.lingua %]/docs/"
-					title="Qgoda Documentation"
+					href="[% q.llink(name='documentation') %]"
+					title="E-Invoice-EU Documentation"
 				>
 					<i class="bi-book"></i>&nbsp;[% gtx.gettext('Docs') %]
 				</a>

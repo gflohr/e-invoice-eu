@@ -37,6 +37,6 @@ if (lingua == null) {
 if (!supported[lingua])
 	lingua = default_lingua;
 
-document.location.href = `/${lingua}/docs/`;
+document.location.href = `/e-invoice-eu/${lingua}/docs/`;
 </script>
 </qgoda-no-xgettext>

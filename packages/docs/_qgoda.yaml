@@ -13,7 +13,8 @@ exclude:
   - /COPYING
   - /README.md
 paths:
-  site: ../../docs
+  site: ../../docs/e-invoice-eu
+permalink: '/e-invoice-eu/{significant-path}'
 exclude-watch:
   - /assets
   - '!/_timestamp.json'
