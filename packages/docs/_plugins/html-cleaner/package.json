@@ -1,0 +1,15 @@
+{
+  "name": "html-cleaner",
+  "version": "0.0.1",
+  "description": "Clean up the html for www.qgoda.net",
+  "main": "index.pl",
+  "keywords": [
+    "Qgoda",
+    "Links"
+  ],
+  "author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
+  "license": "GPL-3.0",
+  "qgoda": {
+      "language": "Perl"
+  }
+}

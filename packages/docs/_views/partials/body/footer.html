@@ -1,0 +1,38 @@
+[% USE gtx = Gettext('net.qgoda.www', asset.lingua) %] [% USE q = Qgoda %]
+<div class="container">
+	[% IF need_row %]
+	<div class="row">
+		<div class="col-sm-8">
+			[% END %]
+			<div class="col-12 col-md-6 footer-links text-md-center">
+				[% copyright_link = '<a
+					href="'
+														_ config.private.legal.copyright_uri
+														_ '"
+					>' _ config.private.legal.name _ '</a
+				>' %] [% gtx.xgettext("Copyright &copy; {copyright_year}
+				{copyright_holder}", copyright_year=config.private.legal.copyright_year
+				copyright_holder=copyright_link) %]
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a href="[% q.llink(name='legal-disclosure') %]">
+					[% q.lxref('title', name='legal-disclosure') %]
+				</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a href="[% q.llink(name='data-privacy') %]">
+					[% q.lxref('title', name='data-privacy') %]
+				</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a
+					href="javascript:document.dispatchEvent(new Event('cookie_consent_show'))"
+				>
+					[% gtx.gettext('Cookie Settings') %]
+				</a>
+			</div>
+			[% IF need_row %]
+		</div>
+	</div>
+	[% END %]
+</div>

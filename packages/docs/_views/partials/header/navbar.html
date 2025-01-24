@@ -1,0 +1,68 @@
+[% USE gtx = Gettext('net.qgoda.www', asset.lingua) %]
+<nav class="navbar navbar-expand-md navbar-dark bg-warning">
+	<button
+		class="navbar-toggler"
+		type="button"
+		data-toggle="collapse"
+		data-target="#navbarCollapse"
+		aria-controls="navbarCollapse"
+		aria-expanded="false"
+		aria-label="[% gtx.gettext('Toggle navigation') %]"
+	>
+		&#9776;
+	</button>
+	<div class="qgoda-brand">
+		<a
+			class="navbar-brand"
+			href="/[% asset.lingua %]/"
+			title="Qgoda Start Page"
+		>
+			<img src="/images/qgoda-logo-white.svg" alt="Qgoda logo" height="32" />
+		</a>
+	</div>
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="d-md-none nav-item">
+				<a
+					class="nav-link"
+					href="/[% asset.lingua %]/"
+					title="Qgoda Start Page"
+				>
+					<i class="bi-house"></i>&nbsp;[% gtx.gettext('Home') %]
+				</a>
+			</li>
+			<li class="nav-item[% IF asset.navsection == 'news' %] active[% END %]">
+				<a class="nav-link" href="/[% asset.lingua %]/news/" title="Qgoda News">
+					<i class="bi-newspaper"></i>&nbsp;[% gtx.gettext('News') %]
+				</a>
+			</li>
+			<li class="nav-item[% IF asset.navsection == 'docs' %] active[% END %]">
+				<a
+					class="nav-link"
+					href="/[% asset.lingua %]/docs/"
+					title="Qgoda Documentation"
+				>
+					<i class="bi-book"></i>&nbsp;[% gtx.gettext('Docs') %]
+				</a>
+			</li>
+			<li class="nav-item">
+				<a
+					class="nav-link"
+					href="https://github.com/gflohr/qgoda/releases"
+					title="Qgoda Downloads"
+				>
+					<i class="bi-download"></i>&nbsp;Download
+				</a>
+			</li>
+			<li class="nav-item">
+				<a
+					class="nav-link"
+					href="https://github.com/gflohr/qgoda"
+					title="Qgoda On Github"
+				>
+					<i class="bi-github"></i>&nbsp;Github
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>

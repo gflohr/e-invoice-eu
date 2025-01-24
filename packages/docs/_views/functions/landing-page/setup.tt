@@ -1,0 +1,4 @@
+[% USE q = Qgoda %]
+[% global.scripts = ['/assets/wow.min.js', '/assets/start-wow.js',
+                     '/assets/start.min.js'] %]
+[% global.styles = ['/assets/start.min.css'] %]

@@ -1,0 +1,3 @@
+[% USE q = Qgoda %]
+[% global.scripts = ['/assets/bundle.min.js'] %]
+[% global.styles = ['/assets/bundle.min.css'] %]

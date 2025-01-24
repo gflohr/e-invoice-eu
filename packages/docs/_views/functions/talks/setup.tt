@@ -1,0 +1,3 @@
+[% USE q = Qgoda %]
+[% global.scripts = ['/assets/talks.min.js'] %]
+[% global.styles = ['/assets/talks.min.css'] %]

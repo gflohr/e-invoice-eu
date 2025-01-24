@@ -1,0 +1,26 @@
+[%- USE gtx = Gettext(config.po.textdomain, asset.lingua) -%]
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-compatible" content="IE=edge" />
+[% FOREACH lingua IN config.linguas -%] [% IF lingua != asset.lingua -%]
+<link
+	rel="alternate"
+	hreflang="[% lingua %]"
+	href="[% q.link(name = asset.name, lingua = lingua) %]"
+/>
+[%- END %] [%- END %] [% description = asset.description || asset.excerpt %]
+<meta name="description" content="[% description | html %]" />
+<title>[% asset.title | html %]</title>
+<link rel="icon" href="/images/favicon.png" type="image/png" />
+<link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
+<link href="/favicon.ico" type="image/x-icon" />
+[%- IF config.url %]
+<link rel="canonical" href="[% config.url %][% asset.permalink %]" />
+<meta property="og:url" content="[% config.url %][% asset.permalink %]" />
+[% END -%] [% IF (asset.type == 'post' || asset.type == 'doc') -%]
+<meta property="og:type" content="article" />
+[%- END %]
+<meta property="og:title" content="[% asset.title | html %]" />
+<meta property="og:description" content="[% description | html %]" />
+[% IF config.name -%]
+<meta property="og:site_name" content="[% config.name | html %]" />
+[%- END %]

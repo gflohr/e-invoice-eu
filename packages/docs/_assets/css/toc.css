@@ -1,0 +1,21 @@
+.toc {
+	border: 1px dotted --gray-light;
+	background-color: --gray-lightest;
+	margin-bottom: 2rem;
+	padding: 0.5rem;
+	padding-bottom: 0rem;
+}
+
+.toc ul {
+	list-style-type: none;
+}
+
+.toc .toc-title {
+	font-weight: bold;
+	font-size: 110%;
+	padding-bottom: 0.5rem;
+}
+
+ul.toclevel-1 {
+	padding-left: 0;
+}

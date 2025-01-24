@@ -2,7 +2,8 @@
 	"name": "e-invoice-eu",
 	"description": "Tools for generating EN16931 conforming electronic invoices",
 	"workspaces": [
-		"apps/*"
+		"apps/*",
+		"packages/*"
 	],
 	"scripts": {
 		"build": "lerna run build --stream",
