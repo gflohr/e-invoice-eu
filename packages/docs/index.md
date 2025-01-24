@@ -11,7 +11,6 @@ scripts: [/js/negotiate-language.js]
 name: 'language-negotiator'
 multilang: false
 ---
-
 <qgoda-no-xgettext>
 <script>
 var lingua,
@@ -38,6 +37,6 @@ if (lingua == null) {
 if (!supported[lingua])
 	lingua = default_lingua;
 
-document.location.href = '/docs/' + lingua;
+document.location.href = `/${lingua}/docs/`;
 </script>
 </qgoda-no-xgettext>
