@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://gflohr.github.io/e-invoice-eu//de/docs/</loc>
+      <xhtml:link rel="alternate" hreflang="en" 
+                  href="https://gflohr.github.io/e-invoice-eu//en/docs/" />
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://gflohr.github.io/e-invoice-eu//en/docs/</loc>
+      <xhtml:link rel="alternate" hreflang="de" 
+                  href="https://gflohr.github.io/e-invoice-eu//de/docs/" />
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://gflohr.github.io/e-invoice-eu//</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+</urlset>

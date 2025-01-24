@@ -1,0 +1,31 @@
+<qgoda-no-xgettext>
+<script>
+var lingua,
+	default_lingua = 'en',
+	supported = {};
+
+	supported['en'] = true;
+
+	supported['de'] = true;
+
+
+for (i = 0; navigator.languages != null && i < navigator.languages.length; ++i) {
+	var lang = navigator.languages[i].substr(0, 2);
+	if (supported[lang]) {
+		lingua = lang;
+	}
+}
+
+if (lingua == null) {
+	lingua = navigator.language || navigator.userLanguage;
+	if (lingua != null) {
+		lingua = lingua.substr(0, 2);
+	}
+}
+
+if (!supported[lingua])
+	lingua = default_lingua;
+
+document.location.href = `/${lingua}/docs/`;
+</script>
+</qgoda-no-xgettext>
