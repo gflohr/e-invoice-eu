@@ -1,0 +1,25 @@
+{
+	"name": "e-invoice-eu",
+	"description": "Tools for generating EN16931 conforming electronic invoices",
+	"workspaces": [
+		"apps/*"
+	],
+	"scripts": {
+		"build": "lerna run build --stream",
+		"format": "prettier --write *.js *.json *.md && lerna run format --stream",
+		"lint": "lerna run lint --stream",
+		"lint:fix": "lerna run lint:fix --stream",
+		"lint:staged": "lerna run --no-private lint:staged --stream",
+		"test": "lerna run test --stream",
+		"test:cov": "lerna run test:cov --stream",
+		"test:watch": "lerna watch -- lerna run test --scope=\\$LERNA_PACKAGE_NAME --stream",
+		"posttest:cov": "node merge-lcov.js apps/*",
+		"clean": "lerna run clean --stream",
+		"prepare": "husky"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"husky": "^9.1.7",
+		"lerna": "^8.1.9"
+	}
+}
