@@ -32,7 +32,7 @@ sub filter {
 	$src = trim $src;
 	next if !length $src;
 
-	my $html = qq{<div class="img"><img src="$src"};
+	my $html = qq{<div class="img"><img src="/e-invoice-eu$src"};
 	if ($args && @$args) {
 		warn "positional arguments are not supported.\n";
 	}
@@ -96,7 +96,7 @@ sub __addSrcset {
 
 	my @versions;
 	foreach my $w (sort { $a <=> $b } keys %widths) {
-		push @versions, "$widths{$w} ${w}w";
+		push @versions, "/e-invoice-eu/$widths{$w} ${w}w";
 	}
 	my $versions = join ', ', @versions;
 

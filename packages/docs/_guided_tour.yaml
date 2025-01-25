@@ -1,4 +1,4 @@
 ---
 doc:
   sections:
-    - ['introduction']
+    - ['basics', 'general-mode-of-operation']

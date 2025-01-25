@@ -50,18 +50,6 @@ defaults:
       type: doc
       tour: doc
       view: docs.html
-  - files: /*/talks/**
-    values:
-      type: talk
-      view: talks.html
-  - files: /*/talks/dpw-2018/**
-    values:
-      tour: talk-dpw-2018
-  - files: /*/news/**
-    values:
-      type: post
-      navsection: news
-      author: Guido Flohr
   - files: [index.md, index.html]
     values:
       type: page
