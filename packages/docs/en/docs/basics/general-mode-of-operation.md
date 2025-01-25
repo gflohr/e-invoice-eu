@@ -11,7 +11,7 @@ description: The software works by mapping spreadsheet data to JSON data from wh
 
 [% FILTER $Srcset alt="Flowchart of E-Invoice-EU General Mode of Operation" %]/images/basics/general-mode-of-operation/flow-chart.webp[% END %] 
 
-The software was created with the assumption that many small businesses
+The software was created under the assumption that many small businesses
 create their invoices with the help of spreadsheet software like
 [LibreOffice](https://www.libreoffice.org/). That means that the invoice data
 is already available as structured data.
