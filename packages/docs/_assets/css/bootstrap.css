@@ -1,7 +1,7 @@
 :root {
 	--primary: #2b689c;
 	--warning: #d97319;
-	--warning-opaque: rgba(217, 115, 25, 0.75);
+	--warning-opaque: rgba(63, 123, 202, 0.6);
 	--alert-warning: #713c0d;
 	--link-color: var(--primary);
 	--link-decoration: 'none';
@@ -20,11 +20,11 @@ a:hover {
 }
 
 .bg-warning {
-	background-color: #d87319 !important;
+	background-color: rgb(63, 123, 202) !important;
 }
 
 .btn-warning {
-	background-color: #d87319 !important;
+	background-color: rgb(63, 123, 202) !important;
 	color: white;
 }
 
