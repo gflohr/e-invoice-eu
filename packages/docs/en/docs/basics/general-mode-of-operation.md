@@ -4,8 +4,10 @@ name: general-mode-of-operation
 section: Basics
 description: The software works by mapping spreadsheet data to JSON data from which the e-invoice is generated. You can also directly generate the e-invoice from JSON.
 ---
+<!--qgoda-no-xgettext-->
 [% USE q = Qgoda %]
 [% USE Srcset %]
+<!--/qgoda-no-xgettext-->
 
 [% FILTER $Srcset alt="Flowchart of E-Invoice-EU General Mode of Operation" %]/images/basics/general-mode-of-operation/flow-chart.webp[% END %] 
 

@@ -8,7 +8,9 @@ type: doc
 start: 1
 description: Free and open source tool chain for generating EN16931 conforming invoices (Factur-X/ZUGFeRD, UBL, CII, XRechnung) from popular spreadsheet formats or JSON.
 ---
+<!--qgoda-no-xgettext-->
 [% USE q = Qgoda %]
+<!--/qgoda-no-xgettext-->
 
 [% title = "Incomplete Translation!" %]
 <!--qgoda-no-xgettext-->

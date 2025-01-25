@@ -154,6 +154,61 @@ msgid "Matomo does not store your full IP address but only a part of it. If your
 "address is, for example, 12.34.56.78, it will be stored as 12.34.0.0."
 msgstr ""
 
+#: ../en/docs/basics.md:2
+msgctxt "title"
+msgid "Basics"
+msgstr ""
+
+#: ../en/docs/basics/general-mode-of-operation.md:2
+msgctxt "title"
+msgid "General Mode of Operation"
+msgstr ""
+
+#: ../en/docs/basics/general-mode-of-operation.md:5
+msgctxt "description"
+msgid "The software works by mapping spreadsheet data to JSON data from which the e-invoice is generated. You can also directly generate the e-invoice from JSON."
+msgstr ""
+
+#: ../en/docs/basics/general-mode-of-operation.md:12
+msgid "[% FILTER $Srcset alt=\"Flowchart of E-Invoice-EU General Mode of Operation\" %]/images/basics/general-mode-of-operation/flow-chart.webp[% END %]"
+msgstr ""
+
+#: ../en/docs/basics/general-mode-of-operation.md:14
+msgid ""
+"The software was created with the assumption that many small businesses\n"
+"create their invoices with the help of spreadsheet software like\n"
+"[LibreOffice](https://www.libreoffice.org/). That means that the invoice data\n"
+"is already available as structured data."
+msgstr ""
+
+#: ../en/docs/basics/general-mode-of-operation.md:19
+msgid ""
+"All that was left to be done was to map the input spreadsheet data to elements\n"
+"in the output XML of the electronic invoice. Because there are multiple\n"
+"supported output XML formats, it makes sense to first map the input data\n"
+"into a general internal format and then render the data into the desired\n"
+"output format."
+msgstr ""
+
+#: ../en/docs/basics/general-mode-of-operation.md:25
+msgid ""
+"The internal format chosen is largely equivalent to that of\n"
+"[Peppol UBL](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/).\n"
+"The advantages are:"
+msgstr ""
+
+#: ../en/docs/basics/general-mode-of-operation.md:29
+msgid ""
+"* The documentation is browsable and relatively easy to understand.\n"
+"* It is generated from data (see https://github.com/OpenPEPPOL/peppol-bis-invoice-3) that also allows generating [JSON schema](https://json-schema.org/) definitions.\n"
+"* From these JSON schema definitions, it is possible to generate large parts of the code of E-Invoice-EU."
+msgstr ""
+
+#: ../en/docs/basics/general-mode-of-operation.md:33
+msgid "As a result, it is easy to keep the implementation up-to-date with the current\n"
+"standards by Peppol."
+msgstr ""
+
 #: ../en/docs/index.md:3 ../index.md:3
 msgctxt "title"
 msgid "E-Invoice-EU"
@@ -164,24 +219,20 @@ msgctxt "description"
 msgid "Free and open source tool chain for generating EN16931 conforming invoices (Factur-X/ZUGFeRD, UBL, CII, XRechnung) from popular spreadsheet formats or JSON."
 msgstr ""
 
-#: ../en/docs/index.md:11
-msgid "[% USE q = Qgoda %]"
-msgstr ""
-
-#: ../en/docs/index.md:13
+#: ../en/docs/index.md:15
 msgid "[% title = \"Incomplete Translation!\" %]"
 msgstr ""
 
-#: ../en/docs/index.md:19
+#: ../en/docs/index.md:21
 msgid "The translation for this site is not yet ready. The parts that are not\n"
 "yet translated will be displayed in English instead."
 msgstr ""
 
-#: ../en/docs/index.md:26
+#: ../en/docs/index.md:28
 msgid "## Features"
 msgstr ""
 
-#: ../en/docs/index.md:28
+#: ../en/docs/index.md:30
 msgid ""
 "* E-Invoice generation from popular Spreadsheet formats or JSON.\n"
 "* Supports all electronic invoice formats conforming to EU standard EN16931, notably Factur-X/ZUGFeRD, UBL, and CII.\n"
