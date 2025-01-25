@@ -45,7 +45,7 @@ for any communication on the internet.
 
 ### How Long Is It Stored?
 
-Log files are ultimately deleted after at most one month.
+Log files are ultimately deleted after at most six months.
 
 ## Cookies
 
@@ -63,51 +63,22 @@ Typical examples for information stored in cookies are language preferences or f
 Please see your browser's documentation for information about how to
 disable cookies in general, for specific sites, or from specific sources.
 
-<!--qgoda-no-xgettext-->[% IF config.google.analytics_id %]<!--/qgoda-no-xgettext-->
+## Matomo
 
-## Google Analytics
+This website uses Matomo, a web tracking and analysis service.
 
-This website uses Google Analytics, a web tracking and analysis service
-by Google Inc., 1600 Amphitheater Parkway, Mountain View, CA 94043, USA,
-hereinafter referred as "Google".
-
-Google also uses cookies (see above) for storing information
+Matomo also uses cookies (see above) for storing information
 about your use of this site. The information stored in these cookies is
-sent to Google servers, usually in the USA, and stored there.
+sent to sent to a server owned by [cantanea EOOD](https://www.cantanea.com/).
 
 ### Data Usage
 
-Google uses the information for analyzing your usage of this site. It
+Matomo uses the information for analyzing your usage of this site. It
 compiles reports on the website activities and the audience of the site,
 and provides other services concerning the use of the website and
 internet usage in general.
 
-### AdWords and DoubleClick
-
-This site also uses Google Analytics for analysis of data from AdWords
-and DoubleClick. Both services use cookies as well. You can opt out
-of this data sharing with the Ads Preferences Manager at
-http://www.google.com/settings/ads/onweb/?hl=en.
-
 ### IP Abbreviation
 
-This site has activated IP abbreviation for Google Analytics. Your IP
-address will be abbreviated by Google within Member States of the
-European Union or in other states that are signatories to the
-Agreement on the European Economic Area. Only in exceptional cases will
-the full IP address be transferred to a Google server in the USA before
-it is abbreviated.
-
-### Browser Plug-In
-
-You can prevent your data being used by Google Analytics with the
-installation of the Google Analytics Opt-out Browser Add-on that can
-be downloaded from https://tools.google.com/dlpage/gaoptout?hl=en.
-
-### Further Information by Google
-
-Google provides additional information about the conditions of use
-and data protection under http://www.google.com/analytics/terms/gb.html
-and http://www.google.com/intl/en-GB/policies/privacy/.
-
-<!--qgoda-no-xgettext-->[% END %]<!--/qgoda-no-xgettext-->
+Matomo does not store your full IP address but only a part of it. If your IP
+address is, for example, 12.34.56.78, it will be stored as 12.34.0.0.

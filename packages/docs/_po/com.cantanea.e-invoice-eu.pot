@@ -15,3 +15,299 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit"
 
+#: ../_views/components/file.html:4
+#: ../_views/components/template-variable.html:4
+msgid "type:"
+msgstr ""
+
+#: ../_views/components/file.html:5
+msgid "overridable:"
+msgstr ""
+
+#: ../_views/components/guided_tour.html:14
+msgid "Start"
+msgstr ""
+
+#: ../_views/components/listing.html:12 ../_views/partials/body.html:12
+msgid "%B, %e %Y"
+msgstr ""
+
+#: ../_views/components/listing.html:23
+msgid "Read More"
+msgstr ""
+
+#: ../_views/components/toc.html:4
+msgid "Table Of Contents"
+msgstr ""
+
+#: ../_views/partials/body/footer.html:13
+#, perl-brace-format
+msgid "Copyright &copy; {copyright_year} {copyright_holder}"
+msgstr ""
+
+#: ../_views/partials/body/footer.html:30
+msgid "Cookie Settings"
+msgstr ""
+
+#: ../_views/partials/body/sidebar-top.html:10
+#: ../_views/partials/body/sidebar-top.html:12
+msgid "Stars on GitHub"
+msgstr ""
+
+#: ../_views/partials/body/sidebar-top.html:11
+msgid "Stars"
+msgstr ""
+
+#: ../_views/partials/body/sidebar-top.html:19
+msgid "Source code of this page"
+msgstr ""
+
+#: ../_views/partials/header/navbar.html:11
+msgid "Toggle navigation"
+msgstr ""
+
+#: ../_views/partials/header/navbar.html:19
+#: ../_views/partials/header/navbar.html:31
+#: ../_views/partials/header/navbar.html:40
+msgid "E-Invoice-EU Documentation"
+msgstr ""
+
+#: ../_views/partials/header/navbar.html:33
+msgid "Home"
+msgstr ""
+
+#: ../_views/partials/header/navbar.html:42
+msgid "Docs"
+msgstr ""
+
+#: ../_views/partials/header/navbar.html:49
+msgid "E-Invoice-EU Releases"
+msgstr ""
+
+#: ../_views/partials/header/navbar.html:51
+msgid "Download"
+msgstr ""
+
+#: ../_views/partials/header/navbar.html:58
+msgid "E-Invoice-EU on GitHub"
+msgstr ""
+
+#: ../en/data-privacy-policy.md:2
+msgctxt "title"
+msgid "Data Privacy"
+msgstr ""
+
+#: ../en/data-privacy-policy.md:5
+msgctxt "description"
+msgid "What private date does this site receive, and what does it use it for?"
+msgstr ""
+
+#: ../en/data-privacy-policy.md:8
+msgid ""
+"You cannot download any data or information from the internet without sending\n"
+"data or information first. This page tries to inform you what information\n"
+"is collected related to your visit."
+msgstr ""
+
+#: ../en/data-privacy-policy.md:14
+msgid "## Logging"
+msgstr ""
+
+#: ../en/data-privacy-policy.md:16
+msgid ""
+"Like most web sites, this site stores information about every request in a\n"
+"server log file, a file stored on the web server. Visiting one single page\n"
+"typically results in multiple requests, for textual content, images or other\n"
+"media, script files, style sheets and so on."
+msgstr ""
+
+#: ../en/data-privacy-policy.md:21
+msgid "### What Is Stored?"
+msgstr ""
+
+#: ../en/data-privacy-policy.md:23
+msgid "The following pieces of information sent by your browser are stored:"
+msgstr ""
+
+#: ../en/data-privacy-policy.md:25
+msgid ""
+"- Your IP address. This address identifies your computer or other device\n"
+"  while you are connected to the internet. Your internet service provider\n"
+"  (ISP) has the legal duty to store information about which IP address\n"
+"  was assigned to which customer for a certain time in most countries.\n"
+"- The date and time of the request with an accuracy of one second.\n"
+"- The address of the resource.\n"
+"- Information about the browser and operating systems you are using and\n"
+"  their respective versions. See the documentation of your browser if you\n"
+"  want to suppress sending that information.\n"
+"- In case that you visited the page by clicking a link, information about\n"
+"  the referring web site. See the documentation of your browser if you\n"
+"  want to suppress sending that information."
+msgstr ""
+
+#: ../en/data-privacy-policy.md:38
+msgid "All this information is stored for technical purposes only, such as analysis\n"
+"of technial problems."
+msgstr ""
+
+#: ../en/data-privacy-policy.md:41
+msgid ""
+"Note that suppressing your IP address does not make sense. Any server\n"
+"needs it as the address to which it should send the requested data. The\n"
+"purpose of the IP address is not to disrupt your privacy but it is needed\n"
+"for any communication on the internet."
+msgstr ""
+
+#: ../en/data-privacy-policy.md:46
+msgid "### How Long Is It Stored?"
+msgstr ""
+
+#: ../en/data-privacy-policy.md:48
+msgid "Log files are ultimately deleted after at most six months."
+msgstr ""
+
+#: ../en/data-privacy-policy.md:50
+msgid "## Cookies"
+msgstr ""
+
+#: ../en/data-privacy-policy.md:52
+msgid "### What are Cookies?"
+msgstr ""
+
+#: ../en/data-privacy-policy.md:54
+msgid ""
+"Cookies are little pieces of information that the site sends to your\n"
+"browser. The browser stores this information in a file or in memory,\n"
+"and sends it back to the server with all following requests until\n"
+"the cookie expires or the browser is instructed to delete it."
+msgstr ""
+
+#: ../en/data-privacy-policy.md:59
+msgid "Typical examples for information stored in cookies are language preferences or for example the content of a shopping cart."
+msgstr ""
+
+#: ../en/data-privacy-policy.md:61
+msgid "### How Can You Disable Cookies?"
+msgstr ""
+
+#: ../en/data-privacy-policy.md:63
+msgid "Please see your browser's documentation for information about how to\n"
+"disable cookies in general, for specific sites, or from specific sources."
+msgstr ""
+
+#: ../en/data-privacy-policy.md:66
+msgid "## Matomo"
+msgstr ""
+
+#: ../en/data-privacy-policy.md:68
+msgid "This website uses Matomo, a web tracking and analysis service."
+msgstr ""
+
+#: ../en/data-privacy-policy.md:70
+msgid ""
+"Matomo also uses cookies (see above) for storing information\n"
+"about your use of this site. The information stored in these cookies is\n"
+"sent to sent to a server owned by [cantanea EOOD](https://www.cantanea.com/)."
+msgstr ""
+
+#: ../en/data-privacy-policy.md:74
+msgid "### Data Usage"
+msgstr ""
+
+#: ../en/data-privacy-policy.md:76
+msgid ""
+"Matomo uses the information for analyzing your usage of this site. It\n"
+"compiles reports on the website activities and the audience of the site,\n"
+"and provides other services concerning the use of the website and\n"
+"internet usage in general."
+msgstr ""
+
+#: ../en/data-privacy-policy.md:81
+msgid "### IP Abbreviation"
+msgstr ""
+
+#: ../en/data-privacy-policy.md:83
+msgid "Matomo does not store your full IP address but only a part of it. If your IP\n"
+"address is, for example, 12.34.56.78, it will be stored as 12.34.0.0."
+msgstr ""
+
+#: ../en/docs/index.md:3 ../index.md:3
+msgctxt "title"
+msgid "E-Invoice-EU"
+msgstr ""
+
+#: ../en/docs/index.md:9 ../index.md:8
+msgctxt "description"
+msgid "Free and open source tool chain for generating EN16931 conforming invoices (Factur-X/ZUGFeRD, UBL, CII, XRechnung) from popular spreadsheet formats or JSON."
+msgstr ""
+
+#: ../en/docs/index.md:11
+msgid "[% USE q = Qgoda %]"
+msgstr ""
+
+#: ../en/docs/index.md:13
+msgid "[% title = \"Incomplete Translation!\" %]"
+msgstr ""
+
+#: ../en/docs/index.md:19
+msgid "The translation for this site is not yet ready. The parts that are not\n"
+"yet translated will be displayed in English instead."
+msgstr ""
+
+#: ../en/docs/index.md:26
+msgid "## Features"
+msgstr ""
+
+#: ../en/docs/index.md:28
+msgid ""
+"* E-Invoice generation from popular Spreadsheet formats or JSON.\n"
+"* Supports all electronic invoice formats conforming to EU standard EN16931, notably Factur-X/ZUGFeRD, UBL, and CII.\n"
+"* Written in TypeScript/JavaScript.\n"
+"* Large parts of the code are generated from PEPPOL-UBL documentation.\n"
+"* Automatic valdiation of input document structure.\n"
+"* OpenAPI/Swagger API documentation included."
+msgstr ""
+
+#: ../en/legal-disclosure.md:2
+msgctxt "title"
+msgid "Legal Disclosure"
+msgstr ""
+
+#: ../en/legal-disclosure.md:5
+msgctxt "description"
+msgid "Imprint"
+msgstr ""
+
+#: ../en/legal-disclosure.md:8
+msgid "## Company Information"
+msgstr ""
+
+#: ../en/legal-disclosure.md:15
+msgid "Bulgaria<br>"
+msgstr ""
+
+#: ../en/legal-disclosure.md:19
+msgid "VAT-ID [% config.legal.vat_id %]<br>"
+msgstr ""
+
+#: ../en/legal-disclosure.md:21
+msgid "Manager: [% config.legal.manager %]"
+msgstr ""
+
+#: ../en/legal-disclosure.md:23
+msgid "## Contact"
+msgstr ""
+
+#: ../en/legal-disclosure.md:25
+msgid "- email: [% config.legal.email %]\n"
+"- phone: [% config.legal.phone %]"
+msgstr ""
+
+#: ../en/legal-disclosure.md:28
+msgid "## Responsible for the content:"
+msgstr ""
+
+#: ../en/legal-disclosure.md:34
+msgid "<h2>Disclaimer</h2>Accountability for content<br/>The contents of our pages have been created with the utmost care. However, we cannot guarantee the contents' accuracy, completeness or topicality. According to statutory provisions, we are furthermore responsible for our own content on these web pages. In this context, please note that we are accordingly not obliged to monitor merely the transmitted or saved information of third parties, or investigate circumstances pointing to illegal activity. Our obligations to remove or block the use of information under generally applicable laws remain unaffected by this as per &sect;&sect; 8 to 10 of the Telemedia Act (TMG).<br/><br/>Accountability for links<br/>Responsibility for the content of external links (to web pages of third parties) lies solely with the operators of the linked pages. No violations were evident to us at the time of linking. Should any legal infringement become known to us, we will remove the respective link immediately.<br/><br/>Copyright<br/> Our web pages and their contents are subject to German copyright law. Unless expressly permitted by law (&sect; 44a et seq. of the copyright law), every form of utilizing, reproducing or processing works subject to copyright protection on our web pages requires the prior consent of the respective owner of the rights. Individual reproductions of a work are allowed only for private use, so must not serve either directly or indirectly for earnings. Unauthorized utilization of copyrighted works is punishable (&sect; 106 of the copyright law).<br/><br/><i>Source: </i><a href=\"http://www.muster-vorlagen.net\" target=\"_blank\">Create legal disclosures online - http://www.muster-vorlagen.net</a><br/><br/>"
+msgstr ""
+

@@ -11,7 +11,7 @@ scripts: [/js/negotiate-language.js]
 name: 'language-negotiator'
 multilang: false
 ---
-<qgoda-no-xgettext>
+<!--qgoda-no-xgettext-->
 <script>
 var lingua,
 	default_lingua = '[% config.linguas.0 %]',
@@ -39,4 +39,4 @@ if (!supported[lingua])
 
 document.location.href = `/e-invoice-eu/${lingua}/docs/`;
 </script>
-</qgoda-no-xgettext>
+<!--/qgoda-no-xgettext-->

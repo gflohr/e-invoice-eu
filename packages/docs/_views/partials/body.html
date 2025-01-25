@@ -9,8 +9,7 @@
 					<h1>[% asset.title %]</h1>
 					[% IF asset.type == 'post' %]
 					<div class="colophon">
-						<i class="bi-clock"></i>&nbsp;[% q.strftime(gtx.gettext('%B, %e
-						%Y'), asset.date, asset.lingua) %] - [% asset.author %]
+						<i class="bi-clock"></i>&nbsp;[% q.strftime(gtx.gettext('%B, %e %Y'), asset.date, asset.lingua) %] - [% asset.author %]
 					</div>
 					[% END %]
 					<div class="description">[% asset.description %]</div>
