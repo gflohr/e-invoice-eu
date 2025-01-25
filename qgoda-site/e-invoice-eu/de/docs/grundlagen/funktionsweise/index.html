@@ -105,23 +105,34 @@
 					<div class="description">Die Software bildet Daten aus einer Tabellenkalkulation auf JSON ab, aus der die E-Rechnung generiert wird. Die Rechnung kann aber auch direkt aus JSON erzeugt werden.</div>
 				</div>
 				<qgoda-content> 
-[% USE q = Qgoda %]
-[% USE Srcset %]
 
 
-[% FILTER $Srcset alt=”Flowchart der generellen Funktionsweise von E-Invoice-EU” %]/images/basics/general-mode-of-operation/flow-chart.webp[% END %] 
 
-Die Software wurde unter der Annahme erstellt, dass viele kleine Firmen ihre Rechnungen mit Hilfe einer Tabellenkalkulation wie [LibreOffice](https://www.libreoffice.org/) erstellen. Das bedeutet, dass die Rechnungsdaten schon in strukturierter Form vorliegen.
 
-Damit müssen lediglich noch die Eingabedaten aus der Tabellenkalkulation auf das Ausgabe-XML der elektronischen Rechnung abgebildet werden. Weil mehrere XML-Ausgabe-Formate unterstützt werden, ist es sinnvoll, die Eingabedaten zunächst auf ein allgemeines internes Format abzubilden, und daraus dann das gewünschte Ausgabeformat zu generieren.
 
-Das gewählte interne Format ist größtenteils äquivalent zu [Peppol UBL](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/). Das hat Vorteile:
 
-* Alle Teile der Dokumentation sind vollständig untereinander verlinkt und relativ einfach zu verstehen.
-* Die Dokumentation wird aus Daten (see https://github.com/OpenPEPPOL/peppol-bis-invoice-3) generiert, aus denen sich [JSON-Schema-Definitionen](https://json-schema.org/) erzeugen lassen.
-* Es ist möglich, große Teile der Software aus diesen Schemata zu generieren.
 
-Im Ergebnis ist es einfach, die Implementierung synchron mit den aktuellen Standards von Peppol zu halten.
+
+
+<div class="img"><img src="/e-invoice-eu/images/basics/general-mode-of-operation/flow-chart.webp" alt="Flowchart der generellen Funktionsweise von E-Invoice-EU" sizes="(max-width: 575px) calc(100vw - 30px), (max-width: 767px) 510px (max-width: 991px) 396px (max-width: 1199px) 528px (max-width: 1399px) 627px 726px" srcset="/e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-160w.webp 160w, /e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-320w.webp 320w, /e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-640w.webp 640w, /e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-1280w.webp 1280w, /e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-1920w.webp 1920w"></img></div>
+
+
+<p></p>
+
+<p>Die Software wurde unter der Annahme erstellt, dass viele kleine Firmen ihre Rechnungen mit Hilfe einer Tabellenkalkulation wie <a href="https://www.libreoffice.org/" target="_blank">LibreOffice</a> erstellen. Das bedeutet, dass die Rechnungsdaten schon in strukturierter Form vorliegen.</p>
+
+<p>Damit müssen lediglich noch die Eingabedaten aus der Tabellenkalkulation auf das Ausgabe-XML der elektronischen Rechnung abgebildet werden. Weil mehrere XML-Ausgabe-Formate unterstützt werden, ist es sinnvoll, die Eingabedaten zunächst auf ein allgemeines internes Format abzubilden, und daraus dann das gewünschte Ausgabeformat zu generieren.</p>
+
+<p>Das gewählte interne Format ist größtenteils äquivalent zu <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/" target="_blank">Peppol UBL</a>. Das hat Vorteile:</p>
+
+<ul>
+<li>Alle Teile der Dokumentation sind vollständig untereinander verlinkt und relativ einfach zu verstehen.</li>
+<li>Die Dokumentation wird aus Daten (see <a href="https://github.com/OpenPEPPOL/peppol-bis-invoice-3" target="_blank">https://github.com/OpenPEPPOL/peppol-bis-invoice-3</a>) generiert, aus denen sich <a href="https://json-schema.org/" target="_blank">JSON-Schema-Definitionen</a> erzeugen lassen.</li>
+<li>Es ist möglich, große Teile der Software aus diesen Schemata zu generieren.</li>
+</ul>
+
+
+<p>Im Ergebnis ist es einfach, die Implementierung synchron mit den aktuellen Standards von Peppol zu halten.</p>
  
 				 
 <div class="guided-tour container">

@@ -316,8 +316,9 @@ msgid ""
 "Operation\" %]/images/basics/general-mode-of-operation/flow-chart.webp[% END "
 "%]"
 msgstr ""
-"[% FILTER $Srcset alt=”Flowchart der generellen Funktionsweise von E-Invoice-"
-"EU” %]/images/basics/general-mode-of-operation/flow-chart.webp[% END %]"
+"[% FILTER $Srcset alt=\"Flowchart der generellen Funktionsweise von E-"
+"Invoice-EU\" %]/images/basics/general-mode-of-operation/flow-chart.webp[% "
+"END %]"
 
 #: ../en/docs/basics/general-mode-of-operation.md:14
 msgid ""
