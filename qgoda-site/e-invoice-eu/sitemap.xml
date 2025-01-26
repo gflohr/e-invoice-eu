@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/grundlagen/funktionsweise/</loc>
-      <xhtml:link rel="alternate" hreflang="en" 
-                  href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/basics/general-mode-of-operation/" />
-    <lastmod>2025-01-25</lastmod>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
-    <loc>https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/grundlagen/e-rechnungs-formate/</loc>
-      <xhtml:link rel="alternate" hreflang="en" 
-                  href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/basics/e-invoice-formats/" />
+    <loc>https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/</loc>
+      <xhtml:link rel="alternate" hreflang="de" 
+                  href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/" />
     <lastmod>2025-01-25</lastmod>
     <changefreq>daily</changefreq>
   </url>
@@ -18,25 +11,27 @@
     <loc>https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/basics/general-mode-of-operation/</loc>
       <xhtml:link rel="alternate" hreflang="de" 
                   href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/grundlagen/funktionsweise/" />
-    <lastmod>2025-01-25</lastmod>
+    <lastmod>2025-01-26</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://gflohr.github.io/e-invoice-eu//</loc>
-    <lastmod>2025-01-25</lastmod>
-    <changefreq>daily</changefreq>
-  </url>
-  <url>
-    <loc>https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/basics/</loc>
-      <xhtml:link rel="alternate" hreflang="de" 
-                  href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/grundlagen/" />
-    <lastmod>2025-01-25</lastmod>
+    <loc>https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/</loc>
+      <xhtml:link rel="alternate" hreflang="en" 
+                  href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/" />
+    <lastmod>2025-01-24</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
     <loc>https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/basics/e-invoice-formats/</loc>
       <xhtml:link rel="alternate" hreflang="de" 
                   href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/grundlagen/e-rechnungs-formate/" />
+    <lastmod>2025-01-26</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/basics/</loc>
+      <xhtml:link rel="alternate" hreflang="de" 
+                  href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/grundlagen/" />
     <lastmod>2025-01-25</lastmod>
     <changefreq>daily</changefreq>
   </url>
@@ -48,17 +43,22 @@
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/</loc>
-      <xhtml:link rel="alternate" hreflang="de" 
-                  href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/" />
+    <loc>https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/grundlagen/funktionsweise/</loc>
+      <xhtml:link rel="alternate" hreflang="en" 
+                  href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/basics/general-mode-of-operation/" />
     <lastmod>2025-01-25</lastmod>
     <changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/</loc>
+    <loc>https://gflohr.github.io/e-invoice-eu//</loc>
+    <lastmod>2025-01-25</lastmod>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/grundlagen/e-rechnungs-formate/</loc>
       <xhtml:link rel="alternate" hreflang="en" 
-                  href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/" />
-    <lastmod>2025-01-24</lastmod>
+                  href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/basics/e-invoice-formats/" />
+    <lastmod>2025-01-25</lastmod>
     <changefreq>daily</changefreq>
   </url>
 </urlset>
