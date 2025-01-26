@@ -1,7 +1,7 @@
 ---
 title: E-Invoice Formats
 name: e-invoice-formats
-section: Basics
+section: basics
 description: E-Invoice-EU supports e-invoice formats that conform to the European Standard EN16931.
 ---
 <!--qgoda-no-xgettext-->
