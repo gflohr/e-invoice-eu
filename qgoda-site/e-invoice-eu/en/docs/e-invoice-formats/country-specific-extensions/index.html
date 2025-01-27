@@ -6,18 +6,18 @@
   <link
 	rel="alternate"
 	hreflang="de"
-	href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/"
+	href="/e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/"
 /> 
-<meta name="description" content="UBL stands for Universal Business Language" />
-<title>UBL</title>
+<meta name="description" content="Member states may define their own extensions to the standard in the form of Core Invoice Usage Specifications (CIUS)" />
+<title>Extensions</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
-<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/e-invoice-formats/ubl/" />
-<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/e-invoice-formats/ubl/" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/e-invoice-formats/country-specific-extensions/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/e-invoice-formats/country-specific-extensions/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="UBL" />
-<meta property="og:description" content="UBL stands for Universal Business Language" />
+<meta property="og:title" content="Extensions" />
+<meta property="og:description" content="Member states may define their own extensions to the standard in the form of Core Invoice Usage Specifications (CIUS)" />
 
 
 	<meta
@@ -100,38 +100,11 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>UBL</h1>
+					<h1>Extensions</h1>
 					
-					<div class="description">UBL stands for Universal Business Language</div>
+					<div class="description">Member states may define their own extensions to the standard in the form of Core Invoice Usage Specifications (CIUS)</div>
 				</div>
-				<qgoda-content> <p>UBL is an XML syntax for many different business documents, among others
-invoices and credit notes. E-Invoice-EU currently only supports invoices.</p>
-
-<p>The format is well documented by Peppol at
-<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/" target="_blank">https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/</a>.</p>
-
-
-
-
-
-
-<div class="alert alert-warning" role="alert">
-    <div>
-        <strong>
-            <i class="bi-exclamation-triangle"></i>
-            <span class="title">Official UBL Documentation</span>
-        </strong>
-    </div>
-    <p>
-
-The current official documentation of UBL is available as an [OASIS Standards
-Document](http://docs.oasis-open.org/ubl/UBL-2.1.html). But it is not very
-helpful in the context of electronic invoices in the EU because the EU has
-additional requirements. It is therefore recommended to use the Peppol
-documentation.
-
-</p>
-</div>
+				<qgoda-content> 
 
 
 
@@ -139,19 +112,67 @@ documentation.
 
 
 
-<p>Clicking on an element name opens the documentation for the element. Element
-names beginning with <code>cac:</code> have subelements, those starting with <code>cbc:</code>
-are nodes. It makes sense to get familiar with this documentation because
-the Peppol UBL invoice structure is also the basis for the internal invoice
-format of E-Invoice-EU.</p>
+<p>You may expect from an e-invoice standard like EN16931 that it
+standardizes e-invoices. Not quite! Each member state can define their own
+extentions to the standard called Core Invoice Usage Specifications
+(CIUS). Notable examples are the standard "XRechnung" in Germany, "OIUBL" in
+Denmark, see the EU document <a href="https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/eInvoicing+Country+Factsheets+for+each+Member+State+and+other+countries" target="_blank">eInvoicing Country Factsheets for each Member State &amp; other
+countries</a>
+for an overview.</p>
+
+<h2><a href="#" name="which-extensions-are-allowed" id="which-extensions-are-allowed"></a>Which Extensions are Allowed</h2>
+
+<p>Fortunately, countries cannot arbitrarily change the standard.</p>
+
+<p>First of all, the allowed syntaxes are still only
+<a href="/e-invoice-eu/en/docs/e-invoice-formats/ubl/">UBL</a> and <a href="/e-invoice-eu/en/docs/e-invoice-formats/cii/">CII</a>.</p>
+
+<p>Changes to the semantics are also restricted. Countries can, for example, make
+optional elements mandatory, restrict the number of occurrences of a
+certain element, or disallow usage of certain codes. See
+<a href="https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/CIUS+and+Extension+-+What+is+allowed" target="_blank">CIUS and Extension - What is allowed</a> for more information.</p>
+
+<h2><a href="#" name="practial-aspects" id="practial-aspects"></a>Practial Aspects</h2>
+
+<p>Both <a href="/e-invoice-eu/en/docs/e-invoice-formats/ubl/">UBL</a> and <a href="/e-invoice-eu/en/docs/e-invoice-formats/cii/">CII</a> require the
+presence of a so-called <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-CustomizationID/" target="_blank">customization ID</a>. The customization ID is an opaque string like this:</p>
+
+
+
+
+<pre><code>urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0
+</code></pre>
+
+
+
+
+<p>It identifies a particular flavour of the e-invoice.</p>
+
+<p>E-Invoice-EU facilitates this by defining aliases for certain formats. For
+example the alias "XRechnung" for the German extension automatically sets
+the customization id of the document to this:</p>
+
+
+
+
+<pre><code>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0
+</code></pre>
+
+
+
+
+<p>If you want to produce a flavour that is not directly supported by
+E-Invoice-EU, you can simply select the base format (UBL or CII) and
+also specify the customization ID yourself. Explicitly specified customization
+IDs always override the built-in defaults.</p>
  
 				 
 <div class="guided-tour container">
 	<div class="row">
 		<div class="col-5 text-left guided-tour-link">
 			
-			<a href="/e-invoice-eu/en/docs/e-invoice-formats/hybrid-vs-xml/"
-				><i class="bi-arrow-left-circle"></i>&nbsp;Hybrid vs XML</a>
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/factur-x-zugferd/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;Factur-X/ZUGFeRD</a>
 			
 		</div>
 		<div class="col-2 text-center guided-tour-link">
@@ -160,11 +181,6 @@ format of E-Invoice-EU.</p>
 			
 		</div>
 		<div class="col-5 text-right guided-tour-link">
-			
-			<a href="/e-invoice-eu/en/docs/e-invoice-formats/cii/"
-				>CII&nbsp;<i
-					class="bi-arrow-right-circle"
-				></i></a>
 			
 		</div>
 	</div>
@@ -182,14 +198,14 @@ format of E-Invoice-EU.</p>
 			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
 		</li>
 		<li>
-			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/en/docs/e-invoice-formats/ubl.md?plain=1" target="_blank">
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/en/docs/e-invoice-formats/country-specific-extensions.md?plain=1" target="_blank">
 				<i class="bi-code-slash"></i>
 				Source code of this page
 			</a>
 		</li>
 		 
 		<li>
-			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/">
 				<i class="bi-translate"></i>
 				Diese Seite auf Deutsch lesen
 			</a>
@@ -234,7 +250,8 @@ format of E-Invoice-EU.</p>
 		
 		<li>
 			
-			<i class="bi-arrow-right-circle"></i>&nbsp;UBL 
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/ubl/">UBL</a>
+			
 		</li>
 		
 		<li>
@@ -251,8 +268,7 @@ format of E-Invoice-EU.</p>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/en/docs/e-invoice-formats/country-specific-extensions/">Extensions</a>
-			
+			<i class="bi-arrow-right-circle"></i>&nbsp;Extensions 
 		</li>
 		
 	</ol>

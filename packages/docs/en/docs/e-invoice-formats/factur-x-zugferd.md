@@ -15,8 +15,8 @@ the two standards are now identical.
 
 ## PDF Attachments
 
-While the pure XML formats [% q.llanchor(name='UBL') %] and
-[% q.llanchor(name='CII') %] can *optionally* embed a PDF version of an
+While the pure XML formats [% q.lanchor(name='ubl') %] and
+[% q.lanchor(name='cii') %] can *optionally* embed a PDF version of an
 invoice, Factur-X/ZUGFeRD got the opposite way. They are special PDFs with
 a machine-readable XML version of the invoice added to the PDF as an
 attachment.
@@ -36,7 +36,7 @@ purposes is attached, too.
 ## CII is Mandatory for Factur-X/ZUGFeRD
 
 Unfortunately, Factur-X/ZUGFeRD does not leave a choice between
-[% q.llanchor(name='UBL') %] and [% q.llanchor(name='CII') %]. CII is
+[% q.lanchor(name='ubl') %] and [% q.lanchor(name='cii') %]. CII is
 the mandatory syntax for the embedded XML.
 
 ## PDF/A

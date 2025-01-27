@@ -2,4 +2,4 @@
 doc:
   sections:
     - ['basics', 'general-mode-of-operation', 'supported-formats']
-    - ['e-invoice-formats', 'hybrid-vs-xml', 'ubl', 'cii', 'factur-x-zugferd']
+    - ['e-invoice-formats', 'hybrid-vs-xml', 'ubl', 'cii', 'factur-x-zugferd', 'country-specific-extensions']

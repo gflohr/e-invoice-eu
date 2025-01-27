@@ -13,7 +13,7 @@ The other approved XML syntax for invoices in the EU is UN/CEFACT CII (United
 Nations Centre for Trade Facilitation and Electronic Business Cross Industry
 Invoice).
 
-Unlike [% q.llanchor(name='UBL') %], the scope of CII is restricted to invoices;
+Unlike [% q.lanchor(name='ubl') %], the scope of CII is restricted to invoices;
 other document types are not supported.  But that does not mean that the format
 is in any way simpler than UBL. In fact, the CII documentation is certainly
 not for the faint of heart.
