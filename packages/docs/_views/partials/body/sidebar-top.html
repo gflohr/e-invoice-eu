@@ -1,0 +1,38 @@
+[% USE gtx = Gettext('net.qgoda.www', asset.lingua) %] [% USE q = Qgoda %]
+<div class="sidebar-module sidebar-general">
+	<ol>
+		<li>
+			<a
+				class="github-button"
+				href="https://github.com/gflohr/e-invoice-eu"
+				data-icon="octicon-star"
+				data-show-count="true"
+				aria-label="[% gtx.gettext('Stars on GitHub') %]"
+				>[% gtx.gettext('Stars') %]</a>
+			<a href="https://github.com/gflohr/e-invoice-eu/stargazers">&nbsp;[% gtx.gettext('Stars on GitHub') %]</a>
+		</li>
+		<li>
+			<a
+				href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/[% asset.relpath %]?plain=1"
+			>
+				<i class="bi-code-slash"></i>
+				[% gtx.gettext('Source code of this page') %]
+			</a>
+		</li>
+		[% IF asset.lingua != 'en' %]
+		<li>
+			<a href="[% q.link(name = asset.name, lingua = 'en') %]">
+				<i class="bi-translate"></i>
+				Read this page in English
+			</a>
+		</li>
+		[% END %] [% IF asset.lingua != 'de' %]
+		<li>
+			<a href="[% q.link(name = asset.name, lingua = 'de') %]">
+				<i class="bi-translate"></i>
+				Diese Seite auf Deutsch lesen
+			</a>
+		</li>
+		[% END %]
+	</ol>
+</div>

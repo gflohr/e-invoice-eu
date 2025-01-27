@@ -1,1 +1,1 @@
-bun run test -- --changedSince=origin/main && bun run lint:staged
+bun run test && bun run lint:staged

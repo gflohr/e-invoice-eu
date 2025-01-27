@@ -1,0 +1,20 @@
+# Makefile snippet holding package-dependent information.  Please adhere
+# to Makefile syntax!
+
+# Space-separated list of language codes.  Omit the base language!
+LINGUAS = de
+
+# Textdomain of the site, for example reverse domain name.
+TEXTDOMAIN = com.cantanea.e-einvoice-eu 
+
+# Where to send msgid bug reports?
+MSGID_BUGS_ADDRESS = Guido Flohr <guido.flohr@cantanea.com>
+
+# Initial copyright holder added to pot and po files.
+COPYRIGHT_HOLDER = cantanea EOOD <http://www.cantanea.com/>
+
+# Override these default values as needed.
+#XGETTEXT = xgettext
+#XGETTEXT_TT2 = xgettext-tt2
+#MSGMERGE = msgmerge
+#MSGFMT = msgfmt

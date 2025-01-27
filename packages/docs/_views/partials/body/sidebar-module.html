@@ -1,0 +1,19 @@
+[% USE q = Qgoda %]
+<div class="sidebar-module">
+	<h4 class="sidebar-title">[% title %]</h4>
+	<ol>
+		[% FOREACH doc IN docs %]
+		<li>
+			[% IF !doc.order %]
+			<a href="[% doc.asset.permalink %]" style="color: red; font-weight: bold"
+				>[% doc.asset.title %] (not sorted!)</a
+			>
+			[% ELSIF asset.permalink == doc.asset.permalink %]
+			<i class="bi-arrow-right-circle"></i>&nbsp;[% doc.asset.title | html %] [%
+			ELSE %]
+			<a href="[% doc.asset.permalink %]">[% doc.asset.title | html %]</a>
+			[% END %]
+		</li>
+		[% END %]
+	</ol>
+</div>

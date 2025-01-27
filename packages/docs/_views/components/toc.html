@@ -1,0 +1,7 @@
+[% USE gtx = Gettext(config.po.textdomain, asset.lingua) %] [% IF asset.toc.size
+%]
+<div class="toc">
+	<div class="toc-title">[% gtx.gettext('Table Of Contents') %]</div>
+	[% INCLUDE components/toc/level.html items = asset.toc depth = 1 %]
+</div>
+[% END %]
