@@ -6,18 +6,18 @@
   <link
 	rel="alternate"
 	hreflang="de"
-	href="/e-invoice-eu/de/docs/grundlagen/funktionsweise/"
+	href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/"
 /> 
-<meta name="description" content="The software works by mapping spreadsheet data to JSON data from which the e-invoice is generated. You can also directly generate the e-invoice from JSON." />
-<title>General Mode of Operation</title>
+<meta name="description" content="E-Invoice-EU supports e-invoice formats that conform to the European Standard EN16931." />
+<title>Supported Formats</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
-<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/basics/general-mode-of-operation/" />
-<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/basics/general-mode-of-operation/" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/basics/supported-formats/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/basics/supported-formats/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="General Mode of Operation" />
-<meta property="og:description" content="The software works by mapping spreadsheet data to JSON data from which the e-invoice is generated. You can also directly generate the e-invoice from JSON." />
+<meta property="og:title" content="Supported Formats" />
+<meta property="og:description" content="E-Invoice-EU supports e-invoice formats that conform to the European Standard EN16931." />
 
 
 	<meta
@@ -100,9 +100,9 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>General Mode of Operation</h1>
+					<h1>Supported Formats</h1>
 					
-					<div class="description">The software works by mapping spreadsheet data to JSON data from which the e-invoice is generated. You can also directly generate the e-invoice from JSON.</div>
+					<div class="description">E-Invoice-EU supports e-invoice formats that conform to the European Standard EN16931.</div>
 				</div>
 				<qgoda-content> 
 
@@ -112,45 +112,112 @@
 
 
 
+<p>E-Invoice-EU supports the following <a href="/e-invoice-eu/en/docs/e-invoice-formats/hybrid-vs-xml/">e-invoice
+formats</a>:</p>
+
+<table>
+<thead>
+<tr>
+<th> Name              </th>
+<th> Customization ID/Remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> CII               </td>
+<td> <code>urn:cen.eu:en16931:2017</code></td>
+</tr>
+<tr>
+<td> Factur-X-Minimum  </td>
+<td> <code>urn:factur-x.eu:1p0:minimum</code></td>
+</tr>
+<tr>
+<td> Factur-X-BasicWL  </td>
+<td> <code>urn:factur-x.eu:1p0:basicwl</code></td>
+</tr>
+<tr>
+<td> Factur-X-Basic-WL </td>
+<td> is an alias for Factur-X-BasicWL</td>
+</tr>
+<tr>
+<td> Factur-X-Basic    </td>
+<td> <code>'urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic'</code></td>
+</tr>
+<tr>
+<td> Factur-X-EN16931  </td>
+<td> <code>urn:cen.eu:en16931:2017</code></td>
+</tr>
+<tr>
+<td> Factur-X-Comfort  </td>
+<td> is an alias for Factur-X-EN16931</td>
+</tr>
+<tr>
+<td> Factur-X-Extended </td>
+<td> <code>urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended</code></td>
+</tr>
+<tr>
+<td> Factur-X-XRechung </td>
+<td> <code>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</code></td>
+</tr>
+<tr>
+<td> UBL               </td>
+<td> <code>urn:cen.eu:en16931:2017</code></td>
+</tr>
+<tr>
+<td> XRECHNUNG-CII     </td>
+<td> <code>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</code></td>
+</tr>
+<tr>
+<td> XRECHNUNG-UBL     </td>
+<td> <code>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</code></td>
+</tr>
+<tr>
+<td> ZUGFeRD-Minimum   </td>
+<td> is an alias for Factur-X-Minimum</td>
+</tr>
+<tr>
+<td> ZUGFeRD-BasicWL   </td>
+<td> is an alias for Factur-X-BasicWL</td>
+</tr>
+<tr>
+<td> ZUGFeRD-Basic-WL  </td>
+<td> is an alias for Factur-X-BasicWL</td>
+</tr>
+<tr>
+<td> ZUGFeRD-Basic     </td>
+<td> is an alias for Factur-X-Basic</td>
+</tr>
+<tr>
+<td> ZUGFeRD-EN16931   </td>
+<td> is an alias for Factur-X-EN16931</td>
+</tr>
+<tr>
+<td> ZUGFeRD-Comfort   </td>
+<td> is an alias for Factur-X-EN16931</td>
+</tr>
+<tr>
+<td> ZUGFeRD-Extended  </td>
+<td> is an alias for Factur-X-Extended</td>
+</tr>
+<tr>
+<td> ZUGFeRD-XRechung  </td>
+<td> is an alias for Factur-X-XRechnung</td>
+</tr>
+</tbody>
+</table>
 
 
-<div class="img"><img src="/e-invoice-eu/images/basics/general-mode-of-operation/flow-chart.webp" alt="Flowchart of E-Invoice-EU General Mode of Operation" sizes="(max-width: 575px) calc(100vw - 30px), (max-width: 767px) 510px (max-width: 991px) 396px (max-width: 1199px) 528px (max-width: 1399px) 627px 726px" srcset="/e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-160w.webp 160w, /e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-320w.webp 320w, /e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-640w.webp 640w, /e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-1280w.webp 1280w, /e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-1920w.webp 1920w"></img></div>
-
-
-<p></p>
-
-<p>The software was created under the assumption that many small businesses
-create their invoices with the help of spreadsheet software like
-<a href="https://www.libreoffice.org/" target="_blank">LibreOffice</a>. That means that the invoice data
-is already available as structured data.</p>
-
-<p>All that was left to be done was to map the input spreadsheet data to elements
-in the output XML of the electronic invoice. Because there are multiple
-supported output XML formats, it makes sense to first map the input data
-into a general internal format and then render the data into the desired
-output format.</p>
-
-<p>The internal format chosen is largely equivalent to that of
-<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/" target="_blank">Peppol UBL</a>.
-The advantages are:</p>
-
-<ul>
-<li>The documentation is browsable and relatively easy to understand.</li>
-<li>It is generated from data (see <a href="https://github.com/OpenPEPPOL/peppol-bis-invoice-3" target="_blank">https://github.com/OpenPEPPOL/peppol-bis-invoice-3</a>) that also allows generating <a href="https://json-schema.org/" target="_blank">JSON schema</a> definitions.</li>
-<li>From these JSON schema definitions, it is possible to generate large parts of the code of E-Invoice-EU.</li>
-</ul>
-
-
-<p>As a result, it is easy to keep the implementation up-to-date with the current
-standards by Peppol.</p>
+<p>Please see the section <a href="/e-invoice-eu/en/docs/e-invoice-formats/hybrid-vs-xml/">E-Invoice
+Formats</a> for more information about
+customization ids and the different e-invoice formats.</p>
  
 				 
 <div class="guided-tour container">
 	<div class="row">
 		<div class="col-5 text-left guided-tour-link">
 			
-			<a href="/e-invoice-eu/en/docs/"
-				><i class="bi-arrow-left-circle"></i>&nbsp;E-Invoice-EU</a>
+			<a href="/e-invoice-eu/en/docs/basics/general-mode-of-operation/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;General Mode of Operation</a>
 			
 		</div>
 		<div class="col-2 text-center guided-tour-link">
@@ -160,8 +227,8 @@ standards by Peppol.</p>
 		</div>
 		<div class="col-5 text-right guided-tour-link">
 			
-			<a href="/e-invoice-eu/en/docs/basics/supported-formats/"
-				>Supported Formats&nbsp;<i
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/hybrid-vs-xml/"
+				>Hybrid vs XML&nbsp;<i
 					class="bi-arrow-right-circle"
 				></i></a>
 			
@@ -181,14 +248,14 @@ standards by Peppol.</p>
 			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
 		</li>
 		<li>
-			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/en/docs/basics/general-mode-of-operation.md?plain=1" target="_blank">
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/en/docs/basics/supported-formats.md?plain=1" target="_blank">
 				<i class="bi-code-slash"></i>
 				Source code of this page
 			</a>
 		</li>
 		 
 		<li>
-			<a href="/e-invoice-eu/de/docs/grundlagen/funktionsweise/">
+			<a href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/">
 				<i class="bi-translate"></i>
 				Diese Seite auf Deutsch lesen
 			</a>
@@ -205,13 +272,13 @@ standards by Peppol.</p>
 		
 		<li>
 			
-			<i class="bi-arrow-right-circle"></i>&nbsp;General Mode of Operation 
+			<a href="/e-invoice-eu/en/docs/basics/general-mode-of-operation/">General Mode of Operation</a>
+			
 		</li>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/en/docs/basics/supported-formats/">Supported Formats</a>
-			
+			<i class="bi-arrow-right-circle"></i>&nbsp;Supported Formats 
 		</li>
 		
 	</ol>

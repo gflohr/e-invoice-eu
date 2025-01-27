@@ -6,18 +6,18 @@
  <link
 	rel="alternate"
 	hreflang="en"
-	href="/e-invoice-eu/en/docs/basics/e-invoice-formats/"
+	href="/e-invoice-eu/en/docs/e-invoice-formats/ubl/"
 />  
-<meta name="description" content="E-Invoice-EU supports e-invoice formats that conform to the European Standard EN16931." />
-<title>E-Invoice Formats</title>
+<meta name="description" content="UBL stands for Universal Business Language" />
+<title>UBL</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
-<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/grundlagen/e-rechnungs-formate/" />
-<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/grundlagen/e-rechnungs-formate/" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/e-rechnungs-formate/ubl/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/e-rechnungs-formate/ubl/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="E-Invoice Formats" />
-<meta property="og:description" content="E-Invoice-EU supports e-invoice formats that conform to the European Standard EN16931." />
+<meta property="og:title" content="UBL" />
+<meta property="og:description" content="UBL stands for Universal Business Language" />
 
 
 	<meta
@@ -100,176 +100,58 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>E-Invoice Formats</h1>
+					<h1>UBL</h1>
 					
-					<div class="description">E-Invoice-EU supports e-invoice formats that conform to the European Standard EN16931.</div>
+					<div class="description">UBL stands for Universal Business Language</div>
 				</div>
-				<qgoda-content> 
-
-
-
-
-
-
-
-<p>There are different approaches to distinguish e-invoice formats.</p>
-
-<h2><a href="#" name="hybrid-formats-factur-x-zugferd-vs.-xml-formats" id="hybrid-formats-factur-x-zugferd-vs.-xml-formats"></a>Hybrid Formats (Factur-X/ZUGFeRD) vs. XML Formats</h2>
-
-<p>Electronic invoices initially were XML documents. In France and Germany,
-the standards Factur-X and ZUGFeRD have been developed. Both Factur-X and
-ZUGFeRD documents are actually PDF invoice documents but they contain an
-equivalent XML version of the invoice as an attachment.</p>
-
-<p>Factur-X and ZUGFeRD are nowadays identical. They are just different names for
-the same thing. Factur-X is the official name but the term ZUGFeRD is still
-prevalent in Germany.</p>
-
-<h3><a href="#" name="pdf-attachments" id="pdf-attachments"></a>PDF Attachments</h3>
-
-<p>The ability to attach arbitrary documents to a PDF is one of the lesser
-known features of the Portable Document Format PDF and most PDF viewers do not
-allow you to see attachments to PDFs. However, Adobe Acrobat Reader has this
-feature.</p>
-
-<div class="img"><img src="/e-invoice-eu/images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader.webp" alt="PDF Attachments in Adobe Acrobat Reader" sizes="(max-width: 575px) calc(100vw - 30px), (max-width: 767px) 510px (max-width: 991px) 396px (max-width: 1199px) 528px (max-width: 1399px) 627px 726px" srcset="/e-invoice-eu//images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader-160w.webp 160w, /e-invoice-eu//images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader-320w.webp 320w, /e-invoice-eu//images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader-640w.webp 640w, /e-invoice-eu//images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader-1280w.webp 1280w, /e-invoice-eu//images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader-1920w.webp 1920w"></img></div>
-
-
-<p>The functionality is hidden behind a paperclip icon at the right side of the window. Clicking it reveals the list of attachments to the document. In this case, not only the XML invoice file but an additional file for informational purposes is attached, too.</p>
-
-<h3><a href="#" name="pdf-a" id="pdf-a"></a>PDF/A</h3>
-
-<p>But even with the attached XML file, a PDF does not automatically qualify as
-a valid electronic invoice. A PDF file may look different on different devices.
-For example it may not embed all fonts used but reference a font that is
-expected to be installed on the particular device. If the font is missing, a
-replacement font is chosen by the renderer.</p>
-
-<p>If a PDF fulfills the PDF/A standard, all fonts must be embedded and also a
-couple of other requirements have to be fulfilled so that it is guaranteed that
-the PDF will look exactly the same on every device, even in the future, so that
-the documents are <em>revision-safe</em>.</p>
-
-<p>Validating Factur-X/ZUGFeRD Invoices therefore involves two steps. First,
-compliance with the PDF/A standard is checked. Second, the attached XML
-undergoes the normal checks as pure XML documents.</p>
-
-
-
-
-
-
-<div class="alert alert-info" role="alert">
-    <div>
-        <strong>
-            <i class="bi-info-circle"></i>
-            <span class="title">PDF/A Extension Schema!</span>
-        </strong>
-    </div>
-    <p>
-
-In fact, a third check is required. PDFs contain meta information in the
-Extensible Metadata Platform XMP format, and that meta data has to contain
-certain extra information for Factur-X/ZUGFeRD.
-
-</p>
-</div>
-
-
-
-
-
-
-
-<h2><a href="#" name="ubl-vs-cii-documents" id="ubl-vs-cii-documents"></a>UBL vs CII Documents</h2>
-
-<p>Although a PDF is an electronic document and to a certain extent
-machine-readable it is not considered an electronic invoice. The same holds
-true for text processor spreadsheet documents. The European standard EN16931
-requires e-invoices to be XML Documents in one of the syntaxes
-UBL (Universal Business Language) or CII (Cross Industry Invoices).</p>
-
-
-
-
-
-
-<div class="alert alert-info" role="alert">
-    <div>
-        <strong>
-            <i class="bi-info-circle"></i>
-            <span class="title">XML Syntax</span>
-        </strong>
-    </div>
-    <p>
-
-What is meant with syntax? A UBL and a CII invoice can contain the exact same
-information. What differs is the name of the XML element and its location in
-the document object model. 
-
-</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="alert alert-info" role="alert">
-    <div>
-        <strong>
-            <i class="bi-info-circle"></i>
-            <span class="title">Embedding a PDF Invoice in XML?</span>
-        </strong>
-    </div>
-    <p>
-
-For Factur-X/ZUGFeRD, the machine-readable XML version of the document is
-embedded in the PDF invoice document. But both UBL and CII optionally allow
-embedding a PDF version in the XML, exactly the other way around.
-
-</p>
-</div>
-
-
-
-
-
-
-
-<h3><a href="#" name="ubl-universal-business-language" id="ubl-universal-business-language"></a>UBL (Universal Business Language)</h3>
-
-<p>UBL is an XML syntax for many different business documents, among others
+				<qgoda-content> <p>UBL is an XML syntax for many different business documents, among others
 invoices and credit notes. E-Invoice-EU currently only supports invoices.</p>
 
-<h3><a href="#" name="cii-cross-industry-invoice" id="cii-cross-industry-invoice"></a>CII (Cross Industry Invoice)</h3>
+<p>The format is well documented by Peppol at
+<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/" target="_blank">https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/</a>.</p>
 
-<p>CII only supports invoices but allows a lot more information to be included in
-the invoice than UBL does. However, E-Invoice-EU currently only supports the
-subset of CII that has equivalents in UBL invoices.</p>
 
-<h2><a href="#" name="takeaway" id="takeaway"></a>Takeaway</h2>
 
-<p>An electronic invoice is either an XML document in one of the flavours UBL and
-CII or a Factur-X/ZUGFeRD PDF. If you opt for an XML element you <em>may</em> include
-a PDF version. If you go with the hybrid format Factur-X/ZUGFeRD you <em>must</em>
-include an XML version of the invoice.</p>
+
+
+
+<div class="alert alert-warning" role="alert">
+    <div>
+        <strong>
+            <i class="bi-exclamation-triangle"></i>
+            <span class="title">Official UBL Documentation</span>
+        </strong>
+    </div>
+    <p>
+
+The current official documentation of UBL is available as an [OASIS Standards
+Document](http://docs.oasis-open.org/ubl/UBL-2.1.html). But it is not very
+helpful in the context of electronic invoices in the EU because the EU has
+additional requirements. It is therefore recommended to use the Peppol
+documentation.
+
+</p>
+</div>
+
+
+
+
+
+
+
+<p>Clicking on an element name opens the documentation for the element. Element
+names beginning with <code>cac:</code> have subelements, those starting with <code>cbc:</code>
+are nodes. It makes sense to get familiar with this documentation because
+the Peppol UBL invoice structure is also the basis for the internal invoice
+format of E-Invoice-EU.</p>
  
 				 
 <div class="guided-tour container">
 	<div class="row">
 		<div class="col-5 text-left guided-tour-link">
 			
-			<a href="/e-invoice-eu/de/docs/grundlagen/funktionsweise/"
-				><i class="bi-arrow-left-circle"></i>&nbsp;Generelle Funktionsweise</a>
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;Hybrid vs XML</a>
 			
 		</div>
 		<div class="col-2 text-center guided-tour-link">
@@ -278,6 +160,11 @@ include an XML version of the invoice.</p>
 			
 		</div>
 		<div class="col-5 text-right guided-tour-link">
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/"
+				>CII&nbsp;<i
+					class="bi-arrow-right-circle"
+				></i></a>
 			
 		</div>
 	</div>
@@ -295,14 +182,14 @@ include an XML version of the invoice.</p>
 			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
 		</li>
 		<li>
-			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/de/docs/grundlagen/e-rechnungs-formate.md?plain=1" target="_blank">
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/de/docs/e-rechnungs-formate/ubl.md?plain=1" target="_blank">
 				<i class="bi-code-slash"></i>
 				Source code of this page
 			</a>
 		</li>
 		
 		<li>
-			<a href="/e-invoice-eu/en/docs/basics/e-invoice-formats/">
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/ubl/">
 				<i class="bi-translate"></i>
 				Read this page in English
 			</a>
@@ -325,7 +212,41 @@ include an XML version of the invoice.</p>
 		
 		<li>
 			
-			<i class="bi-arrow-right-circle"></i>&nbsp;E-Invoice Formats 
+			<a href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/">Supported Formats</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>E-invoice Formats</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/">Hybrid vs XML</a>
+			
+		</li>
+		
+		<li>
+			
+			<i class="bi-arrow-right-circle"></i>&nbsp;UBL 
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/factur-x-zugferd/">Factur-X/ZUGFeRD</a>
+			
 		</li>
 		
 	</ol>

@@ -1,23 +1,23 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="de" class="no-js">
 <head>
 	<meta charset="utf-8" />
 <meta http-equiv="X-UA-compatible" content="IE=edge" />
-  <link
+ <link
 	rel="alternate"
-	hreflang="de"
-	href="/e-invoice-eu/de/docs/grundlagen/e-rechnungs-formate/"
-/> 
-<meta name="description" content="E-Invoice-EU supports e-invoice formats that conform to the European Standard EN16931." />
-<title>E-Invoice Formats</title>
+	hreflang="en"
+	href="/e-invoice-eu/en/docs/e-invoice-formats/factur-x-zugferd/"
+/>  
+<meta name="description" content="Factur-X/ZUGFeRD invoices are special PDF documents with machine-readable invoice information attached as XML." />
+<title>Factur-X/ZUGFeRD</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
-<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/basics/e-invoice-formats/" />
-<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/basics/e-invoice-formats/" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/e-rechnungs-formate/factur-x-zugferd/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/e-rechnungs-formate/factur-x-zugferd/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="E-Invoice Formats" />
-<meta property="og:description" content="E-Invoice-EU supports e-invoice formats that conform to the European Standard EN16931." />
+<meta property="og:title" content="Factur-X/ZUGFeRD" />
+<meta property="og:description" content="Factur-X/ZUGFeRD invoices are special PDF documents with machine-readable invoice information attached as XML." />
 
 
 	<meta
@@ -54,7 +54,7 @@
 	<div class="qgoda-brand">
 		<a
 			class="navbar-brand"
-			href="/e-invoice-eu/en/docs/"
+			href="/e-invoice-eu/de/docs/"
 			title="E-Invoice-EU Documentation"
 		>
 			<img src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"=
@@ -66,7 +66,7 @@
 			<li class="d-md-none nav-item">
 				<a
 					class="nav-link"
-					href="/e-invoice-eu/en/docs/"
+					href="/e-invoice-eu/de/docs/"
 					title="E-Invoice-EU Documentation"
 				>
 					<i class="bi-house"></i>&nbsp;Home
@@ -75,7 +75,7 @@
 			<li class="nav-item">
 				<a
 					class="nav-link"
-					href="/e-invoice-eu/en/docs/"
+					href="/e-invoice-eu/de/docs/"
 					title="E-Invoice-EU Documentation"
 				>
 					<i class="bi-book"></i>&nbsp;Docs
@@ -100,9 +100,9 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>E-Invoice Formats</h1>
+					<h1>Factur-X/ZUGFeRD</h1>
 					
-					<div class="description">E-Invoice-EU supports e-invoice formats that conform to the European Standard EN16931.</div>
+					<div class="description">Factur-X/ZUGFeRD invoices are special PDF documents with machine-readable invoice information attached as XML.</div>
 				</div>
 				<qgoda-content> 
 
@@ -112,20 +112,17 @@
 
 
 
-<p>There are different approaches to distinguish e-invoice formats.</p>
+<p>France and Germany have developed a different approach to e-invoicing with
+their respective standards Factur-X and ZUGFeRD. Beginning with version 2.1,
+the two standards are now identical.</p>
 
-<h2><a href="#" name="hybrid-formats-factur-x-zugferd-vs.-xml-formats" id="hybrid-formats-factur-x-zugferd-vs.-xml-formats"></a>Hybrid Formats (Factur-X/ZUGFeRD) vs. XML Formats</h2>
+<h2><a href="#" name="pdf-attachments" id="pdf-attachments"></a>PDF Attachments</h2>
 
-<p>Electronic invoices initially were XML documents. In France and Germany,
-the standards Factur-X and ZUGFeRD have been developed. Both Factur-X and
-ZUGFeRD documents are actually PDF invoice documents but they contain an
-equivalent XML version of the invoice as an attachment.</p>
-
-<p>Factur-X and ZUGFeRD are nowadays identical. They are just different names for
-the same thing. Factur-X is the official name but the term ZUGFeRD is still
-prevalent in Germany.</p>
-
-<h3><a href="#" name="pdf-attachments" id="pdf-attachments"></a>PDF Attachments</h3>
+<p>While the pure XML formats  and
+ can <em>optionally</em> embed a PDF version of an
+invoice, Factur-X/ZUGFeRD got the opposite way. They are special PDFs with
+a machine-readable XML version of the invoice added to the PDF as an
+attachment.</p>
 
 <p>The ability to attach arbitrary documents to a PDF is one of the lesser
 known features of the Portable Document Format PDF and most PDF viewers do not
@@ -135,9 +132,18 @@ feature.</p>
 <div class="img"><img src="/e-invoice-eu/images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader.webp" alt="PDF Attachments in Adobe Acrobat Reader" sizes="(max-width: 575px) calc(100vw - 30px), (max-width: 767px) 510px (max-width: 991px) 396px (max-width: 1199px) 528px (max-width: 1399px) 627px 726px" srcset="/e-invoice-eu//images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader-160w.webp 160w, /e-invoice-eu//images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader-320w.webp 320w, /e-invoice-eu//images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader-640w.webp 640w, /e-invoice-eu//images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader-1280w.webp 1280w, /e-invoice-eu//images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader-1920w.webp 1920w"></img></div>
 
 
-<p>The functionality is hidden behind a paperclip icon at the right side of the window. Clicking it reveals the list of attachments to the document. In this case, not only the XML invoice file but an additional file for informational purposes is attached, too.</p>
+<p>The functionality is hidden behind a paperclip icon at the right side of the
+window. Clicking it reveals the list of attachments to the document. In this
+case, not only the XML invoice file but an additional file for informational
+purposes is attached, too.</p>
 
-<h3><a href="#" name="pdf-a" id="pdf-a"></a>PDF/A</h3>
+<h2><a href="#" name="cii-is-mandatory-for-factur-x-zugferd" id="cii-is-mandatory-for-factur-x-zugferd"></a>CII is Mandatory for Factur-X/ZUGFeRD</h2>
+
+<p>Unfortunately, Factur-X/ZUGFeRD does not leave a choice between
+ and . CII is
+the mandatory syntax for the embedded XML.</p>
+
+<h2><a href="#" name="pdf-a" id="pdf-a"></a>PDF/A</h2>
 
 <p>But even with the attached XML file, a PDF does not automatically qualify as
 a valid electronic invoice. A PDF file may look different on different devices.
@@ -181,42 +187,28 @@ certain extra information for Factur-X/ZUGFeRD.
 
 
 
-<h2><a href="#" name="ubl-vs-cii-documents" id="ubl-vs-cii-documents"></a>UBL vs CII Documents</h2>
+<h2><a href="#" name="profiles-conformance-levels" id="profiles-conformance-levels"></a>Profiles (Conformance Levels)</h2>
 
-<p>Although a PDF is an electronic document and to a certain extent
-machine-readable it is not considered an electronic invoice. The same holds
-true for text processor spreadsheet documents. The European standard EN16931
-requires e-invoices to be XML Documents in one of the syntaxes
-UBL (Universal Business Language) or CII (Cross Industry Invoices).</p>
+<p>The standard allows for 6 different conformance levels called profiles:</p>
 
-
-
-
-
-
-<div class="alert alert-info" role="alert">
-    <div>
-        <strong>
-            <i class="bi-info-circle"></i>
-            <span class="title">XML Syntax</span>
-        </strong>
-    </div>
-    <p>
-
-What is meant with syntax? A UBL and a CII invoice can contain the exact same
-information. What differs is the name of the XML element and its location in
-the document object model. 
-
-</p>
-</div>
+<ul>
+<li>Minimum</li>
+<li>Basic WL</li>
+<li>Basic</li>
+<li>EN 16931 (formerly known as Comfort)</li>
+<li>Extended</li>
+<li>XRechnung</li>
+</ul>
 
 
+<p>Each profile restricts the number of allowed CII elements to a certain
+subset. "Minimum" is the smallest subset and "Extended" the largest.
+The profile "XRechnung" seems to allow the full range of CII elements although
+the documentation is not clear about that.</p>
 
-
-
-
-
-
+<p>The profiles "Minimum" and "Basic WL" do not contain enough information for
+a valid invoice according to VAT legislation but are considered
+<em>accounting aids</em>.</p>
 
 
 
@@ -227,14 +219,15 @@ the document object model.
     <div>
         <strong>
             <i class="bi-info-circle"></i>
-            <span class="title">Embedding a PDF Invoice in XML?</span>
+            <span class="title">Purpose of Profiles</span>
         </strong>
     </div>
     <p>
 
-For Factur-X/ZUGFeRD, the machine-readable XML version of the document is
-embedded in the PDF invoice document. But both UBL and CII optionally allow
-embedding a PDF version in the XML, exactly the other way around.
+When a data structure allows optional information, the common approach in the
+software industry is to recommend that readers of the data should simply
+ignore those parts that are not relevant for a particular application. The
+strategy chosen by Factur-X/ZUGFeRD makes things unnecessarily complicated.
 
 </p>
 </div>
@@ -245,36 +238,64 @@ embedding a PDF version in the XML, exactly the other way around.
 
 
 
-<h3><a href="#" name="ubl-universal-business-language" id="ubl-universal-business-language"></a>UBL (Universal Business Language)</h3>
+<h2><a href="#" name="discrepancies-between-pdf-and-xml" id="discrepancies-between-pdf-and-xml"></a>Discrepancies Between PDF and XML</h2>
 
-<p>UBL is an XML syntax for many different business documents, among others
-invoices and credit notes. E-Invoice-EU currently only supports invoices.</p>
+<p>Factur-X/PDF invoices look like regular PDFs and recipients may not even
+know that they contain an XML version of the same document. The German
+ministry of Finance stipulates that the PDF and XML versions must be
+content-identical counterparts (German: <em>inhaltsgleiche Mehrstücke</em>). It is
+still unclear how courts will assess any discrepancies between the two
+versions.</p>
 
-<h3><a href="#" name="cii-cross-industry-invoice" id="cii-cross-industry-invoice"></a>CII (Cross Industry Invoice)</h3>
+<h2><a href="#" name="documentation" id="documentation"></a>Documentation</h2>
 
-<p>CII only supports invoices but allows a lot more information to be included in
-the invoice than UBL does. However, E-Invoice-EU currently only supports the
-subset of CII that has equivalents in UBL invoices.</p>
+<p>You can download the documentation for Factur-X from the site
+<a href="https://fnfe-mpe.org/factur-x/factur-x_en/" target="_blank">https://fnfe-mpe.org/factur-x/factur-x_en/</a>. The docs for the German counterpart
+ZUGFeRD are available from <a href="https://www.ferd-net.de/" target="_blank">https://www.ferd-net.de/</a>. You have to enter a
+valid e-mail address in order to be able to download the documentation. The
+exact links frequently change. Please use a search engine.</p>
 
-<h2><a href="#" name="takeaway" id="takeaway"></a>Takeaway</h2>
 
-<p>An electronic invoice is either an XML document in one of the flavours UBL and
-CII or a Factur-X/ZUGFeRD PDF. If you opt for an XML element you <em>may</em> include
-a PDF version. If you go with the hybrid format Factur-X/ZUGFeRD you <em>must</em>
-include an XML version of the invoice.</p>
+
+
+
+
+<div class="alert alert-info" role="alert">
+    <div>
+        <strong>
+            <i class="bi-info-circle"></i>
+            <span class="title">Quality of the Documentation</span>
+        </strong>
+    </div>
+    <p>
+
+Although Factur-X and ZUGFeRD are now identical standards, there is both a
+French and German version of the documentation. The structure of the
+documentation fundamentally chages with every release and occasionally even
+contains garbage like <code>.DS_Store</code> files from the Mac where stuff
+has been zipped.
+
+</p>
+</div>
+
+
+
+
+
+
  
 				 
 <div class="guided-tour container">
 	<div class="row">
 		<div class="col-5 text-left guided-tour-link">
 			
-			<a href="/e-invoice-eu/en/docs/basics/general-mode-of-operation/"
-				><i class="bi-arrow-left-circle"></i>&nbsp;General Mode of Operation</a>
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;CII</a>
 			
 		</div>
 		<div class="col-2 text-center guided-tour-link">
 			
-			<a href="/e-invoice-eu/en/docs/">Start</a>
+			<a href="/e-invoice-eu/de/docs/">Start</a>
 			
 		</div>
 		<div class="col-5 text-right guided-tour-link">
@@ -295,23 +316,23 @@ include an XML version of the invoice.</p>
 			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
 		</li>
 		<li>
-			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/en/docs/basics/e-invoice-formats.md?plain=1" target="_blank">
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/de/docs/e-rechnungs-formate/factur-x-zugferd.md?plain=1" target="_blank">
 				<i class="bi-code-slash"></i>
 				Source code of this page
 			</a>
 		</li>
-		 
+		
 		<li>
-			<a href="/e-invoice-eu/de/docs/grundlagen/e-rechnungs-formate/">
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/factur-x-zugferd/">
 				<i class="bi-translate"></i>
-				Diese Seite auf Deutsch lesen
+				Read this page in English
 			</a>
 		</li>
-		
+		 
 	</ol>
 </div>
    
-<h4>Basics</h4>
+<h4>Grundlagen</h4>
  
 <div class="sidebar-module">
 	<h4 class="sidebar-title"></h4>
@@ -319,13 +340,47 @@ include an XML version of the invoice.</p>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/en/docs/basics/general-mode-of-operation/">General Mode of Operation</a>
+			<a href="/e-invoice-eu/de/docs/grundlagen/funktionsweise/">Generelle Funktionsweise</a>
 			
 		</li>
 		
 		<li>
 			
-			<i class="bi-arrow-right-circle"></i>&nbsp;E-Invoice Formats 
+			<a href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/">Supported Formats</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>E-invoice Formats</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/">Hybrid vs XML</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a>
+			
+		</li>
+		
+		<li>
+			
+			<i class="bi-arrow-right-circle"></i>&nbsp;Factur-X/ZUGFeRD 
 		</li>
 		
 	</ol>
@@ -349,13 +404,13 @@ include an XML version of the invoice.</p>
 				 Copyright &copy; 2016-2025 <a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
 			</div>
 			<div class="col-12 col-md-3 footer-links text-md-center">
-				<a href="/e-invoice-eu/en/legal-disclosure/">
-					Legal Disclosure
+				<a href="/e-invoice-eu/de/impressum/">
+					Impressum
 				</a>
 			</div>
 			<div class="col-12 col-md-3 footer-links text-md-center">
-				<a href="/e-invoice-eu/en/data-privacy-policy/">
-					Data Privacy
+				<a href="/e-invoice-eu/de/datenschutzerklaerung/">
+					Datenschutz
 				</a>
 			</div>
 			<div class="col-12 col-md-3 footer-links text-md-center">
@@ -376,27 +431,27 @@ include an XML version of the invoice.</p>
 
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
   <cookie-consent-banner
-	btn-label-accept-and-continue="Agree and continue"
-	btn-label-only-essential-and-continue="Continue with technically required cookies only"
-	btn-label-persist-selection-and-continue="Save selection and continue"
-	btn-label-select-all-and-continue="Select all and continue"
-	content-settings-description="You can decide which cookies are used by selecting the respective options below. Please note that your selection may impair in the functionality of the service."
+	btn-label-accept-and-continue="Zustimmen und weiter"
+	btn-label-only-essential-and-continue="Weiter mit nur technisch notwendigen Cookies"
+	btn-label-persist-selection-and-continue="Auswahl speichern und weiter"
+	btn-label-select-all-and-continue="Alles auswählen und weiter"
+	content-settings-description="Mit den entsprechenden Optionen unterhalb können sie steuern, welche Cookies verwendet werden. Die Auswahl kann die Funktionalität des Dienstes beeinträchtigen."
 >
-	This website uses cookies and similar technologies to provide certain
-	features, enhance the user experience and deliver content that is relevant to
-	your interests. Depending on their purpose, analysis and marketing cookies may
-	be used in addition to technically necessary cookies. By clicking on "Agree
-	and continue", you declare your consent to the use of the aforementioned
-	cookies.
+	Diese Website verwendet Cookies und ähnliche Technologien, um gewisse
+	Funktionalität zu ermöglichen, die Benutzbarkeit zu erhöhen und Inhalt
+	entsprechend ihren Interessen zu liefern. Über die technisch notwendigen
+	Cookies hinaus können abhängig von ihrem Zweck Analyse- und Marketing-Cookies
+	zum Einsatz kommen. Sie können ihre Zustimmung zu den vorher erwähnten Cookies
+	erklären, indem sie auf "Zustimmen und weiter" klicken.
 	<a
 		href="javascript:document.dispatchEvent(new Event('cookie_consent_details_show'))"
 		class="consent-banner-link"
-	>
-		Here
-	</a>
-	you can make detailed settings or revoke your consent (in part if necessary)
-	with effect for the future. For further information, please refer to our
-	<a href="/en/data-privacy/" class="consent-banner-link">Privacy Policy</a>.
+		>Hier</a>
+	können sie Detaileinstellungen vornehmen oder ihre Zustimmung - auch teilweise
+	- mit Wirkung für die Zukunft zurücknehmen. Für weitere Informationen lesen
+	sie bitte unsere
+	<a href="/de/datenschutzerklaerung/" class="consent-banner-link"
+		>Datenschutzerklärung</a>.
 </cookie-consent-banner>
 
 <script>
@@ -406,14 +461,14 @@ include an XML version of the invoice.</p>
 	cookieConsentBannerElement.availableCategories = [
 		{
 			description:
-				'Enable you to navigate and use the basic functions and to store preferences.',
+				'Lässt sie navigieren, Grundfunktionen benutzen und Einstellungen speichern.',
 			key: 'technically_required',
-			label: 'Technically necessary cookies',
+			label: 'Technisch notwendigen Cookies',
 			isMandatory: true,
 		},
 		{
 			description:
-				'Enable the site owner to determine how visitors interact with our service in order to improve the user experience.',
+				'Ermöglicht dem Betreiber festzustellen, wie Besucherinnen und Besucher mit der Seite interagieren, damit wir die Benutzbarkeit der Seite verbessern können.',
 			key: 'analytics',
 			label: 'Analysis cookies',
 		},

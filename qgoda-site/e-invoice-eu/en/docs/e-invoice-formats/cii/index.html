@@ -1,23 +1,23 @@
 <!doctype html>
-<html lang="de" class="no-js">
+<html lang="en" class="no-js">
 <head>
 	<meta charset="utf-8" />
 <meta http-equiv="X-UA-compatible" content="IE=edge" />
- <link
+  <link
 	rel="alternate"
-	hreflang="en"
-	href="/e-invoice-eu/en/docs/"
-/>  
-<meta name="description" content="Freie und quelloffene Software-Suite zur Generierung von EN16931-konformen Rechnungen (Factur-X/ZUGFeRD, UBL, CII, XRechnung) aus populären Tabellenkalkulationsformaten oder JSON." />
-<title>E-Invoice-EU</title>
+	hreflang="de"
+	href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/"
+/> 
+<meta name="description" content="CII stands for Cross Industry Invoice." />
+<title>CII</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
-<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/" />
-<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/e-invoice-formats/cii/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/e-invoice-formats/cii/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="E-Invoice-EU" />
-<meta property="og:description" content="Freie und quelloffene Software-Suite zur Generierung von EN16931-konformen Rechnungen (Factur-X/ZUGFeRD, UBL, CII, XRechnung) aus populären Tabellenkalkulationsformaten oder JSON." />
+<meta property="og:title" content="CII" />
+<meta property="og:description" content="CII stands for Cross Industry Invoice." />
 
 
 	<meta
@@ -54,7 +54,7 @@
 	<div class="qgoda-brand">
 		<a
 			class="navbar-brand"
-			href="/e-invoice-eu/de/docs/"
+			href="/e-invoice-eu/en/docs/"
 			title="E-Invoice-EU Documentation"
 		>
 			<img src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"=
@@ -66,7 +66,7 @@
 			<li class="d-md-none nav-item">
 				<a
 					class="nav-link"
-					href="/e-invoice-eu/de/docs/"
+					href="/e-invoice-eu/en/docs/"
 					title="E-Invoice-EU Documentation"
 				>
 					<i class="bi-house"></i>&nbsp;Home
@@ -75,7 +75,7 @@
 			<li class="nav-item">
 				<a
 					class="nav-link"
-					href="/e-invoice-eu/de/docs/"
+					href="/e-invoice-eu/en/docs/"
 					title="E-Invoice-EU Documentation"
 				>
 					<i class="bi-book"></i>&nbsp;Docs
@@ -100,9 +100,9 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>E-Invoice-EU</h1>
+					<h1>CII</h1>
 					
-					<div class="description">Freie und quelloffene Software-Suite zur Generierung von EN16931-konformen Rechnungen (Factur-X/ZUGFeRD, UBL, CII, XRechnung) aus populären Tabellenkalkulationsformaten oder JSON.</div>
+					<div class="description">CII stands for Cross Industry Invoice.</div>
 				</div>
 				<qgoda-content> 
 
@@ -112,59 +112,43 @@
 
 
 
+<p>The other approved XML syntax for invoices in the EU is UN/CEFACT CII (United
+Nations Centre for Trade Facilitation and Electronic Business Cross Industry
+Invoice).</p>
 
+<p>Unlike , the scope of CII is restricted to invoices;
+other document types are not supported.  But that does not mean that the format
+is in any way simpler than UBL. In fact, the CII documentation is certainly
+not for the faint of heart.</p>
 
+<p>CII can carry an overwhelming amount of information going far beyond the
+requirements of the European Standard EN16931. Currently, it is not possible
+to produce these additional elements with E-Invoice-EU.</p>
 
-
-
-
-
-<div class="alert alert-warning" role="alert">
-    <div>
-        <strong>
-            <i class="bi-exclamation-triangle"></i>
-            <span class="title">Unvollständige Übersetzung!</span>
-        </strong>
-    </div>
-    <p>
-
-Die Übersetzung für diese Site ist noch nicht fertiggestellt. Noch nicht
-übersetzte Passagen werden daher auf Englisch angeboten.
-
-</p>
-</div>
-
-
-
-
-
-
-
-<h2><a href="#" name="features" id="features"></a>Features</h2>
-
-<ul>
-<li>E-Rechnungen werden aus populären Tabellenkalkulationsformaten oder JSON generiert.</li>
-<li>Untertütze alle elektronischen Rechnungsformate, die dem EU-Standard EN16931 entsprechen, also Factur-X/ZUGFeRD, UBL, and CII.</li>
-<li>In TypeScript/JavaScript geschrieben.</li>
-<li>Große Teile des Programmcodes werden aus der aktuellen PEPPOL-UBL-Dokumentation generiert.</li>
-<li>Automatische Validierung der Eingabedokumenten-Struktur.</li>
-<li>OpenAPI/Swagger-API-Documentation enthalten.</li>
-</ul>
-
+<p>The documentation for <a href="http://fnfe-mpe.org/factur-x/" target="_blank">Factur-X</a> and
+<a href="https://www.ferd-net.de/en/" target="_blank">ZUGFeRD</a> describe the syntacs and semantics of
+CII according to these standards but using the documentation is a challenge of
+its own. Since E-Invoice-EU does not require a deeper understanding of CII,
+this is left as an exercise to the reader.</p>
  
 				 
 <div class="guided-tour container">
 	<div class="row">
 		<div class="col-5 text-left guided-tour-link">
 			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/ubl/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;UBL</a>
+			
 		</div>
 		<div class="col-2 text-center guided-tour-link">
+			
+			<a href="/e-invoice-eu/en/docs/">Start</a>
 			
 		</div>
 		<div class="col-5 text-right guided-tour-link">
 			
-			<a href="/e-invoice-eu/de/docs/grundlagen/funktionsweise/"
-				>Generelle Funktionsweise&nbsp;<i
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/factur-x-zugferd/"
+				>Factur-X/ZUGFeRD&nbsp;<i
 					class="bi-arrow-right-circle"
 				></i></a>
 			
@@ -184,23 +168,23 @@ Die Übersetzung für diese Site ist noch nicht fertiggestellt. Noch nicht
 			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
 		</li>
 		<li>
-			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/de/docs/index.md?plain=1" target="_blank">
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/en/docs/e-invoice-formats/cii.md?plain=1" target="_blank">
 				<i class="bi-code-slash"></i>
 				Source code of this page
 			</a>
 		</li>
-		
+		 
 		<li>
-			<a href="/e-invoice-eu/en/docs/">
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">
 				<i class="bi-translate"></i>
-				Read this page in English
+				Diese Seite auf Deutsch lesen
 			</a>
 		</li>
-		 
+		
 	</ol>
 </div>
    
-<h4>Grundlagen</h4>
+<h4>Basics</h4>
  
 <div class="sidebar-module">
 	<h4 class="sidebar-title"></h4>
@@ -208,13 +192,13 @@ Die Übersetzung für diese Site ist noch nicht fertiggestellt. Noch nicht
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/grundlagen/funktionsweise/">Generelle Funktionsweise</a>
+			<a href="/e-invoice-eu/en/docs/basics/general-mode-of-operation/">General Mode of Operation</a>
 			
 		</li>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/">Supported Formats</a>
+			<a href="/e-invoice-eu/en/docs/basics/supported-formats/">Supported Formats</a>
 			
 		</li>
 		
@@ -230,25 +214,24 @@ Die Übersetzung für diese Site ist noch nicht fertiggestellt. Noch nicht
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/">Hybrid vs XML</a>
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/hybrid-vs-xml/">Hybrid vs XML</a>
 			
 		</li>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a>
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/ubl/">UBL</a>
 			
 		</li>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a>
-			
+			<i class="bi-arrow-right-circle"></i>&nbsp;CII 
 		</li>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/factur-x-zugferd/">Factur-X/ZUGFeRD</a>
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/factur-x-zugferd/">Factur-X/ZUGFeRD</a>
 			
 		</li>
 		
@@ -273,13 +256,13 @@ Die Übersetzung für diese Site ist noch nicht fertiggestellt. Noch nicht
 				 Copyright &copy; 2016-2025 <a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
 			</div>
 			<div class="col-12 col-md-3 footer-links text-md-center">
-				<a href="/e-invoice-eu/de/impressum/">
-					Impressum
+				<a href="/e-invoice-eu/en/legal-disclosure/">
+					Legal Disclosure
 				</a>
 			</div>
 			<div class="col-12 col-md-3 footer-links text-md-center">
-				<a href="/e-invoice-eu/de/datenschutzerklaerung/">
-					Datenschutz
+				<a href="/e-invoice-eu/en/data-privacy-policy/">
+					Data Privacy
 				</a>
 			</div>
 			<div class="col-12 col-md-3 footer-links text-md-center">
@@ -300,27 +283,27 @@ Die Übersetzung für diese Site ist noch nicht fertiggestellt. Noch nicht
 
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
   <cookie-consent-banner
-	btn-label-accept-and-continue="Zustimmen und weiter"
-	btn-label-only-essential-and-continue="Weiter mit nur technisch notwendigen Cookies"
-	btn-label-persist-selection-and-continue="Auswahl speichern und weiter"
-	btn-label-select-all-and-continue="Alles auswählen und weiter"
-	content-settings-description="Mit den entsprechenden Optionen unterhalb können sie steuern, welche Cookies verwendet werden. Die Auswahl kann die Funktionalität des Dienstes beeinträchtigen."
+	btn-label-accept-and-continue="Agree and continue"
+	btn-label-only-essential-and-continue="Continue with technically required cookies only"
+	btn-label-persist-selection-and-continue="Save selection and continue"
+	btn-label-select-all-and-continue="Select all and continue"
+	content-settings-description="You can decide which cookies are used by selecting the respective options below. Please note that your selection may impair in the functionality of the service."
 >
-	Diese Website verwendet Cookies und ähnliche Technologien, um gewisse
-	Funktionalität zu ermöglichen, die Benutzbarkeit zu erhöhen und Inhalt
-	entsprechend ihren Interessen zu liefern. Über die technisch notwendigen
-	Cookies hinaus können abhängig von ihrem Zweck Analyse- und Marketing-Cookies
-	zum Einsatz kommen. Sie können ihre Zustimmung zu den vorher erwähnten Cookies
-	erklären, indem sie auf "Zustimmen und weiter" klicken.
+	This website uses cookies and similar technologies to provide certain
+	features, enhance the user experience and deliver content that is relevant to
+	your interests. Depending on their purpose, analysis and marketing cookies may
+	be used in addition to technically necessary cookies. By clicking on "Agree
+	and continue", you declare your consent to the use of the aforementioned
+	cookies.
 	<a
 		href="javascript:document.dispatchEvent(new Event('cookie_consent_details_show'))"
 		class="consent-banner-link"
-		>Hier</a>
-	können sie Detaileinstellungen vornehmen oder ihre Zustimmung - auch teilweise
-	- mit Wirkung für die Zukunft zurücknehmen. Für weitere Informationen lesen
-	sie bitte unsere
-	<a href="/de/datenschutzerklaerung/" class="consent-banner-link"
-		>Datenschutzerklärung</a>.
+	>
+		Here
+	</a>
+	you can make detailed settings or revoke your consent (in part if necessary)
+	with effect for the future. For further information, please refer to our
+	<a href="/en/data-privacy/" class="consent-banner-link">Privacy Policy</a>.
 </cookie-consent-banner>
 
 <script>
@@ -330,14 +313,14 @@ Die Übersetzung für diese Site ist noch nicht fertiggestellt. Noch nicht
 	cookieConsentBannerElement.availableCategories = [
 		{
 			description:
-				'Lässt sie navigieren, Grundfunktionen benutzen und Einstellungen speichern.',
+				'Enable you to navigate and use the basic functions and to store preferences.',
 			key: 'technically_required',
-			label: 'Technisch notwendigen Cookies',
+			label: 'Technically necessary cookies',
 			isMandatory: true,
 		},
 		{
 			description:
-				'Ermöglicht dem Betreiber festzustellen, wie Besucherinnen und Besucher mit der Seite interagieren, damit wir die Benutzbarkeit der Seite verbessern können.',
+				'Enable the site owner to determine how visitors interact with our service in order to improve the user experience.',
 			key: 'analytics',
 			label: 'Analysis cookies',
 		},

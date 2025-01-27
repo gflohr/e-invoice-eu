@@ -6,18 +6,18 @@
  <link
 	rel="alternate"
 	hreflang="en"
-	href="/e-invoice-eu/en/docs/"
+	href="/e-invoice-eu/en/docs/basics/supported-formats/"
 />  
-<meta name="description" content="Freie und quelloffene Software-Suite zur Generierung von EN16931-konformen Rechnungen (Factur-X/ZUGFeRD, UBL, CII, XRechnung) aus populären Tabellenkalkulationsformaten oder JSON." />
-<title>E-Invoice-EU</title>
+<meta name="description" content="E-Invoice-EU supports e-invoice formats that conform to the European Standard EN16931." />
+<title>Supported Formats</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
-<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/" />
-<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="E-Invoice-EU" />
-<meta property="og:description" content="Freie und quelloffene Software-Suite zur Generierung von EN16931-konformen Rechnungen (Factur-X/ZUGFeRD, UBL, CII, XRechnung) aus populären Tabellenkalkulationsformaten oder JSON." />
+<meta property="og:title" content="Supported Formats" />
+<meta property="og:description" content="E-Invoice-EU supports e-invoice formats that conform to the European Standard EN16931." />
 
 
 	<meta
@@ -100,9 +100,9 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>E-Invoice-EU</h1>
+					<h1>Supported Formats</h1>
 					
-					<div class="description">Freie und quelloffene Software-Suite zur Generierung von EN16931-konformen Rechnungen (Factur-X/ZUGFeRD, UBL, CII, XRechnung) aus populären Tabellenkalkulationsformaten oder JSON.</div>
+					<div class="description">E-Invoice-EU supports e-invoice formats that conform to the European Standard EN16931.</div>
 				</div>
 				<qgoda-content> 
 
@@ -112,59 +112,123 @@
 
 
 
+<p>E-Invoice-EU supports the following <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/">e-invoice
+formats</a>:</p>
+
+<table>
+<thead>
+<tr>
+<th> Name              </th>
+<th> Customization ID/Remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> CII               </td>
+<td> <code>urn:cen.eu:en16931:2017</code></td>
+</tr>
+<tr>
+<td> Factur-X-Minimum  </td>
+<td> <code>urn:factur-x.eu:1p0:minimum</code></td>
+</tr>
+<tr>
+<td> Factur-X-BasicWL  </td>
+<td> <code>urn:factur-x.eu:1p0:basicwl</code></td>
+</tr>
+<tr>
+<td> Factur-X-Basic-WL </td>
+<td> is an alias for Factur-X-BasicWL</td>
+</tr>
+<tr>
+<td> Factur-X-Basic    </td>
+<td> <code>'urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic'</code></td>
+</tr>
+<tr>
+<td> Factur-X-EN16931  </td>
+<td> <code>urn:cen.eu:en16931:2017</code></td>
+</tr>
+<tr>
+<td> Factur-X-Comfort  </td>
+<td> is an alias for Factur-X-EN16931</td>
+</tr>
+<tr>
+<td> Factur-X-Extended </td>
+<td> <code>urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended</code></td>
+</tr>
+<tr>
+<td> Factur-X-XRechung </td>
+<td> <code>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</code></td>
+</tr>
+<tr>
+<td> UBL               </td>
+<td> <code>urn:cen.eu:en16931:2017</code></td>
+</tr>
+<tr>
+<td> XRECHNUNG-CII     </td>
+<td> <code>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</code></td>
+</tr>
+<tr>
+<td> XRECHNUNG-UBL     </td>
+<td> <code>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0</code></td>
+</tr>
+<tr>
+<td> ZUGFeRD-Minimum   </td>
+<td> is an alias for Factur-X-Minimum</td>
+</tr>
+<tr>
+<td> ZUGFeRD-BasicWL   </td>
+<td> is an alias for Factur-X-BasicWL</td>
+</tr>
+<tr>
+<td> ZUGFeRD-Basic-WL  </td>
+<td> is an alias for Factur-X-BasicWL</td>
+</tr>
+<tr>
+<td> ZUGFeRD-Basic     </td>
+<td> is an alias for Factur-X-Basic</td>
+</tr>
+<tr>
+<td> ZUGFeRD-EN16931   </td>
+<td> is an alias for Factur-X-EN16931</td>
+</tr>
+<tr>
+<td> ZUGFeRD-Comfort   </td>
+<td> is an alias for Factur-X-EN16931</td>
+</tr>
+<tr>
+<td> ZUGFeRD-Extended  </td>
+<td> is an alias for Factur-X-Extended</td>
+</tr>
+<tr>
+<td> ZUGFeRD-XRechung  </td>
+<td> is an alias for Factur-X-XRechnung</td>
+</tr>
+</tbody>
+</table>
 
 
-
-
-
-
-
-<div class="alert alert-warning" role="alert">
-    <div>
-        <strong>
-            <i class="bi-exclamation-triangle"></i>
-            <span class="title">Unvollständige Übersetzung!</span>
-        </strong>
-    </div>
-    <p>
-
-Die Übersetzung für diese Site ist noch nicht fertiggestellt. Noch nicht
-übersetzte Passagen werden daher auf Englisch angeboten.
-
-</p>
-</div>
-
-
-
-
-
-
-
-<h2><a href="#" name="features" id="features"></a>Features</h2>
-
-<ul>
-<li>E-Rechnungen werden aus populären Tabellenkalkulationsformaten oder JSON generiert.</li>
-<li>Untertütze alle elektronischen Rechnungsformate, die dem EU-Standard EN16931 entsprechen, also Factur-X/ZUGFeRD, UBL, and CII.</li>
-<li>In TypeScript/JavaScript geschrieben.</li>
-<li>Große Teile des Programmcodes werden aus der aktuellen PEPPOL-UBL-Dokumentation generiert.</li>
-<li>Automatische Validierung der Eingabedokumenten-Struktur.</li>
-<li>OpenAPI/Swagger-API-Documentation enthalten.</li>
-</ul>
-
+<p>Please see the section <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/">E-Invoice
+Formats</a> for more information about
+customization ids and the different e-invoice formats.</p>
  
 				 
 <div class="guided-tour container">
 	<div class="row">
 		<div class="col-5 text-left guided-tour-link">
 			
+			<a href="/e-invoice-eu/de/docs/grundlagen/funktionsweise/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;Generelle Funktionsweise</a>
+			
 		</div>
 		<div class="col-2 text-center guided-tour-link">
+			
+			<a href="/e-invoice-eu/de/docs/">Start</a>
 			
 		</div>
 		<div class="col-5 text-right guided-tour-link">
 			
-			<a href="/e-invoice-eu/de/docs/grundlagen/funktionsweise/"
-				>Generelle Funktionsweise&nbsp;<i
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/"
+				>Hybrid vs XML&nbsp;<i
 					class="bi-arrow-right-circle"
 				></i></a>
 			
@@ -184,14 +248,14 @@ Die Übersetzung für diese Site ist noch nicht fertiggestellt. Noch nicht
 			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
 		</li>
 		<li>
-			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/de/docs/index.md?plain=1" target="_blank">
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/de/docs/grundlagen/unterstuetzte-formate.md?plain=1" target="_blank">
 				<i class="bi-code-slash"></i>
 				Source code of this page
 			</a>
 		</li>
 		
 		<li>
-			<a href="/e-invoice-eu/en/docs/">
+			<a href="/e-invoice-eu/en/docs/basics/supported-formats/">
 				<i class="bi-translate"></i>
 				Read this page in English
 			</a>
@@ -214,8 +278,7 @@ Die Übersetzung für diese Site ist noch nicht fertiggestellt. Noch nicht
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/">Supported Formats</a>
-			
+			<i class="bi-arrow-right-circle"></i>&nbsp;Supported Formats 
 		</li>
 		
 	</ol>
