@@ -1,4 +1,5 @@
 ---
 doc:
   sections:
-    - ['basics', 'general-mode-of-operation', 'e-invoice-formats']
+    - ['basics', 'general-mode-of-operation', 'supported-formats']
+    - ['e-invoice-formats', 'hybrid-vs-xml', 'ubl', 'cii', 'factur-x-zugferd']
