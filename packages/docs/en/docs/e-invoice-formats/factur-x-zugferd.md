@@ -17,7 +17,7 @@ the two standards are now identical.
 
 While the pure XML formats [% q.lanchor(name='ubl') %] and
 [% q.lanchor(name='cii') %] can *optionally* embed a PDF version of an
-invoice, Factur-X/ZUGFeRD got the opposite way. They are special PDFs with
+invoice, Factur-X/ZUGFeRD goes the opposite way. They are special PDFs with
 a machine-readable XML version of the invoice added to the PDF as an
 attachment.
 
@@ -91,18 +91,18 @@ a valid invoice according to VAT legislation but are considered
 <!--qgoda-no-xgettext-->
 [% WRAPPER components/infobox.html type='info' title=title %]
 <!--/qgoda-no-xgettext-->
-When a data structure allows optional information, the common approach in the
+When a data format allows optional information, the common approach in the
 software industry is to recommend that readers of the data should simply
 ignore those parts that are not relevant for a particular application. The
-strategy chosen by Factur-X/ZUGFeRD makes things unnecessarily complicated.
+strategy chosen by Factur-X/ZUGFeRD, however, makes things unnecessarily complicated.
 <!--qgoda-no-xgettext-->
 [% END %]
 <!--/qgoda-no-xgettext-->
 
 ## Discrepancies Between PDF and XML
 
-Factur-X/PDF invoices look like regular PDFs and recipients may not even
-know that they contain an XML version of the same document. The German
+Factur-X/ZUGFeRD invoices look like regular PDFs and recipients may not even
+know that the documents contain an XML version of it. The German
 ministry of Finance stipulates that the PDF and XML versions must be
 content-identical counterparts (German: *inhaltsgleiche Mehrstücke*). It is
 still unclear how courts will assess any discrepancies between the two
@@ -110,20 +110,19 @@ versions.
 
 ## Documentation
 
-You can download the documentation for Factur-X from the site
+You can download the documentation for Factur-X from
 https://fnfe-mpe.org/factur-x/factur-x_en/. The docs for the German counterpart
 ZUGFeRD are available from https://www.ferd-net.de/. You have to enter a
 valid e-mail address in order to be able to download the documentation. The
-exact links frequently change. Please use a search engine.
-
+exact links frequently change. Please use a search engine!
 
 [% title = "Quality of the Documentation" %]
 <!--qgoda-no-xgettext-->
 [% WRAPPER components/infobox.html type='info' title=title %]
 <!--/qgoda-no-xgettext-->
 Although Factur-X and ZUGFeRD are now identical standards, there is both a
-French and German version of the documentation. The structure of the
-documentation fundamentally chages with every release and occasionally even
+French and German version of the documentation with different structure. The structure of the
+documentation fundamentally changes with every release and occasionally even
 contains garbage like <code>.DS_Store</code> files from the Mac where stuff
 has been zipped.
 <!--qgoda-no-xgettext-->

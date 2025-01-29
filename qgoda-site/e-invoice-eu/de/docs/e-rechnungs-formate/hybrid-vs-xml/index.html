@@ -8,16 +8,16 @@
 	hreflang="en"
 	href="/e-invoice-eu/en/docs/e-invoice-formats/hybrid-vs-xml/"
 />  
-<meta name="description" content="E-Invoice-EU supports e-invoice formats that conform to the European standard EN16931." />
-<title>Hybrid vs XML</title>
+<meta name="description" content="E-Invoice-EU unterstützte E-Rechnungs-Formate, die der europäischen Norm EN16931 entsprechen." />
+<title>Hybrid vs. XML</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
 <link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/" />
 <meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="Hybrid vs XML" />
-<meta property="og:description" content="E-Invoice-EU supports e-invoice formats that conform to the European standard EN16931." />
+<meta property="og:title" content="Hybrid vs. XML" />
+<meta property="og:description" content="E-Invoice-EU unterstützte E-Rechnungs-Formate, die der europäischen Norm EN16931 entsprechen." />
 
 
 	<meta
@@ -100,9 +100,9 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>Hybrid vs XML</h1>
+					<h1>Hybrid vs. XML</h1>
 					
-					<div class="description">E-Invoice-EU supports e-invoice formats that conform to the European standard EN16931.</div>
+					<div class="description">E-Invoice-EU unterstützte E-Rechnungs-Formate, die der europäischen Norm EN16931 entsprechen.</div>
 				</div>
 				<qgoda-content> 
 
@@ -112,13 +112,11 @@
 
 
 
-<p>There are different approaches to distinguish e-invoice formats.</p>
+<p>Es gibt unterschiedliche Ansätze, um E-Rechnungs-Formate zu unterscheiden.</p>
 
-<h2><a href="#" name="xml-formats" id="xml-formats"></a>XML Formats</h2>
+<h2><a href="#" name="xml-formate" id="xml-formate"></a>XML-Formate</h2>
 
-<p>Not every electronic invoice document qualifies as an e-invoice in the
-sense of the European standard EN16931. They have to be XML documents using
-one of the syntaxes <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a> or <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a>.</p>
+<p>Nicht jedes elektronische Rechnungs-Dokument ist eine E-Rechnung im Sinne der europäischen Norm EN16931. Es muss sich vielmehr um XML-Dokumente mit einer der Syntaxen  <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a> oder <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a> handeln.</p>
 
 
 
@@ -129,14 +127,12 @@ one of the syntaxes <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL
     <div>
         <strong>
             <i class="bi-info-circle"></i>
-            <span class="title">XML Syntax</span>
+            <span class="title">XML-Syntax</span>
         </strong>
     </div>
     <p>
 
-What is meant with syntax? A UBL and a CII invoice can contain the exact same
-information. What differs is the name of the XML elements and their location in
-the document object model. 
+Was ist unter Syntax zu verstehen? Eine UBL- und CII-Rechnung kann exakt die gleiche Information enthalten. Was sich unterscheidet, sind die Namen der XML-Element und ihre Position im Dokumenten-Objekt-Modell. 
 
 </p>
 </div>
@@ -147,24 +143,21 @@ the document object model.
 
 
 
-<p>Both UBL and CII allow embedding a human-readable, normally PDF versions of the
+<p>Both UBL and CII allow embedding a human-readable, normally PDF version of the
 invoice to be embedded in the XML.</p>
 
-<h2><a href="#" name="hybrid-formats-factur-x-zugferd" id="hybrid-formats-factur-x-zugferd"></a>Hybrid Formats (Factur-X/ZUGFeRD)</h2>
+<h2><a href="#" name="hybride-formate-factur-x-zugferd" id="hybride-formate-factur-x-zugferd"></a>Hybride Formate (Factur-X/ZUGFeRD)</h2>
 
-<p>In France and Germany, the standards <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/factur-x-zugferd/">Factur-X and ZUGFeRD</a> for e-invoices
-have been developed. Both Factur-X and ZUGFeRD documents are actually PDF
-invoice documents but they contain an equivalent XML version of the invoice as
-an attachment to the PDF.</p>
+<p>In Frankreich und Deutschland wurden die Standards <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/factur-x-zugferd/">Factur-X und ZUGFeRD</a> für E-Rechnungen entwickelt. Sowohl bei Factur-X- als auch bei ZUGFeRD-Dokumenten handelt es sich eigentlich um PDF-Rechnungs-Dokumente. Sie enthalten jedoch eine äquivalente XML-Version der Rechnung als Anhang an das PDF.</p>
 
-<p>Factur-X and ZUGFeRD are nowadays identical. They are just different names for
+<p>Factur-X and ZUGFeRD are nowadays identical standards. They are just different names for
 the same thing. Factur-X is the official name but the term ZUGFeRD is still
 prevalent in Germany.</p>
 
-<h2><a href="#" name="takeaway" id="takeaway"></a>Takeaway</h2>
+<h2><a href="#" name="fazit" id="fazit"></a>Fazit</h2>
 
 <p>An electronic invoice is either an XML document in one of the flavours UBL and
-CII or a Factur-X/ZUGFeRD PDF. If you opt for an XML element you <em>may</em> include
+CII or a Factur-X/ZUGFeRD PDF. If you opt for an XML version you <em>may</em> include
 a PDF version. If you go with the hybrid format Factur-X/ZUGFeRD you <em>must</em>
 include an XML version of the invoice.</p>
  
@@ -174,7 +167,7 @@ include an XML version of the invoice.</p>
 		<div class="col-5 text-left guided-tour-link">
 			
 			<a href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/"
-				><i class="bi-arrow-left-circle"></i>&nbsp;Supported Formats</a>
+				><i class="bi-arrow-left-circle"></i>&nbsp;Unterstützte Formate</a>
 			
 		</div>
 		<div class="col-2 text-center guided-tour-link">
@@ -235,7 +228,7 @@ include an XML version of the invoice.</p>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/">Supported Formats</a>
+			<a href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/">Unterstützte Formate</a>
 			
 		</li>
 		
@@ -243,7 +236,7 @@ include an XML version of the invoice.</p>
 </div>
 
  
-<h4>E-invoice Formats</h4>
+<h4>E-Rechungs-Formate</h4>
  
 <div class="sidebar-module">
 	<h4 class="sidebar-title"></h4>
@@ -251,7 +244,7 @@ include an XML version of the invoice.</p>
 		
 		<li>
 			
-			<i class="bi-arrow-right-circle"></i>&nbsp;Hybrid vs XML 
+			<i class="bi-arrow-right-circle"></i>&nbsp;Hybrid vs. XML 
 		</li>
 		
 		<li>
@@ -274,7 +267,7 @@ include an XML version of the invoice.</p>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/">Extensions</a>
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/">Erweiterungen</a>
 			
 		</li>
 		

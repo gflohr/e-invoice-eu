@@ -8,16 +8,16 @@
 	hreflang="en"
 	href="/e-invoice-eu/en/docs/e-invoice-formats/country-specific-extensions/"
 />  
-<meta name="description" content="Member states may define their own extensions to the standard in the form of Core Invoice Usage Specifications (CIUS)" />
-<title>Extensions</title>
+<meta name="description" content="Mitgliedsstaaten können ihre eigenen Erweiterung des Standards in Form von Core Invoice Usage Specifications - CIUS (ungefähr Spezifikationen für die Kernnutzung von Rechnungen) definieren." />
+<title>Erweiterungen</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
 <link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/" />
 <meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="Extensions" />
-<meta property="og:description" content="Member states may define their own extensions to the standard in the form of Core Invoice Usage Specifications (CIUS)" />
+<meta property="og:title" content="Erweiterungen" />
+<meta property="og:description" content="Mitgliedsstaaten können ihre eigenen Erweiterung des Standards in Form von Core Invoice Usage Specifications - CIUS (ungefähr Spezifikationen für die Kernnutzung von Rechnungen) definieren." />
 
 
 	<meta
@@ -100,9 +100,9 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>Extensions</h1>
+					<h1>Erweiterungen</h1>
 					
-					<div class="description">Member states may define their own extensions to the standard in the form of Core Invoice Usage Specifications (CIUS)</div>
+					<div class="description">Mitgliedsstaaten können ihre eigenen Erweiterung des Standards in Form von Core Invoice Usage Specifications - CIUS (ungefähr Spezifikationen für die Kernnutzung von Rechnungen) definieren.</div>
 				</div>
 				<qgoda-content> 
 
@@ -112,30 +112,22 @@
 
 
 
-<p>You may expect from an e-invoice standard like EN16931 that it
-standardizes e-invoices. Not quite! Each member state can define their own
-extentions to the standard called Core Invoice Usage Specifications
-(CIUS). Notable examples are the standard "XRechnung" in Germany, "OIUBL" in
-Denmark, see the EU document <a href="https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/eInvoicing+Country+Factsheets+for+each+Member+State+and+other+countries" target="_blank">eInvoicing Country Factsheets for each Member State &amp; other
+<p>Man könnte erwarten, dass ein Standard für E-Rechnungen wie EN16931 E-Rechnungen standardisiert. Dem ist nicht ganz so. Jeder Mitgliedsstaat kann seine eigenen Erweiterungen als Core Invoice Usage Specifications (CIUS) definieren. Prominente Beispiele dafür sid der Standard ”XRechnung” in Deutschland oder ”OIUBL” in
+Dänemark, siehe das EU-Dokument <a href="https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/eInvoicing+Country+Factsheets+for+each+Member+State+and+other+countries" target="_blank">eInvoicing Country Factsheets for each Member State &amp; other
 countries</a>
 for an overview.</p>
 
-<h2><a href="#" name="which-extensions-are-allowed" id="which-extensions-are-allowed"></a>Which Extensions are Allowed</h2>
+<h2><a href="#" name="welche-erweiterungen-sind-erlaubt" id="welche-erweiterungen-sind-erlaubt"></a>Welche Erweiterungen sind erlaubt?</h2>
 
-<p>Fortunately, countries cannot arbitrarily change the standard.</p>
+<p>Glücklicherweise können Mitgliedsländer den Standard beliebig ändern.</p>
 
-<p>First of all, the allowed syntaxes are still only
-<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a> and <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a>.</p>
+<p>Zunächst bleibt es bei <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a> und <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a> als erlaubte Syntaxen.</p>
 
-<p>Changes to the semantics are also restricted. Countries can, for example, make
-optional elements mandatory, restrict the number of occurrences of a
-certain element, or disallow usage of certain codes. See
-<a href="https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/CIUS+and+Extension+-+What+is+allowed" target="_blank">CIUS and Extension - What is allowed</a> for more information.</p>
+<p>Änderungen an der Semantik sind ebenfalls eingeschränkt. So können Mitgliedsstaaten beispielsweise optionale Elemente zu Pflichtfeldern machen, die erlaubte Anzahl für das Vorkommen bestimmter Elemente einschränken oder die Verwendung gewisser Codes untersagen. Siehe <a href="https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/CIUS+and+Extension+-+What+is+allowed" target="_blank">CIUS and Extension - What is allowed</a> für weitergehende Informationen.</p>
 
-<h2><a href="#" name="practial-aspects" id="practial-aspects"></a>Practial Aspects</h2>
+<h2><a href="#" name="praktische-aspekte" id="praktische-aspekte"></a>Praktische Aspekte</h2>
 
-<p>Both <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a> and <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a> require the
-presence of a so-called <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-CustomizationID/" target="_blank">customization ID</a>. The customization ID is an opaque string like this:</p>
+<p>Sowohl <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a> als auch <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a> erfordern die Anwesenheit einer sogenannten <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-CustomizationID/" target="_blank">Customization-ID</a>. Die Customization-ID ist eine Zeichenkette wie diese:</p>
 
 
 
@@ -146,11 +138,12 @@ presence of a so-called <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax
 
 
 
-<p>It identifies a particular flavour of the e-invoice.</p>
+<p>Sie identifiziert eine spezifische Variante einer E-Rechnung.</p>
 
-<p>E-Invoice-EU facilitates this by defining aliases for certain formats. For
-example the alias "XRechnung" for the German extension automatically sets
-the customization id of the document to this:</p>
+<p>E-Invoice-EU unterstützt diese, indem Aliase für verschiedene Formate definiert sind. So setzt zum Beispiel der Alias ”XRechnung” die Customization-ID auf diesen String:</p>
+
+
+
 
 <pre><code>urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0
 </code></pre>
@@ -158,10 +151,9 @@ the customization id of the document to this:</p>
 
 
 
-<p>If you want to produce a flavour that is not directly supported by
-E-Invoice-EU, you can simply select the base format (UBL or CII) and
-also specify the customization ID yourself. Explicitly specified customization
-IDs always override the built-in defaults.</p>
+<p>Wenn man eine Variante, die nicht unmittelbar von E-Invoice-EU unterstützt wird, erzeugen will, wählt man einfach das Basis-Format (UBL or CII) und gibt daneben eine Customization-ID an. Explizit angegebene Customization-IDs überschreiben grundsätzlich die in die Software eingebauten Vorgabewerte.</p>
+
+<p>So oder so ist die Nutzerin oder der Nutzer selber dafür verantwortlich die inhaltlichen Anforderungen an die länderspezifische Variante zu erfüllen. E-Invoice-EU überprüft lediglich, dass die Struktur der Rechnungsdaten den Anforderungen des Standards genügen.</p>
  
 				 
 <div class="guided-tour container">
@@ -225,7 +217,7 @@ IDs always override the built-in defaults.</p>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/">Supported Formats</a>
+			<a href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/">Unterstützte Formate</a>
 			
 		</li>
 		
@@ -233,7 +225,7 @@ IDs always override the built-in defaults.</p>
 </div>
 
  
-<h4>E-invoice Formats</h4>
+<h4>E-Rechungs-Formate</h4>
  
 <div class="sidebar-module">
 	<h4 class="sidebar-title"></h4>
@@ -241,7 +233,7 @@ IDs always override the built-in defaults.</p>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/">Hybrid vs XML</a>
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/">Hybrid vs. XML</a>
 			
 		</li>
 		
@@ -265,7 +257,7 @@ IDs always override the built-in defaults.</p>
 		
 		<li>
 			
-			<i class="bi-arrow-right-circle"></i>&nbsp;Extensions 
+			<i class="bi-arrow-right-circle"></i>&nbsp;Erweiterungen 
 		</li>
 		
 	</ol>

@@ -27,7 +27,7 @@ the document object model.
 [% END %]
 <!--/qgoda-no-xgettext-->
 
-Both UBL and CII allow embedding a human-readable, normally PDF versions of the
+Both UBL and CII allow embedding a human-readable, normally PDF version of the
 invoice to be embedded in the XML.
 
 ## Hybrid Formats (Factur-X/ZUGFeRD)
@@ -37,13 +37,13 @@ have been developed. Both Factur-X and ZUGFeRD documents are actually PDF
 invoice documents but they contain an equivalent XML version of the invoice as
 an attachment to the PDF.
 
-Factur-X and ZUGFeRD are nowadays identical. They are just different names for
+Factur-X and ZUGFeRD are nowadays identical standards. They are just different names for
 the same thing. Factur-X is the official name but the term ZUGFeRD is still
 prevalent in Germany.
 
 ## Takeaway
 
 An electronic invoice is either an XML document in one of the flavours UBL and
-CII or a Factur-X/ZUGFeRD PDF. If you opt for an XML element you *may* include
+CII or a Factur-X/ZUGFeRD PDF. If you opt for an XML version you *may* include
 a PDF version. If you go with the hybrid format Factur-X/ZUGFeRD you *must*
 include an XML version of the invoice.

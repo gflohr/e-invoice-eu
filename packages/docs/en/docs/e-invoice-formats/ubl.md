@@ -24,8 +24,8 @@ documentation.
 [% END %]
 <!--/qgoda-no-xgettext-->
 
-Clicking on an element name opens the documentation for the element. Element
-names beginning with `cac:` have subelements, those starting with `cbc:`
-are nodes. It makes sense to get familiar with this documentation because
-the Peppol UBL invoice structure is also the basis for the internal invoice
-format of E-Invoice-EU.
+Clicking on an element name opens the documentation for the element. If the name
+of an element begins with `cac:`, it has subelements. If the name starts with
+`cbc:` it is the name of a leaf element.  It makes sense to get familiar with
+this documentation because the Peppol UBL invoice structure is also the basis
+for the internal invoice format of E-Invoice-EU.

@@ -11,12 +11,12 @@ description: Member states may define their own extensions to the standard in th
 You may expect from an e-invoice standard like EN16931 that it
 standardizes e-invoices. Not quite! Each member state can define their own
 extentions to the standard called Core Invoice Usage Specifications
-(CIUS). Notable examples are the standard "XRechnung" in Germany, "OIUBL" in
+(CIUS). Notable examples are the standard "XRechnung" in Germany or "OIUBL" in
 Denmark, see the EU document [eInvoicing Country Factsheets for each Member State & other
 countries](https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/eInvoicing+Country+Factsheets+for+each+Member+State+and+other+countries)
 for an overview.
 
-## Which Extensions are Allowed
+## Which Extensions are Allowed?
 
 Fortunately, countries cannot arbitrarily change the standard.
 
@@ -49,9 +49,13 @@ the customization id of the document to this:
 ```
 urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0
 ```
-<!--qgoda-no-xgettext-->
+<!--/qgoda-no-xgettext-->
 
 If you want to produce a flavour that is not directly supported by
 E-Invoice-EU, you can simply select the base format (UBL or CII) and
-also specify the customization ID yourself. Explicitly specified customization
+also specify the customization ID yourself like any other field. Explicitly specified customization
 IDs always override the built-in defaults.
+
+Either way, it is your responsability to fulfill the semantic requirements of
+every country-specific flavour. E-Invoice-EU only checks that the structure
+of the invoice data adheres to the stipulations of the standard.

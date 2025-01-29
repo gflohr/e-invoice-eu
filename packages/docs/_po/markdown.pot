@@ -175,7 +175,7 @@ msgstr ""
 
 #: ../en/docs/basics/general-mode-of-operation.md:14
 msgid ""
-"The software was created with the assumption that many small businesses\n"
+"The software was created under the assumption that many small businesses\n"
 "create their invoices with the help of spreadsheet software like\n"
 "[LibreOffice](https://www.libreoffice.org/). That means that the invoice data\n"
 "is already available as structured data."
@@ -207,6 +207,476 @@ msgstr ""
 #: ../en/docs/basics/general-mode-of-operation.md:33
 msgid "As a result, it is easy to keep the implementation up-to-date with the current\n"
 "standards by Peppol."
+msgstr ""
+
+#: ../en/docs/basics/supported-formats.md:2
+msgctxt "title"
+msgid "Supported Formats"
+msgstr ""
+
+#: ../en/docs/basics/supported-formats.md:5
+msgctxt "description"
+msgid "E-Invoice-EU supports e-invoice formats that conform to the European Standard EN16931."
+msgstr ""
+
+#: ../en/docs/basics/supported-formats.md:11
+msgid "E-Invoice-EU supports the following [e-invoice\n"
+"formats]([% q.llink(name='hybrid-vs-xml') %]):"
+msgstr ""
+
+#: ../en/docs/basics/supported-formats.md:14
+msgid ""
+"| Name              | Customization ID/Remarks\n"
+"|-------------------|---------------------------\n"
+"| CII               | `urn:cen.eu:en16931:2017`\n"
+"| Factur-X-Minimum  | `urn:factur-x.eu:1p0:minimum`\n"
+"| Factur-X-BasicWL  | `urn:factur-x.eu:1p0:basicwl`\n"
+"| Factur-X-Basic-WL | is an alias for Factur-X-BasicWL\n"
+"| Factur-X-Basic    | `'urn:cen.eu:en16931:2017#compliant#urn:factur-x.eu:1p0:basic'`\n"
+"| Factur-X-EN16931  | `urn:cen.eu:en16931:2017`\n"
+"| Factur-X-Comfort  | is an alias for Factur-X-EN16931\n"
+"| Factur-X-Extended | `urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended`\n"
+"| Factur-X-XRechung | `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`\n"
+"| UBL               | `urn:cen.eu:en16931:2017`\n"
+"| XRECHNUNG-CII     | `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`\n"
+"| XRECHNUNG-UBL     | `urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0`\n"
+"| ZUGFeRD-Minimum   | is an alias for Factur-X-Minimum\n"
+"| ZUGFeRD-BasicWL   | is an alias for Factur-X-BasicWL\n"
+"| ZUGFeRD-Basic-WL  | is an alias for Factur-X-BasicWL\n"
+"| ZUGFeRD-Basic     | is an alias for Factur-X-Basic\n"
+"| ZUGFeRD-EN16931   | is an alias for Factur-X-EN16931\n"
+"| ZUGFeRD-Comfort   | is an alias for Factur-X-EN16931\n"
+"| ZUGFeRD-Extended  | is an alias for Factur-X-Extended\n"
+"| ZUGFeRD-XRechung  | is an alias for Factur-X-XRechnung"
+msgstr ""
+
+#: ../en/docs/basics/supported-formats.md:37
+msgid ""
+"Please see the section [E-Invoice\n"
+"Formats]([% q.llink(name='hybrid-vs-xml') %]) for more information about\n"
+"customization ids and the different e-invoice formats."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats.md:2
+msgctxt "title"
+msgid "E-invoice Formats"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/cii.md:2
+msgctxt "title"
+msgid "CII"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/cii.md:5
+msgctxt "description"
+msgid "CII stands for Cross Industry Invoice."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/cii.md:12
+msgid ""
+"The other approved XML syntax for invoices in the EU is UN/CEFACT CII (United\n"
+"Nations Centre for Trade Facilitation and Electronic Business Cross Industry\n"
+"Invoice)."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/cii.md:16
+msgid ""
+"Unlike [% q.lanchor(name='ubl') %], the scope of CII is restricted to invoices;\n"
+"other document types are not supported.  But that does not mean that the format\n"
+"is in any way simpler than UBL. In fact, the CII documentation is certainly\n"
+"not for the faint of heart."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/cii.md:21
+msgid ""
+"CII can carry an overwhelming amount of information going far beyond the\n"
+"requirements of the European Standard EN16931. Currently, it is not possible\n"
+"to produce these additional elements with E-Invoice-EU."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/cii.md:25
+msgid ""
+"The documentation for [Factur-X](http://fnfe-mpe.org/factur-x/) and\n"
+"[ZUGFeRD](https://www.ferd-net.de/en/) describes the syntax and semantics of\n"
+"CII according to these standards but reading and using the documentation is a challenge of\n"
+"its own. Since E-Invoice-EU does not require a deeper understanding of CII,\n"
+"this is left as an exercise to the reader."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/country-specific-extensions.md:2
+msgctxt "title"
+msgid "Extensions"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/country-specific-extensions.md:5
+msgctxt "description"
+msgid "Member states may define their own extensions to the standard in the form of Core Invoice Usage Specifications (CIUS)"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/country-specific-extensions.md:11
+msgid ""
+"You may expect from an e-invoice standard like EN16931 that it\n"
+"standardizes e-invoices. Not quite! Each member state can define their own\n"
+"extentions to the standard called Core Invoice Usage Specifications\n"
+"(CIUS). Notable examples are the standard \"XRechnung\" in Germany or \"OIUBL\" in\n"
+"Denmark, see the EU document [eInvoicing Country Factsheets for each Member State & other\n"
+"countries](https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/eInvoicing+Country+Factsheets+for+each+Member+State+and+other+countries)\n"
+"for an overview."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/country-specific-extensions.md:19
+msgid "## Which Extensions are Allowed?"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/country-specific-extensions.md:21
+msgid "Fortunately, countries cannot arbitrarily change the standard."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/country-specific-extensions.md:23
+msgid "First of all, the allowed syntaxes are still only\n"
+"[% q.lanchor(name='ubl') %] and [% q.lanchor(name='cii') %]."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/country-specific-extensions.md:26
+msgid ""
+"Changes to the semantics are also restricted. Countries can, for example, make\n"
+"optional elements mandatory, restrict the number of occurrences of a\n"
+"certain element, or disallow usage of certain codes. See\n"
+"[CIUS and Extension - What is allowed](https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/CIUS+and+Extension+-+What+is+allowed) for more information."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/country-specific-extensions.md:31
+msgid "## Practial Aspects"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/country-specific-extensions.md:33
+msgid "Both [% q.lanchor(name='ubl') %] and [% q.lanchor(name='cii') %] require the\n"
+"presence of a so-called [customization ID](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-CustomizationID/). The customization ID is an opaque string like this:"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/country-specific-extensions.md:42
+msgid "It identifies a particular flavour of the e-invoice."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/country-specific-extensions.md:44
+msgid ""
+"E-Invoice-EU facilitates this by defining aliases for certain formats. For\n"
+"example the alias \"XRechnung\" for the German extension automatically sets\n"
+"the customization id of the document to this:"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/country-specific-extensions.md:54
+msgid ""
+"If you want to produce a flavour that is not directly supported by\n"
+"E-Invoice-EU, you can simply select the base format (UBL or CII) and\n"
+"also specify the customization ID yourself like any other field. Explicitly specified customization\n"
+"IDs always override the built-in defaults."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/country-specific-extensions.md:59
+msgid ""
+"Either way, it is your responsability to fulfill the semantic requirements of\n"
+"every country-specific flavour. E-Invoice-EU only checks that the structure\n"
+"of the invoice data adheres to the stipulations of the standard."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:2
+msgctxt "title"
+msgid "Factur-X/ZUGFeRD"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:5
+msgctxt "description"
+msgid "Factur-X/ZUGFeRD invoices are special PDF documents with machine-readable invoice information attached as XML."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:12
+msgid ""
+"France and Germany have developed a different approach to e-invoicing with\n"
+"their respective standards Factur-X and ZUGFeRD. Beginning with version 2.1,\n"
+"the two standards are now identical."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:16
+msgid "## PDF Attachments"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:18
+msgid ""
+"While the pure XML formats [% q.lanchor(name='ubl') %] and\n"
+"[% q.lanchor(name='cii') %] can *optionally* embed a PDF version of an\n"
+"invoice, Factur-X/ZUGFeRD goes the opposite way. They are special PDFs with\n"
+"a machine-readable XML version of the invoice added to the PDF as an\n"
+"attachment."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:24
+msgid ""
+"The ability to attach arbitrary documents to a PDF is one of the lesser\n"
+"known features of the Portable Document Format PDF and most PDF viewers do not\n"
+"allow you to see attachments to PDFs. However, Adobe Acrobat Reader has this\n"
+"feature."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:29
+msgid "[% FILTER $Srcset alt=\"PDF Attachments in Adobe Acrobat Reader\" %]/images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader.webp[% END %]"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:31
+msgid ""
+"The functionality is hidden behind a paperclip icon at the right side of the\n"
+"window. Clicking it reveals the list of attachments to the document. In this\n"
+"case, not only the XML invoice file but an additional file for informational\n"
+"purposes is attached, too."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:36
+msgid "## CII is Mandatory for Factur-X/ZUGFeRD"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:38
+msgid ""
+"Unfortunately, Factur-X/ZUGFeRD does not leave a choice between\n"
+"[% q.lanchor(name='ubl') %] and [% q.lanchor(name='cii') %]. CII is\n"
+"the mandatory syntax for the embedded XML."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:42
+msgid "## PDF/A"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:44
+msgid ""
+"But even with the attached XML file, a PDF does not automatically qualify as\n"
+"a valid electronic invoice. A PDF file may look different on different devices.\n"
+"For example it may not embed all fonts used but reference a font that is\n"
+"expected to be installed on the particular device. If the font is missing, a\n"
+"replacement font is chosen by the renderer."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:50
+msgid ""
+"If a PDF fulfills the PDF/A standard, all fonts must be embedded and also a\n"
+"couple of other requirements have to be fulfilled so that it is guaranteed that\n"
+"the PDF will look exactly the same on every device, even in the future, so that\n"
+"the documents are *revision-safe*."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:55
+msgid ""
+"Validating Factur-X/ZUGFeRD Invoices therefore involves two steps. First,\n"
+"compliance with the PDF/A standard is checked. Second, the attached XML\n"
+"undergoes the normal checks as pure XML documents."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:59
+msgid "[% title = \"PDF/A Extension Schema!\" %]"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:63
+msgid ""
+"In fact, a third check is required. PDFs contain meta information in the\n"
+"Extensible Metadata Platform XMP format, and that meta data has to contain\n"
+"certain extra information for Factur-X/ZUGFeRD."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:70
+msgid "## Profiles (Conformance Levels)"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:72
+msgid "The standard allows for 6 different conformance levels called profiles:"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:74
+msgid ""
+"* Minimum\n"
+"* Basic WL\n"
+"* Basic\n"
+"* EN 16931 (formerly known as Comfort)\n"
+"* Extended\n"
+"* XRechnung"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:81
+msgid ""
+"Each profile restricts the number of allowed CII elements to a certain\n"
+"subset. \"Minimum\" is the smallest subset and \"Extended\" the largest.\n"
+"The profile \"XRechnung\" seems to allow the full range of CII elements although\n"
+"the documentation is not clear about that."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:86
+msgid ""
+"The profiles \"Minimum\" and \"Basic WL\" do not contain enough information for\n"
+"a valid invoice according to VAT legislation but are considered\n"
+"*accounting aids*."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:90
+msgid "[% title = \"Purpose of Profiles\" %]"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:94
+msgid ""
+"When a data format allows optional information, the common approach in the\n"
+"software industry is to recommend that readers of the data should simply\n"
+"ignore those parts that are not relevant for a particular application. The\n"
+"strategy chosen by Factur-X/ZUGFeRD, however, makes things unnecessarily complicated."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:102
+msgid "## Discrepancies Between PDF and XML"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:104
+msgid ""
+"Factur-X/ZUGFeRD invoices look like regular PDFs and recipients may not even\n"
+"know that the documents contain an XML version of it. The German\n"
+"ministry of Finance stipulates that the PDF and XML versions must be\n"
+"content-identical counterparts (German: *inhaltsgleiche Mehrstücke*). It is\n"
+"still unclear how courts will assess any discrepancies between the two\n"
+"versions."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:111
+msgid "## Documentation"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:113
+msgid ""
+"You can download the documentation for Factur-X from\n"
+"https://fnfe-mpe.org/factur-x/factur-x_en/. The docs for the German counterpart\n"
+"ZUGFeRD are available from https://www.ferd-net.de/. You have to enter a\n"
+"valid e-mail address in order to be able to download the documentation. The\n"
+"exact links frequently change. Please use a search engine!"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:119
+msgid "[% title = \"Quality of the Documentation\" %]"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/factur-x-zugferd.md:123
+msgid ""
+"Although Factur-X and ZUGFeRD are now identical standards, there is both a\n"
+"French and German version of the documentation with different structure. The structure of the\n"
+"documentation fundamentally changes with every release and occasionally even\n"
+"contains garbage like <code>.DS_Store</code> files from the Mac where stuff\n"
+"has been zipped."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/hybrid-vs-xml.md:2
+msgctxt "title"
+msgid "Hybrid vs XML"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/hybrid-vs-xml.md:5
+msgctxt "description"
+msgid "E-Invoice-EU supports e-invoice formats that conform to the European standard EN16931."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/hybrid-vs-xml.md:11
+msgid "There are different approaches to distinguish e-invoice formats."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/hybrid-vs-xml.md:13
+msgid "## XML Formats"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/hybrid-vs-xml.md:15
+msgid ""
+"Not every electronic invoice document qualifies as an e-invoice in the\n"
+"sense of the European standard EN16931. They have to be XML documents using\n"
+"one of the syntaxes [UBL]([% q.llink(name='ubl') %]) or [CII]([% q.llink(name='cii') %])."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/hybrid-vs-xml.md:19
+msgid "[% title = \"XML Syntax\" %]"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/hybrid-vs-xml.md:23
+msgid ""
+"What is meant with syntax? A UBL and a CII invoice can contain the exact same\n"
+"information. What differs is the name of the XML elements and their location in\n"
+"the document object model."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/hybrid-vs-xml.md:30
+msgid "Both UBL and CII allow embedding a human-readable, normally PDF version of the\n"
+"invoice to be embedded in the XML."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/hybrid-vs-xml.md:33
+msgid "## Hybrid Formats (Factur-X/ZUGFeRD)"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/hybrid-vs-xml.md:35
+msgid ""
+"In France and Germany, the standards [Factur-X and ZUGFeRD]([% q.llink(name='factur-x-zugferd') %]) for e-invoices\n"
+"have been developed. Both Factur-X and ZUGFeRD documents are actually PDF\n"
+"invoice documents but they contain an equivalent XML version of the invoice as\n"
+"an attachment to the PDF."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/hybrid-vs-xml.md:40
+msgid ""
+"Factur-X and ZUGFeRD are nowadays identical standards. They are just different names for\n"
+"the same thing. Factur-X is the official name but the term ZUGFeRD is still\n"
+"prevalent in Germany."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/hybrid-vs-xml.md:44
+msgid "## Takeaway"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/hybrid-vs-xml.md:46
+msgid ""
+"An electronic invoice is either an XML document in one of the flavours UBL and\n"
+"CII or a Factur-X/ZUGFeRD PDF. If you opt for an XML version you *may* include\n"
+"a PDF version. If you go with the hybrid format Factur-X/ZUGFeRD you *must*\n"
+"include an XML version of the invoice."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/ubl.md:2
+msgctxt "title"
+msgid "UBL"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/ubl.md:5
+msgctxt "description"
+msgid "UBL stands for Universal Business Language"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/ubl.md:7
+msgid "UBL is an XML syntax for many different business documents, among others\n"
+"invoices and credit notes. E-Invoice-EU currently only supports invoices."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/ubl.md:10
+msgid "The format is well documented by Peppol at\n"
+"https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/ubl.md:13
+msgid "[% title = \"Official UBL Documentation\" %]"
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/ubl.md:18
+msgid ""
+"The current official documentation of UBL is available as an [OASIS Standards\n"
+"Document](http://docs.oasis-open.org/ubl/UBL-2.1.html). But it is not very\n"
+"helpful in the context of electronic invoices in the EU because the EU has\n"
+"additional requirements. It is therefore recommended to use the Peppol\n"
+"documentation."
+msgstr ""
+
+#: ../en/docs/e-invoice-formats/ubl.md:27
+msgid ""
+"Clicking on an element name opens the documentation for the element. If the name\n"
+"of an element begins with `cac:`, it has subelements. If the name starts with\n"
+"`cbc:` it is the name of a leaf element.  It makes sense to get familiar with\n"
+"this documentation because the Peppol UBL invoice structure is also the basis\n"
+"for the internal invoice format of E-Invoice-EU."
 msgstr ""
 
 #: ../en/docs/index.md:3 ../index.md:3

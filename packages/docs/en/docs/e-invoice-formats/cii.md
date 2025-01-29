@@ -23,7 +23,7 @@ requirements of the European Standard EN16931. Currently, it is not possible
 to produce these additional elements with E-Invoice-EU.
 
 The documentation for [Factur-X](http://fnfe-mpe.org/factur-x/) and
-[ZUGFeRD](https://www.ferd-net.de/en/) describe the syntacs and semantics of
-CII according to these standards but using the documentation is a challenge of
+[ZUGFeRD](https://www.ferd-net.de/en/) describes the syntax and semantics of
+CII according to these standards but reading and using the documentation is a challenge of
 its own. Since E-Invoice-EU does not require a deeper understanding of CII,
 this is left as an exercise to the reader.

@@ -8,7 +8,7 @@
 	hreflang="en"
 	href="/e-invoice-eu/en/docs/e-invoice-formats/factur-x-zugferd/"
 />  
-<meta name="description" content="Factur-X/ZUGFeRD invoices are special PDF documents with machine-readable invoice information attached as XML." />
+<meta name="description" content="Factur-X/ZUGFeRD-Rechnungen sind spezielle PDEF-Dokumente mit maschinenlesbaren Rechnungsinformationen als XML-Anhang." />
 <title>Factur-X/ZUGFeRD</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
@@ -17,7 +17,7 @@
 <meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/e-rechnungs-formate/factur-x-zugferd/" />
  <meta property="og:type" content="article" />
 <meta property="og:title" content="Factur-X/ZUGFeRD" />
-<meta property="og:description" content="Factur-X/ZUGFeRD invoices are special PDF documents with machine-readable invoice information attached as XML." />
+<meta property="og:description" content="Factur-X/ZUGFeRD-Rechnungen sind spezielle PDEF-Dokumente mit maschinenlesbaren Rechnungsinformationen als XML-Anhang." />
 
 
 	<meta
@@ -102,7 +102,7 @@
 				<div class="content-head">
 					<h1>Factur-X/ZUGFeRD</h1>
 					
-					<div class="description">Factur-X/ZUGFeRD invoices are special PDF documents with machine-readable invoice information attached as XML.</div>
+					<div class="description">Factur-X/ZUGFeRD-Rechnungen sind spezielle PDEF-Dokumente mit maschinenlesbaren Rechnungsinformationen als XML-Anhang.</div>
 				</div>
 				<qgoda-content> 
 
@@ -112,53 +112,31 @@
 
 
 
-<p>France and Germany have developed a different approach to e-invoicing with
-their respective standards Factur-X and ZUGFeRD. Beginning with version 2.1,
-the two standards are now identical.</p>
+<p>Frankreich und Deutschland sind einen eigenen Web bei der Umsatzung der E-Rechnung gegangen und haben die jeweiligen Standards Factur-X und ZUGFeRD entwickelt. Seit Version 2.1 sind beide Standards nunmehr identisch.</p>
 
-<h2><a href="#" name="pdf-attachments" id="pdf-attachments"></a>PDF Attachments</h2>
+<h2><a href="#" name="pdf-anhange" id="pdf-anhange"></a>PDF-Anhänge</h2>
 
-<p>While the pure XML formats <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a> and
-<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a> can <em>optionally</em> embed a PDF version of an
-invoice, Factur-X/ZUGFeRD got the opposite way. They are special PDFs with
-a machine-readable XML version of the invoice added to the PDF as an
-attachment.</p>
+<p>Während in die reinen XML-Formate <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a> and
+<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a> ein PDF <em>optional</em> einbetten können, geht Factur-X/ZUGFeRD den umgekehrten Weg. Bei diesem Format handelt es sich um spezielle PDFs, die eine maschinenlesbare XML-Version der Rechnung als Anhang eingebettet haben.</p>
 
-<p>The ability to attach arbitrary documents to a PDF is one of the lesser
-known features of the Portable Document Format PDF and most PDF viewers do not
-allow you to see attachments to PDFs. However, Adobe Acrobat Reader has this
-feature.</p>
+<p>Die Möglichkeit, beliebige Dokumente an ein PDF anzuhängen, ist eines der weniger bekannten Features des Portable Document Formats PDF, und die meisten PDF-Betrachter zeigen keine Anhänge an PDFs an. Der Adobe Acrobat Reader hat dieses Feature dagegen.</p>
 
-<div class="img"><img src="/e-invoice-eu/images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader.webp" alt="PDF Attachments in Adobe Acrobat Reader" sizes="(max-width: 575px) calc(100vw - 30px), (max-width: 767px) 510px (max-width: 991px) 396px (max-width: 1199px) 528px (max-width: 1399px) 627px 726px" srcset="/e-invoice-eu//images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader-160w.webp 160w, /e-invoice-eu//images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader-320w.webp 320w, /e-invoice-eu//images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader-640w.webp 640w, /e-invoice-eu//images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader-1280w.webp 1280w, /e-invoice-eu//images/basics/e-invoice-formats/pdf-attachments-in-acrobat-reader-1920w.webp 1920w"></img></div>
+<div class="img"><img src="/e-invoice-eu/images/basics/general-mode-of-operation/flow-chart.webp" alt="Flowchart der generellen Funktionsweise von E-Invoice-EU" sizes="(max-width: 575px) calc(100vw - 30px), (max-width: 767px) 510px (max-width: 991px) 396px (max-width: 1199px) 528px (max-width: 1399px) 627px 726px" srcset="/e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-160w.webp 160w, /e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-320w.webp 320w, /e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-640w.webp 640w, /e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-1280w.webp 1280w, /e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-1920w.webp 1920w"></img></div>
 
 
-<p>The functionality is hidden behind a paperclip icon at the right side of the
-window. Clicking it reveals the list of attachments to the document. In this
-case, not only the XML invoice file but an additional file for informational
-purposes is attached, too.</p>
+<p>Die Funktionalität verbirgrt sich hinter einem Büroklammer-Icons auf der rechten Seite des Fensters. Ein Klick darauf zeigt die Anhänge an das Dokument an. In diesem Fall ist nicht nur die XML-Rechnung sondern auch eine zusätzliche Datei zu Informationszwecken angehangen.</p>
 
-<h2><a href="#" name="cii-is-mandatory-for-factur-x-zugferd" id="cii-is-mandatory-for-factur-x-zugferd"></a>CII is Mandatory for Factur-X/ZUGFeRD</h2>
+<h2><a href="#" name="cii-ist-fur-factur-x-zugferd-zwingend" id="cii-ist-fur-factur-x-zugferd-zwingend"></a>CII ist für Factur-x/ZUGFeRD zwingend</h2>
 
-<p>Unfortunately, Factur-X/ZUGFeRD does not leave a choice between
-<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a> and <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a>. CII is
-the mandatory syntax for the embedded XML.</p>
+<p>Leider erlaubt Factur-X/ZUGFeRD nicht, zwischen <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a> und <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a> zu wählen. CII ist als Syntax für das eingebettete XML zwingend vorgeschrieben.</p>
 
 <h2><a href="#" name="pdf-a" id="pdf-a"></a>PDF/A</h2>
 
-<p>But even with the attached XML file, a PDF does not automatically qualify as
-a valid electronic invoice. A PDF file may look different on different devices.
-For example it may not embed all fonts used but reference a font that is
-expected to be installed on the particular device. If the font is missing, a
-replacement font is chosen by the renderer.</p>
+<p>Aber auch eine angehängte XML-Datei qualifiziert ein PDF nicht automatisch als gültige elektronische Rechnung. Ein PDF kann auf unterschiedlichen Geräten unterschiedlich aussehen. Zum Beispiel könnten Zeichensätze nicht eingebettet sondern lediglich referenziert sein, in der Erwartung, dass der entsprechende Zeichensatz auf dem Gerät installiert ist. Fehler dieser, wählt der Renderer einen Ersatzzeichensatz.</p>
 
-<p>If a PDF fulfills the PDF/A standard, all fonts must be embedded and also a
-couple of other requirements have to be fulfilled so that it is guaranteed that
-the PDF will look exactly the same on every device, even in the future, so that
-the documents are <em>revision-safe</em>.</p>
+<p>Erfüllt ein PDF den PDF/A-Standard, müssen alle Zeichensätze eingebettet sein. Daneben müssen noch eine Reihe weiterer Anforderungen erfüllt sein, um sicherzustellen, dass das PDF auf jedem Gerät exakt gleich aussieht, selbst in der Zukunft. Damit ist die Revisionssicherheit des Dokuments gewährleistet.</p>
 
-<p>Validating Factur-X/ZUGFeRD Invoices therefore involves two steps. First,
-compliance with the PDF/A standard is checked. Second, the attached XML
-undergoes the normal checks as pure XML documents.</p>
+<p>Die Validierung von Factur-X/ZUGFeRD-Rechnungen erfordert deshalb zwei Schritte. Zunächst wird überprüft, dass das Dokument dem PDF/A-Standard entspricht. Zweitens wird das angehängte XML der normalen Prüfung für XML-Dokumente unterzogen.</p>
 
 
 
@@ -169,14 +147,12 @@ undergoes the normal checks as pure XML documents.</p>
     <div>
         <strong>
             <i class="bi-info-circle"></i>
-            <span class="title">PDF/A Extension Schema!</span>
+            <span class="title">PDF/A Extension Schema</span>
         </strong>
     </div>
     <p>
 
-In fact, a third check is required. PDFs contain meta information in the
-Extensible Metadata Platform XMP format, and that meta data has to contain
-certain extra information for Factur-X/ZUGFeRD.
+Tatsächlich ist sogar noch eine dritte Prüfung erforderlich. PDFs enthalten Meta-Informationen im Format XMP (*Extensible Metadata Platform*, also erweiterbare Metadaten-Plattformm), und diese Metadaten müssen für Factur-X/ZUGFeRD gewisse Zusatzinformationen enthalten.
 
 </p>
 </div>
@@ -187,28 +163,23 @@ certain extra information for Factur-X/ZUGFeRD.
 
 
 
-<h2><a href="#" name="profiles-conformance-levels" id="profiles-conformance-levels"></a>Profiles (Conformance Levels)</h2>
+<h2><a href="#" name="profile-konformitatsstufen" id="profile-konformitatsstufen"></a>Profile (Konformitätsstufen)</h2>
 
-<p>The standard allows for 6 different conformance levels called profiles:</p>
+<p>Der Standard sieht 6 verschiedene Konformitätsstufen, Profile genannt, vor:</p>
 
 <ul>
 <li>Minimum</li>
 <li>Basic WL</li>
 <li>Basic</li>
-<li>EN 16931 (formerly known as Comfort)</li>
+<li>EN 16931 (früher Comfort genannt)</li>
 <li>Extended</li>
 <li>XRechnung</li>
 </ul>
 
 
-<p>Each profile restricts the number of allowed CII elements to a certain
-subset. "Minimum" is the smallest subset and "Extended" the largest.
-The profile "XRechnung" seems to allow the full range of CII elements although
-the documentation is not clear about that.</p>
+<p>Jedes Profil schränkt die Menge der erlaubten CII-Element auf eine gewisse Untermenge ein. ”Minimum” ist die kleinste Untermenge und ”Extended” die größte. Das Profil ”XRechnung” scheint alle CII-Elemente zu erleuben, wenngleich das aus der Dokumentation nicht klar hervorgeht.</p>
 
-<p>The profiles "Minimum" and "Basic WL" do not contain enough information for
-a valid invoice according to VAT legislation but are considered
-<em>accounting aids</em>.</p>
+<p>Die Profile ”Minimum” und ”Basic WL” enthalten nicht genügend Informationen für eine der Umsatzsteuergesetzgebung entsprechende Rechnung und werden deshalb als Buchungshilfen betrachtet.</p>
 
 
 
@@ -219,15 +190,12 @@ a valid invoice according to VAT legislation but are considered
     <div>
         <strong>
             <i class="bi-info-circle"></i>
-            <span class="title">Purpose of Profiles</span>
+            <span class="title">Sinn von Profilen</span>
         </strong>
     </div>
     <p>
 
-When a data structure allows optional information, the common approach in the
-software industry is to recommend that readers of the data should simply
-ignore those parts that are not relevant for a particular application. The
-strategy chosen by Factur-X/ZUGFeRD makes things unnecessarily complicated.
+Wenn ein Datenformat optionale Informationen erlaubt, ist der normale Ansatz in der Software-Industrie, dass lesende Programme Teile, die für die jeweilige Anwendung nicht relevant sind, einfach ignorieren. Die Strategie, die von Factur-X/ZUGFeRD gewählt wurde, macht dagegen die Dinge unnötig kompliziert.
 
 </p>
 </div>
@@ -238,22 +206,13 @@ strategy chosen by Factur-X/ZUGFeRD makes things unnecessarily complicated.
 
 
 
-<h2><a href="#" name="discrepancies-between-pdf-and-xml" id="discrepancies-between-pdf-and-xml"></a>Discrepancies Between PDF and XML</h2>
+<h2><a href="#" name="diskrepanzen-zwischen-pdf-und-xml" id="diskrepanzen-zwischen-pdf-und-xml"></a>Diskrepanzen zwischen PDF und XML</h2>
 
-<p>Factur-X/PDF invoices look like regular PDFs and recipients may not even
-know that they contain an XML version of the same document. The German
-ministry of Finance stipulates that the PDF and XML versions must be
-content-identical counterparts (German: <em>inhaltsgleiche Mehrstücke</em>). It is
-still unclear how courts will assess any discrepancies between the two
-versions.</p>
+<p>Factur-X/ZUGFeRD-Rechnungen sehen wie reguläre PDFs aus. und Empfängerinnen und Empfänger bemerken möglicherweise nicht einmal, dass die Dokmente eine XML-Version des Dokuments enthalten. Das deutsche Bundesministerium für Finanzen fordert deshalb, dass es sich bei den PDF- und XML-Versionen um <em>inhaltsgleiche Mehrstücke</em> handelt. Es bleibt abzuwarten, wie die Rechtsprechung Abweichungen zwischen den beiden Versionen bewertet.</p>
 
-<h2><a href="#" name="documentation" id="documentation"></a>Documentation</h2>
+<h2><a href="#" name="dokumentation" id="dokumentation"></a>Dokumentation</h2>
 
-<p>You can download the documentation for Factur-X from the site
-<a href="https://fnfe-mpe.org/factur-x/factur-x_en/" target="_blank">https://fnfe-mpe.org/factur-x/factur-x_en/</a>. The docs for the German counterpart
-ZUGFeRD are available from <a href="https://www.ferd-net.de/" target="_blank">https://www.ferd-net.de/</a>. You have to enter a
-valid e-mail address in order to be able to download the documentation. The
-exact links frequently change. Please use a search engine.</p>
+<p>Die Dokumentation für Factur-X kann von <a href="https://fnfe-mpe.org/factur-x/factur-x_en/" target="_blank">https://fnfe-mpe.org/factur-x/factur-x_en/</a> heruntergeladen werden. Die Doku für das deutsche Gegenstück ZUGFeRD steht auf <a href="https://www.ferd-net.de/" target="_blank">https://www.ferd-net.de/</a> zum Download zur Verfügung. Um die Dokumentation herunterzuladen, ist jeweils die Angabe einer gültigen E-Mail-Adresse erforderlich. Die genauen Links ändern sich häufig, lassen sich aber mit einer Suchmaschine leicht finden.</p>
 
 
 
@@ -264,16 +223,12 @@ exact links frequently change. Please use a search engine.</p>
     <div>
         <strong>
             <i class="bi-info-circle"></i>
-            <span class="title">Quality of the Documentation</span>
+            <span class="title">Qualität der Dokumentation</span>
         </strong>
     </div>
     <p>
 
-Although Factur-X and ZUGFeRD are now identical standards, there is both a
-French and German version of the documentation. The structure of the
-documentation fundamentally chages with every release and occasionally even
-contains garbage like <code>.DS_Store</code> files from the Mac where stuff
-has been zipped.
+Obwohl es sich bei Factur-X und ZUGFeRD mittlerweile um identische Standards handelt, gibt es sowohl eine französische als auch eine deutsche Version der Dokumentation mit jeweils unterschiedlich Struktur. Die Struktur der Dokumentation ändert sich mit jedem Release grundlegend und enthalt auch schon einmal Müll wie <code>.DS_Store</code>-Dateien vom Mac, wo die Doku gezippt wurde.
 
 </p>
 </div>
@@ -301,7 +256,7 @@ has been zipped.
 		<div class="col-5 text-right guided-tour-link">
 			
 			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/"
-				>Extensions&nbsp;<i
+				>Erweiterungen&nbsp;<i
 					class="bi-arrow-right-circle"
 				></i></a>
 			
@@ -351,7 +306,7 @@ has been zipped.
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/">Supported Formats</a>
+			<a href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/">Unterstützte Formate</a>
 			
 		</li>
 		
@@ -359,7 +314,7 @@ has been zipped.
 </div>
 
  
-<h4>E-invoice Formats</h4>
+<h4>E-Rechungs-Formate</h4>
  
 <div class="sidebar-module">
 	<h4 class="sidebar-title"></h4>
@@ -367,7 +322,7 @@ has been zipped.
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/">Hybrid vs XML</a>
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/">Hybrid vs. XML</a>
 			
 		</li>
 		
@@ -390,7 +345,7 @@ has been zipped.
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/">Extensions</a>
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/">Erweiterungen</a>
 			
 		</li>
 		
