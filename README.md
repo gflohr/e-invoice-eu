@@ -47,6 +47,12 @@ formats or JSON.
     - [PDF/A](#pdfa)
   - [License](#license)
 
+## New Documentation (work in progress)
+
+We are currently working on a complete re-write of the documentation. You can checkout the current state at https://gflohr.github.io/e-invoice-eu/.
+
+If you are interested in translating the documentation into another language, please let us know.
+
 ## Status
 
 ### Supported Formats
