@@ -6,6 +6,8 @@ description: You can deploy the service either as a container, as a web applicat
 ---
 <!--qgoda-no-xgettext-->
 [% USE q = Qgoda %]
+[% USE Highlight(config.private.copyCode) %]
+[% USE CodeGroup %]
 <!--/qgoda-no-xgettext-->
 
 The E-Invoice-EU service can be used in one of several ways:
@@ -23,3 +25,9 @@ containerized version.
 docker pull gflohr/e-invoice-eu:latest
 docker run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest
 <!--/qgoda-no-xgettext-->
+
+[% FILTER $CodeGroup %]
+[% FILTER $Highlight "language-sh" %]docker pull gflohr/e-invoice-eu:latest
+docker run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest
+[% END %] 
+[% END %]

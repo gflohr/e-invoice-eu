@@ -378,3 +378,21 @@ qgoda-content img {
 	visibility: hidden;
 	width: 10px;
 }
+
+.copy-to-clipboard-button:hover {
+	background-color: white !important;
+}
+
+button.copy-to-clipboard-button[data-copy-state="copy-success"] {
+	background-image: var(--qgoda-icon-copied) !important;
+	background-color: white !important;
+	border: 1px solid #e2e2e3 !important;
+}
+
+button.copy-to-clipboard-button:focus {
+	outline: none !important;
+}
+
+button.copy-to-clipboard-button:focus-visible {
+	outline: none !important;
+}
