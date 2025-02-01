@@ -33,7 +33,7 @@ sub filter {
 				title => $title,
 				label => $label,
 				content => '',
-				id => 'tab-' . $self->__randomString(32),
+				id => $self->__randomString(32),
 			};
 			push @groups, $group;
 		} elsif ($group) {
@@ -47,15 +47,15 @@ sub filter {
 	my $group_name = 'group-' . $self->__randomString(32);
 
 	my $html = <<"EOF";
-<code-group>
+<div class="code-group"><code-group>
 	<code-tabs>
 EOF
 
 	my $idx = 0;
 	foreach my $group (@groups) {
 		my $checked = $idx++ ? '' : ' checked';
-		$html .= "\t\t<input type='radio' name='$group_name' id='$group->{id}'$checked>\n";
-		$html .= "\t\t<label data-title='$group->{title}' for='$group->{id}'>$group->{label}</label>\n"
+		$html .= "\t\t<input type='radio' name='$group_name' id='code-tab-$group->{id}'$checked>\n";
+		$html .= "\t\t<label data-title='$group->{title}' for='code-tab-$group->{id}'>$group->{label}</label>\n"
 	}
 
 	$html .= <<"EOF";
@@ -66,16 +66,16 @@ EOF
 	$idx = 0;
 	foreach my $group (@groups) {
 		if ($idx++) {
-			$html .= "\t\t\t<code-block>";
+			$html .= "\t\t\t<code-block id='code-block-$group->{id}'>";
 		} else {
-			$html .= "\t\t\t<code-block class='active'>";
+			$html .= "\t\t\t<code-block id='code-block-$group->{id}' class='active'>";
 		}
 		$html .= $group->{content} . "</code-block>\n";
 	}
 
 	$html .= <<"EOF";
 	</code-blocks>
-</code-group>
+</code-group></div>
 EOF
 
 	return $html;

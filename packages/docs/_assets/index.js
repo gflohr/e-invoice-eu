@@ -43,3 +43,5 @@ require('./js/code-language');
 
 // Matomo.
 require('./js/matomo');
+
+require('./js/code-group');

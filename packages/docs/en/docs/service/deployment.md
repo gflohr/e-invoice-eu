@@ -27,7 +27,12 @@ docker run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest
 <!--/qgoda-no-xgettext-->
 
 [% FILTER $CodeGroup %]
+[docker]
 [% FILTER $Highlight "language-sh" %]docker pull gflohr/e-invoice-eu:latest
 docker run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest
+[% END %] 
+[nerdctl]
+[% FILTER $Highlight "language-sh" %]nerdctl pull gflohr/e-invoice-eu:latest
+nerdctl run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest
 [% END %] 
 [% END %]
