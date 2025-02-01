@@ -355,3 +355,7 @@ code {
 qgoda-content img {
 	width: 100%;
 }
+
+.cmd-choice code {
+	color: red;
+}
