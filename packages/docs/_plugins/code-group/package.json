@@ -1,0 +1,16 @@
+{
+  "name": "code-group",
+  "version": "0.0.1",
+  "description": "Vitepress Code Groups",
+  "main": "index.pl",
+  "keywords": [
+    "Qgoda",
+    "Codegroups"
+  ],
+  "author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
+  "license": "MIT",
+  "qgoda": {
+      "language": "Perl",
+      "type": "TT2::Filter"
+  }
+}
