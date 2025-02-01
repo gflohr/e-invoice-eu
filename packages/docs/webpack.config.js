@@ -66,9 +66,10 @@ module.exports = {
 		}),
 		new function() {
 			this.apply = (compiler) => {
+				console.log('copy assets ...');
 				compiler.hooks.done.tap("Copy when done", () => {
 					const srcdir = __dirname + '/assets';
-					const destdir = __dirname + '/_site/assets';
+					const destdir = __dirname + '../../qgoda-site/e-invoice-eu/assets';
 					fse.copy(srcdir, destdir, { overwrite: true })
 						.then(() => console.log('updated assets'))
 						.catch(err => console.error(err));
