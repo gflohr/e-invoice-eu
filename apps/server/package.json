@@ -5,6 +5,7 @@
 		"type": "git",
 		"url": "git+https://github.com/gflohr/e-invoice-eu.git"
 	},
+	"type": "commonjs",
 	"homepage": "https://github.com/gflohr/e-invoice-eu",
 	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
 	"dependencies": {
