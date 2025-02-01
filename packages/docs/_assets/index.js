@@ -23,10 +23,13 @@ require('prismjs/components/prism-json');
 // Prism plug-ins.
 require('prismjs/plugins/line-numbers/prism-line-numbers');
 require('prismjs/plugins/autolinker/prism-autolinker');
+require('prismjs/plugins/toolbar/prism-toolbar');
+require('prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard');
 
 // Prism CSS.
 require('prismjs/themes/prism.css');
 require('prismjs/plugins/line-numbers/prism-line-numbers.css');
+require('prismjs/plugins/toolbar/prism-toolbar.css');
 
 // Custom CSS.
 require('./css/qgoda.css');

@@ -101,3 +101,6 @@ private:
     responsible: configure private.legal.responsible in _localqgoda.yaml or _qgoda.yaml
     copyright_year: configure private.legal.copyright_year in _localqgoda.yaml or _qgoda.yaml
     copyright_uri: configure private.legal.copyright_uri in _localqgoda.yaml or _qgoda.yaml
+  copyCode:
+    data-prismjs-copy: 'Copy code'
+    data-primsjs-copy-success: 'Copied'
