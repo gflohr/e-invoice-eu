@@ -12,6 +12,6 @@
   [%- IF (script.match('^[ \t\n]*<script')) %]
   [%- script -%]
   [%- ELSE %]
-  <script src="[% q.bustCache(script) | url %]" type="text/javascript"></script>
+  <script src="/e-invoice-eu[% q.bustCache(script) | url %]" type="text/javascript"></script>
   [%- END %]
 [% END %]
