@@ -3,6 +3,10 @@ title: API Documentation
 name: api-documentation
 section: service
 description: The OpenAPI (Swagger) documentation is built into the server.
+styles:
+- /site/css/modal-image-popup.css
+scripts:
+- /site/js/modal-image-popup.js
 ---
 <!--qgoda-no-xgettext-->
 [% USE q = Qgoda %]

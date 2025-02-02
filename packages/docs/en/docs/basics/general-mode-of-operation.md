@@ -3,6 +3,10 @@ title: General Mode of Operation
 name: general-mode-of-operation
 section: basics
 description: The software works by mapping spreadsheet data to JSON data from which the e-invoice is generated. You can also directly generate the e-invoice from JSON.
+styles:
+- /site/css/modal-image-popup.css
+scripts:
+- /site/js/modal-image-popup.js
 ---
 <!--qgoda-no-xgettext-->
 [% USE q = Qgoda %]
