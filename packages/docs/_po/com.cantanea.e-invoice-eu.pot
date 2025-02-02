@@ -15,6 +15,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit"
 
+#: ../_views/components/copy-code-title.html:5
+msgid "Copy code"
+msgstr ""
+
 #: ../_views/components/file.html:4
 #: ../_views/components/template-variable.html:4
 msgid "type:"
@@ -787,6 +791,106 @@ msgid ""
 "* Large parts of the code are generated from PEPPOL-UBL documentation.\n"
 "* Automatic valdiation of input document structure.\n"
 "* OpenAPI/Swagger API documentation included."
+msgstr ""
+
+#: ../en/docs/service.md:2
+msgctxt "title"
+msgid "Service"
+msgstr ""
+
+#: ../en/docs/service/deployment.md:2
+msgctxt "title"
+msgid "Deployment"
+msgstr ""
+
+#: ../en/docs/service/deployment.md:5
+msgctxt "description"
+msgid "You can deploy the service either as a container or run it locally in production or development mode."
+msgstr ""
+
+#: ../en/docs/service/deployment.md:13
+msgid "The E-Invoice-EU service can be used in one of several ways:"
+msgstr ""
+
+#: ../en/docs/service/deployment.md:15
+msgid ""
+"* Run as a (docker) container.\n"
+"* Build and run it in production mode.\n"
+"* Run it locally in development mode."
+msgstr ""
+
+#: ../en/docs/service/deployment.md:21
+msgid "## Docker Container"
+msgstr ""
+
+#: ../en/docs/service/deployment.md:23
+msgid "By far, the easiest way to run the E-Invoice-EU service is to run the\n"
+"containerized version."
+msgstr ""
+
+#: ../en/docs/service/deployment.md:39
+msgid "## Deploy in Production Mode"
+msgstr ""
+
+#: ../en/docs/service/deployment.md:41
+msgid ""
+"You can also build the server and then run it anywhere you like. After\n"
+"cloning the repository and changing into its root directory, execute the\n"
+"following commands:"
+msgstr ""
+
+#: ../en/docs/service/deployment.md:78
+msgid "You can then run the application with your favourite JavaScript runtime\n"
+"environment."
+msgstr ""
+
+#: ../en/docs/service/deployment.md:104
+msgid "See the [NestJS documentation for deployment](https://docs.nestjs.com/deployment)\n"
+"for more information."
+msgstr ""
+
+#: ../en/docs/service/deployment.md:107
+msgid "## Run in Development Mode"
+msgstr ""
+
+#: ../en/docs/service/deployment.md:109
+msgid "You can also run the application without building it first."
+msgstr ""
+
+#: ../en/docs/service/deployment.md:144
+msgid "This will automatically re-compile the source code and re-start the server,\n"
+"whenever you make changes to the code."
+msgstr ""
+
+#: ../en/docs/service/deployment.md:147
+msgid "## Environment Variables"
+msgstr ""
+
+#: ../en/docs/service/deployment.md:149
+msgid "The following environment variables are supported:"
+msgstr ""
+
+#: ../en/docs/service/deployment.md:155
+msgid "To quote the NestJS documentation:"
+msgstr ""
+
+#: ../en/docs/service/deployment.md:157
+msgid "> While there's technically no difference between development and production in Node.js and NestJS, it's a good practice to set the NODE_ENV environment variable to production when running your application in a production environment, as some libraries in the ecosystem may behave differently based on this variable (e.g., enabling or disabling debugging output, etc.)."
+msgstr ""
+
+#: ../en/docs/service/deployment.md:159
+msgid "In brief: Set the environment variable to \"production\", when running the\n"
+"service in production mode."
+msgstr ""
+
+#: ../en/docs/service/deployment.md:166
+msgid "Set this to a valid port number if you are not happy with the default port of\n"
+"3000."
+msgstr ""
+
+#: ../en/docs/service/deployment.md:169
+msgid "Note: This has currently no effect, when running the service in a container,\n"
+"see https://github.com/gflohr/e-invoice-eu/issues/76."
 msgstr ""
 
 #: ../en/legal-disclosure.md:2

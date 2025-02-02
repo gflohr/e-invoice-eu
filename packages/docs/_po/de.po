@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: qgoda-site 0.1\n"
 "Report-Msgid-Bugs-To: 'Guido Flohr <guido.flohr@cantanea.com>'\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-01-29 16:57+0200\n"
+"PO-Revision-Date: 2025-02-01 22:47+0200\n"
 "Last-Translator: Guido Flohr <guido.flohr@cantanea.com>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -13,6 +13,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Source-Language: en\n"
 "X-Generator: Poedit 3.5\n"
+
+#: ../_views/components/copy-code-title.html:5
+msgid "Copy code"
+msgstr "Quelltext kopieren"
 
 #: ../_views/components/file.html:4
 #: ../_views/components/template-variable.html:4
@@ -1019,11 +1023,6 @@ msgstr ""
 "XML-Element und ihre Position im Dokumenten-Objekt-Modell."
 
 #: ../en/docs/e-invoice-formats/hybrid-vs-xml.md:30
-#, fuzzy
-#| msgid ""
-#| "Both UBL and CII allow embedding a human-readable, normally PDF versions "
-#| "of the\n"
-#| "invoice to be embedded in the XML."
 msgid ""
 "Both UBL and CII allow embedding a human-readable, normally PDF version of "
 "the\n"
@@ -1052,13 +1051,6 @@ msgstr ""
 "Rechnung als Anhang an das PDF."
 
 #: ../en/docs/e-invoice-formats/hybrid-vs-xml.md:40
-#, fuzzy
-#| msgid ""
-#| "Factur-X and ZUGFeRD are nowadays identical. They are just different "
-#| "names for\n"
-#| "the same thing. Factur-X is the official name but the term ZUGFeRD is "
-#| "still\n"
-#| "prevalent in Germany."
 msgid ""
 "Factur-X and ZUGFeRD are nowadays identical standards. They are just "
 "different names for\n"
@@ -1075,15 +1067,6 @@ msgid "## Takeaway"
 msgstr "## Fazit"
 
 #: ../en/docs/e-invoice-formats/hybrid-vs-xml.md:46
-#, fuzzy
-#| msgid ""
-#| "An electronic invoice is either an XML document in one of the flavours "
-#| "UBL and\n"
-#| "CII or a Factur-X/ZUGFeRD PDF. If you opt for an XML element you *may* "
-#| "include\n"
-#| "a PDF version. If you go with the hybrid format Factur-X/ZUGFeRD you "
-#| "*must*\n"
-#| "include an XML version of the invoice."
 msgid ""
 "An electronic invoice is either an XML document in one of the flavours UBL "
 "and\n"
@@ -1147,16 +1130,6 @@ msgstr ""
 "die Peppol-Dokumentation zu verwenden."
 
 #: ../en/docs/e-invoice-formats/ubl.md:27
-#, fuzzy
-#| msgid ""
-#| "Clicking on an element name opens the documentation for the element. "
-#| "Element\n"
-#| "names beginning with `cac:` have subelements, those starting with `cbc:`\n"
-#| "are nodes. It makes sense to get familiar with this documentation "
-#| "because\n"
-#| "the Peppol UBL invoice structure is also the basis for the internal "
-#| "invoice\n"
-#| "format of E-Invoice-EU."
 msgid ""
 "Clicking on an element name opens the documentation for the element. If the "
 "name\n"
@@ -1226,6 +1199,154 @@ msgstr ""
 "Dokumentation generiert.\n"
 "* Automatische Validierung der Eingabedokumenten-Struktur.\n"
 "* OpenAPI/Swagger-API-Documentation enthalten."
+
+#: ../en/docs/service.md:2
+msgctxt "title"
+msgid "Service"
+msgstr "Dienst (Service)"
+
+#: ../en/docs/service/deployment.md:2
+msgctxt "title"
+msgid "Deployment"
+msgstr "Ausrollen (Deployment)"
+
+#: ../en/docs/service/deployment.md:5
+msgctxt "description"
+msgid ""
+"You can deploy the service either as a container or run it locally in "
+"production or development mode."
+msgstr ""
+"Der Dienst kann entweder als Container lokal im Produktions- oder "
+"Entwicklungsmodus gestartet werden."
+
+#: ../en/docs/service/deployment.md:13
+msgid "The E-Invoice-EU service can be used in one of several ways:"
+msgstr ""
+"Der Dienst E-Invoice-EU kann auf eine von mehreren Arten gestartet werden:"
+
+#: ../en/docs/service/deployment.md:15
+msgid ""
+"* Run as a (docker) container.\n"
+"* Build and run it in production mode.\n"
+"* Run it locally in development mode."
+msgstr ""
+"* Als (Docker-)Container.\n"
+"* Kompiliert im Produktionsmodus.\n"
+"* Lokal im Entwicklungsmodus."
+
+#: ../en/docs/service/deployment.md:21
+msgid "## Docker Container"
+msgstr "## Docker-Container"
+
+#: ../en/docs/service/deployment.md:23
+msgid ""
+"By far, the easiest way to run the E-Invoice-EU service is to run the\n"
+"containerized version."
+msgstr ""
+"Die Verwendung der containerisierten Version ist die bei weitem einfachste "
+"Möglichkeit, den Service E-Invoice-EU zu starten."
+
+#: ../en/docs/service/deployment.md:39
+msgid "## Deploy in Production Mode"
+msgstr "## Ausrollen im Produktions-Modus"
+
+#: ../en/docs/service/deployment.md:41
+msgid ""
+"You can also build the server and then run it anywhere you like. After\n"
+"cloning the repository and changing into its root directory, execute the\n"
+"following commands:"
+msgstr ""
+"Man kann den Server auch bauen und dann an einem beliebigen Ort starten. "
+"Nach dem Clonen des Repositories und Wechsel in dessen Wurzelverzeichnis, "
+"müssen dazu die folgenden Kommandos in eine Shell eingegeben werden:"
+
+#: ../en/docs/service/deployment.md:78
+msgid ""
+"You can then run the application with your favourite JavaScript runtime\n"
+"environment."
+msgstr ""
+"Die Applikation kann dann mit einer beliebigen JavaScript-Laufzeitumgebung "
+"gestartet werden:"
+
+#: ../en/docs/service/deployment.md:104
+msgid ""
+"See the [NestJS documentation for deployment](https://docs.nestjs.com/"
+"deployment)\n"
+"for more information."
+msgstr ""
+"Die [NestJS-Dokumentation für Deployment](https://docs.nestjs.com/"
+"deployment) hält weitere Informationen bereit."
+
+#: ../en/docs/service/deployment.md:107
+msgid "## Run in Development Mode"
+msgstr "## Im Entwicklungsmodus starten"
+
+#: ../en/docs/service/deployment.md:109
+msgid "You can also run the application without building it first."
+msgstr ""
+"Die Applikation kann auch ohne den vorherigen Build-Schritt gestartet werden."
+
+#: ../en/docs/service/deployment.md:144
+msgid ""
+"This will automatically re-compile the source code and re-start the server,\n"
+"whenever you make changes to the code."
+msgstr ""
+"In diesem Modus wird, wannimmer der Quelltext geändert wurde, alles neu "
+"kompiliert und der Server neu gestartet."
+
+#: ../en/docs/service/deployment.md:147
+msgid "## Environment Variables"
+msgstr "## Umgebungsvariablen"
+
+#: ../en/docs/service/deployment.md:149
+msgid "The following environment variables are supported:"
+msgstr "Die folgenden Umgebungsvariablen werden unterstützt:"
+
+#: ../en/docs/service/deployment.md:155
+msgid "To quote the NestJS documentation:"
+msgstr "Um die NestJS-Dokumentation zu zitieren:"
+
+#: ../en/docs/service/deployment.md:157
+msgid ""
+"> While there's technically no difference between development and production "
+"in Node.js and NestJS, it's a good practice to set the NODE_ENV environment "
+"variable to production when running your application in a production "
+"environment, as some libraries in the ecosystem may behave differently based "
+"on this variable (e.g., enabling or disabling debugging output, etc.)."
+msgstr ""
+"> Während es technisch keinen Unterschied zwischen Entwicklungs- und "
+"Produktionsmodus in Node.js und NestJS gibt, ist es ein gute Proxis, die "
+"NODE_ENV Umgebungsvariable auf ”production” zu setzen, wenn die Applikation "
+"in einer Produktionsumgebung gestartet wird, weil einige Bibliotheken im "
+"Ökosystem ihr Verhalten basierend auf dieser Variablen ändern (z.&nbsp;B. "
+"Ein- und Ausschalten von Debugging-Ausgaben, usw.)."
+
+#: ../en/docs/service/deployment.md:159
+msgid ""
+"In brief: Set the environment variable to \"production\", when running the\n"
+"service in production mode."
+msgstr ""
+"Kurz gesagt: Es ist besser, diese Variable auf ”production” zu setzen, wenn "
+"die Applikation im Produktionsmodus gestartet wird."
+
+#: ../en/docs/service/deployment.md:166
+msgid ""
+"Set this to a valid port number if you are not happy with the default port "
+"of\n"
+"3000."
+msgstr ""
+"Wenn der Standard-Port 3000 nicht passt, kann hier eine andere Portnummer "
+"angegeben werden."
+
+#: ../en/docs/service/deployment.md:169
+msgid ""
+"Note: This has currently no effect, when running the service in a "
+"container,\n"
+"see https://github.com/gflohr/e-invoice-eu/issues/76."
+msgstr ""
+"Anmerkung: Dies hat zur Zeit keine Auswirkung, wenn die Applikation als "
+"Container gestartet wird, siehe https://github.com/gflohr/e-invoice-eu/"
+"issues/76."
 
 #: ../en/legal-disclosure.md:2
 msgctxt "title"

@@ -1,6 +1,7 @@
 ../_views/components/cookie-consent-banner-de.html
 ../_views/components/cookie-consent-banner-en.html
 ../_views/components/cookie-consent-banner.html
+../_views/components/copy-code-title.html
 ../_views/components/file.html
 ../_views/components/guided_tour.html
 ../_views/components/infobox.html
