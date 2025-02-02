@@ -717,6 +717,37 @@ msgctxt "title"
 msgid "Service"
 msgstr ""
 
+#: ../en/docs/service/api-documentation.md:2
+msgctxt "title"
+msgid "API Documentation"
+msgstr ""
+
+#: ../en/docs/service/api-documentation.md:5
+msgctxt "description"
+msgid "The OpenAPI (Swagger) documentation is built into the server."
+msgstr ""
+
+#: ../en/docs/service/api-documentation.md:12
+msgid "The service uses the [OpenAPI](https://www.openapis.org/) specification to\n"
+"document its API."
+msgstr ""
+
+#: ../en/docs/service/api-documentation.md:15
+msgid ""
+"After [starting the service]([% q.llink(name='deployment') %]), the API\n"
+"documentation is available at http://localhost:8080/api. Hostname, scheme,\n"
+"and port have to be changed accordingly, depending where you have deployed\n"
+"the service."
+msgstr ""
+
+#: ../en/docs/service/api-documentation.md:20
+msgid "It is also possible to try out the individual endpoints in the browser."
+msgstr ""
+
+#: ../en/docs/service/api-documentation.md:22
+msgid "[% FILTER $Srcset alt=\"API documentation for /api/format/list\" %]/images/service/api-documentation/openapi-format-docs.webp[% END %]"
+msgstr ""
+
 #: ../en/docs/service/deployment.md:2
 msgctxt "title"
 msgid "Deployment"
