@@ -8,16 +8,16 @@
 	hreflang="en"
 	href="/e-invoice-eu/en/docs/service/deployment/"
 />  
-<meta name="description" content="You can deploy the service either as a container, as a web application, or run it locally." />
-<title>Deployment</title>
+<meta name="description" content="Der Dienst kann entweder als Container lokal im Produktions- oder Entwicklungsmodus gestartet werden." />
+<title>Ausrollen (Deployment)</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
 <link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/service/deployment/" />
 <meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/service/deployment/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="Deployment" />
-<meta property="og:description" content="You can deploy the service either as a container, as a web application, or run it locally." />
+<meta property="og:title" content="Ausrollen (Deployment)" />
+<meta property="og:description" content="Der Dienst kann entweder als Container lokal im Produktions- oder Entwicklungsmodus gestartet werden." />
 
 
 	<meta
@@ -100,9 +100,9 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>Deployment</h1>
+					<h1>Ausrollen (Deployment)</h1>
 					
-					<div class="description">You can deploy the service either as a container, as a web application, or run it locally.</div>
+					<div class="description">Der Dienst kann entweder als Container lokal im Produktions- oder Entwicklungsmodus gestartet werden.</div>
 				</div>
 				<qgoda-content> 
 
@@ -112,35 +112,34 @@
 
 
 
-<p>The E-Invoice-EU service can be used in one of several ways:</p>
+<p>Der Dienst E-Invoice-EU kann auf eine von mehreren Arten gestartet werden:</p>
 
 <ul>
-<li>Run as a (docker) container.</li>
-<li>Build and run as a web application.</li>
-<li>Run it locally.</li>
+<li>Als (Docker-)Container.</li>
+<li>Kompiliert im Produktionsmodus.</li>
+<li>Lokal im Entwicklungsmodus.</li>
 </ul>
 
 
-<h2><a href="#" name="docker-container" id="docker-container"></a>Docker Container</h2>
+<h2><a href="#" name="docker-container" id="docker-container"></a>Docker-Container</h2>
 
-<p>By far, the easiest way to run the E-Invoice-EU service is to run the
-containerized version.</p>
+<p>Die Verwendung der containerisierten Version ist die bei weitem einfachste Möglichkeit, den Service E-Invoice-EU zu starten.</p>
 
 
 
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-bayo8LM3XMTxb12GXvDVTq2YMy7fdo4T' id='code-tab-4mUsNDSsgpl0KuL3vYirSuZ9RrJcVFR2' checked>
-        <label data-title='docker' for='code-tab-4mUsNDSsgpl0KuL3vYirSuZ9RrJcVFR2'>docker</label>
-        <input type='radio' name='group-bayo8LM3XMTxb12GXvDVTq2YMy7fdo4T' id='code-tab-qDZpbC25sBtMNzuemd4jpSzYkKNukju4'>
-        <label data-title='nerdctl' for='code-tab-qDZpbC25sBtMNzuemd4jpSzYkKNukju4'>nerdctl</label>
+        <input type='radio' name='group-I4sBvluiI5s98KEEzBdWFwvbM3pZlEig' id='code-tab-fd8NdVEG8b5whTsGq79bjFFTujPK93MD' checked>
+        <label data-title='docker' for='code-tab-fd8NdVEG8b5whTsGq79bjFFTujPK93MD'>docker</label>
+        <input type='radio' name='group-I4sBvluiI5s98KEEzBdWFwvbM3pZlEig' id='code-tab-cAfn1ZNxnMUcklHtdqAqStws70ec8oAy'>
+        <label data-title='nerdctl' for='code-tab-cAfn1ZNxnMUcklHtdqAqStws70ec8oAy'>nerdctl</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-4mUsNDSsgpl0KuL3vYirSuZ9RrJcVFR2' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>docker pull gflohr/e-invoice-eu:latest
+            <code-block id='code-block-fd8NdVEG8b5whTsGq79bjFFTujPK93MD' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>docker pull gflohr/e-invoice-eu:latest
 docker run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest</code></pre> 
 </code-block>
-            <code-block id='code-block-qDZpbC25sBtMNzuemd4jpSzYkKNukju4'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>nerdctl pull gflohr/e-invoice-eu:latest
+            <code-block id='code-block-cAfn1ZNxnMUcklHtdqAqStws70ec8oAy'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>nerdctl pull gflohr/e-invoice-eu:latest
 nerdctl run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest</code></pre> 
 </code-block>
     </code-blocks>
@@ -151,6 +150,169 @@ nerdctl run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest<
 
 
 
+
+<h2><a href="#" name="ausrollen-im-produktions-modus" id="ausrollen-im-produktions-modus"></a>Ausrollen im Produktions-Modus</h2>
+
+<p>Man kann den Server auch bauen und dann an einem beliebigen Ort starten. Nach dem Clonen des Repositories und Wechsel in dessen Wurzelverzeichnis, müssen dazu die folgenden Kommandos in eine Shell eingegeben werden:</p>
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-bmfKPMWie0fyfV2BAB6RSZbeorUDmv1E' id='code-tab-ZzXjjXLpyzirOEmvZC6fZ6IdvFT3vFzf' checked>
+        <label data-title='npm' for='code-tab-ZzXjjXLpyzirOEmvZC6fZ6IdvFT3vFzf'>npm</label>
+        <input type='radio' name='group-bmfKPMWie0fyfV2BAB6RSZbeorUDmv1E' id='code-tab-HwPy7gT92L6QlkGbjdQOl6E1uREkgz1L'>
+        <label data-title='yarn' for='code-tab-HwPy7gT92L6QlkGbjdQOl6E1uREkgz1L'>yarn</label>
+        <input type='radio' name='group-bmfKPMWie0fyfV2BAB6RSZbeorUDmv1E' id='code-tab-9USfgdJKqeKIxGrrKcOY9I6c4P0cPNur'>
+        <label data-title='pnpm' for='code-tab-9USfgdJKqeKIxGrrKcOY9I6c4P0cPNur'>pnpm</label>
+        <input type='radio' name='group-bmfKPMWie0fyfV2BAB6RSZbeorUDmv1E' id='code-tab-A9KKuDDJwQMD80ql95gXkj5Yo2MUGowV'>
+        <label data-title='bun' for='code-tab-A9KKuDDJwQMD80ql95gXkj5Yo2MUGowV'>bun</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-ZzXjjXLpyzirOEmvZC6fZ6IdvFT3vFzf' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+npm install
+npm run build</code></pre>
+
+</code-block>
+            <code-block id='code-block-HwPy7gT92L6QlkGbjdQOl6E1uREkgz1L'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+yarn install
+yarn run build</code></pre>
+
+</code-block>
+            <code-block id='code-block-9USfgdJKqeKIxGrrKcOY9I6c4P0cPNur'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+pnpm install
+pnpm run build</code></pre> 
+
+</code-block>
+            <code-block id='code-block-A9KKuDDJwQMD80ql95gXkj5Yo2MUGowV'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+bun install
+bun run build</code></pre> 
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
+
+
+<p>Die Applikation kann dann mit einer beliebigen JavaScript-Laufzeitumgebung gestartet werden:</p>
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-8oNoODQntCcS69FYhcWoLdAJ8ULu5fPu' id='code-tab-KIgUeGObNm7Cy06jWPDQ288Xs9W4kML1' checked>
+        <label data-title='node' for='code-tab-KIgUeGObNm7Cy06jWPDQ288Xs9W4kML1'>node</label>
+        <input type='radio' name='group-8oNoODQntCcS69FYhcWoLdAJ8ULu5fPu' id='code-tab-sFX9nVE0WV6UBbweSo4aQBrtHUHt8hHR'>
+        <label data-title='bun' for='code-tab-sFX9nVE0WV6UBbweSo4aQBrtHUHt8hHR'>bun</label>
+        <input type='radio' name='group-8oNoODQntCcS69FYhcWoLdAJ8ULu5fPu' id='code-tab-sq6v5XDr72lWz8t7cuWiqog6TvT9RMVq'>
+        <label data-title='deno' for='code-tab-sq6v5XDr72lWz8t7cuWiqog6TvT9RMVq'>deno</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-KIgUeGObNm7Cy06jWPDQ288Xs9W4kML1' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+NODE_ENV=production node dist/main.js</code></pre>
+
+</code-block>
+            <code-block id='code-block-sFX9nVE0WV6UBbweSo4aQBrtHUHt8hHR'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+NODE_ENV=production bun dist/main.js</code></pre>
+
+</code-block>
+            <code-block id='code-block-sq6v5XDr72lWz8t7cuWiqog6TvT9RMVq'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+NODE_ENV=production deno --allow-env --allow-read --allow-net dist/main.js</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
+
+
+<p>Die <a href="https://docs.nestjs.com/deployment" target="_blank">NestJS-Dokumentation für Deployment</a> hält weitere Informationen bereit.</p>
+
+<h2><a href="#" name="im-entwicklungsmodus-starten" id="im-entwicklungsmodus-starten"></a>Im Entwicklungsmodus starten</h2>
+
+<p>Die Applikation kann auch ohne den vorherigen Build-Schritt gestartet werden.</p>
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-tgiaERxnH2ypohdROjLZPb0wTHvp83g1' id='code-tab-zaK2Ge9FIxyM3IMPEs2T2YjjiPdo6oco' checked>
+        <label data-title='npm' for='code-tab-zaK2Ge9FIxyM3IMPEs2T2YjjiPdo6oco'>npm</label>
+        <input type='radio' name='group-tgiaERxnH2ypohdROjLZPb0wTHvp83g1' id='code-tab-cWTB49iQsrw1dz5yhSyslrnMKb6oxBzi'>
+        <label data-title='yarn' for='code-tab-cWTB49iQsrw1dz5yhSyslrnMKb6oxBzi'>yarn</label>
+        <input type='radio' name='group-tgiaERxnH2ypohdROjLZPb0wTHvp83g1' id='code-tab-LIo7nQTaVfHbVMxVyGdoasI4xsPygNWo'>
+        <label data-title='pnpm' for='code-tab-LIo7nQTaVfHbVMxVyGdoasI4xsPygNWo'>pnpm</label>
+        <input type='radio' name='group-tgiaERxnH2ypohdROjLZPb0wTHvp83g1' id='code-tab-tNSHmvRI9HgnedYWvtJAYqwtFTQy1dqp'>
+        <label data-title='bun' for='code-tab-tNSHmvRI9HgnedYWvtJAYqwtFTQy1dqp'>bun</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-zaK2Ge9FIxyM3IMPEs2T2YjjiPdo6oco' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+npm install
+npm run start:dev</code></pre>
+
+</code-block>
+            <code-block id='code-block-cWTB49iQsrw1dz5yhSyslrnMKb6oxBzi'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+yarn install
+yarn run start:dev</code></pre>
+
+</code-block>
+            <code-block id='code-block-LIo7nQTaVfHbVMxVyGdoasI4xsPygNWo'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+pnpm install
+pnpm run start:dev</code></pre> 
+
+</code-block>
+            <code-block id='code-block-tNSHmvRI9HgnedYWvtJAYqwtFTQy1dqp'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+bun install
+bun run start:dev</code></pre> 
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
+
+
+<p>In diesem Modus wird, wannimmer der Quelltext geändert wurde, alles neu kompiliert und der Server neu gestartet.</p>
+
+<h2><a href="#" name="umgebungsvariablen" id="umgebungsvariablen"></a>Umgebungsvariablen</h2>
+
+<p>Die folgenden Umgebungsvariablen werden unterstützt:</p>
+
+
+
+
+<h3><a href="#" name="node_env-code" id="node_env-code"></a><code>NODE_ENV</code></h3>
+
+
+
+
+<p>Um die NestJS-Dokumentation zu zitieren:</p>
+
+<blockquote><p>Während es technisch keinen Unterschied zwischen Entwicklungs- und Produktionsmodus in Node.js und NestJS gibt, ist es ein gute Proxis, die NODE_ENV Umgebungsvariable auf ”production” zu setzen, wenn die Applikation in einer Produktionsumgebung gestartet wird, weil einige Bibliotheken im Ökosystem ihr Verhalten basierend auf dieser Variablen ändern (z.&nbsp;B. Ein- und Ausschalten von Debugging-Ausgaben, usw.).</p></blockquote>
+
+<p>Kurz gesagt: Es ist besser, diese Variable auf ”production” zu setzen, wenn die Applikation im Produktionsmodus gestartet wird.</p>
+
+
+
+
+<h3><a href="#" name="port-code" id="port-code"></a><code>PORT</code></h3>
+
+
+
+
+<p>Wenn der Standard-Port 3000 nicht passt, kann hier eine andere Portnummer angegeben werden.</p>
+
+<p>Anmerkung: Dies hat zur Zeit keine Auswirkung, wenn die Applikation als Container gestartet wird, siehe <a href="https://github.com/gflohr/e-invoice-eu/issues/76" target="_blank">https://github.com/gflohr/e-invoice-eu/issues/76</a>.</p>
  
 				 
 <div class="guided-tour container">
@@ -262,7 +424,7 @@ nerdctl run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest<
 </div>
 
  
-<h4>Service</h4>
+<h4>Dienst (Service)</h4>
  
 <div class="sidebar-module">
 	<h4 class="sidebar-title"></h4>
@@ -270,7 +432,7 @@ nerdctl run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest<
 		
 		<li>
 			
-			<i class="bi-arrow-right-circle"></i>&nbsp;Deployment 
+			<i class="bi-arrow-right-circle"></i>&nbsp;Ausrollen (Deployment) 
 		</li>
 		
 	</ol>
@@ -383,7 +545,7 @@ nerdctl run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest<
 // 
 (function () {
 	document.querySelectorAll('.copy-to-clipboard-button').forEach(btn => {
-		btn.title = "Copy code";
+		btn.title = "Quelltext kopieren";
 	});
 })();
 </script>

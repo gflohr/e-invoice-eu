@@ -360,6 +360,12 @@ qgoda-content img {
 	width: 100%;
 }
 
+blockquote {
+	margin-left: 1rem;
+	margin-right: 1rem;
+	font-style: italic;
+}
+
 .copy-to-clipboard-button {
 	background-image: var(--qgoda-icon-copy) !important;
 	background-repeat: no-repeat !important;

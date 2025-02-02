@@ -2,7 +2,7 @@
 title: Deployment
 name: deployment
 section: service
-description: You can deploy the service either as a container, as a web application, or run it locally.
+description: You can deploy the service either as a container or run it locally in production or development mode.
 ---
 <!--qgoda-no-xgettext-->
 [% USE q = Qgoda %]
@@ -13,8 +13,8 @@ description: You can deploy the service either as a container, as a web applicat
 The E-Invoice-EU service can be used in one of several ways:
 
 * Run as a (docker) container.
-* Build and run as a web application.
-* Run it locally.
+* Build and run it in production mode.
+* Run it locally in development mode.
 
 <qgoda-toc/>
 
@@ -39,8 +39,8 @@ nerdctl run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest
 ## Deploy in Production Mode
 
 You can also build the server and then run it anywhere you like. After
-cloning the repository, change to the root directory and execute these
-commands:
+cloning the repository and changing into its root directory, execute the
+following commands:
 
 <!--qgoda-no-xgettext-->
 [% FILTER $CodeGroup %]
@@ -104,7 +104,7 @@ NODE_ENV=production deno --allow-env --allow-read --allow-net dist/main.js
 See the [NestJS documentation for deployment](https://docs.nestjs.com/deployment)
 for more information.
 
-## Deploy in Development Mode
+## Run in Development Mode
 
 You can also run the application without building it first.
 
@@ -148,7 +148,9 @@ whenever you make changes to the code.
 
 The following environment variables are supported:
 
+<!--qgoda-no-xgettext-->
 ### `NODE_ENV`
+<!--/qgoda-no-xgettext-->
 
 To quote the NestJS documentation:
 
@@ -157,7 +159,9 @@ To quote the NestJS documentation:
 In brief: Set the environment variable to "production", when running the
 service in production mode.
 
+<!--qgoda-no-xgettext-->
 ### `PORT`
+<!--/qgoda-no-xgettext-->
 
 Set this to a valid port number if you are not happy with the default port of
 3000.
