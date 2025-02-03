@@ -720,8 +720,7 @@ msgstr ""
 msgid ""
 "This documentation is work in progress. It is still incomplete and it requires\n"
 "proof-reading. This warning will vanish, once the documentation is considered\n"
-"sufficient and stable. In the meantime, feel free to file an issue at\n"
-"https://github.com/gflohr/e-invoice-eu/issues."
+"sufficient and stable. In the meantime, feel free to <a href=\"https://github.com/gflohr/e-invoice-eu/issues\">file an issue</a> if you spot an error or non-obvious omission."
 msgstr ""
 
 #: ../en/docs/service.md:2

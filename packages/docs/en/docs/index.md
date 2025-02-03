@@ -40,8 +40,7 @@ yet translated will be displayed in English instead.
 <!--/qgoda-no-xgettext-->
 This documentation is work in progress. It is still incomplete and it requires
 proof-reading. This warning will vanish, once the documentation is considered
-sufficient and stable. In the meantime, feel free to file an issue at
-https://github.com/gflohr/e-invoice-eu/issues.
+sufficient and stable. In the meantime, feel free to <a href="https://github.com/gflohr/e-invoice-eu/issues">file an issue</a> if you spot an error or non-obvious omission.
 <!--qgoda-no-xgettext-->
 [% END %]
 <!--/qgoda-no-xgettext-->
