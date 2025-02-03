@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: qgoda-site 0.1\n"
 "Report-Msgid-Bugs-To: 'Guido Flohr <guido.flohr@cantanea.com>'\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-02-03 21:10+0200\n"
+"PO-Revision-Date: 2025-02-03 21:22+0200\n"
 "Last-Translator: Guido Flohr <guido.flohr@cantanea.com>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -1200,6 +1200,23 @@ msgstr ""
 "* Automatische Validierung der Eingabedokumenten-Struktur.\n"
 "* OpenAPI/Swagger-API-Documentation enthalten."
 
+#: ../en/docs/index.md:37
+msgid "[% title = \"Work in Progress\" %]"
+msgstr "[% title = \"Dokumentation in Arbeit\" %]"
+
+#: ../en/docs/index.md:41
+msgid ""
+"This documentation is work in progress. It is still incomplete and it "
+"requires\n"
+"proof-reading. This warning will vanish, once the documentation is "
+"considered\n"
+"sufficient and stable. In the meantime, feel free to file an issue at\n"
+"https://github.com/gflohr/e-invoice-eu/issues."
+msgstr ""
+"Diese Dokumentation wird zur Zeit bearbeitet. Sie ist noch unvollständig und "
+"bedarf des Korrekturlesens. Diese Warnung wird entfernt, sobald die Doku als "
+"vollständig und stabil erachtet wird."
+
 #: ../en/docs/service.md:2
 msgctxt "title"
 msgid "Service"
@@ -1447,7 +1464,7 @@ msgstr ""
 "diesem Fall muss sichergestellt werden, dass die ausführbare LibreOffice-"
 "Datei gefunden wird. Sie muss entweder in <code>$PATH</code> liegen, oder "
 "ihr genauer Ort muss <a\n"
-"href=”[% q.llink(name=’deployment’) %]#libre_office-code”>konfiguriert "
+"href=”[% q.llink(name='deployment') %]#libre_office-code”>konfiguriert "
 "werden</a>."
 
 #: ../en/docs/service/create-invoices.md:154

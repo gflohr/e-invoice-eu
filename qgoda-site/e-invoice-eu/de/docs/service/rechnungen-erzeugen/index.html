@@ -146,18 +146,18 @@
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-TKmbHLzq6VnHFaQ6j3yOLUB2um4wHijP' id='code-tab-DrOFscgn7HhEgNQmrJMCcK3GX4gX3rK7' checked>
-        <label data-title='curl' for='code-tab-DrOFscgn7HhEgNQmrJMCcK3GX4gX3rK7'>curl</label>
-        <input type='radio' name='group-TKmbHLzq6VnHFaQ6j3yOLUB2um4wHijP' id='code-tab-2IRKpRVwBGe1TcF096kRi4ulb08NLsB1'>
-        <label data-title='httpie' for='code-tab-2IRKpRVwBGe1TcF096kRi4ulb08NLsB1'>httpie</label>
+        <input type='radio' name='group-oADZ7F6vcQwVCTd1ViAXDABlT8vI951X' id='code-tab-WvQv40Z7aUBFOSWQrHzc9dGPbz0oQhQt' checked>
+        <label data-title='curl' for='code-tab-WvQv40Z7aUBFOSWQrHzc9dGPbz0oQhQt'>curl</label>
+        <input type='radio' name='group-oADZ7F6vcQwVCTd1ViAXDABlT8vI951X' id='code-tab-odwoJ7CsTk7NDoSkomvo5sUDJdBUdYNJ'>
+        <label data-title='httpie' for='code-tab-odwoJ7CsTk7NDoSkomvo5sUDJdBUdYNJ'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-DrOFscgn7HhEgNQmrJMCcK3GX4gX3rK7' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/transform-and-create/UBL \
+            <code-block id='code-block-WvQv40Z7aUBFOSWQrHzc9dGPbz0oQhQt' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/transform-and-create/UBL \
     -F data=@contrib/templates/default-invoice.ods \
     -F mapping=@contrib/mappings/default-invoice.yaml</code></pre>
 
 </code-block>
-            <code-block id='code-block-2IRKpRVwBGe1TcF096kRi4ulb08NLsB1'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
+            <code-block id='code-block-odwoJ7CsTk7NDoSkomvo5sUDJdBUdYNJ'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml</code></pre>
 </code-block>
@@ -183,13 +183,13 @@
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-l40GL4uwjjSnlIMGYznm0q2GQcpoYkaF' id='code-tab-HDnOL5HHvfCGI4QlsTV7dkue9p139J0u' checked>
-        <label data-title='curl' for='code-tab-HDnOL5HHvfCGI4QlsTV7dkue9p139J0u'>curl</label>
-        <input type='radio' name='group-l40GL4uwjjSnlIMGYznm0q2GQcpoYkaF' id='code-tab-kli6YWJ5X6ToTbxaIVFkt3Obq6iIJnTK'>
-        <label data-title='httpie' for='code-tab-kli6YWJ5X6ToTbxaIVFkt3Obq6iIJnTK'>httpie</label>
+        <input type='radio' name='group-Vthjr7V6vmNqBzARvEzfE0xGQ7FdeAw6' id='code-tab-vJ8Q5NN97cNhoVZziQhyi5Rapq4TJ92S' checked>
+        <label data-title='curl' for='code-tab-vJ8Q5NN97cNhoVZziQhyi5Rapq4TJ92S'>curl</label>
+        <input type='radio' name='group-Vthjr7V6vmNqBzARvEzfE0xGQ7FdeAw6' id='code-tab-WueUbhWwzIn6yujsCwnlS98MmNRsAzMs'>
+        <label data-title='httpie' for='code-tab-WueUbhWwzIn6yujsCwnlS98MmNRsAzMs'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-HDnOL5HHvfCGI4QlsTV7dkue9p139J0u' class='active'><pre class="language-sh"><code>curl -X POST \
+            <code-block id='code-block-vJ8Q5NN97cNhoVZziQhyi5Rapq4TJ92S' class='active'><pre class="language-sh"><code>curl -X POST \
     http://localhost:3000/api/invoice/transform-and-create/UBL \
     -F lang=de \
     -F data=@contrib/templates/default-invoice.ods \
@@ -205,7 +205,7 @@
     -F attachmentDescription=&#34;Our payment terms&#34;</code></pre>
 
 </code-block>
-            <code-block id='code-block-kli6YWJ5X6ToTbxaIVFkt3Obq6iIJnTK'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
+            <code-block id='code-block-WueUbhWwzIn6yujsCwnlS98MmNRsAzMs'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
     lang=de \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml \
@@ -253,17 +253,13 @@
     <div>
         <strong>
             <i class="bi-exclamation-triangle"></i>
-            <span class="title">Generate PDF From Spreadsheet Data</span>
+            <span class="title">PDF aus Tabellenkalkulations-Daten erzeugen</span>
         </strong>
     </div>
     <p>
 
-If the PDF is not provided with the parameter <code></code>, it is generated from
-the spreadsheet file (parameter <code>data</code>).  In that case you must
-ensure that the LibreOffice executable is found. It must be either in your
-<code>$PATH</code> or you have <a
-href="/e-invoice-eu/de/docs/service/deployment/#libre_office-code">configured its
-location</a>.
+Wird das PDF nicht mit dem Parameter <code>pdf</code> übergeben, wird es aus der Tabellenkalkulations-Datei (Parameter <code>data</code>) erzeugt. In diesem Fall muss sichergestellt werden, dass die ausführbare LibreOffice-Datei gefunden wird. Sie muss entweder in <code>$PATH</code> liegen, oder ihr genauer Ort muss <a
+href=”/e-invoice-eu/de/docs/service/deployment/#libre_office-code”>konfiguriert werden</a>.
 
 </p>
 </div>
@@ -274,78 +270,40 @@ location</a>.
 
 
 
-<p>Each attachment to the e-invoice may have an optional id and an optional
-description. But the order in which you send them is not significant because
-the service cannot determine their order.  Therefore,
-the URL parameters <code>attachment</code>, <code>attachmentID</code>, and <code>attachmentDescription</code>
-are processed individually. What does that mean?</p>
+<p>Jeder Anhang an die E-Rechnung kann eine optionale ID und eine optionale Beschreibung erhalten. Der Service „sieht” allerdings nur 3 Listen der URL-Parameter <code>attachment</code>, <code>attachmentID</code> und <code>attachmentDescription</code>, selbst wenn sie pro Anhang gruppiert wurden.</p>
 
-<p>If you use the parameter <code>attachment</code> four times, <code>attachmentID</code> twice,
-and <code>attachmentDescription</code> three times, the following attachments are embedded:</p>
+<p>Wird der Paramter <code>Attachment</code> viermal, <code>attachmentID</code> zweimal und <code>attachmentDescription</code> dreimal angegeben, ganz gleich in welcher Reihenfolge, werden die folgenden Anhänge eingebettet:</p>
 
-<table>
-<thead>
-<tr>
-<th> Attachment        </th>
-<th> Filename        </th>
-<th> ID </th>
-<th> Description </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td> <strong>Attachment #1</strong> </td>
-<td> <code>attachment</code> #1 </td>
-<td> <code>attachmentID #1</code> </td>
-<td> <code>attachmentDescription #1</code> </td>
-</tr>
-<tr>
-<td> <strong>Attachment #2</strong> </td>
-<td> <code>attachment</code> #2 </td>
-<td> <code>attachmentID #2</code> </td>
-<td> <code>attachmentDescription #2</code> </td>
-</tr>
-<tr>
-<td> <strong>Attachment #3</strong> </td>
-<td> <code>attachment</code> #3 </td>
-<td> - </td>
-<td> <code>attachmentDescription #3</code> </td>
-</tr>
-<tr>
-<td> <strong>Attachment #4</strong> </td>
-<td> <code>attachment</code> #4 </td>
-<td> - </td>
-<td> - </td>
-</tr>
-</tbody>
-</table>
+<p>| Anhang        | Dateiname        | ID | Beschreibung |
+|—————————|————————|——|——————|
+| <strong>Anhang #1</strong> | <code>attachment</code> #1 | <code>attachmentID #1</code> | <code>attachmentDescription #1</code> |
+| <strong>Anhang #2</strong> | <code>attachment</code> #2 | <code>attachmentID #2</code> | <code>attachmentDescription #2</code> |
+| <strong>Anhang #3</strong> | <code>attachment</code> #3 | - | <code>attachmentDescription #3</code> |
+| <strong>Anhang #4</strong> | <code>attachment</code> #4 | - | - |</p>
 
+<p>Normalerweise wird man diesen Komplikationen aus dem Wege gehen wollen und entweder für jeden Anhang eine ID und/oder Beschreibung übergeben oder für keinen.</p>
 
-<p>You will probably want to avoid that hassle by specifying an id and/or
-description either for all attachments or for none.</p>
+<h2><a href="#" name="beispiel-fur-factur-x-zugferd" id="beispiel-fur-factur-x-zugferd"></a>Beispiel für Factur-X/ZUGFeRD</h2>
 
-<h2><a href="#" name="factur-x-zugferd-example" id="factur-x-zugferd-example"></a>Factur-X/ZUGFeRD Example</h2>
-
-<p>There is nothing special about creating Factur-X/ZUGFeRD, only that the output
-is binary and you want to redirect it to a file.</p>
+<p>Die Erzeugung von Factur-X/ZUGFeRD unterscheidet sich eigentlich nur darin, dass die Ausgabe binär ist, und deshalb in eine Datei umgeleitet werden sollte.</p>
 
 
 
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-Re4MswBnAWHCiOzlKg1zJjUlMxT1hNaH' id='code-tab-DrFO8g2RCBiWyQpS5BPgjaaknjpMr1J5' checked>
-        <label data-title='curl' for='code-tab-DrFO8g2RCBiWyQpS5BPgjaaknjpMr1J5'>curl</label>
-        <input type='radio' name='group-Re4MswBnAWHCiOzlKg1zJjUlMxT1hNaH' id='code-tab-CVfBVem9qEPVGtlX8SshOmKZBTf1DA2f'>
-        <label data-title='httpie' for='code-tab-CVfBVem9qEPVGtlX8SshOmKZBTf1DA2f'>httpie</label>
+        <input type='radio' name='group-dwM1FbP5dPT60xNNPbTuk0TKO4lFsQ4A' id='code-tab-Z3lHvWQjELXTNu6DCf5ZL3JMCsKSln7h' checked>
+        <label data-title='curl' for='code-tab-Z3lHvWQjELXTNu6DCf5ZL3JMCsKSln7h'>curl</label>
+        <input type='radio' name='group-dwM1FbP5dPT60xNNPbTuk0TKO4lFsQ4A' id='code-tab-wKtRQbINqANI3oPyKDccvXdfkOJ2Ccl5'>
+        <label data-title='httpie' for='code-tab-wKtRQbINqANI3oPyKDccvXdfkOJ2Ccl5'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-DrFO8g2RCBiWyQpS5BPgjaaknjpMr1J5' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/transform-and-create/Factur-X-Extended \
+            <code-block id='code-block-Z3lHvWQjELXTNu6DCf5ZL3JMCsKSln7h' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/transform-and-create/Factur-X-Extended \
     -F data=@contrib/templates/default-invoice.ods \
     -F mapping=@contrib/mappings/default-invoice.yaml &#62;e-invoice.pdf</code></pre>
 
 </code-block>
-            <code-block id='code-block-CVfBVem9qEPVGtlX8SshOmKZBTf1DA2f'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/Factur-X-Extended \
+            <code-block id='code-block-wKtRQbINqANI3oPyKDccvXdfkOJ2Ccl5'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/Factur-X-Extended \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml &#62;e-invoice.pdf</code></pre>
 </code-block>
@@ -358,37 +316,32 @@ is binary and you want to redirect it to a file.</p>
 
 
 
-<p>This would create a Factur-X/ZUGFeRD e-invoice with the profile
-<em>Extended</em>.</p>
+<p>Dies würde eine E-Rechnung im Format Factur-X/ZUGFeRD mit dem Profil <em>Extended</em> erzeugen.</p>
 
-<p>You must also keep in mind that the hybrid Factur-X/ZUGFeRD format <em>requires</em>
-a PDF version of the input. You must either specify it yourself with the
-parameter <code>pdf</code> or <code>LibreOffice</code> must be available so that it can be generated
-from the spreadsheet file <code>data</code>.</p>
+<p>Man muss sich allerdings vergegenwärtigen, dass das hybride Format Factur-X/ZUGFeRD eine PDF-Version <em>verlangt</em>. Diese PDF-Version muss entweder mit dem Parameter <code>pdf</code> übergeben werden, oder <code>LibreOffice</code> muss verfügbar sein, damit sie aus der Tabellenkalkulations-Datei <code>data</code> erzeugt werden kann.</p>
 
 <h2><a href="#" name="rechnungen-aus-json-erzeugen" id="rechnungen-aus-json-erzeugen"></a>Rechnungen aus JSON erzeugen</h2>
 
-<p>You can bypass the mapping step and generate the invoice directly from
-JSON.  The endpoint for that is <code>/api/invoice/create/:FORMAT</code>.</p>
+<p>Das Mapping, also die Zuordnung von Tabellendaten zu Rechnungsdaten kann auch übersprungen werden. Die Rechnung lässt sich auch direkt aus JSON erzeugen. Der Endpunkt dafür ist <code>/api/invoice/create/:FORMAT</code>.</p>
 
-<p>Example:</p>
+<p>Beispiel:</p>
 
 
 
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-uG8YrzVunLaDpkgvRs8B9Rtvuo1ptcFz' id='code-tab-TTX0RPxYqNn5kY9X9kG7dMeFRl2Ehyb3' checked>
-        <label data-title='curl' for='code-tab-TTX0RPxYqNn5kY9X9kG7dMeFRl2Ehyb3'>curl</label>
-        <input type='radio' name='group-uG8YrzVunLaDpkgvRs8B9Rtvuo1ptcFz' id='code-tab-9VPQTX9UK6Vjdil23ffduqOYrCMsVY59'>
-        <label data-title='httpie' for='code-tab-9VPQTX9UK6Vjdil23ffduqOYrCMsVY59'>httpie</label>
+        <input type='radio' name='group-EP1W5il79fKnNnPxyszhl12Ayyr9KaSW' id='code-tab-BonPvPwjejhlKT3zPG38jI2EiPFL0BLr' checked>
+        <label data-title='curl' for='code-tab-BonPvPwjejhlKT3zPG38jI2EiPFL0BLr'>curl</label>
+        <input type='radio' name='group-EP1W5il79fKnNnPxyszhl12Ayyr9KaSW' id='code-tab-20z30lyDlsLH68vFYEOrpxZysnBw6d7k'>
+        <label data-title='httpie' for='code-tab-20z30lyDlsLH68vFYEOrpxZysnBw6d7k'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-TTX0RPxYqNn5kY9X9kG7dMeFRl2Ehyb3' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/UBL \
+            <code-block id='code-block-BonPvPwjejhlKT3zPG38jI2EiPFL0BLr' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/UBL \
     -F invoice=@contrib/data/default-invoice.json</code></pre>
 
 </code-block>
-            <code-block id='code-block-9VPQTX9UK6Vjdil23ffduqOYrCMsVY59'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
+            <code-block id='code-block-20z30lyDlsLH68vFYEOrpxZysnBw6d7k'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
     invoice@contrib/data/default-invoice.json</code></pre>
 </code-block>
     </code-blocks>
@@ -400,39 +353,33 @@ JSON.  The endpoint for that is <code>/api/invoice/create/:FORMAT</code>.</p>
 
 
 
-<p>In this case, a Peppol UBL invoice is created.</p>
+<p>In diesem Fall wird ein Peppol-UBL-Rechnung erzeugt.</p>
 
-<p>This endpoint allows the exact same URL parameters as the <a href="#e-invoice-with-additional-attachments">endpoint for
-creating invoices from spreadsheet
-data</a> except for the parameter
-<code>mapping</code> which makes no sense.</p>
+<p>Dieser Endpunkt erlaubt exakt die gleichen URL-Parameter wie der <a href="#e-invoice-with-additional-attachments">Endpunkt für die Erzeugung von Rechnungen aus Tabellen-Daten</a>, bis auf den Parameter <code>mapping</code> der hier keinen Sinn ergibt.</p>
 
-<h2><a href="#" name="create-json-data-from-spreadsheet-data" id="create-json-data-from-spreadsheet-data"></a>Create JSON Data from Spreadsheet Data</h2>
+<h2><a href="#" name="json-daten-aus-tabellendaten-erzeugen" id="json-daten-aus-tabellendaten-erzeugen"></a>JSON-Daten aus Tabellendaten erzeugen</h2>
 
-<p>You can also create invoice data in the internal format from a spreadsheet
-file with the endpoint <code>/api/mapping/transform/:format</code>. This is probably
-only useful for informational purposes because JSON is not an allowed format
-for e-invoices.</p>
+<p>Mit dem API-Endpunkt <code>/api/mapping/transform/:FORMAT</code> lassen Rechnungsdaten im internen Format aus einer Tabellendatei erzeugen. Das ergibt vermutlich nur für Informationszwecke Sinn, weil JSON kein erlaubtes Format für E-Rechnungen ist.</p>
 
-<p>Example:</p>
+<p>Beispiel:</p>
 
 
 
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-tYwtllqOkMEPr9lj1i9nOUtoMQ4MlNMS' id='code-tab-DEIvBir6zoSQRMBNM53hZsrqUec55qPK' checked>
-        <label data-title='curl' for='code-tab-DEIvBir6zoSQRMBNM53hZsrqUec55qPK'>curl</label>
-        <input type='radio' name='group-tYwtllqOkMEPr9lj1i9nOUtoMQ4MlNMS' id='code-tab-xoa8pzBrSBktPgFI2M03h4LdVktxqnVV'>
-        <label data-title='httpie' for='code-tab-xoa8pzBrSBktPgFI2M03h4LdVktxqnVV'>httpie</label>
+        <input type='radio' name='group-RNccN8FlrypRPbL8PK0UvXeby3yIlYDW' id='code-tab-tRI6nCb1G6brdgNnaZVD6Il48kBD1ZdW' checked>
+        <label data-title='curl' for='code-tab-tRI6nCb1G6brdgNnaZVD6Il48kBD1ZdW'>curl</label>
+        <input type='radio' name='group-RNccN8FlrypRPbL8PK0UvXeby3yIlYDW' id='code-tab-t0gvasoJaslpkXaAI88h59OagWSYTKoB'>
+        <label data-title='httpie' for='code-tab-t0gvasoJaslpkXaAI88h59OagWSYTKoB'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-DEIvBir6zoSQRMBNM53hZsrqUec55qPK' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/mapping/transform/UBL \
+            <code-block id='code-block-tRI6nCb1G6brdgNnaZVD6Il48kBD1ZdW' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/mapping/transform/UBL \
     -F data=@contrib/templates/default-invoice.ods \
     -F mapping=@contrib/mappings/default-invoice.yaml</code></pre>
 
 </code-block>
-            <code-block id='code-block-xoa8pzBrSBktPgFI2M03h4LdVktxqnVV'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/mapping/transform/UBL \
+            <code-block id='code-block-t0gvasoJaslpkXaAI88h59OagWSYTKoB'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/mapping/transform/UBL \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml</code></pre>
 </code-block>
@@ -445,11 +392,11 @@ for e-invoices.</p>
 
 
 
-<p>This endpoint only supports two URL parameters:</p>
+<p>Dieser Endpunkt erlaubt nur zwei Parameter:</p>
 
 <ul>
-<li><code>data</code>: The spreadsheet with the invoice data.</li>
-<li><code>mapping</code>: The mapping definition for the invoice data.</li>
+<li><code>data</code>: Die Tabellendatei mit den Rechnungsdaten.</li>
+<li><code>mapping</code>: Die Mapping-Definition für die Rechnungsdaten.</li>
 </ul>
 
 
@@ -467,12 +414,7 @@ for e-invoices.</p>
     </div>
     <p>
 
-This endpoint maps data from a spreadsheet file into the internal format which
-is supposed to be independent of the output format. Still, you have to supply
-the format because the transformation also inserts the default customization id
-in the field `/ubl:Invoice/cbc:customizationID`. If the customization ID is
-supplied in the spreadsheet data, you can pass an arbitrary format because
-an explicitly specified customization ID is never overwritten.
+Dieser Endpunkt bildet Daten aus einer Tabellendatei in das interne Format ab, was eigentlich unabhängig vom Ausgabeformat sein sollte. Das Format muss dennoch angegeben werden, weil die Transformierung auch die Customization-ID im Feld `/ubl:Invoice/cbc:customizationID` einfügt. Wird die Customization-ID mit der Tabelle übergeben, kann ein beliebiges Format angegeben werden, weil eine explizit angegebene Customization-ID nie überschrieben wird.
 
 </p>
 </div>

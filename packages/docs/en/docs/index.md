@@ -34,3 +34,14 @@ yet translated will be displayed in English instead.
 * Automatic valdiation of input document structure.
 * OpenAPI/Swagger API documentation included.
 
+[% title = "Work in Progress" %]
+<!--qgoda-no-xgettext-->
+[% WRAPPER components/infobox.html type='warning' title=title %]
+<!--/qgoda-no-xgettext-->
+This documentation is work in progress. It is still incomplete and it requires
+proof-reading. This warning will vanish, once the documentation is considered
+sufficient and stable. In the meantime, feel free to file an issue at
+https://github.com/gflohr/e-invoice-eu/issues.
+<!--qgoda-no-xgettext-->
+[% END %]
+<!--/qgoda-no-xgettext-->

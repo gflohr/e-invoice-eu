@@ -712,6 +712,18 @@ msgid ""
 "* OpenAPI/Swagger API documentation included."
 msgstr ""
 
+#: ../en/docs/index.md:37
+msgid "[% title = \"Work in Progress\" %]"
+msgstr ""
+
+#: ../en/docs/index.md:41
+msgid ""
+"This documentation is work in progress. It is still incomplete and it requires\n"
+"proof-reading. This warning will vanish, once the documentation is considered\n"
+"sufficient and stable. In the meantime, feel free to file an issue at\n"
+"https://github.com/gflohr/e-invoice-eu/issues."
+msgstr ""
+
 #: ../en/docs/service.md:2
 msgctxt "title"
 msgid "Service"
