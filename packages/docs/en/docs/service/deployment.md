@@ -46,28 +46,24 @@ following commands:
 [% FILTER $CodeGroup %]
 [npm]
 [% FILTER $Highlight "language-sh" %]
-cd apps/server
 npm install
 npm run build
 [% END %]
 
 [yarn]
 [% FILTER $Highlight "language-sh" %]
-cd apps/server
 yarn install
 yarn run build
 [% END %]
 
 [pnpm]
 [% FILTER $Highlight "language-sh" %]
-cd apps/server
 pnpm install
 pnpm run build
 [% END %] 
 
 [bun]
 [% FILTER $Highlight "language-sh" %]
-cd apps/server
 bun install
 bun run build
 [% END %] 
@@ -75,27 +71,30 @@ bun run build
 [% END %]
 <!--/qgoda-no-xgettext-->
 
-You can then run the application with your favourite JavaScript runtime
-environment.
+### Run with Node.js
+
+You can then run the application with Node.js like this:
 
 <!--qgoda-no-xgettext-->
 [% FILTER $CodeGroup %]
-[node]
+[npm]
 [% FILTER $Highlight "language-sh" %]
-cd apps/server
-NODE_ENV=production node dist/main.js
+NODE_ENV=production npm run start:prod
+[% END %]
+
+[yarn]
+[% FILTER $Highlight "language-sh" %]
+NODE_ENV=production yarn run start:prod
+[% END %]
+
+[pnpm]
+[% FILTER $Highlight "language-sh" %]
+NODE_ENV=production pnpm run start:prod
 [% END %]
 
 [bun]
 [% FILTER $Highlight "language-sh" %]
-cd apps/server
-NODE_ENV=production bun dist/main.js
-[% END %]
-
-[deno]
-[% FILTER $Highlight "language-sh" %]
-cd apps/server
-NODE_ENV=production deno --allow-env --allow-read --allow-net dist/main.js
+NODE_ENV=production pnpm run start:prod
 [% END %]
 
 [% END %]
@@ -103,6 +102,32 @@ NODE_ENV=production deno --allow-env --allow-read --allow-net dist/main.js
 
 See the [NestJS documentation for deployment](https://docs.nestjs.com/deployment)
 for more information.
+
+### Run with Bun or Deno
+
+You can also run the application with [`bun`](https://bun.sh/) or
+[`deno`](https://deno.com/). But you then have to specify the
+complete path to the main JavaScript file:
+
+<!--qgoda-no-xgettext-->
+[% FILTER $CodeGroup %]
+[bun]
+[% FILTER $Highlight "language-sh" %]
+NODE_ENV=production bun apps/server/dist/main.js
+[% END %]
+
+[deno]
+[% FILTER $Highlight "language-sh" %]
+NODE_ENV=production deno --allow-env --allow-read --allow-net apps/server/dist/main.js
+[% END %]
+
+[node]
+[% FILTER $Highlight "language-sh" %]
+NODE_ENV=production node apps/server/dist/main.js
+[% END %]
+
+[% END %]
+<!--/qgoda-no-xgettext-->
 
 ## Run in Development Mode
 
@@ -146,6 +171,14 @@ whenever you make changes to the code.
 
 ## Environment Variables
 
+The service is configured with environment variables.
+
+You can either pass these environment variables on the commandline or place
+a file called `.env` in the directory, where you start the service.  This
+file has lines of the form `VARIABLE=VALUE`, see the [dotenv
+docs](https://www.npmjs.com/package/dotenv#%EF%B8%8F-usage) for more
+information.
+
 The following environment variables are supported:
 
 <!--qgoda-no-xgettext-->
@@ -168,3 +201,36 @@ Set this to a valid port number if you are not happy with the default port of
 
 Note: This has currently no effect, when running the service in a container,
 see https://github.com/gflohr/e-invoice-eu/issues/76.
+
+<!--qgoda-no-xgettext-->
+### `LIBRE_OFFICE`
+<!--/qgoda-no-xgettext-->
+
+Path to [LibreOffice](https://www.libreoffice.org/). E-Invoice-EU uses
+LibreOffice in headless mode to generate PDFs from spreadsheet files. It
+depends on your usage whether you need that or not.
+
+On macOS, LibreOffice is usually installed as:
+
+<!--qgoda-no-xgettext-->
+```
+/Applications/LibreOffice.app/Contents/MacOS/soffice
+```
+<!--/qgoda-no-xgettext-->
+
+On Windows, the path is:
+
+<!--qgoda-no-xgettext-->
+```
+C:\Program Files\LibreOffice\program\soffice.exe
+```
+<!--/qgoda-no-xgettext-->
+
+If the location of the LibreOffice executable is not configured, it is searched
+in `$PATH`.
+
+<!--qgoda-no-xgettext-->
+### `LIBREOFFICE`
+<!--/qgoda-no-xgettext-->
+
+An alias for the environment variable [`LIBRE_OFFICE`](#libre_office-code).

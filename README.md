@@ -247,7 +247,7 @@ You can use it with the spreadsheet data from
 `contrib/templates/default-invoice.ods` like this:
 
 ```bash
-$ curl -X POST http://localhost:3000/api/invoice/transform-and-create/UBL \
+$ curl -X POST http://localhost:3000/api/mapping/transform/UBL \
 	-F mapping=@contrib/mappings/default-invoice.yaml \
 	-F data=@contrib/templates/default-invoice.ods
 ```
@@ -275,20 +275,20 @@ Say you want to add a PDF version `invoice.pdf` and two attachments
 `time-sheet.ods` and `payment-terms.pdf` to the generated invoice:
 
 ```bash
-$ curl -v -X POST \
+curl -v -X POST \
     http://localhost:3000/api/invoice/transform-and-create/UBL \
     -F lang=de \
     -F mapping=@contrib/mappings/default-invoice.yaml \
     -F data=@contrib/templates/default-invoice.ods \
     -F pdf=@invoice.pdf \
-    -F embedPDF= \
+    -F embedPDF=1 \
     -F pdfID=1234567890 \
     -F pdfDescription="Invoice as PDF." \
     -F "attachment=@time-sheet.ods;type=application/vnd.oasis.opendocument.spreadsheet" \
-		-F "attachmentID=abc-123-xyz" \
+        -F "attachmentID=abc-123-xyz" \
     -F attachmentDescription="Detailed description of hours spent." \
     -F attachment=@payment-terms.pdf \
-    -F attachmentDescription="Our payment terms" \
+    -F attachmentDescription="Our payment terms"
 ```
 
 The optional `lang` parameter specifies the language of the document. It

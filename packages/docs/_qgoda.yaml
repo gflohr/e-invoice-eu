@@ -18,6 +18,7 @@ permalink: '/e-invoice-eu/{significant-path}'
 exclude-watch:
   - /assets
   - '!/_timestamp.json'
+  - '!/_guidoed_tour.yaml'
 scm: git
 no-scm:
   - /assets

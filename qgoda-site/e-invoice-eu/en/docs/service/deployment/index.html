@@ -136,7 +136,22 @@
 	<li class="toclevel-1">
 		2
 		<a href="#deploy-in-production-mode">Deploy in Production Mode</a>
+		 <ul class="toclevel-2">
+	
+	<li class="toclevel-2">
+		2.1
+		<a href="#run-with-node.js">Run with Node.js</a>
 		
+	</li>
+	
+	<li class="toclevel-2">
+		2.2
+		<a href="#run-with-bun-or-deno">Run with Bun or Deno</a>
+		
+	</li>
+	
+</ul>
+ 
 	</li>
 	
 	<li class="toclevel-1">
@@ -162,6 +177,18 @@
 		
 	</li>
 	
+	<li class="toclevel-2">
+		4.3
+		<a href="#libre_office-code"><code>LIBRE_OFFICE</code></a>
+		
+	</li>
+	
+	<li class="toclevel-2">
+		4.4
+		<a href="#libreoffice-code"><code>LIBREOFFICE</code></a>
+		
+	</li>
+	
 </ul>
  
 	</li>
@@ -182,16 +209,16 @@ containerized version.</p>
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-J70RjAMVXCBIvuw0ONl76F8PN2lraOtM' id='code-tab-8wrcGX0U43r9btjPezTKkMnC1Y4Ng8Hs' checked>
-        <label data-title='docker' for='code-tab-8wrcGX0U43r9btjPezTKkMnC1Y4Ng8Hs'>docker</label>
-        <input type='radio' name='group-J70RjAMVXCBIvuw0ONl76F8PN2lraOtM' id='code-tab-8ykOBvnpkO2zjrGzZeOLXCvGsLKfbZpN'>
-        <label data-title='nerdctl' for='code-tab-8ykOBvnpkO2zjrGzZeOLXCvGsLKfbZpN'>nerdctl</label>
+        <input type='radio' name='group-dhh0FIIP8aQI6XwsnpD8ugeeOe1w5HRW' id='code-tab-L4uAv59xYOStSh0ZychsSTQISaMt8Fx3' checked>
+        <label data-title='docker' for='code-tab-L4uAv59xYOStSh0ZychsSTQISaMt8Fx3'>docker</label>
+        <input type='radio' name='group-dhh0FIIP8aQI6XwsnpD8ugeeOe1w5HRW' id='code-tab-Bi0ZXJKTOW65R99UpikrHF4NTXKZXFEw'>
+        <label data-title='nerdctl' for='code-tab-Bi0ZXJKTOW65R99UpikrHF4NTXKZXFEw'>nerdctl</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-8wrcGX0U43r9btjPezTKkMnC1Y4Ng8Hs' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>docker pull gflohr/e-invoice-eu:latest
+            <code-block id='code-block-L4uAv59xYOStSh0ZychsSTQISaMt8Fx3' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>docker pull gflohr/e-invoice-eu:latest
 docker run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest</code></pre> 
 </code-block>
-            <code-block id='code-block-8ykOBvnpkO2zjrGzZeOLXCvGsLKfbZpN'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>nerdctl pull gflohr/e-invoice-eu:latest
+            <code-block id='code-block-Bi0ZXJKTOW65R99UpikrHF4NTXKZXFEw'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>nerdctl pull gflohr/e-invoice-eu:latest
 nerdctl run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest</code></pre> 
 </code-block>
     </code-blocks>
@@ -214,33 +241,29 @@ following commands:</p>
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-0HOYYW89yCmTGOXeOB2cNYV8nq07irK2' id='code-tab-yhErEb7g48Ha5MwOURI9o8PTJA8ADgoK' checked>
-        <label data-title='npm' for='code-tab-yhErEb7g48Ha5MwOURI9o8PTJA8ADgoK'>npm</label>
-        <input type='radio' name='group-0HOYYW89yCmTGOXeOB2cNYV8nq07irK2' id='code-tab-gCGo06y6unYT0OEXLUnaZS6tw2rowa4D'>
-        <label data-title='yarn' for='code-tab-gCGo06y6unYT0OEXLUnaZS6tw2rowa4D'>yarn</label>
-        <input type='radio' name='group-0HOYYW89yCmTGOXeOB2cNYV8nq07irK2' id='code-tab-VHG7hkhItjxsyMRCbBXXRdkW039ymGuH'>
-        <label data-title='pnpm' for='code-tab-VHG7hkhItjxsyMRCbBXXRdkW039ymGuH'>pnpm</label>
-        <input type='radio' name='group-0HOYYW89yCmTGOXeOB2cNYV8nq07irK2' id='code-tab-V3GMzwUKb5evNoi9hJPMEPy9xgNyhulR'>
-        <label data-title='bun' for='code-tab-V3GMzwUKb5evNoi9hJPMEPy9xgNyhulR'>bun</label>
+        <input type='radio' name='group-bSslXxDKTd3rCcPEVUS3V3R5bzvelBZ4' id='code-tab-PDwGmdLdqPlDa8ezxvWN76QkmxWFZaPd' checked>
+        <label data-title='npm' for='code-tab-PDwGmdLdqPlDa8ezxvWN76QkmxWFZaPd'>npm</label>
+        <input type='radio' name='group-bSslXxDKTd3rCcPEVUS3V3R5bzvelBZ4' id='code-tab-0sdBYDx3lhQwH8kdH7XJrq6UfNKpNITR'>
+        <label data-title='yarn' for='code-tab-0sdBYDx3lhQwH8kdH7XJrq6UfNKpNITR'>yarn</label>
+        <input type='radio' name='group-bSslXxDKTd3rCcPEVUS3V3R5bzvelBZ4' id='code-tab-Oc50xUvFBILwIUme9HBntgMB01m3Ixsb'>
+        <label data-title='pnpm' for='code-tab-Oc50xUvFBILwIUme9HBntgMB01m3Ixsb'>pnpm</label>
+        <input type='radio' name='group-bSslXxDKTd3rCcPEVUS3V3R5bzvelBZ4' id='code-tab-2DZN4CiRKtgsAYehQHoyL1aRRSZJh8s4'>
+        <label data-title='bun' for='code-tab-2DZN4CiRKtgsAYehQHoyL1aRRSZJh8s4'>bun</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-yhErEb7g48Ha5MwOURI9o8PTJA8ADgoK' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
-npm install
+            <code-block id='code-block-PDwGmdLdqPlDa8ezxvWN76QkmxWFZaPd' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>npm install
 npm run build</code></pre>
 
 </code-block>
-            <code-block id='code-block-gCGo06y6unYT0OEXLUnaZS6tw2rowa4D'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
-yarn install
+            <code-block id='code-block-0sdBYDx3lhQwH8kdH7XJrq6UfNKpNITR'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>yarn install
 yarn run build</code></pre>
 
 </code-block>
-            <code-block id='code-block-VHG7hkhItjxsyMRCbBXXRdkW039ymGuH'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
-pnpm install
+            <code-block id='code-block-Oc50xUvFBILwIUme9HBntgMB01m3Ixsb'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>pnpm install
 pnpm run build</code></pre> 
 
 </code-block>
-            <code-block id='code-block-V3GMzwUKb5evNoi9hJPMEPy9xgNyhulR'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
-bun install
+            <code-block id='code-block-2DZN4CiRKtgsAYehQHoyL1aRRSZJh8s4'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>bun install
 bun run build</code></pre> 
 </code-block>
     </code-blocks>
@@ -252,32 +275,35 @@ bun run build</code></pre>
 
 
 
-<p>You can then run the application with your favourite JavaScript runtime
-environment.</p>
+<h3><a href="#" name="run-with-node.js" id="run-with-node.js"></a>Run with Node.js</h3>
+
+<p>You can then run the application with Node.js like this:</p>
 
 
 
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-bvBNCBeJP2InTMxYWtRvpRUN8xXBz04n' id='code-tab-7uRKT8JV0jKMrUVTuTIoZJPU8utfchYE' checked>
-        <label data-title='node' for='code-tab-7uRKT8JV0jKMrUVTuTIoZJPU8utfchYE'>node</label>
-        <input type='radio' name='group-bvBNCBeJP2InTMxYWtRvpRUN8xXBz04n' id='code-tab-7bEcspRWioFFwkFo5OCzq0AFo4zPaY7a'>
-        <label data-title='bun' for='code-tab-7bEcspRWioFFwkFo5OCzq0AFo4zPaY7a'>bun</label>
-        <input type='radio' name='group-bvBNCBeJP2InTMxYWtRvpRUN8xXBz04n' id='code-tab-xVFzwlhp5cdCON5ixOx4OEGIhMVYKIvW'>
-        <label data-title='deno' for='code-tab-xVFzwlhp5cdCON5ixOx4OEGIhMVYKIvW'>deno</label>
+        <input type='radio' name='group-OwX90JCD0RYN5Nf6yxrslGoA78M223FU' id='code-tab-zw5c0PrE8UJi83aksiixXvwgat8c7qav' checked>
+        <label data-title='npm' for='code-tab-zw5c0PrE8UJi83aksiixXvwgat8c7qav'>npm</label>
+        <input type='radio' name='group-OwX90JCD0RYN5Nf6yxrslGoA78M223FU' id='code-tab-5T9mcE88QKBTNXt7jTgdPmEC5mSmPGI0'>
+        <label data-title='yarn' for='code-tab-5T9mcE88QKBTNXt7jTgdPmEC5mSmPGI0'>yarn</label>
+        <input type='radio' name='group-OwX90JCD0RYN5Nf6yxrslGoA78M223FU' id='code-tab-p5lkAdN0ZgRwarcK5iQMmkpAejVGLeyO'>
+        <label data-title='pnpm' for='code-tab-p5lkAdN0ZgRwarcK5iQMmkpAejVGLeyO'>pnpm</label>
+        <input type='radio' name='group-OwX90JCD0RYN5Nf6yxrslGoA78M223FU' id='code-tab-0q2AEg23aXnapmCKxmRb7wj3co5BlQYr'>
+        <label data-title='bun' for='code-tab-0q2AEg23aXnapmCKxmRb7wj3co5BlQYr'>bun</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-7uRKT8JV0jKMrUVTuTIoZJPU8utfchYE' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
-NODE_ENV=production node dist/main.js</code></pre>
+            <code-block id='code-block-zw5c0PrE8UJi83aksiixXvwgat8c7qav' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production npm run start:prod</code></pre>
 
 </code-block>
-            <code-block id='code-block-7bEcspRWioFFwkFo5OCzq0AFo4zPaY7a'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
-NODE_ENV=production bun dist/main.js</code></pre>
+            <code-block id='code-block-5T9mcE88QKBTNXt7jTgdPmEC5mSmPGI0'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production yarn run start:prod</code></pre>
 
 </code-block>
-            <code-block id='code-block-xVFzwlhp5cdCON5ixOx4OEGIhMVYKIvW'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
-NODE_ENV=production deno --allow-env --allow-read --allow-net dist/main.js</code></pre>
+            <code-block id='code-block-p5lkAdN0ZgRwarcK5iQMmkpAejVGLeyO'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production pnpm run start:prod</code></pre>
+
+</code-block>
+            <code-block id='code-block-0q2AEg23aXnapmCKxmRb7wj3co5BlQYr'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production pnpm run start:prod</code></pre>
 </code-block>
     </code-blocks>
 </code-group></div>
@@ -291,6 +317,42 @@ NODE_ENV=production deno --allow-env --allow-read --allow-net dist/main.js</code
 <p>See the <a href="https://docs.nestjs.com/deployment" target="_blank">NestJS documentation for deployment</a>
 for more information.</p>
 
+<h3><a href="#" name="run-with-bun-or-deno" id="run-with-bun-or-deno"></a>Run with Bun or Deno</h3>
+
+<p>You can also run the application with <a href="https://bun.sh/" target="_blank"><code>bun</code></a> or
+<a href="https://deno.com/" target="_blank"><code>deno</code></a>. But you then have to specify the
+complete path to the main JavaScript file:</p>
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-5Ob9uZihQ7RlfyGriYrHHJCjfS57jxKl' id='code-tab-Yrzp1yaevqjzHeA14AR8BOAfqHarXJiW' checked>
+        <label data-title='bun' for='code-tab-Yrzp1yaevqjzHeA14AR8BOAfqHarXJiW'>bun</label>
+        <input type='radio' name='group-5Ob9uZihQ7RlfyGriYrHHJCjfS57jxKl' id='code-tab-zhSkkwlOwk7yiRMNhGGH9Jj9oZ2RWHDz'>
+        <label data-title='deno' for='code-tab-zhSkkwlOwk7yiRMNhGGH9Jj9oZ2RWHDz'>deno</label>
+        <input type='radio' name='group-5Ob9uZihQ7RlfyGriYrHHJCjfS57jxKl' id='code-tab-3c8UxVt3ZXnH4g062UZ6HIqQxOiNveIV'>
+        <label data-title='node' for='code-tab-3c8UxVt3ZXnH4g062UZ6HIqQxOiNveIV'>node</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-Yrzp1yaevqjzHeA14AR8BOAfqHarXJiW' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production bun apps/server/dist/main.js</code></pre>
+
+</code-block>
+            <code-block id='code-block-zhSkkwlOwk7yiRMNhGGH9Jj9oZ2RWHDz'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production deno --allow-env --allow-read --allow-net apps/server/dist/main.js</code></pre>
+
+</code-block>
+            <code-block id='code-block-3c8UxVt3ZXnH4g062UZ6HIqQxOiNveIV'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production node apps/server/dist/main.js</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
+
+
 <h2><a href="#" name="run-in-development-mode" id="run-in-development-mode"></a>Run in Development Mode</h2>
 
 <p>You can also run the application without building it first.</p>
@@ -300,32 +362,32 @@ for more information.</p>
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-IWPsWjKQO22QBvRuE9yVlzaH57P9BNdZ' id='code-tab-lVcQMbxROkB5DE2psswL93gdXJynpHks' checked>
-        <label data-title='npm' for='code-tab-lVcQMbxROkB5DE2psswL93gdXJynpHks'>npm</label>
-        <input type='radio' name='group-IWPsWjKQO22QBvRuE9yVlzaH57P9BNdZ' id='code-tab-86cN5ylDpTL0e5e3RO8h7pKIbQ3fVnlO'>
-        <label data-title='yarn' for='code-tab-86cN5ylDpTL0e5e3RO8h7pKIbQ3fVnlO'>yarn</label>
-        <input type='radio' name='group-IWPsWjKQO22QBvRuE9yVlzaH57P9BNdZ' id='code-tab-9DbSYS4f4Vjd8tu6foRRRwTxhz6G8oxU'>
-        <label data-title='pnpm' for='code-tab-9DbSYS4f4Vjd8tu6foRRRwTxhz6G8oxU'>pnpm</label>
-        <input type='radio' name='group-IWPsWjKQO22QBvRuE9yVlzaH57P9BNdZ' id='code-tab-P73mvqs2vMTxTAWQoAgJJCXxtduK2s3A'>
-        <label data-title='bun' for='code-tab-P73mvqs2vMTxTAWQoAgJJCXxtduK2s3A'>bun</label>
+        <input type='radio' name='group-IBGIHjbnwpO8OuRBZFQloFmZEwK6uDi2' id='code-tab-M8n3SBwctEGzRPE6coOyeqSG5Abi9yfN' checked>
+        <label data-title='npm' for='code-tab-M8n3SBwctEGzRPE6coOyeqSG5Abi9yfN'>npm</label>
+        <input type='radio' name='group-IBGIHjbnwpO8OuRBZFQloFmZEwK6uDi2' id='code-tab-I7HEtd0agDh75pIf57uQ9EW2cqKmL2oH'>
+        <label data-title='yarn' for='code-tab-I7HEtd0agDh75pIf57uQ9EW2cqKmL2oH'>yarn</label>
+        <input type='radio' name='group-IBGIHjbnwpO8OuRBZFQloFmZEwK6uDi2' id='code-tab-RfLDiIDhjga0yGbIJmh2fJR7rCG4BesW'>
+        <label data-title='pnpm' for='code-tab-RfLDiIDhjga0yGbIJmh2fJR7rCG4BesW'>pnpm</label>
+        <input type='radio' name='group-IBGIHjbnwpO8OuRBZFQloFmZEwK6uDi2' id='code-tab-gNQi459q3rLKCsNd47xYmgmDvUtCEuGY'>
+        <label data-title='bun' for='code-tab-gNQi459q3rLKCsNd47xYmgmDvUtCEuGY'>bun</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-lVcQMbxROkB5DE2psswL93gdXJynpHks' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+            <code-block id='code-block-M8n3SBwctEGzRPE6coOyeqSG5Abi9yfN' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
 npm install
 npm run start:dev</code></pre>
 
 </code-block>
-            <code-block id='code-block-86cN5ylDpTL0e5e3RO8h7pKIbQ3fVnlO'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+            <code-block id='code-block-I7HEtd0agDh75pIf57uQ9EW2cqKmL2oH'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
 yarn install
 yarn run start:dev</code></pre>
 
 </code-block>
-            <code-block id='code-block-9DbSYS4f4Vjd8tu6foRRRwTxhz6G8oxU'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+            <code-block id='code-block-RfLDiIDhjga0yGbIJmh2fJR7rCG4BesW'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
 pnpm install
 pnpm run start:dev</code></pre> 
 
 </code-block>
-            <code-block id='code-block-P73mvqs2vMTxTAWQoAgJJCXxtduK2s3A'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+            <code-block id='code-block-gNQi459q3rLKCsNd47xYmgmDvUtCEuGY'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
 bun install
 bun run start:dev</code></pre> 
 </code-block>
@@ -342,6 +404,14 @@ bun run start:dev</code></pre>
 whenever you make changes to the code.</p>
 
 <h2><a href="#" name="environment-variables" id="environment-variables"></a>Environment Variables</h2>
+
+<p>The service is configured with environment variables.</p>
+
+<p>You can either pass these environment variables on the commandline or place
+a file called <code>.env</code> in the directory, where you start the service.  This
+file has lines of the form <code>VARIABLE=VALUE</code>, see the <a href="https://www.npmjs.com/package/dotenv#%EF%B8%8F-usage" target="_blank">dotenv
+docs</a> for more
+information.</p>
 
 <p>The following environment variables are supported:</p>
 
@@ -373,6 +443,53 @@ service in production mode.</p>
 
 <p>Note: This has currently no effect, when running the service in a container,
 see <a href="https://github.com/gflohr/e-invoice-eu/issues/76" target="_blank">https://github.com/gflohr/e-invoice-eu/issues/76</a>.</p>
+
+
+
+
+<h3><a href="#" name="libre_office-code" id="libre_office-code"></a><code>LIBRE_OFFICE</code></h3>
+
+
+
+
+<p>Path to <a href="https://www.libreoffice.org/" target="_blank">LibreOffice</a>. E-Invoice-EU uses
+LibreOffice in headless mode to generate PDFs from spreadsheet files. It
+depends on your usage whether you need that or not.</p>
+
+<p>On macOS, LibreOffice is usually installed as:</p>
+
+
+
+
+<pre><code>/Applications/LibreOffice.app/Contents/MacOS/soffice
+</code></pre>
+
+
+
+
+<p>On Windows, the path is:</p>
+
+
+
+
+<pre><code>C:\Program Files\LibreOffice\program\soffice.exe
+</code></pre>
+
+
+
+
+<p>If the location of the LibreOffice executable is not configured, it is searched
+in <code>$PATH</code>.</p>
+
+
+
+
+<h3><a href="#" name="libreoffice-code" id="libreoffice-code"></a><code>LIBREOFFICE</code></h3>
+
+
+
+
+<p>An alias for the environment variable <a href="#libre_office-code"><code>LIBRE_OFFICE</code></a>.</p>
  
 				 
 <div class="guided-tour container">
@@ -390,8 +507,8 @@ see <a href="https://github.com/gflohr/e-invoice-eu/issues/76" target="_blank">h
 		</div>
 		<div class="col-5 text-right guided-tour-link">
 			
-			<a href="/e-invoice-eu/en/docs/service/api-documentation/"
-				>API Documentation&nbsp;<i
+			<a href="/e-invoice-eu/en/docs/service/create-invoices/"
+				>Creating Invoices&nbsp;<i
 					class="bi-arrow-right-circle"
 				></i></a>
 			
@@ -498,6 +615,12 @@ see <a href="https://github.com/gflohr/e-invoice-eu/issues/76" target="_blank">h
 		<li>
 			
 			<i class="bi-arrow-right-circle"></i>&nbsp;Deployment 
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/service/create-invoices/">Creating Invoices</a>
+			
 		</li>
 		
 		<li>
