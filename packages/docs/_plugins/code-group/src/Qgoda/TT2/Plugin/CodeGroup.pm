@@ -7,6 +7,8 @@ use strict;
 use Qgoda;
 use Qgoda::Util qw(html_escape);
 
+use Digest::SHA qw(hmac_sha1_hex);
+
 use base qw(Template::Plugin::Filter);
 
 sub init {
@@ -33,7 +35,6 @@ sub filter {
 				title => $title,
 				label => $label,
 				content => '',
-				id => $self->__randomString(32),
 			};
 			push @groups, $group;
 		} elsif ($group) {
@@ -44,7 +45,13 @@ sub filter {
 		}
 	}
 
-	my $group_name = 'group-' . $self->__randomString(32);
+	my $group_seed = '';
+	foreach my $group (@groups) {
+		$group->{id} = hmac_sha1_hex $group->{content};
+		$group_seed .= $group->{id};
+	}
+
+	my $group_name = 'group-' . hmac_sha1_hex $group_seed;
 
 	my $html = <<"EOF";
 <div class="code-group"><code-group>
@@ -79,14 +86,6 @@ EOF
 EOF
 
 	return $html;
-}
-
-sub __randomString {
-	my ($self, $length) = @_;
-
-	my @chars = ('0'..'9', 'A'..'Z', 'a'..'z');
-
-	return join '', map { $chars[rand @chars] } 1 .. $length;
 }
 
 1;
