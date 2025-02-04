@@ -1039,7 +1039,7 @@ msgstr ""
 "die Schemadefinition zurückgreifen. Sie ist im [GitHub-Repository E-Invoice-"
 "EU](https://github.com/gflohr/e-invoice-eu/blob/main/src/schema/"
 "invoice.schema.json) oder als REST-Endpunkt [`/api/schema/invoice`]([% "
-"q.llink(name='other-endpoints') %]#invoice-schema) verügbar."
+"q.llink(name='other-endpoints') %]#rechnungsschema) verügbar."
 
 #: ../en/docs/details/internal-format.md:310
 msgid "## Differences to Peppol UBL"
