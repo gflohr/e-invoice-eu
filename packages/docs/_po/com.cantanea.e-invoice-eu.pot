@@ -350,6 +350,12 @@ msgctxt "description"
 msgid "The internally used data structure is almost identical to that of Peppol UBL Invoices. All supported output formats can be generated from it."
 msgstr ""
 
+#: ../en/docs/details/internal-format.md:12
+#: ../en/docs/service/creating-invoices.md:23
+#: ../en/docs/service/deployment.md:19 ../en/docs/service/other-endpoints.md:13
+msgid "<qgoda-toc/>"
+msgstr ""
+
 #: ../en/docs/details/internal-format.md:14
 msgid "## Why an Internal Format?"
 msgstr ""
