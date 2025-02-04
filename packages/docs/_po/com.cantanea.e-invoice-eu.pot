@@ -29,7 +29,8 @@ msgid "overridable:"
 msgstr ""
 
 #: ../_views/components/guided_tour.html:14
-msgid "Start"
+#: ../_views/partials/header/navbar.html:33
+msgid "Home"
 msgstr ""
 
 #: ../_views/components/listing.html:12 ../_views/partials/body.html:12
@@ -74,10 +75,6 @@ msgstr ""
 #: ../_views/partials/header/navbar.html:31
 #: ../_views/partials/header/navbar.html:40
 msgid "E-Invoice-EU Documentation"
-msgstr ""
-
-#: ../_views/partials/header/navbar.html:33
-msgid "Home"
 msgstr ""
 
 #: ../_views/partials/header/navbar.html:42
@@ -1143,14 +1140,25 @@ msgid ""
 msgstr ""
 
 #: ../en/docs/index.md:37
+msgid "## About this Documentation"
+msgstr ""
+
+#: ../en/docs/index.md:39
 msgid "[% title = \"Work in Progress\" %]"
 msgstr ""
 
-#: ../en/docs/index.md:41
+#: ../en/docs/index.md:43
 msgid ""
 "This documentation is work in progress. It is still incomplete and it requires\n"
 "proof-reading. This warning will vanish, once the documentation is considered\n"
 "sufficient and stable. In the meantime, feel free to <a href=\"https://github.com/gflohr/e-invoice-eu/issues\">file an issue</a> if you spot an error or non-obvious omission."
+msgstr ""
+
+#: ../en/docs/index.md:50
+msgid ""
+"You can navigate through the documentation with the navigation in the right\n"
+"sidebar. But you can also read it cover to cover by following the links at the\n"
+"bottom that will take you to the next page."
 msgstr ""
 
 #: ../en/docs/service.md:2

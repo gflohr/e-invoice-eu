@@ -34,6 +34,8 @@ yet translated will be displayed in English instead.
 * Automatic valdiation of input document structure.
 * OpenAPI/Swagger API documentation included.
 
+## About this Documentation
+
 [% title = "Work in Progress" %]
 <!--qgoda-no-xgettext-->
 [% WRAPPER components/infobox.html type='warning' title=title %]
@@ -44,3 +46,7 @@ sufficient and stable. In the meantime, feel free to <a href="https://github.com
 <!--qgoda-no-xgettext-->
 [% END %]
 <!--/qgoda-no-xgettext-->
+
+You can navigate through the documentation with the navigation in the right
+sidebar. But you can also read it cover to cover by following the links at the
+bottom that will take you to the next page.
