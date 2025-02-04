@@ -13,8 +13,8 @@
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
-<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/service/create-invoices/" />
-<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/service/create-invoices/" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/service/creating-invoices/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/service/creating-invoices/" />
  <meta property="og:type" content="article" />
 <meta property="og:title" content="Creating Invoices" />
 <meta property="og:description" content="You can create e-invoices either from spreadsheet data or directly from JSON." />
@@ -211,18 +211,18 @@ like this:</p>
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-SBSHsMLprKpcbZBFjNPV0S2cHanogzPR' id='code-tab-vaK0TuQYlBteMhZec4qIkFcXh5wgzHkL' checked>
-        <label data-title='curl' for='code-tab-vaK0TuQYlBteMhZec4qIkFcXh5wgzHkL'>curl</label>
-        <input type='radio' name='group-SBSHsMLprKpcbZBFjNPV0S2cHanogzPR' id='code-tab-cDfxdMkIGsIHDGJ5qsyOajmwGQQ42LuU'>
-        <label data-title='httpie' for='code-tab-cDfxdMkIGsIHDGJ5qsyOajmwGQQ42LuU'>httpie</label>
+        <input type='radio' name='group-bCedox9oEglGSJuLZvkhFk0oReGhBjjh' id='code-tab-Dzua0JT5ALWU7l1ywKqYPlbo4gvjbMgZ' checked>
+        <label data-title='curl' for='code-tab-Dzua0JT5ALWU7l1ywKqYPlbo4gvjbMgZ'>curl</label>
+        <input type='radio' name='group-bCedox9oEglGSJuLZvkhFk0oReGhBjjh' id='code-tab-iq6uqxNytSstTCNghnBO8NJUsCWld6If'>
+        <label data-title='httpie' for='code-tab-iq6uqxNytSstTCNghnBO8NJUsCWld6If'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-vaK0TuQYlBteMhZec4qIkFcXh5wgzHkL' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/transform-and-create/UBL \
+            <code-block id='code-block-Dzua0JT5ALWU7l1ywKqYPlbo4gvjbMgZ' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/transform-and-create/UBL \
     -F data=@contrib/templates/default-invoice.ods \
     -F mapping=@contrib/mappings/default-invoice.yaml</code></pre>
 
 </code-block>
-            <code-block id='code-block-cDfxdMkIGsIHDGJ5qsyOajmwGQQ42LuU'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
+            <code-block id='code-block-iq6uqxNytSstTCNghnBO8NJUsCWld6If'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml</code></pre>
 </code-block>
@@ -255,13 +255,13 @@ example creates a Factur-X Extended invoice with two attachments:</p>
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-vvTYS3hxJ5Pff0gaEucbYeJXUmV3tlTC' id='code-tab-7plzurBLGZha3wtfMsuyaY6krMCWpoYT' checked>
-        <label data-title='curl' for='code-tab-7plzurBLGZha3wtfMsuyaY6krMCWpoYT'>curl</label>
-        <input type='radio' name='group-vvTYS3hxJ5Pff0gaEucbYeJXUmV3tlTC' id='code-tab-GBe5ZUXUz4O1KBHng2WIbbx5Ztwtj0EZ'>
-        <label data-title='httpie' for='code-tab-GBe5ZUXUz4O1KBHng2WIbbx5Ztwtj0EZ'>httpie</label>
+        <input type='radio' name='group-oiVTUfYY3TJFMKvh06y2FIO5EqPlUxPC' id='code-tab-djLvsDOgZpXgCR9YzmUWcLOcsnYCNOEu' checked>
+        <label data-title='curl' for='code-tab-djLvsDOgZpXgCR9YzmUWcLOcsnYCNOEu'>curl</label>
+        <input type='radio' name='group-oiVTUfYY3TJFMKvh06y2FIO5EqPlUxPC' id='code-tab-FoMMUwSWE3pavZpjpnSlGvg2EH0DAi13'>
+        <label data-title='httpie' for='code-tab-FoMMUwSWE3pavZpjpnSlGvg2EH0DAi13'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-7plzurBLGZha3wtfMsuyaY6krMCWpoYT' class='active'><pre class="language-sh"><code>curl -X POST \
+            <code-block id='code-block-djLvsDOgZpXgCR9YzmUWcLOcsnYCNOEu' class='active'><pre class="language-sh"><code>curl -X POST \
     http://localhost:3000/api/invoice/transform-and-create/UBL \
     -F lang=de \
     -F data=@contrib/templates/default-invoice.ods \
@@ -277,7 +277,7 @@ example creates a Factur-X Extended invoice with two attachments:</p>
     -F attachmentDescription=&#34;Our payment terms&#34;</code></pre>
 
 </code-block>
-            <code-block id='code-block-GBe5ZUXUz4O1KBHng2WIbbx5Ztwtj0EZ'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
+            <code-block id='code-block-FoMMUwSWE3pavZpjpnSlGvg2EH0DAi13'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
     lang=de \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml \
@@ -406,18 +406,18 @@ is binary and you want to redirect it to a file.</p>
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-yVHuZ5ktfaUrJJi7TSTi2iOMvFaJIb41' id='code-tab-NtNP5JeS5j373o6aUoW9avGTR3fFaori' checked>
-        <label data-title='curl' for='code-tab-NtNP5JeS5j373o6aUoW9avGTR3fFaori'>curl</label>
-        <input type='radio' name='group-yVHuZ5ktfaUrJJi7TSTi2iOMvFaJIb41' id='code-tab-ZJdlCoSMzrd7JmfyFGCKEsv4tCMw1vWG'>
-        <label data-title='httpie' for='code-tab-ZJdlCoSMzrd7JmfyFGCKEsv4tCMw1vWG'>httpie</label>
+        <input type='radio' name='group-EgY5ygJE2maedOmilJntOqFU6dxRqjYl' id='code-tab-B8n7Zq585DW2OTFbXWDfJgjrOUutz9h5' checked>
+        <label data-title='curl' for='code-tab-B8n7Zq585DW2OTFbXWDfJgjrOUutz9h5'>curl</label>
+        <input type='radio' name='group-EgY5ygJE2maedOmilJntOqFU6dxRqjYl' id='code-tab-yfszqDVNcb1EMdUsibxyzKcmejtNfKnh'>
+        <label data-title='httpie' for='code-tab-yfszqDVNcb1EMdUsibxyzKcmejtNfKnh'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-NtNP5JeS5j373o6aUoW9avGTR3fFaori' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/transform-and-create/Factur-X-Extended \
+            <code-block id='code-block-B8n7Zq585DW2OTFbXWDfJgjrOUutz9h5' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/transform-and-create/Factur-X-Extended \
     -F data=@contrib/templates/default-invoice.ods \
     -F mapping=@contrib/mappings/default-invoice.yaml &#62;e-invoice.pdf</code></pre>
 
 </code-block>
-            <code-block id='code-block-ZJdlCoSMzrd7JmfyFGCKEsv4tCMw1vWG'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/Factur-X-Extended \
+            <code-block id='code-block-yfszqDVNcb1EMdUsibxyzKcmejtNfKnh'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/Factur-X-Extended \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml &#62;e-invoice.pdf</code></pre>
 </code-block>
@@ -450,17 +450,17 @@ JSON.  The endpoint for that is <code>/api/invoice/create/:FORMAT</code>.</p>
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-Oo9CCRvVi6ZkkY5HvOg5yAniTNhE9tno' id='code-tab-BPZUyml8Ckcd4hA0ByFgQGZExlCH5m14' checked>
-        <label data-title='curl' for='code-tab-BPZUyml8Ckcd4hA0ByFgQGZExlCH5m14'>curl</label>
-        <input type='radio' name='group-Oo9CCRvVi6ZkkY5HvOg5yAniTNhE9tno' id='code-tab-eYedjJZCdrzOlFiJr9Q1TUN6RrggtVEd'>
-        <label data-title='httpie' for='code-tab-eYedjJZCdrzOlFiJr9Q1TUN6RrggtVEd'>httpie</label>
+        <input type='radio' name='group-6mbW9SH20bYlc2nnEBQkba3YnaCWoYd2' id='code-tab-fuOJMBhJDIhhsahRTvVnQbRrXDgKMMrB' checked>
+        <label data-title='curl' for='code-tab-fuOJMBhJDIhhsahRTvVnQbRrXDgKMMrB'>curl</label>
+        <input type='radio' name='group-6mbW9SH20bYlc2nnEBQkba3YnaCWoYd2' id='code-tab-MgOyxtF6dI4PRAqORRpirxLWwRUoy7UR'>
+        <label data-title='httpie' for='code-tab-MgOyxtF6dI4PRAqORRpirxLWwRUoy7UR'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-BPZUyml8Ckcd4hA0ByFgQGZExlCH5m14' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/UBL \
+            <code-block id='code-block-fuOJMBhJDIhhsahRTvVnQbRrXDgKMMrB' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/UBL \
     -F invoice=@contrib/data/default-invoice.json</code></pre>
 
 </code-block>
-            <code-block id='code-block-eYedjJZCdrzOlFiJr9Q1TUN6RrggtVEd'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
+            <code-block id='code-block-MgOyxtF6dI4PRAqORRpirxLWwRUoy7UR'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
     invoice@contrib/data/default-invoice.json</code></pre>
 </code-block>
     </code-blocks>
@@ -493,18 +493,18 @@ for e-invoices.</p>
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-f8FtHtCc2M2AreqIQhnYXccr5eMllIOD' id='code-tab-qb1y395Bao0oXGB9bLw3ILHUEjoSyvzo' checked>
-        <label data-title='curl' for='code-tab-qb1y395Bao0oXGB9bLw3ILHUEjoSyvzo'>curl</label>
-        <input type='radio' name='group-f8FtHtCc2M2AreqIQhnYXccr5eMllIOD' id='code-tab-S080YhSXx1vciyRWz2rZkq0xJApTfUcd'>
-        <label data-title='httpie' for='code-tab-S080YhSXx1vciyRWz2rZkq0xJApTfUcd'>httpie</label>
+        <input type='radio' name='group-Frr7bdEDJGvyDjIqA3BnckCGf2NmkFWR' id='code-tab-5mz0FgLunOw2wYe292HlxXWlQLkQNGGp' checked>
+        <label data-title='curl' for='code-tab-5mz0FgLunOw2wYe292HlxXWlQLkQNGGp'>curl</label>
+        <input type='radio' name='group-Frr7bdEDJGvyDjIqA3BnckCGf2NmkFWR' id='code-tab-IM30y0F55qGUIzx0xmGW9VO1y6bpIb7Q'>
+        <label data-title='httpie' for='code-tab-IM30y0F55qGUIzx0xmGW9VO1y6bpIb7Q'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-qb1y395Bao0oXGB9bLw3ILHUEjoSyvzo' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/mapping/transform/UBL \
+            <code-block id='code-block-5mz0FgLunOw2wYe292HlxXWlQLkQNGGp' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/mapping/transform/UBL \
     -F data=@contrib/templates/default-invoice.ods \
     -F mapping=@contrib/mappings/default-invoice.yaml</code></pre>
 
 </code-block>
-            <code-block id='code-block-S080YhSXx1vciyRWz2rZkq0xJApTfUcd'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/mapping/transform/UBL \
+            <code-block id='code-block-IM30y0F55qGUIzx0xmGW9VO1y6bpIb7Q'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/mapping/transform/UBL \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml</code></pre>
 </code-block>
@@ -571,8 +571,8 @@ an explicitly specified customization ID is never overwritten.
 		</div>
 		<div class="col-5 text-right guided-tour-link">
 			
-			<a href="/e-invoice-eu/en/docs/service/api-documentation/"
-				>API Documentation&nbsp;<i
+			<a href="/e-invoice-eu/en/docs/service/other-endpoints/"
+				>Other Endpoints&nbsp;<i
 					class="bi-arrow-right-circle"
 				></i></a>
 			
@@ -592,7 +592,7 @@ an explicitly specified customization ID is never overwritten.
 			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
 		</li>
 		<li>
-			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/en/docs/service/create-invoices.md?plain=1" target="_blank">
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/en/docs/service/creating-invoices.md?plain=1" target="_blank">
 				<i class="bi-code-slash"></i>
 				Source code of this page
 			</a>
@@ -685,6 +685,12 @@ an explicitly specified customization ID is never overwritten.
 		<li>
 			
 			<i class="bi-arrow-right-circle"></i>&nbsp;Creating Invoices 
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/service/other-endpoints/">Other Endpoints</a>
+			
 		</li>
 		
 		<li>

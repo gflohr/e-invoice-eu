@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: qgoda-site 0.1\n"
 "Report-Msgid-Bugs-To: 'Guido Flohr <guido.flohr@cantanea.com>'\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-02-03 21:26+0200\n"
+"PO-Revision-Date: 2025-02-04 08:51+0200\n"
 "Last-Translator: Guido Flohr <guido.flohr@cantanea.com>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -941,7 +941,7 @@ msgid ""
 "counterpart\n"
 "ZUGFeRD are available from https://www.ferd-net.de/. You have to enter a\n"
 "valid e-mail address in order to be able to download the documentation. The\n"
-"exact links frequently change. Please use a search engine!"
+"exact links frequently change but can easily be found with a search engine."
 msgstr ""
 "Die Dokumentation für Factur-X kann von https://fnfe-mpe.org/factur-x/factur-"
 "x_en/ heruntergeladen werden. Die Doku für das deutsche Gegenstück ZUGFeRD "
@@ -1267,12 +1267,12 @@ msgstr ""
 "[% FILTER $Srcset alt=\"API-Dokumentation für /api/format/list\" %]/images/"
 "service/api-documentation/openapi-format-docs.webp[% END %]"
 
-#: ../en/docs/service/create-invoices.md:2
+#: ../en/docs/service/creating-invoices.md:2
 msgctxt "title"
 msgid "Creating Invoices"
 msgstr "Rechnungen erzeugen"
 
-#: ../en/docs/service/create-invoices.md:5
+#: ../en/docs/service/creating-invoices.md:5
 msgctxt "description"
 msgid ""
 "You can create e-invoices either from spreadsheet data or directly from JSON."
@@ -1280,7 +1280,7 @@ msgstr ""
 "E-Rechnungen können aus Tabellenkalkulationsdaten oder direkt aus JSON "
 "erzeugt werden."
 
-#: ../en/docs/service/create-invoices.md:17
+#: ../en/docs/service/creating-invoices.md:17
 msgid ""
 "The [% q.lanchor(name='general-mode-of-operation') %] is to first map\n"
 "spreadsheet data to the internal invoice format in JSON and then generate "
@@ -1296,16 +1296,16 @@ msgstr ""
 "möglich, den Mapping-Schritt zu überspringen und die Rechnung direkt aus den "
 "JSON-Daten zu erzeugen."
 
-#: ../en/docs/service/create-invoices.md:25
+#: ../en/docs/service/creating-invoices.md:25
 msgid "## Prerequisites"
 msgstr "## Voraussetzungen"
 
-#: ../en/docs/service/create-invoices.md:27
+#: ../en/docs/service/creating-invoices.md:27
 msgid "Before you start, you must have:"
 msgstr ""
 "Bevor begonnen werden kann, müssen die folgenden Voraussetzungen vorliegen:"
 
-#: ../en/docs/service/create-invoices.md:29
+#: ../en/docs/service/creating-invoices.md:29
 msgid ""
 "* A spreadsheet template. The examples assume that you use the template in "
 "`contrib/templates/default-invoice.ods`.\n"
@@ -1334,7 +1334,7 @@ msgstr ""
 "* Die notwendigen [Umgebungsvariablen]([% q.llink(name='deployment') "
 "%]#umgebungsvariablen) sind gesetzt."
 
-#: ../en/docs/service/create-invoices.md:36
+#: ../en/docs/service/creating-invoices.md:36
 msgid ""
 "E-Invoice-EU uses [LibreOffice](https://libreoffice.org/) in headless mode "
 "to\n"
@@ -1349,11 +1349,11 @@ msgstr ""
 "kann immer eine PDF-Datei aus anderen Quellen zur Verfügung gestellt werden, "
 "statt sie aus der Tabellenkalkulation zu erzeugen."
 
-#: ../en/docs/service/create-invoices.md:41
+#: ../en/docs/service/creating-invoices.md:41
 msgid "## Creating Invoices from Spreadsheet Data"
 msgstr "## Rechnungen aus Tabellenkalkulations-Daten erzeugen"
 
-#: ../en/docs/service/create-invoices.md:43
+#: ../en/docs/service/creating-invoices.md:43
 msgid ""
 "The API endpoint for this functionality is\n"
 "`/api/invoice/transform-and-create/:FORMAT`."
@@ -1361,11 +1361,11 @@ msgstr ""
 "Der API-Endpunkt für diese Funktion ist `/api/invoice/transform-and-"
 "create/:FORMAT`."
 
-#: ../en/docs/service/create-invoices.md:46
+#: ../en/docs/service/creating-invoices.md:46
 msgid "### Basic E-invoice"
 msgstr "### Einfache E-Rechnung"
 
-#: ../en/docs/service/create-invoices.md:48
+#: ../en/docs/service/creating-invoices.md:48
 msgid ""
 "In its most simple form, you can create an e-invoice from the spreadsheet "
 "data\n"
@@ -1374,7 +1374,7 @@ msgstr ""
 "In seiner einfachsten Form, lässt sich eine E-Rechnung aus "
 "Tabellenkalkulations-Daten folgendermaßen erzeugen:"
 
-#: ../en/docs/service/create-invoices.md:71
+#: ../en/docs/service/creating-invoices.md:71
 msgid ""
 "The format is a path parameter that is specified after the endpoint path\n"
 "`api/invoice/transform-and-create`, in this case `UBL`. The format is\n"
@@ -1384,7 +1384,7 @@ msgstr ""
 "transform-and-create` angegeben wird, in diesem Fall `UBL`. Groß- und "
 "Kleinschreibung spielt bei der Angabe des Formats keine Rolle."
 
-#: ../en/docs/service/create-invoices.md:75
+#: ../en/docs/service/creating-invoices.md:75
 msgid ""
 "The invoice data (parameter `data`) is read from the spreadsheet file\n"
 "`contrib/templates/default-invoice.ods`. That spreadsheet data is then\n"
@@ -1396,11 +1396,11 @@ msgstr ""
 "dann mit der Mapping-Definition in `contrib/mappings/default-invoice.yaml` "
 "auf die E-Rechnungsdaten abgebildet."
 
-#: ../en/docs/service/create-invoices.md:80
+#: ../en/docs/service/creating-invoices.md:80
 msgid "### E-Invoice with Additional Attachments"
 msgstr "### E-Rechnung mit zusätzlichen Attachments"
 
-#: ../en/docs/service/create-invoices.md:82
+#: ../en/docs/service/creating-invoices.md:82
 msgid ""
 "It is possible to attach files with additional information.  This works\n"
 "both for pure XML formats and for hybrid Factur-X/ZUGFeRD e-invoices.  The\n"
@@ -1411,11 +1411,11 @@ msgstr ""
 "ZUGFeRD-E-Rechnungen. Dieses Beispiel erzeugt eine Factur-X-Rechnung mit dem "
 "Profile „Extended“ mit zwei Attachments:"
 
-#: ../en/docs/service/create-invoices.md:127
+#: ../en/docs/service/creating-invoices.md:127
 msgid "Let us break that down into the individual URL parameters sent:"
 msgstr "Die Bedeutungen der einzelnen URL-Parameter sind:"
 
-#: ../en/docs/service/create-invoices.md:129
+#: ../en/docs/service/creating-invoices.md:129
 msgid ""
 "* `lang`: This is used to determine the language for some canned texts.\n"
 "* `data`: The spreadsheet with the invoice data.\n"
@@ -1448,11 +1448,11 @@ msgstr ""
 "Dateiname.\n"
 "* `attachmentDescription`: Eine optionale Beschreibung des Dateianhangs."
 
-#: ../en/docs/service/create-invoices.md:140
+#: ../en/docs/service/creating-invoices.md:140
 msgid "[% title = \"Generate PDF From Spreadsheet Data\" %]"
 msgstr "[% title = \"PDF aus Tabellenkalkulations-Daten erzeugen\" %]"
 
-#: ../en/docs/service/create-invoices.md:144
+#: ../en/docs/service/creating-invoices.md:144
 msgid ""
 "If the PDF is not provided with the parameter <code>pdf</code>, it is "
 "generated from\n"
@@ -1470,7 +1470,7 @@ msgstr ""
 "href=”[% q.llink(name='deployment') %]#libre_office-code”>konfiguriert "
 "werden</a>."
 
-#: ../en/docs/service/create-invoices.md:154
+#: ../en/docs/service/creating-invoices.md:154
 msgid ""
 "Each attachment to the e-invoice may have an optional id and an optional\n"
 "description. However, the service only \"sees\" 3 lists of the URL "
@@ -1483,7 +1483,7 @@ msgstr ""
 "Parameter `attachment`, `attachmentID` und `attachmentDescription`, selbst "
 "wenn sie pro Anhang gruppiert wurden."
 
-#: ../en/docs/service/create-invoices.md:159
+#: ../en/docs/service/creating-invoices.md:159
 msgid ""
 "If you use the parameter `attachment` four times, `attachmentID` twice,\n"
 "and `attachmentDescription` three times, in whatever order, the following\n"
@@ -1493,7 +1493,7 @@ msgstr ""
 "`attachmentDescription` dreimal angegeben, ganz gleich in welcher "
 "Reihenfolge, werden die folgenden Anhänge eingebettet:"
 
-#: ../en/docs/service/create-invoices.md:163
+#: ../en/docs/service/creating-invoices.md:163
 msgid ""
 "| Attachment        | Filename        | ID | Description |\n"
 "|-------------------|-----------------|----|-------------|\n"
@@ -1513,7 +1513,7 @@ msgstr ""
 "| **Anhang #3** | `attachment` #3 | - | `attachmentDescription #3` |\n"
 "| **Anhang #4** | `attachment` #4 | - | - |"
 
-#: ../en/docs/service/create-invoices.md:170
+#: ../en/docs/service/creating-invoices.md:170
 msgid ""
 "You will probably want to avoid that hassle by specifying an id and/or\n"
 "description either for all attachments or for none."
@@ -1522,11 +1522,11 @@ msgstr ""
 "entweder für jeden Anhang eine ID und/oder Beschreibung übergeben oder für "
 "keinen."
 
-#: ../en/docs/service/create-invoices.md:173
+#: ../en/docs/service/creating-invoices.md:173
 msgid "## Factur-X/ZUGFeRD Example"
 msgstr "## Beispiel für Factur-X/ZUGFeRD"
 
-#: ../en/docs/service/create-invoices.md:175
+#: ../en/docs/service/creating-invoices.md:175
 msgid ""
 "There is nothing special about creating Factur-X/ZUGFeRD, only that the "
 "output\n"
@@ -1536,7 +1536,7 @@ msgstr ""
 "dass die Ausgabe binär ist, und deshalb in eine Datei umgeleitet werden "
 "sollte."
 
-#: ../en/docs/service/create-invoices.md:198
+#: ../en/docs/service/creating-invoices.md:198
 msgid ""
 "This would create a Factur-X/ZUGFeRD e-invoice with the profile\n"
 "*Extended*."
@@ -1544,7 +1544,7 @@ msgstr ""
 "Dies würde eine E-Rechnung im Format Factur-X/ZUGFeRD mit dem Profil "
 "*Extended* erzeugen."
 
-#: ../en/docs/service/create-invoices.md:201
+#: ../en/docs/service/creating-invoices.md:201
 msgid ""
 "You must also keep in mind that the hybrid Factur-X/ZUGFeRD format "
 "*requires*\n"
@@ -1558,11 +1558,11 @@ msgstr ""
 "Parameter `pdf` übergeben werden, oder `LibreOffice` muss verfügbar sein, "
 "damit sie aus der Tabellenkalkulations-Datei `data` erzeugt werden kann."
 
-#: ../en/docs/service/create-invoices.md:206
+#: ../en/docs/service/creating-invoices.md:206
 msgid "## Creating Invoices from JSON"
 msgstr "## Rechnungen aus JSON erzeugen"
 
-#: ../en/docs/service/create-invoices.md:208
+#: ../en/docs/service/creating-invoices.md:208
 msgid ""
 "You can bypass the mapping step and generate the invoice directly from\n"
 "JSON.  The endpoint for that is `/api/invoice/create/:FORMAT`."
@@ -1571,16 +1571,16 @@ msgstr ""
 "auch übersprungen werden. Die Rechnung lässt sich auch direkt aus JSON "
 "erzeugen. Der Endpunkt dafür ist `/api/invoice/create/:FORMAT`."
 
-#: ../en/docs/service/create-invoices.md:211
-#: ../en/docs/service/create-invoices.md:245
+#: ../en/docs/service/creating-invoices.md:211
+#: ../en/docs/service/creating-invoices.md:245
 msgid "Example:"
 msgstr "Beispiel:"
 
-#: ../en/docs/service/create-invoices.md:231
+#: ../en/docs/service/creating-invoices.md:231
 msgid "In this case, a Peppol UBL invoice is created."
 msgstr "In diesem Fall wird ein Peppol-UBL-Rechnung erzeugt."
 
-#: ../en/docs/service/create-invoices.md:233
+#: ../en/docs/service/creating-invoices.md:233
 msgid ""
 "This endpoint allows the exact same URL parameters as the [endpoint for\n"
 "creating invoices from spreadsheet\n"
@@ -1592,11 +1592,11 @@ msgstr ""
 "additional-attachments), bis auf den Parameter `mapping` der hier keinen "
 "Sinn ergibt."
 
-#: ../en/docs/service/create-invoices.md:238
+#: ../en/docs/service/creating-invoices.md:238
 msgid "## Create JSON Data from Spreadsheet Data"
 msgstr "## JSON-Daten aus Tabellendaten erzeugen"
 
-#: ../en/docs/service/create-invoices.md:240
+#: ../en/docs/service/creating-invoices.md:240
 msgid ""
 "You can also create invoice data in the internal format from a spreadsheet\n"
 "file with the endpoint `/api/mapping/transform/:format`. This is probably\n"
@@ -1609,11 +1609,11 @@ msgstr ""
 "nur für Informationszwecke Sinn, weil JSON kein erlaubtes Format für E-"
 "Rechnungen ist."
 
-#: ../en/docs/service/create-invoices.md:267
+#: ../en/docs/service/creating-invoices.md:267
 msgid "This endpoint only supports two URL parameters:"
 msgstr "Dieser Endpunkt erlaubt nur zwei Parameter:"
 
-#: ../en/docs/service/create-invoices.md:269
+#: ../en/docs/service/creating-invoices.md:269
 msgid ""
 "* `data`: The spreadsheet with the invoice data.\n"
 "* `mapping`: The mapping definition for the invoice data."
@@ -1621,11 +1621,11 @@ msgstr ""
 "* `data`: Die Tabellendatei mit den Rechnungsdaten.\n"
 "* `mapping`: Die Mapping-Definition für die Rechnungsdaten."
 
-#: ../en/docs/service/create-invoices.md:272
+#: ../en/docs/service/creating-invoices.md:272
 msgid "[% title = \"Why is the Format Needed?\" %]"
 msgstr "[% title = \"Weshalb wird das Format benötigt?\" %]"
 
-#: ../en/docs/service/create-invoices.md:276
+#: ../en/docs/service/creating-invoices.md:276
 msgid ""
 "This endpoint maps data from a spreadsheet file into the internal format "
 "which\n"
@@ -1705,7 +1705,7 @@ msgstr "### Mit Node.js starten"
 
 #: ../en/docs/service/deployment.md:76
 msgid "You can then run the application with Node.js like this:"
-msgstr "Das folgende Kommando startet die Applikation mit Node.js."
+msgstr "Das folgende Kommando startet die Applikation mit Node.js:"
 
 #: ../en/docs/service/deployment.md:103
 msgid ""
@@ -1852,6 +1852,92 @@ msgid ""
 "An alias for the environment variable [`LIBRE_OFFICE`](#libre_office-code)."
 msgstr ""
 "Ein Alias für die Umgebungsvariable [`LIBRE_OFFICE`](#libre_office-code)."
+
+#: ../en/docs/service/other-endpoints.md:2
+msgctxt "title"
+msgid "Other Endpoints"
+msgstr "Andere Endpunkte"
+
+#: ../en/docs/service/other-endpoints.md:5
+msgctxt "description"
+msgid "This page describes other endpoints provided by the API"
+msgstr "Diese Seite beschreibt weitere API-Endpunkte"
+
+#: ../en/docs/service/other-endpoints.md:15
+msgid "## List Formats"
+msgstr "## Liste der Formate"
+
+#: ../en/docs/service/other-endpoints.md:17
+msgid ""
+"You can get a list of the supported formats with the endpoint `/api/format/"
+"list`."
+msgstr ""
+"Eine Liste der unterstützten Formate wird vom Endpunkt `/api/format/list` "
+"geliefert."
+
+#: ../en/docs/service/other-endpoints.md:33
+msgid "It returns a list of entries that look - for example - like this:"
+msgstr ""
+"Zurückgeliefert wird eine Liste von Einträgen, die beispielsweise so "
+"aussehen:"
+
+#: ../en/docs/service/other-endpoints.md:47
+msgid "The meaning of the fields are:"
+msgstr "Die Bedeutung der einzelnen Felder ist:"
+
+#: ../en/docs/service/other-endpoints.md:49
+msgid ""
+"* `name`: The name of the format as specified when [creating invoices]([% "
+"q.llink(name='creating-invoices') %])\n"
+"* `syntax`: The general syntax of the XML portion, one of `CII` or `UBL`.\n"
+"* `mimeType`: One of `application/xml` for pure XML formats or `application/"
+"pdf` for hybrid formats (Factur-X/ZUGFeRD)\n"
+"* `customizationID`: The customization ID of the format.\n"
+"* `profileID`: The profile ID of the format."
+msgstr ""
+"* `name`: Der Name des Formats wie er bei der [Erzeugung von Rechnungen]([% "
+"q.llink(name='creating-invoices') %]) angegeben werden muss.\n"
+"* `syntax`: Die allgemeine Syntax des XML-Anteils, entweder `CII` oder "
+"`UBL`.\n"
+"* `mimeType`: Entweder `application/xml` für reine XML-Formate oder "
+"`application/pdf` für hybride Formate (Factur-X/ZUGFeRD)\n"
+"* `customizationID`: Die Customization-ID des Formats.\n"
+"* `profileID`: Die Profil-ID des Formats."
+
+#: ../en/docs/service/other-endpoints.md:55
+msgid "## Schemas"
+msgstr "## Schemata"
+
+#: ../en/docs/service/other-endpoints.md:57
+msgid ""
+"You can also get the [JSON Schema](https://json-schema.org/) definitions "
+"used\n"
+"by the software."
+msgstr ""
+"Auch die von der Software verwendeten [JSON0Schema](https://json-"
+"schema.org/)-Definitionen können ausgegeben werden."
+
+#: ../en/docs/service/other-endpoints.md:60
+msgid "### Invoice Schema"
+msgstr "### Rechnungsschema"
+
+#: ../en/docs/service/other-endpoints.md:62
+msgid "This endpoint returns the JSON schema for the internal invoice format:"
+msgstr ""
+"Dieser Endpunkt liefert das JSON-Schema für das interne Rechnungsformat:"
+
+#: ../en/docs/service/other-endpoints.md:78
+msgid "### Mapping Schema"
+msgstr "### Mapping-Schema"
+
+#: ../en/docs/service/other-endpoints.md:80
+msgid ""
+"This endpoint returns the JSON schema for mapping definitions, usually "
+"given\n"
+"in YAML:"
+msgstr ""
+"Dieser Endpunkt liefert das JSON-Schema für Mapping-Definitionen, die in der "
+"Regel in YAML übergeben werden:"
 
 #: ../en/legal-disclosure.md:2
 msgctxt "title"

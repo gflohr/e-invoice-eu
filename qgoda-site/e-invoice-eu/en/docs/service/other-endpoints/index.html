@@ -6,18 +6,18 @@
   <link
 	rel="alternate"
 	hreflang="de"
-	href="/e-invoice-eu/de/docs/"
+	href="/e-invoice-eu/de/docs/service/andere-endpunkte/"
 /> 
-<meta name="description" content="Free and open source tool chain for generating EN16931 conforming invoices (Factur-X/ZUGFeRD, UBL, CII, XRechnung) from popular spreadsheet formats or JSON." />
-<title>E-Invoice-EU</title>
+<meta name="description" content="This page describes other endpoints provided by the API" />
+<title>Other Endpoints</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
-<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/" />
-<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/service/other-endpoints/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/service/other-endpoints/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="E-Invoice-EU" />
-<meta property="og:description" content="Free and open source tool chain for generating EN16931 conforming invoices (Factur-X/ZUGFeRD, UBL, CII, XRechnung) from popular spreadsheet formats or JSON." />
+<meta property="og:title" content="Other Endpoints" />
+<meta property="og:description" content="This page describes other endpoints provided by the API" />
 
 
 	<meta
@@ -101,9 +101,9 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>E-Invoice-EU</h1>
+					<h1>Other Endpoints</h1>
 					
-					<div class="description">Free and open source tool chain for generating EN16931 conforming invoices (Factur-X/ZUGFeRD, UBL, CII, XRechnung) from popular spreadsheet formats or JSON.</div>
+					<div class="description">This page describes other endpoints provided by the API</div>
 				</div>
 				<qgoda-content> 
 
@@ -113,6 +113,66 @@
 
 
 
+<p> 
+<div class="toc">
+	<div class="toc-title">Table Of Contents</div>
+	<ul class="toclevel-1">
+	
+	<li class="toclevel-1">
+		1
+		<a href="#list-formats">List Formats</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		2
+		<a href="#schemas">Schemas</a>
+		 <ul class="toclevel-2">
+	
+	<li class="toclevel-2">
+		2.1
+		<a href="#invoice-schema">Invoice Schema</a>
+		
+	</li>
+	
+	<li class="toclevel-2">
+		2.2
+		<a href="#mapping-schema">Mapping Schema</a>
+		
+	</li>
+	
+</ul>
+ 
+	</li>
+	
+</ul>
+
+</div>
+
+</p>
+
+<h2><a href="#" name="list-formats" id="list-formats"></a>List Formats</h2>
+
+<p>You can get a list of the supported formats with the endpoint <code>/api/format/list</code>.</p>
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-D9BypzsZCYTAhkTcZ6ZBBvPgEKzYHARj' id='code-tab-hgbfhDCmgwn1HT9HoRfnNKwPlb2bLyDQ' checked>
+        <label data-title='curl' for='code-tab-hgbfhDCmgwn1HT9HoRfnNKwPlb2bLyDQ'>curl</label>
+        <input type='radio' name='group-D9BypzsZCYTAhkTcZ6ZBBvPgEKzYHARj' id='code-tab-rOXaTG2FFWgyZF9MjziAkT1pZJtGWWPu'>
+        <label data-title='httpie' for='code-tab-rOXaTG2FFWgyZF9MjziAkT1pZJtGWWPu'>httpie</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-hgbfhDCmgwn1HT9HoRfnNKwPlb2bLyDQ' class='active'><pre class="language-sh"><code>http http://localhost:3000/api/format/list</code></pre>
+
+</code-block>
+            <code-block id='code-block-rOXaTG2FFWgyZF9MjziAkT1pZJtGWWPu'><pre class="language-sh"><code>http http://localhost:300/api/format/list</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
 
 
 
@@ -120,41 +180,91 @@
 
 
 
+<p>It returns a list of entries that look - for example - like this:</p>
 
 
 
-<h2><a href="#" name="features" id="features"></a>Features</h2>
+
+<pre class="language-json"><code>{
+    &#34;name&#34;: &#34;Factur-X-Extended&#34;,
+    &#34;syntax&#34;: &#34;CII&#34;
+    &#34;mimeType&#34;: &#34;application/pdf&#34;,
+    &#34;customizationID&#34;: &#34;urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended&#34;,
+    &#34;profileID&#34;: &#34;urn:fdc:peppol.eu:2017:poacc:billing:01:1.0&#34;,
+}</code></pre>
+
+
+
+
+
+<p>The meaning of the fields are:</p>
 
 <ul>
-<li>E-Invoice generation from popular Spreadsheet formats or JSON.</li>
-<li>Supports all electronic invoice formats conforming to EU standard EN16931, notably Factur-X/ZUGFeRD, UBL, and CII.</li>
-<li>Written in TypeScript/JavaScript.</li>
-<li>Large parts of the code are generated from PEPPOL-UBL documentation.</li>
-<li>Automatic valdiation of input document structure.</li>
-<li>OpenAPI/Swagger API documentation included.</li>
+<li><code>name</code>: The name of the format as specified when <a href="/e-invoice-eu/en/docs/service/creating-invoices/">creating invoices</a></li>
+<li><code>syntax</code>: The general syntax of the XML portion, one of <code>CII</code> or <code>UBL</code>.</li>
+<li><code>mimeType</code>: One of <code>application/xml</code> for pure XML formats or <code>application/pdf</code> for hybrid formats (Factur-X/ZUGFeRD)</li>
+<li><code>customizationID</code>: The customization ID of the format.</li>
+<li><code>profileID</code>: The profile ID of the format.</li>
 </ul>
 
 
+<h2><a href="#" name="schemas" id="schemas"></a>Schemas</h2>
+
+<p>You can also get the <a href="https://json-schema.org/" target="_blank">JSON Schema</a> definitions used
+by the software.</p>
+
+<h3><a href="#" name="invoice-schema" id="invoice-schema"></a>Invoice Schema</h3>
+
+<p>This endpoint returns the JSON schema for the internal invoice format:</p>
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-x69lCmxpnSfEZRSsXRaP4APs0oSh7HZM' id='code-tab-3O1hVi4wrbUW0jeLqbSCXg5fJGSXX9BG' checked>
+        <label data-title='curl' for='code-tab-3O1hVi4wrbUW0jeLqbSCXg5fJGSXX9BG'>curl</label>
+        <input type='radio' name='group-x69lCmxpnSfEZRSsXRaP4APs0oSh7HZM' id='code-tab-SoinQNnRV1vFOuMKjuovDFoSYHboG7oC'>
+        <label data-title='httpie' for='code-tab-SoinQNnRV1vFOuMKjuovDFoSYHboG7oC'>httpie</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-3O1hVi4wrbUW0jeLqbSCXg5fJGSXX9BG' class='active'><pre class="language-sh"><code>http http://localhost:3000/api/schema/invoice</code></pre>
+
+</code-block>
+            <code-block id='code-block-SoinQNnRV1vFOuMKjuovDFoSYHboG7oC'><pre class="language-sh"><code>http http://localhost:300/api/schema/invoice</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
 
 
 
 
 
-<div class="alert alert-warning" role="alert">
-    <div>
-        <strong>
-            <i class="bi-exclamation-triangle"></i>
-            <span class="title">Work in Progress</span>
-        </strong>
-    </div>
-    <p>
 
-This documentation is work in progress. It is still incomplete and it requires
-proof-reading. This warning will vanish, once the documentation is considered
-sufficient and stable. In the meantime, feel free to <a href="https://github.com/gflohr/e-invoice-eu/issues" target="_blank">file an issue</a> if you spot an error or non-obvious omission.
 
-</p>
-</div>
+<h3><a href="#" name="mapping-schema" id="mapping-schema"></a>Mapping Schema</h3>
+
+<p>This endpoint returns the JSON schema for mapping definitions, usually given
+in YAML:</p>
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-4x4fhrIShVXLzQmJh10r6aHfB3hrAj7i' id='code-tab-X3fK9CQU5a9AbtsLnXC0BwTtAnQXKLIv' checked>
+        <label data-title='curl' for='code-tab-X3fK9CQU5a9AbtsLnXC0BwTtAnQXKLIv'>curl</label>
+        <input type='radio' name='group-4x4fhrIShVXLzQmJh10r6aHfB3hrAj7i' id='code-tab-RYHiQ3oQ7DSByDfSHeQwxOmXqLgjkjeA'>
+        <label data-title='httpie' for='code-tab-RYHiQ3oQ7DSByDfSHeQwxOmXqLgjkjeA'>httpie</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-X3fK9CQU5a9AbtsLnXC0BwTtAnQXKLIv' class='active'><pre class="language-sh"><code>http http://localhost:3000/api/schema/mapping</code></pre>
+
+</code-block>
+            <code-block id='code-block-RYHiQ3oQ7DSByDfSHeQwxOmXqLgjkjeA'><pre class="language-sh"><code>http http://localhost:300/api/schema/mapping</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
 
 
 
@@ -167,14 +277,19 @@ sufficient and stable. In the meantime, feel free to <a href="https://github.com
 	<div class="row">
 		<div class="col-5 text-left guided-tour-link">
 			
+			<a href="/e-invoice-eu/en/docs/service/creating-invoices/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;Creating Invoices</a>
+			
 		</div>
 		<div class="col-2 text-center guided-tour-link">
+			
+			<a href="/e-invoice-eu/en/docs/">Start</a>
 			
 		</div>
 		<div class="col-5 text-right guided-tour-link">
 			
-			<a href="/e-invoice-eu/en/docs/basics/general-mode-of-operation/"
-				>General Mode of Operation&nbsp;<i
+			<a href="/e-invoice-eu/en/docs/service/api-documentation/"
+				>API Documentation&nbsp;<i
 					class="bi-arrow-right-circle"
 				></i></a>
 			
@@ -194,14 +309,14 @@ sufficient and stable. In the meantime, feel free to <a href="https://github.com
 			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
 		</li>
 		<li>
-			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/en/docs/index.md?plain=1" target="_blank">
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/en/docs/service/other-endpoints.md?plain=1" target="_blank">
 				<i class="bi-code-slash"></i>
 				Source code of this page
 			</a>
 		</li>
 		 
 		<li>
-			<a href="/e-invoice-eu/de/docs/">
+			<a href="/e-invoice-eu/de/docs/service/andere-endpunkte/">
 				<i class="bi-translate"></i>
 				Diese Seite auf Deutsch lesen
 			</a>
@@ -292,8 +407,7 @@ sufficient and stable. In the meantime, feel free to <a href="https://github.com
 		
 		<li>
 			
-			<a href="/e-invoice-eu/en/docs/service/other-endpoints/">Other Endpoints</a>
-			
+			<i class="bi-arrow-right-circle"></i>&nbsp;Other Endpoints 
 		</li>
 		
 		<li>

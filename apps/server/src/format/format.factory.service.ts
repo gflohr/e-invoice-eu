@@ -82,10 +82,10 @@ export class FormatFactoryService {
 			const service = new FormatService(this.appConfigService);
 			infos.push({
 				name: format,
+				syntax: service.syntax,
+				mimeType: service.mimeType,
 				customizationID: service.customizationID,
 				profileID: service.profileID,
-				mimeType: service.mimeType,
-				syntax: service.syntax,
 			});
 		}
 

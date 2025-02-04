@@ -6,18 +6,18 @@
  <link
 	rel="alternate"
 	hreflang="en"
-	href="/e-invoice-eu/en/docs/"
+	href="/e-invoice-eu/en/docs/service/other-endpoints/"
 />  
-<meta name="description" content="Freie und quelloffene Software-Suite zur Generierung von EN16931-konformen Rechnungen (Factur-X/ZUGFeRD, UBL, CII, XRechnung) aus populären Tabellenkalkulationsformaten oder JSON." />
-<title>E-Invoice-EU</title>
+<meta name="description" content="Diese Seite beschreibt weitere API-Endpunkte" />
+<title>Andere Endpunkte</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
-<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/" />
-<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/service/andere-endpunkte/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/service/andere-endpunkte/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="E-Invoice-EU" />
-<meta property="og:description" content="Freie und quelloffene Software-Suite zur Generierung von EN16931-konformen Rechnungen (Factur-X/ZUGFeRD, UBL, CII, XRechnung) aus populären Tabellenkalkulationsformaten oder JSON." />
+<meta property="og:title" content="Andere Endpunkte" />
+<meta property="og:description" content="Diese Seite beschreibt weitere API-Endpunkte" />
 
 
 	<meta
@@ -101,9 +101,9 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>E-Invoice-EU</h1>
+					<h1>Andere Endpunkte</h1>
 					
-					<div class="description">Freie und quelloffene Software-Suite zur Generierung von EN16931-konformen Rechnungen (Factur-X/ZUGFeRD, UBL, CII, XRechnung) aus populären Tabellenkalkulationsformaten oder JSON.</div>
+					<div class="description">Diese Seite beschreibt weitere API-Endpunkte</div>
 				</div>
 				<qgoda-content> 
 
@@ -113,6 +113,28 @@
 
 
 
+<h2><a href="#" name="liste-der-formate" id="liste-der-formate"></a>Liste der Formate</h2>
+
+<p>Eine Liste der unterstützten Formate wird vom Endpunkt <code>/api/format/list</code> geliefert.</p>
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-NaLIEjWJnr0BFoPfu1S8Ws7aEH0QynFm' id='code-tab-TW06DpCgJALkCzwUvfPYRtXgHIrID3i7' checked>
+        <label data-title='curl' for='code-tab-TW06DpCgJALkCzwUvfPYRtXgHIrID3i7'>curl</label>
+        <input type='radio' name='group-NaLIEjWJnr0BFoPfu1S8Ws7aEH0QynFm' id='code-tab-Z4lhYWwnf5ImWcUYR8611oAzuNd7hEaF'>
+        <label data-title='httpie' for='code-tab-Z4lhYWwnf5ImWcUYR8611oAzuNd7hEaF'>httpie</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-TW06DpCgJALkCzwUvfPYRtXgHIrID3i7' class='active'><pre class="language-sh"><code>http http://localhost:3000/api/format/list</code></pre>
+
+</code-block>
+            <code-block id='code-block-Z4lhYWwnf5ImWcUYR8611oAzuNd7hEaF'><pre class="language-sh"><code>http http://localhost:300/api/format/list</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
 
 
 
@@ -120,57 +142,89 @@
 
 
 
-<div class="alert alert-warning" role="alert">
-    <div>
-        <strong>
-            <i class="bi-exclamation-triangle"></i>
-            <span class="title">Unvollständige Übersetzung!</span>
-        </strong>
-    </div>
-    <p>
+<p>Zurückgeliefert wird eine Liste von Einträgen, die beispielsweise so aussehen:</p>
 
-Die Übersetzung für diese Site ist noch nicht fertiggestellt. Noch nicht
-übersetzte Passagen werden daher auf Englisch angeboten.
 
-</p>
-</div>
+
+
+<pre class="language-json"><code>{
+    &#34;name&#34;: &#34;Factur-X-Extended&#34;,
+    &#34;syntax&#34;: &#34;CII&#34;
+    &#34;mimeType&#34;: &#34;application/pdf&#34;,
+    &#34;customizationID&#34;: &#34;urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended&#34;,
+    &#34;profileID&#34;: &#34;urn:fdc:peppol.eu:2017:poacc:billing:01:1.0&#34;,
+}</code></pre>
 
 
 
 
 
-
-
-<h2><a href="#" name="features" id="features"></a>Features</h2>
+<p>Die Bedeutung der einzelnen Felder ist:</p>
 
 <ul>
-<li>E-Rechnungen werden aus populären Tabellenkalkulationsformaten oder JSON generiert.</li>
-<li>Untertütze alle elektronischen Rechnungsformate, die dem EU-Standard EN16931 entsprechen, also Factur-X/ZUGFeRD, UBL, and CII.</li>
-<li>In TypeScript/JavaScript geschrieben.</li>
-<li>Große Teile des Programmcodes werden aus der aktuellen PEPPOL-UBL-Dokumentation generiert.</li>
-<li>Automatische Validierung der Eingabedokumenten-Struktur.</li>
-<li>OpenAPI/Swagger-API-Documentation enthalten.</li>
+<li><code>name</code>: Der Name des Formats wie er bei der <a href="/e-invoice-eu/de/docs/service/rechnungen-erzeugen/">Erzeugung von Rechnungen</a> angegeben werden muss.</li>
+<li><code>syntax</code>: Die allgemeine Syntax des XML-Anteils, entweder <code>CII</code> oder <code>UBL</code>.</li>
+<li><code>mimeType</code>: Entweder <code>application/xml</code> für reine XML-Formate oder <code>application/pdf</code> für hybride Formate (Factur-X/ZUGFeRD)</li>
+<li><code>customizationID</code>: Die Customization-ID des Formats.</li>
+<li><code>profileID</code>: Die Profil-ID des Formats.</li>
 </ul>
 
 
+<h2><a href="#" name="schemata" id="schemata"></a>Schemata</h2>
+
+<p>Auch die von der Software verwendeten <a href="https://json-schema.org/" target="_blank">JSON0Schema</a>-Definitionen können ausgegeben werden.</p>
+
+<h3><a href="#" name="rechnungsschema" id="rechnungsschema"></a>Rechnungsschema</h3>
+
+<p>Dieser Endpunkt liefert das JSON-Schema für das interne Rechnungsformat:</p>
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-dF2UmrDFSfrPpFqmENmxaR9nTcb0GTeO' id='code-tab-t6hm4d8NDM2G72lWPrFDbBQr1uOcgAe0' checked>
+        <label data-title='curl' for='code-tab-t6hm4d8NDM2G72lWPrFDbBQr1uOcgAe0'>curl</label>
+        <input type='radio' name='group-dF2UmrDFSfrPpFqmENmxaR9nTcb0GTeO' id='code-tab-yCsX7dqtVUfLyR2l2XrrFLIc5glePcfc'>
+        <label data-title='httpie' for='code-tab-yCsX7dqtVUfLyR2l2XrrFLIc5glePcfc'>httpie</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-t6hm4d8NDM2G72lWPrFDbBQr1uOcgAe0' class='active'><pre class="language-sh"><code>http http://localhost:3000/api/schema/invoice</code></pre>
+
+</code-block>
+            <code-block id='code-block-yCsX7dqtVUfLyR2l2XrrFLIc5glePcfc'><pre class="language-sh"><code>http http://localhost:300/api/schema/invoice</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
 
 
 
 
 
-<div class="alert alert-warning" role="alert">
-    <div>
-        <strong>
-            <i class="bi-exclamation-triangle"></i>
-            <span class="title">Dokumentation in Arbeit</span>
-        </strong>
-    </div>
-    <p>
 
-Diese Dokumentation wird zur Zeit bearbeitet. Sie ist noch unvollständig und bedarf des Korrekturlesens. Diese Warnung wird entfernt, sobald die Doku als vollständig und stabil erachtet wird. In der Zwischenzeit freuen wir uns über <a href=”https://github.com/gflohr/e-invoice-eu/issues”>einen Bug-Report</a> für jeden Fehler oder jede nicht offensichtliche Lücke.
 
-</p>
-</div>
+<h3><a href="#" name="mapping-schema" id="mapping-schema"></a>Mapping-Schema</h3>
+
+<p>Dieser Endpunkt liefert das JSON-Schema für Mapping-Definitionen, die in der Regel in YAML übergeben werden:</p>
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-VLCk4M0D6E3KcJqsgjvmoIWlZ8uyTrCI' id='code-tab-GaHE0kX6dRoLaB1SFVNEBIlG3VP4UxZ5' checked>
+        <label data-title='curl' for='code-tab-GaHE0kX6dRoLaB1SFVNEBIlG3VP4UxZ5'>curl</label>
+        <input type='radio' name='group-VLCk4M0D6E3KcJqsgjvmoIWlZ8uyTrCI' id='code-tab-u1tADxIOsaCv3YOL8m8t0FTFS4c0QX66'>
+        <label data-title='httpie' for='code-tab-u1tADxIOsaCv3YOL8m8t0FTFS4c0QX66'>httpie</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-GaHE0kX6dRoLaB1SFVNEBIlG3VP4UxZ5' class='active'><pre class="language-sh"><code>http http://localhost:3000/api/schema/mapping</code></pre>
+
+</code-block>
+            <code-block id='code-block-u1tADxIOsaCv3YOL8m8t0FTFS4c0QX66'><pre class="language-sh"><code>http http://localhost:300/api/schema/mapping</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
 
 
 
@@ -183,14 +237,19 @@ Diese Dokumentation wird zur Zeit bearbeitet. Sie ist noch unvollständig und be
 	<div class="row">
 		<div class="col-5 text-left guided-tour-link">
 			
+			<a href="/e-invoice-eu/de/docs/service/rechnungen-erzeugen/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;Rechnungen erzeugen</a>
+			
 		</div>
 		<div class="col-2 text-center guided-tour-link">
+			
+			<a href="/e-invoice-eu/de/docs/">Start</a>
 			
 		</div>
 		<div class="col-5 text-right guided-tour-link">
 			
-			<a href="/e-invoice-eu/de/docs/grundlagen/funktionsweise/"
-				>Generelle Funktionsweise&nbsp;<i
+			<a href="/e-invoice-eu/de/docs/service/api-dokumentation/"
+				>API-Dokumentation&nbsp;<i
 					class="bi-arrow-right-circle"
 				></i></a>
 			
@@ -210,14 +269,14 @@ Diese Dokumentation wird zur Zeit bearbeitet. Sie ist noch unvollständig und be
 			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
 		</li>
 		<li>
-			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/de/docs/index.md?plain=1" target="_blank">
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/de/docs/service/andere-endpunkte.md?plain=1" target="_blank">
 				<i class="bi-code-slash"></i>
 				Source code of this page
 			</a>
 		</li>
 		
 		<li>
-			<a href="/e-invoice-eu/en/docs/">
+			<a href="/e-invoice-eu/en/docs/service/other-endpoints/">
 				<i class="bi-translate"></i>
 				Read this page in English
 			</a>
@@ -308,8 +367,7 @@ Diese Dokumentation wird zur Zeit bearbeitet. Sie ist noch unvollständig und be
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/service/andere-endpunkte/">Andere Endpunkte</a>
-			
+			<i class="bi-arrow-right-circle"></i>&nbsp;Andere Endpunkte 
 		</li>
 		
 		<li>

@@ -114,7 +114,7 @@ You can download the documentation for Factur-X from
 https://fnfe-mpe.org/factur-x/factur-x_en/. The docs for the German counterpart
 ZUGFeRD are available from https://www.ferd-net.de/. You have to enter a
 valid e-mail address in order to be able to download the documentation. The
-exact links frequently change. Please use a search engine!
+exact links frequently change but can easily be found with a search engine.
 
 [% title = "Quality of the Documentation" %]
 <!--qgoda-no-xgettext-->
