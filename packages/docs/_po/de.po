@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: qgoda-site 0.1\n"
 "Report-Msgid-Bugs-To: 'Guido Flohr <guido.flohr@cantanea.com>'\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-02-04 08:51+0200\n"
+"PO-Revision-Date: 2025-02-04 09:10+0200\n"
 "Last-Translator: Guido Flohr <guido.flohr@cantanea.com>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -1686,10 +1686,43 @@ msgstr ""
 "Möglichkeit, den Service E-Invoice-EU zu starten."
 
 #: ../en/docs/service/deployment.md:39
+msgid "## Download"
+msgstr "## Download"
+
+#: ../en/docs/service/deployment.md:41
+msgid "All other possibilities require a local copy of the sources."
+msgstr "Alle anderen Möglichkeiten erfordern eine lokale Kopie des Quelltexts."
+
+#: ../en/docs/service/deployment.md:43
+msgid ""
+"You can download the latest stable version from the [download\n"
+"page](https://github.com/gflohr/e-invoice-eu/releases) and then unzip the\n"
+"ZIP archive or untar the tarball."
+msgstr ""
+"Die letzte stabile Version kann von der [Download-Seite](https://github.com/"
+"gflohr/e-invoice-eu/releases) als ZIP-Archiv oder Tar-Ball heruntergeladen "
+"werden. Die Download-Datei kann dann an beliebiger Stelle ausgepackt werden."
+
+#: ../en/docs/service/deployment.md:47
+msgid "If you have `git`, you can also clone the repository:"
+msgstr ""
+"Steht das Kommando `git` zur Verfügung, kann das [Repository](https://"
+"github.com/gflohr/e-invoice-eu) einfach geclonet werden:"
+
+#: ../en/docs/service/deployment.md:59
+msgid ""
+"The version you will get by cloning the repository is potentially a little "
+"bit\n"
+"more up-to-date."
+msgstr ""
+"Die Version, die man durch das Clonen des Repositories erhält, ist "
+"potenziell etwas aktueller."
+
+#: ../en/docs/service/deployment.md:62
 msgid "## Deploy in Production Mode"
 msgstr "## Ausrollen im Produktions-Modus"
 
-#: ../en/docs/service/deployment.md:41
+#: ../en/docs/service/deployment.md:64
 msgid ""
 "You can also build the server and then run it anywhere you like. After\n"
 "cloning the repository and changing into its root directory, execute the\n"
@@ -1699,15 +1732,15 @@ msgstr ""
 "Nach dem Clonen des Repositories und Wechsel in dessen Wurzelverzeichnis, "
 "müssen dazu die folgenden Kommandos in eine Shell eingegeben werden:"
 
-#: ../en/docs/service/deployment.md:74
+#: ../en/docs/service/deployment.md:97
 msgid "### Run with Node.js"
 msgstr "### Mit Node.js starten"
 
-#: ../en/docs/service/deployment.md:76
+#: ../en/docs/service/deployment.md:99
 msgid "You can then run the application with Node.js like this:"
 msgstr "Das folgende Kommando startet die Applikation mit Node.js:"
 
-#: ../en/docs/service/deployment.md:103
+#: ../en/docs/service/deployment.md:126
 msgid ""
 "See the [NestJS documentation for deployment](https://docs.nestjs.com/"
 "deployment)\n"
@@ -1716,11 +1749,11 @@ msgstr ""
 "Die [NestJS-Dokumentation für Deployment](https://docs.nestjs.com/"
 "deployment) hält weitere Informationen bereit."
 
-#: ../en/docs/service/deployment.md:106
+#: ../en/docs/service/deployment.md:129
 msgid "### Run with Bun or Deno"
 msgstr "### Mit Bun oder Deno starten"
 
-#: ../en/docs/service/deployment.md:108
+#: ../en/docs/service/deployment.md:131
 msgid ""
 "You can also run the application with [`bun`](https://bun.sh/) or\n"
 "[`deno`](https://deno.com/). But you then have to specify the\n"
@@ -1730,16 +1763,16 @@ msgstr ""
 "(https://deno.com/) starten. In diesem Fall muss allerdings der komplette "
 "Pfad zur JavaScript-Datei angegeben werden:"
 
-#: ../en/docs/service/deployment.md:132
+#: ../en/docs/service/deployment.md:155
 msgid "## Run in Development Mode"
 msgstr "## Im Entwicklungsmodus starten"
 
-#: ../en/docs/service/deployment.md:134
+#: ../en/docs/service/deployment.md:157
 msgid "You can also run the application without building it first."
 msgstr ""
 "Die Applikation kann auch ohne den vorherigen Build-Schritt gestartet werden."
 
-#: ../en/docs/service/deployment.md:169
+#: ../en/docs/service/deployment.md:192
 msgid ""
 "This will automatically re-compile the source code and re-start the server,\n"
 "whenever you make changes to the code."
@@ -1747,15 +1780,15 @@ msgstr ""
 "In diesem Modus wird, wannimmer der Quelltext geändert wurde, alles neu "
 "kompiliert und der Server neu gestartet."
 
-#: ../en/docs/service/deployment.md:172
+#: ../en/docs/service/deployment.md:195
 msgid "## Environment Variables"
 msgstr "## Umgebungsvariablen"
 
-#: ../en/docs/service/deployment.md:174
+#: ../en/docs/service/deployment.md:197
 msgid "The service is configured with environment variables."
 msgstr "Der Dienst wird mit Umgebungsvariablen konfiguriert."
 
-#: ../en/docs/service/deployment.md:176
+#: ../en/docs/service/deployment.md:199
 msgid ""
 "You can either pass these environment variables on the commandline or place\n"
 "a file called `.env` in the directory, where you start the service.  This\n"
@@ -1769,15 +1802,15 @@ msgstr ""
 "[dotenv-Dokumentation](https://www.npmjs.com/package/dotenv#%EF%B8%8F-usage) "
 "für weitergehende Informationen."
 
-#: ../en/docs/service/deployment.md:182
+#: ../en/docs/service/deployment.md:205
 msgid "The following environment variables are supported:"
 msgstr "Die folgenden Umgebungsvariablen werden unterstützt:"
 
-#: ../en/docs/service/deployment.md:188
+#: ../en/docs/service/deployment.md:211
 msgid "To quote the NestJS documentation:"
 msgstr "Um die NestJS-Dokumentation zu zitieren:"
 
-#: ../en/docs/service/deployment.md:190
+#: ../en/docs/service/deployment.md:213
 msgid ""
 "> While there's technically no difference between development and production "
 "in Node.js and NestJS, it's a good practice to set the NODE_ENV environment "
@@ -1792,7 +1825,7 @@ msgstr ""
 "Ökosystem ihr Verhalten basierend auf dieser Variablen ändern (z.&nbsp;B. "
 "Ein- und Ausschalten von Debugging-Ausgaben, usw.)."
 
-#: ../en/docs/service/deployment.md:192
+#: ../en/docs/service/deployment.md:215
 msgid ""
 "In brief: Set the environment variable to \"production\", when running the\n"
 "service in production mode."
@@ -1800,7 +1833,7 @@ msgstr ""
 "Kurz gesagt: Es ist besser, diese Variable auf ”production” zu setzen, wenn "
 "die Applikation im Produktionsmodus gestartet wird."
 
-#: ../en/docs/service/deployment.md:199
+#: ../en/docs/service/deployment.md:222
 msgid ""
 "Set this to a valid port number if you are not happy with the default port "
 "of\n"
@@ -1809,7 +1842,7 @@ msgstr ""
 "Wenn der Standard-Port 3000 nicht passt, kann hier eine andere Portnummer "
 "angegeben werden."
 
-#: ../en/docs/service/deployment.md:202
+#: ../en/docs/service/deployment.md:225
 msgid ""
 "Note: This has currently no effect, when running the service in a "
 "container,\n"
@@ -1819,7 +1852,7 @@ msgstr ""
 "Container gestartet wird, siehe https://github.com/gflohr/e-invoice-eu/"
 "issues/76."
 
-#: ../en/docs/service/deployment.md:209
+#: ../en/docs/service/deployment.md:232
 msgid ""
 "Path to [LibreOffice](https://www.libreoffice.org/). E-Invoice-EU uses\n"
 "LibreOffice in headless mode to generate PDFs from spreadsheet files. It\n"
@@ -1830,15 +1863,15 @@ msgstr ""
 "hängt von der individuellen Art der Benutzung ab, ob dies benötigt wird oder "
 "nicht."
 
-#: ../en/docs/service/deployment.md:213
+#: ../en/docs/service/deployment.md:236
 msgid "On macOS, LibreOffice is usually installed as:"
 msgstr "Unter macOS ist LibreOffice gewöhnlich hier installiert:"
 
-#: ../en/docs/service/deployment.md:221
+#: ../en/docs/service/deployment.md:244
 msgid "On Windows, the path is:"
 msgstr "Unter Windows ist der Pfad:"
 
-#: ../en/docs/service/deployment.md:229
+#: ../en/docs/service/deployment.md:252
 msgid ""
 "If the location of the LibreOffice executable is not configured, it is "
 "searched\n"
@@ -1847,7 +1880,7 @@ msgstr ""
 "Wird der Ort der ausführbaren LibreOffice-Datei nicht konfiguriert, wird "
 "diese in `$PATH` gesucht."
 
-#: ../en/docs/service/deployment.md:236
+#: ../en/docs/service/deployment.md:259
 msgid ""
 "An alias for the environment variable [`LIBRE_OFFICE`](#libre_office-code)."
 msgstr ""

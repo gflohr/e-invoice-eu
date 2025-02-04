@@ -36,6 +36,29 @@ nerdctl run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest
 [% END %]
 <!--/qgoda-no-xgettext-->
 
+## Download
+
+All other possibilities require a local copy of the sources.
+
+You can download the latest stable version from the [download
+page](https://github.com/gflohr/e-invoice-eu/releases) and then unzip the
+ZIP archive or untar the tarball.
+
+If you have `git`, you can also clone the repository:
+
+<!--qgoda-no-xgettext-->
+[% FILTER $Highlight "language-sh" %]
+# HTTPS
+git clone https://github.com/gflohr/e-invoice-eu.git
+
+# SSH
+git clone git@github.com:gflohr/e-invoice-eu.git
+[% END %] 
+<!--/qgoda-no-xgettext-->
+
+The version you will get by cloning the repository is potentially a little bit
+more up-to-date.
+
 ## Deploy in Production Mode
 
 You can also build the server and then run it anywhere you like. After

@@ -131,16 +131,16 @@
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-UvIPIB5gmq3rvhs9iyfIk7KoT8IiMjuc' id='code-tab-QhnrDToWXHM0qJ6gLVpAlDMVXW3pi7sp' checked>
-        <label data-title='docker' for='code-tab-QhnrDToWXHM0qJ6gLVpAlDMVXW3pi7sp'>docker</label>
-        <input type='radio' name='group-UvIPIB5gmq3rvhs9iyfIk7KoT8IiMjuc' id='code-tab-2KcOQUejRPZdAEFsqUgiQLdaO9SFf2y5'>
-        <label data-title='nerdctl' for='code-tab-2KcOQUejRPZdAEFsqUgiQLdaO9SFf2y5'>nerdctl</label>
+        <input type='radio' name='group-1sd1Skai01LIuhm0KbMKSYFIzFvwkiIB' id='code-tab-vExFOHGHzIrNJI3gWDt1zCzhKBSzoXIv' checked>
+        <label data-title='docker' for='code-tab-vExFOHGHzIrNJI3gWDt1zCzhKBSzoXIv'>docker</label>
+        <input type='radio' name='group-1sd1Skai01LIuhm0KbMKSYFIzFvwkiIB' id='code-tab-zJE1Whdxx9M8w0gKVqHz3mis1qlN1czs'>
+        <label data-title='nerdctl' for='code-tab-zJE1Whdxx9M8w0gKVqHz3mis1qlN1czs'>nerdctl</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-QhnrDToWXHM0qJ6gLVpAlDMVXW3pi7sp' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>docker pull gflohr/e-invoice-eu:latest
+            <code-block id='code-block-vExFOHGHzIrNJI3gWDt1zCzhKBSzoXIv' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>docker pull gflohr/e-invoice-eu:latest
 docker run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest</code></pre> 
 </code-block>
-            <code-block id='code-block-2KcOQUejRPZdAEFsqUgiQLdaO9SFf2y5'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>nerdctl pull gflohr/e-invoice-eu:latest
+            <code-block id='code-block-zJE1Whdxx9M8w0gKVqHz3mis1qlN1czs'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>nerdctl pull gflohr/e-invoice-eu:latest
 nerdctl run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest</code></pre> 
 </code-block>
     </code-blocks>
@@ -152,6 +152,31 @@ nerdctl run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest<
 
 
 
+<h2><a href="#" name="download" id="download"></a>Download</h2>
+
+<p>Alle anderen Möglichkeiten erfordern eine lokale Kopie des Quelltexts.</p>
+
+<p>Die letzte stabile Version kann von der <a href="https://github.com/gflohr/e-invoice-eu/releases" target="_blank">Download-Seite</a> als ZIP-Archiv oder Tar-Ball heruntergeladen werden. Die Download-Datei kann dann an beliebiger Stelle ausgepackt werden.</p>
+
+<p>Steht das Kommando <code>git</code> zur Verfügung, kann das <a href="https://github.com/gflohr/e-invoice-eu" target="_blank">Repository</a> einfach geclonet werden:</p>
+
+
+
+
+<pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code># HTTPS
+git clone https://github.com/gflohr/e-invoice-eu.git
+
+# SSH
+git clone git@github.com:gflohr/e-invoice-eu.git</code></pre>
+
+
+<p></p>
+
+
+
+
+<p>Die Version, die man durch das Clonen des Repositories erhält, ist potenziell etwas aktueller.</p>
+
 <h2><a href="#" name="ausrollen-im-produktions-modus" id="ausrollen-im-produktions-modus"></a>Ausrollen im Produktions-Modus</h2>
 
 <p>Man kann den Server auch bauen und dann an einem beliebigen Ort starten. Nach dem Clonen des Repositories und Wechsel in dessen Wurzelverzeichnis, müssen dazu die folgenden Kommandos in eine Shell eingegeben werden:</p>
@@ -161,29 +186,29 @@ nerdctl run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest<
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-oFJDYkKvoJHdXej1dmpvkHDfdrqeRX2Z' id='code-tab-CWGskFlHnXhrezyJ2xIsriwO7OZCwiuk' checked>
-        <label data-title='npm' for='code-tab-CWGskFlHnXhrezyJ2xIsriwO7OZCwiuk'>npm</label>
-        <input type='radio' name='group-oFJDYkKvoJHdXej1dmpvkHDfdrqeRX2Z' id='code-tab-8xM69NwOxL6fdv6pFA5NvRiuBrPX1Nk8'>
-        <label data-title='yarn' for='code-tab-8xM69NwOxL6fdv6pFA5NvRiuBrPX1Nk8'>yarn</label>
-        <input type='radio' name='group-oFJDYkKvoJHdXej1dmpvkHDfdrqeRX2Z' id='code-tab-ZL3UPRi0Ynqkmlxx3JLavJQGbgJBJxxe'>
-        <label data-title='pnpm' for='code-tab-ZL3UPRi0Ynqkmlxx3JLavJQGbgJBJxxe'>pnpm</label>
-        <input type='radio' name='group-oFJDYkKvoJHdXej1dmpvkHDfdrqeRX2Z' id='code-tab-nDadAZAHph60VL9qMOBVqm8wWZrZ9ooo'>
-        <label data-title='bun' for='code-tab-nDadAZAHph60VL9qMOBVqm8wWZrZ9ooo'>bun</label>
+        <input type='radio' name='group-GB0Ey6eDZmmC218XsvdlgUkoTVDoUXBY' id='code-tab-qQUV04h28WomQRr3xzRRJtqkdvmbbsNA' checked>
+        <label data-title='npm' for='code-tab-qQUV04h28WomQRr3xzRRJtqkdvmbbsNA'>npm</label>
+        <input type='radio' name='group-GB0Ey6eDZmmC218XsvdlgUkoTVDoUXBY' id='code-tab-oosdTZlOy2NMrUddWc5YPms7oroGYk1z'>
+        <label data-title='yarn' for='code-tab-oosdTZlOy2NMrUddWc5YPms7oroGYk1z'>yarn</label>
+        <input type='radio' name='group-GB0Ey6eDZmmC218XsvdlgUkoTVDoUXBY' id='code-tab-dxBMcYCI17J32o9I7lHqvWmIrVGFl4YD'>
+        <label data-title='pnpm' for='code-tab-dxBMcYCI17J32o9I7lHqvWmIrVGFl4YD'>pnpm</label>
+        <input type='radio' name='group-GB0Ey6eDZmmC218XsvdlgUkoTVDoUXBY' id='code-tab-zPeoT18H245b9i8Vm5iyDRvHGsmHKZLO'>
+        <label data-title='bun' for='code-tab-zPeoT18H245b9i8Vm5iyDRvHGsmHKZLO'>bun</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-CWGskFlHnXhrezyJ2xIsriwO7OZCwiuk' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>npm install
+            <code-block id='code-block-qQUV04h28WomQRr3xzRRJtqkdvmbbsNA' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>npm install
 npm run build</code></pre>
 
 </code-block>
-            <code-block id='code-block-8xM69NwOxL6fdv6pFA5NvRiuBrPX1Nk8'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>yarn install
+            <code-block id='code-block-oosdTZlOy2NMrUddWc5YPms7oroGYk1z'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>yarn install
 yarn run build</code></pre>
 
 </code-block>
-            <code-block id='code-block-ZL3UPRi0Ynqkmlxx3JLavJQGbgJBJxxe'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>pnpm install
+            <code-block id='code-block-dxBMcYCI17J32o9I7lHqvWmIrVGFl4YD'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>pnpm install
 pnpm run build</code></pre> 
 
 </code-block>
-            <code-block id='code-block-nDadAZAHph60VL9qMOBVqm8wWZrZ9ooo'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>bun install
+            <code-block id='code-block-zPeoT18H245b9i8Vm5iyDRvHGsmHKZLO'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>bun install
 bun run build</code></pre> 
 </code-block>
     </code-blocks>
@@ -204,26 +229,26 @@ bun run build</code></pre>
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-hTvnrZ68ETqIN8duYIndyVU7qnT2q6GM' id='code-tab-4hsB8IuQlZxViXuyQJHH3oPJAun4ZO7f' checked>
-        <label data-title='npm' for='code-tab-4hsB8IuQlZxViXuyQJHH3oPJAun4ZO7f'>npm</label>
-        <input type='radio' name='group-hTvnrZ68ETqIN8duYIndyVU7qnT2q6GM' id='code-tab-LNhdHpAcHkxIgyT7H5IljL1JvGucwQcR'>
-        <label data-title='yarn' for='code-tab-LNhdHpAcHkxIgyT7H5IljL1JvGucwQcR'>yarn</label>
-        <input type='radio' name='group-hTvnrZ68ETqIN8duYIndyVU7qnT2q6GM' id='code-tab-MLG7i5F80BZDbLgliLWtoKACA1YA99y0'>
-        <label data-title='pnpm' for='code-tab-MLG7i5F80BZDbLgliLWtoKACA1YA99y0'>pnpm</label>
-        <input type='radio' name='group-hTvnrZ68ETqIN8duYIndyVU7qnT2q6GM' id='code-tab-j3dbcKnB7QyUoPXZnzC2jwHiMvvsvoD9'>
-        <label data-title='bun' for='code-tab-j3dbcKnB7QyUoPXZnzC2jwHiMvvsvoD9'>bun</label>
+        <input type='radio' name='group-pdFLv1dCtcvY9UZNkUkUcm1DzXYWLywM' id='code-tab-Gg1OTmXQjq1LvHsWUghIiwqBJXFpqnCj' checked>
+        <label data-title='npm' for='code-tab-Gg1OTmXQjq1LvHsWUghIiwqBJXFpqnCj'>npm</label>
+        <input type='radio' name='group-pdFLv1dCtcvY9UZNkUkUcm1DzXYWLywM' id='code-tab-1pReylGDrvlqdaLkPzMAkiPZbk0ruSmM'>
+        <label data-title='yarn' for='code-tab-1pReylGDrvlqdaLkPzMAkiPZbk0ruSmM'>yarn</label>
+        <input type='radio' name='group-pdFLv1dCtcvY9UZNkUkUcm1DzXYWLywM' id='code-tab-R6ROMQVEjNU4NR795lRDM4RUQgRjm3wo'>
+        <label data-title='pnpm' for='code-tab-R6ROMQVEjNU4NR795lRDM4RUQgRjm3wo'>pnpm</label>
+        <input type='radio' name='group-pdFLv1dCtcvY9UZNkUkUcm1DzXYWLywM' id='code-tab-J5kCFEk9R6O8gBS86B4ISoSrSZwQARhh'>
+        <label data-title='bun' for='code-tab-J5kCFEk9R6O8gBS86B4ISoSrSZwQARhh'>bun</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-4hsB8IuQlZxViXuyQJHH3oPJAun4ZO7f' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production npm run start:prod</code></pre>
+            <code-block id='code-block-Gg1OTmXQjq1LvHsWUghIiwqBJXFpqnCj' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production npm run start:prod</code></pre>
 
 </code-block>
-            <code-block id='code-block-LNhdHpAcHkxIgyT7H5IljL1JvGucwQcR'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production yarn run start:prod</code></pre>
+            <code-block id='code-block-1pReylGDrvlqdaLkPzMAkiPZbk0ruSmM'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production yarn run start:prod</code></pre>
 
 </code-block>
-            <code-block id='code-block-MLG7i5F80BZDbLgliLWtoKACA1YA99y0'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production pnpm run start:prod</code></pre>
+            <code-block id='code-block-R6ROMQVEjNU4NR795lRDM4RUQgRjm3wo'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production pnpm run start:prod</code></pre>
 
 </code-block>
-            <code-block id='code-block-j3dbcKnB7QyUoPXZnzC2jwHiMvvsvoD9'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production pnpm run start:prod</code></pre>
+            <code-block id='code-block-J5kCFEk9R6O8gBS86B4ISoSrSZwQARhh'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production pnpm run start:prod</code></pre>
 </code-block>
     </code-blocks>
 </code-group></div>
@@ -245,21 +270,21 @@ bun run build</code></pre>
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-u27auzaLGBVwqQ6vPWV4tcW1SBYFGiSo' id='code-tab-2OwFjGKYCR6hiKTq84NHcaSvRhO9ac7f' checked>
-        <label data-title='bun' for='code-tab-2OwFjGKYCR6hiKTq84NHcaSvRhO9ac7f'>bun</label>
-        <input type='radio' name='group-u27auzaLGBVwqQ6vPWV4tcW1SBYFGiSo' id='code-tab-tkcfm1RvIJtp4AEtmDoU7NuwpGuR5hgf'>
-        <label data-title='deno' for='code-tab-tkcfm1RvIJtp4AEtmDoU7NuwpGuR5hgf'>deno</label>
-        <input type='radio' name='group-u27auzaLGBVwqQ6vPWV4tcW1SBYFGiSo' id='code-tab-fGr9Ka9vM7e71M8QRdlP0Yfe1ubnC4OJ'>
-        <label data-title='node' for='code-tab-fGr9Ka9vM7e71M8QRdlP0Yfe1ubnC4OJ'>node</label>
+        <input type='radio' name='group-jUPl1FLtxj5vttcst0iuqjOx7cI4T7oq' id='code-tab-hl71qlH31aOpOShBxh4cK2WLCYKyfZI7' checked>
+        <label data-title='bun' for='code-tab-hl71qlH31aOpOShBxh4cK2WLCYKyfZI7'>bun</label>
+        <input type='radio' name='group-jUPl1FLtxj5vttcst0iuqjOx7cI4T7oq' id='code-tab-n3avCDGdXEiGelOkQCJwZAzFqZRKy4Ti'>
+        <label data-title='deno' for='code-tab-n3avCDGdXEiGelOkQCJwZAzFqZRKy4Ti'>deno</label>
+        <input type='radio' name='group-jUPl1FLtxj5vttcst0iuqjOx7cI4T7oq' id='code-tab-9k8W97n7PSUwaGYu6AiAFO8WHYTLSQXW'>
+        <label data-title='node' for='code-tab-9k8W97n7PSUwaGYu6AiAFO8WHYTLSQXW'>node</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-2OwFjGKYCR6hiKTq84NHcaSvRhO9ac7f' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production bun apps/server/dist/main.js</code></pre>
+            <code-block id='code-block-hl71qlH31aOpOShBxh4cK2WLCYKyfZI7' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production bun apps/server/dist/main.js</code></pre>
 
 </code-block>
-            <code-block id='code-block-tkcfm1RvIJtp4AEtmDoU7NuwpGuR5hgf'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production deno --allow-env --allow-read --allow-net apps/server/dist/main.js</code></pre>
+            <code-block id='code-block-n3avCDGdXEiGelOkQCJwZAzFqZRKy4Ti'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production deno --allow-env --allow-read --allow-net apps/server/dist/main.js</code></pre>
 
 </code-block>
-            <code-block id='code-block-fGr9Ka9vM7e71M8QRdlP0Yfe1ubnC4OJ'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production node apps/server/dist/main.js</code></pre>
+            <code-block id='code-block-9k8W97n7PSUwaGYu6AiAFO8WHYTLSQXW'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production node apps/server/dist/main.js</code></pre>
 </code-block>
     </code-blocks>
 </code-group></div>
@@ -279,32 +304,32 @@ bun run build</code></pre>
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-eYHBQxuJeP9mMn4Ad2aSm1sIfKwwwBB8' id='code-tab-ISDrPxyUFocy0LAkM3SkIgQWI1XZCh5P' checked>
-        <label data-title='npm' for='code-tab-ISDrPxyUFocy0LAkM3SkIgQWI1XZCh5P'>npm</label>
-        <input type='radio' name='group-eYHBQxuJeP9mMn4Ad2aSm1sIfKwwwBB8' id='code-tab-Uv7RHJxRj1vFNX4zaMglkZadI2wZUD7E'>
-        <label data-title='yarn' for='code-tab-Uv7RHJxRj1vFNX4zaMglkZadI2wZUD7E'>yarn</label>
-        <input type='radio' name='group-eYHBQxuJeP9mMn4Ad2aSm1sIfKwwwBB8' id='code-tab-C9qaEs5T1mvtiGfWZ9wLtbrcwlxceSk1'>
-        <label data-title='pnpm' for='code-tab-C9qaEs5T1mvtiGfWZ9wLtbrcwlxceSk1'>pnpm</label>
-        <input type='radio' name='group-eYHBQxuJeP9mMn4Ad2aSm1sIfKwwwBB8' id='code-tab-16H07DrcIDjPh3TLkFs7iT7d24Flhtfv'>
-        <label data-title='bun' for='code-tab-16H07DrcIDjPh3TLkFs7iT7d24Flhtfv'>bun</label>
+        <input type='radio' name='group-B3sCzyq8ENfPQtSuToLhWB7B14VrGLpp' id='code-tab-TdRLAyWucizRxsfOdQr45zAbq0EAracC' checked>
+        <label data-title='npm' for='code-tab-TdRLAyWucizRxsfOdQr45zAbq0EAracC'>npm</label>
+        <input type='radio' name='group-B3sCzyq8ENfPQtSuToLhWB7B14VrGLpp' id='code-tab-5GmXrbYgEkNTPDZxIhXyjr27NIkuChcU'>
+        <label data-title='yarn' for='code-tab-5GmXrbYgEkNTPDZxIhXyjr27NIkuChcU'>yarn</label>
+        <input type='radio' name='group-B3sCzyq8ENfPQtSuToLhWB7B14VrGLpp' id='code-tab-8hjZsSltFpdEie2UcUbIPjLVROYKTI3B'>
+        <label data-title='pnpm' for='code-tab-8hjZsSltFpdEie2UcUbIPjLVROYKTI3B'>pnpm</label>
+        <input type='radio' name='group-B3sCzyq8ENfPQtSuToLhWB7B14VrGLpp' id='code-tab-otYNvXmdDiS6YbmokqhlagZ8ug7xjuXa'>
+        <label data-title='bun' for='code-tab-otYNvXmdDiS6YbmokqhlagZ8ug7xjuXa'>bun</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-ISDrPxyUFocy0LAkM3SkIgQWI1XZCh5P' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+            <code-block id='code-block-TdRLAyWucizRxsfOdQr45zAbq0EAracC' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
 npm install
 npm run start:dev</code></pre>
 
 </code-block>
-            <code-block id='code-block-Uv7RHJxRj1vFNX4zaMglkZadI2wZUD7E'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+            <code-block id='code-block-5GmXrbYgEkNTPDZxIhXyjr27NIkuChcU'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
 yarn install
 yarn run start:dev</code></pre>
 
 </code-block>
-            <code-block id='code-block-C9qaEs5T1mvtiGfWZ9wLtbrcwlxceSk1'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+            <code-block id='code-block-8hjZsSltFpdEie2UcUbIPjLVROYKTI3B'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
 pnpm install
 pnpm run start:dev</code></pre> 
 
 </code-block>
-            <code-block id='code-block-16H07DrcIDjPh3TLkFs7iT7d24Flhtfv'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+            <code-block id='code-block-otYNvXmdDiS6YbmokqhlagZ8ug7xjuXa'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
 bun install
 bun run start:dev</code></pre> 
 </code-block>

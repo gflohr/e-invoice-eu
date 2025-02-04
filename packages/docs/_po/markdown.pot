@@ -1024,62 +1024,86 @@ msgid "By far, the easiest way to run the E-Invoice-EU service is to run the\n"
 msgstr ""
 
 #: ../en/docs/service/deployment.md:39
-msgid "## Deploy in Production Mode"
+msgid "## Download"
 msgstr ""
 
 #: ../en/docs/service/deployment.md:41
+msgid "All other possibilities require a local copy of the sources."
+msgstr ""
+
+#: ../en/docs/service/deployment.md:43
+msgid ""
+"You can download the latest stable version from the [download\n"
+"page](https://github.com/gflohr/e-invoice-eu/releases) and then unzip the\n"
+"ZIP archive or untar the tarball."
+msgstr ""
+
+#: ../en/docs/service/deployment.md:47
+msgid "If you have `git`, you can also clone the repository:"
+msgstr ""
+
+#: ../en/docs/service/deployment.md:59
+msgid "The version you will get by cloning the repository is potentially a little bit\n"
+"more up-to-date."
+msgstr ""
+
+#: ../en/docs/service/deployment.md:62
+msgid "## Deploy in Production Mode"
+msgstr ""
+
+#: ../en/docs/service/deployment.md:64
 msgid ""
 "You can also build the server and then run it anywhere you like. After\n"
 "cloning the repository and changing into its root directory, execute the\n"
 "following commands:"
 msgstr ""
 
-#: ../en/docs/service/deployment.md:74
+#: ../en/docs/service/deployment.md:97
 msgid "### Run with Node.js"
 msgstr ""
 
-#: ../en/docs/service/deployment.md:76
+#: ../en/docs/service/deployment.md:99
 msgid "You can then run the application with Node.js like this:"
 msgstr ""
 
-#: ../en/docs/service/deployment.md:103
+#: ../en/docs/service/deployment.md:126
 msgid "See the [NestJS documentation for deployment](https://docs.nestjs.com/deployment)\n"
 "for more information."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:106
+#: ../en/docs/service/deployment.md:129
 msgid "### Run with Bun or Deno"
 msgstr ""
 
-#: ../en/docs/service/deployment.md:108
+#: ../en/docs/service/deployment.md:131
 msgid ""
 "You can also run the application with [`bun`](https://bun.sh/) or\n"
 "[`deno`](https://deno.com/). But you then have to specify the\n"
 "complete path to the main JavaScript file:"
 msgstr ""
 
-#: ../en/docs/service/deployment.md:132
+#: ../en/docs/service/deployment.md:155
 msgid "## Run in Development Mode"
 msgstr ""
 
-#: ../en/docs/service/deployment.md:134
+#: ../en/docs/service/deployment.md:157
 msgid "You can also run the application without building it first."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:169
+#: ../en/docs/service/deployment.md:192
 msgid "This will automatically re-compile the source code and re-start the server,\n"
 "whenever you make changes to the code."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:172
+#: ../en/docs/service/deployment.md:195
 msgid "## Environment Variables"
 msgstr ""
 
-#: ../en/docs/service/deployment.md:174
+#: ../en/docs/service/deployment.md:197
 msgid "The service is configured with environment variables."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:176
+#: ../en/docs/service/deployment.md:199
 msgid ""
 "You can either pass these environment variables on the commandline or place\n"
 "a file called `.env` in the directory, where you start the service.  This\n"
@@ -1088,54 +1112,54 @@ msgid ""
 "information."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:182
+#: ../en/docs/service/deployment.md:205
 msgid "The following environment variables are supported:"
 msgstr ""
 
-#: ../en/docs/service/deployment.md:188
+#: ../en/docs/service/deployment.md:211
 msgid "To quote the NestJS documentation:"
 msgstr ""
 
-#: ../en/docs/service/deployment.md:190
+#: ../en/docs/service/deployment.md:213
 msgid "> While there's technically no difference between development and production in Node.js and NestJS, it's a good practice to set the NODE_ENV environment variable to production when running your application in a production environment, as some libraries in the ecosystem may behave differently based on this variable (e.g., enabling or disabling debugging output, etc.)."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:192
+#: ../en/docs/service/deployment.md:215
 msgid "In brief: Set the environment variable to \"production\", when running the\n"
 "service in production mode."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:199
+#: ../en/docs/service/deployment.md:222
 msgid "Set this to a valid port number if you are not happy with the default port of\n"
 "3000."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:202
+#: ../en/docs/service/deployment.md:225
 msgid "Note: This has currently no effect, when running the service in a container,\n"
 "see https://github.com/gflohr/e-invoice-eu/issues/76."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:209
+#: ../en/docs/service/deployment.md:232
 msgid ""
 "Path to [LibreOffice](https://www.libreoffice.org/). E-Invoice-EU uses\n"
 "LibreOffice in headless mode to generate PDFs from spreadsheet files. It\n"
 "depends on your usage whether you need that or not."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:213
+#: ../en/docs/service/deployment.md:236
 msgid "On macOS, LibreOffice is usually installed as:"
 msgstr ""
 
-#: ../en/docs/service/deployment.md:221
+#: ../en/docs/service/deployment.md:244
 msgid "On Windows, the path is:"
 msgstr ""
 
-#: ../en/docs/service/deployment.md:229
+#: ../en/docs/service/deployment.md:252
 msgid "If the location of the LibreOffice executable is not configured, it is searched\n"
 "in `$PATH`."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:236
+#: ../en/docs/service/deployment.md:259
 msgid "An alias for the environment variable [`LIBRE_OFFICE`](#libre_office-code)."
 msgstr ""
 
