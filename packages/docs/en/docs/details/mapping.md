@@ -9,6 +9,29 @@ description: Mapping definitions map data from spreadsheet cells to invoice data
 [% USE Highlight %]
 <!--/qgoda-no-xgettext-->
 
+## Practical Considerations
+
+Mapping data from an invoice spreadsheet with a variable number of invoice
+lines that in turn may have a variable number of lines for allowances and charges
+is a little bit like aiming at an apple from a roller coaster. It can get
+quite confusing.
+
+We have tried our best to make these mappings as simple and straightforward as
+possible but it still is pretty confusing. To quote Dante Alighieri:
+
+<!--qgoda-no-xgettext-->
+> *Lasciate ogne speranza voi ch'entrate!*
+<!--/qgoda-no-xgettext-->
+
+In English: All hope abandon ye who enter here!
+
+The example files in the directory
+[`contrib`](https://github.com/gflohr/e-invoice-eu/tree/main/contrib)
+just work. It is strongly recommended that you use them as a starting point
+for your own invoice templates and mappings until you become comfortable with
+the concepts used. This is easier than you may think at first glance, once you
+get the hang of it.
+
 [% title = "Do I Need a Mapping?" %]
 <!--qgoda-no-xgettext-->
 [% WRAPPER components/infobox.html type='info' title=title %]
@@ -26,29 +49,6 @@ generating e-invoices from spreadsheet data.
 
 The format used is [YAML](https://yaml.org/). YAML is a strict superset of
 [JSON](https://www.json.org/) so that you can also use JSON.
-
-## Practical Considerations
-
-Mapping data from an invoice spreadsheet with a variable number of invoice
-line that may have a variable number of lines for allowances and charges
-is a little bit like aiming at a target from a merry-go-round. It can get
-confusing.
-
-We have tried our best to make these mappings as simple and straightforward as
-possible but it still is pretty confusing. To quote Dante Alighieri:
-
-<!--qgoda-no-xgettext-->
-> *Lasciate ogne speranza voi ch'entrate!*
-<!--/qgoda-no-xgettext-->
-
-In English: All hope abandon ye who enter here!
-
-The example files in the directory
-[`contrib`](https://github.com/gflohr/e-invoice-eu/tree/main/contrib)
-just work. It is strongly recommended that you use them as a starting point
-for your own invoice templates and mappings until you become comfortable with
-the concepts used. This is easier than you may think at first glance, once you
-get the hang of it.
 
 ## General Structure
 
@@ -296,3 +296,19 @@ contains examples for spreadsheets. The directory
 [`contrib/mappings`](https://github.com/gflohr/e-invoice-eu/tree/main/contrib/mappings)
 contain the corresponding mappings for these spreadsheets. They will eventually
 be commented.
+
+## Code Lists
+
+One problem of code lists is that the values are often not human-understandable.
+It is not obvious that the unit code `HUR` stands for hours.
+
+The example templates in
+[`contrib/templates`](https://github.com/gflohr/e-invoice-eu/tree/main/contrib/templates)
+try to make that a little bit user-friendly with the help of data ranges and
+the spreadsheet function `VLOOKUP`. The general idea is that the user selects
+a human-readable value from a combo box (the data range) that is then
+translated to the machine-readable code with the help of the `VLOOKUP` function.
+
+You can, of course, also always just use two cells that are not coupled. One
+for the human readable value that gets printed and one for the machine-readable
+code. This simplifies the spreadsheet but makes the process more error-prone.

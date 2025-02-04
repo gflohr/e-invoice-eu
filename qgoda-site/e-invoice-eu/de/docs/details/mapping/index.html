@@ -113,7 +113,32 @@
 
 
 
+<h2><a href="#" name="practical-considerations" id="practical-considerations"></a>Practical Considerations</h2>
 
+<p>Mapping data from an invoice spreadsheet with a variable number of invoice
+lines that in turn may have a variable number of lines for allowances and charges
+is a little bit like aiming at an apple from a roller coaster. It can get
+quite confusing.</p>
+
+<p>We have tried our best to make these mappings as simple and straightforward as
+possible but it still is pretty confusing. To quote Dante Alighieri:</p>
+
+
+
+
+<blockquote><p><em>Lasciate ogne speranza voi ch'entrate!</em></p></blockquote>
+
+
+
+
+<p>In English: All hope abandon ye who enter here!</p>
+
+<p>The example files in the directory
+<a href="https://github.com/gflohr/e-invoice-eu/tree/main/contrib" target="_blank"><code>contrib</code></a>
+just work. It is strongly recommended that you use them as a starting point
+for your own invoice templates and mappings until you become comfortable with
+the concepts used. This is easier than you may think at first glance, once you
+get the hang of it.</p>
 
 
 
@@ -149,13 +174,13 @@ generating e-invoices from spreadsheet data.
 	
 	<li class="toclevel-1">
 		1
-		<a href="#format">Format</a>
+		<a href="#practical-considerations">Practical Considerations</a>
 		
 	</li>
 	
 	<li class="toclevel-1">
 		2
-		<a href="#practical-considerations">Practical Considerations</a>
+		<a href="#format">Format</a>
 		
 	</li>
 	
@@ -240,6 +265,12 @@ generating e-invoices from spreadsheet data.
 		
 	</li>
 	
+	<li class="toclevel-1">
+		6
+		<a href="#code-lists">Code Lists</a>
+		
+	</li>
+	
 </ul>
 
 </div>
@@ -250,33 +281,6 @@ generating e-invoices from spreadsheet data.
 
 <p>The format used is <a href="https://yaml.org/" target="_blank">YAML</a>. YAML is a strict superset of
 <a href="https://www.json.org/" target="_blank">JSON</a> so that you can also use JSON.</p>
-
-<h2><a href="#" name="practical-considerations" id="practical-considerations"></a>Practical Considerations</h2>
-
-<p>Mapping data from an invoice spreadsheet with a variable number of invoice
-line that may have a variable number of lines for allowances and charges
-is a little bit like aiming at a target from a merry-go-round. It can get
-confusing.</p>
-
-<p>We have tried our best to make these mappings as simple and straightforward as
-possible but it still is pretty confusing. To quote Dante Alighieri:</p>
-
-
-
-
-<blockquote><p><em>Lasciate ogne speranza voi ch'entrate!</em></p></blockquote>
-
-
-
-
-<p>In English: All hope abandon ye who enter here!</p>
-
-<p>The example files in the directory
-<a href="https://github.com/gflohr/e-invoice-eu/tree/main/contrib" target="_blank"><code>contrib</code></a>
-just work. It is strongly recommended that you use them as a starting point
-for your own invoice templates and mappings until you become comfortable with
-the concepts used. This is easier than you may think at first glance, once you
-get the hang of it.</p>
 
 <h2><a href="#" name="general-structure" id="general-structure"></a>General Structure</h2>
 
@@ -597,6 +601,22 @@ contains examples for spreadsheets. The directory
 <a href="https://github.com/gflohr/e-invoice-eu/tree/main/contrib/mappings" target="_blank"><code>contrib/mappings</code></a>
 contain the corresponding mappings for these spreadsheets. They will eventually
 be commented.</p>
+
+<h2><a href="#" name="code-lists" id="code-lists"></a>Code Lists</h2>
+
+<p>One problem of code lists is that the values are often not human-understandable.
+It is not obvious that the unit code <code>HUR</code> stands for hours.</p>
+
+<p>The example templates in
+<a href="https://github.com/gflohr/e-invoice-eu/tree/main/contrib/templates" target="_blank"><code>contrib/templates</code></a>
+try to make that a little bit user-friendly with the help of data ranges and
+the spreadsheet function <code>VLOOKUP</code>. The general idea is that the user selects
+a human-readable value from a combo box (the data range) that is then
+translated to the machine-readable code with the help of the <code>VLOOKUP</code> function.</p>
+
+<p>You can, of course, also always just use two cells that are not coupled. One
+for the human readable value that gets printed and one for the machine-readable
+code. This simplifies the spreadsheet but makes the process more error-prone.</p>
  
 				 
 <div class="guided-tour container">
