@@ -1,3 +1,3 @@
 ---
-main: /en/docs/service/create-invoices.md
+main: /en/docs/service/creating-invoices.md
 ---

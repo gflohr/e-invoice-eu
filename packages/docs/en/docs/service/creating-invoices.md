@@ -1,6 +1,6 @@
 ---
 title: Creating Invoices
-name: create-invoices
+name: creating-invoices
 section: service
 description: You can create e-invoices either from spreadsheet data or directly from JSON.
 styles:
