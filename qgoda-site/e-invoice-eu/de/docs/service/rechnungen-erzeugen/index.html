@@ -115,7 +115,7 @@
 
 
 
-<p>Die <a href="/e-invoice-eu/de/docs/grundlagen/funktionsweise/">Generelle Funktionsweise</a> besteht darin, zuerst die Daten aus der Tabellenkalkulation auf das interne Rechnungsformat in JSON abzubilden, und daraus im nächsten Schritt eine XML-E-Rechnung oder eine hybrid PDF/XML-Datei aus den JSON-Daten zu erzeugen. Es ist aber auch möglich, den Mapping-Schritt zu überspringen und die Rechnung direkt aus den JSON-Daten zu erzeugen.</p>
+<p>Die <a href="/e-invoice-eu/de/docs/grundlagen/funktionsweise/">Generelle Funktionsweise</a> besteht darin, zuerst die Daten aus der Tabellenkalkulation auf das <a href="/e-invoice-eu/de/docs/details/internes-format/">interne Rechnungsformat</a> in JSON abzubilden, und daraus im nächsten Schritt eine XML-E-Rechnung oder eine hybrid PDF/XML-Datei aus den JSON-Daten zu erzeugen. Es ist aber auch möglich, den Mapping-Schritt zu überspringen und die Rechnung direkt aus den JSON-Daten zu erzeugen.</p>
 
 <h2><a href="#" name="voraussetzungen" id="voraussetzungen"></a>Voraussetzungen</h2>
 
@@ -146,18 +146,18 @@
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-rSroLr7ay6gFcgbCwlYeNvQRM16r4Ax3' id='code-tab-Gil6wWmmIRmKFq2wwYnwv2RsDyFHzduT' checked>
-        <label data-title='curl' for='code-tab-Gil6wWmmIRmKFq2wwYnwv2RsDyFHzduT'>curl</label>
-        <input type='radio' name='group-rSroLr7ay6gFcgbCwlYeNvQRM16r4Ax3' id='code-tab-zdU9NQaRMbV3aTaU1z7trNF0vQbarGtE'>
-        <label data-title='httpie' for='code-tab-zdU9NQaRMbV3aTaU1z7trNF0vQbarGtE'>httpie</label>
+        <input type='radio' name='group-MA6yMSfZCCp02gIBjg3mWnd3Pos0y9Rw' id='code-tab-Yqcd6IAUkKtp2cmQwnYwdO0xL084TzIC' checked>
+        <label data-title='curl' for='code-tab-Yqcd6IAUkKtp2cmQwnYwdO0xL084TzIC'>curl</label>
+        <input type='radio' name='group-MA6yMSfZCCp02gIBjg3mWnd3Pos0y9Rw' id='code-tab-QCgvPfd0nUJtTLrTSItUfG0uCUEhAZUR'>
+        <label data-title='httpie' for='code-tab-QCgvPfd0nUJtTLrTSItUfG0uCUEhAZUR'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-Gil6wWmmIRmKFq2wwYnwv2RsDyFHzduT' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/transform-and-create/UBL \
+            <code-block id='code-block-Yqcd6IAUkKtp2cmQwnYwdO0xL084TzIC' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/transform-and-create/UBL \
     -F data=@contrib/templates/default-invoice.ods \
     -F mapping=@contrib/mappings/default-invoice.yaml</code></pre>
 
 </code-block>
-            <code-block id='code-block-zdU9NQaRMbV3aTaU1z7trNF0vQbarGtE'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
+            <code-block id='code-block-QCgvPfd0nUJtTLrTSItUfG0uCUEhAZUR'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml</code></pre>
 </code-block>
@@ -183,13 +183,13 @@
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-cIdmFgnOvCmRBMYlm0M4viPAZQ7Br6ES' id='code-tab-6Twdgz9AoaMMSTX7919xOKIuef45hwt1' checked>
-        <label data-title='curl' for='code-tab-6Twdgz9AoaMMSTX7919xOKIuef45hwt1'>curl</label>
-        <input type='radio' name='group-cIdmFgnOvCmRBMYlm0M4viPAZQ7Br6ES' id='code-tab-bIoqnaZqHnIqkTdQ4AvDHiMMv0k8tQlV'>
-        <label data-title='httpie' for='code-tab-bIoqnaZqHnIqkTdQ4AvDHiMMv0k8tQlV'>httpie</label>
+        <input type='radio' name='group-k2fBs7HStBC3sDz1C7BnpJkG330lBJZ6' id='code-tab-4iEErXckqSqgb1U0myA9cWYZxGr7UADl' checked>
+        <label data-title='curl' for='code-tab-4iEErXckqSqgb1U0myA9cWYZxGr7UADl'>curl</label>
+        <input type='radio' name='group-k2fBs7HStBC3sDz1C7BnpJkG330lBJZ6' id='code-tab-sgAXs0HyLtEaISkX92uJeLxORN9TWVjB'>
+        <label data-title='httpie' for='code-tab-sgAXs0HyLtEaISkX92uJeLxORN9TWVjB'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-6Twdgz9AoaMMSTX7919xOKIuef45hwt1' class='active'><pre class="language-sh"><code>curl -X POST \
+            <code-block id='code-block-4iEErXckqSqgb1U0myA9cWYZxGr7UADl' class='active'><pre class="language-sh"><code>curl -X POST \
     http://localhost:3000/api/invoice/transform-and-create/UBL \
     -F lang=de \
     -F data=@contrib/templates/default-invoice.ods \
@@ -205,7 +205,7 @@
     -F attachmentDescription=&#34;Our payment terms&#34;</code></pre>
 
 </code-block>
-            <code-block id='code-block-bIoqnaZqHnIqkTdQ4AvDHiMMv0k8tQlV'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
+            <code-block id='code-block-sgAXs0HyLtEaISkX92uJeLxORN9TWVjB'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
     lang=de \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml \
@@ -292,18 +292,18 @@ href=”/e-invoice-eu/de/docs/service/deployment/#libre_office-code”>konfiguri
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-Vd88Rq2zdmyT0zEDKoZEQ55hzg6PSFBp' id='code-tab-8m8mD7oxNcutRRAWk9pYKjCdIRHnfsWt' checked>
-        <label data-title='curl' for='code-tab-8m8mD7oxNcutRRAWk9pYKjCdIRHnfsWt'>curl</label>
-        <input type='radio' name='group-Vd88Rq2zdmyT0zEDKoZEQ55hzg6PSFBp' id='code-tab-dbimdeRd7SkYaiFcD0jJxsgpGm1FbgJ3'>
-        <label data-title='httpie' for='code-tab-dbimdeRd7SkYaiFcD0jJxsgpGm1FbgJ3'>httpie</label>
+        <input type='radio' name='group-IAOltRoGKKthqpbQpdRf3OSuscsf0s6x' id='code-tab-WnBveqdM8q9VGiL7q6IS206HnM8zXNjO' checked>
+        <label data-title='curl' for='code-tab-WnBveqdM8q9VGiL7q6IS206HnM8zXNjO'>curl</label>
+        <input type='radio' name='group-IAOltRoGKKthqpbQpdRf3OSuscsf0s6x' id='code-tab-ngm7KGyoI7uLqhmlNkEWK2sQKTaG83zM'>
+        <label data-title='httpie' for='code-tab-ngm7KGyoI7uLqhmlNkEWK2sQKTaG83zM'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-8m8mD7oxNcutRRAWk9pYKjCdIRHnfsWt' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/transform-and-create/Factur-X-Extended \
+            <code-block id='code-block-WnBveqdM8q9VGiL7q6IS206HnM8zXNjO' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/transform-and-create/Factur-X-Extended \
     -F data=@contrib/templates/default-invoice.ods \
     -F mapping=@contrib/mappings/default-invoice.yaml &#62;e-invoice.pdf</code></pre>
 
 </code-block>
-            <code-block id='code-block-dbimdeRd7SkYaiFcD0jJxsgpGm1FbgJ3'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/Factur-X-Extended \
+            <code-block id='code-block-ngm7KGyoI7uLqhmlNkEWK2sQKTaG83zM'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/Factur-X-Extended \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml &#62;e-invoice.pdf</code></pre>
 </code-block>
@@ -331,17 +331,17 @@ href=”/e-invoice-eu/de/docs/service/deployment/#libre_office-code”>konfiguri
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-fnZGcIn5vqFcA6jSrYt4exL2krnefDcb' id='code-tab-oddKJVRmWyODZgox5RbFzwFjA3gpFsuv' checked>
-        <label data-title='curl' for='code-tab-oddKJVRmWyODZgox5RbFzwFjA3gpFsuv'>curl</label>
-        <input type='radio' name='group-fnZGcIn5vqFcA6jSrYt4exL2krnefDcb' id='code-tab-ozlvZ3XdwTrLeZpA4GYZPhuhNnQTxRQA'>
-        <label data-title='httpie' for='code-tab-ozlvZ3XdwTrLeZpA4GYZPhuhNnQTxRQA'>httpie</label>
+        <input type='radio' name='group-2BmCzGb60eCx3rM1ZgBRRktGJlJ2ujxm' id='code-tab-nPlhsDWkJEkdcXCQEHfchtLVs0kqeWcF' checked>
+        <label data-title='curl' for='code-tab-nPlhsDWkJEkdcXCQEHfchtLVs0kqeWcF'>curl</label>
+        <input type='radio' name='group-2BmCzGb60eCx3rM1ZgBRRktGJlJ2ujxm' id='code-tab-VcpnTTEStvpDuGRaYmNm6JFNlj2lPbdX'>
+        <label data-title='httpie' for='code-tab-VcpnTTEStvpDuGRaYmNm6JFNlj2lPbdX'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-oddKJVRmWyODZgox5RbFzwFjA3gpFsuv' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/UBL \
+            <code-block id='code-block-nPlhsDWkJEkdcXCQEHfchtLVs0kqeWcF' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/UBL \
     -F invoice=@contrib/data/default-invoice.json</code></pre>
 
 </code-block>
-            <code-block id='code-block-ozlvZ3XdwTrLeZpA4GYZPhuhNnQTxRQA'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
+            <code-block id='code-block-VcpnTTEStvpDuGRaYmNm6JFNlj2lPbdX'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
     invoice@contrib/data/default-invoice.json</code></pre>
 </code-block>
     </code-blocks>
@@ -359,7 +359,7 @@ href=”/e-invoice-eu/de/docs/service/deployment/#libre_office-code”>konfiguri
 
 <h2><a href="#" name="json-daten-aus-tabellendaten-erzeugen" id="json-daten-aus-tabellendaten-erzeugen"></a>JSON-Daten aus Tabellendaten erzeugen</h2>
 
-<p>Mit dem API-Endpunkt <code>/api/mapping/transform/:FORMAT</code> lassen Rechnungsdaten im internen Format aus einer Tabellendatei erzeugen. Das ergibt vermutlich nur für Informationszwecke Sinn, weil JSON kein erlaubtes Format für E-Rechnungen ist.</p>
+<p>Mit dem API-Endpunkt <code>/api/mapping/transform/:FORMAT</code> lassen sich Rechnungsdaten im <a href="/e-invoice-eu/de/docs/details/internes-format/">internen Format</a> aus einer Tabellendatei erzeugen. Das ergibt vermutlich nur für Informationszwecke Sinn, weil JSON kein erlaubtes Format für E-Rechnungen ist.</p>
 
 <p>Beispiel:</p>
 
@@ -368,18 +368,18 @@ href=”/e-invoice-eu/de/docs/service/deployment/#libre_office-code”>konfiguri
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-LJConFpRIwoYmh8vv7g2JPYPngLipPdG' id='code-tab-4uaXVBdIEyicNwNPJG74rbrGPi1Ycyir' checked>
-        <label data-title='curl' for='code-tab-4uaXVBdIEyicNwNPJG74rbrGPi1Ycyir'>curl</label>
-        <input type='radio' name='group-LJConFpRIwoYmh8vv7g2JPYPngLipPdG' id='code-tab-0J6XzxgPtoxRyoeda7dEHJf4zLFys1a5'>
-        <label data-title='httpie' for='code-tab-0J6XzxgPtoxRyoeda7dEHJf4zLFys1a5'>httpie</label>
+        <input type='radio' name='group-IHuegJv2suxIODWCRZp4dYUe2MUFTAZX' id='code-tab-mKWUZXWlZFUMBWdIFPsxgeMxFnfXqWSf' checked>
+        <label data-title='curl' for='code-tab-mKWUZXWlZFUMBWdIFPsxgeMxFnfXqWSf'>curl</label>
+        <input type='radio' name='group-IHuegJv2suxIODWCRZp4dYUe2MUFTAZX' id='code-tab-1Vp8JcSRYTCaIoAYArUZc468OIAZnfgx'>
+        <label data-title='httpie' for='code-tab-1Vp8JcSRYTCaIoAYArUZc468OIAZnfgx'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-4uaXVBdIEyicNwNPJG74rbrGPi1Ycyir' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/mapping/transform/UBL \
+            <code-block id='code-block-mKWUZXWlZFUMBWdIFPsxgeMxFnfXqWSf' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/mapping/transform/UBL \
     -F data=@contrib/templates/default-invoice.ods \
     -F mapping=@contrib/mappings/default-invoice.yaml</code></pre>
 
 </code-block>
-            <code-block id='code-block-0J6XzxgPtoxRyoeda7dEHJf4zLFys1a5'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/mapping/transform/UBL \
+            <code-block id='code-block-1Vp8JcSRYTCaIoAYArUZc468OIAZnfgx'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/mapping/transform/UBL \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml</code></pre>
 </code-block>
@@ -414,7 +414,7 @@ href=”/e-invoice-eu/de/docs/service/deployment/#libre_office-code”>konfiguri
     </div>
     <p>
 
-Dieser Endpunkt bildet Daten aus einer Tabellendatei in das interne Format ab, was eigentlich unabhängig vom Ausgabeformat sein sollte. Das Format muss dennoch angegeben werden, weil die Transformierung auch die Customization-ID im Feld `/ubl:Invoice/cbc:customizationID` einfügt. Wird die Customization-ID mit der Tabelle übergeben, kann ein beliebiges Format angegeben werden, weil eine explizit angegebene Customization-ID nie überschrieben wird.
+Dieser Endpunkt bildet Daten aus einer Tabellendatei in das [interne Format](/e-invoice-eu/de/docs/details/internes-format/) ab, was eigentlich unabhängig vom Ausgabeformat sein sollte. Das Format muss dennoch angegeben werden, weil die Transformierung auch die Customization-ID im Feld `/ubl:Invoice/cbc:customizationID` einfügt. Wird die Customization-ID mit der Tabelle übergeben, kann ein beliebiges Format angegeben werden, weil eine explizit angegebene Customization-ID nie überschrieben wird.
 
 </p>
 </div>
@@ -566,6 +566,22 @@ Dieser Endpunkt bildet Daten aus einer Tabellendatei in das interne Format ab, w
 		<li>
 			
 			<a href="/e-invoice-eu/de/docs/service/api-dokumentation/">API-Dokumentation</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Details</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/details/internes-format/">Internes Format</a>
 			
 		</li>
 		

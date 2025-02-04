@@ -15,7 +15,7 @@ scripts:
 <!--/qgoda-no-xgettext-->
 
 The [% q.lanchor(name='general-mode-of-operation') %] is to first map
-spreadsheet data to the internal invoice format in JSON and then generate an
+spreadsheet data to the [internal invoice format]([% q.llink(name='internal-format') %]) in JSON and then generate an
 e-invoice XML or a hybrid PDF/XML file from that JSON. But it is also
 possible to bypass the first mapping step and generate the invoice directly
 from JSON data.
@@ -237,7 +237,7 @@ data](#e-invoice-with-additional-attachments) except for the parameter
 
 ## Create JSON Data from Spreadsheet Data
 
-You can also create invoice data in the internal format from a spreadsheet
+You can also create invoice data in the [internal format]([% q.llink(name='internal-format') %]) from a spreadsheet
 file with the endpoint `/api/mapping/transform/:format`. This is probably
 only useful for informational purposes because JSON is not an allowed format
 for e-invoices.
@@ -273,7 +273,7 @@ This endpoint only supports two URL parameters:
 <!--qgoda-no-xgettext-->
 [% WRAPPER components/infobox.html type='info' title=title %]
 <!--/qgoda-no-xgettext-->
-This endpoint maps data from a spreadsheet file into the internal format which
+This endpoint maps data from a spreadsheet file into the [internal format]([% q.llink(name='internal-format') %]) which
 is supposed to be independent of the output format. Still, you have to supply
 the format because the transformation also inserts the default customization id
 in the field `/ubl:Invoice/cbc:customizationID`. If the customization ID is

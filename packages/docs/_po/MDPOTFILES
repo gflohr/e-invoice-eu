@@ -2,6 +2,8 @@
 ../en/docs/basics.md
 ../en/docs/basics/general-mode-of-operation.md
 ../en/docs/basics/supported-formats.md
+../en/docs/details.md
+../en/docs/details/internal-format.md
 ../en/docs/e-invoice-formats.md
 ../en/docs/e-invoice-formats/cii.md
 ../en/docs/e-invoice-formats/country-specific-extensions.md

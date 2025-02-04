@@ -23,8 +23,8 @@ is already available as structured data.
 All that was left to be done was to map the input spreadsheet data to elements
 in the output XML of the electronic invoice. Because there are multiple
 supported output XML formats, it makes sense to first map the input data
-into a general internal format and then render the data into the desired
-output format.
+into a general [internal format]([% q.llink(name='internal-format') %]) and
+then render the data into the desired output format.
 
 The internal format chosen is largely equivalent to that of
 [Peppol UBL](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/).

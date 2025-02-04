@@ -267,8 +267,8 @@ msgid ""
 "All that was left to be done was to map the input spreadsheet data to elements\n"
 "in the output XML of the electronic invoice. Because there are multiple\n"
 "supported output XML formats, it makes sense to first map the input data\n"
-"into a general internal format and then render the data into the desired\n"
-"output format."
+"into a general [internal format]([% q.llink(name='internal-format') %]) and\n"
+"then render the data into the desired output format."
 msgstr ""
 
 #: ../en/docs/basics/general-mode-of-operation.md:29
@@ -336,6 +336,339 @@ msgid ""
 "Please see the section [E-Invoice\n"
 "Formats]([% q.llink(name='hybrid-vs-xml') %]) for more information about\n"
 "customization ids and the different e-invoice formats."
+msgstr ""
+
+#: ../en/docs/details.md:2
+msgctxt "title"
+msgid "Details"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:2
+msgctxt "title"
+msgid "Internal Format"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:5
+msgctxt "description"
+msgid "The internally used data structure is almost identical to that of Peppol UBL Invoices. All supported output formats can be generated from it."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:14
+msgid "## Why an Internal Format?"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:16
+msgid ""
+"Data in the internal format is the starting point of the generation of\n"
+"e-invoices in all supported output formats. Therefore, users of the software do\n"
+"not have to care about all details of other formats but can focus on one."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:20
+msgid "[% title = \"Required Know-How\" %]"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:24
+msgid "Knowledge of JSON is definitely a plus, when reading this documentation.\n"
+"XML know-how is also a plus but not really important."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:30
+msgid "## Why UBL?"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:32
+msgid ""
+"In fact, there are just two possible syntaxes for e-invoices conforming to the\n"
+"European standard EN16931, UBL and CII. UBL has been chosen because its\n"
+"syntax is well documented and less complex compared to CII."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:36
+msgid ""
+"At the downside of it, it is currently not possible to add information to\n"
+"invoices that is present in CII but not present in UBL. This may eventually\n"
+"change in the future."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:40
+msgid "## UBL vs Peppol UBL"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:42
+msgid ""
+"The [Universal Business Language UBL](https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=556949c8-dac8-40e6-bb16-018dc7ce54d6) can be used to express a\n"
+"[wide variety of business\n"
+"documents](http://docs.oasis-open.org/ubl/os-UBL-2.1/UBL-2.1.html#S-UBL-2.1-DOCUMENT-SCHEMAS),\n"
+"one of them being [UBL\n"
+"invoices](http://docs.oasis-open.org/ubl/os-UBL-2.1/UBL-2.1.html#T-INVOICE).\n"
+"The UBL standard is maintained by the organization [OASIS\n"
+"Open](https://groups.oasis-open.org/home)."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:50
+msgid ""
+"[Peppol (Pan-European Public Procurement\n"
+"OnLine)](https://peppol.org/) is an effort of the European\n"
+"Union aiming at the standardization of cross-border procurement processes.\n"
+"They have published the [Business Interoperability Specifications\n"
+"(BIS)](https://docs.peppol.eu/poacc/billing/3.0/bis/), currently version 3.0.\n"
+"One of these specifications is that for [UBL\n"
+"Invoice](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/tree/)."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:58
+msgid ""
+"This specification is based on the above mentioned UBL specification by\n"
+"OASIS Open but it is not identical. This documentation therefore refers to\n"
+"the Peppol BIS UBL Invoice as Peppol UBL."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:62
+msgid "## Structure of the Peppol UBL Documentation"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:64
+msgid ""
+"The UBL invoice documentation is available as either [a single\n"
+"HTML page](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/tree/)\n"
+"or a [multi-page clickable tree](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/)."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:68
+msgid "The single-page version is good for searching but the multi-page version is\n"
+"easier to use and understand."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:71
+msgid "### Document Object Model (DOM)"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:73
+msgid ""
+"As UBL is an XML format, the underlying mental model is a [Document Object\n"
+"Model (DOM)](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model).\n"
+"The software E-Invoice-EU uses JSON instead. The main structural difference\n"
+"to XML - at least in the context of Peppol UBL - is the availability of\n"
+"arrays (lists) in JSON."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:79
+msgid "### Nodes and Leafs"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:81
+msgid "The structure of Peppol UBL consists of nodes which are elements that have\n"
+"sub-elements and leafs which are elements that do not have sub-elements."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:84
+msgid ""
+"Nodes have a namespace prefix of `cac`, for example the element\n"
+"[`cac:AccountingSupplierParty`](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/)\n"
+"which describes the issuer of an invoice.  Inside that definition we find the\n"
+"postal address of the supplier and the [city part `cbc:CityName`](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/cac-Party/cac-PostalAddress/cbc-CityName/)\n"
+"is a leaf because it does not contain sub-elements. As all other leafs, it\n"
+"has a namespace prefix of `cbc`."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:91
+msgid "### Cardinality"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:93
+msgid ""
+"The Peppol UBL documentation specifies a *cardinality* of each element. The\n"
+"cardinality describes how many occurences of a certain element are allowed\n"
+"at a certain location. The cardinality is specified as two integers separated\n"
+"by two dots, for example `0..2`.  The first number specifies the minimum\n"
+"number of occurences and the higher number specifies the maximum number of\n"
+"occurrences. If the higher number is the letter `n`, as for example in `0..n`,\n"
+"there can be an arbitrary number of occurences."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:101
+msgid "The following table describes typical cardinalities."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:103
+msgid ""
+"| Cardinality | Meaning |\n"
+"|-------------|---------|\n"
+"| `1..1`      | A mandatory element, for example the [amount due of an invoice](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-LegalMonetaryTotal/cbc-PayableAmount/). |\n"
+"| `0..1`      | An optional element, for example an [advance payment](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-LegalMonetaryTotal/cbc-PrepaidAmount/). |\n"
+"| `1..n`      | A mandatory list with an unlimited number of elements, for example the [line items resp. invoice positions](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/)|\n"
+"| `0..n`      | An optional list with an unlimited number of elements, for example the [charges and allowances on document level](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AllowanceCharge/) |\n"
+"| `1..2`      | A mandatory list with a maximum of 2 elements, for example the [tax total](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-TaxTotal/) |\n"
+"| `0..2`      | An optional list with a maximum of 2 elements, for example the [party tax scheme](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/cac-Party/cac-PartyTaxScheme/) |"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:112
+msgid ""
+"Rules of thumb: If the first number is `0`, an element is optional, otherwise\n"
+"it is mandatory. Only if the second number is greater or equal `2` or it is `n`,\n"
+"we have a list."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:116
+#: ../en/docs/details/internal-format.md:263
+msgid "### Attributes"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:118
+msgid ""
+"XML elements can have attributes that further describe the element's value.\n"
+"For example, the [amount due of an invoice](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-LegalMonetaryTotal/cbc-PayableAmount/) has a mandatory attribute\n"
+"`@currencyID` that contains the abbreviated currency identifier of the amount.\n"
+"In the column \"Use\" of the attributes section of the element documentation, the letter\n"
+"`M` indicates that it is a mandatory attribute, in other words, it has to be\n"
+"present."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:125
+msgid "The [company id](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/cac-Party/cac-PartyLegalEntity/cbc-CompanyID/) has an *optional* attribute `schemeID`.\n"
+"This is indicated by the letter `O` in the column \"Use\"."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:128
+msgid "### Code Lists"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:130
+msgid ""
+"Many fields cannot have arbitrary values but there a restricted to a choice\n"
+"from a list. These lists are called *code lists*. The [amount due of an\n"
+"invoice](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-LegalMonetaryTotal/cbc-PayableAmount/)\n"
+"for example needs a currency id and the corresponding attribute\n"
+"[`@currencyID`](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-LegalMonetaryTotal/cbc-PayableAmount/currencyID/)\n"
+"is restricted to the code list [ISO 4217 Currency\n"
+"codes](https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO4217/). You can\n"
+"get the relevant information by clicking on the element's or attribute's\n"
+"name, and then on the code list name in the section \"Code lists\". The code\n"
+"list page itself lists the possible values in the section \"Codes\". You\n"
+"often have to scroll down a little bit to get to the list of values."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:142
+msgid "## Transforming XML to JSON"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:144
+msgid "Since E-Invoice-EU uses JSON and not XML, the Peppol UBL has to be transformed\n"
+"into JSON."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:147
+msgid "### Basic Strategy"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:149
+msgid "The way of transforming XML into JSON for E-Invoice-EU is straightforward\n"
+"and easier to understand than to describe."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:152
+msgid "The XML structure is converted into JSON by following a simple set of rules:"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:154
+msgid ""
+"1. Elements become JSON keys – Each XML element is represented as a key in the JSON object.\n"
+"2. Nesting is preserved – If an element contains child elements, it becomes an object with those elements as its properties.\n"
+"3. Text values become string values – If an element contains only text, the text becomes the value of the corresponding key."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:158
+msgid "Take for example this incomplete fragment of a UBL invoice XML document\n"
+"specifying the [supplier's name](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/cac-Party/cac-PartyName/):"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:175
+msgid "This translates into JSON like this:"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:191
+msgid ""
+"Each XML element becomes a property in the JSON object, and the hierarchy\n"
+"remains unchanged. The text content of cbc:PartyName` becomes the string\n"
+"\"Acme Ltd.\" in JSON."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:195
+msgid "### Lists/Arrays"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:197
+msgid "XML has no notion of lists respectively arrays. Instead, elements are simply\n"
+"repeated. Take for example invoice line items:"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:219
+msgid "There are three `cac:InvoiceLine` elements. That means that they are a list."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:221
+msgid "The transformation into JSON is straightforward:"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:246
+msgid ""
+"Because `cac:InvoiceLine` is an array (it has a cardinality of `1..n`), it\n"
+"is also an array in JSON. The items are simply all sub-nodes of\n"
+"`cac:InvoiceLine`."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:250
+msgid "[% title = \"Single-Item Lists\" %]"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:254
+msgid ""
+"Even if you have just one item, you must still use an array in JSON.  Single\n"
+"values are not automatically coerced into arrays.  This is particularly\n"
+"important for some elements that you probably do not expect to be arrays, for\n"
+"example the <a href=\"https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-TaxTotal/\">tax\n"
+"total</a> of the invoice."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:265
+msgid "Some elements have attributes:"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:277
+msgid "JSON does not have a notion of attributes. Instead you take the name of the\n"
+"element, add an `@` and the attribute name:"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:293
+msgid "### Non-String Values"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:295
+msgid "Please note that strings *must* be used for all values, even if they are\n"
+"numbers. Check the above examples for that."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:298
+msgid "## Validation"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:300
+msgid ""
+"Don't worry if you forget about the exact details. The service bails out with\n"
+"an error message if the structure of the input data does not adhere to the\n"
+"schema."
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:304
+msgid "## JSON Schema"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:306
+msgid ""
+"If you are familiar with [JSON Schema](https://json-schema.org/), you can also\n"
+"use this. It is available in the [GitHub repo E-Invoice-EU](https://github.com/gflohr/e-invoice-eu/blob/main/src/schema/invoice.schema.json)\n"
+"or as the REST endpoint [`/api/schema/invoice`]([% q.llink(name='other-endpoints') %]#invoice-schema)."
 msgstr ""
 
 #: ../en/docs/e-invoice-formats.md:2
@@ -744,20 +1077,21 @@ msgstr ""
 
 #: ../en/docs/e-invoice-formats/ubl.md:18
 msgid ""
-"The current official documentation of UBL is available as an [OASIS Standards\n"
-"Document](http://docs.oasis-open.org/ubl/UBL-2.1.html). But it is not very\n"
+"The current official documentation of UBL is available as an <a\n"
+"href=\"http://docs.oasis-open.org/ubl/UBL-2.1.html\">OASIS Standards\n"
+"Document</a>. But it is not very\n"
 "helpful in the context of electronic invoices in the EU because the EU has\n"
 "additional requirements. It is therefore recommended to use the Peppol\n"
 "documentation."
 msgstr ""
 
-#: ../en/docs/e-invoice-formats/ubl.md:27
+#: ../en/docs/e-invoice-formats/ubl.md:28
 msgid ""
 "Clicking on an element name opens the documentation for the element. If the name\n"
 "of an element begins with `cac:`, it has subelements. If the name starts with\n"
 "`cbc:` it is the name of a leaf element.  It makes sense to get familiar with\n"
 "this documentation because the Peppol UBL invoice structure is also the basis\n"
-"for the internal invoice format of E-Invoice-EU."
+"for the [internal invoice format]([% q.llink(name='internal-format') %]) of E-Invoice-EU."
 msgstr ""
 
 #: ../en/docs/index.md:3 ../index.md:3
@@ -853,7 +1187,7 @@ msgstr ""
 #: ../en/docs/service/creating-invoices.md:17
 msgid ""
 "The [% q.lanchor(name='general-mode-of-operation') %] is to first map\n"
-"spreadsheet data to the internal invoice format in JSON and then generate an\n"
+"spreadsheet data to the [internal invoice format]([% q.llink(name='internal-format') %]) in JSON and then generate an\n"
 "e-invoice XML or a hybrid PDF/XML file from that JSON. But it is also\n"
 "possible to bypass the first mapping step and generate the invoice directly\n"
 "from JSON data."
@@ -1045,7 +1379,7 @@ msgstr ""
 
 #: ../en/docs/service/creating-invoices.md:240
 msgid ""
-"You can also create invoice data in the internal format from a spreadsheet\n"
+"You can also create invoice data in the [internal format]([% q.llink(name='internal-format') %]) from a spreadsheet\n"
 "file with the endpoint `/api/mapping/transform/:format`. This is probably\n"
 "only useful for informational purposes because JSON is not an allowed format\n"
 "for e-invoices."
@@ -1066,7 +1400,7 @@ msgstr ""
 
 #: ../en/docs/service/creating-invoices.md:276
 msgid ""
-"This endpoint maps data from a spreadsheet file into the internal format which\n"
+"This endpoint maps data from a spreadsheet file into the [internal format]([% q.llink(name='internal-format') %]) which\n"
 "is supposed to be independent of the output format. Still, you have to supply\n"
 "the format because the transformation also inserts the default customization id\n"
 "in the field `/ubl:Invoice/cbc:customizationID`. If the customization ID is\n"
@@ -1293,7 +1627,7 @@ msgid "### Invoice Schema"
 msgstr ""
 
 #: ../en/docs/service/other-endpoints.md:62
-msgid "This endpoint returns the JSON schema for the internal invoice format:"
+msgid "This endpoint returns the JSON schema for the [internal invoice format]([% q.llink(name='internal-format') %]):"
 msgstr ""
 
 #: ../en/docs/service/other-endpoints.md:78

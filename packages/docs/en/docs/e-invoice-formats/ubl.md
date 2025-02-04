@@ -15,8 +15,9 @@ https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/.
 [% WRAPPER components/infobox.html
 type='warning' title=title %]
 <!--/qgoda-no-xgettext-->
-The current official documentation of UBL is available as an [OASIS Standards
-Document](http://docs.oasis-open.org/ubl/UBL-2.1.html). But it is not very
+The current official documentation of UBL is available as an <a
+href="http://docs.oasis-open.org/ubl/UBL-2.1.html">OASIS Standards
+Document</a>. But it is not very
 helpful in the context of electronic invoices in the EU because the EU has
 additional requirements. It is therefore recommended to use the Peppol
 documentation.
@@ -28,4 +29,4 @@ Clicking on an element name opens the documentation for the element. If the name
 of an element begins with `cac:`, it has subelements. If the name starts with
 `cbc:` it is the name of a leaf element.  It makes sense to get familiar with
 this documentation because the Peppol UBL invoice structure is also the basis
-for the internal invoice format of E-Invoice-EU.
+for the [internal invoice format]([% q.llink(name='internal-format') %]) of E-Invoice-EU.

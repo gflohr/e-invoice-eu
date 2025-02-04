@@ -59,7 +59,7 @@ by the software.
 
 ### Invoice Schema
 
-This endpoint returns the JSON schema for the internal invoice format:
+This endpoint returns the JSON schema for the [internal invoice format]([% q.llink(name='internal-format') %]):
 
 <!--qgoda-no-xgettext-->
 [% FILTER $CodeGroup %]
