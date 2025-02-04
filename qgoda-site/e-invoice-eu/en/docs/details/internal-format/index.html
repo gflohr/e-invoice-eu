@@ -220,6 +220,12 @@
 		
 	</li>
 	
+	<li class="toclevel-1">
+		8
+		<a href="#differences-to-peppol-ubl">Differences to Peppol UBL</a>
+		
+	</li>
+	
 </ul>
 
 </div>
@@ -601,6 +607,16 @@ schema.</p>
 <p>If you are familiar with <a href="https://json-schema.org/" target="_blank">JSON Schema</a>, you can also
 use this. It is available in the <a href="https://github.com/gflohr/e-invoice-eu/blob/main/src/schema/invoice.schema.json" target="_blank">GitHub repo E-Invoice-EU</a>
 or as the REST endpoint <a href="/e-invoice-eu/en/docs/service/other-endpoints/#invoice-schema"><code>/api/schema/invoice</code></a>.</p>
+
+<h2><a href="#" name="differences-to-peppol-ubl" id="differences-to-peppol-ubl"></a>Differences to Peppol UBL</h2>
+
+<p>At the moment, the only differences to Peppol UBL are, that the fields
+<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-CustomizationID/" target="_blank"><code>cbc:CustomizationID</code></a>
+and
+<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-ProfileID/" target="_blank"><code>cbc:ProfileID</code></a>
+are optional. The reason is that the value of these fields can be deduced from
+the output format. You only have to specify them if you want to override the
+built-in default values for them.</p>
  
 				 
 <div class="guided-tour container">

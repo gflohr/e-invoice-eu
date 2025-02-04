@@ -671,6 +671,21 @@ msgid ""
 "or as the REST endpoint [`/api/schema/invoice`]([% q.llink(name='other-endpoints') %]#invoice-schema)."
 msgstr ""
 
+#: ../en/docs/details/internal-format.md:310
+msgid "## Differences to Peppol UBL"
+msgstr ""
+
+#: ../en/docs/details/internal-format.md:312
+msgid ""
+"At the moment, the only differences to Peppol UBL are, that the fields\n"
+"[`cbc:CustomizationID`](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-CustomizationID/)\n"
+"and\n"
+"[`cbc:ProfileID`](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-ProfileID/)\n"
+"are optional. The reason is that the value of these fields can be deduced from\n"
+"the output format. You only have to specify them if you want to override the\n"
+"built-in default values for them."
+msgstr ""
+
 #: ../en/docs/e-invoice-formats.md:2
 msgctxt "title"
 msgid "E-invoice Formats"

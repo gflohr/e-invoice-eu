@@ -307,3 +307,12 @@ If you are familiar with [JSON Schema](https://json-schema.org/), you can also
 use this. It is available in the [GitHub repo E-Invoice-EU](https://github.com/gflohr/e-invoice-eu/blob/main/src/schema/invoice.schema.json)
 or as the REST endpoint [`/api/schema/invoice`]([% q.llink(name='other-endpoints') %]#invoice-schema).
 
+## Differences to Peppol UBL
+
+At the moment, the only differences to Peppol UBL are, that the fields
+[`cbc:CustomizationID`](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-CustomizationID/)
+and
+[`cbc:ProfileID`](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-ProfileID/)
+are optional. The reason is that the value of these fields can be deduced from
+the output format. You only have to specify them if you want to override the
+built-in default values for them.
