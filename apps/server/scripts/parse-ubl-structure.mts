@@ -322,6 +322,7 @@ function processNode(node: Element): JSONSchemaType<object> {
 	} else if (node.DataType && node.DataType in $defs.dataTypes) {
 		schema = {
 			$ref: `#/$defs/dataTypes/${node.DataType}`,
+			...common,
 		} as JSONSchemaType<any>;
 	} else {
 		schema = { type: 'string', ...common };
