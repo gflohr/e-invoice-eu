@@ -5,3 +5,4 @@ doc:
     - ['e-invoice-formats', 'hybrid-vs-xml', 'ubl', 'cii', 'factur-x-zugferd', 'country-specific-extensions']
     - ['service', 'deployment', 'creating-invoices', 'other-endpoints', 'api-documentation']
     - ['details', 'internal-format', 'mapping']
+    - ['other', 'business-terms']

@@ -18,7 +18,7 @@ console.log('---');
 console.log('title: Business Terms');
 console.log('name: business-terms');
 console.log('section: other');
-console.log('description: This table maps allEN16931 business terms and'
+console.log('description: This table maps all EN16931 business terms and'
 	+ ' business groups to their respective XML elements.');
 console.log('---');
 console.log('<!-- This file is generated! Do not edit! -->');
