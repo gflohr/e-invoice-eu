@@ -13,7 +13,7 @@ all: \
 	src/schema/mapping.schema.json \
 	src/mapping/mapping.interface.ts \
 	src/mapping/mapping.schema.ts \
-	documentation/BusinessTerms.md
+	../../packages/docs/en/docs/other/business-terms.md
 
 src/schema/invoice.schema.json: scripts/parse-ubl-structure.mts $(INVOICE_SCHEMA_DEPENDENCIES)
 	$(NPX) tsx $< >$@ || rm -f $@
@@ -41,7 +41,7 @@ src/mapping/mapping.schema.ts: scripts/json-schema-to-typescript.mts src/schema/
 	$(NPX) eslint $@ --fix
 	$(NPX) prettier --write $@
 
-documentation/BusinessTerms.md: scripts/extract-business-terms.mts src/schema/invoice.schema.json
+../../packages/docs/en/docs/other/business-terms.md: scripts/extract-business-terms.mts src/schema/invoice.schema.json
 	$(NPX) tsx $< src/schema/invoice.schema.json >$@ || rm -f $@
 
 .PHONY: clean
@@ -49,4 +49,6 @@ documentation/BusinessTerms.md: scripts/extract-business-terms.mts src/schema/in
 clean:
 	rm -f src/schema/*.json \
 		src/invoice/invoice.interface.ts src/mapping/mapping.interface.ts \
-		src/invoice/invoice.schema.ts src/mapping/mapping.schema.ts
+		src/invoice/invoice.schema.ts src/mapping/mapping.schema.ts \
+		../../packages/docs/en/docs/other/business-terms.md
+

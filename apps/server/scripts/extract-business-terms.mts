@@ -14,12 +14,14 @@ const schema: JSONSchemaType<any> = JSON.parse(
 	fs.readFileSync(invoiceSchemaFilename, 'utf-8'),
 );
 
+console.log('---');
+console.log('title: Business Terms');
+console.log('name: business-terms');
+console.log('section: other');
+console.log('description: This table maps allEN16931 business terms and'
+	+ ' business groups to their respective XML elements.');
+console.log('---');
 console.log('<!-- This file is generated! Do not edit! -->');
-console.log('# List of Business Terms\n');
-console.log(
-	'This table maps allEN16931 business terms and business groups to' +
-		' their respective XML elements.\n',
-);
 console.log('| Term | Usage |');
 console.log('|------|-------|');
 
