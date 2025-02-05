@@ -9,7 +9,7 @@ import { Invoice } from './invoice.interface';
 
 export const invoiceSchema: JSONSchemaType<Invoice> = {
 	$schema: 'https://json-schema.org/draft/2019-09/schema',
-	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v1.1.1',
+	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v2.0.0-alpha',
 	type: 'object',
 	additionalProperties: false,
 	properties: {
@@ -37,9 +37,15 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'cbc:IssueDate': {
 					$ref: '#/$defs/dataTypes/Date',
+					title: 'Invoice issue date',
+					description:
+						'The date when the Invoice was issued. Format "YYYY-MM-DD"\nBusiness terms: BT-2',
 				},
 				'cbc:DueDate': {
 					$ref: '#/$defs/dataTypes/Date',
+					title: 'Payment due date',
+					description:
+						'The date when the payment is due.Format "YYYY-MM-DD". In case the Amount due for payment (BT-115) is positive, either the Payment due date (BT-9) or the Payment terms (BT-20) shall be present.\nBusiness terms: BT-9',
 				},
 				'cbc:InvoiceTypeCode': {
 					type: 'string',
@@ -52,10 +58,13 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					type: 'string',
 					title: 'Invoice note',
 					description:
-						'A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or assignment note in case the invoice has been factored.\nBusiness terms: BT-22',
+						'A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or assignment note in case the invoice has been factored. The element is not repeatable, except when both the Buyer and Seller are German, in which case the element can be repeated to meet specific legal requirements.\nBusiness terms: BT-22',
 				},
 				'cbc:TaxPointDate': {
 					$ref: '#/$defs/dataTypes/Date',
+					title: 'Value added tax point date',
+					description:
+						'The date when the VAT becomes accountable for the Seller and for the Buyer in so far as that date can be determined and differs from the date of issue of the invoice, according to the VAT directive.This element is required if the Value added tax point date is different from the Invoice issue date.\nBusiness terms: BT-7',
 				},
 				'cbc:DocumentCurrencyCode': {
 					type: 'string',
@@ -92,9 +101,15 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					properties: {
 						'cbc:StartDate': {
 							$ref: '#/$defs/dataTypes/Date',
+							title: 'Invoicing period start date',
+							description:
+								'The date when the Invoice period starts. Format = "YYYY-MM-DD".\nBusiness terms: BT-73',
 						},
 						'cbc:EndDate': {
 							$ref: '#/$defs/dataTypes/Date',
+							title: 'Invoicing period end date',
+							description:
+								'The date when the Invoice period ends. Format = "YYYY-MM-DD".\nBusiness terms: BT-74',
 						},
 						'cbc:DescriptionCode': {
 							type: 'string',
@@ -147,6 +162,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 									'cbc:IssueDate': {
 										$ref: '#/$defs/dataTypes/Date',
+										title: 'Preceding Invoice issue date',
+										description:
+											'The date when the Preceding Invoice was issued.Shall be provided in case the Preceding Invoice identifier is not unique. Format = "YYYY-MM-DD".\nBusiness terms: BT-26',
 									},
 								},
 								required: ['cbc:ID'],
@@ -253,6 +271,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								properties: {
 									'cbc:EmbeddedDocumentBinaryObject': {
 										$ref: '#/$defs/dataTypes/Binary object',
+										title: 'Attached document',
+										description:
+											'An attached document embedded as binary object (Base64) or sent together with the invoice.\nBusiness terms: BT-125',
 									},
 									'cbc:EmbeddedDocumentBinaryObject@mimeCode': {
 										type: 'string',
@@ -1015,6 +1036,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					properties: {
 						'cbc:ActualDeliveryDate': {
 							$ref: '#/$defs/dataTypes/Date',
+							title: 'Actual delivery date',
+							description:
+								'The date on which the supply of goods or services was made or completed. Format = "YYYY-MM-DD"\nBusiness terms: BT-72',
 						},
 						'cac:DeliveryLocation': {
 							type: 'object',
@@ -1309,9 +1333,15 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							},
 							'cbc:MultiplierFactorNumeric': {
 								$ref: '#/$defs/dataTypes/Percentage',
+								title: 'Document level allowance or charge percentage',
+								description:
+									'The percentage that may be used, in conjunction with the document level allowance base amount, to calculate the document level allowance or charge amount. To state 20%, use value 20.\nBusiness terms: BT-94, BT-101',
 							},
 							'cbc:Amount': {
 								$ref: '#/$defs/dataTypes/Amount',
+								title: 'Document level allowance or charge amount',
+								description:
+									'The amount of an allowance or a charge, without VAT. Must be rounded to maximum 2 decimals\nBusiness terms: BT-92, BT-99',
 							},
 							'cbc:Amount@currencyID': {
 								type: 'string',
@@ -1320,6 +1350,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							},
 							'cbc:BaseAmount': {
 								$ref: '#/$defs/dataTypes/Amount',
+								title: 'Document level allowance or charge base amount',
+								description:
+									'The base amount that may be used, in conjunction with the document level allowance or charge percentage, to calculate the document level allowance or charge amount. Must be rounded to maximum 2 decimals\nBusiness terms: BT-93, BT-100',
 							},
 							'cbc:BaseAmount@currencyID': {
 								type: 'string',
@@ -1341,6 +1374,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 									'cbc:Percent': {
 										$ref: '#/$defs/dataTypes/Percentage',
+										title: 'Document level allowance or charge VAT rate',
+										description:
+											'The VAT rate, represented as percentage that applies to the document level allowance or charge.\nBusiness terms: BT-96, BT-103',
 									},
 									'cac:TaxScheme': {
 										type: 'object',
@@ -1378,6 +1414,10 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						properties: {
 							'cbc:TaxAmount': {
 								$ref: '#/$defs/dataTypes/Amount',
+								title:
+									'Invoice total VAT amount, Invoice total VAT amount in accounting currency',
+								description:
+									'The total VAT amount for the Invoice or the VAT total amount expressed in the accounting currency accepted or required in the country of the Seller. Must be rounded to maximum 2 decimals\nBusiness terms: BT-110, BT-111',
 							},
 							'cbc:TaxAmount@currencyID': {
 								type: 'string',
@@ -1395,6 +1435,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									properties: {
 										'cbc:TaxableAmount': {
 											$ref: '#/$defs/dataTypes/Amount',
+											title: 'VAT category taxable amount',
+											description:
+												'Sum of all taxable amounts subject to a specific VAT category code and VAT category rate (if the VAT category rate is applicable). Must be rounded to maximum 2 decimals.\nBusiness terms: BT-116',
 										},
 										'cbc:TaxableAmount@currencyID': {
 											type: 'string',
@@ -1403,6 +1446,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										},
 										'cbc:TaxAmount': {
 											$ref: '#/$defs/dataTypes/Amount',
+											title: 'VAT category tax amount',
+											description:
+												'The total VAT amount for a given VAT category. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-117',
 										},
 										'cbc:TaxAmount@currencyID': {
 											type: 'string',
@@ -1423,6 +1469,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 												},
 												'cbc:Percent': {
 													$ref: '#/$defs/dataTypes/Percentage',
+													title: 'VAT category rate',
+													description:
+														'The VAT rate, represented as percentage that applies for the relevant VAT category.\nBusiness terms: BT-119',
 												},
 												'cbc:TaxExemptionReasonCode': {
 													type: 'string',
@@ -1484,6 +1533,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					properties: {
 						'cbc:LineExtensionAmount': {
 							$ref: '#/$defs/dataTypes/Amount',
+							title: 'Sum of Invoice line net amount',
+							description:
+								'Sum of all Invoice line net amounts in the Invoice. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-106',
 						},
 						'cbc:LineExtensionAmount@currencyID': {
 							type: 'string',
@@ -1492,6 +1544,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						},
 						'cbc:TaxExclusiveAmount': {
 							$ref: '#/$defs/dataTypes/Amount',
+							title: 'Invoice total amount without VAT',
+							description:
+								'The total amount of the Invoice without VAT. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-109',
 						},
 						'cbc:TaxExclusiveAmount@currencyID': {
 							type: 'string',
@@ -1500,6 +1555,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						},
 						'cbc:TaxInclusiveAmount': {
 							$ref: '#/$defs/dataTypes/Amount',
+							title: 'Invoice total amount with VAT',
+							description:
+								'The total amount of the Invoice with VAT. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-112',
 						},
 						'cbc:TaxInclusiveAmount@currencyID': {
 							type: 'string',
@@ -1508,6 +1566,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						},
 						'cbc:AllowanceTotalAmount': {
 							$ref: '#/$defs/dataTypes/Amount',
+							title: 'Sum of allowances on document level',
+							description:
+								'Sum of all allowances on document level in the Invoice. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-107',
 						},
 						'cbc:AllowanceTotalAmount@currencyID': {
 							type: 'string',
@@ -1516,6 +1577,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						},
 						'cbc:ChargeTotalAmount': {
 							$ref: '#/$defs/dataTypes/Amount',
+							title: 'Sum of charges on document level',
+							description:
+								'Sum of all charges on document level in the Invoice. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-108',
 						},
 						'cbc:ChargeTotalAmount@currencyID': {
 							type: 'string',
@@ -1524,6 +1588,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						},
 						'cbc:PrepaidAmount': {
 							$ref: '#/$defs/dataTypes/Amount',
+							title: 'Paid amount',
+							description:
+								'The sum of amounts which have been paid in advance. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-113',
 						},
 						'cbc:PrepaidAmount@currencyID': {
 							type: 'string',
@@ -1532,6 +1599,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						},
 						'cbc:PayableRoundingAmount': {
 							$ref: '#/$defs/dataTypes/Amount',
+							title: 'Rounding amount',
+							description:
+								'The amount to be added to the invoice total to round the amount to be paid. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-114',
 						},
 						'cbc:PayableRoundingAmount@currencyID': {
 							type: 'string',
@@ -1540,6 +1610,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						},
 						'cbc:PayableAmount': {
 							$ref: '#/$defs/dataTypes/Amount',
+							title: 'Amount due for payment',
+							description:
+								'The outstanding amount that is requested to be paid. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-115',
 						},
 						'cbc:PayableAmount@currencyID': {
 							type: 'string',
@@ -1599,6 +1672,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							},
 							'cbc:InvoicedQuantity': {
 								$ref: '#/$defs/dataTypes/Quantity',
+								title: 'Invoiced quantity',
+								description:
+									'The quantity of items (goods or services) that is charged in the Invoice line.\nBusiness terms: BT-129',
 							},
 							'cbc:InvoicedQuantity@unitCode': {
 								type: 'string',
@@ -1609,6 +1685,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							},
 							'cbc:LineExtensionAmount': {
 								$ref: '#/$defs/dataTypes/Amount',
+								title: 'Invoice line net amount',
+								description:
+									'The total amount of the Invoice line. The amount is “net” without VAT, i.e. inclusive of line level allowances and charges as well as other relevant taxes. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-131',
 							},
 							'cbc:LineExtensionAmount@currencyID': {
 								type: 'string',
@@ -1630,9 +1709,15 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								properties: {
 									'cbc:StartDate': {
 										$ref: '#/$defs/dataTypes/Date',
+										title: 'Invoice line period start date',
+										description:
+											'The date when the Invoice period for this Invoice line starts. Format ="YYYY-MM-DD"\nBusiness terms: BT-134',
 									},
 									'cbc:EndDate': {
 										$ref: '#/$defs/dataTypes/Date',
+										title: 'Invoice line period end date',
+										description:
+											'The date when the Invoice period for this Invoice line ends. Format ="YYYY-MM-DD"\nBusiness terms: BT-135',
 									},
 								},
 							},
@@ -1717,9 +1802,15 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										},
 										'cbc:MultiplierFactorNumeric': {
 											$ref: '#/$defs/dataTypes/Percentage',
+											title: 'Line level allowance or charge percentage',
+											description:
+												'The percentage that may be used, in conjunction with the line level allowance base amount, to calculate the line level allowance or charge amount.\nBusiness terms: BT-138, BT-143',
 										},
 										'cbc:Amount': {
 											$ref: '#/$defs/dataTypes/Amount',
+											title: 'Line level allowance or charge amount',
+											description:
+												'The amount of an allowance or a charge, without VAT. Must be rounded to maximum 2 decimals\nBusiness terms: BT-136, BT-141',
 										},
 										'cbc:Amount@currencyID': {
 											type: 'string',
@@ -1728,6 +1819,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										},
 										'cbc:BaseAmount': {
 											$ref: '#/$defs/dataTypes/Amount',
+											title: 'Line level allowance or charge base amount',
+											description:
+												'The base amount that may be used, in conjunction with the line level allowance or charge percentage, to calculate the line level allowance or charge amount. Must be rounded to maximum 2 decimals\nBusiness terms: BT-137, BT-142',
 										},
 										'cbc:BaseAmount@currencyID': {
 											type: 'string',
@@ -1890,6 +1984,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											},
 											'cbc:Percent': {
 												$ref: '#/$defs/dataTypes/Percentage',
+												title: 'Invoiced item VAT rate',
+												description:
+													'The VAT rate, represented as percentage that applies to the invoiced item.\nBusiness terms: BT-152',
 											},
 											'cac:TaxScheme': {
 												type: 'object',
@@ -1943,6 +2040,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								properties: {
 									'cbc:PriceAmount': {
 										$ref: '#/$defs/dataTypes/Amount',
+										title: 'Item net price',
+										description:
+											'The price of an item, exclusive of VAT, after subtracting item price discount. The Item net price has to be equal with the Item gross price less the Item price discount, if they are both provided. Item price can not be negative.\nBusiness terms: BT-146',
 									},
 									'cbc:PriceAmount@currencyID': {
 										type: 'string',
@@ -1951,6 +2051,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 									'cbc:BaseQuantity': {
 										$ref: '#/$defs/dataTypes/Quantity',
+										title: 'Item price base quantity',
+										description:
+											'The number of item units to which the price applies.\nBusiness terms: BT-149',
 									},
 									'cbc:BaseQuantity@unitCode': {
 										type: 'string',
@@ -1970,6 +2073,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											},
 											'cbc:Amount': {
 												$ref: '#/$defs/dataTypes/Amount',
+												title: 'Item price discount',
+												description:
+													'The total discount subtracted from the Item gross price to calculate the Item net price.\nBusiness terms: BT-147',
 											},
 											'cbc:Amount@currencyID': {
 												type: 'string',
@@ -1978,6 +2084,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											},
 											'cbc:BaseAmount': {
 												$ref: '#/$defs/dataTypes/Amount',
+												title: 'Item gross price',
+												description:
+													'The unit price, exclusive of VAT, before subtracting Item price discount, can not be negative\nBusiness terms: BT-148',
 											},
 											'cbc:BaseAmount@currencyID': {
 												type: 'string',
@@ -2353,7 +2462,6 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					'GYD',
 					'HKD',
 					'HNL',
-					'HRK',
 					'HTG',
 					'HUF',
 					'IDR',
@@ -2444,8 +2552,10 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					'USN',
 					'UYI',
 					'UYU',
+					'UYW',
 					'UZS',
-					'VEF',
+					'VED',
+					'VES',
 					'VND',
 					'VUV',
 					'WST',
@@ -2468,6 +2578,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					'YER',
 					'ZAR',
 					'ZMW',
+					'ZWG',
 					'ZWL',
 				],
 			},
@@ -4750,6 +4861,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					'HPA',
 					'HTZ',
 					'HUR',
+					'HWE',
 					'IA',
 					'IE',
 					'INH',
@@ -6022,6 +6134,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					'VATEX-EU-143-1J',
 					'VATEX-EU-143-1K',
 					'VATEX-EU-143-1L',
+					'VATEX-EU-144',
+					'VATEX-EU-146-1E',
 					'VATEX-EU-148',
 					'VATEX-EU-148-A',
 					'VATEX-EU-148-B',
@@ -6037,6 +6151,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					'VATEX-EU-151-1C',
 					'VATEX-EU-151-1D',
 					'VATEX-EU-151-1E',
+					'VATEX-EU-159',
 					'VATEX-EU-309',
 					'VATEX-EU-AE',
 					'VATEX-EU-D',
@@ -6065,6 +6180,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					'135',
 					'142',
 					'151',
+					'177',
 					'183',
 					'184',
 					'188',
@@ -6091,6 +6207,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					'218',
 					'221',
 					'230',
+					'235',
 					'9901',
 					'9910',
 					'9913',
@@ -6362,6 +6479,14 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					'228',
 					'229',
 					'230',
+					'231',
+					'232',
+					'233',
+					'234',
+					'235',
+					'236',
+					'237',
+					'238',
 				],
 			},
 		},

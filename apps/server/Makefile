@@ -41,6 +41,9 @@ src/mapping/mapping.schema.ts: scripts/json-schema-to-typescript.mts src/schema/
 	$(NPX) eslint $@ --fix
 	$(NPX) prettier --write $@
 
+documentation/BusinessTerms.md: scripts/extract-business-terms.mts src/schema/invoice.schema.json
+	$(NPX) tsx $< src/schema/invoice.schema.json >$@ || rm -f $@
+
 .PHONY: clean
 
 clean:

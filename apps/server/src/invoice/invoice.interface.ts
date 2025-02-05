@@ -20,6 +20,16 @@ export type BusinessProcessType = string;
  */
 export type InvoiceNumber = string;
 /**
+ * The date when the Invoice was issued. Format "YYYY-MM-DD"
+ * Business terms: BT-2
+ */
+export type InvoiceIssueDate = string;
+/**
+ * The date when the payment is due.Format "YYYY-MM-DD". In case the Amount due for payment (BT-115) is positive, either the Payment due date (BT-9) or the Payment terms (BT-20) shall be present.
+ * Business terms: BT-9
+ */
+export type PaymentDueDate = string;
+/**
  * A code specifying the functional type of the Invoice.
  * Business terms: BT-3
  */
@@ -49,10 +59,15 @@ export type InvoiceTypeCode =
 	| '876'
 	| '877';
 /**
- * A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or assignment note in case the invoice has been factored.
+ * A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or assignment note in case the invoice has been factored. The element is not repeatable, except when both the Buyer and Seller are German, in which case the element can be repeated to meet specific legal requirements.
  * Business terms: BT-22
  */
 export type InvoiceNote = string;
+/**
+ * The date when the VAT becomes accountable for the Seller and for the Buyer in so far as that date can be determined and differs from the date of issue of the invoice, according to the VAT directive.This element is required if the Value added tax point date is different from the Invoice issue date.
+ * Business terms: BT-7
+ */
+export type ValueAddedTaxPointDate = string;
 /**
  * The currency in which all Invoice amounts are given, except for the Total VAT amount in accounting currency. Only one currency shall be used in the Invoice, except for the VAT accounting currency code (BT-6) and the invoice total VAT amount in accounting currency (BT-111).
  * Business terms: BT-5
@@ -119,7 +134,6 @@ export type InvoiceCurrencyCode =
 	| 'GYD'
 	| 'HKD'
 	| 'HNL'
-	| 'HRK'
 	| 'HTG'
 	| 'HUF'
 	| 'IDR'
@@ -210,8 +224,10 @@ export type InvoiceCurrencyCode =
 	| 'USN'
 	| 'UYI'
 	| 'UYU'
+	| 'UYW'
 	| 'UZS'
-	| 'VEF'
+	| 'VED'
+	| 'VES'
 	| 'VND'
 	| 'VUV'
 	| 'WST'
@@ -234,6 +250,7 @@ export type InvoiceCurrencyCode =
 	| 'YER'
 	| 'ZAR'
 	| 'ZMW'
+	| 'ZWG'
 	| 'ZWL';
 /**
  * The currency used for VAT accounting and reporting purposes as accepted or required in the country of the Seller. Shall be used in combination with the Invoice total VAT amount in accounting currency (BT-111), when the VAT accounting currency code differs from the Invoice currency code.
@@ -301,7 +318,6 @@ export type VATAccountingCurrencyCode =
 	| 'GYD'
 	| 'HKD'
 	| 'HNL'
-	| 'HRK'
 	| 'HTG'
 	| 'HUF'
 	| 'IDR'
@@ -392,8 +408,10 @@ export type VATAccountingCurrencyCode =
 	| 'USN'
 	| 'UYI'
 	| 'UYU'
+	| 'UYW'
 	| 'UZS'
-	| 'VEF'
+	| 'VED'
+	| 'VES'
 	| 'VND'
 	| 'VUV'
 	| 'WST'
@@ -416,6 +434,7 @@ export type VATAccountingCurrencyCode =
 	| 'YER'
 	| 'ZAR'
 	| 'ZMW'
+	| 'ZWG'
 	| 'ZWL';
 /**
  * A textual value that specifies where to book the relevant data into the Buyer's financial accounts.
@@ -427,6 +446,16 @@ export type BuyerAccountingReference = string;
  * Business terms: BT-10
  */
 export type BuyerReference = string;
+/**
+ * The date when the Invoice period starts. Format = "YYYY-MM-DD".
+ * Business terms: BT-73
+ */
+export type InvoicingPeriodStartDate = string;
+/**
+ * The date when the Invoice period ends. Format = "YYYY-MM-DD".
+ * Business terms: BT-74
+ */
+export type InvoicingPeriodEndDate = string;
 /**
  * The code of the date when the VAT becomes accountable for the Seller and for the Buyer.
  * Business terms: BT-8
@@ -447,6 +476,11 @@ export type SalesOrderReference = string;
  * Business terms: BT-25
  */
 export type PrecedingInvoiceNumber = string;
+/**
+ * The date when the Preceding Invoice was issued.Shall be provided in case the Preceding Invoice identifier is not unique. Format = "YYYY-MM-DD".
+ * Business terms: BT-26
+ */
+export type PrecedingInvoiceIssueDate = string;
 /**
  * An identifier of a referenced despatch advice.
  * Business terms: BT-16
@@ -1304,6 +1338,11 @@ export type DocumentTypeCode = string;
  */
 export type SupportingDocumentDescription = string;
 /**
+ * An attached document embedded as binary object (Base64) or sent together with the invoice.
+ * Business terms: BT-125
+ */
+export type AttachedDocument = string;
+/**
  * The mime code of the attached document.
  */
 export type AttachedDocumentMimeCode =
@@ -1349,6 +1388,7 @@ export type SellerElectronicAddressIdentificationSchemeIdentifier =
 	| '135'
 	| '142'
 	| '151'
+	| '177'
 	| '183'
 	| '184'
 	| '188'
@@ -1375,6 +1415,7 @@ export type SellerElectronicAddressIdentificationSchemeIdentifier =
 	| '218'
 	| '221'
 	| '230'
+	| '235'
 	| '9901'
 	| '9910'
 	| '9913'
@@ -1653,6 +1694,14 @@ export type SellerOrBankAssignedCreditorIdentifierIdentificationSchemeIdentifier
 				| '228'
 				| '229'
 				| '230'
+				| '231'
+				| '232'
+				| '233'
+				| '234'
+				| '235'
+				| '236'
+				| '237'
+				| '238'
 		  )
 		| 'SEPA'
 	) &
@@ -2191,7 +2240,15 @@ export type SellerLegalRegistrationIdentifierIdentificationSchemeIdentifier =
 	| '227'
 	| '228'
 	| '229'
-	| '230';
+	| '230'
+	| '231'
+	| '232'
+	| '233'
+	| '234'
+	| '235'
+	| '236'
+	| '237'
+	| '238';
 /**
  * Additional legal information relevant for the Seller.
  * Business terms: BT-33
@@ -2234,6 +2291,7 @@ export type BuyerElectronicAddressIdentificationSchemeIdentifier =
 	| '135'
 	| '142'
 	| '151'
+	| '177'
 	| '183'
 	| '184'
 	| '188'
@@ -2260,6 +2318,7 @@ export type BuyerElectronicAddressIdentificationSchemeIdentifier =
 	| '218'
 	| '221'
 	| '230'
+	| '235'
 	| '9901'
 	| '9910'
 	| '9913'
@@ -2535,7 +2594,15 @@ export type BuyerIdentifierIdentificationSchemeIdentifier =
 	| '227'
 	| '228'
 	| '229'
-	| '230';
+	| '230'
+	| '231'
+	| '232'
+	| '233'
+	| '234'
+	| '235'
+	| '236'
+	| '237'
+	| '238';
 /**
  * A name by which the Buyer is known, other than Buyer name (also known as Business name).
  * Business terms: BT-45
@@ -3070,7 +3137,15 @@ export type BuyerLegalRegistrationIdentifierIdentificationSchemeIdentifier =
 	| '227'
 	| '228'
 	| '229'
-	| '230';
+	| '230'
+	| '231'
+	| '232'
+	| '233'
+	| '234'
+	| '235'
+	| '236'
+	| '237'
+	| '238';
 /**
  * A contact point for a legal entity or person.
  * Business terms: BT-56
@@ -3322,6 +3397,14 @@ export type PayeeOrBankAssignedCreditorIdentifierIdentificationSchemeIdentifier 
 				| '228'
 				| '229'
 				| '230'
+				| '231'
+				| '232'
+				| '233'
+				| '234'
+				| '235'
+				| '236'
+				| '237'
+				| '238'
 		  )
 		| 'SEPA'
 	) &
@@ -3564,7 +3647,15 @@ export type PayeeLegalRegistrationIdentifierIdentificationSchemeIdentifier =
 	| '227'
 	| '228'
 	| '229'
-	| '230';
+	| '230'
+	| '231'
+	| '232'
+	| '233'
+	| '234'
+	| '235'
+	| '236'
+	| '237'
+	| '238';
 /**
  * The full name of the Seller's tax representative party.
  * Business terms: BT-62
@@ -3862,6 +3953,11 @@ export type TaxRepresentativeCountryCode =
  */
 export type SellerTaxRepresentativeVATIdentifier = string;
 /**
+ * The date on which the supply of goods or services was made or completed. Format = "YYYY-MM-DD"
+ * Business terms: BT-72
+ */
+export type ActualDeliveryDate = string;
+/**
  * An identifier for the location at which the goods and services are delivered.
  * Business terms: BT-71
  */
@@ -4094,7 +4190,15 @@ export type DeliverToLocationIdentifierIdentificationSchemeIdentifier =
 	| '227'
 	| '228'
 	| '229'
-	| '230';
+	| '230'
+	| '231'
+	| '232'
+	| '233'
+	| '234'
+	| '235'
+	| '236'
+	| '237'
+	| '238';
 /**
  * The main address line in an address.
  * Business terms: BT-75
@@ -4738,6 +4842,21 @@ export type DocumentLevelAllowanceOrChargeReasonCode = (
  */
 export type DocumentLevelAllowanceOrChargeReason = string;
 /**
+ * The percentage that may be used, in conjunction with the document level allowance base amount, to calculate the document level allowance or charge amount. To state 20%, use value 20.
+ * Business terms: BT-94, BT-101
+ */
+export type DocumentLevelAllowanceOrChargePercentage = string;
+/**
+ * The amount of an allowance or a charge, without VAT. Must be rounded to maximum 2 decimals
+ * Business terms: BT-92, BT-99
+ */
+export type DocumentLevelAllowanceOrChargeAmount = string;
+/**
+ * The base amount that may be used, in conjunction with the document level allowance or charge percentage, to calculate the document level allowance or charge amount. Must be rounded to maximum 2 decimals
+ * Business terms: BT-93, BT-100
+ */
+export type DocumentLevelAllowanceOrChargeBaseAmount = string;
+/**
  * A coded identification of what VAT category applies to the document level allowance or charge.
  * Business terms: BT-95, BT-102
  */
@@ -4752,6 +4871,27 @@ export type DocumentLevelAllowanceOrChargeVATCategoryCode =
 	| 'L'
 	| 'M'
 	| 'B';
+/**
+ * The VAT rate, represented as percentage that applies to the document level allowance or charge.
+ * Business terms: BT-96, BT-103
+ */
+export type DocumentLevelAllowanceOrChargeVATRate = string;
+/**
+ * The total VAT amount for the Invoice or the VAT total amount expressed in the accounting currency accepted or required in the country of the Seller. Must be rounded to maximum 2 decimals
+ * Business terms: BT-110, BT-111
+ */
+export type InvoiceTotalVATAmountInvoiceTotalVATAmountInAccountingCurrency =
+	string;
+/**
+ * Sum of all taxable amounts subject to a specific VAT category code and VAT category rate (if the VAT category rate is applicable). Must be rounded to maximum 2 decimals.
+ * Business terms: BT-116
+ */
+export type VATCategoryTaxableAmount = string;
+/**
+ * The total VAT amount for a given VAT category. Must be rounded to maximum 2 decimals.
+ * Business terms: BT-117
+ */
+export type VATCategoryTaxAmount = string;
 /**
  * Coded identification of a VAT category.
  * Business terms: BT-118
@@ -4768,6 +4908,11 @@ export type VATCategoryCode =
 	| 'M'
 	| 'B';
 /**
+ * The VAT rate, represented as percentage that applies for the relevant VAT category.
+ * Business terms: BT-119
+ */
+export type VATCategoryRate = string;
+/**
  * A coded statement of the reason for why the amount is exempted from VAT.
  * Business terms: BT-121
  */
@@ -4778,6 +4923,46 @@ export type VATExemptionReasonCode = string;
  */
 export type VATExemptionReasonText = string;
 /**
+ * Sum of all Invoice line net amounts in the Invoice. Must be rounded to maximum 2 decimals.
+ * Business terms: BT-106
+ */
+export type SumOfInvoiceLineNetAmount = string;
+/**
+ * The total amount of the Invoice without VAT. Must be rounded to maximum 2 decimals.
+ * Business terms: BT-109
+ */
+export type InvoiceTotalAmountWithoutVAT = string;
+/**
+ * The total amount of the Invoice with VAT. Must be rounded to maximum 2 decimals.
+ * Business terms: BT-112
+ */
+export type InvoiceTotalAmountWithVAT = string;
+/**
+ * Sum of all allowances on document level in the Invoice. Must be rounded to maximum 2 decimals.
+ * Business terms: BT-107
+ */
+export type SumOfAllowancesOnDocumentLevel = string;
+/**
+ * Sum of all charges on document level in the Invoice. Must be rounded to maximum 2 decimals.
+ * Business terms: BT-108
+ */
+export type SumOfChargesOnDocumentLevel = string;
+/**
+ * The sum of amounts which have been paid in advance. Must be rounded to maximum 2 decimals.
+ * Business terms: BT-113
+ */
+export type PaidAmount = string;
+/**
+ * The amount to be added to the invoice total to round the amount to be paid. Must be rounded to maximum 2 decimals.
+ * Business terms: BT-114
+ */
+export type RoundingAmount = string;
+/**
+ * The outstanding amount that is requested to be paid. Must be rounded to maximum 2 decimals.
+ * Business terms: BT-115
+ */
+export type AmountDueForPayment = string;
+/**
  * A unique identifier for the individual line within the Invoice.
  * Business terms: BT-126
  */
@@ -4787,6 +4972,11 @@ export type InvoiceLineIdentifier = string;
  * Business terms: BT-127
  */
 export type InvoiceLineNote = string;
+/**
+ * The quantity of items (goods or services) that is charged in the Invoice line.
+ * Business terms: BT-129
+ */
+export type InvoicedQuantity = string;
 /**
  * The unit of measure that applies to the invoiced quantity. Codes for unit of packaging from UNECE Recommendation No. 21 can be used in accordance with the descriptions in the "Intro" section of UN/ECE Recommendation 20, Revision 11 (2015): The 2 character alphanumeric code values in UNECE Recommendation 21 shall be used. To avoid duplication with existing code values in UNECE Recommendation No. 20, each code value from UNECE Recommendation 21 shall be prefixed with an “X”, resulting in a 3 alphanumeric code when used as a unit of measure.
  * Business terms: BT-130
@@ -5718,6 +5908,7 @@ export type InvoicedQuantityUnitOfMeasure =
 	| 'HPA'
 	| 'HTZ'
 	| 'HUR'
+	| 'HWE'
 	| 'IA'
 	| 'IE'
 	| 'INH'
@@ -6954,10 +7145,25 @@ export type InvoicedQuantityUnitOfMeasure =
 	| 'XZY'
 	| 'XZZ';
 /**
+ * The total amount of the Invoice line. The amount is “net” without VAT, i.e. inclusive of line level allowances and charges as well as other relevant taxes. Must be rounded to maximum 2 decimals.
+ * Business terms: BT-131
+ */
+export type InvoiceLineNetAmount = string;
+/**
  * A textual value that specifies where to book the relevant data into the Buyer's financial accounts.
  * Business terms: BT-133
  */
 export type InvoiceLineBuyerAccountingReference = string;
+/**
+ * The date when the Invoice period for this Invoice line starts. Format ="YYYY-MM-DD"
+ * Business terms: BT-134
+ */
+export type InvoiceLinePeriodStartDate = string;
+/**
+ * The date when the Invoice period for this Invoice line ends. Format ="YYYY-MM-DD"
+ * Business terms: BT-135
+ */
+export type InvoiceLinePeriodEndDate = string;
 /**
  * An identifier for a referenced line within a purchase order, issued by the Buyer.
  * Business terms: BT-132
@@ -8008,6 +8214,21 @@ export type LineLevelAllowanceOrChargeReasonCode = (
  */
 export type LineLevelAllowanceOrChargeReason = string;
 /**
+ * The percentage that may be used, in conjunction with the line level allowance base amount, to calculate the line level allowance or charge amount.
+ * Business terms: BT-138, BT-143
+ */
+export type LineLevelAllowanceOrChargePercentage = string;
+/**
+ * The amount of an allowance or a charge, without VAT. Must be rounded to maximum 2 decimals
+ * Business terms: BT-136, BT-141
+ */
+export type LineLevelAllowanceOrChargeAmount = string;
+/**
+ * The base amount that may be used, in conjunction with the line level allowance or charge percentage, to calculate the line level allowance or charge amount. Must be rounded to maximum 2 decimals
+ * Business terms: BT-137, BT-142
+ */
+export type LineLevelAllowanceOrChargeBaseAmount = string;
+/**
  * A description for an item.The item description allows for describing the item and its features in more detail than the Item name.
  * Business terms: BT-154
  */
@@ -8260,7 +8481,15 @@ export type ItemStandardIdentifierIdentificationSchemeIdentifier =
 	| '227'
 	| '228'
 	| '229'
-	| '230';
+	| '230'
+	| '231'
+	| '232'
+	| '233'
+	| '234'
+	| '235'
+	| '236'
+	| '237'
+	| '238';
 /**
  * The code identifying the country from which the item originates.
  * Business terms: BT-159
@@ -8731,6 +8960,11 @@ export type InvoicedItemVATCategoryCode =
 	| 'M'
 	| 'B';
 /**
+ * The VAT rate, represented as percentage that applies to the invoiced item.
+ * Business terms: BT-152
+ */
+export type InvoicedItemVATRate = string;
+/**
  * The name of the attribute or property of the item.
  * Business terms: BT-160
  */
@@ -8740,6 +8974,16 @@ export type ItemAttributeName = string;
  * Business terms: BT-161
  */
 export type ItemAttributeValue = string;
+/**
+ * The price of an item, exclusive of VAT, after subtracting item price discount. The Item net price has to be equal with the Item gross price less the Item price discount, if they are both provided. Item price can not be negative.
+ * Business terms: BT-146
+ */
+export type ItemNetPrice = string;
+/**
+ * The number of item units to which the price applies.
+ * Business terms: BT-149
+ */
+export type ItemPriceBaseQuantity = string;
 /**
  * The unit of measure that applies to the Item price base quantity, must be the same as the unit code of the Invoiced/credited quantity. Codes for unit of packaging from UNECE Recommendation No. 21 can be used in accordance with the descriptions in the "Intro" section of UN/ECE Recommendation 20, Revision 11 (2015): The 2 character alphanumeric code values in UNECE Recommendation 21 shall be used. To avoid duplication with existing code values in UNECE Recommendation No. 20, each code value from UNECE Recommendation 21 shall be prefixed with an “X”, resulting in a 3 alphanumeric code when used as a unit of measure.
  */
@@ -9670,6 +9914,7 @@ export type ItemPriceBaseQuantityUnitOfMeasureCode =
 	| 'HPA'
 	| 'HTZ'
 	| 'HUR'
+	| 'HWE'
 	| 'IA'
 	| 'IE'
 	| 'INH'
@@ -10905,17 +11150,27 @@ export type ItemPriceBaseQuantityUnitOfMeasureCode =
 	| 'XZX'
 	| 'XZY'
 	| 'XZZ';
+/**
+ * The total discount subtracted from the Item gross price to calculate the Item net price.
+ * Business terms: BT-147
+ */
+export type ItemPriceDiscount = string;
+/**
+ * The unit price, exclusive of VAT, before subtracting Item price discount, can not be negative
+ * Business terms: BT-148
+ */
+export type ItemGrossPrice = string;
 
 export interface Invoice {
 	'ubl:Invoice': {
 		'cbc:CustomizationID'?: SpecificationIdentifier;
 		'cbc:ProfileID'?: BusinessProcessType;
 		'cbc:ID': InvoiceNumber;
-		'cbc:IssueDate': string;
-		'cbc:DueDate'?: string;
+		'cbc:IssueDate': InvoiceIssueDate;
+		'cbc:DueDate'?: PaymentDueDate;
 		'cbc:InvoiceTypeCode': InvoiceTypeCode;
 		'cbc:Note'?: InvoiceNote;
-		'cbc:TaxPointDate'?: string;
+		'cbc:TaxPointDate'?: ValueAddedTaxPointDate;
 		'cbc:DocumentCurrencyCode': InvoiceCurrencyCode;
 		'cbc:TaxCurrencyCode'?: VATAccountingCurrencyCode;
 		'cbc:AccountingCost'?: BuyerAccountingReference;
@@ -10954,8 +11209,8 @@ export interface Invoice {
  * Business terms: BG-14
  */
 export interface DELIVERYORINVOICEPERIOD {
-	'cbc:StartDate'?: string;
-	'cbc:EndDate'?: string;
+	'cbc:StartDate'?: InvoicingPeriodStartDate;
+	'cbc:EndDate'?: InvoicingPeriodEndDate;
 	'cbc:DescriptionCode'?: ValueAddedTaxPointDateCode;
 }
 export interface ORDERANDSALESORDERREFERENCE {
@@ -10971,7 +11226,7 @@ export interface PRECEDINGINVOICEREFERENCE {
 }
 export interface INVOICEDOCUMENTREFERENCE {
 	'cbc:ID': PrecedingInvoiceNumber;
-	'cbc:IssueDate'?: string;
+	'cbc:IssueDate'?: PrecedingInvoiceIssueDate;
 }
 export interface DESPATCHADVICEREFERENCE {
 	'cbc:ID': DespatchAdviceReference;
@@ -10997,7 +11252,7 @@ export interface ADDITIONALSUPPORTINGDOCUMENTS {
 	'cac:Attachment'?: ATTACHMENT;
 }
 export interface ATTACHMENT {
-	'cbc:EmbeddedDocumentBinaryObject'?: string;
+	'cbc:EmbeddedDocumentBinaryObject'?: AttachedDocument;
 	'cbc:EmbeddedDocumentBinaryObject@mimeCode'?: AttachedDocumentMimeCode;
 	'cbc:EmbeddedDocumentBinaryObject@filename'?: AttachedDocumentFilename;
 	'cac:ExternalReference'?: EXTERNALREFERENCE;
@@ -11215,7 +11470,7 @@ export interface TAXSCHEME2 {
  * Business terms: BG-13
  */
 export interface DELIVERYINFORMATION {
-	'cbc:ActualDeliveryDate'?: string;
+	'cbc:ActualDeliveryDate'?: ActualDeliveryDate;
 	'cac:DeliveryLocation'?: {
 		'cbc:ID'?: DeliverToLocationIdentifier;
 		'cbc:ID@schemeID'?: DeliverToLocationIdentifierIdentificationSchemeIdentifier;
@@ -11309,8 +11564,8 @@ export interface DOCUMENTLEVELALLOWANCESANDCHARGES {
 	'cbc:ChargeIndicator': string;
 	'cbc:AllowanceChargeReasonCode'?: DocumentLevelAllowanceOrChargeReasonCode;
 	'cbc:AllowanceChargeReason'?: DocumentLevelAllowanceOrChargeReason;
-	'cbc:MultiplierFactorNumeric'?: string;
-	'cbc:Amount': string;
+	'cbc:MultiplierFactorNumeric'?: DocumentLevelAllowanceOrChargePercentage;
+	'cbc:Amount': DocumentLevelAllowanceOrChargeAmount;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -11376,7 +11631,6 @@ export interface DOCUMENTLEVELALLOWANCESANDCHARGES {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -11467,8 +11721,10 @@ export interface DOCUMENTLEVELALLOWANCESANDCHARGES {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -11491,8 +11747,9 @@ export interface DOCUMENTLEVELALLOWANCESANDCHARGES {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
-	'cbc:BaseAmount'?: string;
+	'cbc:BaseAmount'?: DocumentLevelAllowanceOrChargeBaseAmount;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -11558,7 +11815,6 @@ export interface DOCUMENTLEVELALLOWANCESANDCHARGES {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -11649,8 +11905,10 @@ export interface DOCUMENTLEVELALLOWANCESANDCHARGES {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -11673,12 +11931,13 @@ export interface DOCUMENTLEVELALLOWANCESANDCHARGES {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
 	'cac:TaxCategory': TAXCATEGORY;
 }
 export interface TAXCATEGORY {
 	'cbc:ID': DocumentLevelAllowanceOrChargeVATCategoryCode;
-	'cbc:Percent'?: string;
+	'cbc:Percent'?: DocumentLevelAllowanceOrChargeVATRate;
 	'cac:TaxScheme': TAXSCHEME3;
 }
 export interface TAXSCHEME3 {
@@ -11691,7 +11950,7 @@ export interface TAXSCHEME3 {
  * When tax currency code is provided, two instances of the tax total must be present, but only one with tax subtotal.
  */
 export interface TAXTOTAL {
-	'cbc:TaxAmount': string;
+	'cbc:TaxAmount': InvoiceTotalVATAmountInvoiceTotalVATAmountInAccountingCurrency;
 	/**
 	 * Mandatory attribute. Use BT-5 or BT-6.
 	 */
@@ -11757,7 +12016,6 @@ export interface TAXTOTAL {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -11848,8 +12106,10 @@ export interface TAXTOTAL {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -11872,6 +12132,7 @@ export interface TAXTOTAL {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
 	'cac:TaxSubtotal'?: VATBREAKDOWN[];
 }
@@ -11880,7 +12141,7 @@ export interface TAXTOTAL {
  * Business terms: BG-23
  */
 export interface VATBREAKDOWN {
-	'cbc:TaxableAmount': string;
+	'cbc:TaxableAmount': VATCategoryTaxableAmount;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -11946,7 +12207,6 @@ export interface VATBREAKDOWN {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -12037,8 +12297,10 @@ export interface VATBREAKDOWN {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -12061,8 +12323,9 @@ export interface VATBREAKDOWN {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
-	'cbc:TaxAmount': string;
+	'cbc:TaxAmount': VATCategoryTaxAmount;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -12128,7 +12391,6 @@ export interface VATBREAKDOWN {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -12219,8 +12481,10 @@ export interface VATBREAKDOWN {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -12243,12 +12507,13 @@ export interface VATBREAKDOWN {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
 	'cac:TaxCategory': VATCATEGORY;
 }
 export interface VATCATEGORY {
 	'cbc:ID': VATCategoryCode;
-	'cbc:Percent'?: string;
+	'cbc:Percent'?: VATCategoryRate;
 	'cbc:TaxExemptionReasonCode'?: VATExemptionReasonCode;
 	'cbc:TaxExemptionReason'?: VATExemptionReasonText;
 	'cac:TaxScheme': TAXSCHEME4;
@@ -12264,7 +12529,7 @@ export interface TAXSCHEME4 {
  * Business terms: BG-22
  */
 export interface DOCUMENTTOTALS {
-	'cbc:LineExtensionAmount': string;
+	'cbc:LineExtensionAmount': SumOfInvoiceLineNetAmount;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -12330,7 +12595,6 @@ export interface DOCUMENTTOTALS {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -12421,8 +12685,10 @@ export interface DOCUMENTTOTALS {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -12445,8 +12711,9 @@ export interface DOCUMENTTOTALS {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
-	'cbc:TaxExclusiveAmount': string;
+	'cbc:TaxExclusiveAmount': InvoiceTotalAmountWithoutVAT;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -12512,7 +12779,6 @@ export interface DOCUMENTTOTALS {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -12603,8 +12869,10 @@ export interface DOCUMENTTOTALS {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -12627,8 +12895,9 @@ export interface DOCUMENTTOTALS {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
-	'cbc:TaxInclusiveAmount': string;
+	'cbc:TaxInclusiveAmount': InvoiceTotalAmountWithVAT;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -12694,7 +12963,6 @@ export interface DOCUMENTTOTALS {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -12785,8 +13053,10 @@ export interface DOCUMENTTOTALS {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -12809,8 +13079,9 @@ export interface DOCUMENTTOTALS {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
-	'cbc:AllowanceTotalAmount'?: string;
+	'cbc:AllowanceTotalAmount'?: SumOfAllowancesOnDocumentLevel;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -12876,7 +13147,6 @@ export interface DOCUMENTTOTALS {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -12967,8 +13237,10 @@ export interface DOCUMENTTOTALS {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -12991,8 +13263,9 @@ export interface DOCUMENTTOTALS {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
-	'cbc:ChargeTotalAmount'?: string;
+	'cbc:ChargeTotalAmount'?: SumOfChargesOnDocumentLevel;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -13058,7 +13331,6 @@ export interface DOCUMENTTOTALS {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -13149,8 +13421,10 @@ export interface DOCUMENTTOTALS {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -13173,8 +13447,9 @@ export interface DOCUMENTTOTALS {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
-	'cbc:PrepaidAmount'?: string;
+	'cbc:PrepaidAmount'?: PaidAmount;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -13240,7 +13515,6 @@ export interface DOCUMENTTOTALS {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -13331,8 +13605,10 @@ export interface DOCUMENTTOTALS {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -13355,8 +13631,9 @@ export interface DOCUMENTTOTALS {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
-	'cbc:PayableRoundingAmount'?: string;
+	'cbc:PayableRoundingAmount'?: RoundingAmount;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -13422,7 +13699,6 @@ export interface DOCUMENTTOTALS {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -13513,8 +13789,10 @@ export interface DOCUMENTTOTALS {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -13537,8 +13815,9 @@ export interface DOCUMENTTOTALS {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
-	'cbc:PayableAmount': string;
+	'cbc:PayableAmount': AmountDueForPayment;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -13604,7 +13883,6 @@ export interface DOCUMENTTOTALS {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -13695,8 +13973,10 @@ export interface DOCUMENTTOTALS {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -13719,6 +13999,7 @@ export interface DOCUMENTTOTALS {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
 }
 /**
@@ -13728,9 +14009,9 @@ export interface DOCUMENTTOTALS {
 export interface INVOICELINE {
 	'cbc:ID': InvoiceLineIdentifier;
 	'cbc:Note'?: InvoiceLineNote;
-	'cbc:InvoicedQuantity': string;
+	'cbc:InvoicedQuantity': InvoicedQuantity;
 	'cbc:InvoicedQuantity@unitCode'?: InvoicedQuantityUnitOfMeasure;
-	'cbc:LineExtensionAmount': string;
+	'cbc:LineExtensionAmount': InvoiceLineNetAmount;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -13796,7 +14077,6 @@ export interface INVOICELINE {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -13887,8 +14167,10 @@ export interface INVOICELINE {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -13911,6 +14193,7 @@ export interface INVOICELINE {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
 	'cbc:AccountingCost'?: InvoiceLineBuyerAccountingReference;
 	'cac:InvoicePeriod'?: INVOICELINEPERIOD;
@@ -13925,8 +14208,8 @@ export interface INVOICELINE {
  * Business terms: BG-26
  */
 export interface INVOICELINEPERIOD {
-	'cbc:StartDate'?: string;
-	'cbc:EndDate'?: string;
+	'cbc:StartDate'?: InvoiceLinePeriodStartDate;
+	'cbc:EndDate'?: InvoiceLinePeriodEndDate;
 }
 export interface ORDERLINEREFERENCE {
 	'cbc:LineID': ReferencedPurchaseOrderLineReference;
@@ -13947,8 +14230,8 @@ export interface INVOICELINEALLOWANCESORCHARGES {
 	'cbc:ChargeIndicator': string;
 	'cbc:AllowanceChargeReasonCode'?: LineLevelAllowanceOrChargeReasonCode;
 	'cbc:AllowanceChargeReason'?: LineLevelAllowanceOrChargeReason;
-	'cbc:MultiplierFactorNumeric'?: string;
-	'cbc:Amount': string;
+	'cbc:MultiplierFactorNumeric'?: LineLevelAllowanceOrChargePercentage;
+	'cbc:Amount': LineLevelAllowanceOrChargeAmount;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -14014,7 +14297,6 @@ export interface INVOICELINEALLOWANCESORCHARGES {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -14105,8 +14387,10 @@ export interface INVOICELINEALLOWANCESORCHARGES {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -14129,8 +14413,9 @@ export interface INVOICELINEALLOWANCESORCHARGES {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
-	'cbc:BaseAmount'?: string;
+	'cbc:BaseAmount'?: LineLevelAllowanceOrChargeBaseAmount;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -14196,7 +14481,6 @@ export interface INVOICELINEALLOWANCESORCHARGES {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -14287,8 +14571,10 @@ export interface INVOICELINEALLOWANCESORCHARGES {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -14311,6 +14597,7 @@ export interface INVOICELINEALLOWANCESORCHARGES {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
 }
 /**
@@ -14352,7 +14639,7 @@ export interface COMMODITYCLASSIFICATION {
  */
 export interface LINEVATINFORMATION {
 	'cbc:ID': InvoicedItemVATCategoryCode;
-	'cbc:Percent'?: string;
+	'cbc:Percent'?: InvoicedItemVATRate;
 	'cac:TaxScheme': TAXSCHEME5;
 }
 export interface TAXSCHEME5 {
@@ -14374,7 +14661,7 @@ export interface ITEMATTRIBUTES {
  * Business terms: BG-29
  */
 export interface PRICEDETAILS {
-	'cbc:PriceAmount': string;
+	'cbc:PriceAmount': ItemNetPrice;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -14440,7 +14727,6 @@ export interface PRICEDETAILS {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -14531,8 +14817,10 @@ export interface PRICEDETAILS {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -14555,8 +14843,9 @@ export interface PRICEDETAILS {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
-	'cbc:BaseQuantity'?: string;
+	'cbc:BaseQuantity'?: ItemPriceBaseQuantity;
 	'cbc:BaseQuantity@unitCode'?: ItemPriceBaseQuantityUnitOfMeasureCode;
 	'cac:AllowanceCharge'?: ALLOWANCE;
 }
@@ -14565,7 +14854,7 @@ export interface ALLOWANCE {
 	 * Mandatory element. Value must be “false”
 	 */
 	'cbc:ChargeIndicator': string;
-	'cbc:Amount': string;
+	'cbc:Amount': ItemPriceDiscount;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -14631,7 +14920,6 @@ export interface ALLOWANCE {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -14722,8 +15010,10 @@ export interface ALLOWANCE {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -14746,8 +15036,9 @@ export interface ALLOWANCE {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
-	'cbc:BaseAmount'?: string;
+	'cbc:BaseAmount'?: ItemGrossPrice;
 	/**
 	 * Mandatory attribute. Use BT-5
 	 */
@@ -14813,7 +15104,6 @@ export interface ALLOWANCE {
 		| 'GYD'
 		| 'HKD'
 		| 'HNL'
-		| 'HRK'
 		| 'HTG'
 		| 'HUF'
 		| 'IDR'
@@ -14904,8 +15194,10 @@ export interface ALLOWANCE {
 		| 'USN'
 		| 'UYI'
 		| 'UYU'
+		| 'UYW'
 		| 'UZS'
-		| 'VEF'
+		| 'VED'
+		| 'VES'
 		| 'VND'
 		| 'VUV'
 		| 'WST'
@@ -14928,5 +15220,6 @@ export interface ALLOWANCE {
 		| 'YER'
 		| 'ZAR'
 		| 'ZMW'
+		| 'ZWG'
 		| 'ZWL';
 }

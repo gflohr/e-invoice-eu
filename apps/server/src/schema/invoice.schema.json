@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2019-09/schema",
-	"$id": "https://www.cantanea.com/schemas/ubl-invoice-schema-v1.1.1",
+	"$id": "https://www.cantanea.com/schemas/ubl-invoice-schema-v2.0.0-alpha",
 	"type": "object",
 	"additionalProperties": false,
 	"properties": {
@@ -24,10 +24,14 @@
 					"description": "A unique identification of the Invoice. The sequential number required in Article 226(2) of the directive 2006/112/EC [2], to uniquely identify the Invoice within the business context, time-frame, operating systems and records of the Seller. No identification scheme is to be used.\nBusiness terms: BT-1"
 				},
 				"cbc:IssueDate": {
-					"$ref": "#/$defs/dataTypes/Date"
+					"$ref": "#/$defs/dataTypes/Date",
+					"title": "Invoice issue date",
+					"description": "The date when the Invoice was issued. Format \"YYYY-MM-DD\"\nBusiness terms: BT-2"
 				},
 				"cbc:DueDate": {
-					"$ref": "#/$defs/dataTypes/Date"
+					"$ref": "#/$defs/dataTypes/Date",
+					"title": "Payment due date",
+					"description": "The date when the payment is due.Format \"YYYY-MM-DD\". In case the Amount due for payment (BT-115) is positive, either the Payment due date (BT-9) or the Payment terms (BT-20) shall be present.\nBusiness terms: BT-9"
 				},
 				"cbc:InvoiceTypeCode": {
 					"type": "string",
@@ -38,10 +42,12 @@
 				"cbc:Note": {
 					"type": "string",
 					"title": "Invoice note",
-					"description": "A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or assignment note in case the invoice has been factored.\nBusiness terms: BT-22"
+					"description": "A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or assignment note in case the invoice has been factored. The element is not repeatable, except when both the Buyer and Seller are German, in which case the element can be repeated to meet specific legal requirements.\nBusiness terms: BT-22"
 				},
 				"cbc:TaxPointDate": {
-					"$ref": "#/$defs/dataTypes/Date"
+					"$ref": "#/$defs/dataTypes/Date",
+					"title": "Value added tax point date",
+					"description": "The date when the VAT becomes accountable for the Seller and for the Buyer in so far as that date can be determined and differs from the date of issue of the invoice, according to the VAT directive.This element is required if the Value added tax point date is different from the Invoice issue date.\nBusiness terms: BT-7"
 				},
 				"cbc:DocumentCurrencyCode": {
 					"type": "string",
@@ -72,10 +78,14 @@
 					"description": "A group of business terms providing information on the invoice period. Also called delivery period. If the group is used, the invoiceing period start date and/or end date must be used.\nBusiness terms: BG-14",
 					"properties": {
 						"cbc:StartDate": {
-							"$ref": "#/$defs/dataTypes/Date"
+							"$ref": "#/$defs/dataTypes/Date",
+							"title": "Invoicing period start date",
+							"description": "The date when the Invoice period starts. Format = \"YYYY-MM-DD\".\nBusiness terms: BT-73"
 						},
 						"cbc:EndDate": {
-							"$ref": "#/$defs/dataTypes/Date"
+							"$ref": "#/$defs/dataTypes/Date",
+							"title": "Invoicing period end date",
+							"description": "The date when the Invoice period ends. Format = \"YYYY-MM-DD\".\nBusiness terms: BT-74"
 						},
 						"cbc:DescriptionCode": {
 							"type": "string",
@@ -122,7 +132,9 @@
 										"description": "The identification of an Invoice that was previously sent by the Seller.\nBusiness terms: BT-25"
 									},
 									"cbc:IssueDate": {
-										"$ref": "#/$defs/dataTypes/Date"
+										"$ref": "#/$defs/dataTypes/Date",
+										"title": "Preceding Invoice issue date",
+										"description": "The date when the Preceding Invoice was issued.Shall be provided in case the Preceding Invoice identifier is not unique. Format = \"YYYY-MM-DD\".\nBusiness terms: BT-26"
 									}
 								},
 								"required": ["cbc:ID"]
@@ -218,7 +230,9 @@
 								"title": "ATTACHMENT",
 								"properties": {
 									"cbc:EmbeddedDocumentBinaryObject": {
-										"$ref": "#/$defs/dataTypes/Binary object"
+										"$ref": "#/$defs/dataTypes/Binary object",
+										"title": "Attached document",
+										"description": "An attached document embedded as binary object (Base64) or sent together with the invoice.\nBusiness terms: BT-125"
 									},
 									"cbc:EmbeddedDocumentBinaryObject@mimeCode": {
 										"type": "string",
@@ -904,7 +918,9 @@
 					"description": "A group of business terms providing information about where and when the goods and services invoiced are delivered.\nBusiness terms: BG-13",
 					"properties": {
 						"cbc:ActualDeliveryDate": {
-							"$ref": "#/$defs/dataTypes/Date"
+							"$ref": "#/$defs/dataTypes/Date",
+							"title": "Actual delivery date",
+							"description": "The date on which the supply of goods or services was made or completed. Format = \"YYYY-MM-DD\"\nBusiness terms: BT-72"
 						},
 						"cac:DeliveryLocation": {
 							"type": "object",
@@ -1166,10 +1182,14 @@
 								"description": "The reason for the document level allowance or charge, expressed as text. The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason\nBusiness terms: BT-97, BT-104"
 							},
 							"cbc:MultiplierFactorNumeric": {
-								"$ref": "#/$defs/dataTypes/Percentage"
+								"$ref": "#/$defs/dataTypes/Percentage",
+								"title": "Document level allowance or charge percentage",
+								"description": "The percentage that may be used, in conjunction with the document level allowance base amount, to calculate the document level allowance or charge amount. To state 20%, use value 20.\nBusiness terms: BT-94, BT-101"
 							},
 							"cbc:Amount": {
-								"$ref": "#/$defs/dataTypes/Amount"
+								"$ref": "#/$defs/dataTypes/Amount",
+								"title": "Document level allowance or charge amount",
+								"description": "The amount of an allowance or a charge, without VAT. Must be rounded to maximum 2 decimals\nBusiness terms: BT-92, BT-99"
 							},
 							"cbc:Amount@currencyID": {
 								"type": "string",
@@ -1177,7 +1197,9 @@
 								"description": "Mandatory attribute. Use BT-5"
 							},
 							"cbc:BaseAmount": {
-								"$ref": "#/$defs/dataTypes/Amount"
+								"$ref": "#/$defs/dataTypes/Amount",
+								"title": "Document level allowance or charge base amount",
+								"description": "The base amount that may be used, in conjunction with the document level allowance or charge percentage, to calculate the document level allowance or charge amount. Must be rounded to maximum 2 decimals\nBusiness terms: BT-93, BT-100"
 							},
 							"cbc:BaseAmount@currencyID": {
 								"type": "string",
@@ -1196,7 +1218,9 @@
 										"description": "A coded identification of what VAT category applies to the document level allowance or charge.\nBusiness terms: BT-95, BT-102"
 									},
 									"cbc:Percent": {
-										"$ref": "#/$defs/dataTypes/Percentage"
+										"$ref": "#/$defs/dataTypes/Percentage",
+										"title": "Document level allowance or charge VAT rate",
+										"description": "The VAT rate, represented as percentage that applies to the document level allowance or charge.\nBusiness terms: BT-96, BT-103"
 									},
 									"cac:TaxScheme": {
 										"type": "object",
@@ -1236,7 +1260,9 @@
 						"description": "When tax currency code is provided, two instances of the tax total must be present, but only one with tax subtotal.",
 						"properties": {
 							"cbc:TaxAmount": {
-								"$ref": "#/$defs/dataTypes/Amount"
+								"$ref": "#/$defs/dataTypes/Amount",
+								"title": "Invoice total VAT amount, Invoice total VAT amount in accounting currency",
+								"description": "The total VAT amount for the Invoice or the VAT total amount expressed in the accounting currency accepted or required in the country of the Seller. Must be rounded to maximum 2 decimals\nBusiness terms: BT-110, BT-111"
 							},
 							"cbc:TaxAmount@currencyID": {
 								"type": "string",
@@ -1252,7 +1278,9 @@
 									"description": "A group of business terms providing information about VAT breakdown by different categories, rates and exemption reasons\nBusiness terms: BG-23",
 									"properties": {
 										"cbc:TaxableAmount": {
-											"$ref": "#/$defs/dataTypes/Amount"
+											"$ref": "#/$defs/dataTypes/Amount",
+											"title": "VAT category taxable amount",
+											"description": "Sum of all taxable amounts subject to a specific VAT category code and VAT category rate (if the VAT category rate is applicable). Must be rounded to maximum 2 decimals.\nBusiness terms: BT-116"
 										},
 										"cbc:TaxableAmount@currencyID": {
 											"type": "string",
@@ -1260,7 +1288,9 @@
 											"description": "Mandatory attribute. Use BT-5"
 										},
 										"cbc:TaxAmount": {
-											"$ref": "#/$defs/dataTypes/Amount"
+											"$ref": "#/$defs/dataTypes/Amount",
+											"title": "VAT category tax amount",
+											"description": "The total VAT amount for a given VAT category. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-117"
 										},
 										"cbc:TaxAmount@currencyID": {
 											"type": "string",
@@ -1279,7 +1309,9 @@
 													"description": "Coded identification of a VAT category.\nBusiness terms: BT-118"
 												},
 												"cbc:Percent": {
-													"$ref": "#/$defs/dataTypes/Percentage"
+													"$ref": "#/$defs/dataTypes/Percentage",
+													"title": "VAT category rate",
+													"description": "The VAT rate, represented as percentage that applies for the relevant VAT category.\nBusiness terms: BT-119"
 												},
 												"cbc:TaxExemptionReasonCode": {
 													"type": "string",
@@ -1337,7 +1369,9 @@
 					"description": "A group of business terms providing the monetary totals for the Invoice.\nBusiness terms: BG-22",
 					"properties": {
 						"cbc:LineExtensionAmount": {
-							"$ref": "#/$defs/dataTypes/Amount"
+							"$ref": "#/$defs/dataTypes/Amount",
+							"title": "Sum of Invoice line net amount",
+							"description": "Sum of all Invoice line net amounts in the Invoice. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-106"
 						},
 						"cbc:LineExtensionAmount@currencyID": {
 							"type": "string",
@@ -1345,7 +1379,9 @@
 							"description": "Mandatory attribute. Use BT-5"
 						},
 						"cbc:TaxExclusiveAmount": {
-							"$ref": "#/$defs/dataTypes/Amount"
+							"$ref": "#/$defs/dataTypes/Amount",
+							"title": "Invoice total amount without VAT",
+							"description": "The total amount of the Invoice without VAT. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-109"
 						},
 						"cbc:TaxExclusiveAmount@currencyID": {
 							"type": "string",
@@ -1353,7 +1389,9 @@
 							"description": "Mandatory attribute. Use BT-5"
 						},
 						"cbc:TaxInclusiveAmount": {
-							"$ref": "#/$defs/dataTypes/Amount"
+							"$ref": "#/$defs/dataTypes/Amount",
+							"title": "Invoice total amount with VAT",
+							"description": "The total amount of the Invoice with VAT. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-112"
 						},
 						"cbc:TaxInclusiveAmount@currencyID": {
 							"type": "string",
@@ -1361,7 +1399,9 @@
 							"description": "Mandatory attribute. Use BT-5"
 						},
 						"cbc:AllowanceTotalAmount": {
-							"$ref": "#/$defs/dataTypes/Amount"
+							"$ref": "#/$defs/dataTypes/Amount",
+							"title": "Sum of allowances on document level",
+							"description": "Sum of all allowances on document level in the Invoice. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-107"
 						},
 						"cbc:AllowanceTotalAmount@currencyID": {
 							"type": "string",
@@ -1369,7 +1409,9 @@
 							"description": "Mandatory attribute. Use BT-5"
 						},
 						"cbc:ChargeTotalAmount": {
-							"$ref": "#/$defs/dataTypes/Amount"
+							"$ref": "#/$defs/dataTypes/Amount",
+							"title": "Sum of charges on document level",
+							"description": "Sum of all charges on document level in the Invoice. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-108"
 						},
 						"cbc:ChargeTotalAmount@currencyID": {
 							"type": "string",
@@ -1377,7 +1419,9 @@
 							"description": "Mandatory attribute. Use BT-5"
 						},
 						"cbc:PrepaidAmount": {
-							"$ref": "#/$defs/dataTypes/Amount"
+							"$ref": "#/$defs/dataTypes/Amount",
+							"title": "Paid amount",
+							"description": "The sum of amounts which have been paid in advance. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-113"
 						},
 						"cbc:PrepaidAmount@currencyID": {
 							"type": "string",
@@ -1385,7 +1429,9 @@
 							"description": "Mandatory attribute. Use BT-5"
 						},
 						"cbc:PayableRoundingAmount": {
-							"$ref": "#/$defs/dataTypes/Amount"
+							"$ref": "#/$defs/dataTypes/Amount",
+							"title": "Rounding amount",
+							"description": "The amount to be added to the invoice total to round the amount to be paid. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-114"
 						},
 						"cbc:PayableRoundingAmount@currencyID": {
 							"type": "string",
@@ -1393,7 +1439,9 @@
 							"description": "Mandatory attribute. Use BT-5"
 						},
 						"cbc:PayableAmount": {
-							"$ref": "#/$defs/dataTypes/Amount"
+							"$ref": "#/$defs/dataTypes/Amount",
+							"title": "Amount due for payment",
+							"description": "The outstanding amount that is requested to be paid. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-115"
 						},
 						"cbc:PayableAmount@currencyID": {
 							"type": "string",
@@ -1449,7 +1497,9 @@
 								"description": "A textual note that gives unstructured information that is relevant to the Invoice line.\nBusiness terms: BT-127"
 							},
 							"cbc:InvoicedQuantity": {
-								"$ref": "#/$defs/dataTypes/Quantity"
+								"$ref": "#/$defs/dataTypes/Quantity",
+								"title": "Invoiced quantity",
+								"description": "The quantity of items (goods or services) that is charged in the Invoice line.\nBusiness terms: BT-129"
 							},
 							"cbc:InvoicedQuantity@unitCode": {
 								"type": "string",
@@ -1458,7 +1508,9 @@
 								"description": "The unit of measure that applies to the invoiced quantity. Codes for unit of packaging from UNECE Recommendation No. 21 can be used in accordance with the descriptions in the \"Intro\" section of UN/ECE Recommendation 20, Revision 11 (2015): The 2 character alphanumeric code values in UNECE Recommendation 21 shall be used. To avoid duplication with existing code values in UNECE Recommendation No. 20, each code value from UNECE Recommendation 21 shall be prefixed with an “X”, resulting in a 3 alphanumeric code when used as a unit of measure.\nBusiness terms: BT-130"
 							},
 							"cbc:LineExtensionAmount": {
-								"$ref": "#/$defs/dataTypes/Amount"
+								"$ref": "#/$defs/dataTypes/Amount",
+								"title": "Invoice line net amount",
+								"description": "The total amount of the Invoice line. The amount is “net” without VAT, i.e. inclusive of line level allowances and charges as well as other relevant taxes. Must be rounded to maximum 2 decimals.\nBusiness terms: BT-131"
 							},
 							"cbc:LineExtensionAmount@currencyID": {
 								"type": "string",
@@ -1477,10 +1529,14 @@
 								"description": "A group of business terms providing information about the period relevant for the Invoice line.\nBusiness terms: BG-26",
 								"properties": {
 									"cbc:StartDate": {
-										"$ref": "#/$defs/dataTypes/Date"
+										"$ref": "#/$defs/dataTypes/Date",
+										"title": "Invoice line period start date",
+										"description": "The date when the Invoice period for this Invoice line starts. Format =\"YYYY-MM-DD\"\nBusiness terms: BT-134"
 									},
 									"cbc:EndDate": {
-										"$ref": "#/$defs/dataTypes/Date"
+										"$ref": "#/$defs/dataTypes/Date",
+										"title": "Invoice line period end date",
+										"description": "The date when the Invoice period for this Invoice line ends. Format =\"YYYY-MM-DD\"\nBusiness terms: BT-135"
 									}
 								}
 							},
@@ -1555,10 +1611,14 @@
 											"description": "The reason for the line level allowance or charge, expressed as text.\nBusiness terms: BT-139, BT-144"
 										},
 										"cbc:MultiplierFactorNumeric": {
-											"$ref": "#/$defs/dataTypes/Percentage"
+											"$ref": "#/$defs/dataTypes/Percentage",
+											"title": "Line level allowance or charge percentage",
+											"description": "The percentage that may be used, in conjunction with the line level allowance base amount, to calculate the line level allowance or charge amount.\nBusiness terms: BT-138, BT-143"
 										},
 										"cbc:Amount": {
-											"$ref": "#/$defs/dataTypes/Amount"
+											"$ref": "#/$defs/dataTypes/Amount",
+											"title": "Line level allowance or charge amount",
+											"description": "The amount of an allowance or a charge, without VAT. Must be rounded to maximum 2 decimals\nBusiness terms: BT-136, BT-141"
 										},
 										"cbc:Amount@currencyID": {
 											"type": "string",
@@ -1566,7 +1626,9 @@
 											"description": "Mandatory attribute. Use BT-5"
 										},
 										"cbc:BaseAmount": {
-											"$ref": "#/$defs/dataTypes/Amount"
+											"$ref": "#/$defs/dataTypes/Amount",
+											"title": "Line level allowance or charge base amount",
+											"description": "The base amount that may be used, in conjunction with the line level allowance or charge percentage, to calculate the line level allowance or charge amount. Must be rounded to maximum 2 decimals\nBusiness terms: BT-137, BT-142"
 										},
 										"cbc:BaseAmount@currencyID": {
 											"type": "string",
@@ -1713,7 +1775,9 @@
 												"description": "The VAT category code for the invoiced item.\nBusiness terms: BT-151"
 											},
 											"cbc:Percent": {
-												"$ref": "#/$defs/dataTypes/Percentage"
+												"$ref": "#/$defs/dataTypes/Percentage",
+												"title": "Invoiced item VAT rate",
+												"description": "The VAT rate, represented as percentage that applies to the invoiced item.\nBusiness terms: BT-152"
 											},
 											"cac:TaxScheme": {
 												"type": "object",
@@ -1762,7 +1826,9 @@
 								"description": "A group of business terms providing information about the price applied for the goods and services invoiced on the Invoice line.\nBusiness terms: BG-29",
 								"properties": {
 									"cbc:PriceAmount": {
-										"$ref": "#/$defs/dataTypes/Amount"
+										"$ref": "#/$defs/dataTypes/Amount",
+										"title": "Item net price",
+										"description": "The price of an item, exclusive of VAT, after subtracting item price discount. The Item net price has to be equal with the Item gross price less the Item price discount, if they are both provided. Item price can not be negative.\nBusiness terms: BT-146"
 									},
 									"cbc:PriceAmount@currencyID": {
 										"type": "string",
@@ -1770,7 +1836,9 @@
 										"description": "Mandatory attribute. Use BT-5"
 									},
 									"cbc:BaseQuantity": {
-										"$ref": "#/$defs/dataTypes/Quantity"
+										"$ref": "#/$defs/dataTypes/Quantity",
+										"title": "Item price base quantity",
+										"description": "The number of item units to which the price applies.\nBusiness terms: BT-149"
 									},
 									"cbc:BaseQuantity@unitCode": {
 										"type": "string",
@@ -1788,7 +1856,9 @@
 												"description": "Mandatory element. Value must be “false”"
 											},
 											"cbc:Amount": {
-												"$ref": "#/$defs/dataTypes/Amount"
+												"$ref": "#/$defs/dataTypes/Amount",
+												"title": "Item price discount",
+												"description": "The total discount subtracted from the Item gross price to calculate the Item net price.\nBusiness terms: BT-147"
 											},
 											"cbc:Amount@currencyID": {
 												"type": "string",
@@ -1796,7 +1866,9 @@
 												"description": "Mandatory attribute. Use BT-5"
 											},
 											"cbc:BaseAmount": {
-												"$ref": "#/$defs/dataTypes/Amount"
+												"$ref": "#/$defs/dataTypes/Amount",
+												"title": "Item gross price",
+												"description": "The unit price, exclusive of VAT, before subtracting Item price discount, can not be negative\nBusiness terms: BT-148"
 											},
 											"cbc:BaseAmount@currencyID": {
 												"type": "string",
@@ -2172,7 +2244,6 @@
 					"GYD",
 					"HKD",
 					"HNL",
-					"HRK",
 					"HTG",
 					"HUF",
 					"IDR",
@@ -2263,8 +2334,10 @@
 					"USN",
 					"UYI",
 					"UYU",
+					"UYW",
 					"UZS",
-					"VEF",
+					"VED",
+					"VES",
 					"VND",
 					"VUV",
 					"WST",
@@ -2287,6 +2360,7 @@
 					"YER",
 					"ZAR",
 					"ZMW",
+					"ZWG",
 					"ZWL"
 				]
 			},
@@ -4569,6 +4643,7 @@
 					"HPA",
 					"HTZ",
 					"HUR",
+					"HWE",
 					"IA",
 					"IE",
 					"INH",
@@ -5841,6 +5916,8 @@
 					"VATEX-EU-143-1J",
 					"VATEX-EU-143-1K",
 					"VATEX-EU-143-1L",
+					"VATEX-EU-144",
+					"VATEX-EU-146-1E",
 					"VATEX-EU-148",
 					"VATEX-EU-148-A",
 					"VATEX-EU-148-B",
@@ -5856,6 +5933,7 @@
 					"VATEX-EU-151-1C",
 					"VATEX-EU-151-1D",
 					"VATEX-EU-151-1E",
+					"VATEX-EU-159",
 					"VATEX-EU-309",
 					"VATEX-EU-AE",
 					"VATEX-EU-D",
@@ -5884,6 +5962,7 @@
 					"135",
 					"142",
 					"151",
+					"177",
 					"183",
 					"184",
 					"188",
@@ -5910,6 +5989,7 @@
 					"218",
 					"221",
 					"230",
+					"235",
 					"9901",
 					"9910",
 					"9913",
@@ -6180,7 +6260,15 @@
 					"227",
 					"228",
 					"229",
-					"230"
+					"230",
+					"231",
+					"232",
+					"233",
+					"234",
+					"235",
+					"236",
+					"237",
+					"238"
 				]
 			}
 		},

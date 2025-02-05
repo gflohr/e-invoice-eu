@@ -1,4 +1,4 @@
-import { JSONSchemaType } from 'ajv/dist/2019';
+import { JSONSchemaType } from 'ajv';
 import * as fs from 'fs';
 
 type BusinessTerms = {
@@ -10,12 +10,16 @@ if (process.argv.length !== 3) {
 }
 
 const invoiceSchemaFilename = process.argv[2];
-const schema: JSONSchemaType<any> = JSON.parse(fs.readFileSync(invoiceSchemaFilename, 'utf-8'));
+const schema: JSONSchemaType<any> = JSON.parse(
+	fs.readFileSync(invoiceSchemaFilename, 'utf-8'),
+);
 
 console.log('<!-- This file is generated! Do not edit! -->');
 console.log('# List of Business Terms\n');
-console.log('This table maps allEN16931 business terms and business groups to'
-	+ ' their respective XML elements.\n')
+console.log(
+	'This table maps allEN16931 business terms and business groups to' +
+		' their respective XML elements.\n',
+);
 console.log('| Term | Usage |');
 console.log('|------|-------|');
 
@@ -35,13 +39,16 @@ for (const term of sortedTerms) {
 	for (const path of businessTerms[term]) {
 		const hyph = path.replace(/:/g, '-').replace('ubl-Invoice', 'ubl-invoice');
 		const link = `https://docs.peppol.eu/poacc/billing/3.0/syntax${hyph}/`;
-		usage.push(`[${path}](${link})`)
+		usage.push(`[${path}](${link})`);
 	}
 
 	console.log(`| ${term} | ${usage.join(' ')} |`);
 }
 
-function recurseSchema(schema: JSONSchemaType<any>, path: string[]): BusinessTerms {
+function recurseSchema(
+	schema: JSONSchemaType<any>,
+	path: string[],
+): BusinessTerms {
 	const allTerms: BusinessTerms = {};
 
 	if (typeof schema === 'object') {
@@ -50,12 +57,18 @@ function recurseSchema(schema: JSONSchemaType<any>, path: string[]): BusinessTer
 			if (key.match(/^(?:ubl|cac|cbc):[a-zA-Z]+$/)) {
 				newPath.push(key);
 
-				const re = new RegExp('\nBusiness terms: (B[TG]-[1-9][0-9]*(?:, B[TG]-[1-9][0-9]*)?)$')
-				if (typeof schema[key] === 'object'
-					&& schema[key].description
-					&& schema[key].description.match(re)
-				) {
-					const terms = (re.exec(schema[key].description) as RegExpExecArray)[1].split(', ');
+				const re = new RegExp(
+					'\nBusiness terms: (B[TG]-[1-9][0-9]*(?:, B[TG]-[1-9][0-9]*)?)$',
+				);
+
+				if (typeof schema[key] !== 'object') continue;
+
+				const description = schema[key].type === 'array' ? schema[key].items.description : schema[key].description;
+
+				if (description && description.match(re)) {
+					const terms = (
+						re.exec(description) as RegExpExecArray
+					)[1].split(', ');
 
 					for (const term of terms) {
 						allTerms[term] ??= [];

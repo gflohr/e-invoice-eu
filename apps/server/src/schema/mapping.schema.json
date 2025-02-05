@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2019-09/schema",
-	"$id": "https://www.cantanea.com/schemas/ubl-invoice-schema-v1.1.1",
+	"$id": "https://www.cantanea.com/schemas/ubl-invoice-schema-v2.0.0-alpha",
 	"type": "object",
 	"title": "Mapping",
 	"description": "Maps invoice data to the cells in a spreadsheet.",
