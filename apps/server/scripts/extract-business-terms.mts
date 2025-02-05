@@ -20,6 +20,7 @@ console.log('name: business-terms');
 console.log('section: other');
 console.log('description: This table maps all EN16931 business terms and'
 	+ ' business groups to their respective XML elements.');
+console.log('styles: "<style>td { word-break: break-all }</style>"')
 console.log('---');
 console.log('<!-- This file is generated! Do not edit! -->');
 console.log('| Term | Usage |');
@@ -41,10 +42,11 @@ for (const term of sortedTerms) {
 	for (const path of businessTerms[term]) {
 		const hyph = path.replace(/:/g, '-').replace('ubl-Invoice', 'ubl-invoice');
 		const link = `https://docs.peppol.eu/poacc/billing/3.0/syntax${hyph}/`;
-		usage.push(`[${path}](${link})`);
+		const breakablePath = path.replace(/\//g, '&hairsp;/');
+		usage.push(`[${breakablePath}](${link})`);
 	}
 
-	console.log(`| ${term} | ${usage.join(' ')} |`);
+	console.log(`| ${term} | ${usage.join('<br />')} |`);
 }
 
 function recurseSchema(
