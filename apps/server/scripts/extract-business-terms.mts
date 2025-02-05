@@ -20,7 +20,7 @@ console.log('name: business-terms');
 console.log('section: other');
 console.log('description: This table maps all EN16931 business terms and'
 	+ ' business groups to their respective XML elements.');
-console.log('styles: "<style>td { word-break: break-all }</style>"')
+console.log('styles: "<style>td { word-break: break-all; font-size: smaller; }</style>"')
 console.log('---');
 console.log('<!-- This file is generated! Do not edit! -->');
 console.log('| Term | Usage |');
