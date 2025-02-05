@@ -261,7 +261,7 @@ msgstr ""
 
 #: ../en/docs/basics/general-mode-of-operation.md:23
 msgid ""
-"All that was left to be done was to map the input spreadsheet data to elements\n"
+"All that was left to be done was to [map]([% q.llink(name='mapping') %]) the input spreadsheet data to elements\n"
 "in the output XML of the electronic invoice. Because there are multiple\n"
 "supported output XML formats, it makes sense to first map the input data\n"
 "into a general [internal format]([% q.llink(name='internal-format') %]) and\n"
@@ -719,8 +719,8 @@ msgstr ""
 
 #: ../en/docs/details/mapping.md:25
 msgid ""
-"If you use the software to create e-invoices directly from JSON data, do\n"
-"yourself a favour and go on to the next page. Mappings are only required for\n"
+"If you use the software to create e-invoices directly from JSON data, you can\n"
+"skip this section. Mappings are only required for\n"
 "generating e-invoices from spreadsheet data."
 msgstr ""
 
@@ -799,17 +799,17 @@ msgstr ""
 
 #: ../en/docs/details/mapping.md:75
 msgid ""
-"Did we say that a mapping maps cells to invoice data? It is actually the other\n"
-"way round. The invoice data is mapped from a reference to the invoice data to\n"
-"the corresponding cell, where it can be found."
+"Did we say that a mapping maps table cells to invoice data? It is actually the other\n"
+"way round. The mapping maps a reference into the invoice data to a reference\n"
+"to a cell where the value can be found. Instead of a reference to a cell you\n"
+"can also specify a literal value."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:79
+#: ../en/docs/details/mapping.md:80
 msgid ""
 "The structure matches exactly the structure of invoice data,\n"
 "see [% q.lanchor(name='internal-format') %], only that all\n"
-"values are either a reference to a cell where the data can be found in the\n"
-"spreadsheet or a literal value."
+"values are either a reference to a table cell or a literal value."
 msgstr ""
 
 #: ../en/docs/details/mapping.md:84
@@ -824,7 +824,7 @@ msgid "Let's look at an excerpt of an actual mapping:"
 msgstr ""
 
 #: ../en/docs/details/mapping.md:111
-msgid "**Line 3**: The section column is column `K`."
+msgid "**Line 3**: The section column in the sheet `Invoice` is column `K`."
 msgstr ""
 
 #: ../en/docs/details/mapping.md:113
@@ -840,7 +840,7 @@ msgid "**Line 7**: The issue date is found in cell F7. Which sheet? The first sh
 msgstr ""
 
 #: ../en/docs/details/mapping.md:119
-msgid "**Line 8**: The invoice line is actually an array but ..."
+msgid "**Line 8**: The invoice lines are actually an array but ..."
 msgstr ""
 
 #: ../en/docs/details/mapping.md:121
@@ -851,11 +851,11 @@ msgstr ""
 msgid ""
 "**Line 10**: All following inside this section can now be made relative to the\n"
 "corresponding invoice line. The id of the line is found in column\n"
-"A of the 1st row of the section marked with `Line`."
+"A of the 1st row of the section marked with \"Line\"."
 msgstr ""
 
 #: ../en/docs/details/mapping.md:127
-msgid "**Line 11**: But if the section is omitted, the row number (3) is relative to the\n"
+msgid "**Line 11**: But if the section is omitted, the row number (3) is meant to be relative to the\n"
 "entire sheet."
 msgstr ""
 
@@ -891,95 +891,76 @@ msgstr ""
 #: ../en/docs/details/mapping.md:154
 msgid ""
 "Because of the way that YAML works, you must also quote the strings \"null\",\n"
-"\"true\", and \"false\". Especially, the value of `cbc:ChargeIndicator` inside\n"
+"\"true\", \"false\", \"yes\", and \"no\". Especially, the value of `cbc:ChargeIndicator` inside\n"
 "`cac:AllowanceCharge` sections must be one of the strings \"true\" or \"false\",\n"
-"and not the boolean values `true` or `false`. Likewise, the boolean aliases\n"
-"`yes` and `no` are not allowed."
+"and not the boolean values `true` or `false`."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:160
+#: ../en/docs/details/mapping.md:159
 msgid "#### Sheet References"
 msgstr ""
 
-#: ../en/docs/details/mapping.md:162
+#: ../en/docs/details/mapping.md:161
 msgid ""
 "The sheet name defaults to the name of the first sheet in the file. If a\n"
 "sheet name contains a colon (`:`) or dot (`.`), you must enclose it in\n"
 "single quotes:"
 msgstr ""
 
-#: ../en/docs/details/mapping.md:166
-msgid ""
-"[% FILTER $Highlight \"language-yaml\" %]\n"
-"cbc:DueDate: ='Fancy.SheetName'.D3\n"
-"[% END %]"
-msgstr ""
-
-#: ../en/docs/details/mapping.md:170
+#: ../en/docs/details/mapping.md:171
 msgid "Note that most spreadsheet applications do not allow colons in sheet names\n"
 "anyway."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:173
+#: ../en/docs/details/mapping.md:174
 msgid "#### Section References"
 msgstr ""
 
-#: ../en/docs/details/mapping.md:175
+#: ../en/docs/details/mapping.md:176
 msgid ""
 "Section references always start with a colon (`:`). A section name cannot\n"
 "contain a colon (`:`) or dot (`.`), and it is not possible to escape or\n"
 "quote them. Choose names without these characters."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:179
+#: ../en/docs/details/mapping.md:180
 msgid ""
 "A section reference without a leading sheet reference must have a leading\n"
 "colon `:`. This is necessary to make it distinguishable from sheet\n"
 "references."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:183
+#: ../en/docs/details/mapping.md:184
 #: ../en/docs/service/creating-invoices.md:211
 #: ../en/docs/service/creating-invoices.md:245
 msgid "Example:"
 msgstr ""
 
-#: ../en/docs/details/mapping.md:185
-msgid ""
-"[% FILTER $Highlight \"language-yaml\" %]\n"
-"ubl:Invoice:\n"
-"  cac:InvoiceLine:\n"
-"    section: :Line\n"
-"	cbc:ID: =:Line.A1\n"
-"	cbc:Note: =SomeSheet.Q23\n"
-"[% END %]"
-msgstr ""
-
-#: ../en/docs/details/mapping.md:193
+#: ../en/docs/details/mapping.md:196
 msgid ""
 "See the references for `cbc:ID` and `cbc:Note`. The id references a cell\n"
 "in the section `Line` of the first sheet, the default sheet. The reference for\n"
 "`cbc:Note` references the cell `Q23` in the sheet `SomeSheet`."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:197
+#: ../en/docs/details/mapping.md:200
 msgid "To make things more complicated, these \"loops\" in invoices can be nested."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:199
+#: ../en/docs/details/mapping.md:202
 msgid ""
 "For example, there is a an array element\n"
 "[`ubl:Invoice/cac:AllowanceCharge`](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AllowanceCharge/)\n"
 "on the document level. But you also have an element\n"
 "[`ubl:Invoice/cac:InvoiceLine/cac:AllowanceCharge`](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-AllowanceCharge/)\n"
-"(and there is even one on\n"
-"the price level). How would you structure that in the spreadsheet? We\n"
+"on line item level, and even one more on\n"
+"the price level. How would you structure that in the spreadsheet? We\n"
 "assume that the allowance or charge come from column `H` and the line\n"
 "extension amount from column `I` and the section column is `K`. Your\n"
 "spreadsheet should then look like this:"
 msgstr ""
 
-#: ../en/docs/details/mapping.md:209
+#: ../en/docs/details/mapping.md:212
 msgid ""
 "| Row | ... | H      | I    | J   | K          |\n"
 "| --- | --- | ------ | ---- | --- | ---------- |\n"
@@ -993,26 +974,26 @@ msgid ""
 "| 27  |     |        |      |     | **Footer** |"
 msgstr ""
 
-#: ../en/docs/details/mapping.md:220
+#: ../en/docs/details/mapping.md:223
 msgid "This invoice has three line items starting on rows 20, 22, and 23."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:222
+#: ../en/docs/details/mapping.md:225
 msgid ""
-"The first line has a line extension amount of 120.00 and a charge or allowance\n"
+"The first line item has a line extension amount of 120.00 and a charge or allowance\n"
 "of 3.05. Note that you must always use positive values. The sign is derived\n"
 "from the element\n"
 "[`cbc:ChargeIndicator`](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-AllowanceCharge/cbc-ChargeIndicator/)."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:227
+#: ../en/docs/details/mapping.md:230
 msgid ""
-"The second line has a line extension amount of 75.50 and no charges or\n"
+"The second line item has a line extension amount of 75.50 and no charges or\n"
 "allowances. The third line has an amount of 180.00 and two charges or\n"
 "allowances of 1.23 and 7.50."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:231
+#: ../en/docs/details/mapping.md:234
 msgid ""
 "Wherever you have a row marked \"Line\", one\n"
 "[`cac:InvoiceLine`](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/)\n"
@@ -1023,7 +1004,7 @@ msgid ""
 "section."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:239
+#: ../en/docs/details/mapping.md:242
 msgid ""
 "One gotcha is the last `Line` section starting in row 23. Since there is no\n"
 "other section marker following, that `Line` section spans until the last row\n"
@@ -1033,47 +1014,38 @@ msgid ""
 "on the document level, following the last `Line`."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:246
+#: ../en/docs/details/mapping.md:249
 msgid "The takeaway is: Use different section names for different nesting levels\n"
 "even if they refer to the same thing."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:249
-msgid ""
-"By the way, if you know that your invoices always contain just one line item,\n"
-"there is no need for making the references dynamic. But are you sure that you\n"
-"will really never invoice more than one item? And what about charges and\n"
-"allowances? At the end of the day, having these dynamic references is not\n"
-"terribly difficult."
-msgstr ""
-
-#: ../en/docs/details/mapping.md:255
+#: ../en/docs/details/mapping.md:252
 msgid "#### Cell References"
 msgstr ""
 
-#: ../en/docs/details/mapping.md:257
+#: ../en/docs/details/mapping.md:254
 msgid ""
 "Cell references consist of one or more uppercase characters `A-Z` followed by\n"
-"one decimal digit `1-9` followed by any number of decimal digits `0-9`. You\n"
-"know this from your spreadsheet application."
+"one decimal digit `1-9` followed by a positive decimal integer. We know that\n"
+"from our spreadsheet application."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:261
+#: ../en/docs/details/mapping.md:258
 msgid "#### Formulas"
 msgstr ""
 
-#: ../en/docs/details/mapping.md:263
+#: ../en/docs/details/mapping.md:260
 msgid ""
 "Are you joking? Formulas are not supported in the mapping. But you can just\n"
 "use them in the spreadsheet because the extractor picks up the result of the\n"
 "formula, not the formula itself."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:267
+#: ../en/docs/details/mapping.md:264
 msgid "## Surprising Arrays"
 msgstr ""
 
-#: ../en/docs/details/mapping.md:269
+#: ../en/docs/details/mapping.md:266
 msgid ""
 "Some elements are arrays although this will often be surprising. For example,\n"
 "the element\n"
@@ -1084,40 +1056,40 @@ msgid ""
 "probably be using this feature without even noticing it."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:277
+#: ../en/docs/details/mapping.md:274
 msgid "## Examples"
 msgstr ""
 
-#: ../en/docs/details/mapping.md:279
+#: ../en/docs/details/mapping.md:276
 msgid ""
 "The directory\n"
 "[`contrib/templates`](https://github.com/gflohr/e-invoice-eu/tree/main/contrib/templates)\n"
 "contains examples for spreadsheets. The directory\n"
 "[`contrib/mappings`](https://github.com/gflohr/e-invoice-eu/tree/main/contrib/mappings)\n"
-"contain the corresponding mappings for these spreadsheets. They will eventually\n"
-"be commented."
+"contain the corresponding mappings for these spreadsheets."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:286
+#: ../en/docs/details/mapping.md:282
 msgid "## Code Lists"
 msgstr ""
 
-#: ../en/docs/details/mapping.md:288
+#: ../en/docs/details/mapping.md:284
 msgid "One problem of code lists is that the values are often not human-understandable.\n"
 "It is not obvious that the unit code `HUR` stands for hours."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:291
+#: ../en/docs/details/mapping.md:287
 msgid ""
 "The example templates in\n"
 "[`contrib/templates`](https://github.com/gflohr/e-invoice-eu/tree/main/contrib/templates)\n"
-"try to make that a little bit user-friendly with the help of data ranges and\n"
+"try to make that a little bit more user-friendly with the help of data ranges and\n"
 "the spreadsheet function `VLOOKUP`. The general idea is that the user selects\n"
 "a human-readable value from a combo box (the data range) that is then\n"
-"translated to the machine-readable code with the help of the `VLOOKUP` function."
+"translated to the machine-readable code from a lookup table defined elsewhere.\n"
+"This happens with the help of the `VLOOKUP` function."
 msgstr ""
 
-#: ../en/docs/details/mapping.md:298
+#: ../en/docs/details/mapping.md:295
 msgid ""
 "Instead, you can always just use two cells that are not coupled; one\n"
 "for the human readable value that gets printed and one for the machine-readable\n"
@@ -1602,6 +1574,26 @@ msgid ""
 "bottom that will take you to the next page."
 msgstr ""
 
+#: ../en/docs/other.md:2
+msgctxt "title"
+msgid "Other"
+msgstr ""
+
+#: ../en/docs/other/business-terms.md:2
+msgctxt "title"
+msgid "Business Terms"
+msgstr ""
+
+#: ../en/docs/other/business-terms.md:5
+msgctxt "description"
+msgid "This table maps all EN16931 business terms and business groups to their respective XML elements."
+msgstr ""
+
+# This file is generated! Do not edit!
+#: ../en/docs/other/business-terms.md:8
+msgid "| Term | Usage"
+msgstr ""
+
 #: ../en/docs/service.md:2
 msgctxt "title"
 msgid "Service"
@@ -1650,7 +1642,7 @@ msgstr ""
 
 #: ../en/docs/service/creating-invoices.md:17
 msgid ""
-"The [% q.lanchor(name='general-mode-of-operation') %] is to first map\n"
+"The [% q.lanchor(name='general-mode-of-operation') %] is to first [map]([% q.llink(name='mapping') %])\n"
 "spreadsheet data to the [internal invoice format]([% q.llink(name='internal-format') %]) in JSON and then generate an\n"
 "e-invoice XML or a hybrid PDF/XML file from that JSON. But it is also\n"
 "possible to bypass the first mapping step and generate the invoice directly\n"
@@ -1668,7 +1660,7 @@ msgstr ""
 #: ../en/docs/service/creating-invoices.md:29
 msgid ""
 "* A spreadsheet template. The examples assume that you use the template in `contrib/templates/default-invoice.ods`.\n"
-"* A mapping file. The examples assume that you use the mapping file in `contrib/mappings/default-invoice.yaml`.\n"
+"* A [mapping definition]([% q.llink(name='mapping') %]). The examples assume that you use the mapping file in `contrib/mappings/default-invoice.yaml`.\n"
 "* [LibreOffice](https://libreoffice.org/) installed on your system (not always necessary).\n"
 "* You have [started the server]([% q.llink(name='deployment') %]). The examples assume that the server is available at http://localhost:3000.\n"
 "* You have changed directory to the top-level directory of the repository so that the sample files are available.\n"
@@ -1712,7 +1704,7 @@ msgstr ""
 msgid ""
 "The invoice data (parameter `data`) is read from the spreadsheet file\n"
 "`contrib/templates/default-invoice.ods`. That spreadsheet data is then\n"
-"mapped (parameter `mapping`) with the mapping definition\n"
+"[mapped]([% q.llink(name='mapping') %]) (parameter `mapping`) with the mapping definition\n"
 "`contrib/mappings/default-invoice.yaml`."
 msgstr ""
 
@@ -1735,7 +1727,7 @@ msgstr ""
 msgid ""
 "* `lang`: This is used to determine the language for some canned texts.\n"
 "* `data`: The spreadsheet with the invoice data.\n"
-"* `mapping`: The mapping definition for the invoice data.\n"
+"* `mapping`: The [mapping definition]([% q.llink(name='mapping') %]) for the invoice data.\n"
 "* `embedPDF`: Embed a PDF version of the e-invoice in the XML; ignored for Factur-X/ZUGFeRD.\n"
 "* `pdf`: The PDF version of the e-invoice. If embedding a PDF was requested but the parameter `pdf` is missing, the PDF is generated from the spreadsheet file (parameter `data`).\n"
 "* `pdfID`: The attachment id of the embedded PDF, defaults to the filename.\n"
@@ -1816,7 +1808,7 @@ msgid "## Creating Invoices from JSON"
 msgstr ""
 
 #: ../en/docs/service/creating-invoices.md:208
-msgid "You can bypass the mapping step and generate the invoice directly from\n"
+msgid "You can bypass the [mapping step]([% q.llink(name='mapping') %]) and generate the invoice directly from\n"
 "JSON.  The endpoint for that is `/api/invoice/create/:FORMAT`."
 msgstr ""
 
@@ -1850,7 +1842,7 @@ msgstr ""
 
 #: ../en/docs/service/creating-invoices.md:269
 msgid "* `data`: The spreadsheet with the invoice data.\n"
-"* `mapping`: The mapping definition for the invoice data."
+"* `mapping`: The [mapping definition]([% q.llink(name='mapping') %]) for the invoice data."
 msgstr ""
 
 #: ../en/docs/service/creating-invoices.md:272
@@ -1859,7 +1851,7 @@ msgstr ""
 
 #: ../en/docs/service/creating-invoices.md:276
 msgid ""
-"This endpoint maps data from a spreadsheet file into the [internal format]([% q.llink(name='internal-format') %]) which\n"
+"This endpoint [maps]([% q.llink(name='mapping') %]) data from a spreadsheet file into the [internal format]([% q.llink(name='internal-format') %]) which\n"
 "is supposed to be independent of the output format. Still, you have to supply\n"
 "the format because the transformation also inserts the default customization id\n"
 "in the field `/ubl:Invoice/cbc:customizationID`. If the customization ID is\n"
@@ -2094,7 +2086,7 @@ msgid "### Mapping Schema"
 msgstr ""
 
 #: ../en/docs/service/other-endpoints.md:80
-msgid "This endpoint returns the JSON schema for mapping definitions, usually given\n"
+msgid "This endpoint returns the JSON schema for [mapping definitions]([% q.llink(name='mapping') %]), usually given\n"
 "in YAML:"
 msgstr ""
 

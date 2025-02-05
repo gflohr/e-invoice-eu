@@ -23,7 +23,7 @@ console.log('description: This table maps all EN16931 business terms and'
 console.log('styles: "<style>td { word-break: break-all; font-size: smaller; }</style>"')
 console.log('---');
 console.log('<!-- This file is generated! Do not edit! -->');
-console.log('| Term | Usage |');
+console.log('| Term | Usage<!--qgoda-no-xgettext-->|');
 console.log('|------|-------|');
 
 const businessTerms = recurseSchema(schema, []);
@@ -48,6 +48,8 @@ for (const term of sortedTerms) {
 
 	console.log(`| ${term} | ${usage.join('<br />')} |`);
 }
+
+console.log(`<!--/qgoda-no-xgettext-->`);
 
 function recurseSchema(
 	schema: JSONSchemaType<any>,

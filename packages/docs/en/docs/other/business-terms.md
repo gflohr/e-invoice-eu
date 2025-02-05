@@ -6,7 +6,7 @@ description: This table maps all EN16931 business terms and business groups to t
 styles: "<style>td { word-break: break-all; font-size: smaller; }</style>"
 ---
 <!-- This file is generated! Do not edit! -->
-| Term | Usage |
+| Term | Usage<!--qgoda-no-xgettext-->|
 |------|-------|
 | BG-3 | [&hairsp;/ubl:Invoice&hairsp;/cac:BillingReference](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-BillingReference/) |
 | BG-4 | [&hairsp;/ubl:Invoice&hairsp;/cac:AccountingSupplierParty](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/) |
@@ -200,3 +200,4 @@ styles: "<style>td { word-break: break-all; font-size: smaller; }</style>"
 | BT-163 | [&hairsp;/ubl:Invoice&hairsp;/cac:AccountingCustomerParty&hairsp;/cac:Party&hairsp;/cac:PostalAddress&hairsp;/cac:AddressLine&hairsp;/cbc:Line](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingCustomerParty/cac-Party/cac-PostalAddress/cac-AddressLine/cbc-Line/) |
 | BT-164 | [&hairsp;/ubl:Invoice&hairsp;/cac:TaxRepresentativeParty&hairsp;/cac:PostalAddress&hairsp;/cac:AddressLine&hairsp;/cbc:Line](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-TaxRepresentativeParty/cac-PostalAddress/cac-AddressLine/cbc-Line/) |
 | BT-165 | [&hairsp;/ubl:Invoice&hairsp;/cac:Delivery&hairsp;/cac:DeliveryLocation&hairsp;/cac:Address&hairsp;/cac:AddressLine&hairsp;/cbc:Line](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-Delivery/cac-DeliveryLocation/cac-Address/cac-AddressLine/cbc-Line/) |
+<!--/qgoda-no-xgettext-->

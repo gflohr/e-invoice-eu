@@ -136,8 +136,8 @@ get the hang of it.</p>
     </div>
     <p>
 
-If you use the software to create e-invoices directly from JSON data, do
-yourself a favour and go on to the next page. Mappings are only required for
+If you use the software to create e-invoices directly from JSON data, you can
+skip this section. Mappings are only required for
 generating e-invoices from spreadsheet data.
 
 </p>
@@ -300,14 +300,14 @@ stings that will not occur in a regular invoice.</p>
 
 <h3><a href="#" name="the-ubl-invoice-code-object" id="the-ubl-invoice-code-object"></a>The <code>ubl:Invoice</code> Object</h3>
 
-<p>Did we say that a mapping maps cells to invoice data? It is actually the other
-way round. The invoice data is mapped from a reference to the invoice data to
-the corresponding cell, where it can be found.</p>
+<p>Did we say that a mapping maps table cells to invoice data? It is actually the other
+way round. The mapping maps a reference into the invoice data to a reference
+to a cell where the value can be found. Instead of a reference to a cell you
+can also specify a literal value.</p>
 
 <p>The structure matches exactly the structure of invoice data,
 see <a href="/e-invoice-eu/en/docs/details/internal-format/">Internal Format</a>, only that all
-values are either a reference to a cell where the data can be found in the
-spreadsheet or a literal value.</p>
+values are either a reference to a table cell or a literal value.</p>
 
 <p>Another difference is that there are no arrays but data inside an array is
 directly mapped to the first item of that array. This will also become clearer
@@ -339,7 +339,7 @@ ubl:Invoice:
 
 
 
-<p><strong>Line 3</strong>: The section column is column <code>K</code>.</p>
+<p><strong>Line 3</strong>: The section column in the sheet <code>Invoice</code> is column <code>K</code>.</p>
 
 <p><strong>Line 4</strong>: Cells with the values <code>[:empty:]</code> and <code>%no-no-nothing%</code> should be considered empty.</p>
 
@@ -347,15 +347,15 @@ ubl:Invoice:
 
 <p><strong>Line 7</strong>: The issue date is found in cell F7. Which sheet? The first sheet because a sheet name was not given.</p>
 
-<p><strong>Line 8</strong>: The invoice line is actually an array but ...</p>
+<p><strong>Line 8</strong>: The invoice lines are actually an array but ...</p>
 
 <p><strong>Line 9</strong>: ... the start of each invoice line is marked with the string "Line" in the section column (<code>meta.sectionColumn</code>, see above!) of that sheet.</p>
 
 <p><strong>Line 10</strong>: All following inside this section can now be made relative to the
 corresponding invoice line. The id of the line is found in column
-A of the 1st row of the section marked with <code>Line</code>.</p>
+A of the 1st row of the section marked with "Line".</p>
 
-<p><strong>Line 11</strong>: But if the section is omitted, the row number (3) is relative to the
+<p><strong>Line 11</strong>: But if the section is omitted, the row number (3) is meant to be relative to the
 entire sheet.</p>
 
 <p><strong>Line 13</strong>: As mentioned above, the sheet name is optional and defaults to the
@@ -386,10 +386,9 @@ must be a string. That means that numbers must be put into quotes, for example:<
 
 
 <p>Because of the way that YAML works, you must also quote the strings "null",
-"true", and "false". Especially, the value of <code>cbc:ChargeIndicator</code> inside
+"true", "false", "yes", and "no". Especially, the value of <code>cbc:ChargeIndicator</code> inside
 <code>cac:AllowanceCharge</code> sections must be one of the strings "true" or "false",
-and not the boolean values <code>true</code> or <code>false</code>. Likewise, the boolean aliases
-<code>yes</code> and <code>no</code> are not allowed.</p>
+and not the boolean values <code>true</code> or <code>false</code>.</p>
 
 <h4><a href="#" name="sheet-references" id="sheet-references"></a>Sheet References</h4>
 
@@ -397,7 +396,13 @@ and not the boolean values <code>true</code> or <code>false</code>. Likewise, th
 sheet name contains a colon (<code>:</code>) or dot (<code>.</code>), you must enclose it in
 single quotes:</p>
 
+
+
+
 <pre class="language-yaml"><code>cbc:DueDate: =&#39;Fancy.SheetName&#39;.D3</code></pre>
+
+
+
 
 
 <p>Note that most spreadsheet applications do not allow colons in sheet names
@@ -415,11 +420,17 @@ references.</p>
 
 <p>Example:</p>
 
+
+
+
 <pre class="language-yaml"><code>ubl:Invoice:
   cac:InvoiceLine:
     section: :Line
     cbc:ID: =:Line.A1
     cbc:Note: =SomeSheet.Q23</code></pre>
+
+
+
 
 
 <p>See the references for <code>cbc:ID</code> and <code>cbc:Note</code>. The id references a cell
@@ -432,8 +443,8 @@ in the section <code>Line</code> of the first sheet, the default sheet. The refe
 <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AllowanceCharge/" target="_blank"><code>ubl:Invoice/cac:AllowanceCharge</code></a>
 on the document level. But you also have an element
 <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-AllowanceCharge/" target="_blank"><code>ubl:Invoice/cac:InvoiceLine/cac:AllowanceCharge</code></a>
-(and there is even one on
-the price level). How would you structure that in the spreadsheet? We
+on line item level, and even one more on
+the price level. How would you structure that in the spreadsheet? We
 assume that the allowance or charge come from column <code>H</code> and the line
 extension amount from column <code>I</code> and the section column is <code>K</code>. Your
 spreadsheet should then look like this:</p>
@@ -520,12 +531,12 @@ spreadsheet should then look like this:</p>
 
 <p>This invoice has three line items starting on rows 20, 22, and 23.</p>
 
-<p>The first line has a line extension amount of 120.00 and a charge or allowance
+<p>The first line item has a line extension amount of 120.00 and a charge or allowance
 of 3.05. Note that you must always use positive values. The sign is derived
 from the element
 <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-AllowanceCharge/cbc-ChargeIndicator/" target="_blank"><code>cbc:ChargeIndicator</code></a>.</p>
 
-<p>The second line has a line extension amount of 75.50 and no charges or
+<p>The second line item has a line extension amount of 75.50 and no charges or
 allowances. The third line has an amount of 180.00 and two charges or
 allowances of 1.23 and 7.50.</p>
 
@@ -547,17 +558,11 @@ on the document level, following the last <code>Line</code>.</p>
 <p>The takeaway is: Use different section names for different nesting levels
 even if they refer to the same thing.</p>
 
-<p>By the way, if you know that your invoices always contain just one line item,
-there is no need for making the references dynamic. But are you sure that you
-will really never invoice more than one item? And what about charges and
-allowances? At the end of the day, having these dynamic references is not
-terribly difficult.</p>
-
 <h4><a href="#" name="cell-references" id="cell-references"></a>Cell References</h4>
 
 <p>Cell references consist of one or more uppercase characters <code>A-Z</code> followed by
-one decimal digit <code>1-9</code> followed by any number of decimal digits <code>0-9</code>. You
-know this from your spreadsheet application.</p>
+one decimal digit <code>1-9</code> followed by a positive decimal integer. We know that
+from our spreadsheet application.</p>
 
 <h4><a href="#" name="formulas" id="formulas"></a>Formulas</h4>
 
@@ -581,8 +586,7 @@ probably be using this feature without even noticing it.</p>
 <a href="https://github.com/gflohr/e-invoice-eu/tree/main/contrib/templates" target="_blank"><code>contrib/templates</code></a>
 contains examples for spreadsheets. The directory
 <a href="https://github.com/gflohr/e-invoice-eu/tree/main/contrib/mappings" target="_blank"><code>contrib/mappings</code></a>
-contain the corresponding mappings for these spreadsheets. They will eventually
-be commented.</p>
+contain the corresponding mappings for these spreadsheets.</p>
 
 <h2><a href="#" name="code-lists" id="code-lists"></a>Code Lists</h2>
 
@@ -591,10 +595,11 @@ It is not obvious that the unit code <code>HUR</code> stands for hours.</p>
 
 <p>The example templates in
 <a href="https://github.com/gflohr/e-invoice-eu/tree/main/contrib/templates" target="_blank"><code>contrib/templates</code></a>
-try to make that a little bit user-friendly with the help of data ranges and
+try to make that a little bit more user-friendly with the help of data ranges and
 the spreadsheet function <code>VLOOKUP</code>. The general idea is that the user selects
 a human-readable value from a combo box (the data range) that is then
-translated to the machine-readable code with the help of the <code>VLOOKUP</code> function.</p>
+translated to the machine-readable code from a lookup table defined elsewhere.
+This happens with the help of the <code>VLOOKUP</code> function.</p>
 
 <p>Instead, you can always just use two cells that are not coupled; one
 for the human readable value that gets printed and one for the machine-readable
