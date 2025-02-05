@@ -11,11 +11,6 @@ description: Mapping definitions map data from spreadsheet cells to invoice data
 
 ## Practical Considerations
 
-Mapping data from an invoice spreadsheet with a variable number of invoice
-lines that in turn may have a variable number of lines for allowances and charges
-is a little bit like aiming at an apple from a roller coaster. It can get
-quite confusing.
-
 The example files in the directory
 [`contrib`](https://github.com/gflohr/e-invoice-eu/tree/main/contrib)
 just work. It is strongly recommended that you use them as a starting point

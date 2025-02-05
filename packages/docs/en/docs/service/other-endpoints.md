@@ -77,7 +77,7 @@ http http://localhost:300/api/schema/invoice[% END %]
 
 ### Mapping Schema
 
-This endpoint returns the JSON schema for mapping definitions, usually given
+This endpoint returns the JSON schema for [mapping definitions]([% q.llink(name='mapping') %]), usually given
 in YAML:
 
 <!--qgoda-no-xgettext-->

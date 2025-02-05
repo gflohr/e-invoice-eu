@@ -20,7 +20,7 @@ create their invoices with the help of spreadsheet software like
 [LibreOffice](https://www.libreoffice.org/). That means that the invoice data
 is already available as structured data.
 
-All that was left to be done was to map the input spreadsheet data to elements
+All that was left to be done was to [map]([% q.llink(name='mapping') %]) the input spreadsheet data to elements
 in the output XML of the electronic invoice. Because there are multiple
 supported output XML formats, it makes sense to first map the input data
 into a general [internal format]([% q.llink(name='internal-format') %]) and

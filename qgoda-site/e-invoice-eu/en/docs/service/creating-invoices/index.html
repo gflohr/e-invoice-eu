@@ -115,7 +115,7 @@
 
 
 
-<p>The <a href="/e-invoice-eu/en/docs/basics/general-mode-of-operation/">General Mode of Operation</a> is to first map
+<p>The <a href="/e-invoice-eu/en/docs/basics/general-mode-of-operation/">General Mode of Operation</a> is to first <a href="/e-invoice-eu/en/docs/details/mapping/">map</a>
 spreadsheet data to the <a href="/e-invoice-eu/en/docs/details/internal-format/">internal invoice format</a> in JSON and then generate an
 e-invoice XML or a hybrid PDF/XML file from that JSON. But it is also
 possible to bypass the first mapping step and generate the invoice directly
@@ -183,7 +183,7 @@ from JSON data.</p>
 
 <ul>
 <li>A spreadsheet template. The examples assume that you use the template in <code>contrib/templates/default-invoice.ods</code>.</li>
-<li>A mapping file. The examples assume that you use the mapping file in <code>contrib/mappings/default-invoice.yaml</code>.</li>
+<li>A <a href="/e-invoice-eu/en/docs/details/mapping/">mapping definition</a>. The examples assume that you use the mapping file in <code>contrib/mappings/default-invoice.yaml</code>.</li>
 <li><a href="https://libreoffice.org/" target="_blank">LibreOffice</a> installed on your system (not always necessary).</li>
 <li>You have <a href="/e-invoice-eu/en/docs/service/deployment/">started the server</a>. The examples assume that the server is available at <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>.</li>
 <li>You have changed directory to the top-level directory of the repository so that the sample files are available.</li>
@@ -241,7 +241,7 @@ case-insensitive.</p>
 
 <p>The invoice data (parameter <code>data</code>) is read from the spreadsheet file
 <code>contrib/templates/default-invoice.ods</code>. That spreadsheet data is then
-mapped (parameter <code>mapping</code>) with the mapping definition
+<a href="/e-invoice-eu/en/docs/details/mapping/">mapped</a> (parameter <code>mapping</code>) with the mapping definition
 <code>contrib/mappings/default-invoice.yaml</code>.</p>
 
 <h3><a href="#" name="e-invoice-with-additional-attachments" id="e-invoice-with-additional-attachments"></a>E-Invoice with Additional Attachments</h3>
@@ -305,7 +305,7 @@ example creates a Factur-X Extended invoice with two attachments:</p>
 <ul>
 <li><code>lang</code>: This is used to determine the language for some canned texts.</li>
 <li><code>data</code>: The spreadsheet with the invoice data.</li>
-<li><code>mapping</code>: The mapping definition for the invoice data.</li>
+<li><code>mapping</code>: The <a href="/e-invoice-eu/en/docs/details/mapping/">mapping definition</a> for the invoice data.</li>
 <li><code>embedPDF</code>: Embed a PDF version of the e-invoice in the XML; ignored for Factur-X/ZUGFeRD.</li>
 <li><code>pdf</code>: The PDF version of the e-invoice. If embedding a PDF was requested but the parameter <code>pdf</code> is missing, the PDF is generated from the spreadsheet file (parameter <code>data</code>).</li>
 <li><code>pdfID</code>: The attachment id of the embedded PDF, defaults to the filename.</li>
@@ -440,7 +440,7 @@ from the spreadsheet file <code>data</code>.</p>
 
 <h2><a href="#" name="creating-invoices-from-json" id="creating-invoices-from-json"></a>Creating Invoices from JSON</h2>
 
-<p>You can bypass the mapping step and generate the invoice directly from
+<p>You can bypass the <a href="/e-invoice-eu/en/docs/details/mapping/">mapping step</a> and generate the invoice directly from
 JSON.  The endpoint for that is <code>/api/invoice/create/:FORMAT</code>.</p>
 
 <p>Example:</p>
@@ -521,7 +521,7 @@ for e-invoices.</p>
 
 <ul>
 <li><code>data</code>: The spreadsheet with the invoice data.</li>
-<li><code>mapping</code>: The mapping definition for the invoice data.</li>
+<li><code>mapping</code>: The <a href="/e-invoice-eu/en/docs/details/mapping/">mapping definition</a> for the invoice data.</li>
 </ul>
 
 
@@ -539,7 +539,7 @@ for e-invoices.</p>
     </div>
     <p>
 
-This endpoint maps data from a spreadsheet file into the [internal format](/e-invoice-eu/en/docs/details/internal-format/) which
+This endpoint [maps](/e-invoice-eu/en/docs/details/mapping/) data from a spreadsheet file into the [internal format](/e-invoice-eu/en/docs/details/internal-format/) which
 is supposed to be independent of the output format. Still, you have to supply
 the format because the transformation also inserts the default customization id
 in the field `/ubl:Invoice/cbc:customizationID`. If the customization ID is

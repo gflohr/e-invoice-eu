@@ -124,7 +124,11 @@
 
 <p>Die Software wurde unter der Annahme erstellt, dass viele kleine Firmen ihre Rechnungen mit Hilfe einer Tabellenkalkulation wie <a href="https://www.libreoffice.org/" target="_blank">LibreOffice</a> erstellen. Das bedeutet, dass die Rechnungsdaten schon in strukturierter Form vorliegen.</p>
 
-<p>Damit müssen lediglich noch die Eingabedaten aus der Tabellenkalkulation auf das Ausgabe-XML der elektronischen Rechnung abgebildet werden. Weil mehrere XML-Ausgabe-Formate unterstützt werden, ist es sinnvoll, die Eingabedaten zunächst auf ein allgemeines <a href="/e-invoice-eu/de/docs/details/internes-format/">internes Format</a> abzubilden, und daraus dann das gewünschte Ausgabeformat zu generieren.</p>
+<p>All that was left to be done was to <a href="/e-invoice-eu/de/docs/details/mapping/">map</a> the input spreadsheet data to elements
+in the output XML of the electronic invoice. Because there are multiple
+supported output XML formats, it makes sense to first map the input data
+into a general <a href="/e-invoice-eu/de/docs/details/internes-format/">internal format</a> and
+then render the data into the desired output format.</p>
 
 <p>Das gewählte interne Format ist größtenteils äquivalent zu <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/" target="_blank">Peppol UBL</a>. Das hat Vorteile:</p>
 

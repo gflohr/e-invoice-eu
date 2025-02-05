@@ -14,7 +14,7 @@ scripts:
 [% USE CodeGroup %]
 <!--/qgoda-no-xgettext-->
 
-The [% q.lanchor(name='general-mode-of-operation') %] is to first map
+The [% q.lanchor(name='general-mode-of-operation') %] is to first [map]([% q.llink(name='mapping') %])
 spreadsheet data to the [internal invoice format]([% q.llink(name='internal-format') %]) in JSON and then generate an
 e-invoice XML or a hybrid PDF/XML file from that JSON. But it is also
 possible to bypass the first mapping step and generate the invoice directly
@@ -27,7 +27,7 @@ from JSON data.
 Before you start, you must have:
 
 * A spreadsheet template. The examples assume that you use the template in `contrib/templates/default-invoice.ods`.
-* A mapping file. The examples assume that you use the mapping file in `contrib/mappings/default-invoice.yaml`.
+* A [mapping definition]([% q.llink(name='mapping') %]). The examples assume that you use the mapping file in `contrib/mappings/default-invoice.yaml`.
 * [LibreOffice](https://libreoffice.org/) installed on your system (not always necessary).
 * You have [started the server]([% q.llink(name='deployment') %]). The examples assume that the server is available at http://localhost:3000.
 * You have changed directory to the top-level directory of the repository so that the sample files are available.
@@ -74,7 +74,7 @@ case-insensitive.
 
 The invoice data (parameter `data`) is read from the spreadsheet file
 `contrib/templates/default-invoice.ods`. That spreadsheet data is then
-mapped (parameter `mapping`) with the mapping definition
+[mapped]([% q.llink(name='mapping') %]) (parameter `mapping`) with the mapping definition
 `contrib/mappings/default-invoice.yaml`.
 
 ### E-Invoice with Additional Attachments
@@ -128,7 +128,7 @@ Let us break that down into the individual URL parameters sent:
 
 * `lang`: This is used to determine the language for some canned texts.
 * `data`: The spreadsheet with the invoice data.
-* `mapping`: The mapping definition for the invoice data.
+* `mapping`: The [mapping definition]([% q.llink(name='mapping') %]) for the invoice data.
 * `embedPDF`: Embed a PDF version of the e-invoice in the XML; ignored for Factur-X/ZUGFeRD.
 * `pdf`: The PDF version of the e-invoice. If embedding a PDF was requested but the parameter `pdf` is missing, the PDF is generated from the spreadsheet file (parameter `data`).
 * `pdfID`: The attachment id of the embedded PDF, defaults to the filename.
@@ -205,7 +205,7 @@ from the spreadsheet file `data`.
 
 ## Creating Invoices from JSON
 
-You can bypass the mapping step and generate the invoice directly from
+You can bypass the [mapping step]([% q.llink(name='mapping') %]) and generate the invoice directly from
 JSON.  The endpoint for that is `/api/invoice/create/:FORMAT`.
 
 Example:
@@ -267,13 +267,13 @@ http --form POST http://localhost:3000/api/mapping/transform/UBL \
 This endpoint only supports two URL parameters:
 
 * `data`: The spreadsheet with the invoice data.
-* `mapping`: The mapping definition for the invoice data.
+* `mapping`: The [mapping definition]([% q.llink(name='mapping') %]) for the invoice data.
 
 [% title = "Why is the Format Needed?" %]
 <!--qgoda-no-xgettext-->
 [% WRAPPER components/infobox.html type='info' title=title %]
 <!--/qgoda-no-xgettext-->
-This endpoint maps data from a spreadsheet file into the [internal format]([% q.llink(name='internal-format') %]) which
+This endpoint [maps]([% q.llink(name='mapping') %]) data from a spreadsheet file into the [internal format]([% q.llink(name='internal-format') %]) which
 is supposed to be independent of the output format. Still, you have to supply
 the format because the transformation also inserts the default customization id
 in the field `/ubl:Invoice/cbc:customizationID`. If the customization ID is
