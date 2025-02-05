@@ -16,15 +16,6 @@ lines that in turn may have a variable number of lines for allowances and charge
 is a little bit like aiming at an apple from a roller coaster. It can get
 quite confusing.
 
-We have tried our best to make these mappings as simple and straightforward as
-possible but it still is pretty confusing. To quote Dante Alighieri:
-
-<!--qgoda-no-xgettext-->
-> *Lasciate ogne speranza voi ch'entrate!*
-<!--/qgoda-no-xgettext-->
-
-In English: All hope abandon ye who enter here!
-
 The example files in the directory
 [`contrib`](https://github.com/gflohr/e-invoice-eu/tree/main/contrib)
 just work. It is strongly recommended that you use them as a starting point
@@ -309,6 +300,6 @@ the spreadsheet function `VLOOKUP`. The general idea is that the user selects
 a human-readable value from a combo box (the data range) that is then
 translated to the machine-readable code with the help of the `VLOOKUP` function.
 
-You can, of course, also always just use two cells that are not coupled. One
+Instead, you can always just use two cells that are not coupled; one
 for the human readable value that gets printed and one for the machine-readable
-code. This simplifies the spreadsheet but makes the process more error-prone.
+code. This simplifies the spreadsheet but makes your process more error-prone.
