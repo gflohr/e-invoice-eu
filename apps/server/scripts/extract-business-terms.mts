@@ -54,7 +54,7 @@ function recurseSchema(
 	if (typeof schema === 'object') {
 		for (const key of Object.keys(schema)) {
 			const newPath = [...path];
-			if (key.match(/^(?:ubl|cac|cbc):[a-zA-Z]+$/)) {
+			if (key.match(/^(?:ubl|cac|cbc):[a-zA-Z]+(?:@[a-zA-Z]+)?$/)) {
 				newPath.push(key);
 
 				const re = new RegExp(
