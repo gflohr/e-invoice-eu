@@ -6,18 +6,18 @@
   <link
 	rel="alternate"
 	hreflang="de"
-	href="/e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/"
+	href="/e-invoice-eu/de/docs/grundlagen/haftungsausschluss/"
 /> 
-<meta name="description" content="E-Invoice-EU supports e-invoice formats that conform to the European standard EN16931." />
-<title>Hybrid vs XML</title>
+<meta name="description" content="E-Invoice-EU is free software that has been written with the greatest possible care, but like all software it may contain errors. It may also be based on wrong information or wrong assumptions." />
+<title>Disclaimer</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
-<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/e-invoice-formats/hybrid-vs-xml/" />
-<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/e-invoice-formats/hybrid-vs-xml/" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/basics/disclaimer/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/basics/disclaimer/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="Hybrid vs XML" />
-<meta property="og:description" content="E-Invoice-EU supports e-invoice formats that conform to the European standard EN16931." />
+<meta property="og:title" content="Disclaimer" />
+<meta property="og:description" content="E-Invoice-EU is free software that has been written with the greatest possible care, but like all software it may contain errors. It may also be based on wrong information or wrong assumptions." />
 
 
 	<meta
@@ -101,81 +101,23 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>Hybrid vs XML</h1>
+					<h1>Disclaimer</h1>
 					
-					<div class="description">E-Invoice-EU supports e-invoice formats that conform to the European standard EN16931.</div>
+					<div class="description"></div>
 				</div>
-				<qgoda-content> 
+				<qgoda-content> <p>E-Invoice-EU is free software that has been written with the greatest possible
+care, but like all software it may contain errors. It may also be based on
+wrong information or wrong assumptions.</p>
 
-
-
-
-
-
-
-<p>There are different approaches to distinguish e-invoice formats.</p>
-
-<h2><a href="#" name="xml-formats" id="xml-formats"></a>XML Formats</h2>
-
-<p>Not every electronic invoice document qualifies as an e-invoice in the
-sense of the European standard EN16931. They have to be XML documents using
-one of the syntaxes <a href="/e-invoice-eu/en/docs/e-invoice-formats/ubl/">UBL</a> or <a href="/e-invoice-eu/en/docs/e-invoice-formats/cii/">CII</a>.</p>
-
-
-
-
-
-
-<div class="alert alert-info" role="alert">
-    <div>
-        <strong>
-            <i class="bi-info-circle"></i>
-            <span class="title">XML Syntax</span>
-        </strong>
-    </div>
-    <p>
-
-What is meant with syntax? A UBL and a CII invoice can contain the exact same
-information. What differs is the name of the XML elements and their location in
-the document object model. 
-
-</p>
-</div>
-
-
-
-
-
-
-
-<p>Both UBL and CII allow embedding a human-readable, normally PDF version of the
-invoice to be embedded in the XML.</p>
-
-<h2><a href="#" name="hybrid-formats-factur-x-zugferd" id="hybrid-formats-factur-x-zugferd"></a>Hybrid Formats (Factur-X/ZUGFeRD)</h2>
-
-<p>In France and Germany, the standards <a href="/e-invoice-eu/en/docs/e-invoice-formats/factur-x-zugferd/">Factur-X and ZUGFeRD</a> for e-invoices
-have been developed. Both Factur-X and ZUGFeRD documents are actually PDF
-invoice documents but they contain an equivalent XML version of the invoice as
-an attachment to the PDF.</p>
-
-<p>Factur-X and ZUGFeRD are nowadays identical standards. They are just different names for
-the same thing. Factur-X is the official name but the term ZUGFeRD is still
-prevalent in Germany.</p>
-
-<h2><a href="#" name="takeaway" id="takeaway"></a>Takeaway</h2>
-
-<p>An electronic invoice is either an XML document in one of the flavours UBL and
-CII or a Factur-X/ZUGFeRD PDF. If you opt for an XML version you <em>may</em> include
-a PDF version. If you go with the hybrid format Factur-X/ZUGFeRD you <em>must</em>
-include an XML version of the invoice.</p>
+<p>Use at your own risk! There is no warranty and no liability.</p>
  
 				 
 <div class="guided-tour container">
 	<div class="row">
 		<div class="col-5 text-left guided-tour-link">
 			
-			<a href="/e-invoice-eu/en/docs/basics/disclaimer/"
-				><i class="bi-arrow-left-circle"></i>&nbsp;Disclaimer</a>
+			<a href="/e-invoice-eu/en/docs/basics/supported-formats/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;Supported Formats</a>
 			
 		</div>
 		<div class="col-2 text-center guided-tour-link">
@@ -185,8 +127,8 @@ include an XML version of the invoice.</p>
 		</div>
 		<div class="col-5 text-right guided-tour-link">
 			
-			<a href="/e-invoice-eu/en/docs/e-invoice-formats/ubl/"
-				>UBL&nbsp;<i
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/hybrid-vs-xml/"
+				>Hybrid vs XML&nbsp;<i
 					class="bi-arrow-right-circle"
 				></i></a>
 			
@@ -206,14 +148,14 @@ include an XML version of the invoice.</p>
 			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
 		</li>
 		<li>
-			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/en/docs/e-invoice-formats/hybrid-vs-xml.md?plain=1" target="_blank">
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/en/docs/basics/disclaimer.md?plain=1" target="_blank">
 				<i class="bi-code-slash"></i>
 				Source code of this page
 			</a>
 		</li>
 		 
 		<li>
-			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/">
+			<a href="/e-invoice-eu/de/docs/grundlagen/haftungsausschluss/">
 				<i class="bi-translate"></i>
 				Diese Seite auf Deutsch lesen
 			</a>
@@ -242,8 +184,7 @@ include an XML version of the invoice.</p>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/en/docs/basics/disclaimer/">Disclaimer</a>
-			
+			<i class="bi-arrow-right-circle"></i>&nbsp;Disclaimer 
 		</li>
 		
 	</ol>
@@ -258,7 +199,8 @@ include an XML version of the invoice.</p>
 		
 		<li>
 			
-			<i class="bi-arrow-right-circle"></i>&nbsp;Hybrid vs XML 
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/hybrid-vs-xml/">Hybrid vs XML</a>
+			
 		</li>
 		
 		<li>

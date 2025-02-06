@@ -6,18 +6,18 @@
  <link
 	rel="alternate"
 	hreflang="en"
-	href="/e-invoice-eu/en/docs/service/other-endpoints/"
+	href="/e-invoice-eu/en/docs/details/validation/"
 />  
-<meta name="description" content="Diese Seite beschreibt weitere API-Endpunkte" />
-<title>Andere Endpunkte</title>
+<meta name="description" content="Validating an e-invoice ensures that it adheres to the European standard EN16931. A number of options exist for this task." />
+<title>Validation</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
-<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/service/andere-endpunkte/" />
-<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/service/andere-endpunkte/" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/details/validierung/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/details/validierung/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="Andere Endpunkte" />
-<meta property="og:description" content="Diese Seite beschreibt weitere API-Endpunkte" />
+<meta property="og:title" content="Validation" />
+<meta property="og:description" content="Validating an e-invoice ensures that it adheres to the European standard EN16931. A number of options exist for this task." />
 
 
 	<meta
@@ -101,9 +101,9 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>Andere Endpunkte</h1>
+					<h1>Validation</h1>
 					
-					<div class="description">Diese Seite beschreibt weitere API-Endpunkte</div>
+					<div class="description">Validating an e-invoice ensures that it adheres to the European standard EN16931. A number of options exist for this task.</div>
 				</div>
 				<qgoda-content> 
 
@@ -120,24 +120,24 @@
 	
 	<li class="toclevel-1">
 		1
-		<a href="#liste-der-formate">Liste der Formate</a>
+		<a href="#syntax-and-semantics">Syntax and Semantics</a>
 		
 	</li>
 	
 	<li class="toclevel-1">
 		2
-		<a href="#schemata">Schemata</a>
+		<a href="#business-rules">Business Rules</a>
 		 <ul class="toclevel-2">
 	
 	<li class="toclevel-2">
 		2.1
-		<a href="#rechnungsschema">Rechnungsschema</a>
+		<a href="#business-terms">Business Terms</a>
 		
 	</li>
 	
 	<li class="toclevel-2">
 		2.2
-		<a href="#mapping-schema">Mapping-Schema</a>
+		<a href="#business-groups">Business Groups</a>
 		
 	</li>
 	
@@ -151,89 +151,36 @@
 
 </p>
 
-<h2><a href="#" name="liste-der-formate" id="liste-der-formate"></a>Liste der Formate</h2>
+<h2><a href="#" name="syntax-and-semantics" id="syntax-and-semantics"></a>Syntax and Semantics</h2>
 
-<p>Eine Liste der unterstützten Formate wird vom Endpunkt <code>/api/format/list</code> geliefert.</p>
-
-
-
-
-<div class="code-group"><code-group>
-    <code-tabs>
-        <input type='radio' name='group-6b4b65ab61ac2475a96a97dd8c7c23b18cee658e' id='code-tab-4c2cfffa8647488d627527edbd1144dbdaf7d044' checked>
-        <label data-title='curl' for='code-tab-4c2cfffa8647488d627527edbd1144dbdaf7d044'>curl</label>
-        <input type='radio' name='group-6b4b65ab61ac2475a96a97dd8c7c23b18cee658e' id='code-tab-264089176d7742aafbbbf5863b8f339ba0ed5767'>
-        <label data-title='httpie' for='code-tab-264089176d7742aafbbbf5863b8f339ba0ed5767'>httpie</label>
-    </code-tabs>
-    <code-blocks>
-            <code-block id='code-block-4c2cfffa8647488d627527edbd1144dbdaf7d044' class='active'><pre class="language-sh"><code>curl http://localhost:3000/api/format/list</code></pre>
-
-</code-block>
-            <code-block id='code-block-264089176d7742aafbbbf5863b8f339ba0ed5767'><pre class="language-sh"><code>http http://localhost:300/api/format/list</code></pre>
-</code-block>
-    </code-blocks>
-</code-group></div>
+<p>Electronic invoices must have a certain structure that is determined by the
+syntax chosen, either <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a> or
+<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a>. The syntax specifies which elements must exist
+and where they are located in the syntax tree.</p>
 
 
 
 
 
 
+<div class="alert alert-info" role="alert">
+    <div>
+        <strong>
+            <i class="bi-info-circle"></i>
+            <span class="title">Order of Invoice Fields</span>
+        </strong>
+    </div>
+    <p>
 
-<p>Zurückgeliefert wird eine Liste von Einträgen, die beispielsweise so aussehen:</p>
+The XML standards also specify the exact order of elements. Fortunately,
+E-Invoice-EU automatically sorts its output so that you don't have to bother
+about the order of your input data, no matter whether it comes from a
+spreadsheet via a <a href="/e-invoice-eu/de/docs/details/mapping/">Mapping</a> or
+directly from JSON in the <a
+href="/e-invoice-eu/de/docs/details/internes-format/">internal invoice format</a>
 
-
-
-
-<pre class="language-json"><code>{
-    &#34;name&#34;: &#34;Factur-X-Extended&#34;,
-    &#34;syntax&#34;: &#34;CII&#34;
-    &#34;mimeType&#34;: &#34;application/pdf&#34;,
-    &#34;customizationID&#34;: &#34;urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended&#34;,
-    &#34;profileID&#34;: &#34;urn:fdc:peppol.eu:2017:poacc:billing:01:1.0&#34;,
-}</code></pre>
-
-
-
-
-
-<p>Die Bedeutung der einzelnen Felder ist:</p>
-
-<ul>
-<li><code>name</code>: Der Name des Formats wie er bei der <a href="/e-invoice-eu/de/docs/service/rechnungen-erzeugen/">Erzeugung von Rechnungen</a> angegeben werden muss.</li>
-<li><code>syntax</code>: Die allgemeine Syntax des XML-Anteils, entweder <code>CII</code> oder <code>UBL</code>.</li>
-<li><code>mimeType</code>: Entweder <code>application/xml</code> für reine XML-Formate oder <code>application/pdf</code> für hybride Formate (Factur-X/ZUGFeRD)</li>
-<li><code>customizationID</code>: Die Customization-ID des Formats.</li>
-<li><code>profileID</code>: Die Profil-ID des Formats.</li>
-</ul>
-
-
-<h2><a href="#" name="schemata" id="schemata"></a>Schemata</h2>
-
-<p>Auch die von der Software verwendeten <a href="https://json-schema.org/" target="_blank">JSON0Schema</a>-Definitionen können ausgegeben werden.</p>
-
-<h3><a href="#" name="rechnungsschema" id="rechnungsschema"></a>Rechnungsschema</h3>
-
-<p>Dieser Endpunkt liefert das JSON-Schema für das <a href="/e-invoice-eu/de/docs/details/internes-format/">interne Rechnungsformat</a>:</p>
-
-
-
-
-<div class="code-group"><code-group>
-    <code-tabs>
-        <input type='radio' name='group-eaca9ac3aa5eb3fc3d7d2afcfafe58b0d820c82e' id='code-tab-3629db5cbd305f77bc82cc2fc35e7c2c519e594d' checked>
-        <label data-title='curl' for='code-tab-3629db5cbd305f77bc82cc2fc35e7c2c519e594d'>curl</label>
-        <input type='radio' name='group-eaca9ac3aa5eb3fc3d7d2afcfafe58b0d820c82e' id='code-tab-73d5ee09d2ef00f25aecc822338a4ef92b5ff2cd'>
-        <label data-title='httpie' for='code-tab-73d5ee09d2ef00f25aecc822338a4ef92b5ff2cd'>httpie</label>
-    </code-tabs>
-    <code-blocks>
-            <code-block id='code-block-3629db5cbd305f77bc82cc2fc35e7c2c519e594d' class='active'><pre class="language-sh"><code>curl http://localhost:3000/api/schema/invoice</code></pre>
-
-</code-block>
-            <code-block id='code-block-73d5ee09d2ef00f25aecc822338a4ef92b5ff2cd'><pre class="language-sh"><code>http http://localhost:300/api/schema/invoice</code></pre>
-</code-block>
-    </code-blocks>
-</code-group></div>
+</p>
+</div>
 
 
 
@@ -241,42 +188,85 @@
 
 
 
-<h3><a href="#" name="mapping-schema" id="mapping-schema"></a>Mapping-Schema</h3>
+<p>The correct syntax is ensured by E-Invoice-EU. It validates the input data
+against the respective <a href="/e-invoice-eu/de/docs/service/andere-endpunkte/#schemas">schema</a>
+which ensures that the input is syntactically correct.</p>
 
-<p>Dieser Endpunkt liefert das JSON-Schema für Mapping-Definitionen, die in der Regel in YAML übergeben werden:</p>
+<p>The schema also contain the code lists so that you can be sure that wherever
+applicable only allowed values are used. Likewise, number and date
+formats are checked.</p>
+
+<h2><a href="#" name="business-rules" id="business-rules"></a>Business Rules</h2>
+
+<p>But there are also semantic requirements called <em>business rules</em>. An example
+for such a rule is that if the payable amount of the invoice is positive,
+it must either include a due date or payment terms, see
+<a href="https://docs.peppol.eu/poacc/billing/3.0/rules/ubl-tc434/BR-CO-25/" target="_blank">BR-CO-25</a>.</p>
+
+<p>In general, E-Invoice-EU does <em>not</em> check these semantic requirements.</p>
+
+<p>A lot of these rules come from the standard itself. Others rules are set up
+by the member states in the form of <em>Core Invoice Usage Specifications (CIUS)</em>,
+see the chapter <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/">Erweiterungen</a>.</p>
+
+<h3><a href="#" name="business-terms" id="business-terms"></a>Business Terms</h3>
+
+<p>When reading these rules, you will often see the abbreviation <em>BT</em>. BT stands
+for <em>business term</em> and is simply the identifier for a certain invoice field.
+For example, the issue date of an invoice is business term number 2 or short
+BT-2, see the documentation for
+(<code>cbc:IssueDate</code>)[<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-IssueDate/" target="_blank">https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-IssueDate/</a>].</p>
+
+<p>This documentation contains an almost complete list of business terms, see
+<a href="/e-invoice-eu/de/docs/anderes/business-terms/">Business-Terms</a> with links to the <a href="https://docs.peppol.eu/poacc/billing/3.0/" target="_blank">Peppol UBL invoice
+documentation</a>.</p>
 
 
 
 
-<div class="code-group"><code-group>
-    <code-tabs>
-        <input type='radio' name='group-c10f95233dba4a5b9abb9375c4bf235594daf90b' id='code-tab-98e6c50c89782dc6658d77a038d8a0b50686182a' checked>
-        <label data-title='curl' for='code-tab-98e6c50c89782dc6658d77a038d8a0b50686182a'>curl</label>
-        <input type='radio' name='group-c10f95233dba4a5b9abb9375c4bf235594daf90b' id='code-tab-18dfe807b41fa2d882e3d2e0f7c510fc60fee8b3'>
-        <label data-title='httpie' for='code-tab-18dfe807b41fa2d882e3d2e0f7c510fc60fee8b3'>httpie</label>
-    </code-tabs>
-    <code-blocks>
-            <code-block id='code-block-98e6c50c89782dc6658d77a038d8a0b50686182a' class='active'><pre class="language-sh"><code>curl http://localhost:3000/api/schema/mapping</code></pre>
-
-</code-block>
-            <code-block id='code-block-18dfe807b41fa2d882e3d2e0f7c510fc60fee8b3'><pre class="language-sh"><code>http http://localhost:300/api/schema/mapping</code></pre>
-</code-block>
-    </code-blocks>
-</code-group></div>
 
 
+<div class="alert alert-info" role="alert">
+    <div>
+        <strong>
+            <i class="bi-info-circle"></i>
+            <span class="title">Why Reading Business Rules?</span>
+        </strong>
+    </div>
+    <p>
+
+Well, you will have no choice. E-invoice validation software quotes these
+rules in their error messages. It is very hard to understand the error
+messages without knowing what exactly the business terms mentioned in the
+rule stand for.
+
+</p>
+</div>
 
 
 
 
+
+
+
+<h3><a href="#" name="business-groups" id="business-groups"></a>Business Groups</h3>
+
+<p>The standard also uses the term business group or BG in short. Business groups
+are simply groups of related business terms. BG-4 for example contains
+information about the seller like electronic and postal addresses, tax
+schemes, legal information and so on, see
+<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/" target="_blank"><code>cac:AccountingSupplierParty</code></a>.</p>
+
+<p>The <a href="/e-invoice-eu/de/docs/anderes/business-terms/">list of business terms</a> included in
+this documentation also list business groups.</p>
  
 				 
 <div class="guided-tour container">
 	<div class="row">
 		<div class="col-5 text-left guided-tour-link">
 			
-			<a href="/e-invoice-eu/de/docs/service/rechnungen-erzeugen/"
-				><i class="bi-arrow-left-circle"></i>&nbsp;Rechnungen erzeugen</a>
+			<a href="/e-invoice-eu/de/docs/details/mapping/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;Mapping</a>
 			
 		</div>
 		<div class="col-2 text-center guided-tour-link">
@@ -286,8 +276,8 @@
 		</div>
 		<div class="col-5 text-right guided-tour-link">
 			
-			<a href="/e-invoice-eu/de/docs/service/api-dokumentation/"
-				>API-Dokumentation&nbsp;<i
+			<a href="/e-invoice-eu/de/docs/anderes/business-terms/"
+				>Business-Terms&nbsp;<i
 					class="bi-arrow-right-circle"
 				></i></a>
 			
@@ -307,14 +297,14 @@
 			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
 		</li>
 		<li>
-			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/de/docs/service/andere-endpunkte.md?plain=1" target="_blank">
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/de/docs/details/validierung.md?plain=1" target="_blank">
 				<i class="bi-code-slash"></i>
 				Source code of this page
 			</a>
 		</li>
 		
 		<li>
-			<a href="/e-invoice-eu/en/docs/service/other-endpoints/">
+			<a href="/e-invoice-eu/en/docs/details/validation/">
 				<i class="bi-translate"></i>
 				Read this page in English
 			</a>
@@ -411,7 +401,8 @@
 		
 		<li>
 			
-			<i class="bi-arrow-right-circle"></i>&nbsp;Andere Endpunkte 
+			<a href="/e-invoice-eu/de/docs/service/andere-endpunkte/">Andere Endpunkte</a>
+			
 		</li>
 		
 		<li>
@@ -444,8 +435,7 @@
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/details/validierung/">Validation</a>
-			
+			<i class="bi-arrow-right-circle"></i>&nbsp;Validation 
 		</li>
 		
 	</ol>
