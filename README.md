@@ -46,6 +46,7 @@ formats or JSON.
 		- [Report a Bug](#report-a-bug)
 		- [PDF/A](#pdfa)
 	- [License](#license)
+	- [Disclaimer](#disclaimer)
 
 ## Status
 
@@ -444,3 +445,9 @@ MS Windows, it is probably somewhere like `C:\\Program Files\\LibreOffice\\libre
 
 This is free software available under the terms of the
 [WTFPL](http://www.wtfpl.net/).
+
+## Disclaimer
+
+This free software has been written with the greatest possible care, but like
+all software it may contain errors. Use at your own risk! There is no
+warranty and no liability.
