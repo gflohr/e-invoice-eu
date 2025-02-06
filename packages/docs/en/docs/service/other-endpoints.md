@@ -21,7 +21,7 @@ You can get a list of the supported formats with the endpoint `/api/format/list`
 
 [curl]
 [% FILTER $Highlight "language-sh" %]
-http http://localhost:3000/api/format/list
+curl http://localhost:3000/api/format/list
 [% END %]
 
 [httpie]
@@ -66,7 +66,7 @@ This endpoint returns the JSON schema for the [internal invoice format]([% q.lli
 
 [curl]
 [% FILTER $Highlight "language-sh" %]
-http http://localhost:3000/api/schema/invoice
+curl http://localhost:3000/api/schema/invoice
 [% END %]
 
 [httpie]
@@ -85,7 +85,7 @@ in YAML:
 
 [curl]
 [% FILTER $Highlight "language-sh" %]
-http http://localhost:3000/api/schema/mapping
+curl http://localhost:3000/api/schema/mapping
 [% END %]
 
 [httpie]
