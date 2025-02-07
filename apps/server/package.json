@@ -1,6 +1,6 @@
 {
 	"name": "@e-invoice-eu/server",
-	"version": "2.0.0-alpha",
+	"version": "1.4.0",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/gflohr/e-invoice-eu.git"
