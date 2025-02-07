@@ -5,25 +5,39 @@ type BusinessTerms = {
 	[term: string]: string[];
 };
 
-if (process.argv.length !== 3) {
-	console.error(`Usage: ${process.argv[1]} INPUT_SCHEMA`);
+type Type = 'terms' | 'groups';
+
+if (process.argv.length !== 4) {
+	console.error(`Usage: ${process.argv[1]} TYPE INPUT_SCHEMA`);
+	process.exit(1);
 }
 
-const invoiceSchemaFilename = process.argv[2];
+const type: Type = process.argv[2] as Type;
+if (type !== 'terms' && type !== 'groups') {
+	console.error(`Type can only be "terms" or "groups".`);
+	process.exit(1);
+}
+
+const invoiceSchemaFilename = process.argv[3];
 const schema: JSONSchemaType<any> = JSON.parse(
 	fs.readFileSync(invoiceSchemaFilename, 'utf-8'),
 );
 
+const title = type === 'terms' ? 'Business Terms' : 'Business Groups';
+const lctitle = title.toLowerCase();
+const shortTitle = type === 'terms' ? 'Term' : 'Group';
+const name = type === 'terms' ? 'business-terms' : 'business-groups';
+
 console.log('---');
-console.log('title: Business Terms');
-console.log('name: business-terms');
+console.log(`title: ${title}`);
+console.log(`name: ${name}`);
 console.log('section: other');
-console.log('description: This table maps all EN16931 business terms and'
-	+ ' business groups to their respective XML elements.');
+console.log(`description: This table maps all EN16931 ${lctitle}`
+	+ ' their respective XML elements.');
 console.log('styles: "<style>td { word-break: break-all; font-size: smaller; }</style>"')
 console.log('---');
 console.log('<!-- This file is generated! Do not edit! -->');
-console.log('| Term | Usage<!--qgoda-no-xgettext-->|');
+console.log(`| ${shortTitle} | Usage<!--qgoda-no-xgettext-->|`);
 console.log('|------|-------|');
 
 const businessTerms = recurseSchema(schema, []);
@@ -76,7 +90,8 @@ function recurseSchema(
 						re.exec(description) as RegExpExecArray
 					)[1].split(', ');
 
-					for (const term of terms) {
+					const typeRe = type === 'terms' ? new RegExp(/^BT-/) : new RegExp(/^BG-/);
+					for (const term of terms.filter(term => term.match(typeRe))) {
 						allTerms[term] ??= [];
 						allTerms[term].push('/' + newPath.join('/'));
 					}
