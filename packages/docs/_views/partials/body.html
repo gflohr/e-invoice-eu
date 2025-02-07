@@ -1,0 +1,38 @@
+[% USE gtx = Gettext(config.po.textdomain) %] [% PROCESS functions/setup.tt %]
+<body>
+	[% INCLUDE partials/header/navbar.html %]
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 content">
+				<div class="content-head">
+					<h1>[% asset.title %]</h1>
+					[% IF asset.type == 'post' %]
+					<div class="colophon">
+						<i class="bi-clock"></i>&nbsp;[% q.strftime(gtx.gettext('%B, %e %Y'), asset.date, asset.lingua) %] - [% asset.author %]
+					</div>
+					[% END %]
+					<div class="description">[% asset.description %]</div>
+				</div>
+				<qgoda-content> [% asset.content %] </qgoda-content>
+				[% IF asset.type == 'doc' %] [% PROCESS components/guided_tour.html %]
+				[% ELSIF asset.type == 'post' %] [% INCLUDE
+				"components/back-to-listings.html" %] [% END %]
+			</div>
+			<div class="col-sm-3 offset-sm-1 sidebar">
+				[% INCLUDE partials/body/sidebar.html %]
+			</div>
+		</div>
+	</div>
+
+	<!-- Footer Section -->
+	<footer id="footer" class="bg-warning-opaque">
+		[% INCLUDE partials/body/footer.html need_row=1 %]
+	</footer>
+	<!-- Footer Section End -->
+
+	[% INCLUDE partials/body/github.html %]
+	[% INCLUDE "components/cookie-consent-banner.html" %]
+	[% INCLUDE "components/copy-code-title.html" %]
+	[% PROCESS functions/scripts.tt %]
+</body>

@@ -1,0 +1,8 @@
+---
+doc:
+  sections:
+    - ['basics', 'general-mode-of-operation', 'supported-formats', 'disclaimer']
+    - ['e-invoice-formats', 'hybrid-vs-xml', 'ubl', 'cii', 'factur-x-zugferd', 'country-specific-extensions']
+    - ['service', 'deployment', 'creating-invoices', 'other-endpoints', 'api-documentation']
+    - ['details', 'internal-format', 'mapping', 'validation']
+    - ['other', 'business-terms', 'business-groups', 'faq']

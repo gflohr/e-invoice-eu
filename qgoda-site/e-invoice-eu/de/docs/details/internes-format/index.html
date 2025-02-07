@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="de" class="no-js">
+<head>
+	<meta charset="utf-8" />
+<meta http-equiv="X-UA-compatible" content="IE=edge" />
+ <link
+	rel="alternate"
+	hreflang="en"
+	href="/e-invoice-eu/en/docs/details/internal-format/"
+/>  
+<meta name="description" content="Die interne verwendete Datenstruktur ist fast identisch zu der von Peppol UBL-Rechnungen. Aus ihm können alle unterstützten Ausgabeformate erzeugt werden." />
+<title>Internes Format</title>
+<link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
+<link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
+<link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/details/internes-format/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/details/internes-format/" />
+ <meta property="og:type" content="article" />
+<meta property="og:title" content="Internes Format" />
+<meta property="og:description" content="Die interne verwendete Datenstruktur ist fast identisch zu der von Peppol UBL-Rechnungen. Aus ihm können alle unterstützten Ausgabeformate erzeugt werden." />
+
+
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no"
+	/>
+
+	
+
+  <link href="/e-invoice-eu/assets/bundle.min.css" rel="stylesheet">
+
+
+
+  <meta name="generator" content="Qgoda vv0.10.1 (https://www.qgoda.net/)" />
+</head>
+  
+
+
+
+<body>
+	
+
+<nav class="navbar navbar-expand-md navbar-dark bg-warning">
+	<button
+		class="navbar-toggler"
+		type="button"
+		data-toggle="collapse"
+		data-target="#navbarCollapse"
+		aria-controls="navbarCollapse"
+		aria-expanded="false"
+		aria-label="Toggle navigation"
+	>
+		&#9776;
+	</button>
+	<div class="qgoda-brand">
+		<a
+			class="navbar-brand"
+			href="/e-invoice-eu/de/docs/"
+			title="E-Invoice-EU Documentation"
+		>
+			<img src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"=
+				alt="E-Invoice-EU logo" height="80" />
+		</a>
+	</div>
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="d-md-none nav-item">
+				<a
+					class="nav-link"
+					href="/e-invoice-eu/de/docs/"
+					title="E-Invoice-EU Documentation"
+				>
+					<i class="bi-house"></i>&nbsp;Home
+				</a>
+			</li>
+			<li class="nav-item">
+				<a
+					class="nav-link"
+					href="/e-invoice-eu/de/docs/"
+					title="E-Invoice-EU Documentation"
+				>
+					<i class="bi-book"></i>&nbsp;Docs
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/gflohr/e-invoice-eu/releases" title="E-Invoice-EU Releases" target="_blank">
+					<i class="bi-download"></i>&nbsp;Download
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/gflohr/e-invoice-eu" title="E-Invoice-EU on GitHub" target="_blank">
+					<i class="bi-github"></i>&nbsp;Github
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 content">
+				<div class="content-head">
+					<h1>Internes Format</h1>
+					
+					<div class="description">Die interne verwendete Datenstruktur ist fast identisch zu der von Peppol UBL-Rechnungen. Aus ihm können alle unterstützten Ausgabeformate erzeugt werden.</div>
+				</div>
+				<qgoda-content> 
+
+
+
+
+
+
+
+<p> 
+<div class="toc">
+	<div class="toc-title">Inhaltsverzeichnis</div>
+	<ul class="toclevel-1">
+	
+	<li class="toclevel-1">
+		1
+		<a href="#weshalb-ein-internes-format">Weshalb ein internes Format?</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		2
+		<a href="#weshalb-ubl">Weshalb UBL?</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		3
+		<a href="#ubl-vs.-peppol-ubl">UBL vs. Peppol UBL</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		4
+		<a href="#struktur-der-peppol-ubl-dokumentation">Struktur der Peppol-UBL-Dokumentation</a>
+		 <ul class="toclevel-2">
+	
+	<li class="toclevel-2">
+		4.1
+		<a href="#document-object-model-dom">Document Object Model (DOM)</a>
+		
+	</li>
+	
+	<li class="toclevel-2">
+		4.2
+		<a href="#knoten-und-blatter">Knoten und Blätter</a>
+		
+	</li>
+	
+	<li class="toclevel-2">
+		4.3
+		<a href="#kardinalitat">Kardinalität</a>
+		
+	</li>
+	
+	<li class="toclevel-2">
+		4.4
+		<a href="#attribute">Attribute</a>
+		
+	</li>
+	
+	<li class="toclevel-2">
+		4.5
+		<a href="#code-listen">Code-Listen</a>
+		
+	</li>
+	
+</ul>
+ 
+	</li>
+	
+	<li class="toclevel-1">
+		5
+		<a href="#transformierung-von-xml-zu-json">Transformierung von XML zu JSON</a>
+		 <ul class="toclevel-2">
+	
+	<li class="toclevel-2">
+		5.1
+		<a href="#grundsatzliches-vorgehen">Grundsätzliches Vorgehen</a>
+		
+	</li>
+	
+	<li class="toclevel-2">
+		5.2
+		<a href="#listen-arrays">Listen/Arrays</a>
+		
+	</li>
+	
+	<li class="toclevel-2">
+		5.3
+		<a href="#attribute-">Attribute</a>
+		
+	</li>
+	
+	<li class="toclevel-2">
+		5.4
+		<a href="#nicht-string-werte">Nicht-String-Werte</a>
+		
+	</li>
+	
+</ul>
+ 
+	</li>
+	
+	<li class="toclevel-1">
+		6
+		<a href="#validierung">Validierung</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		7
+		<a href="#json-schema">JSON-Schema</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		8
+		<a href="#unterschiede-zu-peppol-ubl">Unterschiede zu Peppol UBL</a>
+		
+	</li>
+	
+</ul>
+
+</div>
+
+</p>
+
+<h2><a href="#" name="weshalb-ein-internes-format" id="weshalb-ein-internes-format"></a>Weshalb ein internes Format?</h2>
+
+<p>Daten im internen Format sind Ausgangspunkt für die Generierung von E-Rechnungen in allen unterstützten Ausgabeformaten. Dadurch brauchen sich Benutzerinnen und Benutzer der Software nicht mit allen Details anderer Formate beschäftigen und können sich dadurch auf lediglich eins fokussieren.</p>
+
+
+
+
+
+
+<div class="alert alert-info" role="alert">
+    <div>
+        <strong>
+            <i class="bi-info-circle"></i>
+            <span class="title">Erforderliches Fachwissen</span>
+        </strong>
+    </div>
+    <p>
+
+Kenntnisse über JSON sind definitiv ein Plus beim Lesen dieser Dokumentation. XML-Know-How ist auch ein Plus, aber weniger wichtig.
+
+</p>
+</div>
+
+
+
+
+
+
+
+<h2><a href="#" name="weshalb-ubl" id="weshalb-ubl"></a>Weshalb UBL?</h2>
+
+<p>Tatsächlich gibt es gerade einmal zwei mögliche Syntaxen für E-Rechnungen, die dem Europäischen Standard EN16931 entsprechen, nämlich UBL und CII. UBL wurde gewählt, weil die Syntax gut dokumentiert und im Vergleich zu CII weniger komplex ist.</p>
+
+<p>Nachteil der Sache ist, dass es zur Zeit nicht möglich ist, Informationen zu übermitteln, die in CII aber nicht in UBL vorgesehen sind. Das kann sich möglicherweise in der Zukunft noch ändern.</p>
+
+<h2><a href="#" name="ubl-vs.-peppol-ubl" id="ubl-vs.-peppol-ubl"></a>UBL vs. Peppol UBL</h2>
+
+<p>Mit der <a href="https://groups.oasis-open.org/communities/tc-community-home2?CommunityKey=556949c8-dac8-40e6-bb16-018dc7ce54d6" target="_blank">Universal Business Language UBL</a> kann eine <a href="http://docs.oasis-open.org/ubl/os-UBL-2.1/UBL-2.1.html#S-UBL-2.1-DOCUMENT-SCHEMAS" target="_blank">Vielzahl von Geschäftsdokumenten</a> ausgedrückt werden. Eine dieser Dokumenttypen sind <a href="http://docs.oasis-open.org/ubl/os-UBL-2.1/UBL-2.1.html#T-INVOICE" target="_blank">UBL-Rechnungen</a>. Der UBL-Standard wird von der Organisation <a href="https://groups.oasis-open.org/home" target="_blank">OASIS
+Open</a> gepflegt.</p>
+
+<p><a href="https://peppol.org/" target="_blank">Peppol (Pan-European Public Procurement
+OnLine)</a> ist eine Initiative der Europäischen Union, die die Standardisierung grenzüberschreitender Beschaffungsprozesse zum Zeil hat. Peppol gibt die <a href="https://docs.peppol.eu/poacc/billing/3.0/bis/" target="_blank">Business Interoperability Specifications
+(BIS)</a>, aktuell in der Version 3.0 heraus. Eine dieser Spezifikationen ist die für <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/tree/" target="_blank">UBL-Rechnungen</a>.</p>
+
+<p>Die Spezifikation basiert auf der obengenannten UBL-Spezifikation von OASIS Open ist aber nicht identisch. Diese Dokumente bezeichnet daher die Peppol-BIS UBL-Rechnungen als Peppol UBL.</p>
+
+<h2><a href="#" name="struktur-der-peppol-ubl-dokumentation" id="struktur-der-peppol-ubl-dokumentation"></a>Struktur der Peppol-UBL-Dokumentation</h2>
+
+<p>Die Dokumentation der UBL-Rechnung steht sowohl als <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/tree/" target="_blank">einzelne HTML-Seite</a> als auch als <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/" target="_blank">mehrseitiger, klilckbarer Baum</a> zur Verfügung.</p>
+
+<p>Die Einzelseite eignet sich gut zum Suchen, während die mehrseitige Version leichter zu benutzen und zu verstehen ist.</p>
+
+<h3><a href="#" name="document-object-model-dom" id="document-object-model-dom"></a>Document Object Model (DOM)</h3>
+
+<p>Da es sich bei UBL um ein XML-Format handelt, ist das zugrundeliegende Denkmodell das <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model" target="_blank">Document Object Model (DOM)</a>. Die Software E-Invoice-EU setzt allerdings stattdessen auf JSON. Der wichtigste strukturelle Unterschied zu XML - jedenfalls im Kontext von Peppol UBL - ist die Verfügbarkeit von Arrays (Listen) in JSON.</p>
+
+<h3><a href="#" name="knoten-und-blatter" id="knoten-und-blatter"></a>Knoten und Blätter</h3>
+
+<p>Die Struktur von Peppol UBL besteht aus Knoten, also Elementen, die Unterelemente haben und Blättern, also Elementen, die keine Unterelemente haben.</p>
+
+<p>Knoten haben ein Namespace-Präfix <code>cac</code>, zum Beispiel das Element
+<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/" target="_blank"><code>cac:AccountingSupplierParty</code></a>, das die Ausstellerin einer Rechnung beschreibt. Innerhalb der Definition findet sich die Postadresse der Lieferantin und als Teil davon das Element für die <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/cac-Party/cac-PostalAddress/cbc-CityName/" target="_blank">Stadt <code>cbc:CityName</code></a>, bei dem es sich um ein Blatt handelt, weil es keine Unterlemente hat. Wie alle anderen Blätter hat es ein Namespace-Präfix <code>cbc</code>.</p>
+
+<h3><a href="#" name="kardinalitat" id="kardinalitat"></a>Kardinalität</h3>
+
+<p>Die Dokumentation von Peppol UBL gibt für jedes Element eine <em>Kardinalität</em> an. Die Kardinalität bestimmt, wie oft ein bestimmtes Element an einer bestimmten Stelle erscheinen darf. Die Kardinalität wird mit zwei durch zwei Punkten getrennten Ganzzahlen angegeben, zum Beispiel <code>0..2</code>. Die erste Zahl gibt die Mindestanzahl und die zweite Zahl die Höchstzahl an Vorkommen an. Ist die zweite Zahl der Buchstabe <code>n</code>, wie zum Beispiel in <code>0..n</code>, ist eine beliebige Anzahl von Vorkommen erlaubt.</p>
+
+<p>Die folgende Tabelle listet typische Kardinalitäten auf.</p>
+
+<table>
+<thead>
+<tr>
+<th> Kardinalität </th>
+<th> Bedeutung </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <code>1..1</code>      </td>
+<td> Ein Pflichtelement, zum Beispiel die <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-LegalMonetaryTotal/cbc-PayableAmount/" target="_blank">zu zahlende Summe einer Rechnung</a>. </td>
+</tr>
+<tr>
+<td> <code>0..1</code>      </td>
+<td> Ein optionales Element, zum Beispiel eine <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-LegalMonetaryTotal/cbc-PrepaidAmount/" target="_blank">Anzahlung</a>. </td>
+</tr>
+<tr>
+<td> <code>1..n</code>      </td>
+<td> Eine Liste als Pflichtelement mit einer beliebigen Anzahl an Elementen, zum Beispiel die <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/" target="_blank">Rechnungspositionen</a></td>
+</tr>
+<tr>
+<td> <code>0..n</code>      </td>
+<td> Eine optionale Liste  mit einer beliebigen Anzahl an Elementen, zum Beispiel die <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AllowanceCharge/" target="_blank">Zu- und Abschläge auf Dokumentenebene</a> </td>
+</tr>
+<tr>
+<td> <code>1..2</code>      </td>
+<td> Eine Liste als Pflichtelement mit maximal zwei Elementen, zum Beispiel die <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-TaxTotal/" target="_blank">Steuersummen</a> </td>
+</tr>
+<tr>
+<td> <code>0..2</code>      </td>
+<td> Eine optionale Liste mit maximal zwei Elementen, zum Beispiel die <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/cac-Party/cac-PartyTaxScheme/" target="_blank">Steuerschemata einer Rechnungspartei</a> </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>Daumenregeln: Ist die erste Zahl <code>0</code> handelt es sich um ein optionales Element, ansonsten ist es obligatorisch, also ein Pflichtelement. Ist die zweite Zahl größer oder gleich <code>2</code> oder ist sie <code>n</code>, haben wir es mit einer Liste zu tun.</p>
+
+<h3><a href="#" name="attribute" id="attribute"></a>Attribute</h3>
+
+<p>XML-Elemente können Attribute besitzen, welche den Wert des Elements weiter beschreiben. Zum Beispiel hat die <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-LegalMonetaryTotal/cbc-PayableAmount/" target="_blank">fällige Summe einer Rechnung</a> das obligatorische Attribut <code>@currencyID</code>, das die abgekürzte Währungsbezeichnung der Summe angbit. In der Spalte „Use“ des Abschnitts „attributes“ in der Dokumentation gibt der Buchstabe <code>M</code> an, dass es sich um ein obligatorisches Attribut handelt, es also angegeben werden <em>muss</em>.</p>
+
+<p>Die <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/cac-Party/cac-PartyLegalEntity/cbc-CompanyID/" target="_blank">Firmen-ID</a> hat ein <em>optionales</em> Attribute <code>schemeID</code>. Dies wird durch den Buchstaben <code>O</code> in der Spalte „Use“ angegeben.</p>
+
+<h3><a href="#" name="code-listen" id="code-listen"></a>Code-Listen</h3>
+
+<p>Viele Felder können keine beliebigen Werte aufnehmen sondern sind auf eine Auswahl aus einer Liste beschränkt. Diese Listen werden als <em>Code-Listen</em> bezeichnet. So muss zum Beispiel der [zu zahlende Rechnungsbetrag(<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-LegalMonetaryTotal/cbc-PayableAmount/" target="_blank">https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-LegalMonetaryTotal/cbc-PayableAmount/</a>) eine Währungsbezeichnung haben und der Wert des entsprechenden Attributs <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-LegalMonetaryTotal/cbc-PayableAmount/currencyID/" target="_blank"><code>@currencyID</code></a> ist auf die Code-Liste <a href="https://docs.peppol.eu/poacc/billing/3.0/codelist/ISO4217/" target="_blank">ISO 4217 Currency codes</a> beschränkt. Diese Information kann man erhalten, indem man erst auf den Element- oder Attributnamen und dann auf Namen der Code-Liste im Abschnitt „Code lists“ klickt. Die Seite der Code-Liste listet die möglichen Werte im Abschnitt „Codes“. Oft ist ees so, dass man ein wenig scrollen muss, um zur Werteliste zu gelangen.</p>
+
+<h2><a href="#" name="transformierung-von-xml-zu-json" id="transformierung-von-xml-zu-json"></a>Transformierung von XML zu JSON</h2>
+
+<p>Weil E-Invoice-EU JSON und nicht XML benutzt, muss das Peppol UBL in JSON transformiert werden.</p>
+
+<h3><a href="#" name="grundsatzliches-vorgehen" id="grundsatzliches-vorgehen"></a>Grundsätzliches Vorgehen</h3>
+
+<p>Die Transformation von XML nach JSON in E-Invoice-EU ist logisch und unkompliziert, und schwerer zu erklären als zu verstehen.</p>
+
+<p>Die XML-Struktur wird durch die Befolgung einfacher Regeln vorgenommen:</p>
+
+<ol>
+<li>Elemente werden JSON-Schlüssel – Jedes XML-Element wird durch einen Schlüssel im JSON-Objekt repräsentiert.</li>
+<li>Die Verschachtelungstiefe wird bewahrt - Enthält ein Element Unterelemente, wird es ein Objekt mit diesen Elementen als Eigenschaften (<em>properties</em>).</li>
+<li>Textwerte werden Strings - Enthält ein Element nur Text, wird der Text zum Wert für den entsprechenden Schlüssel.</li>
+</ol>
+
+
+<p>Die Angabe des <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/cac-Party/cac-PartyName/" target="_blank">Namens der Ausstellerin</a> einer Rechnung im folgenden unvollständige Fragment einer UBL-Rechnung als XML-Dokument mag das verdeutlichen:</p>
+
+
+
+
+<pre class="language-markup line-numbers"><code>&#60;ubl:Invoice&#62;
+  &#60;cac:AccountingSupplierParty&#62;
+    &#60;cac:Party&#62;
+      &#60;cbc:PartyName&#62;
+        Acme Ltd.
+      &#60;/cbc:PartyName&#62;
+    &#60;/cac:Party&#62;
+  &#60;/cac:AccountingSupplierParty&#62;
+&#60;/ubl:Invoice&#62;</code></pre>
+
+
+
+
+
+<p>In JSON stellt sich der gleiche Sachverhalt so dar:</p>
+
+
+
+
+<pre class="language-json line-numbers"><code>{
+  &#34;ubl:Invoice&#34;: {
+    &#34;cac:AccountingSupplierParty&#34;: {
+      &#34;cac:Party&#34;: {
+        &#34;cbc:PartyName&#34;: &#34;Acme Ltd.&#34;
+      }
+    }
+  }
+}</code></pre>
+
+
+
+
+
+<p>Jedes XML-Element wird eine Eigenschaft des JSON-Objekts und die Hierarchie bleibt unverändert. Der Textinhalt von <code>&lt;cbc:PartyName</code> wird zur Zeichenkette „Acme Ltd.“ in JSON.</p>
+
+<h3><a href="#" name="listen-arrays" id="listen-arrays"></a>Listen/Arrays</h3>
+
+<p>In XML fehlt das Konzept von Listen bzw. Arrays. Stattdessen werden Elemente einfach wiederholt. Das lässt sich an Rechnungspositionen zeigen:</p>
+
+
+
+
+<pre class="language-markup line-numbers"><code>&#60;ubl:Invoice&#62;
+  &#60;cac:InvoiceLine&#62;
+    &#60;cbc:ID&#62;1&#60;/cbc:ID&#62;
+    &#60;cbc:AccountingCost&#62;100:1&#60;/cbc:AccountingCost&#62;
+  &#60;/cac:InvoiceLine&#62;
+  &#60;cac:InvoiceLine&#62;
+    &#60;cbc:ID&#62;2&#60;/cbc:ID&#62;
+    &#60;cbc:AccountingCost&#62;200:2&#60;/cbc:AccountingCost&#62;
+  &#60;/cac:InvoiceLine&#62;
+  &#60;cac:InvoiceLine&#62;
+    &#60;cbc:ID&#62;3&#60;/cbc:ID&#62;
+    &#60;cbc:AccountingCost&#62;300:3&#60;/cbc:AccountingCost&#62;
+  &#60;/cac:InvoiceLine&#62;
+&#60;/ubl:Invoice&#62;</code></pre>
+
+
+
+
+
+<p>Es gibt drei Element <code>cac:InvoiceLine</code>. Es handelt sich also um eine Liste.</p>
+
+<p>Die Transformierung nach JSON ist logisch:</p>
+
+
+
+
+<pre class="language-json line-numbers"><code>{
+  &#34;ubl:Invoice&#34;: {
+    &#34;cac:InvoiceLine&#34;: [
+      {
+        &#34;cbc:ID&#34;: &#34;1&#34;,
+        &#34;cbc:AccountingCost&#34;: &#34;100:1&#34;,
+      },
+      {
+        &#34;cbc:ID&#34;: &#34;2&#34;,
+        &#34;cbc:AccountingCost&#34;: &#34;200:3&#34;,
+      },
+      {
+        &#34;cbc:ID&#34;: &#34;3&#34;,
+        &#34;cbc:AccountingCost&#34;: &#34;300:3&#34;,
+      },
+    ]
+  }
+}</code></pre>
+
+
+
+
+
+<p>Weil <code>cac:InvoiceLine</code> ein Array ist (es hat eine Kardinalität von <code>1..n</code>), wird es auch in JSON als Array dargestellt. Und die Listenelemente sind einfach die Unterknoten von <code>cac:InvoiceLine</code>.</p>
+
+
+
+
+
+
+<div class="alert alert-info" role="alert">
+    <div>
+        <strong>
+            <i class="bi-info-circle"></i>
+            <span class="title">Listen mit nur einem Element</span>
+        </strong>
+    </div>
+    <p>
+
+Selbst wenn es nur ein einziges Listenelement gibt, muss dennoch ein JSON-Array verwendet werden. Einzelwerte werden nicht automatisch in Array konvertiert. Dies ist inbesonde dann wichtig, wenn es auf den ersten Blick überraschend ist, dass ein Feld ein Array ist. Das ist zum Beispiel bei der <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-TaxTotal/" target="_blank">Steuersummierung</a> einer Rechnung der Fall.
+
+</p>
+</div>
+
+
+
+
+
+
+
+<h3><a href="#" name="attribute-" id="attribute-"></a>Attribute</h3>
+
+<p>Einige Elemente haben Attribute:</p>
+
+
+
+
+<pre class="language-markup line-numbers"><code>&#60;ubl:Invoice&#62;
+  &#60;cac:LegalMonetaryTotal&#62;
+    &#60;cbc:PayableAmount currencyID=&#34;EUR&#34;&#62;23.04&#60;/cbc:PayableAmount&#62;
+  &#60;/cac:LegalMonetaryTotal&#62;
+&#60;/ubl:Invoice&#62;</code></pre>
+
+
+
+
+
+<p>JSON kennt keine Attribute. Stattdessen wird an den Namen des Elements ein Klammeraffer <code>@</code> und der Name des Attributs angehangen:</p>
+
+
+
+
+<pre class="language-json line-numbers"><code>{
+  &#34;ubl:Invoice&#34;: {
+    &#34;cac:LegalMonetaryTotal&#34;: {
+      &#34;cbc:PayableAmount&#34;: &#34;23.04&#34;
+      &#34;cbc:PayableAmount@currencyID&#34;: &#34;EUR&#34;
+    }
+  }
+}</code></pre>
+
+
+
+
+
+<h3><a href="#" name="nicht-string-werte" id="nicht-string-werte"></a>Nicht-String-Werte</h3>
+
+<p>Es ist wichtig, dass für alle Werte Strings verwendet werden <em>müssen</em>, selbst, wenn es sich um Zahlen handelt. Das lässt sich aus den obigen Beispielen ersehen.</p>
+
+<h2><a href="#" name="validierung" id="validierung"></a>Validierung</h2>
+
+<p>Es ist nicht wichtig, sich exakt an alle Details zu erinnern. Der Service steigt mit einer Fehlermeldung aus, wenn die Struktur der Eingabedaten nicht dem Schema entsprechen.</p>
+
+<h2><a href="#" name="json-schema" id="json-schema"></a>JSON-Schema</h2>
+
+<p>Wer mit <a href="https://json-schema.org/" target="_blank">JSON Schema</a> vertraut ist, kann auch auf die Schemadefinition zurückgreifen. Sie ist im <a href="https://github.com/gflohr/e-invoice-eu/blob/main/src/schema/invoice.schema.json" target="_blank">GitHub-Repository E-Invoice-EU</a> oder als REST-Endpunkt <a href="/e-invoice-eu/de/docs/service/andere-endpunkte/#rechnungsschema"><code>/api/schema/invoice</code></a> verügbar.</p>
+
+<h2><a href="#" name="unterschiede-zu-peppol-ubl" id="unterschiede-zu-peppol-ubl"></a>Unterschiede zu Peppol UBL</h2>
+
+<p>Die einzigen Unterschiede zu Peppol UBL sind zur Zeit, dass die Felder
+<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-CustomizationID/" target="_blank"><code>cbc:CustomizationID</code></a>
+und
+<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-ProfileID/" target="_blank"><code>cbc:ProfileID</code></a> optional sind. Der Grund dafür ist, dass sie aus dem Ausgabeformat geschlossen werden können. Sie müssen nur angegeben werden, wenn man die eingebauten Vorgabewerte für sie überschreiben will.</p>
+ 
+				 
+<div class="guided-tour container">
+	<div class="row">
+		<div class="col-5 text-left guided-tour-link">
+			
+			<a href="/e-invoice-eu/de/docs/service/api-dokumentation/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;API-Dokumentation</a>
+			
+		</div>
+		<div class="col-2 text-center guided-tour-link">
+			
+			<a href="/e-invoice-eu/de/docs/">Home</a>
+			
+		</div>
+		<div class="col-5 text-right guided-tour-link">
+			
+			<a href="/e-invoice-eu/de/docs/details/mapping/"
+				>Mapping&nbsp;<i
+					class="bi-arrow-right-circle"
+				></i></a>
+			
+		</div>
+	</div>
+</div>
+
+				
+			</div>
+			<div class="col-sm-3 offset-sm-1 sidebar">
+				 
+ 
+<div class="sidebar-module sidebar-general">
+	<ol>
+		<li>
+			<a class="github-button" href="https://github.com/gflohr/e-invoice-eu" data-icon="octicon-star" data-show-count="true" aria-label="Stars on GitHub" target="_blank">Stars</a>
+			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
+		</li>
+		<li>
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/de/docs/details/internes-format.md?plain=1" target="_blank">
+				<i class="bi-code-slash"></i>
+				Source code of this page
+			</a>
+		</li>
+		
+		<li>
+			<a href="/e-invoice-eu/en/docs/details/internal-format/">
+				<i class="bi-translate"></i>
+				Read this page in English
+			</a>
+		</li>
+		 
+	</ol>
+</div>
+   
+<h4>Grundlagen</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/grundlagen/funktionsweise/">Generelle Funktionsweise</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/">Unterstützte Formate</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/grundlagen/haftungsausschluss/">Hafuntsausschluss</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>E-Rechungs-Formate</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/">Hybrid vs. XML</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/factur-x-zugferd/">Factur-X/ZUGFeRD</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/">Erweiterungen</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Dienst (Service)</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/service/deployment/">Ausrollen (Deployment)</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/service/rechnungen-erzeugen/">Rechnungen erzeugen</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/service/andere-endpunkte/">Andere Endpunkte</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/service/api-dokumentation/">API-Dokumentation</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Details</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<i class="bi-arrow-right-circle"></i>&nbsp;Internes Format 
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/details/mapping/">Mapping</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/details/validierung/">Validierung</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Anderes</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/anderes/business-terms/">Business-Terms</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/anderes/business-groups/">Business-Gruppen</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/anderes/faq/">FAQ</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+
+			</div>
+		</div>
+	</div>
+
+	
+	<footer id="footer" class="bg-warning-opaque">
+		 
+<div class="container">
+	
+	<div class="row">
+		<div class="col-sm-8">
+			
+			<div class="col-12 col-md-6 footer-links text-md-center">
+				 Copyright &copy; 2016-2025 <a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a href="/e-invoice-eu/de/impressum/">
+					Impressum
+				</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a href="/e-invoice-eu/de/datenschutzerklaerung/">
+					Datenschutz
+				</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a
+					href="javascript:document.dispatchEvent(new Event('cookie_consent_show'))"
+				>
+					Cookie Settings
+				</a>
+			</div>
+			
+		</div>
+	</div>
+	
+</div>
+
+	</footer>
+	
+
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+	 <cookie-consent-banner
+	btn-label-accept-and-continue="Zustimmen und weiter"
+	btn-label-only-essential-and-continue="Weiter mit nur technisch notwendigen Cookies"
+	btn-label-persist-selection-and-continue="Auswahl speichern und weiter"
+	btn-label-select-all-and-continue="Alles auswählen und weiter"
+	content-settings-description="Mit den entsprechenden Optionen unterhalb können sie steuern, welche Cookies verwendet werden. Die Auswahl kann die Funktionalität des Dienstes beeinträchtigen."
+>
+	Diese Website verwendet Cookies und ähnliche Technologien, um gewisse
+	Funktionalität zu ermöglichen, die Benutzbarkeit zu erhöhen und Inhalt
+	entsprechend ihren Interessen zu liefern. Über die technisch notwendigen
+	Cookies hinaus können abhängig von ihrem Zweck Analyse- und Marketing-Cookies
+	zum Einsatz kommen. Sie können ihre Zustimmung zu den vorher erwähnten Cookies
+	erklären, indem sie auf "Zustimmen und weiter" klicken.
+	<a
+		href="javascript:document.dispatchEvent(new Event('cookie_consent_details_show'))"
+		class="consent-banner-link"
+		>Hier</a>
+	können sie Detaileinstellungen vornehmen oder ihre Zustimmung - auch teilweise
+	- mit Wirkung für die Zukunft zurücknehmen. Für weitere Informationen lesen
+	sie bitte unsere
+	<a href="/de/datenschutzerklaerung/" class="consent-banner-link"
+		>Datenschutzerklärung</a>.
+</cookie-consent-banner>
+
+<script>
+	const cookieConsentBannerElement = document.querySelector(
+		'cookie-consent-banner',
+	);
+	cookieConsentBannerElement.availableCategories = [
+		{
+			description:
+				'Lässt sie navigieren, Grundfunktionen benutzen und Einstellungen speichern.',
+			key: 'technically_required',
+			label: 'Technisch notwendigen Cookies',
+			isMandatory: true,
+		},
+		{
+			description:
+				'Ermöglicht dem Betreiber festzustellen, wie Besucherinnen und Besucher mit der Seite interagieren, damit wir die Benutzbarkeit der Seite verbessern können.',
+			key: 'analytics',
+			label: 'Analysis cookies',
+		},
+		/*
+		{
+			description:
+				"Enable us to offer and evaluate relevant content and interest-based advertising.",
+			key: "marketing",
+			label: "Marketing cookies",
+		},
+		*/
+	];
+</script>
+ 
+<script
+	type="module"
+	src="https://unpkg.com/@porscheofficial/cookie-consent-banner@3.1.3/dist/cookie-consent-banner/cookie-consent-banner.esm.js"
+></script>
+
+	<script>
+// 
+(function () {
+	document.querySelectorAll('.copy-to-clipboard-button').forEach(btn => {
+		btn.title = "Quelltext kopieren";
+	});
+})();
+</script>
+
+	
+
+  <script src="/e-invoice-eu/assets/bundle.min.js" type="text/javascript"></script>
+
+
+
+</body>
+ 
+</html>

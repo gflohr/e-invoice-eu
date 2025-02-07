@@ -19,7 +19,7 @@ on:
       version_tag:
         required: true
         type: string
-    
+
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
@@ -80,7 +80,8 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
         with:
-          context: .
+          context: ./apps/server
+          file: apps/server/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }},${{ env.IMAGE_NAME }}:${{ github.event.inputs.version_tag }}
           labels: ${{ steps.meta.outputs.labels }}

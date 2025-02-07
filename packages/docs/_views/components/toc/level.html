@@ -1,0 +1,10 @@
+<ul class="toclevel-[% depth %]">
+	[% FOREACH item IN items %]
+	<li class="toclevel-[% depth %]">
+		[% item.path.join('.') %]
+		<a href="#[% item.slug %]">[% item.text %]</a>
+		[% IF item.children %] [% INCLUDE components/toc/level.html items =
+		item.children depth = depth + 1 %] [% END %]
+	</li>
+	[% END %]
+</ul>

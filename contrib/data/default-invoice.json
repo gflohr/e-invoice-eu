@@ -1,8 +1,6 @@
 {
 	"ubl:Invoice": {
-		"cbc:CustomizationID": "urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0",
-		"cbc:ProfileID": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
-		"cbc:ID": 1234567890,
+		"cbc:ID": "1234567890",
 		"cbc:IssueDate": "2024-09-24",
 		"cbc:DueDate": "2024-10-08",
 		"cbc:InvoiceTypeCode": "380",
@@ -25,7 +23,7 @@
 				"cac:PostalAddress": {
 					"cbc:StreetName": "42 Milky Way",
 					"cbc:CityName": "Faraway",
-					"cbc:PostalZone": 1234,
+					"cbc:PostalZone": "1234",
 					"cac:Country": {
 						"cbc:IdentificationCode": "DE"
 					}
@@ -58,7 +56,7 @@
 				"cac:PostalAddress": {
 					"cbc:StreetName": "Globex Corp.",
 					"cbc:CityName": "Springfield",
-					"cbc:PostalZone": 80085,
+					"cbc:PostalZone": "80085",
 					"cac:Country": {
 						"cbc:IdentificationCode": "DE"
 					}
@@ -80,7 +78,7 @@
 				"cac:Address": {
 					"cbc:StreetName": "Globex Corp.",
 					"cbc:CityName": "Springfield",
-					"cbc:PostalZone": 80085,
+					"cbc:PostalZone": "80085",
 					"cac:Country": {
 						"cbc:IdentificationCode": "DE"
 					}
@@ -94,7 +92,7 @@
 		},
 		"cac:PaymentMeans": [
 			{
-				"cbc:PaymentMeansCode": 30,
+				"cbc:PaymentMeansCode": "30",
 				"cbc:PaymentMeansCode@name": "Bank Transfer",
 				"cbc:PaymentID": "Invoice No. 1234567890",
 				"cac:PayeeFinancialAccount": {
@@ -114,12 +112,11 @@
 				"cbc:ChargeIndicator": "true",
 				"cbc:AllowanceChargeReasonCode": "FC",
 				"cbc:AllowanceChargeReason": "Freight costs",
-				"cbc:Amount": 47.9,
+				"cbc:Amount": "47.9",
 				"cbc:Amount@currencyID": "EUR",
-				"cbc:BaseAmount@currencyID": "EUR",
 				"cac:TaxCategory": {
 					"cbc:ID": "K",
-					"cbc:Percent": 0,
+					"cbc:Percent": "0",
 					"cac:TaxScheme": {
 						"cbc:ID": "VAT"
 					}
@@ -127,16 +124,16 @@
 			},
 			{
 				"cbc:ChargeIndicator": "false",
-				"cbc:AllowanceChargeReasonCode": 95,
+				"cbc:AllowanceChargeReasonCode": "95",
 				"cbc:AllowanceChargeReason": "Discount",
-				"cbc:MultiplierFactorNumeric": 3,
-				"cbc:Amount": 767.93,
+				"cbc:MultiplierFactorNumeric": "3",
+				"cbc:Amount": "767.93",
 				"cbc:Amount@currencyID": "EUR",
-				"cbc:BaseAmount": 25597.74,
+				"cbc:BaseAmount": "25597.74",
 				"cbc:BaseAmount@currencyID": "EUR",
 				"cac:TaxCategory": {
 					"cbc:ID": "AE",
-					"cbc:Percent": 0,
+					"cbc:Percent": "0",
 					"cac:TaxScheme": {
 						"cbc:ID": "VAT"
 					}
@@ -145,43 +142,43 @@
 		],
 		"cac:TaxTotal": [
 			{
-				"cbc:TaxAmount": 42.28,
+				"cbc:TaxAmount": "42.28",
 				"cbc:TaxAmount@currencyID": "EUR",
 				"cac:TaxSubtotal": [
 					{
-						"cbc:TaxableAmount": 15.24,
+						"cbc:TaxableAmount": "15.24",
 						"cbc:TaxableAmount@currencyID": "EUR",
-						"cbc:TaxAmount": 2.9,
+						"cbc:TaxAmount": "2.9",
 						"cbc:TaxAmount@currencyID": "EUR",
 						"cac:TaxCategory": {
 							"cbc:ID": "S",
-							"cbc:Percent": 19,
+							"cbc:Percent": "19",
 							"cac:TaxScheme": {
 								"cbc:ID": "VAT"
 							}
 						}
 					},
 					{
-						"cbc:TaxableAmount": 562.5,
+						"cbc:TaxableAmount": "562.5",
 						"cbc:TaxableAmount@currencyID": "EUR",
-						"cbc:TaxAmount": 39.38,
+						"cbc:TaxAmount": "39.38",
 						"cbc:TaxAmount@currencyID": "EUR",
 						"cac:TaxCategory": {
 							"cbc:ID": "S",
-							"cbc:Percent": 7,
+							"cbc:Percent": "7",
 							"cac:TaxScheme": {
 								"cbc:ID": "VAT"
 							}
 						}
 					},
 					{
-						"cbc:TaxableAmount": 18792.07,
+						"cbc:TaxableAmount": "18792.07",
 						"cbc:TaxableAmount@currencyID": "EUR",
-						"cbc:TaxAmount": 0,
+						"cbc:TaxAmount": "0",
 						"cbc:TaxAmount@currencyID": "EUR",
 						"cac:TaxCategory": {
 							"cbc:ID": "AE",
-							"cbc:Percent": 0,
+							"cbc:Percent": "0",
 							"cbc:TaxExemptionReasonCode": "VATEX-EU-AE",
 							"cac:TaxScheme": {
 								"cbc:ID": "VAT"
@@ -189,26 +186,26 @@
 						}
 					},
 					{
-						"cbc:TaxableAmount": 3315,
+						"cbc:TaxableAmount": "3315",
 						"cbc:TaxableAmount@currencyID": "EUR",
-						"cbc:TaxAmount": 0,
+						"cbc:TaxAmount": "0",
 						"cbc:TaxAmount@currencyID": "EUR",
 						"cac:TaxCategory": {
 							"cbc:ID": "Z",
-							"cbc:Percent": 0,
+							"cbc:Percent": "0",
 							"cac:TaxScheme": {
 								"cbc:ID": "VAT"
 							}
 						}
 					},
 					{
-						"cbc:TaxableAmount": 2192.9,
+						"cbc:TaxableAmount": "2192.9",
 						"cbc:TaxableAmount@currencyID": "EUR",
-						"cbc:TaxAmount": 0,
+						"cbc:TaxAmount": "0",
 						"cbc:TaxAmount@currencyID": "EUR",
 						"cac:TaxCategory": {
 							"cbc:ID": "K",
-							"cbc:Percent": 0,
+							"cbc:Percent": "0",
 							"cbc:TaxExemptionReasonCode": "VATEX-EU-IC",
 							"cac:TaxScheme": {
 								"cbc:ID": "VAT"
@@ -219,146 +216,148 @@
 			}
 		],
 		"cac:LegalMonetaryTotal": {
-			"cbc:LineExtensionAmount": 25597.74,
+			"cbc:LineExtensionAmount": "25597.74",
 			"cbc:LineExtensionAmount@currencyID": "EUR",
-			"cbc:TaxExclusiveAmount": 24877.71,
+			"cbc:TaxExclusiveAmount": "24877.71",
 			"cbc:TaxExclusiveAmount@currencyID": "EUR",
-			"cbc:TaxInclusiveAmount": 24919.99,
+			"cbc:TaxInclusiveAmount": "24919.99",
 			"cbc:TaxInclusiveAmount@currencyID": "EUR",
-			"cbc:AllowanceTotalAmount": 767.93,
+			"cbc:AllowanceTotalAmount": "767.93",
 			"cbc:AllowanceTotalAmount@currencyID": "EUR",
-			"cbc:ChargeTotalAmount": 47.9,
+			"cbc:ChargeTotalAmount": "47.9",
 			"cbc:ChargeTotalAmount@currencyID": "EUR",
-			"cbc:PayableAmount": 24919.99,
+			"cbc:PayableAmount": "24919.99",
 			"cbc:PayableAmount@currencyID": "EUR"
 		},
 		"cac:InvoiceLine": [
 			{
-				"cbc:ID": 1,
-				"cbc:InvoicedQuantity": 120,
+				"cbc:ID": "1",
+				"cbc:InvoicedQuantity": "120",
 				"cbc:InvoicedQuantity@unitCode": "HUR",
-				"cbc:LineExtensionAmount": 10200,
+				"cbc:LineExtensionAmount": "10200",
 				"cbc:LineExtensionAmount@currencyID": "EUR",
 				"cac:Item": {
 					"cbc:Name": "Design",
 					"cac:ClassifiedTaxCategory": {
 						"cbc:ID": "AE",
-						"cbc:Percent": 0,
+						"cbc:Percent": "0",
 						"cac:TaxScheme": {
 							"cbc:ID": "VAT"
 						}
 					}
 				},
 				"cac:Price": {
-					"cbc:PriceAmount": 85,
+					"cbc:PriceAmount": "85",
 					"cbc:PriceAmount@currencyID": "EUR"
 				}
 			},
 			{
-				"cbc:ID": 2,
-				"cbc:InvoicedQuantity": 2,
+				"cbc:ID": "2",
+				"cbc:InvoicedQuantity": "2",
 				"cbc:InvoicedQuantity@unitCode": "H87",
-				"cbc:LineExtensionAmount": 15.24,
+				"cbc:LineExtensionAmount": "15.24",
 				"cbc:LineExtensionAmount@currencyID": "EUR",
 				"cac:Item": {
 					"cbc:Name": "Printer paper 500 sheets",
 					"cac:ClassifiedTaxCategory": {
 						"cbc:ID": "S",
-						"cbc:Percent": 19,
+						"cbc:Percent": "19",
 						"cac:TaxScheme": {
 							"cbc:ID": "VAT"
 						}
 					}
 				},
 				"cac:Price": {
-					"cbc:PriceAmount": 7.62,
+					"cbc:PriceAmount": "7.62",
 					"cbc:PriceAmount@currencyID": "EUR"
 				}
 			},
 			{
-				"cbc:ID": 3,
-				"cbc:InvoicedQuantity": 3,
+				"cbc:ID": "3",
+				"cbc:InvoicedQuantity": "3",
 				"cbc:InvoicedQuantity@unitCode": "DAY",
-				"cbc:LineExtensionAmount": 562.5,
+				"cbc:LineExtensionAmount": "562.5",
 				"cbc:LineExtensionAmount@currencyID": "EUR",
 				"cac:Item": {
 					"cbc:Name": "Hotel room",
 					"cac:ClassifiedTaxCategory": {
 						"cbc:ID": "S",
-						"cbc:Percent": 7,
+						"cbc:Percent": "7",
 						"cac:TaxScheme": {
 							"cbc:ID": "VAT"
 						}
 					}
 				},
 				"cac:Price": {
-					"cbc:PriceAmount": 187.5,
+					"cbc:PriceAmount": "187.5",
 					"cbc:PriceAmount@currencyID": "EUR"
 				}
 			},
 			{
-				"cbc:ID": 4,
-				"cbc:InvoicedQuantity": 17,
+				"cbc:ID": "4",
+				"cbc:InvoicedQuantity": "17",
 				"cbc:InvoicedQuantity@unitCode": "HUR",
-				"cbc:LineExtensionAmount": 3315,
+				"cbc:LineExtensionAmount": "3315",
 				"cbc:LineExtensionAmount@currencyID": "EUR",
 				"cac:Item": {
 					"cbc:Name": "Setup static site generator",
 					"cac:ClassifiedTaxCategory": {
 						"cbc:ID": "Z",
-						"cbc:Percent": 0,
+						"cbc:Percent": "0",
 						"cac:TaxScheme": {
 							"cbc:ID": "VAT"
 						}
 					}
 				},
 				"cac:Price": {
-					"cbc:PriceAmount": 195,
+					"cbc:PriceAmount": "195",
 					"cbc:PriceAmount@currencyID": "EUR"
 				}
 			},
 			{
-				"cbc:ID": 5,
-				"cbc:InvoicedQuantity": 48,
+				"cbc:ID": "5",
+				"cbc:InvoicedQuantity": "48",
 				"cbc:InvoicedQuantity@unitCode": "HUR",
-				"cbc:LineExtensionAmount": 9360,
+				"cbc:LineExtensionAmount": "9360",
 				"cbc:LineExtensionAmount@currencyID": "EUR",
 				"cac:Item": {
 					"cbc:Name": "Template programming",
 					"cac:ClassifiedTaxCategory": {
 						"cbc:ID": "AE",
-						"cbc:Percent": 0,
+						"cbc:Percent": "0",
 						"cac:TaxScheme": {
 							"cbc:ID": "VAT"
 						}
 					}
 				},
 				"cac:Price": {
-					"cbc:PriceAmount": 195,
+					"cbc:PriceAmount": "195",
 					"cbc:PriceAmount@currencyID": "EUR"
 				}
 			},
 			{
-				"cbc:ID": 6,
-				"cbc:InvoicedQuantity": 11,
+				"cbc:ID": "6",
+				"cbc:InvoicedQuantity": "11",
 				"cbc:InvoicedQuantity@unitCode": "HUR",
-				"cbc:LineExtensionAmount": 2145,
+				"cbc:LineExtensionAmount": "2145",
 				"cbc:LineExtensionAmount@currencyID": "EUR",
 				"cac:Item": {
 					"cbc:Name": "Penetration test",
 					"cac:ClassifiedTaxCategory": {
 						"cbc:ID": "K",
-						"cbc:Percent": 0,
+						"cbc:Percent": "0",
 						"cac:TaxScheme": {
 							"cbc:ID": "VAT"
 						}
 					}
 				},
 				"cac:Price": {
-					"cbc:PriceAmount": 195,
+					"cbc:PriceAmount": "195",
 					"cbc:PriceAmount@currencyID": "EUR"
 				}
 			}
-		]
+		],
+		"cbc:CustomizationID": "urn:cen.eu:en16931:2017",
+		"cbc:ProfileID": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0"
 	}
 }

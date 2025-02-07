@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="utf-8" />
+<meta http-equiv="X-UA-compatible" content="IE=edge" />
+  <link
+	rel="alternate"
+	hreflang="de"
+	href="/e-invoice-eu/de/docs/service/deployment/"
+/> 
+<meta name="description" content="You can deploy the service either as a container or run it locally in production or development mode." />
+<title>Deployment</title>
+<link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
+<link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
+<link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/service/deployment/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/service/deployment/" />
+ <meta property="og:type" content="article" />
+<meta property="og:title" content="Deployment" />
+<meta property="og:description" content="You can deploy the service either as a container or run it locally in production or development mode." />
+
+
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no"
+	/>
+
+	
+
+  <link href="/e-invoice-eu/assets/bundle.min.css" rel="stylesheet">
+
+
+
+  <meta name="generator" content="Qgoda vv0.10.1 (https://www.qgoda.net/)" />
+</head>
+  
+
+
+
+<body>
+	
+
+<nav class="navbar navbar-expand-md navbar-dark bg-warning">
+	<button
+		class="navbar-toggler"
+		type="button"
+		data-toggle="collapse"
+		data-target="#navbarCollapse"
+		aria-controls="navbarCollapse"
+		aria-expanded="false"
+		aria-label="Toggle navigation"
+	>
+		&#9776;
+	</button>
+	<div class="qgoda-brand">
+		<a
+			class="navbar-brand"
+			href="/e-invoice-eu/en/docs/"
+			title="E-Invoice-EU Documentation"
+		>
+			<img src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"=
+				alt="E-Invoice-EU logo" height="80" />
+		</a>
+	</div>
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="d-md-none nav-item">
+				<a
+					class="nav-link"
+					href="/e-invoice-eu/en/docs/"
+					title="E-Invoice-EU Documentation"
+				>
+					<i class="bi-house"></i>&nbsp;Home
+				</a>
+			</li>
+			<li class="nav-item">
+				<a
+					class="nav-link"
+					href="/e-invoice-eu/en/docs/"
+					title="E-Invoice-EU Documentation"
+				>
+					<i class="bi-book"></i>&nbsp;Docs
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/gflohr/e-invoice-eu/releases" title="E-Invoice-EU Releases" target="_blank">
+					<i class="bi-download"></i>&nbsp;Download
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/gflohr/e-invoice-eu" title="E-Invoice-EU on GitHub" target="_blank">
+					<i class="bi-github"></i>&nbsp;Github
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 content">
+				<div class="content-head">
+					<h1>Deployment</h1>
+					
+					<div class="description">You can deploy the service either as a container or run it locally in production or development mode.</div>
+				</div>
+				<qgoda-content> 
+
+
+
+
+
+
+
+<p>The E-Invoice-EU service can be used in one of several ways:</p>
+
+<ul>
+<li>Run as a (docker) container.</li>
+<li>Build and run it in production mode.</li>
+<li>Run it locally in development mode.</li>
+</ul>
+
+
+<p> 
+<div class="toc">
+	<div class="toc-title">Table Of Contents</div>
+	<ul class="toclevel-1">
+	
+	<li class="toclevel-1">
+		1
+		<a href="#docker-container">Docker Container</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		2
+		<a href="#download">Download</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		3
+		<a href="#deploy-in-production-mode">Deploy in Production Mode</a>
+		 <ul class="toclevel-2">
+	
+	<li class="toclevel-2">
+		3.1
+		<a href="#run-with-node.js">Run with Node.js</a>
+		
+	</li>
+	
+	<li class="toclevel-2">
+		3.2
+		<a href="#run-with-bun-or-deno">Run with Bun or Deno</a>
+		
+	</li>
+	
+</ul>
+ 
+	</li>
+	
+	<li class="toclevel-1">
+		4
+		<a href="#run-in-development-mode">Run in Development Mode</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		5
+		<a href="#environment-variables">Environment Variables</a>
+		 <ul class="toclevel-2">
+	
+	<li class="toclevel-2">
+		5.1
+		<a href="#node_env-code"><code>NODE_ENV</code></a>
+		
+	</li>
+	
+	<li class="toclevel-2">
+		5.2
+		<a href="#port-code"><code>PORT</code></a>
+		
+	</li>
+	
+	<li class="toclevel-2">
+		5.3
+		<a href="#libre_office-code"><code>LIBRE_OFFICE</code></a>
+		
+	</li>
+	
+	<li class="toclevel-2">
+		5.4
+		<a href="#libreoffice-code"><code>LIBREOFFICE</code></a>
+		
+	</li>
+	
+</ul>
+ 
+	</li>
+	
+</ul>
+
+</div>
+
+</p>
+
+<h2><a href="#" name="docker-container" id="docker-container"></a>Docker Container</h2>
+
+<p>By far, the easiest way to run the E-Invoice-EU service is to run the
+containerized version.</p>
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-18feb22f68ac392e3a86b06c0e96a20922850fc5' id='code-tab-4f32ae1da2655989166fa020249ee33e8a3e44d5' checked>
+        <label data-title='docker' for='code-tab-4f32ae1da2655989166fa020249ee33e8a3e44d5'>docker</label>
+        <input type='radio' name='group-18feb22f68ac392e3a86b06c0e96a20922850fc5' id='code-tab-69c50aa1f342e2f78fe42a6aa908be075ff0da6c'>
+        <label data-title='nerdctl' for='code-tab-69c50aa1f342e2f78fe42a6aa908be075ff0da6c'>nerdctl</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-4f32ae1da2655989166fa020249ee33e8a3e44d5' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>docker pull gflohr/e-invoice-eu:latest
+docker run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest</code></pre> 
+</code-block>
+            <code-block id='code-block-69c50aa1f342e2f78fe42a6aa908be075ff0da6c'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>nerdctl pull gflohr/e-invoice-eu:latest
+nerdctl run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest</code></pre> 
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
+
+
+<h2><a href="#" name="download" id="download"></a>Download</h2>
+
+<p>All other possibilities require a local copy of the sources.</p>
+
+<p>You can download the latest stable version from the <a href="https://github.com/gflohr/e-invoice-eu/releases" target="_blank">download
+page</a> and then unzip the
+ZIP archive or untar the tarball.</p>
+
+<p>If you have <code>git</code>, you can also clone the repository:</p>
+
+
+
+
+<pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code># HTTPS
+git clone https://github.com/gflohr/e-invoice-eu.git
+
+# SSH
+git clone git@github.com:gflohr/e-invoice-eu.git</code></pre>
+
+
+<p></p>
+
+
+
+
+<p>The version you will get by cloning the repository is potentially a little bit
+more up-to-date.</p>
+
+<h2><a href="#" name="deploy-in-production-mode" id="deploy-in-production-mode"></a>Deploy in Production Mode</h2>
+
+<p>You can also build the server and then run it anywhere you like. After
+cloning the repository and changing into its root directory, execute the
+following commands:</p>
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-c67c5a86f3c6b2389e6e1b2f9a4b2c58b418c40b' id='code-tab-4532c1ff585c61fc0e88e3bd17be1159762c4236' checked>
+        <label data-title='npm' for='code-tab-4532c1ff585c61fc0e88e3bd17be1159762c4236'>npm</label>
+        <input type='radio' name='group-c67c5a86f3c6b2389e6e1b2f9a4b2c58b418c40b' id='code-tab-8d69352251d4ff1b38456feb04554161fff12663'>
+        <label data-title='yarn' for='code-tab-8d69352251d4ff1b38456feb04554161fff12663'>yarn</label>
+        <input type='radio' name='group-c67c5a86f3c6b2389e6e1b2f9a4b2c58b418c40b' id='code-tab-86fe1d27f4ff178f13b1b9b88b35a5ffe613f5e5'>
+        <label data-title='pnpm' for='code-tab-86fe1d27f4ff178f13b1b9b88b35a5ffe613f5e5'>pnpm</label>
+        <input type='radio' name='group-c67c5a86f3c6b2389e6e1b2f9a4b2c58b418c40b' id='code-tab-8a75c1392e9e02a7a2b36d2fea26cf890c4b2e62'>
+        <label data-title='bun' for='code-tab-8a75c1392e9e02a7a2b36d2fea26cf890c4b2e62'>bun</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-4532c1ff585c61fc0e88e3bd17be1159762c4236' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>npm install
+npm run build</code></pre>
+
+</code-block>
+            <code-block id='code-block-8d69352251d4ff1b38456feb04554161fff12663'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>yarn install
+yarn run build</code></pre>
+
+</code-block>
+            <code-block id='code-block-86fe1d27f4ff178f13b1b9b88b35a5ffe613f5e5'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>pnpm install
+pnpm run build</code></pre> 
+
+</code-block>
+            <code-block id='code-block-8a75c1392e9e02a7a2b36d2fea26cf890c4b2e62'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>bun install
+bun run build</code></pre> 
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
+
+
+<h3><a href="#" name="run-with-node.js" id="run-with-node.js"></a>Run with Node.js</h3>
+
+<p>You can then run the application with Node.js like this:</p>
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-9e9b8903164ae51c5683b43dce9b0601fda18e23' id='code-tab-977cd3265a7fa3aeae0e14cfe4d0fd4c3dc1dadc' checked>
+        <label data-title='npm' for='code-tab-977cd3265a7fa3aeae0e14cfe4d0fd4c3dc1dadc'>npm</label>
+        <input type='radio' name='group-9e9b8903164ae51c5683b43dce9b0601fda18e23' id='code-tab-b3236ae7fac40f2944d616b1ce5b1b06e11c8bbb'>
+        <label data-title='yarn' for='code-tab-b3236ae7fac40f2944d616b1ce5b1b06e11c8bbb'>yarn</label>
+        <input type='radio' name='group-9e9b8903164ae51c5683b43dce9b0601fda18e23' id='code-tab-6e0b896e5e0f66d04226fe0b0700cb3dbd0f36b9'>
+        <label data-title='pnpm' for='code-tab-6e0b896e5e0f66d04226fe0b0700cb3dbd0f36b9'>pnpm</label>
+        <input type='radio' name='group-9e9b8903164ae51c5683b43dce9b0601fda18e23' id='code-tab-327caa2c707243bef2dc61f4f638a3f2ccfb32fe'>
+        <label data-title='bun' for='code-tab-327caa2c707243bef2dc61f4f638a3f2ccfb32fe'>bun</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-977cd3265a7fa3aeae0e14cfe4d0fd4c3dc1dadc' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production npm run start:prod</code></pre>
+
+</code-block>
+            <code-block id='code-block-b3236ae7fac40f2944d616b1ce5b1b06e11c8bbb'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production yarn run start:prod</code></pre>
+
+</code-block>
+            <code-block id='code-block-6e0b896e5e0f66d04226fe0b0700cb3dbd0f36b9'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production pnpm run start:prod</code></pre>
+
+</code-block>
+            <code-block id='code-block-327caa2c707243bef2dc61f4f638a3f2ccfb32fe'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production pnpm run start:prod</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
+
+
+<p>See the <a href="https://docs.nestjs.com/deployment" target="_blank">NestJS documentation for deployment</a>
+for more information.</p>
+
+<h3><a href="#" name="run-with-bun-or-deno" id="run-with-bun-or-deno"></a>Run with Bun or Deno</h3>
+
+<p>You can also run the application with <a href="https://bun.sh/" target="_blank"><code>bun</code></a> or
+<a href="https://deno.com/" target="_blank"><code>deno</code></a>. But you then have to specify the
+complete path to the main JavaScript file:</p>
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-23ead06a8b3c23b4dd00acd9bd88ca5671bc131c' id='code-tab-0405101cb4119a400d8f1c6fa486bf11cdc1fd47' checked>
+        <label data-title='bun' for='code-tab-0405101cb4119a400d8f1c6fa486bf11cdc1fd47'>bun</label>
+        <input type='radio' name='group-23ead06a8b3c23b4dd00acd9bd88ca5671bc131c' id='code-tab-d65202cf13a6acea348e60ad3cec8e2710dd1b3a'>
+        <label data-title='deno' for='code-tab-d65202cf13a6acea348e60ad3cec8e2710dd1b3a'>deno</label>
+        <input type='radio' name='group-23ead06a8b3c23b4dd00acd9bd88ca5671bc131c' id='code-tab-ea43755b70c575f71d4d05a7de91d32db5ef9a8a'>
+        <label data-title='node' for='code-tab-ea43755b70c575f71d4d05a7de91d32db5ef9a8a'>node</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-0405101cb4119a400d8f1c6fa486bf11cdc1fd47' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production bun apps/server/dist/main.js</code></pre>
+
+</code-block>
+            <code-block id='code-block-d65202cf13a6acea348e60ad3cec8e2710dd1b3a'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production deno --allow-env --allow-read --allow-net apps/server/dist/main.js</code></pre>
+
+</code-block>
+            <code-block id='code-block-ea43755b70c575f71d4d05a7de91d32db5ef9a8a'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>NODE_ENV=production node apps/server/dist/main.js</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
+
+
+<h2><a href="#" name="run-in-development-mode" id="run-in-development-mode"></a>Run in Development Mode</h2>
+
+<p>You can also run the application without building it first.</p>
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-2553c678d3d9b388bad11fbc79af272baf2de0d6' id='code-tab-fbb3b955f31b963a667877f7f042d438ac4815d2' checked>
+        <label data-title='npm' for='code-tab-fbb3b955f31b963a667877f7f042d438ac4815d2'>npm</label>
+        <input type='radio' name='group-2553c678d3d9b388bad11fbc79af272baf2de0d6' id='code-tab-5e7e887584e42172be241240a6de2bc4b93b85b0'>
+        <label data-title='yarn' for='code-tab-5e7e887584e42172be241240a6de2bc4b93b85b0'>yarn</label>
+        <input type='radio' name='group-2553c678d3d9b388bad11fbc79af272baf2de0d6' id='code-tab-27925d06f27ffea4823c8e84d461a924c26b611c'>
+        <label data-title='pnpm' for='code-tab-27925d06f27ffea4823c8e84d461a924c26b611c'>pnpm</label>
+        <input type='radio' name='group-2553c678d3d9b388bad11fbc79af272baf2de0d6' id='code-tab-db9efd2dff97b8b469c5b4b3f0fdd824d5559f6e'>
+        <label data-title='bun' for='code-tab-db9efd2dff97b8b469c5b4b3f0fdd824d5559f6e'>bun</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-fbb3b955f31b963a667877f7f042d438ac4815d2' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+npm install
+npm run start:dev</code></pre>
+
+</code-block>
+            <code-block id='code-block-5e7e887584e42172be241240a6de2bc4b93b85b0'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+yarn install
+yarn run start:dev</code></pre>
+
+</code-block>
+            <code-block id='code-block-27925d06f27ffea4823c8e84d461a924c26b611c'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+pnpm install
+pnpm run start:dev</code></pre> 
+
+</code-block>
+            <code-block id='code-block-db9efd2dff97b8b469c5b4b3f0fdd824d5559f6e'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+bun install
+bun run start:dev</code></pre> 
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
+
+
+<p>This will automatically re-compile the source code and re-start the server,
+whenever you make changes to the code.</p>
+
+<h2><a href="#" name="environment-variables" id="environment-variables"></a>Environment Variables</h2>
+
+<p>The service is configured with environment variables.</p>
+
+<p>You can either pass these environment variables on the commandline or place
+a file called <code>.env</code> in the directory, where you start the service.  This
+file has lines of the form <code>VARIABLE=VALUE</code>, see the <a href="https://www.npmjs.com/package/dotenv#%EF%B8%8F-usage" target="_blank">dotenv
+docs</a> for more
+information.</p>
+
+<p>The following environment variables are supported:</p>
+
+
+
+
+<h3><a href="#" name="node_env-code" id="node_env-code"></a><code>NODE_ENV</code></h3>
+
+
+
+
+<p>To quote the NestJS documentation:</p>
+
+<blockquote><p>While there's technically no difference between development and production in Node.js and NestJS, it's a good practice to set the NODE_ENV environment variable to production when running your application in a production environment, as some libraries in the ecosystem may behave differently based on this variable (e.g., enabling or disabling debugging output, etc.).</p></blockquote>
+
+<p>In brief: Set the environment variable to "production", when running the
+service in production mode.</p>
+
+
+
+
+<h3><a href="#" name="port-code" id="port-code"></a><code>PORT</code></h3>
+
+
+
+
+<p>Set this to a valid port number if you are not happy with the default port of
+3000.</p>
+
+<p>Note: This has currently no effect, when running the service in a container,
+see <a href="https://github.com/gflohr/e-invoice-eu/issues/76" target="_blank">https://github.com/gflohr/e-invoice-eu/issues/76</a>.</p>
+
+
+
+
+<h3><a href="#" name="libre_office-code" id="libre_office-code"></a><code>LIBRE_OFFICE</code></h3>
+
+
+
+
+<p>Path to <a href="https://www.libreoffice.org/" target="_blank">LibreOffice</a>. E-Invoice-EU uses
+LibreOffice in headless mode to generate PDFs from spreadsheet files. It
+depends on your usage whether you need that or not.</p>
+
+<p>On macOS, LibreOffice is usually installed as:</p>
+
+
+
+
+<pre><code>/Applications/LibreOffice.app/Contents/MacOS/soffice
+</code></pre>
+
+
+
+
+<p>On Windows, the path is:</p>
+
+
+
+
+<pre><code>C:\Program Files\LibreOffice\program\soffice.exe
+</code></pre>
+
+
+
+
+<p>If the location of the LibreOffice executable is not configured, it is searched
+in <code>$PATH</code>.</p>
+
+
+
+
+<h3><a href="#" name="libreoffice-code" id="libreoffice-code"></a><code>LIBREOFFICE</code></h3>
+
+
+
+
+<p>An alias for the environment variable <a href="#libre_office-code"><code>LIBRE_OFFICE</code></a>.</p>
+ 
+				 
+<div class="guided-tour container">
+	<div class="row">
+		<div class="col-5 text-left guided-tour-link">
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/country-specific-extensions/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;Extensions</a>
+			
+		</div>
+		<div class="col-2 text-center guided-tour-link">
+			
+			<a href="/e-invoice-eu/en/docs/">Home</a>
+			
+		</div>
+		<div class="col-5 text-right guided-tour-link">
+			
+			<a href="/e-invoice-eu/en/docs/service/creating-invoices/"
+				>Creating Invoices&nbsp;<i
+					class="bi-arrow-right-circle"
+				></i></a>
+			
+		</div>
+	</div>
+</div>
+
+				
+			</div>
+			<div class="col-sm-3 offset-sm-1 sidebar">
+				 
+ 
+<div class="sidebar-module sidebar-general">
+	<ol>
+		<li>
+			<a class="github-button" href="https://github.com/gflohr/e-invoice-eu" data-icon="octicon-star" data-show-count="true" aria-label="Stars on GitHub" target="_blank">Stars</a>
+			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
+		</li>
+		<li>
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/en/docs/service/deployment.md?plain=1" target="_blank">
+				<i class="bi-code-slash"></i>
+				Source code of this page
+			</a>
+		</li>
+		 
+		<li>
+			<a href="/e-invoice-eu/de/docs/service/deployment/">
+				<i class="bi-translate"></i>
+				Diese Seite auf Deutsch lesen
+			</a>
+		</li>
+		
+	</ol>
+</div>
+   
+<h4>Basics</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/basics/general-mode-of-operation/">General Mode of Operation</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/basics/supported-formats/">Supported Formats</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/basics/disclaimer/">Disclaimer</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>E-invoice Formats</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/hybrid-vs-xml/">Hybrid vs XML</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/ubl/">UBL</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/cii/">CII</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/factur-x-zugferd/">Factur-X/ZUGFeRD</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/country-specific-extensions/">Extensions</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Service</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<i class="bi-arrow-right-circle"></i>&nbsp;Deployment 
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/service/creating-invoices/">Creating Invoices</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/service/other-endpoints/">Other Endpoints</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/service/api-documentation/">API Documentation</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Details</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/details/internal-format/">Internal Format</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/details/mapping/">Mapping</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/details/validation/">Validation</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Other</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/other/business-terms/">Business Terms</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/other/business-groups/">Business Groups</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/other/faq/">FAQ</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+
+			</div>
+		</div>
+	</div>
+
+	
+	<footer id="footer" class="bg-warning-opaque">
+		 
+<div class="container">
+	
+	<div class="row">
+		<div class="col-sm-8">
+			
+			<div class="col-12 col-md-6 footer-links text-md-center">
+				 Copyright &copy; 2016-2025 <a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a href="/e-invoice-eu/en/legal-disclosure/">
+					Legal Disclosure
+				</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a href="/e-invoice-eu/en/data-privacy-policy/">
+					Data Privacy
+				</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a
+					href="javascript:document.dispatchEvent(new Event('cookie_consent_show'))"
+				>
+					Cookie Settings
+				</a>
+			</div>
+			
+		</div>
+	</div>
+	
+</div>
+
+	</footer>
+	
+
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+	 <cookie-consent-banner
+	btn-label-accept-and-continue="Agree and continue"
+	btn-label-only-essential-and-continue="Continue with technically required cookies only"
+	btn-label-persist-selection-and-continue="Save selection and continue"
+	btn-label-select-all-and-continue="Select all and continue"
+	content-settings-description="You can decide which cookies are used by selecting the respective options below. Please note that your selection may impair in the functionality of the service."
+>
+	This website uses cookies and similar technologies to provide certain
+	features, enhance the user experience and deliver content that is relevant to
+	your interests. Depending on their purpose, analysis and marketing cookies may
+	be used in addition to technically necessary cookies. By clicking on "Agree
+	and continue", you declare your consent to the use of the aforementioned
+	cookies.
+	<a
+		href="javascript:document.dispatchEvent(new Event('cookie_consent_details_show'))"
+		class="consent-banner-link"
+	>
+		Here
+	</a>
+	you can make detailed settings or revoke your consent (in part if necessary)
+	with effect for the future. For further information, please refer to our
+	<a href="/en/data-privacy/" class="consent-banner-link">Privacy Policy</a>.
+</cookie-consent-banner>
+
+<script>
+	const cookieConsentBannerElement = document.querySelector(
+		'cookie-consent-banner',
+	);
+	cookieConsentBannerElement.availableCategories = [
+		{
+			description:
+				'Enable you to navigate and use the basic functions and to store preferences.',
+			key: 'technically_required',
+			label: 'Technically necessary cookies',
+			isMandatory: true,
+		},
+		{
+			description:
+				'Enable the site owner to determine how visitors interact with our service in order to improve the user experience.',
+			key: 'analytics',
+			label: 'Analysis cookies',
+		},
+		/*
+		{
+			description:
+				"Enable us to offer and evaluate relevant content and interest-based advertising.",
+			key: "marketing",
+			label: "Marketing cookies",
+		},
+		*/
+	];
+</script>
+ 
+<script
+	type="module"
+	src="https://unpkg.com/@porscheofficial/cookie-consent-banner@3.1.3/dist/cookie-consent-banner/cookie-consent-banner.esm.js"
+></script>
+
+	<script>
+// 
+(function () {
+	document.querySelectorAll('.copy-to-clipboard-button').forEach(btn => {
+		btn.title = "Copy code";
+	});
+})();
+</script>
+
+	
+
+  <script src="/e-invoice-eu/assets/bundle.min.js" type="text/javascript"></script>
+
+
+
+</body>
+ 
+</html>

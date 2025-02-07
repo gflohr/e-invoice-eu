@@ -1,0 +1,8 @@
+[% USE gtx = Gettext(config.po.textdomain, asset.lingua) %] [% USE q = Qgoda %]
+[% INCLUDE "partials/body/sidebar-top.html" %] [% IF asset.type == 'doc' %] [%
+FOREACH section IN asset.nav.sections %] [% IF section.order %]
+<h4>[% section.title %]</h4>
+[% ELSE %]
+<h4 style="color: red">[% section.title %]</h4>
+[% END %] [% INCLUDE "partials/body/sidebar-module.html" docs = section.docs %]
+[% END %] [% END %]

@@ -1,0 +1,26 @@
+[% USE q = Qgoda %] [% USE gtx = Gettext('net.qgoda.www', asset.lingua) %] [%
+posts = q.llistPosts().nsortBy('date.epoch').reverse %] [% FOREACH post IN posts
+%]
+<div class="teaser">
+	<h2>
+		<a href="[% post.permalink %]" class="teaser-link"> [% post.title %] </a>
+	</h2>
+
+	<div class="teaser-date">
+		<a href="[% post.permalink %]" class="teaser-link">
+			<!--TRANSLATORS: See "man strftime" for the meaning!-->
+			<i class="bi-clock"></i>&nbsp;[% q.strftime(gtx.gettext('%B, %e %Y'),
+			post.date, asset.lingua) %] [% IF post.type == 'post' %] - [% asset.author
+			| html %] [% END %]
+		</a>
+	</div>
+
+	<p>
+		<a href="[% post.permalink %]" class="teaser-link"> [% post.excerpt %] </a>
+	</p>
+
+	<a href="[% post.permalink %]" class="btn btn-warning"
+		>[% gtx.gettext('Read More') %]</a
+	>
+</div>
+[% END %]

@@ -1,0 +1,17 @@
+[% seen = {} %]
+[% FOREACH style IN global.styles %]
+  [%- NEXT IF seen.$style; seen.$style = 1 %]
+  [%- IF (style.match('^[ \t\n]*<style')) %]
+  [% style %]
+  [%- ELSE %]
+  <link href="[% q.bustCache(style) | url %]" rel="stylesheet">
+  [%- END %]
+[% END %]
+[% FOREACH style IN asset.styles %]
+  [%- NEXT IF seen.$style; seen.$style = 1 %]
+  [%- IF (style.match('^[ \t\n]*<style')) %]
+  [%- style -%]
+  [%- ELSE %]
+  <link href="/e-invoice-eu[% q.bustCache(style) | url %]" rel="stylesheet">
+  [%- END %]
+[% END %]

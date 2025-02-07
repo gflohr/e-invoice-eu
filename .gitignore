@@ -1,6 +1,6 @@
 # compiled output
-/dist
-/node_modules
+dist/
+node_modules/
 
 # Logs
 logs
@@ -15,7 +15,7 @@ lerna-debug.log*
 .DS_Store
 
 # Tests
-/coverage
+coverage/
 /.nyc_output
 
 # IDEs and editors
@@ -45,3 +45,11 @@ ZUGFeRD*
 
 # Configuration
 /.env
+
+# Visual Studio Code
+.vscode/
+
+# Files mentioned in the docs and needed for testing the examples.
+invoice.pdf
+payment-terms.pdf
+time-sheet.ods
