@@ -8,7 +8,7 @@
 	hreflang="en"
 	href="/e-invoice-eu/en/docs/other/faq/"
 />  
-<meta name="description" content="" />
+<meta name="description" content="Geldbeträge müssen Zahlen &gt;= 0 mit höchstens zwei Dezimalstellen sein. Dafür sollte das folgende JSON-Schema funktionieren:" />
 <title>FAQ</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
@@ -17,7 +17,7 @@
 <meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/anderes/faq/" />
  <meta property="og:type" content="article" />
 <meta property="og:title" content="FAQ" />
-<meta property="og:description" content="" />
+<meta property="og:description" content="Geldbeträge müssen Zahlen &gt;= 0 mit höchstens zwei Dezimalstellen sein. Dafür sollte das folgende JSON-Schema funktionieren:" />
 
 
 	<meta
@@ -106,43 +106,49 @@
 					<div class="description"></div>
 				</div>
 				<qgoda-content> 
-[% USE q = Qgoda %]
-[% USE Highlight %]
 
 
-### Weshalb werden im JSON-Schema keine Zahlen verwendet?
-
-Geldbeträge müssen Zahlen >= 0 mit höchstens zwei Dezimalstellen sein. Dafür sollte das folgende JSON-Schema funktionieren:
 
 
-[% FILTER $Highlight "language-json" %]
-{
-	"type": "number",
-	"multipleOf": 0.01
-}
-[% END %]
 
 
-Das ist in der [Dokumentation für JSON Schema](https://json-schema.org/understanding-json-schema/reference/numeric#multiples) so beschrieben. Leider funktioniert das mit der JavaScript-Implementierung nicht, siehe 
-https://github.com/ajv-validator/ajv/issues/652.
 
-Diese Beschränkungen von Avj lassen sich mit Tricks umgehen. Wir wollen allerdings vermeiden, dass Nutzerinnen und Nutzer mit Ajv naiv gegen das Schema validieren, *ohne* diese Tricks anzuwenden. Deshalb scheint es einfacher zu sein, zu fordern, dass alle Zahlen von der generierenden Software als Strings formatiert werden müssen.
+<h3><a href="#" name="weshalb-werden-im-json-schema-keine-zahlen-verwendet" id="weshalb-werden-im-json-schema-keine-zahlen-verwendet"></a>Weshalb werden im JSON-Schema keine Zahlen verwendet?</h3>
 
-Bei Prozentsätzen tritt das gleiche Problem auf, nur dass diese bis zu vier Dezimalstellen haben können.
+<p>Geldbeträge müssen Zahlen >= 0 mit höchstens zwei Dezimalstellen sein. Dafür sollte das folgende JSON-Schema funktionieren:</p>
 
-Für andere numerische Typen, wie Mengen, könnten Zahlen verwendet werden. Aus Konsistenzgründen benutzen wir jedoch Strings im ganzen Schema.
 
-### Was bedeutet die Warnung „ODS number format may be incorrect“?
 
-Siehe dazu das [SheetJS-GitHub-Ticket #1569](https://github.com/SheetJS/sheetjs/issues/1569). Diese Warnung kann wahrscheinlich ignoriert werden, solange keine Probleme mit Zahlenformaten auftauchen.
 
-### Wo bekomme ich Informationen über Business-Terms her?
+<pre class="language-json"><code>{
+    &#34;type&#34;: &#34;number&#34;,
+    &#34;multipleOf&#34;: 0.01
+}</code></pre>
 
-Fehlermeldungen von Validatoren erwähnen oft Business-Terms in Fehlermeldungen. Zu welchen Elementen diese jeweils gehören, lässt sich unserer [Liste von Business-Terms]([% q.llink(name=’business-terms’) %]) entnehmen.
 
-### Wie lassen sich Hilfs-Tabs in der PDF-Ausgabe unterdrücken?
 
-Dazu muss sichergestellt werden, dass nur das Tab mit den druckbaren Rechnungsdaten einen Druckbereich definiert hat. Das lässt sich mit dem Menüpunkt `Format -> Druckbereiche -> Bearbeiten` prüfen. Für alle anderen Tabs müssen alle drei Optionen auf `Nichts` gesetzt werden.
+
+
+<p>Das ist in der <a href="https://json-schema.org/understanding-json-schema/reference/numeric#multiples" target="_blank">Dokumentation für JSON Schema</a> so beschrieben. Leider funktioniert das mit der JavaScript-Implementierung nicht, siehe
+<a href="https://github.com/ajv-validator/ajv/issues/652" target="_blank">https://github.com/ajv-validator/ajv/issues/652</a>.</p>
+
+<p>Diese Beschränkungen von Avj lassen sich mit Tricks umgehen. Wir wollen allerdings vermeiden, dass Nutzerinnen und Nutzer mit Ajv naiv gegen das Schema validieren, <em>ohne</em> diese Tricks anzuwenden. Deshalb scheint es einfacher zu sein, zu fordern, dass alle Zahlen von der generierenden Software als Strings formatiert werden müssen.</p>
+
+<p>Bei Prozentsätzen tritt das gleiche Problem auf, nur dass diese bis zu vier Dezimalstellen haben können.</p>
+
+<p>Für andere numerische Typen, wie Mengen, könnten Zahlen verwendet werden. Aus Konsistenzgründen benutzen wir jedoch Strings im ganzen Schema.</p>
+
+<h3><a href="#" name="was-bedeutet-die-warnung-ods-number-format-may-be-incorrect" id="was-bedeutet-die-warnung-ods-number-format-may-be-incorrect"></a>Was bedeutet die Warnung „ODS number format may be incorrect“?</h3>
+
+<p>Siehe dazu das <a href="https://github.com/SheetJS/sheetjs/issues/1569" target="_blank">SheetJS-GitHub-Ticket #1569</a>. Diese Warnung kann wahrscheinlich ignoriert werden, solange keine Probleme mit Zahlenformaten auftauchen.</p>
+
+<h3><a href="#" name="wo-bekomme-ich-informationen-uber-business-terms-her" id="wo-bekomme-ich-informationen-uber-business-terms-her"></a>Wo bekomme ich Informationen über Business-Terms her?</h3>
+
+<p>Fehlermeldungen von Validatoren erwähnen oft Business-Terms in Fehlermeldungen. Zu welchen Elementen diese jeweils gehören, lässt sich unserer <a href="/e-invoice-eu/de/docs/anderes/business-terms/">Liste von Business-Terms</a> entnehmen.</p>
+
+<h3><a href="#" name="wie-lassen-sich-hilfs-tabs-in-der-pdf-ausgabe-unterdrucken" id="wie-lassen-sich-hilfs-tabs-in-der-pdf-ausgabe-unterdrucken"></a>Wie lassen sich Hilfs-Tabs in der PDF-Ausgabe unterdrücken?</h3>
+
+<p>Dazu muss sichergestellt werden, dass nur das Tab mit den druckbaren Rechnungsdaten einen Druckbereich definiert hat. Das lässt sich mit dem Menüpunkt <code>Format -&gt; Druckbereiche -&gt; Bearbeiten</code> prüfen. Für alle anderen Tabs müssen alle drei Optionen auf <code>Nichts</code> gesetzt werden.</p>
  
 				 
 <div class="guided-tour container">

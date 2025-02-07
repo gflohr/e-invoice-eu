@@ -3234,7 +3234,7 @@ msgid ""
 msgstr ""
 "Fehlermeldungen von Validatoren erwähnen oft Business-Terms in "
 "Fehlermeldungen. Zu welchen Elementen diese jeweils gehören, lässt sich "
-"unserer [Liste von Business-Terms]([% q.llink(name=’business-terms’) %]) "
+"unserer [Liste von Business-Terms]([% q.llink(name='business-terms') %]) "
 "entnehmen."
 
 #: ../en/docs/other/faq.md:53
