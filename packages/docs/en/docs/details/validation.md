@@ -23,7 +23,7 @@ all outgoing and also incoming invoices.
 Electronic invoices must have a certain structure that is determined by the
 syntax chosen, either [% q.lanchor(name='ubl') %] or
 [% q.lanchor(name='cii') %]. The syntax specifies which elements must exist
-and where they are located in the syntax tree.
+and where they live inside the syntax tree.
 
 [% title = 'Order of Invoice Fields' %]
 <!--qgoda-no-xgettext-->
@@ -34,7 +34,7 @@ E-Invoice-EU automatically sorts its output so that you don't have to bother
 about the order of your input data, no matter whether it comes from a
 spreadsheet via a <a href="[% q.llink(name='mapping') %]">Mapping</a> or
 directly from JSON in the <a
-href="[% q.llink(name='internal-format') %]">internal invoice format</a>
+href="[% q.llink(name='internal-format') %]">internal invoice format</a>.
 <!--qgoda-no-xgettext-->
 [% END %]
 <!--/qgoda-no-xgettext-->
@@ -106,7 +106,7 @@ to set up or integrate into another software.
 
 That limits the choice to online validators but that would mean that invoice
 data would be sent over the internet and for data privacy reasons, this should
-not happend automatically but users should opt-in for this feature.
+not happen automatically but users should opt-in to this feature.
 
 However, offering the option of automatic validation is a feature planned
 for the future, see [GitHub issue #78](https://github.com/gflohr/e-invoice-eu/issues/78).
@@ -173,20 +173,22 @@ Environment for using it.
 
 If you have Java installed, download the `Mustang-CLI-*VERSION*.jar` from their
 [release page](https://github.com/ZUGFeRD/mustangproject/releases) and save
-it as `Mustang-CLI.jar`in the directory`contrib/validators/factur-x`.
+it as `Mustang-CLI.jar` in the directory `contrib/validators/factur-x`.
 
 After that you can validate Factur-X/ZUGFeRD like this:
 
+<!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-shell" %]
 node contrib/validators/factur-x/factur-x-validate.mjs INVOICE_DOCUMENT
 [% END %]
+<!--/qgoda-no-xgettext-->
 
 In case of an error, you will get a detailed error report which is
 unfortunately not very easy to understand.
 
 You can pass PDF documents with embedded e-invoices and also bare XML files.
-The validator also supports documents following the German XRECHNUNG standard.
-Check the [Mustangproject homepage](https://www.mustangproject.org/) for
+The validator also supports documents following the German XRechnung standard.
+Check the [Mustang project homepage](https://www.mustangproject.org/) for
 up-to-date information.
 
 If you haven't installed the Java interpreter in your `$PATH`, you can set
@@ -218,9 +220,11 @@ in the directory `contrib/validators/kosit`.
 
 Please try out that you can run the validator executable with this command:
 
+<!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-shell" %]
 java -jar contrib/validators/kosit/validationtool.jar
 [% END %]
+<!--/qgoda-no-xgettext-->
 
 It should display a help page with usage information.
 
@@ -232,9 +236,11 @@ Download the file `validator-configuration-xrechnung_*VERSION*_*DATE*.zip`
 and unpack it in the directory `contrib/validators/kosit/xrechnung-scenario`.
 This should now work:
 
+<!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-shell" %]
 ls contrib/validators/kosit/xrechnung-scenario/scenarios.xml
 [% END %]
+<!--/qgoda-no-xgettext-->
 
 This scenario contains schemas for UBL, CII, and various versions of the
 German XRECHNUNG format.
@@ -243,9 +249,11 @@ German XRECHNUNG format.
 
 Now you can run the validator like this:
 
+<!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-shell" %]
 node contrib/validators/kosit/validate.mjs invoice.pdf
 [% END %]
+<!--/qgoda-no-xgettext-->
 
 You will see the result of the validation on the console. Additionally, a
 file `*INVOICE_DOCUMENT*-report.xml` will be generated with a detailed
@@ -258,26 +266,40 @@ more than one document at once.
 
 Alternatively, you can start the validator as a daemon:
 
+<!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-shell" %]
 node contrib/validators/kosit/validate.mjs --daemon
 [% END %]
+<!--/qgoda-no-xgettext-->
 
 The option `-D` is an alias for `--daemon`.
 
 You can now open a web interface at http://localhost:8080/ and upload invoices
 to be validated.
 
-Alternatively, you can use `curl`:
+Alternatively, you can auch `curl` oder `httpie` verwendet werden:
 
+<!--qgoda-no-xgettext-->
+[% FILTER $CodeGroup %]
+[curl]
 [% FILTER $Highlight "language-shell" %]
 $ curl POST -d @./invoice.xml http://localhost:8080/
 [% END %]
 
+[httpie]
+[% FILTER $Highlight "language-shell" %]
+$ http POST -d @./invoice.xml http://localhost:8080/
+[% END %]
+[% END %]
+<!--/qgoda-no-xgettext-->
+
 For complete usage information of the validator, run this command:
 
+<!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-shell" %]
 $ node contrib/validators/kosit/validate.mjs --help
 [% END %]
+<!--/qgoda-no-xgettext-->
 
 Note that the wrapper script always passes the mandatory arguments `--scenarios`
 and `--repository`.

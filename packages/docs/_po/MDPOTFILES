@@ -1,10 +1,12 @@
 ../en/data-privacy-policy.md
 ../en/docs/basics.md
+../en/docs/basics/disclaimer.md
 ../en/docs/basics/general-mode-of-operation.md
 ../en/docs/basics/supported-formats.md
 ../en/docs/details.md
 ../en/docs/details/internal-format.md
 ../en/docs/details/mapping.md
+../en/docs/details/validation.md
 ../en/docs/e-invoice-formats.md
 ../en/docs/e-invoice-formats/cii.md
 ../en/docs/e-invoice-formats/country-specific-extensions.md
@@ -13,7 +15,9 @@
 ../en/docs/e-invoice-formats/ubl.md
 ../en/docs/index.md
 ../en/docs/other.md
+../en/docs/other/business-groups.md
 ../en/docs/other/business-terms.md
+../en/docs/other/faq.md
 ../en/docs/service.md
 ../en/docs/service/api-documentation.md
 ../en/docs/service/creating-invoices.md

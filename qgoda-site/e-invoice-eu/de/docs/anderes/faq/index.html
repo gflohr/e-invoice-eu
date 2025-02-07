@@ -8,7 +8,7 @@
 	hreflang="en"
 	href="/e-invoice-eu/en/docs/other/faq/"
 />  
-<meta name="description" content="Amounts have to be numbers &gt;= 0 with at most two decimal places. The following JSON schema should work for this:" />
+<meta name="description" content="" />
 <title>FAQ</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
@@ -17,7 +17,7 @@
 <meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/anderes/faq/" />
  <meta property="og:type" content="article" />
 <meta property="og:title" content="FAQ" />
-<meta property="og:description" content="Amounts have to be numbers &gt;= 0 with at most two decimal places. The following JSON schema should work for this:" />
+<meta property="og:description" content="" />
 
 
 	<meta
@@ -106,58 +106,43 @@
 					<div class="description"></div>
 				</div>
 				<qgoda-content> 
+[% USE q = Qgoda %]
+[% USE Highlight %]
 
 
+### Weshalb werden im JSON-Schema keine Zahlen verwendet?
+
+Geldbeträge müssen Zahlen >= 0 mit höchstens zwei Dezimalstellen sein. Dafür sollte das folgende JSON-Schema funktionieren:
 
 
-
-
-
-<h3><a href="#" name="why-are-no-numbers-used-in-the-json-schema" id="why-are-no-numbers-used-in-the-json-schema"></a>Why are no Numbers Used in the JSON Schema?</h3>
-
-<p>Amounts have to be numbers >= 0 with at most two decimal places. The following
-JSON schema should work for this:</p>
-
-<pre><code class="json">{
-    "type": "number",
-    "multipleOf": 0.01
+[% FILTER $Highlight "language-json" %]
+{
+	"type": "number",
+	"multipleOf": 0.01
 }
-</code></pre>
+[% END %]
 
-<p>This is even documented in the <a href="https://json-schema.org/understanding-json-schema/reference/numeric#multiples" target="_blank">JSON Schema
-documentation</a>.
-Unfortunately, this does not work with the JavaScript implementation, see
-<a href="https://github.com/ajv-validator/ajv/issues/652" target="_blank">https://github.com/ajv-validator/ajv/issues/652</a>.</p>
 
-<p>There are workarounds for this limitation of Ajv but we want to avoid people
-naïvely validating against the schema with Ajv without applying the necessary
-workaround. It looks simpler to require all amounts to be formatted
-beforehand by the software that generates the input data.</p>
+Das ist in der [Dokumentation für JSON Schema](https://json-schema.org/understanding-json-schema/reference/numeric#multiples) so beschrieben. Leider funktioniert das mit der JavaScript-Implementierung nicht, siehe 
+https://github.com/ajv-validator/ajv/issues/652.
 
-<p>The problem for percentages is the same only that percentages can have up
-to four decimal digits.</p>
+Diese Beschränkungen von Avj lassen sich mit Tricks umgehen. Wir wollen allerdings vermeiden, dass Nutzerinnen und Nutzer mit Ajv naiv gegen das Schema validieren, *ohne* diese Tricks anzuwenden. Deshalb scheint es einfacher zu sein, zu fordern, dass alle Zahlen von der generierenden Software als Strings formatiert werden müssen.
 
-<p>For other numerical types, like quantities, we could use numbers but for
-consistency we use strings throughout the schema.</p>
+Bei Prozentsätzen tritt das gleiche Problem auf, nur dass diese bis zu vier Dezimalstellen haben können.
 
-<h3><a href="#" name="what-does-the-warning-ods-number-format-may-be-incorrect-mean" id="what-does-the-warning-ods-number-format-may-be-incorrect-mean"></a>What Does the Warning 'ODS number format may be incorrect' Mean?</h3>
+Für andere numerische Typen, wie Mengen, könnten Zahlen verwendet werden. Aus Konsistenzgründen benutzen wir jedoch Strings im ganzen Schema.
 
-<p>See <a href="https://github.com/SheetJS/sheetjs/issues/1569" target="_blank">SheetJS GitHub issue #1569</a>.
-You can probably ignore this warning, unless you run into a problem with
-number formats.</p>
+### Was bedeutet die Warnung „ODS number format may be incorrect“?
 
-<h3><a href="#" name="where-can-i-get-information-about-business-terms" id="where-can-i-get-information-about-business-terms"></a>Where Can I Get Information About Business Terms?</h3>
+Siehe dazu das [SheetJS-GitHub-Ticket #1569](https://github.com/SheetJS/sheetjs/issues/1569). Diese Warnung kann wahrscheinlich ignoriert werden, solange keine Probleme mit Zahlenformaten auftauchen.
 
-<p>You will often see references to business terms in validation error messages.
-You can look up to which elements they belong in our
-<a href="/e-invoice-eu/de/docs/anderes/business-terms/">list of Business Terms</a>.</p>
+### Wo bekomme ich Informationen über Business-Terms her?
 
-<h3><a href="#" name="how-can-i-suppress-auxiliary-sheets-in-the-pdf-output" id="how-can-i-suppress-auxiliary-sheets-in-the-pdf-output"></a>How Can I Suppress Auxiliary Sheets in the PDF Output?</h3>
+Fehlermeldungen von Validatoren erwähnen oft Business-Terms in Fehlermeldungen. Zu welchen Elementen diese jeweils gehören, lässt sich unserer [Liste von Business-Terms]([% q.llink(name=’business-terms’) %]) entnehmen.
 
-<p>Make sure that only the sheet that contains the printable invoice data has
-a print range defined. You can check that with the menu entry
-<code>Format -&gt; Print Ranges -&gt; Edit</code>. For all other sheets, all three options
-have to be set to <code>None</code>.</p>
+### Wie lassen sich Hilfs-Tabs in der PDF-Ausgabe unterdrücken?
+
+Dazu muss sichergestellt werden, dass nur das Tab mit den druckbaren Rechnungsdaten einen Druckbereich definiert hat. Das lässt sich mit dem Menüpunkt `Format -> Druckbereiche -> Bearbeiten` prüfen. Für alle anderen Tabs müssen alle drei Optionen auf `Nichts` gesetzt werden.
  
 				 
 <div class="guided-tour container">
@@ -165,7 +150,7 @@ have to be set to <code>None</code>.</p>
 		<div class="col-5 text-left guided-tour-link">
 			
 			<a href="/e-invoice-eu/de/docs/anderes/business-groups/"
-				><i class="bi-arrow-left-circle"></i>&nbsp;Business Groups</a>
+				><i class="bi-arrow-left-circle"></i>&nbsp;Business-Gruppen</a>
 			
 		</div>
 		<div class="col-2 text-center guided-tour-link">
@@ -227,7 +212,7 @@ have to be set to <code>None</code>.</p>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/grundlagen/haftungsausschluss/">Disclaimer</a>
+			<a href="/e-invoice-eu/de/docs/grundlagen/haftungsausschluss/">Hafuntsausschluss</a>
 			
 		</li>
 		
@@ -329,7 +314,7 @@ have to be set to <code>None</code>.</p>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/details/validierung/">Validation</a>
+			<a href="/e-invoice-eu/de/docs/details/validierung/">Validierung</a>
 			
 		</li>
 		
@@ -351,7 +336,7 @@ have to be set to <code>None</code>.</p>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/anderes/business-groups/">Business Groups</a>
+			<a href="/e-invoice-eu/de/docs/anderes/business-groups/">Business-Gruppen</a>
 			
 		</li>
 		

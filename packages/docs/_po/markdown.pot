@@ -159,6 +159,22 @@ msgctxt "title"
 msgid "Basics"
 msgstr ""
 
+#: ../en/docs/basics/disclaimer.md:2
+msgctxt "title"
+msgid "Disclaimer"
+msgstr ""
+
+#: ../en/docs/basics/disclaimer.md:6
+msgid ""
+"E-Invoice-EU is free software that has been written with the greatest possible\n"
+"care, but like all software it may contain errors. It may also be based on\n"
+"wrong information or wrong assumptions."
+msgstr ""
+
+#: ../en/docs/basics/disclaimer.md:10
+msgid "Use at your own risk! There is no warranty and no liability."
+msgstr ""
+
 #: ../en/docs/basics/general-mode-of-operation.md:2
 msgctxt "title"
 msgid "General Mode of Operation"
@@ -273,6 +289,7 @@ msgid "The internally used data structure is almost identical to that of Peppol 
 msgstr ""
 
 #: ../en/docs/details/internal-format.md:12 ../en/docs/details/mapping.md:32
+#: ../en/docs/details/validation.md:19
 #: ../en/docs/service/creating-invoices.md:23
 #: ../en/docs/service/deployment.md:19 ../en/docs/service/other-endpoints.md:13
 msgid "<qgoda-toc/>"
@@ -1018,6 +1035,400 @@ msgid ""
 "code. This simplifies the spreadsheet but makes your process more error-prone."
 msgstr ""
 
+#: ../en/docs/details/validation.md:2
+msgctxt "title"
+msgid "Validation"
+msgstr ""
+
+#: ../en/docs/details/validation.md:5
+msgctxt "description"
+msgid "Validating an e-invoice ensures that it adheres to the European standard EN16931. A number of options exist for this task."
+msgstr ""
+
+#: ../en/docs/details/validation.md:13
+msgid ""
+"When implementing an e-invoicing solution, it is almost guaranteed that the\n"
+"first invoices that you produce are invalid. It is strongly recommended that\n"
+"you use a validator to ensure that your invoices meet all requirements!\n"
+"Even once that your solution is up an running it is a good idea to validate\n"
+"all outgoing and also incoming invoices."
+msgstr ""
+
+#: ../en/docs/details/validation.md:21
+msgid "## Syntax and Semantics"
+msgstr ""
+
+#: ../en/docs/details/validation.md:23
+msgid ""
+"Electronic invoices must have a certain structure that is determined by the\n"
+"syntax chosen, either [% q.lanchor(name='ubl') %] or\n"
+"[% q.lanchor(name='cii') %]. The syntax specifies which elements must exist\n"
+"and where they live inside the syntax tree."
+msgstr ""
+
+#: ../en/docs/details/validation.md:28
+msgid "[% title = 'Order of Invoice Fields' %]"
+msgstr ""
+
+#: ../en/docs/details/validation.md:32
+msgid ""
+"The XML standards also specify the exact order of elements. Fortunately,\n"
+"E-Invoice-EU automatically sorts its output so that you don't have to bother\n"
+"about the order of your input data, no matter whether it comes from a\n"
+"spreadsheet via a <a href=\"[% q.llink(name='mapping') %]\">Mapping</a> or\n"
+"directly from JSON in the <a\n"
+"href=\"[% q.llink(name='internal-format') %]\">internal invoice format</a>."
+msgstr ""
+
+#: ../en/docs/details/validation.md:42
+msgid ""
+"The correct syntax is ensured by E-Invoice-EU. It validates the input data\n"
+"against the respective [schema]([% q.llink(name='other-endpoints') %]#schemas)\n"
+"which ensures that the input is syntactically correct."
+msgstr ""
+
+#: ../en/docs/details/validation.md:46
+msgid ""
+"The schema also contain the code lists so that you can be sure that wherever\n"
+"applicable only allowed values are used. Likewise, number and date\n"
+"formats are checked."
+msgstr ""
+
+#: ../en/docs/details/validation.md:50
+msgid "## Business Rules"
+msgstr ""
+
+#: ../en/docs/details/validation.md:52
+msgid ""
+"But there are also semantic requirements called *business rules*. An example\n"
+"for such a rule is that if the payable amount of the invoice is positive,\n"
+"it must either include a due date or payment terms, see\n"
+"[BR-CO-25](https://docs.peppol.eu/poacc/billing/3.0/rules/ubl-tc434/BR-CO-25/)."
+msgstr ""
+
+#: ../en/docs/details/validation.md:57
+msgid "In general, E-Invoice-EU does *not* check these semantic requirements."
+msgstr ""
+
+#: ../en/docs/details/validation.md:59
+msgid ""
+"A lot of these rules come from the standard itself. Others rules are set up\n"
+"by the member states in the form of *Core Invoice Usage Specifications (CIUS)*,\n"
+"see the chapter [% q.lanchor(name='country-specific-extensions') %]."
+msgstr ""
+
+#: ../en/docs/details/validation.md:63
+msgid "### Business Terms"
+msgstr ""
+
+#: ../en/docs/details/validation.md:65
+msgid ""
+"When reading these rules, you will often see the abbreviation *BT*. BT stands\n"
+"for *business term* and is simply the identifier for a certain invoice field.\n"
+"For example, the issue date of an invoice is business term number 2 or short\n"
+"BT-2, see the documentation for\n"
+"(`cbc:IssueDate`)[https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-IssueDate/]."
+msgstr ""
+
+#: ../en/docs/details/validation.md:71
+msgid ""
+"This documentation contains an almost complete list of business terms, see\n"
+"[% q.lanchor(name='business-terms') %] with links to the [Peppol UBL invoice\n"
+"documentation](https://docs.peppol.eu/poacc/billing/3.0/)."
+msgstr ""
+
+#: ../en/docs/details/validation.md:75
+msgid "[% title = 'Why Reading Business Rules?' %]"
+msgstr ""
+
+#: ../en/docs/details/validation.md:79
+msgid ""
+"Well, you will have no choice. E-invoice validation software quotes these\n"
+"rules in their error messages. It is very hard to understand the error\n"
+"messages without knowing what exactly the business terms mentioned in the\n"
+"rule stand for."
+msgstr ""
+
+#: ../en/docs/details/validation.md:87
+msgid "### Business Groups"
+msgstr ""
+
+#: ../en/docs/details/validation.md:89
+msgid ""
+"The standard also uses the term business group or BG in short. Business groups\n"
+"are simply groups of related business terms. BG-4 for example contains\n"
+"information about the seller like electronic and postal addresses, tax\n"
+"schemes, legal information and so on, see\n"
+"[`cac:AccountingSupplierParty`](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/)."
+msgstr ""
+
+#: ../en/docs/details/validation.md:95
+msgid ""
+"This documentation contains an almost complete list of business groups, see\n"
+"[% q.lanchor(name='business-groups') %] with links to the [Peppol UBL invoice\n"
+"documentation](https://docs.peppol.eu/poacc/billing/3.0/)."
+msgstr ""
+
+#: ../en/docs/details/validation.md:99
+msgid "## Why is No Validation Built In E-Invoice-EU?"
+msgstr ""
+
+#: ../en/docs/details/validation.md:101
+msgid ""
+"All known validators are written in Java and they only cover a certain subset\n"
+"of different formats. The only exception is the [Practical Peppol\n"
+"validator](https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2)\n"
+"that covers a very wide range of in formats. But it is not straightforward\n"
+"to set up or integrate into another software."
+msgstr ""
+
+#: ../en/docs/details/validation.md:107
+msgid ""
+"That limits the choice to online validators but that would mean that invoice\n"
+"data would be sent over the internet and for data privacy reasons, this should\n"
+"not happen automatically but users should opt-in to this feature."
+msgstr ""
+
+#: ../en/docs/details/validation.md:111
+msgid "However, offering the option of automatic validation is a feature planned\n"
+"for the future, see [GitHub issue #78](https://github.com/gflohr/e-invoice-eu/issues/78)."
+msgstr ""
+
+#: ../en/docs/details/validation.md:114
+msgid "## Validators"
+msgstr ""
+
+#: ../en/docs/details/validation.md:116
+msgid "You can either upload e-invoices to an online validator or use self-hosted\n"
+"software for validation purposes."
+msgstr ""
+
+#: ../en/docs/details/validation.md:119
+msgid "[% title = 'Missing Entry>' %]"
+msgstr ""
+
+#: ../en/docs/details/validation.md:123
+msgid "The list of software and websites following is incomplete. If you want to\n"
+"add an entry, please file an [issue](https://github.com/gflohr/e-invoice-eu/issues)!"
+msgstr ""
+
+#: ../en/docs/details/validation.md:129
+msgid "### Online Validators"
+msgstr ""
+
+#: ../en/docs/details/validation.md:131
+msgid ""
+"Online validators are easy to use but you have to keep in mind that invoices\n"
+"contain personal data and may also contain business or trade secrets.  Please\n"
+"check all legal requirements before you use them."
+msgstr ""
+
+#: ../en/docs/details/validation.md:135 ../en/docs/details/validation.md:166
+msgid "#### Factur-X/ZUGFeRD"
+msgstr ""
+
+#: ../en/docs/details/validation.md:137
+msgid "The following online validators are freely available:"
+msgstr ""
+
+#: ../en/docs/details/validation.md:139
+msgid ""
+"- portinvoice: https://www.portinvoice.com/\n"
+"- ZUGFeRD Community (requires registration): https://www.zugferd-community.net/en/login\n"
+"- FNFE Service Validator (requires registration): https://services.fnfe-mpe.org/\n"
+"- Ecosio: https://ecosio.com/en/peppol-and-xml-document-validator/ (only XML)\n"
+"- Practical Peppol Validator: https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2 (only XML)"
+msgstr ""
+
+#: ../en/docs/details/validation.md:145
+msgid "The Ecosio validator uses the Practical Peppol validator under the hood. You\n"
+"have extract the XML embedded into the PDF for using these validators."
+msgstr ""
+
+#: ../en/docs/details/validation.md:148 ../en/docs/details/validation.md:161
+msgid "The Practical Peppol validator offers a SOAP interface and is suitable for\n"
+"automated validation scenarios."
+msgstr ""
+
+#: ../en/docs/details/validation.md:151
+msgid "#### UBL/CII"
+msgstr ""
+
+#: ../en/docs/details/validation.md:153
+msgid ""
+"- portinvoice: https://www.portinvoice.com\n"
+"- EPO Consulting Validator: https://www.epoconsulting.com/erechnung-sap/xrechnung-validator\n"
+"- Invoice Portal XRechnung https://invoice-portal.de/en/peppol-bis-xrechnung-validator/\n"
+"- Ecosio: https://ecosio.com/de/peppol-und-xml-dokumente-online-validieren/\n"
+"- Practical Peppol Validator: https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2"
+msgstr ""
+
+#: ../en/docs/details/validation.md:159
+msgid "The Ecosio validator uses the Practical Peppol validator under the hood."
+msgstr ""
+
+#: ../en/docs/details/validation.md:164
+msgid "### Offline Validators"
+msgstr ""
+
+#: ../en/docs/details/validation.md:168
+msgid "##### Mustang Project"
+msgstr ""
+
+#: ../en/docs/details/validation.md:170
+msgid ""
+"[Mustang project](https://github.com/ZUGFeRD/mustangproject) offers validation\n"
+"of Factur-X/ZUGFeRD and XRECHNUNG documents. You need a Java Runtime\n"
+"Environment for using it."
+msgstr ""
+
+#: ../en/docs/details/validation.md:174
+msgid ""
+"If you have Java installed, download the `Mustang-CLI-*VERSION*.jar` from their\n"
+"[release page](https://github.com/ZUGFeRD/mustangproject/releases) and save\n"
+"it as `Mustang-CLI.jar` in the directory `contrib/validators/factur-x`."
+msgstr ""
+
+#: ../en/docs/details/validation.md:178
+msgid "After that you can validate Factur-X/ZUGFeRD like this:"
+msgstr ""
+
+#: ../en/docs/details/validation.md:186
+msgid "In case of an error, you will get a detailed error report which is\n"
+"unfortunately not very easy to understand."
+msgstr ""
+
+#: ../en/docs/details/validation.md:189
+msgid ""
+"You can pass PDF documents with embedded e-invoices and also bare XML files.\n"
+"The validator also supports documents following the German XRechnung standard.\n"
+"Check the [Mustang project homepage](https://www.mustangproject.org/) for\n"
+"up-to-date information."
+msgstr ""
+
+#: ../en/docs/details/validation.md:194
+msgid ""
+"If you haven't installed the Java interpreter in your `$PATH`, you can set\n"
+"the environment variable `$JAVA` to the location of the Java executable.\n"
+"Likewise. you can point the environment variable `$MUSTANG_CLI_JAR` to the\n"
+"location of the Mustangproject Jar file if it cannot be found at\n"
+"`contrib/factur-x/Mustang-CLI.jar`."
+msgstr ""
+
+#: ../en/docs/details/validation.md:200
+msgid "##### Practical Peppol"
+msgstr ""
+
+#: ../en/docs/details/validation.md:202
+msgid "The [Practical Peppol validator](https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2)\n"
+"can be set up locally. You have to contact the author for details."
+msgstr ""
+
+#: ../en/docs/details/validation.md:205
+msgid "#### UBL/CII (XRechnung)"
+msgstr ""
+
+#: ../en/docs/details/validation.md:207
+msgid ""
+"The German [Koordinierungsstelle für IT-Standards -\n"
+"KoSIT](https://www.xoev.de/) maintains a free and open source validator for\n"
+"arbitrary e-invoice formats."
+msgstr ""
+
+#: ../en/docs/details/validation.md:211
+msgid ""
+"You need a Java Runtime Environment (version 11 or newer) and download at\n"
+"least two pieces of software, the actual validator and a so-called\n"
+"\"validation scenario\" with the schemas of the supported formats."
+msgstr ""
+
+#: ../en/docs/details/validation.md:215
+msgid "##### Install Validator"
+msgstr ""
+
+#: ../en/docs/details/validation.md:217
+msgid ""
+"Download the file `validator-*VERSION*-distribution.zip`. It contains a file\n"
+"`validationtool-*VERSION*-standalone.jar`. Save it as `validationtool.jar`\n"
+"in the directory `contrib/validators/kosit`."
+msgstr ""
+
+#: ../en/docs/details/validation.md:221
+msgid "Please try out that you can run the validator executable with this command:"
+msgstr ""
+
+#: ../en/docs/details/validation.md:229
+msgid "It should display a help page with usage information."
+msgstr ""
+
+#: ../en/docs/details/validation.md:231
+msgid "#### Install XRECHNUNG Scenario"
+msgstr ""
+
+#: ../en/docs/details/validation.md:233
+msgid "A \"scenario\" for XRECHNUNG is available at https://github.com/itplr-kosit/validator-configuration-xrechnung/releases."
+msgstr ""
+
+#: ../en/docs/details/validation.md:235
+msgid ""
+"Download the file `validator-configuration-xrechnung_*VERSION*_*DATE*.zip`\n"
+"and unpack it in the directory `contrib/validators/kosit/xrechnung-scenario`.\n"
+"This should now work:"
+msgstr ""
+
+#: ../en/docs/details/validation.md:245
+msgid "This scenario contains schemas for UBL, CII, and various versions of the\n"
+"German XRECHNUNG format."
+msgstr ""
+
+#: ../en/docs/details/validation.md:248
+msgid "##### Run the Validator"
+msgstr ""
+
+#: ../en/docs/details/validation.md:250
+msgid "Now you can run the validator like this:"
+msgstr ""
+
+#: ../en/docs/details/validation.md:258
+msgid ""
+"You will see the result of the validation on the console. Additionally, a\n"
+"file `*INVOICE_DOCUMENT*-report.xml` will be generated with a detailed\n"
+"validation report and a visualization of the invoice. Despite the filename\n"
+"extension `.xml`, the report is an HTML file and can be displayed in the\n"
+"browser."
+msgstr ""
+
+#: ../en/docs/details/validation.md:264
+msgid "You can pass multiple files on the commandline if you want to validate\n"
+"more than one document at once."
+msgstr ""
+
+#: ../en/docs/details/validation.md:267
+msgid "Alternatively, you can start the validator as a daemon:"
+msgstr ""
+
+#: ../en/docs/details/validation.md:275
+msgid "The option `-D` is an alias for `--daemon`."
+msgstr ""
+
+#: ../en/docs/details/validation.md:277
+msgid "You can now open a web interface at http://localhost:8080/ and upload invoices\n"
+"to be validated."
+msgstr ""
+
+#: ../en/docs/details/validation.md:280
+msgid "Alternatively, you can auch `curl` oder `httpie` verwendet werden:"
+msgstr ""
+
+#: ../en/docs/details/validation.md:296
+msgid "For complete usage information of the validator, run this command:"
+msgstr ""
+
+#: ../en/docs/details/validation.md:304
+msgid "Note that the wrapper script always passes the mandatory arguments `--scenarios`\n"
+"and `--repository`."
+msgstr ""
+
 #: ../en/docs/e-invoice-formats.md:2
 msgctxt "title"
 msgid "E-invoice Formats"
@@ -1501,6 +1912,21 @@ msgctxt "title"
 msgid "Other"
 msgstr ""
 
+#: ../en/docs/other/business-groups.md:2
+msgctxt "title"
+msgid "Business Groups"
+msgstr ""
+
+#: ../en/docs/other/business-groups.md:5
+msgctxt "description"
+msgid "This table maps all EN16931 business groups their respective XML elements."
+msgstr ""
+
+# This file is generated! Do not edit!
+#: ../en/docs/other/business-groups.md:8
+msgid "| Group | Usage"
+msgstr ""
+
 #: ../en/docs/other/business-terms.md:2
 msgctxt "title"
 msgid "Business Terms"
@@ -1508,12 +1934,86 @@ msgstr ""
 
 #: ../en/docs/other/business-terms.md:5
 msgctxt "description"
-msgid "This table maps all EN16931 business terms and business groups to their respective XML elements."
+msgid "This table maps all EN16931 business terms their respective XML elements."
 msgstr ""
 
 # This file is generated! Do not edit!
 #: ../en/docs/other/business-terms.md:8
 msgid "| Term | Usage"
+msgstr ""
+
+#: ../en/docs/other/faq.md:2
+msgctxt "title"
+msgid "FAQ"
+msgstr ""
+
+#: ../en/docs/other/faq.md:11
+msgid "### Why are no Numbers Used in the JSON Schema?"
+msgstr ""
+
+#: ../en/docs/other/faq.md:13
+msgid "Amounts have to be numbers >= 0 with at most two decimal places. The following\n"
+"JSON schema should work for this:"
+msgstr ""
+
+#: ../en/docs/other/faq.md:25
+msgid ""
+"This is even documented in the [JSON Schema\n"
+"documentation](https://json-schema.org/understanding-json-schema/reference/numeric#multiples).\n"
+"Unfortunately, this does not work with the JavaScript implementation, see\n"
+"https://github.com/ajv-validator/ajv/issues/652."
+msgstr ""
+
+#: ../en/docs/other/faq.md:30
+msgid ""
+"There are workarounds for this limitation of Ajv but we want to avoid people\n"
+"naïvely validating against the schema with Ajv without applying the necessary\n"
+"workaround. It looks simpler to require all amounts to be formatted\n"
+"beforehand by the software that generates the input data."
+msgstr ""
+
+#: ../en/docs/other/faq.md:35
+msgid "The problem for percentages is the same only that percentages can have up\n"
+"to four decimal digits."
+msgstr ""
+
+#: ../en/docs/other/faq.md:38
+msgid "For other numerical types, like quantities, we could use numbers but for\n"
+"consistency we use strings throughout the schema."
+msgstr ""
+
+#: ../en/docs/other/faq.md:41
+msgid "### What Does the Warning 'ODS number format may be incorrect' Mean?"
+msgstr ""
+
+#: ../en/docs/other/faq.md:43
+msgid ""
+"See [SheetJS GitHub issue #1569](https://github.com/SheetJS/sheetjs/issues/1569).\n"
+"You can probably ignore this warning, unless you run into a problem with\n"
+"number formats."
+msgstr ""
+
+#: ../en/docs/other/faq.md:47
+msgid "### Where Can I Get Information About Business Terms?"
+msgstr ""
+
+#: ../en/docs/other/faq.md:49
+msgid ""
+"You will often see references to business terms in validation error messages.\n"
+"You can look up to which elements they belong in our\n"
+"[list of Business Terms]([% q.llink(name='business-terms') %])."
+msgstr ""
+
+#: ../en/docs/other/faq.md:53
+msgid "### How Can I Suppress Auxiliary Sheets in the PDF Output?"
+msgstr ""
+
+#: ../en/docs/other/faq.md:55
+msgid ""
+"Make sure that only the sheet that contains the printable invoice data has\n"
+"a print range defined. You can check that with the menu entry\n"
+"`Format -> Print Ranges -> Edit`. For all other sheets, all three options\n"
+"have to be set to `None`."
 msgstr ""
 
 #: ../en/docs/service.md:2

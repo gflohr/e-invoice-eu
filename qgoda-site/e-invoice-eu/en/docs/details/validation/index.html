@@ -258,7 +258,7 @@ all outgoing and also incoming invoices.</p>
 <p>Electronic invoices must have a certain structure that is determined by the
 syntax chosen, either <a href="/e-invoice-eu/en/docs/e-invoice-formats/ubl/">UBL</a> or
 <a href="/e-invoice-eu/en/docs/e-invoice-formats/cii/">CII</a>. The syntax specifies which elements must exist
-and where they are located in the syntax tree.</p>
+and where they live inside the syntax tree.</p>
 
 
 
@@ -279,7 +279,7 @@ E-Invoice-EU automatically sorts its output so that you don't have to bother
 about the order of your input data, no matter whether it comes from a
 spreadsheet via a <a href="/e-invoice-eu/en/docs/details/mapping/">Mapping</a> or
 directly from JSON in the <a
-href="/e-invoice-eu/en/docs/details/internal-format/">internal invoice format</a>
+href="/e-invoice-eu/en/docs/details/internal-format/">internal invoice format</a>.
 
 </p>
 </div>
@@ -373,7 +373,7 @@ to set up or integrate into another software.</p>
 
 <p>That limits the choice to online validators but that would mean that invoice
 data would be sent over the internet and for data privacy reasons, this should
-not happend automatically but users should opt-in for this feature.</p>
+not happen automatically but users should opt-in to this feature.</p>
 
 <p>However, offering the option of automatic validation is a feature planned
 for the future, see <a href="https://github.com/gflohr/e-invoice-eu/issues/78" target="_blank">GitHub issue #78</a>.</p>
@@ -462,19 +462,25 @@ Environment for using it.</p>
 
 <p>If you have Java installed, download the <code>Mustang-CLI-*VERSION*.jar</code> from their
 <a href="https://github.com/ZUGFeRD/mustangproject/releases" target="_blank">release page</a> and save
-it as <code>Mustang-CLI.jar</code>in the directory<code>contrib/validators/factur-x</code>.</p>
+it as <code>Mustang-CLI.jar</code> in the directory <code>contrib/validators/factur-x</code>.</p>
 
 <p>After that you can validate Factur-X/ZUGFeRD like this:</p>
 
+
+
+
 <pre class="language-shell"><code>node contrib/validators/factur-x/factur-x-validate.mjs INVOICE_DOCUMENT</code></pre>
+
+
+
 
 
 <p>In case of an error, you will get a detailed error report which is
 unfortunately not very easy to understand.</p>
 
 <p>You can pass PDF documents with embedded e-invoices and also bare XML files.
-The validator also supports documents following the German XRECHNUNG standard.
-Check the <a href="https://www.mustangproject.org/" target="_blank">Mustangproject homepage</a> for
+The validator also supports documents following the German XRechnung standard.
+Check the <a href="https://www.mustangproject.org/" target="_blank">Mustang project homepage</a> for
 up-to-date information.</p>
 
 <p>If you haven't installed the Java interpreter in your <code>$PATH</code>, you can set
@@ -506,7 +512,13 @@ in the directory <code>contrib/validators/kosit</code>.</p>
 
 <p>Please try out that you can run the validator executable with this command:</p>
 
+
+
+
 <pre class="language-shell"><code>java -jar contrib/validators/kosit/validationtool.jar</code></pre>
+
+
+
 
 
 <p>It should display a help page with usage information.</p>
@@ -519,7 +531,13 @@ in the directory <code>contrib/validators/kosit</code>.</p>
 and unpack it in the directory <code>contrib/validators/kosit/xrechnung-scenario</code>.
 This should now work:</p>
 
+
+
+
 <pre class="language-shell"><code>ls contrib/validators/kosit/xrechnung-scenario/scenarios.xml</code></pre>
+
+
+
 
 
 <p>This scenario contains schemas for UBL, CII, and various versions of the
@@ -529,7 +547,13 @@ German XRECHNUNG format.</p>
 
 <p>Now you can run the validator like this:</p>
 
+
+
+
 <pre class="language-shell"><code>node contrib/validators/kosit/validate.mjs invoice.pdf</code></pre>
+
+
+
 
 
 <p>You will see the result of the validation on the console. Additionally, a
@@ -543,7 +567,13 @@ more than one document at once.</p>
 
 <p>Alternatively, you can start the validator as a daemon:</p>
 
+
+
+
 <pre class="language-shell"><code>node contrib/validators/kosit/validate.mjs --daemon</code></pre>
+
+
+
 
 
 <p>The option <code>-D</code> is an alias for <code>--daemon</code>.</p>
@@ -551,14 +581,42 @@ more than one document at once.</p>
 <p>You can now open a web interface at <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a> and upload invoices
 to be validated.</p>
 
-<p>Alternatively, you can use <code>curl</code>:</p>
+<p>Alternatively, you can auch <code>curl</code> oder <code>httpie</code> verwendet werden:</p>
 
-<pre class="language-shell"><code>$ curl POST -d @./invoice.xml http://localhost:8080/</code></pre>
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-6d200c1afdbd1926c3aadcf06dc823c74f15b346' id='code-tab-cc0c8e52664f46563d52ffc4d31ef4805025ab41' checked>
+        <label data-title='curl' for='code-tab-cc0c8e52664f46563d52ffc4d31ef4805025ab41'>curl</label>
+        <input type='radio' name='group-6d200c1afdbd1926c3aadcf06dc823c74f15b346' id='code-tab-2919f9eb0f131ee50d3d8d44a89e49743e17621e'>
+        <label data-title='httpie' for='code-tab-2919f9eb0f131ee50d3d8d44a89e49743e17621e'>httpie</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-cc0c8e52664f46563d52ffc4d31ef4805025ab41' class='active'><pre class="language-shell"><code>$ curl POST -d @./invoice.xml http://localhost:8080/</code></pre>
+
+</code-block>
+            <code-block id='code-block-2919f9eb0f131ee50d3d8d44a89e49743e17621e'><pre class="language-shell"><code>$ http POST -d @./invoice.xml http://localhost:8080/</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
 
 
 <p>For complete usage information of the validator, run this command:</p>
 
+
+
+
 <pre class="language-shell"><code>$ node contrib/validators/kosit/validate.mjs --help</code></pre>
+
+
+
 
 
 <p>Note that the wrapper script always passes the mandatory arguments <code>--scenarios</code>

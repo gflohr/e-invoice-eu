@@ -5,6 +5,7 @@ section: other
 ---
 <!--qgoda-no-xgettext-->
 [% USE q = Qgoda %]
+[% USE Highlight %]
 <!--/qgoda-no-xgettext-->
 
 ### Why are no Numbers Used in the JSON Schema?
@@ -12,12 +13,14 @@ section: other
 Amounts have to be numbers >= 0 with at most two decimal places. The following
 JSON schema should work for this:
 
-```json
+<!--qgoda-no-xgettext-->
+[% FILTER $Highlight "language-json" %]
 {
 	"type": "number",
 	"multipleOf": 0.01
 }
-```
+[% END %]
+<!--/qgoda-no-xgettext-->
 
 This is even documented in the [JSON Schema
 documentation](https://json-schema.org/understanding-json-schema/reference/numeric#multiples).

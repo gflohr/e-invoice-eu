@@ -8,16 +8,16 @@
 	hreflang="en"
 	href="/e-invoice-eu/en/docs/details/validation/"
 />  
-<meta name="description" content="Validating an e-invoice ensures that it adheres to the European standard EN16931. A number of options exist for this task." />
-<title>Validation</title>
+<meta name="description" content="Die Validierung einer E-Rechnung stellt sicher, dass sie den Anforderungen des europäischen Standards EN16931 entspricht. Für diese Aufgabe gibt es verschiedene Optionen." />
+<title>Validierung</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
 <link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/details/validierung/" />
 <meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/details/validierung/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="Validation" />
-<meta property="og:description" content="Validating an e-invoice ensures that it adheres to the European standard EN16931. A number of options exist for this task." />
+<meta property="og:title" content="Validierung" />
+<meta property="og:description" content="Die Validierung einer E-Rechnung stellt sicher, dass sie den Anforderungen des europäischen Standards EN16931 entspricht. Für diese Aufgabe gibt es verschiedene Optionen." />
 
 
 	<meta
@@ -101,9 +101,9 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>Validation</h1>
+					<h1>Validierung</h1>
 					
-					<div class="description">Validating an e-invoice ensures that it adheres to the European standard EN16931. A number of options exist for this task.</div>
+					<div class="description">Die Validierung einer E-Rechnung stellt sicher, dass sie den Anforderungen des europäischen Standards EN16931 entspricht. Für diese Aufgabe gibt es verschiedene Optionen.</div>
 				</div>
 				<qgoda-content> 
 
@@ -113,11 +113,7 @@
 
 
 
-<p>When implementing an e-invoicing solution, it is almost guaranteed that the
-first invoices that you produce are invalid. It is strongly recommended that
-you use a validator to ensure that your invoices meet all requirements!
-Even once that your solution is up an running it is a good idea to validate
-all outgoing and also incoming invoices.</p>
+<p>Bei der Implementierung einer E-Rechnungs-Lösung ist es so gut wie ausgeschlossen, dass die ersten produzierten Rechnungen valide sind. Es wird daher dringend empfohlen, einen Validator zu benutzen, um sicherzustellen dass die erzeugten Rechnungen alle Anforderungen erfülen. Selbst, wenn die Lösung stabil läuft, ist es dennoch eine gute Idee, alle ausgehenden aber auch eingehenden Rechnungen zu validieren.</p>
 
 <p> 
 <div class="toc">
@@ -126,24 +122,24 @@ all outgoing and also incoming invoices.</p>
 	
 	<li class="toclevel-1">
 		1
-		<a href="#syntax-and-semantics">Syntax and Semantics</a>
+		<a href="#syntax-und-semantik">Syntax und Semantik</a>
 		
 	</li>
 	
 	<li class="toclevel-1">
 		2
-		<a href="#business-rules">Business Rules</a>
+		<a href="#business-regeln">Business-Regeln</a>
 		 <ul class="toclevel-2">
 	
 	<li class="toclevel-2">
 		2.1
-		<a href="#business-terms">Business Terms</a>
+		<a href="#business-terms">Business-Terms</a>
 		
 	</li>
 	
 	<li class="toclevel-2">
 		2.2
-		<a href="#business-groups">Business Groups</a>
+		<a href="#business-gruppen">Business-Gruppen</a>
 		
 	</li>
 	
@@ -153,54 +149,39 @@ all outgoing and also incoming invoices.</p>
 	
 	<li class="toclevel-1">
 		3
-		<a href="#why-is-no-validation-built-in-e-invoice-eu">Why is No Validation Built In E-Invoice-EU?</a>
+		<a href="#weshalb-wurde-in-e-invoice-eu-keine-validierung-integriert">Weshalb wurde in E-Invoice-EU keine Validierung integriert?</a>
 		
 	</li>
 	
 	<li class="toclevel-1">
 		4
-		<a href="#validators">Validators</a>
+		<a href="#validatoren">Validatoren</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		5
+		<a href="#online-validatoren">Online-Validatoren</a>
 		 <ul class="toclevel-2">
 	
 	<li class="toclevel-2">
-		4.1
-		<a href="#online-validators">Online Validators</a>
+		5.1
+		<a href="#offline-validatoren">Offline-Validatoren</a>
 		 <ul class="toclevel-3">
 	
 	<li class="toclevel-3">
-		4.1.1
+		5.1.1
 		<a href="#factur-x-zugferd">Factur-X/ZUGFeRD</a>
-		
-	</li>
-	
-	<li class="toclevel-3">
-		4.1.2
-		<a href="#ubl-cii">UBL/CII</a>
-		
-	</li>
-	
-</ul>
- 
-	</li>
-	
-	<li class="toclevel-2">
-		4.2
-		<a href="#offline-validators">Offline Validators</a>
-		 <ul class="toclevel-3">
-	
-	<li class="toclevel-3">
-		4.2.1
-		<a href="#factur-x-zugferd-">Factur-X/ZUGFeRD</a>
 		 <ul class="toclevel-4">
 	
 	<li class="toclevel-4">
-		4.2.1.1
+		5.1.1.1
 		<a href="#mustang-project">Mustang Project</a>
 		
 	</li>
 	
 	<li class="toclevel-4">
-		4.2.1.2
+		5.1.1.2
 		<a href="#practical-peppol">Practical Peppol</a>
 		
 	</li>
@@ -210,13 +191,13 @@ all outgoing and also incoming invoices.</p>
 	</li>
 	
 	<li class="toclevel-3">
-		4.2.2
+		5.1.2
 		<a href="#ubl-cii-xrechnung">UBL/CII (XRechnung)</a>
 		 <ul class="toclevel-4">
 	
 	<li class="toclevel-4">
-		4.2.2.1
-		<a href="#install-validator">Install Validator</a>
+		5.1.2.1
+		<a href="#validator-installieren">Validator installieren</a>
 		
 	</li>
 	
@@ -225,13 +206,13 @@ all outgoing and also incoming invoices.</p>
 	</li>
 	
 	<li class="toclevel-3">
-		4.2.3
-		<a href="#install-xrechnung-scenario">Install XRECHNUNG Scenario</a>
+		5.1.3
+		<a href="#xrechnung-szenario-installieren">XRECHNUNG-Szenario installieren</a>
 		 <ul class="toclevel-4">
 	
 	<li class="toclevel-4">
-		4.2.3.1
-		<a href="#run-the-validator">Run the Validator</a>
+		5.1.3.1
+		<a href="#validator-starten">Validator starten</a>
 		
 	</li>
 	
@@ -253,12 +234,10 @@ all outgoing and also incoming invoices.</p>
 
 </p>
 
-<h2><a href="#" name="syntax-and-semantics" id="syntax-and-semantics"></a>Syntax and Semantics</h2>
+<h2><a href="#" name="syntax-und-semantik" id="syntax-und-semantik"></a>Syntax und Semantik</h2>
 
-<p>Electronic invoices must have a certain structure that is determined by the
-syntax chosen, either <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a> or
-<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a>. The syntax specifies which elements must exist
-and where they are located in the syntax tree.</p>
+<p>Elektronische Rechnungen müssen eine bestimmte Struktur aufweisen, die sich aus der ausgewahlte Syntax, entweder <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a> oder
+<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a> ergibt. Die Syntax bestimmt, welche Elemente vorhanden sein müssen, und wo sie im Syntaxbaum verortet sind.</p>
 
 
 
@@ -269,17 +248,12 @@ and where they are located in the syntax tree.</p>
     <div>
         <strong>
             <i class="bi-info-circle"></i>
-            <span class="title">Order of Invoice Fields</span>
+            <span class="title">Reihenfolge der Rechnungsfelder</span>
         </strong>
     </div>
     <p>
 
-The XML standards also specify the exact order of elements. Fortunately,
-E-Invoice-EU automatically sorts its output so that you don't have to bother
-about the order of your input data, no matter whether it comes from a
-spreadsheet via a <a href="/e-invoice-eu/de/docs/details/mapping/">Mapping</a> or
-directly from JSON in the <a
-href="/e-invoice-eu/de/docs/details/internes-format/">internal invoice format</a>
+Die XML-Standards geben auch die genaue Reihenfolge der Elemente vor. Glücklicherweise sortiert E-Invoice-EU die Ausgabe automatisch, so dass man sich keine Gedanken um die Reihenfolge der Eingabedaten zu machen braucht. Dabei spielt es keine Rolle, ob sie über ein <a href="/e-invoice-eu/de/docs/details/mapping/>Mapping</a>  aus einer Tabelle oder direkt aus JSON im <a href="/e-invoice-eu/de/docs/details/internes-format/">internen Rechnungsformat</a> kommen.
 
 </p>
 </div>
@@ -290,38 +264,24 @@ href="/e-invoice-eu/de/docs/details/internes-format/">internal invoice format</a
 
 
 
-<p>The correct syntax is ensured by E-Invoice-EU. It validates the input data
-against the respective <a href="/e-invoice-eu/de/docs/service/andere-endpunkte/#schemas">schema</a>
-which ensures that the input is syntactically correct.</p>
+<p>Die korrekte Syntax wird von E-Invoice-EU sichergestellt. Die Software validiert die Eingabedaten gegen das jeweilge  <a href="/e-invoice-eu/de/docs/service/andere-endpunkte/#schemata">schema</a>, wodurch sichergestellt ist, dass die Eingabe syntaktisch korrekt ist.</p>
 
-<p>The schema also contain the code lists so that you can be sure that wherever
-applicable only allowed values are used. Likewise, number and date
-formats are checked.</p>
+<p>Das Schema enthält auch alle Codelisten, was garantiert, dass nur erlaubte Werte verwendet werden, soweit das für das jeweilige Element verlangt ist. Ebenso werden auch Zahlen- und Datumsformate auf Korrektheit überprüft.</p>
 
-<h2><a href="#" name="business-rules" id="business-rules"></a>Business Rules</h2>
+<h2><a href="#" name="business-regeln" id="business-regeln"></a>Business-Regeln</h2>
 
-<p>But there are also semantic requirements called <em>business rules</em>. An example
-for such a rule is that if the payable amount of the invoice is positive,
-it must either include a due date or payment terms, see
-<a href="https://docs.peppol.eu/poacc/billing/3.0/rules/ubl-tc434/BR-CO-25/" target="_blank">BR-CO-25</a>.</p>
+<p>Weiterhin gibt es semantische Anforderungen, die <em>Business-Regeln</em> genannt werden. Ein Beispiel für eine solche Regelung ist die Forderung, dass wenn die fällige Summe positiv ist, entweder ein Fälligkeitsdatum oder aber Zahlungsbedingungen angegeben werden müssen, siehe <a href="https://docs.peppol.eu/poacc/billing/3.0/rules/ubl-tc434/BR-CO-25/" target="_blank">BR-CO-25</a>.</p>
 
-<p>In general, E-Invoice-EU does <em>not</em> check these semantic requirements.</p>
+<p>Im allgemeinen werden diese Anforderungen von E-Invoice-EU <em>nicht</em> überprüft.</p>
 
-<p>A lot of these rules come from the standard itself. Others rules are set up
-by the member states in the form of <em>Core Invoice Usage Specifications (CIUS)</em>,
-see the chapter <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/">Erweiterungen</a>.</p>
+<p>Viele dieser Regeln kommen aus dem Standard selbst. Andere Regeln werden von den Mitgliedsländern in Form von <em>Core Invoice Usage Specifications (CIUS)</em>,
+siehe das Kapitel <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/">Erweiterungen</a>, aufgestellt.</p>
 
-<h3><a href="#" name="business-terms" id="business-terms"></a>Business Terms</h3>
+<h3><a href="#" name="business-terms" id="business-terms"></a>Business-Terms</h3>
 
-<p>When reading these rules, you will often see the abbreviation <em>BT</em>. BT stands
-for <em>business term</em> and is simply the identifier for a certain invoice field.
-For example, the issue date of an invoice is business term number 2 or short
-BT-2, see the documentation for
-(<code>cbc:IssueDate</code>)[<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-IssueDate/" target="_blank">https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-IssueDate/</a>].</p>
+<p>Beim Lesen dieser Regeln, taucht häufig die Abkürzung <em>BT</em> auf. BT steht für <em>Business Term</em>. Gemeint ist damit einfach ein Bezeichner für ein bestimmtes Rechnungsfeld. Zum Beispiel ist das Ausgabedatum einer Rechnung Business Term 2 oder kurz BT-2, siehe die Dokumentation für (<code>cbc:IssueDate</code>)[<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-IssueDate/" target="_blank">https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-IssueDate/</a>].</p>
 
-<p>This documentation contains an almost complete list of business terms, see
-<a href="/e-invoice-eu/de/docs/anderes/business-terms/">Business-Terms</a> with links to the <a href="https://docs.peppol.eu/poacc/billing/3.0/" target="_blank">Peppol UBL invoice
-documentation</a>.</p>
+<p>Diese Dokumentation enthält eine fast vollständige Liste von Business-Terms, siehe <a href="/e-invoice-eu/de/docs/anderes/business-terms/">Business-Terms</a> mit weiterführenden Links zur <a href="https://docs.peppol.eu/poacc/billing/3.0/" target="_blank">Dokumentation von Peppol UBL invoice</a>.</p>
 
 
 
@@ -332,15 +292,12 @@ documentation</a>.</p>
     <div>
         <strong>
             <i class="bi-info-circle"></i>
-            <span class="title">Why Reading Business Rules?</span>
+            <span class="title">Weshalb sollte man Business-Regeln lesen?</span>
         </strong>
     </div>
     <p>
 
-Well, you will have no choice. E-invoice validation software quotes these
-rules in their error messages. It is very hard to understand the error
-messages without knowing what exactly the business terms mentioned in the
-rule stand for.
+Weil einem nichts anderes übrigbleibt. Validierungssoftware für E-Rechnungen zitiert diese Regeln in den Fehlermeldungen. Und es ist ziemlich schwer, diese Fehlermeldungen zu verstehen, wenn man nicht weiß, wofür die in der Regel erwähnten Business-Terms genau stehen.
 
 </p>
 </div>
@@ -351,37 +308,23 @@ rule stand for.
 
 
 
-<h3><a href="#" name="business-groups" id="business-groups"></a>Business Groups</h3>
+<h3><a href="#" name="business-gruppen" id="business-gruppen"></a>Business-Gruppen</h3>
 
-<p>The standard also uses the term business group or BG in short. Business groups
-are simply groups of related business terms. BG-4 for example contains
-information about the seller like electronic and postal addresses, tax
-schemes, legal information and so on, see
-<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/" target="_blank"><code>cac:AccountingSupplierParty</code></a>.</p>
+<p>Der Standard spricht auch von Business-Gruppen, abgekürzt als BG. Business-Gruppen sind einfach Gruppen verwandter Business-Terms. Zum Beispiel enthält BG-4 Informationen über die Ausstellerin wie elektronische und postalische Adressen, Steuerschemata, Informationen zur Rechtsform und so weiter, siehe <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AccountingSupplierParty/" target="_blank"><code>cac:AccountingSupplierParty</code></a>.</p>
 
-<p>This documentation contains an almost complete list of business groups, see
-<a href="/e-invoice-eu/de/docs/anderes/business-groups/">Business Groups</a> with links to the <a href="https://docs.peppol.eu/poacc/billing/3.0/" target="_blank">Peppol UBL invoice
-documentation</a>.</p>
+<p>Diese Dokumentation enthält eine fast vollständige Liste von Business-Gruppen, siehe <a href="/e-invoice-eu/de/docs/anderes/business-groups/">Business-Gruppen</a> mit weiterführenden Links zur <a href="https://docs.peppol.eu/poacc/billing/3.0/" target="_blank">Dokumentation von Peppol UBL invoice</a>.</p>
 
-<h2><a href="#" name="why-is-no-validation-built-in-e-invoice-eu" id="why-is-no-validation-built-in-e-invoice-eu"></a>Why is No Validation Built In E-Invoice-EU?</h2>
+<h2><a href="#" name="weshalb-wurde-in-e-invoice-eu-keine-validierung-integriert" id="weshalb-wurde-in-e-invoice-eu-keine-validierung-integriert"></a>Weshalb wurde in E-Invoice-EU keine Validierung integriert?</h2>
 
-<p>All known validators are written in Java and they only cover a certain subset
-of different formats. The only exception is the <a href="https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2" target="_blank">Practical Peppol
-validator</a>
-that covers a very wide range of in formats. But it is not straightforward
-to set up or integrate into another software.</p>
+<p>Alle bekannten Validatoren sind in Java geschrieben und decken nur eine Teilmenge der verschiedenen Formate ab. Die einzige Ausnahme ist der <a href="https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2" target="_blank">Validator von Practical Peppol</a>, der eine große Menge an Formaten validiert. Dieser Validator kann allerdings nicht ohne weiteres lokal aufgesetzt oder in andere Software integriert werden.</p>
 
-<p>That limits the choice to online validators but that would mean that invoice
-data would be sent over the internet and for data privacy reasons, this should
-not happend automatically but users should opt-in for this feature.</p>
+<p>Das schränkt die Auswahl auf Online-Validatoren ein, was allerdings bedeuten würde, dass Rechnungsdaten über das Internet verschickt werden. Aus Datenschutzgründen sollte das aber nicht automatisch passieren, sondern Nutzer sollten dieses Feature explizit aktivieren.</p>
 
-<p>However, offering the option of automatic validation is a feature planned
-for the future, see <a href="https://github.com/gflohr/e-invoice-eu/issues/78" target="_blank">GitHub issue #78</a>.</p>
+<p>Jedoch ist das Angebot einer automatischen Validierung ein für die Zukunft geplantes Feature, siehe <a href="https://github.com/gflohr/e-invoice-eu/issues/78" target="_blank">GitHub-Issue #78</a>.</p>
 
-<h2><a href="#" name="validators" id="validators"></a>Validators</h2>
+<h2><a href="#" name="validatoren" id="validatoren"></a>Validatoren</h2>
 
-<p>You can either upload e-invoices to an online validator or use self-hosted
-software for validation purposes.</p>
+<p>E-Rechnungen können entweder zu einem Online-Validator hochgeladen werden oder von selbstgehosteter Software validiert werden.</p>
 
 
 
@@ -392,13 +335,12 @@ software for validation purposes.</p>
     <div>
         <strong>
             <i class="bi-info-circle"></i>
-            <span class="title">Missing Entry></span>
+            <span class="title">Fehlender Eintrag</span>
         </strong>
     </div>
     <p>
 
-The list of software and websites following is incomplete. If you want to
-add an entry, please file an [issue](https://github.com/gflohr/e-invoice-eu/issues)!
+Die folgende Liste von Software und Websites ist unvollständig. Um einen Eintrag zuzufügen, bitte ein [Ticket](https://github.com/gflohr/e-invoice-eu/issues) erstellen!
 
 </p>
 </div>
@@ -409,32 +351,28 @@ add an entry, please file an [issue](https://github.com/gflohr/e-invoice-eu/issu
 
 
 
-<h3><a href="#" name="online-validators" id="online-validators"></a>Online Validators</h3>
+<h2><a href="#" name="online-validatoren" id="online-validatoren"></a>Online-Validatoren</h2>
 
-<p>Online validators are easy to use but you have to keep in mind that invoices
-contain personal data and may also contain business or trade secrets.  Please
-check all legal requirements before you use them.</p>
+<p>Online-Validatoren sind einfach zu benutzen. Man sollte jedoch daran denken, dass Rechnungen persönlische Daten oder sogar Geschäftsgeheimnisse enthalten können. Vor der Verwendung sollten deshalb alle rechtlichen Aspekte gewürdigt werden.</p>
 
-<h4><a href="#" name="factur-x-zugferd" id="factur-x-zugferd"></a>Factur-X/ZUGFeRD</h4>
+<h4>Factur-X/ZUGFeRD</h4>
 
-<p>The following online validators are freely available:</p>
+<p>Die folgenden Online-Valdiatoren sind frei verfügbar:</p>
 
 <ul>
 <li>portinvoice: <a href="https://www.portinvoice.com/" target="_blank">https://www.portinvoice.com/</a></li>
-<li>ZUGFeRD Community (requires registration): <a href="https://www.zugferd-community.net/en/login" target="_blank">https://www.zugferd-community.net/en/login</a></li>
-<li>FNFE Service Validator (requires registration): <a href="https://services.fnfe-mpe.org/" target="_blank">https://services.fnfe-mpe.org/</a></li>
-<li>Ecosio: <a href="https://ecosio.com/en/peppol-and-xml-document-validator/" target="_blank">https://ecosio.com/en/peppol-and-xml-document-validator/</a> (only XML)</li>
-<li>Practical Peppol Validator: <a href="https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2" target="_blank">https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2</a> (only XML)</li>
+<li>ZUGFeRD Community (Registrierung erforderlich): <a href="https://www.zugferd-community.net/en/login" target="_blank">https://www.zugferd-community.net/en/login</a></li>
+<li>FNFE Service Validator (Regitrierung erforderlich): <a href="https://services.fnfe-mpe.org/" target="_blank">https://services.fnfe-mpe.org/</a></li>
+<li>Ecosio: <a href="https://ecosio.com/en/peppol-and-xml-document-validator/" target="_blank">https://ecosio.com/en/peppol-and-xml-document-validator/</a> (nur XML)</li>
+<li>Practical Peppol Validator: <a href="https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2" target="_blank">https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2</a> (nur XML)</li>
 </ul>
 
 
-<p>The Ecosio validator uses the Practical Peppol validator under the hood. You
-have extract the XML embedded into the PDF for using these validators.</p>
+<p>Der Ecosio-Validator verwendet den Practical-Peppol-Validator. Für diese Validatoren muss das XML aus dem PDF extrahiert werden.</p>
 
-<p>The Practical Peppol validator offers a SOAP interface and is suitable for
-automated validation scenarios.</p>
+<p>Der Validator von Practical-Peppol stellt eine SOAP-Schnittstelle zur Verfügung und ist damit für automatische Validierungsszenarien geeignet.</p>
 
-<h4><a href="#" name="ubl-cii" id="ubl-cii"></a>UBL/CII</h4>
+<h4>UBL/CII</h4>
 
 <ul>
 <li>portinvoice: <a href="https://www.portinvoice.com" target="_blank">https://www.portinvoice.com</a></li>
@@ -445,124 +383,155 @@ automated validation scenarios.</p>
 </ul>
 
 
-<p>The Ecosio validator uses the Practical Peppol validator under the hood.</p>
+<p>Der Ecosio-Validator verwendet intern den Validator von Practical Peppol.</p>
 
-<p>The Practical Peppol validator offers a SOAP interface and is suitable for
-automated validation scenarios.</p>
+<p>Der Validator von Practical-Peppol stellt eine SOAP-Schnittstelle zur Verfügung und ist damit für automatische Validierungsszenarien geeignet.</p>
 
-<h3><a href="#" name="offline-validators" id="offline-validators"></a>Offline Validators</h3>
+<h3><a href="#" name="offline-validatoren" id="offline-validatoren"></a>Offline-Validatoren</h3>
 
-<h4><a href="#" name="factur-x-zugferd-" id="factur-x-zugferd-"></a>Factur-X/ZUGFeRD</h4>
+<h4><a href="#" name="factur-x-zugferd" id="factur-x-zugferd"></a>Factur-X/ZUGFeRD</h4>
 
 <h5><a href="#" name="mustang-project" id="mustang-project"></a>Mustang Project</h5>
 
-<p><a href="https://github.com/ZUGFeRD/mustangproject" target="_blank">Mustang project</a> offers validation
-of Factur-X/ZUGFeRD and XRECHNUNG documents. You need a Java Runtime
-Environment for using it.</p>
+<p><a href="https://github.com/ZUGFeRD/mustangproject" target="_blank">Mustang project</a> bietet Validierung von Rechnungen in den Formaten Factur-X/ZUGFeRD und XRechnung an. Zur Benutzung ist eine Java-Laufzeitumgebung erforderlich.</p>
 
-<p>If you have Java installed, download the <code>Mustang-CLI-*VERSION*.jar</code> from their
-<a href="https://github.com/ZUGFeRD/mustangproject/releases" target="_blank">release page</a> and save
-it as <code>Mustang-CLI.jar</code>in the directory<code>contrib/validators/factur-x</code>.</p>
+<p>Ist Java installiert, muss die Datei <code>Mustang-CLI-*VERSION*.jar</code> von der
+<a href="https://github.com/ZUGFeRD/mustangproject/releases" target="_blank">Release-Seite</a> heruntergeladen und als <code>Mustang-CLI.jar</code> im Verzeichnis <code>contrib/validators/factur-x</code> gespeichert werden..</p>
 
-<p>After that you can validate Factur-X/ZUGFeRD like this:</p>
+<p>Danach lassen sich Factur-X/ZUGFeRD folgendermaßen validieren:</p>
+
+
+
 
 <pre class="language-shell"><code>node contrib/validators/factur-x/factur-x-validate.mjs INVOICE_DOCUMENT</code></pre>
 
 
-<p>In case of an error, you will get a detailed error report which is
-unfortunately not very easy to understand.</p>
 
-<p>You can pass PDF documents with embedded e-invoices and also bare XML files.
-The validator also supports documents following the German XRECHNUNG standard.
-Check the <a href="https://www.mustangproject.org/" target="_blank">Mustangproject homepage</a> for
-up-to-date information.</p>
 
-<p>If you haven't installed the Java interpreter in your <code>$PATH</code>, you can set
-the environment variable <code>$JAVA</code> to the location of the Java executable.
-Likewise. you can point the environment variable <code>$MUSTANG_CLI_JAR</code> to the
-location of the Mustangproject Jar file if it cannot be found at
-<code>contrib/factur-x/Mustang-CLI.jar</code>.</p>
+
+<p>Im Fehlerfall generiert die Software einen detaillierten Fehlerbericht, der aber leider nicht leicht zu verstehen ist.</p>
+
+<p>Es lassen sich PDF-Dateien mit eingebetteten E-Rechnungen oder auch XML-Dateien übergeben. Der Validator prüft auch Dokumente, die dem Deutschen Standard XREchnung  entsprechen. Die <a href="https://www.mustangproject.org/" target="_blank">Homepage von Mustang Project</a> liefert dazu aktuelle Informationen.</p>
+
+<p>Ist der Java-Interpreter nicht im <code>$PATH</code> installiert, kann die Environment-Variable <code>$JAVA</code> gesetzt werden, um den Pfad zum Java-Interpreter anzugeben. Ebenso kann mit der Umgebungsvariablen $MUSTANG_CLI_JAR<code>der Pfad zur Jar-Datei von Mustang Project angegeben werden, sofern die Datei nicht unter</code>contrib/factur-x/Mustang-CLI.jar` abgelegt wurde.</p>
 
 <h5><a href="#" name="practical-peppol" id="practical-peppol"></a>Practical Peppol</h5>
 
-<p>The <a href="https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2" target="_blank">Practical Peppol validator</a>
-can be set up locally. You have to contact the author for details.</p>
+<p>Der <a href="https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2" target="_blank">Validator von Practical Peppol</a> kann ebenfalls lokal aufgesetzt werden. Dazu kann der Autor des Validators kontaktiert werden.</p>
 
 <h4><a href="#" name="ubl-cii-xrechnung" id="ubl-cii-xrechnung"></a>UBL/CII (XRechnung)</h4>
 
-<p>The German <a href="https://www.xoev.de/" target="_blank">Koordinierungsstelle für IT-Standards -
-KoSIT</a> maintains a free and open source validator for
-arbitrary e-invoice formats.</p>
+<p>Die deutsche <a href="https://www.xoev.de/" target="_blank">Koordinierungsstelle für IT-Standards -KoSIT</a> bietet einen freien, quelloffenen Validator für beliebige E-Rechnungs-Formate an.</p>
 
-<p>You need a Java Runtime Environment (version 11 or newer) and download at
-least two pieces of software, the actual validator and a so-called
-"validation scenario" with the schemas of the supported formats.</p>
+<p>Benötigt wird eine Java-Laufzeitumgebung (Version 11 oder neuer) und es müssen mindestens zwei Software-Archive heruntergeladen werden, nämlich den eigentlichen Validator und ein sogenanntes Validierungs-Szenario mit den Schemata der unterstützten Formate.</p>
 
-<h5><a href="#" name="install-validator" id="install-validator"></a>Install Validator</h5>
+<h5><a href="#" name="validator-installieren" id="validator-installieren"></a>Validator installieren</h5>
 
-<p>Download the file <code>validator-*VERSION*-distribution.zip</code>. It contains a file
-<code>validationtool-*VERSION*-standalone.jar</code>. Save it as <code>validationtool.jar</code>
-in the directory <code>contrib/validators/kosit</code>.</p>
+<p>Dzu muss die Datei <code>validator-*VERSION*-distribution.zip</code> heruntergeladen werden. Sie enthält eine Datei
+<code>validationtool-*VERSION*-standalone.jar</code>, die als <code>validationtool.jar</code>
+Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
 
-<p>Please try out that you can run the validator executable with this command:</p>
+<p>Mit diesem Kommando kann getestet werden, dass der Validator korrekt installiert wurde:</p>
+
+
+
 
 <pre class="language-shell"><code>java -jar contrib/validators/kosit/validationtool.jar</code></pre>
 
 
-<p>It should display a help page with usage information.</p>
 
-<h4><a href="#" name="install-xrechnung-scenario" id="install-xrechnung-scenario"></a>Install XRECHNUNG Scenario</h4>
 
-<p>A "scenario" for XRECHNUNG is available at <a href="https://github.com/itplr-kosit/validator-configuration-xrechnung/releases" target="_blank">https://github.com/itplr-kosit/validator-configuration-xrechnung/releases</a>.</p>
 
-<p>Download the file <code>validator-configuration-xrechnung_*VERSION*_*DATE*.zip</code>
-and unpack it in the directory <code>contrib/validators/kosit/xrechnung-scenario</code>.
-This should now work:</p>
+<p>Es sollte eine Hilfeseite mit Informationen zur Benutzung ausgegeben werdne.</p>
+
+<h4><a href="#" name="xrechnung-szenario-installieren" id="xrechnung-szenario-installieren"></a>XRECHNUNG-Szenario installieren</h4>
+
+<p>Ein „Szenario“ für XRechnung ist unter <a href="https://github.com/itplr-kosit/validator-configuration-xrechnung/releases" target="_blank">https://github.com/itplr-kosit/validator-configuration-xrechnung/releases</a> verfügbar.</p>
+
+<p>Die Datei <code>validator-configuration-xrechnung_*VERSION*_*DATE*.zip</code> muss ins Verzeichnis <code>contrib/validators/kosit/xrechnung-scenario</code> ausgepackt werden. Danach sollte dieses Kommando funktionieren:</p>
+
+
+
 
 <pre class="language-shell"><code>ls contrib/validators/kosit/xrechnung-scenario/scenarios.xml</code></pre>
 
 
-<p>This scenario contains schemas for UBL, CII, and various versions of the
-German XRECHNUNG format.</p>
 
-<h5><a href="#" name="run-the-validator" id="run-the-validator"></a>Run the Validator</h5>
 
-<p>Now you can run the validator like this:</p>
+
+<p>Dieses Szenario enthält Schemata für UBL, CII, und verschiedene Versionen des deutschen Formats XRechnung.</p>
+
+<h5><a href="#" name="validator-starten" id="validator-starten"></a>Validator starten</h5>
+
+<p>Der Validator kann jetzt so gestartet werden:</p>
+
+
+
 
 <pre class="language-shell"><code>node contrib/validators/kosit/validate.mjs invoice.pdf</code></pre>
 
 
-<p>You will see the result of the validation on the console. Additionally, a
-file <code>*INVOICE_DOCUMENT*-report.xml</code> will be generated with a detailed
-validation report and a visualization of the invoice. Despite the filename
-extension <code>.xml</code>, the report is an HTML file and can be displayed in the
-browser.</p>
 
-<p>You can pass multiple files on the commandline if you want to validate
-more than one document at once.</p>
 
-<p>Alternatively, you can start the validator as a daemon:</p>
+
+<p>Das Ergebnis der Validierung wird auf die Konsole ausgegeben. Zusätzlich wird eine Datei <code>*RECHNUNGS_DOKUMENT*-report.xml</code> mit einem detaillierten Validierungs-Report und einer Visualisierung der Rechnung erzeugt. Trotz der Dateinamensendung <code>.xml</code>, handelt es sich bei diesem Report um eine HTML-Datei, die im Browser angezeigt werden kann.</p>
+
+<p>Es lassen sich mehrere Dateien auf der Kommandozeile angeben, wenn mehrere Dokumente auf einmal validiert werden sollen.</p>
+
+<p>Alternativ kann der Validator als Server gestartet werden:</p>
+
+
+
 
 <pre class="language-shell"><code>node contrib/validators/kosit/validate.mjs --daemon</code></pre>
 
 
-<p>The option <code>-D</code> is an alias for <code>--daemon</code>.</p>
-
-<p>You can now open a web interface at <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a> and upload invoices
-to be validated.</p>
-
-<p>Alternatively, you can use <code>curl</code>:</p>
-
-<pre class="language-shell"><code>$ curl POST -d @./invoice.xml http://localhost:8080/</code></pre>
 
 
-<p>For complete usage information of the validator, run this command:</p>
+
+<p>Die Option <code>-D</code> ist ein Alias für <code>--daemon</code>.</p>
+
+<p>Jetzt kann eine Web-Interface <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a> im Browser geöffnet werden, dass das Hochladen und die Validierung von Rechnungen erlaubt.</p>
+
+<p>Alternativ dazu kann auch <code>curl</code> oder <code>httpie</code> verwendet werden:</p>
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-6d200c1afdbd1926c3aadcf06dc823c74f15b346' id='code-tab-cc0c8e52664f46563d52ffc4d31ef4805025ab41' checked>
+        <label data-title='curl' for='code-tab-cc0c8e52664f46563d52ffc4d31ef4805025ab41'>curl</label>
+        <input type='radio' name='group-6d200c1afdbd1926c3aadcf06dc823c74f15b346' id='code-tab-2919f9eb0f131ee50d3d8d44a89e49743e17621e'>
+        <label data-title='httpie' for='code-tab-2919f9eb0f131ee50d3d8d44a89e49743e17621e'>httpie</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-cc0c8e52664f46563d52ffc4d31ef4805025ab41' class='active'><pre class="language-shell"><code>$ curl POST -d @./invoice.xml http://localhost:8080/</code></pre>
+
+</code-block>
+            <code-block id='code-block-2919f9eb0f131ee50d3d8d44a89e49743e17621e'><pre class="language-shell"><code>$ http POST -d @./invoice.xml http://localhost:8080/</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
+
+
+<p>Für eine vollständig Beschreibung aller Optionen des Validators kann folgendes Kommando verwendet werden:</p>
+
+
+
 
 <pre class="language-shell"><code>$ node contrib/validators/kosit/validate.mjs --help</code></pre>
 
 
-<p>Note that the wrapper script always passes the mandatory arguments <code>--scenarios</code>
-and <code>--repository</code>.</p>
+
+
+
+<p>Es ist zu beachten, dass das Wrapper-Skript immer die obligatorischen Optionen <code>--scenarios</code> und <code>--repository</code> übergibt.</p>
  
 				 
 <div class="guided-tour container">
@@ -637,7 +606,7 @@ and <code>--repository</code>.</p>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/grundlagen/haftungsausschluss/">Disclaimer</a>
+			<a href="/e-invoice-eu/de/docs/grundlagen/haftungsausschluss/">Hafuntsausschluss</a>
 			
 		</li>
 		
@@ -739,7 +708,7 @@ and <code>--repository</code>.</p>
 		
 		<li>
 			
-			<i class="bi-arrow-right-circle"></i>&nbsp;Validation 
+			<i class="bi-arrow-right-circle"></i>&nbsp;Validierung 
 		</li>
 		
 	</ol>
@@ -760,7 +729,7 @@ and <code>--repository</code>.</p>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/anderes/business-groups/">Business Groups</a>
+			<a href="/e-invoice-eu/de/docs/anderes/business-groups/">Business-Gruppen</a>
 			
 		</li>
 		
