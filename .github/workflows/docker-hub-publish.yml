@@ -119,13 +119,13 @@ jobs:
         env:
           # https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-an-intermediate-environment-variable
           TAGS: ${{ steps.meta.outputs.tags }}
-          DIGEST: ${{ steps.build-and-push.outputs.digest }}
+          IMAGE_ID: ${{ steps.build-and-push.outputs.imageid }}
         # This step uses the identity token to provision an ephemeral certificate
         # against the sigstore community Fulcio instance.
         run: |
           images=""
           for tag in ${TAGS}; do
-            images+="${tag}@${DIGEST} "
+            images+="${tag}@${IMAGE_ID} "
           done
           cosign sign --yes ${images}
 
