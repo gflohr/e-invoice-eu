@@ -83,7 +83,7 @@ It is quite unlikely that you can use anything here out of the box. See it as a 
 
 ## Documentation
 
-See the [E-Invoice-EU online documentation](https://gflohr.github.eu/e-invoice-eu/).
+See the [E-Invoice-EU online documentation](https://gflohr.github.io/e-invoice-eu/).
 
 The blog post
 [Creating E-Invoices with Free and Open Source
