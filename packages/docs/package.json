@@ -35,6 +35,7 @@
 		"postcss-scss": "^1.0.2",
 		"prismjs": "^1.29.0",
 		"qgoda-tt2-plugin-highlight": "github:gflohr/qgoda-tt2-plugin-highlight",
+		"rimraf": "^6.0.1",
 		"sass": "^1.83.4",
 		"sass-loader": "^13.3.1",
 		"style-loader": "^3.3.3",
@@ -45,5 +46,8 @@
 	"browserslist": [
 		"> 1%",
 		"last 2 versions"
-	]
+	],
+	"dependencies": {
+		"bun": "^1.2.3"
+	}
 }

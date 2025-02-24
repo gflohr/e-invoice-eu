@@ -24,6 +24,7 @@
 	},
 	"dependencies": {},
 	"devDependencies": {
+		"bun": "^1.2.3",
 		"husky": "^9.1.7",
 		"lerna": "^8.1.9"
 	}

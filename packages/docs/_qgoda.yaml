@@ -28,6 +28,8 @@ helpers:
 pre-build:
   - name: install bun
     run: npm install bun
+  - name: remove package-lock.json
+    run: npx rimraf ../../package-lock.json
   - name: webpack
     run: bun run build
 defaults:
