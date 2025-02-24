@@ -1,0 +1,35 @@
+name: Deploy Qgoda Site
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # We want to own the output directory so that we can create a
+      # file inside of it, see below.
+      - name: Create _site directory.
+        run: mkdir _site
+
+      - name: Build with Qgoda
+        uses: gflohr/qgoda-action@main
+
+      # See https://github.com/peaceiris/actions-gh-pages/issues/892
+      - name: Create .exists
+        run: touch _site/.exists
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
