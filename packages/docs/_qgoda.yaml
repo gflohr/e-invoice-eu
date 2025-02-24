@@ -23,8 +23,13 @@ scm: git
 no-scm:
   - /assets
 helpers:
-  npm: bun run start
+  webpack: bun run start
   browser-sync: bun run server
+pre-build:
+  - name: install bun
+    run: npm install bun
+  - name: webpack
+    run: bun run build
 defaults:
   - files:
       - /*/**
