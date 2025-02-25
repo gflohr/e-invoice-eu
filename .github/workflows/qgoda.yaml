@@ -1,4 +1,4 @@
-name: Deploy Qgoda Site
+name: Deploy Docs with Qtoda
 
 on:
   push:
@@ -18,14 +18,17 @@ jobs:
       # We want to own the output directory so that we can create a
       # file inside of it, see below.
       - name: Create _site directory.
-        run: mkdir _site
+        run: mkdir packages/docs/_site
 
       - name: Build with Qgoda
         uses: gflohr/qgoda-action@main
+        with:
+          qgoda-version: latest-node
+          qgoda-srcdir: packages/docs
 
       # See https://github.com/peaceiris/actions-gh-pages/issues/892
       - name: Create .exists
-        run: touch _site/.exists
+        run: touch packages/docs/_site/.exists
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
