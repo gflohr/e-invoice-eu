@@ -20,6 +20,10 @@ jobs:
       - name: Create _site directory.
         run: mkdir -p packages/docs/_site/e-invoice-eu
 
+      # This is necessary because otherwise, the qgoda plug-ins are not found.
+      - name: Run npm install
+        run: npm install
+
       - name: Build with Qgoda
         uses: gflohr/qgoda-action@v1
         with:
