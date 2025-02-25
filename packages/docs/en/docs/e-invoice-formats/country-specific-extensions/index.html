@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+  <head>
+	<meta charset="utf-8">
+	<title>Extensions</title>
+    <meta name="generator" content="Qgoda vv0.10.1 (https://www.qgoda.net/)" />
+</head>
+  <body>
+	<h1>Extensions</h1>
+	
+
+
+
+<p>You may expect from an e-invoice standard like EN16931 that it
+standardizes e-invoices. Not quite! Each member state can define their own
+extentions to the standard called Core Invoice Usage Specifications
+(CIUS). Notable examples are the standard "XRechnung" in Germany or "OIUBL" in
+Denmark, see the EU document <a href="https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/eInvoicing+Country+Factsheets+for+each+Member+State+and+other+countries" target="_blank">eInvoicing Country Factsheets for each Member State &amp; other
+countries</a>
+for an overview.</p>
+
+<h2>Which Extensions are Allowed?</h2>
+
+<p>Fortunately, countries cannot arbitrarily change the standard.</p>
+
+<p>First of all, the allowed syntaxes are still only
+<a href="/packages/docs/en/docs/e-invoice-formats/ubl/">UBL</a> and <a href="/packages/docs/en/docs/e-invoice-formats/cii/">CII</a>.</p>
+
+<p>Changes to the semantics are also restricted. Countries can, for example, make
+optional elements mandatory, restrict the number of occurrences of a
+certain element, or disallow usage of certain codes. See
+<a href="https://ec.europa.eu/digital-building-blocks/sites/display/DIGITAL/CIUS+and+Extension+-+What+is+allowed" target="_blank">CIUS and Extension - What is allowed</a> for more information.</p>
+
+<h2>Practial Aspects</h2>
+
+<p>Both <a href="/packages/docs/en/docs/e-invoice-formats/ubl/">UBL</a> and <a href="/packages/docs/en/docs/e-invoice-formats/cii/">CII</a> require the
+presence of a so-called <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-CustomizationID/" target="_blank">customization ID</a>. The customization ID is an opaque string like this:</p>
+
+
+```
+urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0
+```
+
+
+<p>It identifies a particular flavour of the e-invoice.</p>
+
+<p>E-Invoice-EU facilitates this by defining aliases for certain formats. For
+example the alias "XRechnung" for the German extension automatically sets
+the customization id of the document to this:</p>
+
+
+```
+urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0
+```
+
+
+<p>If you want to produce a flavour that is not directly supported by
+E-Invoice-EU, you can simply select the base format (UBL or CII) and
+also specify the customization ID yourself like any other field. Explicitly specified customization
+IDs always override the built-in defaults.</p>
+
+<p>Either way, it is your responsability to fulfill the semantic requirements of
+every country-specific flavour. E-Invoice-EU only checks that the structure
+of the invoice data adheres to the stipulations of the standard.</p>
+
+	<p>This view has been automatically created.  Please edit  '/data/_views/default.html' to your needs!</p>
+  </body>
+</html>
