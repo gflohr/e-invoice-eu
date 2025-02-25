@@ -1,4 +1,4 @@
-name: Deploy Docs with Qtoda
+name: Deploy Docs with Qgoda
 
 on:
   push:
