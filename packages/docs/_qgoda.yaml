@@ -12,7 +12,6 @@ exclude:
   - /postcss.config.js
   - /COPYING
   - /README.md
-permalink: '/e-invoice-eu/{significant-path}'
 paths:
   site: _site/e-invoice-eu
 exclude-watch:
@@ -28,7 +27,7 @@ pre-build:
 defaults:
   - files:
       - /*/**
-      - '!/en/'
+      - '!/e-invoice-eu/en/'
     values:
       translate:
         - title
@@ -39,14 +38,14 @@ defaults:
         - readMore
         - tags
   - files:
-      - /en
+      - /e-invoice-eu/en
     values:
       lingua: en
   - files:
-      - /de
+      - /e-invoice-eu/de
     values:
       lingua: de
-  - files: /*/docs/**
+  - files: /e-invoice-eu/*/docs/**
     values:
       type: doc
       tour: doc
@@ -55,7 +54,7 @@ defaults:
     values:
       type: page
       priority: -999
-  - files: /sitemap.xml
+  - files: /e-invoice-eu/sitemap.xml
     values:
       priority: -1000
 taxonomies:

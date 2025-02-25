@@ -9,7 +9,7 @@
 		"prebuild": "npm install",
 		"build": "webpack",
 		"start": "webpack watch",
-		"server": "browser-sync start --startPath /e-invoice-eu --server _site/e-invoice-eu --files _timestamp --files assets",
+		"server": "browser-sync start --startPath /e-invoice-eu --server _site --files _timestamp --files assets",
 		"prestart": "npm install"
 	},
 	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",

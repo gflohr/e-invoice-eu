@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const fse = require('fs-extra');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
@@ -12,7 +11,7 @@ module.exports = {
 		bundle: './_assets/index.js',
 	},
 	output: {
-		path: __dirname + '/assets',
+		path: __dirname + '/e-invoice-eu/assets',
 		filename: '[name].min.js'
 	},
 	optimization: {
@@ -64,17 +63,5 @@ module.exports = {
 			'window.jQuery': 'jquery',
 			Popper: ['popper.js', 'default'],
 		}),
-		new function() {
-			this.apply = (compiler) => {
-				compiler.hooks.done.tap("Copy when done", () => {
-					const srcdir = __dirname + '/assets';
-					const destdir = __dirname + '../../../qgoda-site/e-invoice-eu/assets';
-					console.log('copy assets');
-					fse.copy(srcdir, destdir, { overwrite: true })
-						.then(() => console.log('updated assets'))
-						.catch(err => console.error(err));
-				});
-			};
-		},
 	]
 };
