@@ -13,6 +13,8 @@ exclude:
   - /COPYING
   - /README.md
 permalink: '/e-invoice-eu/{significant-path}'
+paths:
+  site: _site/e-invoice-eu
 exclude-watch:
   - /assets
   - '!/_timestamp.json'
