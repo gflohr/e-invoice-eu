@@ -3,7 +3,7 @@ name: Deploy Docs with Qtoda
 on:
   push:
     branches:
-      - main
+      - '**'
 
 permissions:
   contents: write
