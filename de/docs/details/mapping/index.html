@@ -1,0 +1,783 @@
+<!doctype html>
+<html lang="de" class="no-js">
+<head>
+	<meta charset="utf-8" />
+<meta http-equiv="X-UA-compatible" content="IE=edge" />
+ <link
+	rel="alternate"
+	hreflang="en"
+	href="/e-invoice-eu/en/docs/details/mapping/"
+/>  
+<meta name="description" content="Mapping-Definition bilden Daten aus Tabellenzellen auf Rechnungsdatenfelder ab." />
+<title>Mapping</title>
+<link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
+<link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
+<link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/details/mapping/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/details/mapping/" />
+ <meta property="og:type" content="article" />
+<meta property="og:title" content="Mapping" />
+<meta property="og:description" content="Mapping-Definition bilden Daten aus Tabellenzellen auf Rechnungsdatenfelder ab." />
+
+
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no"
+	/>
+
+	
+
+  <link href="/e-invoice-eu/assets/bundle.min.css" rel="stylesheet">
+
+
+
+  <meta name="generator" content="Qgoda vv0.11.0 (https://www.qgoda.net/)" />
+</head>
+  
+
+
+
+<body>
+	
+
+<nav class="navbar navbar-expand-md navbar-dark bg-warning">
+	<button
+		class="navbar-toggler"
+		type="button"
+		data-toggle="collapse"
+		data-target="#navbarCollapse"
+		aria-controls="navbarCollapse"
+		aria-expanded="false"
+		aria-label="Toggle navigation"
+	>
+		&#9776;
+	</button>
+	<div class="qgoda-brand">
+		<a
+			class="navbar-brand"
+			href="/e-invoice-eu/de/docs/"
+			title="E-Invoice-EU Documentation"
+		>
+			<img src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"=
+				alt="E-Invoice-EU logo" height="80" />
+		</a>
+	</div>
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="d-md-none nav-item">
+				<a
+					class="nav-link"
+					href="/e-invoice-eu/de/docs/"
+					title="E-Invoice-EU Documentation"
+				>
+					<i class="bi-house"></i>&nbsp;Home
+				</a>
+			</li>
+			<li class="nav-item">
+				<a
+					class="nav-link"
+					href="/e-invoice-eu/de/docs/"
+					title="E-Invoice-EU Documentation"
+				>
+					<i class="bi-book"></i>&nbsp;Docs
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/gflohr/e-invoice-eu/releases" title="E-Invoice-EU Releases" target="_blank">
+					<i class="bi-download"></i>&nbsp;Download
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/gflohr/e-invoice-eu" title="E-Invoice-EU on GitHub" target="_blank">
+					<i class="bi-github"></i>&nbsp;Github
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 content">
+				<div class="content-head">
+					<h1>Mapping</h1>
+					
+					<div class="description">Mapping-Definition bilden Daten aus Tabellenzellen auf Rechnungsdatenfelder ab.</div>
+				</div>
+				<qgoda-content> 
+
+
+
+
+
+
+
+<h2><a href="#" name="praktische-erwagungen" id="praktische-erwagungen"></a>Praktische Erwägungen</h2>
+
+<p>Die Beispieldateien im Verzeichnis
+<a href="https://github.com/gflohr/e-invoice-eu/tree/main/contrib" target="_blank"><code>contrib</code></a>
+funktionieren alle. Es ist sehr empfehlenswert, diese als Ausgangspunkte für eigene Rechnungstemplates und Mappings zu benutzen, bis man mit den verwendeten Konzepten genügend vertraut ist. Das ist einfacher, als es auf den ersten Blick scheint, wenn man erst einmal den Dreh heraus hat.</p>
+
+
+
+
+
+
+<div class="alert alert-info" role="alert">
+    <div>
+        <strong>
+            <i class="bi-info-circle"></i>
+            <span class="title">Brauche ich ein Mapping?</span>
+        </strong>
+    </div>
+    <p>
+
+Wer die Software benutzt, um Rechnungen direkt aus JSON-Daten zu erzeugen, kann diesen Abschnitt einfach überspringen. Mappings werden nur benötigt, um E-Rechnungen aus Tabellendaten zu generieren.
+
+</p>
+</div>
+
+
+
+
+
+
+
+<p> 
+<div class="toc">
+	<div class="toc-title">Inhaltsverzeichnis</div>
+	<ul class="toclevel-1">
+	
+	<li class="toclevel-1">
+		1
+		<a href="#praktische-erwagungen">Praktische Erwägungen</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		2
+		<a href="#format">Format</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		3
+		<a href="#allgemeine-struktur">Allgemeine Struktur</a>
+		 <ul class="toclevel-2">
+	
+	<li class="toclevel-2">
+		3.1
+		<a href="#das-meta-code-objekt">Das <code>meta</code>-Objekt</a>
+		 <ul class="toclevel-3">
+	
+	<li class="toclevel-3">
+		3.1.1
+		<a href="#das-objekt-meta.sectioncolumn-code-sektionsspalte">Das Objekt <code>meta.sectionColumn</code> (Sektionsspalte)</a>
+		
+	</li>
+	
+	<li class="toclevel-3">
+		3.1.2
+		<a href="#das-array-meta.empty-code">Das Array <code>meta.empty</code></a>
+		
+	</li>
+	
+</ul>
+ 
+	</li>
+	
+	<li class="toclevel-2">
+		3.2
+		<a href="#das-objekt-ubl-invoice-code">Das Objekt <code>ubl:Invoice</code></a>
+		
+	</li>
+	
+	<li class="toclevel-2">
+		3.3
+		<a href="#hartkodierte-wwerte">Hartkodierte Wwerte</a>
+		 <ul class="toclevel-3">
+	
+	<li class="toclevel-3">
+		3.3.1
+		<a href="#tab-referenzen">Tab-Referenzen</a>
+		
+	</li>
+	
+	<li class="toclevel-3">
+		3.3.2
+		<a href="#sektions-referenzen">Sektions-Referenzen</a>
+		
+	</li>
+	
+	<li class="toclevel-3">
+		3.3.3
+		<a href="#zellenreferenzen">Zellenreferenzen</a>
+		
+	</li>
+	
+	<li class="toclevel-3">
+		3.3.4
+		<a href="#formeln">Formeln</a>
+		
+	</li>
+	
+</ul>
+ 
+	</li>
+	
+</ul>
+ 
+	</li>
+	
+	<li class="toclevel-1">
+		4
+		<a href="#uberraschende-arrays">Überraschende Arrays</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		5
+		<a href="#beispiele">Beispiele</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		6
+		<a href="#code-listen">Code-Listen</a>
+		
+	</li>
+	
+</ul>
+
+</div>
+
+</p>
+
+<h2><a href="#" name="format" id="format"></a>Format</h2>
+
+<p>Das verwendet Format ist <a href="https://yaml.org/" target="_blank">YAML</a>. YAML ist syntaktisch eine Obermenge von
+<a href="https://www.json.org/" target="_blank">JSON</a>, so dass man auch JSON verwenden kann.</p>
+
+<h2><a href="#" name="allgemeine-struktur" id="allgemeine-struktur"></a>Allgemeine Struktur</h2>
+
+<p>Die allgemeine Struktur eines Mappings ist ein Objekt (auch Hash, Dictionary oder assoziatives Array) mit den benannten Eigenschaften <code>meta</code> und <code>ubl:Invoice</code>.</p>
+
+<h3><a href="#" name="das-meta-code-objekt" id="das-meta-code-objekt"></a>Das <code>meta</code>-Objekt</h3>
+
+<p>Die Schlüssel des <code>meta</code>-Objekts enthalten Hilfen für das eigentliche Mapping.</p>
+
+<h4><a href="#" name="das-objekt-meta.sectioncolumn-code-sektionsspalte" id="das-objekt-meta.sectioncolumn-code-sektionsspalte"></a>Das Objekt <code>meta.sectionColumn</code> (Sektionsspalte)</h4>
+
+<p>Die Schlüssel dieses Objektes sind die Namen von Tabs in den Rechnungsdateien. Der Wert sind jewals Spaltennamen, die auf Folgen von Großbuchstaben <code>A</code> bis <code>Z</code> bestehen.</p>
+
+<p>Die Bedeutung dieses Schlüssels wird später klarer.</p>
+
+<h4><a href="#" name="das-array-meta.empty-code" id="das-array-meta.empty-code"></a>Das Array <code>meta.empty</code></h4>
+
+<p>Zellen, die leer sind, werden nicht gemappt. Das Zielelement wird für sie einfach nicht generiert.</p>
+
+<p>Leider können einige leere Zellen nicht als solche erkannt werden. Findet in LibreOffice eine Formel <code>VLOOKUP</code> eine leere Textzelle, wird eine Zahlenzelle mit einem Zeilenumbruch als Wert generiert. Vermutlich existieren noch mehr solche Bugs oder Eigentümlichkeiten.</p>
+
+<p>Wenn man in einen solchen Fall hineingerät (uns ist das mit dem Beispieltemplate, das mit E-Invoice-EU ausgeliefert wird passiert), kann man ein Array <code>meta.empty</code> definieren dessen Element String sind, die als leere Werte betrachtet werden sollen. Man kann dann einfach einen dieser String in die Zelle schreiben, die das Problem verursacht. Offensichlicherweise sollte man natürlich Strings verwenden, die nicht in einer regulären Rechnung vorkommen.</p>
+
+<h3><a href="#" name="das-objekt-ubl-invoice-code" id="das-objekt-ubl-invoice-code"></a>Das Objekt <code>ubl:Invoice</code></h3>
+
+<p>Sagten wir, dass ein Mapping Tabellenzellen auf Rechnungsdaten abbildet? Es ist eher umgekehrt. Das Mapping bildet eine Referenz in die Rechnungsdaten auf eine Referenz zu einer Zelle, in der der Wert gefunden werden kann, ab. Statt einer Referenz auf eine Zelle kann auch ein hartkodierter Wert verwendet werden.</p>
+
+<p>Die Struktur entspricht exakt der Struktur der Rechnungsdaten, siehe <a href="/e-invoice-eu/de/docs/details/internes-format/">Internes Format</a>. Nur sind alle Werte entweder Referenzen auf eine Tabellenzelle oder ein hartkodierter Wert.</p>
+
+<p>Ein weiterer Unterschied besteht darin, dass Daten innerhalb eines Arrays direkt auf das erste Element des Arrays abgebildet werden. Auch das wird später noch klarer.</p>
+
+<p>Sehen wir uns einen Auszug eines Mappings an:</p>
+
+
+
+
+<pre class="language-yaml line-numbers"><code>meta:
+    sectionColumn:
+        Invoice: K
+    emtpy: [&#39;[:empty:]&#39;, &#39;%no-no-nothing%&#39;],
+ubl:Invoice:
+    cbc:ID: =Invoice.D7
+    cbc:IssueDate: =F7
+    cac:InvoiceLine:
+        section: :Line
+        cbc:ID: =Invoice:Line.A1
+        cbc:Note: =Invoice.M3
+        cac:Item:
+            cbcName: =Line.B1
+        cac:Price:
+            cbc:PriceAmount: =Invoice:Line.F1
+            cbc:PriceAmount@currencyCode: EUR</code></pre>
+
+
+
+
+
+<p><strong>Zeile 3</strong>: Die Sektionsspalte im Tab <code>Invoice</code> ist Spalte <code>K</code>.</p>
+
+<p><strong>Zeile 4</strong>: Zellen mit den Werten <code>[:empty:]</code> und <code>%no-no-nothing%</code> sollen als leer betrachtet werden.</p>
+
+<p><strong>Zeile 6</strong>: Die Rechnungsnummer findet sich in Zelle D7 des Tabs <code>Invoice</code>.</p>
+
+<p><strong>Zeile 7</strong>: Das Ausgabedatum findet sich in Zelle F7. Und in welchem Tab? Im ersten Tab, weil kein Tabname angegeben wurde.</p>
+
+<p><strong>Zeile 8</strong>: Die Rechnungspositionen sind eigentlich ein Array, aber …</p>
+
+<p><strong>Zeile 9</strong>: … der Beginn jeder Rechnungsposition ist mit dem String „Line“ in der Sektionsspalte (<code>meta.sectionColumn</code>, siehe oben!) dieses Tabs markiert.</p>
+
+<p><strong>Zeile 10</strong>: Alles, was in diesem Abschnitt folgt, kann jetzt relativ zur entsprechenden Zeile der entsprechenden Rechnungsposition angegeben werden. Die ID dieser Rechnungsposition findet sich in Spalte A der ersten Zeile der Sektion, die mit „Line“ markiert ist.</p>
+
+<p><strong>Zeile 11</strong>: Wird die Sektion dagegen nicht angegeben, ist die Zeilennummer (3) relativ zum gesamten Tab zu interpretieren.</p>
+
+<p><strong>Zeile 13</strong>: Wie weiter oben erwähnt, kann der Name des Tabs weggelassen werden, wenn es sich um das erste Tab in der Datei handelt. In diesem Fall haben wir eine Sektion „Line“ aber kein Tab. Die Zellreferenz <code>=Line.B1</code> bezieht sich daher auf Spalte <code>B</code> der ersten Zeile der Sektion <code>Line</code> im ersten Tab der Datei.</p>
+
+<p><strong>Zeile 15</strong>: Wird ein String ohne führendes Gleichheitszeichen (<code>=</code>) benutzt, wird er als hartkodierter Wert interpretiert. Im vorliegenden Fall ist das Attribut <code>currencyCode</code> von <code>cbc:PriceAmount</code> immer „EUR“ und wird nicht aus der Tabelle gelesen.</p>
+
+<p>Beschreiben wir das auf etwas formalere Weise:</p>
+
+<h3><a href="#" name="hartkodierte-wwerte" id="hartkodierte-wwerte"></a>Hartkodierte Wwerte</h3>
+
+<p>Alles, was nicht mit einem Gleichheitszeichen (<code>=</code>) beginnt, ist ein hartkodierter Wert. Es muss aber ein String sein. Das bedeutet, dass Zahlen in Anführungszeichen gesetzt werden müssen:</p>
+
+
+
+
+<pre class="language-yaml"><code>ubl:Invoice:
+  cbc:InvoiceTypeCode: &#39;380&#39;</code></pre>
+
+
+
+
+
+<p>Weil YAML so funktioniert, wie es funktioniert, müssen auch die Strings „null“, „true“, „false“, „yes“ und „no“ in Anführungszeichen gesetzt werden. Im Besonderen muss der Wert für <code>cbc:ChargeIndicator</code> innerhalb von <code>cac:AllowanceCharge</code>-Sektionen einer der Strings „true“ oderr „false“ sein, und nicht ein boolescher Wert <code>true</code> or <code>false</code>.</p>
+
+<h4><a href="#" name="tab-referenzen" id="tab-referenzen"></a>Tab-Referenzen</h4>
+
+<p>Wird kein Tabname angegeben, so wird das erste Tab in der Datei ausgewählt. Enthält ein Tabname einen Doppelpunkt (<code>:</code>) oder Punkt (<code>.</code>), muss er in einfache Anführungszeichen eingeschlossen werden:</p>
+
+
+
+
+<pre class="language-yaml"><code>cbc:DueDate: =&#39;Fancy.SheetName&#39;.D3</code></pre>
+
+
+
+
+
+<p>Allerdings erlauben die meisten Tabellenkalkulationen ohnehin keine Doppelpunkte in den Namen von Tabs.</p>
+
+<h4><a href="#" name="sektions-referenzen" id="sektions-referenzen"></a>Sektions-Referenzen</h4>
+
+<p>Sektionsreferenzen beginnen immer mit einem Doppelpunkt (<code>:</code>). Ein Sektionsname darf keinen Doppelpunkt (<code>:</code>) oder Punkt (<code>.</code>) enthalten. Escapen oder Quoten ist nicht möglich. Es müssen Namen ohne diese Zeichen gewählt werden.</p>
+
+<p>Eine Sektionsreferenz ohne führende Tab-Referenz muss mit einem Doppelpunkt <code>:</code> beginnen. Das ist notwendig, damit sie von Tab-Referenzen unterschieden werden kann.</p>
+
+<p>Beispiel:</p>
+
+
+
+
+<pre class="language-yaml"><code>ubl:Invoice:
+  cac:InvoiceLine:
+    section: :Line
+    cbc:ID: =:Line.A1
+    cbc:Note: =SomeSheet.Q23</code></pre>
+
+
+
+
+
+<p>Sehen wir uns die Referenzen für <code>cbc:ID</code> und <code>cbc:Note</code> genauer an. Die ID referenziert eine Zeile in der Sektion <code>Line</code> des ersten Tabs. Die Referenz für <code>cbc:Note</code> bezieht sich auf die Zelle <code>Q23</code> im Tab <code>SomeSheet</code>.</p>
+
+<p>Um die Dinge noch etwas komplizierter zu machen, ist auch möglich, diese „Schleifen“ in Rechnungen zu verschachteln.</p>
+
+<p>Es gibt zum Beispiel für Zu- und Abschläge das Array-Element <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AllowanceCharge/" target="_blank"><code>ubl:Invoice/cac:AllowanceCharge</code></a> auf Dokumentenebe. Daneben gibt es auch ein entsprechendes Element
+<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-AllowanceCharge/" target="_blank"><code>ubl:Invoice/cac:InvoiceLine/cac:AllowanceCharge</code></a> auf Positionsebene, und sogar noch ein weiteres auf Preisebene. Wie sollte das in einer Tabelle strukturiert werden? Nehmen wir an, dass die Zu- oder Abschläge aus Spalte <code>H</code> kommen, der Betrag der Rechnungsposition aus Spalte <code>I</code>, und Sektionsspalte ist <code>K</code>. Die Tabelle sollte dann so aussehen:</p>
+
+<p>| Zeile | … | H      | I    | J   | K          |
+| — | — | ——— | —— | — | ————— |
+| 20  |     | 120.00 |      |     | <strong>Line</strong>   |
+| 21  |     |        | 3.05 |     | ACLine     |
+| 22  |     | 75.50  |      |     | <strong>Line</strong>   |
+| 23  |     | 180.00 |      |     | <strong>Line</strong>   |
+| 24  |     |        | 1.23 |     | ACLine     |
+| 25  |     |        |      |     |            |
+| 26  |     |        | 7.50 |     | ACLine     |
+| 27  |     |        |      |     | <strong>Footer</strong> |</p>
+
+<p>Diese Rechnung hat drei Rechnungspositionen, die in den Zeilen 20, 22 und 23 beginnen.</p>
+
+<p>Die erste Position hat eine Positionssumme von 120,00 und einen Zu- oder Abschlag von 3,05. Es müssen immer positive Werte verwendet werden. Das Vorzeichen ergibt sich implizit aus dem Element
+<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/cac-AllowanceCharge/cbc-ChargeIndicator/" target="_blank"><code>cbc:ChargeIndicator</code></a>.</p>
+
+<p>Die zweite Position hat eine Positionssumme von 75,50 und keine Zu- oder Abschläge. Die dritte Position hat eine Summe von 180,00 und zwei Zu- oder Abschläge in Höhe von 1,23 und 7,50.</p>
+
+<p>Wo immer eine Tabellenzeile mit „Line“ markiert ist, fängt eine Sektion für eine Rechnungsposition
+(<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-InvoiceLine/" target="_blank"><code>cac:InvoiceLine</code></a>) an. Sie endet vor der nächsten Zeile, die mit „Line“ markiert ist oder am Ende der Tabelle. Auf dieser Ebene werden nur Zeilen in diesem Bereich in Betracht gezogen, und sie können sogar verschachtelt sein. So ist zum Beispiel Zeile 25 Teil der ersten Sektion <code>ACLine</code> innerhalb der zweiten Sektion <code>Line</code>.</p>
+
+<p>Ein kleiner Stolperstein kann die letzte <code>Line</code>-Sektion sein, die in Tabellenzeile 23 anfängt. Weil keine weitere Sektionsmarkierung folgt, erstreckt sich diese <code>Line</code>-Sektion bis zur letzten Zeile der Tabelle. Würde man alle Sektionen für Zu- und Abschläge auf allen Ebenen gleich benennen, zum Beispiel mit <code>ZA</code>, würden sie alle von der letzten <code>Line</code>-Sektion konsumiert. Dementsprechend wäre es nicht möglich, Zu- oder Abschläge auf Dokumentenebene, nach der letzten <code>Line</code>-Sektion anzugeben.</p>
+
+<p>Wir nehmen mit: Sektionsnamen auf unterschiedlichen Ebenen sollten unterschiedlich sein, selbst, wenn sie sich auf den gleichen Sachverhalt beziehen.</p>
+
+<h4><a href="#" name="zellenreferenzen" id="zellenreferenzen"></a>Zellenreferenzen</h4>
+
+<p>Referenzen auf Tabellenzellen bestehen aus einem oder mehreren Großbuchstaben <code>A-Z</code>, gefolgt von einer vorzeichenlosen Dezimalziffer <code>1-9</code>. Das kennen wir von unserer Tabellenkalkulation.</p>
+
+<h4><a href="#" name="formeln" id="formeln"></a>Formeln</h4>
+
+<p>Wie bitte? Formeln werden in Mappings nicht unterstützt. Sie können aber in der Tabelle verwendet werden, weil der Parser das Resultat der Berechnung verwendet und nicht die Formel selbst.</p>
+
+<h2><a href="#" name="uberraschende-arrays" id="uberraschende-arrays"></a>Überraschende Arrays</h2>
+
+<p>Bei einigen Elementen handelt es sich um Arrays, obwohl man das nicht erwarten würde. Zum Beispiel ist die Steuersummierung
+<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-TaxTotal/" target="_blank"><code>/ubl:Invoice/cac:TaxTotal</code></a> ein Array mit ein bis zwei Elementen. Allerdings wird man hier fast immer nur ein Element verwenden. In diesem Fall kann man sich die Sektion schenken inklusive des Schlüssel <code>section</code> schenken, weil es keinen Bedarf gibt. Es ist gut möglich, dass man dieses Feature benutzt, ohne es zu merken.</p>
+
+<h2><a href="#" name="beispiele" id="beispiele"></a>Beispiele</h2>
+
+<p>Das Verzeichnis
+<a href="https://github.com/gflohr/e-invoice-eu/tree/main/contrib/templates" target="_blank"><code>contrib/templates</code></a>
+enthält Beispiele für Tabellendateien. Das Verzeichnis
+<a href="https://github.com/gflohr/e-invoice-eu/tree/main/contrib/mappings" target="_blank"><code>contrib/mappings</code></a>
+enthält die entsprechenden Mappings für diese Tabellen.</p>
+
+<h2><a href="#" name="code-listen" id="code-listen"></a>Code-Listen</h2>
+
+<p>Ein Problem mit Code-Listen ist die Tatsache, dass die Werte oft nicht verständlich sind. Es liegt nicht unbedingt auf der Hand, dass der Einheiten-Code <code>HUR</code> für Stunden steht.</p>
+
+<p>Die Beispiel-Tamplates in <a href="https://github.com/gflohr/e-invoice-eu/tree/main/contrib/templates" target="_blank"><code>contrib/templates</code></a>
+versuchen das etwas benutzerfreundlicher zu machen. Dazu werden Datenbereich (<em>data ranges</em>) und die Funktion <code>VLOOKUP</code> verwendet. Die grundsätzliche Idee ist, dass Benutzerinnen und Benutzer einen menschlich lesbaren Wert aus einer Auswahlbox wählen, der dann mit Hilfe der Funktion <code>VLOOKUP</code> aus einer anderswo definierten Tabelle in einen maschinen-lesbaren Code übersetzt wird.</p>
+
+<p>Stattdessen kann man auch einfach zwei Zellen, die nichts miteinander zu tun haben, verwenden; eine für den menschenlesbaren Wert, der gedruckt wird, und eine für den mascheinenlesbaren Code. Das vereinfacht die Tabelle, macht den Prozess aber fehleranfälliger.</p>
+ 
+				 
+<div class="guided-tour container">
+	<div class="row">
+		<div class="col-5 text-left guided-tour-link">
+			
+			<a href="/e-invoice-eu/de/docs/details/internes-format/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;Internes Format</a>
+			
+		</div>
+		<div class="col-2 text-center guided-tour-link">
+			
+			<a href="/e-invoice-eu/de/docs/">Home</a>
+			
+		</div>
+		<div class="col-5 text-right guided-tour-link">
+			
+			<a href="/e-invoice-eu/de/docs/details/validierung/"
+				>Validierung&nbsp;<i
+					class="bi-arrow-right-circle"
+				></i></a>
+			
+		</div>
+	</div>
+</div>
+
+				
+			</div>
+			<div class="col-sm-3 offset-sm-1 sidebar">
+				 
+ 
+<div class="sidebar-module sidebar-general">
+	<ol>
+		<li>
+			<a class="github-button" href="https://github.com/gflohr/e-invoice-eu" data-icon="octicon-star" data-show-count="true" aria-label="Stars on GitHub" target="_blank">Stars</a>
+			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
+		</li>
+		<li>
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/monorepo/packages/docs/de/docs/details/mapping.md?plain=1" target="_blank">
+				<i class="bi-code-slash"></i>
+				Source code of this page
+			</a>
+		</li>
+		
+		<li>
+			<a href="/e-invoice-eu/en/docs/details/mapping/">
+				<i class="bi-translate"></i>
+				Read this page in English
+			</a>
+		</li>
+		 
+	</ol>
+</div>
+   
+<h4>Grundlagen</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/grundlagen/funktionsweise/">Generelle Funktionsweise</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/">Unterstützte Formate</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/grundlagen/haftungsausschluss/">Hafuntsausschluss</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>E-Rechungs-Formate</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/hybrid-vs-xml/">Hybrid vs. XML</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/ubl/">UBL</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/cii/">CII</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/factur-x-zugferd/">Factur-X/ZUGFeRD</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/">Erweiterungen</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Dienst (Service)</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/service/deployment/">Ausrollen (Deployment)</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/service/rechnungen-erzeugen/">Rechnungen erzeugen</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/service/andere-endpunkte/">Andere Endpunkte</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/service/api-dokumentation/">API-Dokumentation</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Details</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/details/internes-format/">Internes Format</a>
+			
+		</li>
+		
+		<li>
+			
+			<i class="bi-arrow-right-circle"></i>&nbsp;Mapping 
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/details/validierung/">Validierung</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Anderes</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/anderes/business-terms/">Business-Terms</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/anderes/business-groups/">Business-Gruppen</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/anderes/faq/">FAQ</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+
+			</div>
+		</div>
+	</div>
+
+	
+	<footer id="footer" class="bg-warning-opaque">
+		 
+<div class="container">
+	
+	<div class="row">
+		<div class="col-sm-8">
+			
+			<div class="col-12 col-md-6 footer-links text-md-center">
+				 Copyright &copy; 2016-2025 <a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a href="/e-invoice-eu/de/impressum/">
+					Impressum
+				</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a href="/e-invoice-eu/de/datenschutzerklaerung/">
+					Datenschutz
+				</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a
+					href="javascript:document.dispatchEvent(new Event('cookie_consent_show'))"
+				>
+					Cookie Settings
+				</a>
+			</div>
+			
+		</div>
+	</div>
+	
+</div>
+
+	</footer>
+	
+
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+	 <cookie-consent-banner
+	btn-label-accept-and-continue="Zustimmen und weiter"
+	btn-label-only-essential-and-continue="Weiter mit nur technisch notwendigen Cookies"
+	btn-label-persist-selection-and-continue="Auswahl speichern und weiter"
+	btn-label-select-all-and-continue="Alles auswählen und weiter"
+	content-settings-description="Mit den entsprechenden Optionen unterhalb können sie steuern, welche Cookies verwendet werden. Die Auswahl kann die Funktionalität des Dienstes beeinträchtigen."
+>
+	Diese Website verwendet Cookies und ähnliche Technologien, um gewisse
+	Funktionalität zu ermöglichen, die Benutzbarkeit zu erhöhen und Inhalt
+	entsprechend ihren Interessen zu liefern. Über die technisch notwendigen
+	Cookies hinaus können abhängig von ihrem Zweck Analyse- und Marketing-Cookies
+	zum Einsatz kommen. Sie können ihre Zustimmung zu den vorher erwähnten Cookies
+	erklären, indem sie auf "Zustimmen und weiter" klicken.
+	<a
+		href="javascript:document.dispatchEvent(new Event('cookie_consent_details_show'))"
+		class="consent-banner-link"
+		>Hier</a>
+	können sie Detaileinstellungen vornehmen oder ihre Zustimmung - auch teilweise
+	- mit Wirkung für die Zukunft zurücknehmen. Für weitere Informationen lesen
+	sie bitte unsere
+	<a href="/de/datenschutzerklaerung/" class="consent-banner-link"
+		>Datenschutzerklärung</a>.
+</cookie-consent-banner>
+
+<script>
+	const cookieConsentBannerElement = document.querySelector(
+		'cookie-consent-banner',
+	);
+	cookieConsentBannerElement.availableCategories = [
+		{
+			description:
+				'Lässt sie navigieren, Grundfunktionen benutzen und Einstellungen speichern.',
+			key: 'technically_required',
+			label: 'Technisch notwendigen Cookies',
+			isMandatory: true,
+		},
+		{
+			description:
+				'Ermöglicht dem Betreiber festzustellen, wie Besucherinnen und Besucher mit der Seite interagieren, damit wir die Benutzbarkeit der Seite verbessern können.',
+			key: 'analytics',
+			label: 'Analysis cookies',
+		},
+		/*
+		{
+			description:
+				"Enable us to offer and evaluate relevant content and interest-based advertising.",
+			key: "marketing",
+			label: "Marketing cookies",
+		},
+		*/
+	];
+</script>
+ 
+<script
+	type="module"
+	src="https://unpkg.com/@porscheofficial/cookie-consent-banner@3.1.3/dist/cookie-consent-banner/cookie-consent-banner.esm.js"
+></script>
+
+	<script>
+// 
+(function () {
+	document.querySelectorAll('.copy-to-clipboard-button').forEach(btn => {
+		btn.title = "Quelltext kopieren";
+	});
+})();
+</script>
+
+	
+
+  <script src="/e-invoice-eu/assets/bundle.min.js" type="text/javascript"></script>
+
+
+
+</body>
+ 
+</html>
