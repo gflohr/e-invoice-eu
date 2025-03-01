@@ -24,6 +24,10 @@ helpers:
 pre-build:
   - name: webpack
     run: npm run build
+# See https://github.com/peaceiris/actions-gh-pages/issues/892!
+post-build:
+  - name: exists
+    run: touch _site/e-invoice-eu/.exists
 defaults:
   - files:
       - /*/**
