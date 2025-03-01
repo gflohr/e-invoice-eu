@@ -7,7 +7,7 @@
 [![licence](https://img.shields.io/badge/licence-WTFPL-blue)](http://www.wtfpl.net/)
 [![price](https://img.shields.io/badge/price-FREE-green)](https://github.com/gflohr/qgoda/blob/main/LICENSE)
 [![coverage](https://img.shields.io/coverallsCoverage/github/gflohr/e-invoice-eu?branch=main)](https://coveralls.io/github/gflohr/e-invoice-eu?branch=main)
-[![documentation](https://img.shields.io/badge/documentation-Qgoda-d87319)](https://www.qgoda.net/)
+[![documentation](https://img.shields.io/badge/documentation-Qgoda🍓-ffc107)](https://www.qgoda.net/)
 
 # E-Invoice-EU
 
