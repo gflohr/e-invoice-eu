@@ -21,10 +21,6 @@ jobs:
           qgoda-version: latest-node
           qgoda-srcdir: packages/docs
 
-      # See https://github.com/peaceiris/actions-gh-pages/issues/892
-      - name: Create .exists
-        run: sudo chown -R touch packages/docs/_site/e-invoice-eu/.exists
-
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         if: github.ref == 'refs/heads/main'
