@@ -31,10 +31,14 @@ FROM alpine:latest
 ENV NODE_ENV=production
 ENV LIBREOFFICE=libreoffice
 
+# We need the openjdk only to suppress an ugly warning from LibreOffice.
+# Also, newer versions like openjdk21-jre-headless do not shut up the
+# warning.
 RUN apk add --no-cache \
 	bash \
 	curl \
 	libreoffice \
+	openjdk8-jre \
 	ttf-freefont \
 	font-noto \
 	font-noto-cjk \
