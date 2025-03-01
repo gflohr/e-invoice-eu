@@ -10,8 +10,6 @@ exclude:
   - /TODO
   - /LocaleData
   - /postcss.config.js
-  - /COPYING
-  - /README.md
 paths:
   site: _site/e-invoice-eu
 exclude-watch:
@@ -27,7 +25,7 @@ pre-build:
     run: npm run build
 # See https://github.com/peaceiris/actions-gh-pages/issues/892!
 post-build:
-  - name: disable-jekyll 
+  - name: disable-jekyll
     run: touch _site/e-invoice-eu/.nojekyll
 defaults:
   - files:
