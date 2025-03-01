@@ -20,16 +20,8 @@ jobs:
       - name: Create _site directory.
         run: mkdir -p packages/docs/_site/e-invoice-eu
 
-      # Otherwise, we run into permission problems.
-      - name: Make directory writable.
-        run: chmod -R -R a+w .
-
-      # This is necessary because otherwise, the qgoda plug-ins are not found.
-      - name: Run npm install
-        run: npm install
-
       - name: Build with Qgoda
-        uses: gflohr/qgoda-action@v1
+        uses: gflohr/qgoda-action@main
         with:
           qgoda-version: latest-node
           qgoda-srcdir: packages/docs
