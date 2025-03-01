@@ -1,3 +1,0 @@
-[% USE q = Qgoda %]
-[% global.scripts = ['/e-invoice-eu/assets/bundle.min.js'] %]
-[% global.styles = ['/e-invoice-eu/assets/bundle.min.css'] %]
