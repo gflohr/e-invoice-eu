@@ -1,2 +1,1 @@
-qgoda-site/ linguist-documentation
-docs/ linguist-documentation
+qgoda-site/**/*.html linguist-documentation

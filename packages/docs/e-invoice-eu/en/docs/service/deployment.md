@@ -202,6 +202,26 @@ file has lines of the form `VARIABLE=VALUE`, see the [dotenv
 docs](https://www.npmjs.com/package/dotenv#%EF%B8%8F-usage) for more
 information.
 
+If you are running the docker container, you must either bind mount an
+`.env` file into the container or pass the environment variable on the
+commandline with option `-e`:
+
+<!--qgoda-no-xgettext-->
+[% FILTER $CodeGroup %]
+[docker]
+[% FILTER $Highlight "language-sh" %]
+docker run --rm -p 3300:3300 --name e-invoice-eu -e PORT=3300 gflohr/e-invoice-eu:latest
+[% END %] 
+[nerdctl]
+[% FILTER $Highlight "language-sh" %]
+nerdctl run --rm -p 3300:3300 --name e-invoice-eu -e PORT=3300 gflohr/e-invoice-eu:latest
+[% END %] 
+[% END %]
+<!--/qgoda-no-xgettext-->
+
+This would start the service on port 3300 instead of port 3000 (although it
+would be easier to simply map port 3300 to the host port 3000).
+
 The following environment variables are supported:
 
 <!--qgoda-no-xgettext-->
