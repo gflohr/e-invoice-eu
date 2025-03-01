@@ -11,7 +11,7 @@ module.exports = {
 		bundle: './_assets/index.js',
 	},
 	output: {
-		path: __dirname + '/e-invoice-eu/assets',
+		path: __dirname + '/assets',
 		filename: '[name].min.js'
 	},
 	optimization: {

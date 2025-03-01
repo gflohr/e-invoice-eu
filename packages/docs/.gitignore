@@ -2,7 +2,7 @@
 /.project
 /_site/
 /node_modules/
-/e-invoice-eu/assets
+/assets
 /_assets/**/*.scss.json
 /_localconfig.yaml
 /_timestamp

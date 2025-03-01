@@ -21,6 +21,7 @@ exclude-watch:
 helpers:
   webpack: bun run start
   browser-sync: bun run server
+permalink: /e-invoice-eu{significant-path}
 pre-build:
   - name: webpack
     run: npm run build
@@ -31,7 +32,7 @@ post-build:
 defaults:
   - files:
       - /*/**
-      - '!/e-invoice-eu/en/'
+      - '!/en/'
     values:
       translate:
         - title
@@ -42,14 +43,14 @@ defaults:
         - readMore
         - tags
   - files:
-      - /e-invoice-eu/en
+      - /en
     values:
       lingua: en
   - files:
-      - /e-invoice-eu/de
+      - /de
     values:
       lingua: de
-  - files: /e-invoice-eu/*/docs/**
+  - files: /*/docs/**
     values:
       type: doc
       tour: doc
@@ -58,7 +59,7 @@ defaults:
     values:
       type: page
       priority: -999
-  - files: /e-invoice-eu/sitemap.xml
+  - files: /sitemap.xml
     values:
       priority: -1000
 taxonomies:

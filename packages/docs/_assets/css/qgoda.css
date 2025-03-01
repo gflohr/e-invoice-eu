@@ -213,7 +213,7 @@ td.code {
 .highlight {
 	width: 100%;
 	background: var(--gray-lightest);
-	background-image: url(/e-invoice-eu/images/square-white.svg);
+	background-image: url(/images/square-white.svg);
 	background-size: 1.5rem;
 	padding-top: 0.6rem;
 	padding-bottom: 0.1rem;
