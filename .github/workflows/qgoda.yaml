@@ -1,4 +1,4 @@
-name: Deploy Docs with Qtoda
+name: Deploy Docs with Qgoda
 
 on:
   push:
@@ -15,24 +15,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # We want to own the output directory so that we can create a
-      # file inside of it, see below.
-      - name: Create _site directory.
-        run: mkdir packages/docs/_site
-
       - name: Build with Qgoda
-        uses: gflohr/qgoda-action@main
+        uses: gflohr/qgoda-action@v1
         with:
           qgoda-version: latest-node
           qgoda-srcdir: packages/docs
-
-      # See https://github.com/peaceiris/actions-gh-pages/issues/892
-      - name: Create .exists
-        run: touch packages/docs/_site/.exists
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+          publish_dir: ./_site/e-invoice-eu

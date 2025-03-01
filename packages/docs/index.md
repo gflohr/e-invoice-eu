@@ -2,7 +2,7 @@
 view: raw
 title: E-Invoice-EU
 location: /index.html
-permalink: /
+permalink: /e-invoice-eu/
 chain: html
 wrapper: html
 description: Free and open source tool chain for generating EN16931 conforming invoices (Factur-X/ZUGFeRD, UBL, CII, XRechnung) from popular spreadsheet formats or JSON.

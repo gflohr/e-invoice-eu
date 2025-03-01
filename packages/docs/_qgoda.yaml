@@ -13,25 +13,22 @@ exclude:
   - /COPYING
   - /README.md
 paths:
-  site: ../../qgoda-site/e-invoice-eu
-permalink: '/e-invoice-eu/{significant-path}'
+  site: _site/e-invoice-eu
 exclude-watch:
   - /assets
   - '!/_timestamp.json'
   - '!/_guidoed_tour.yaml'
-scm: git
-no-scm:
-  - /assets
 helpers:
   webpack: bun run start
   browser-sync: bun run server
+permalink: /e-invoice-eu{significant-path}
 pre-build:
-  - name: install bun
-    run: npm install bun
-  - name: remove package-lock.json
-    run: npx rimraf ../../package-lock.json
   - name: webpack
-    run: bun run build
+    run: npm run build
+# See https://github.com/peaceiris/actions-gh-pages/issues/892!
+post-build:
+  - name: exists
+    run: touch _site/e-invoice-eu/.exists
 defaults:
   - files:
       - /*/**

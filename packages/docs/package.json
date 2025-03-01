@@ -6,11 +6,11 @@
 	"main": "index.js",
 	"scripts": {
 		"format": "prettier --write *.json *.md *.yaml \"[a-z][a-z]/**/*.md\" \"_views/**/*.html\" \"_assets/**/*{css,js}\"",
-		"prebuild": "bun install",
+		"prebuild": "npm install",
 		"build": "webpack",
 		"start": "webpack watch",
-		"server": "browser-sync start --startPath /e-invoice-eu --server ../../qgoda-site --files _timestamp --files assets",
-		"prestart": "bun install"
+		"server": "browser-sync start --startPath /e-invoice-eu --server _site --files _timestamp --files assets",
+		"prestart": "npm install"
 	},
 	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
 	"license": "WTFPL",
@@ -46,8 +46,5 @@
 	"browserslist": [
 		"> 1%",
 		"last 2 versions"
-	],
-	"dependencies": {
-		"bun": "^1.2.3"
-	}
+	]
 }
