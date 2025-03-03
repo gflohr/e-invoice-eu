@@ -74,7 +74,6 @@ jobs:
       # https://github.com/docker/build-push-action
       - name: Build and push latest Docker image
         id: build-and-push-latest
-        if: ${{ github.event.inputs.is_latest == 'true' }}
         uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
         with:
           platforms: linux/amd64,linux/arm64
@@ -88,7 +87,6 @@ jobs:
 
       - name: Build and push versioned Docker image
         id: build-and-push
-        if: ${{ github.event.inputs.is_latest != 'true' }}
         uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
         with:
           platforms: linux/amd64,linux/arm64
