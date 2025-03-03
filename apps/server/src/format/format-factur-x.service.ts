@@ -16,7 +16,6 @@ import { XMLBuilder } from 'xmlbuilder2/lib/interfaces';
 
 import { FormatCIIService, FULL_CII, FXProfile } from './format-cii.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
-import * as packageJson from '../../package.json';
 import { Invoice } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 
@@ -214,7 +213,7 @@ export class FormatFacturXService
 			filename,
 			creator: invoiceCreator,
 			now: this.formatDateWithOffset(now),
-			producer: `${packageJson.name} - ${packageJson.homepage}`,
+			producer: 'e-invoice-eu - https://gflohr.github.io/e-invoice-eu',
 			subject: invoiceSubject,
 		};
 
