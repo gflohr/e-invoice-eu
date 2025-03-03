@@ -1,6 +1,7 @@
 {
 	"name": "e-invoice-eu",
 	"description": "Tools for generating EN16931 conforming electronic invoices",
+	"homepage": "https://gflohr.github.io/e-invoice-eu",
 	"workspaces": [
 		"apps/*",
 		"packages/*"

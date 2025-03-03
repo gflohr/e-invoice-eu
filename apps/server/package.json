@@ -6,7 +6,7 @@
 		"url": "git+https://github.com/gflohr/e-invoice-eu.git"
 	},
 	"type": "commonjs",
-	"homepage": "https://github.com/gflohr/e-invoice-eu",
+	"homepage": "https://gflohr.github.io/e-invoice-eu",
 	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
 	"dependencies": {
 		"@e965/xlsx": "^0.20.3",

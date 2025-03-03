@@ -23,7 +23,7 @@ RUN mv package-tmp.json package.json
 
 # Give the installation two tries because of various issues.
 RUN bun install || true
-RUN bun install
+RUN bun install && bun run build
 
 # Stage 2: Runtime stage
 FROM alpine:latest
@@ -35,8 +35,7 @@ ENV LIBREOFFICE=libreoffice
 # Also, newer versions like openjdk21-jre-headless do not shut up the
 # warning.
 RUN apk add --no-cache \
-	bash \
-	curl \
+	nodejs \
 	libreoffice \
 	openjdk8-jre \
 	ttf-freefont \
@@ -45,14 +44,17 @@ RUN apk add --no-cache \
 	font-noto-emoji
 
 WORKDIR /app
-COPY --from=builder /app /app
 
-# Copy the bun binary from the build stage to runtime
-COPY --from=builder /root/.bun /root/.bun
-RUN ln -s /root/.bun/bin/bun /usr/local/bin/bun
+COPY --from=builder /app/dist /app/dist
+COPY --from=builder /app/node_modules /app/node_modules
 
 RUN echo "export LIBREOFFICE=\${LIBREOFFICE:-libreoffice}" >> /etc/profile.d/libreoffice.sh
 
+# Create a non-root user
+RUN addgroup -S e-invoice-eu && adduser -S e-invoice-eu -G e-invoice-eu
+
+USER e-invoice-eu
+
 EXPOSE 3000
 
-CMD ["bun", "run", "start"]
+ENTRYPOINT ["node", "dist/main.js"]
