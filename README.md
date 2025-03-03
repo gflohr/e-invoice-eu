@@ -12,8 +12,9 @@
 
 # E-Invoice-EU
 
-Free and open source tool chain for generating EN16931 conforming invoices (Factur-X/ZUGFeRD, UBL, CII, XRechnung) from popular spreadsheet
-formats or JSON.
+Free and open source tool chain for generating EN16931 conforming e-invoices
+(Factur-X/ZUGFeRD, UBL, CII, XRechnung) from popular spreadsheet formats or
+JSON.
 
 - [E-Invoice-EU](#e-invoice-eu)
 	- [Supported Formats](#supported-formats)
@@ -35,7 +36,7 @@ formats or JSON.
 
 ## Supported Formats
 
-You can currently create invoices in these formats:
+You can currently create e-invoices in these formats:
 
 - `CII`: customization id `urn:cen.eu:en16931:2017`
 - `Factur-X-Minimum` customization id `urn:factur-x.eu:1p0:minimum`
@@ -62,7 +63,7 @@ Case does not matter, when you specify a format.
 
 ## Using the software
 
-The only way to use the software is to run the server providing the REST
+Currently, the only way to use the software is to run the server providing the REST
 API and sending requests to the server.
 
 This may eventually change in the future, when a commandline interface will
@@ -79,9 +80,12 @@ the maximum request body size.
 
 ## Description
 
-This repository is an attempt to aid small businesses, especially in France and Germany but also in other parts of the European Union to create electronic invoices conforming with EN16931 with only free and open-source software.
+This repository is an attempt to aid small businesses, especially in France and
+Germany but also in other parts of the European Union to create e-invoices
+conforming with EN16931 with only free and open-source software.
 
-It is quite unlikely that you can use anything here out of the box. See it as a starter template for your own solution.
+It is quite unlikely that you can use anything here out of the box. See it as
+a starter template for your own solution.
 
 ## Documentation
 
@@ -156,7 +160,7 @@ $ docker pull gflohr/e-invoice-eu:latest
 Run the container:
 
 ```sh
-$ docker run --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:1.0.0
+$ docker run -it --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:1.0.0
 ```
 
 If you want to debug issues, omit the option `-d` so that you can see the
@@ -177,7 +181,7 @@ curl http://localhost:3000/api
 It probably makes more sense to open that URL in the browser.
 
 See the [documentation](http://localhost:3000/e-invoice-eu/e-invoice-eu/en/docs/service/creating-invoices/)
-for information how to create e-invoices with the API.
+for information on how to create e-invoices with the API.
 
 ## BUGS
 
