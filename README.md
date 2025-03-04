@@ -31,7 +31,7 @@ JSON.
 	- [BUGS](#bugs)
 		- [Report a Bug](#report-a-bug)
 		- [PDF/A](#pdfa)
-	- [License](#license)
+	- [Copyright](#copyright)
 	- [Disclaimer](#disclaimer)
 
 ## Supported Formats
@@ -212,7 +212,10 @@ On Un\*x systems, `libreoffice` should be in your `$PATH`. On MacOS, you will
 find it under `/Applications/LibreOffice.app/Contents/MacOS/soffice`. On
 MS Windows, it is probably somewhere like `C:\\Program Files\\LibreOffice\\libreoffice.exe` (corrections are welcome).
 
-## License
+## Copyright
+
+Copyright (C) 2024-2025 Guido Flohr <guido.flohr@cantanea.com>, all
+rights reserved.
 
 This is free software available under the terms of the
 [WTFPL](http://www.wtfpl.net/).

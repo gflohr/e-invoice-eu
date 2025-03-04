@@ -1,0 +1,11 @@
+{
+	"extends": "@tsconfig/recommended",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@e-invoice-eu/core": ["../../packages/core"]
+		}
+	},
+	"includes": ["./src/**/*.ts"],
+	"exclude": ["node_modules", "dist"]
+}
