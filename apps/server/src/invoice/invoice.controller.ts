@@ -15,6 +15,7 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import {
 	ApiBody,
 	ApiConsumes,
+	ApiOperation,
 	ApiParam,
 	ApiResponse,
 	ApiTags,
@@ -52,8 +53,16 @@ export class InvoiceController {
 			properties: {
 				invoice: {
 					type: 'object',
+					nullable: true,
 					description:
-						'The invoice data in the internal format as JSON.  See the [JSON schema for the internal format](#/schema/SchemaController_invoice)!',
+						'The invoice data in the internal format as JSON.  See the [JSON schema for the internal format](#/schema/SchemaController_invoice)! Mandatory, if the invoice should be generated from JSON data.',
+				},
+				mapping: {
+					type: 'string',
+					nullable: true,
+					format: 'binary',
+					description:
+						'The mapping from spreadsheet data to the internal format as YAML or JSON. See the [JSON schema for mappings](#/schema/SchemaController_mapping). Mandatory, if the invoice should be generated from spreadsheet data.',
 				},
 				lang: {
 					type: 'string',
@@ -63,10 +72,9 @@ export class InvoiceController {
 				},
 				data: {
 					type: 'string',
-					format: 'binary',
 					nullable: true,
-					description:
-						'An optional spreadsheet to be converted to PDF (Factur-X/ZUGFeRD only).',
+					format: 'binary',
+					description: 'The spreadsheet to be transformed.',
 				},
 				pdf: {
 					type: 'string',
@@ -131,7 +139,7 @@ export class InvoiceController {
 					description: 'Optional description for the embedded PDF.',
 				},
 			},
-			required: ['invoice'],
+			required: ['data', 'mapping'],
 		},
 	})
 	@ApiResponse({
@@ -147,6 +155,7 @@ export class InvoiceController {
 	@UseInterceptors(
 		FileFieldsInterceptor([
 			{ name: 'invoice', maxCount: 1 },
+			{ name: 'mapping', maxCount: 1 },
 			{ name: 'data', maxCount: 1 },
 			{ name: 'pdf', maxCount: 1 },
 			{ name: 'attachment' }, // FIXME! How to set maxCount asynchronously?
@@ -157,8 +166,9 @@ export class InvoiceController {
 		@Param('format') format: string,
 		@UploadedFiles()
 		files: {
-			invoice: Express.Multer.File[];
 			data?: Express.Multer.File[];
+			invoice?: Express.Multer.File[];
+			mapping?: Express.Multer.File[];
 			pdf?: Express.Multer.File[];
 			attachment?: Express.Multer.File[];
 		},
@@ -173,11 +183,7 @@ export class InvoiceController {
 			pdfDescription?: string;
 		},
 	) {
-		const { invoice, data, pdf, attachment } = files;
-
-		if (!invoice) {
-			throw new BadRequestException('No invoice file uploaded');
-		}
+		const { data, mapping, invoice, pdf, attachment } = files;
 
 		let attachmentIDs = body.attachmentID || [];
 		if (typeof attachmentIDs !== 'object') attachmentIDs = [attachmentIDs];
@@ -185,6 +191,18 @@ export class InvoiceController {
 		let attachmentDescriptions = body.attachmentDescription || [];
 		if (typeof attachmentDescriptions !== 'object')
 			attachmentDescriptions = [attachmentDescriptions];
+
+		if (!invoice && !mapping) {
+			throw new BadRequestException(
+				'Either an invoice or mapping file must be proviced',
+			);
+		} else if (invoice && mapping) {
+			throw new BadRequestException(
+				'Both an invoice and mapping file cannot be provided',
+			);
+		} else if (mapping && !data) {
+			throw new BadRequestException('No invoice file uploaded');
+		}
 
 		const attachments: InvoiceAttachment[] = [];
 		if (attachment) {
@@ -198,9 +216,19 @@ export class InvoiceController {
 		}
 
 		try {
-			const invoiceData = JSON.parse(
-				invoice[0].buffer.toString(),
-			) as unknown as Invoice;
+			let invoiceData: Invoice;
+			if (invoice) {
+				invoiceData = JSON.parse(
+					invoice[0].buffer.toString(),
+				) as unknown as Invoice;
+			} else {
+				invoiceData = this.mappingService.transform(
+					format.toLowerCase(),
+					mapping![0].buffer.toString(),
+					data![0].buffer,
+				);
+			}
+
 			const document = await this.invoiceService.generate(invoiceData, {
 				format: format.toLowerCase(),
 				data: data ? data[0] : undefined,
@@ -232,6 +260,7 @@ export class InvoiceController {
 	}
 
 	@Post('transform-and-create/:format')
+	@ApiOperation({ deprecated: true })
 	@ApiParam({
 		name: 'format',
 		type: String,
