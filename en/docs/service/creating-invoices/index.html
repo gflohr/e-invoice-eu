@@ -30,7 +30,7 @@
   <link href="/e-invoice-eu/assets/bundle.min.css" rel="stylesheet">
 
 
-  <link href="/e-invoice-eu/site/css/modal-image-popup.css?1741200103" rel="stylesheet">
+  <link href="/e-invoice-eu/site/css/modal-image-popup.css?1741200137" rel="stylesheet">
 
 
   <meta name="generator" content="Qgoda vv0.11.0 (https://www.qgoda.net/)" />
@@ -199,7 +199,36 @@ other sources instead of generating it from spreadsheet data.</p>
 <h2><a href="#" name="creating-invoices-from-spreadsheet-data" id="creating-invoices-from-spreadsheet-data"></a>Creating Invoices from Spreadsheet Data</h2>
 
 <p>The API endpoint for this functionality is
-<code>/api/invoice/transform-and-create/:FORMAT</code>.</p>
+<code>/api/invoice/create/:FORMAT</code>.</p>
+
+
+
+
+
+
+<div class="alert alert-warning" role="alert">
+    <div>
+        <strong>
+            <i class="bi-exclamation-triangle"></i>
+            <span class="title">The endpoint /invoice/transform-and-create is deprecated!</span>
+        </strong>
+    </div>
+    <p>
+
+As of version 1.4.3, the endpoint <code>/invoice/transform-and-create</code>
+is deprecated. It will be removed in the next major version 2.x.x of the
+software. All you have to do is to replace
+<code>/invoice/transform-and-create</code> with
+<code>/invoice/create</code>. The parameters are the same.
+
+</p>
+</div>
+
+
+
+
+
+
 
 <h3><a href="#" name="basic-e-invoice" id="basic-e-invoice"></a>Basic E-invoice</h3>
 
@@ -211,18 +240,18 @@ like this:</p>
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-13b7d60ef6380fe0182aa191d6bf5b99c1f87a0d' id='code-tab-42d9187693f0e10792ce52c2d7649ce0bc79b73b' checked>
-        <label data-title='curl' for='code-tab-42d9187693f0e10792ce52c2d7649ce0bc79b73b'>curl</label>
-        <input type='radio' name='group-13b7d60ef6380fe0182aa191d6bf5b99c1f87a0d' id='code-tab-b24f95b0c6a3d274a3a4e339f4cb8eaaaa97fcdc'>
-        <label data-title='httpie' for='code-tab-b24f95b0c6a3d274a3a4e339f4cb8eaaaa97fcdc'>httpie</label>
+        <input type='radio' name='group-e5e5e97a72d53eb951d12bb8a7745bb0f2bce5ac' id='code-tab-20823ea5d1b81d55182dcc1783801a2f40095897' checked>
+        <label data-title='curl' for='code-tab-20823ea5d1b81d55182dcc1783801a2f40095897'>curl</label>
+        <input type='radio' name='group-e5e5e97a72d53eb951d12bb8a7745bb0f2bce5ac' id='code-tab-5fded52f2f551fd57e7098d8107fd25371755c0c'>
+        <label data-title='httpie' for='code-tab-5fded52f2f551fd57e7098d8107fd25371755c0c'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-42d9187693f0e10792ce52c2d7649ce0bc79b73b' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/transform-and-create/UBL \
+            <code-block id='code-block-20823ea5d1b81d55182dcc1783801a2f40095897' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/UBL \
     -F data=@contrib/templates/default-invoice.ods \
     -F mapping=@contrib/mappings/default-invoice.yaml</code></pre>
 
 </code-block>
-            <code-block id='code-block-b24f95b0c6a3d274a3a4e339f4cb8eaaaa97fcdc'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
+            <code-block id='code-block-5fded52f2f551fd57e7098d8107fd25371755c0c'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml</code></pre>
 </code-block>
@@ -236,7 +265,7 @@ like this:</p>
 
 
 <p>The format is a path parameter that is specified after the endpoint path
-<code>api/invoice/transform-and-create</code>, in this case <code>UBL</code>. The format is
+<code>api/invoice/create</code>, in this case <code>UBL</code>. The format is
 case-insensitive.</p>
 
 <p>The invoice data (parameter <code>data</code>) is read from the spreadsheet file
@@ -255,14 +284,14 @@ example creates a Factur-X Extended invoice with two attachments:</p>
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-3d1f0fbedb25b42ce79ba18195eb9c3a50709d45' id='code-tab-89e875ec850a08be74940fbd56eb9619f1efe719' checked>
-        <label data-title='curl' for='code-tab-89e875ec850a08be74940fbd56eb9619f1efe719'>curl</label>
-        <input type='radio' name='group-3d1f0fbedb25b42ce79ba18195eb9c3a50709d45' id='code-tab-d8e2e7401bb2a1ef07b8e6c89724257a5b63f434'>
-        <label data-title='httpie' for='code-tab-d8e2e7401bb2a1ef07b8e6c89724257a5b63f434'>httpie</label>
+        <input type='radio' name='group-310db5ee27e612f30ed602ce3d8b607ce85a49a5' id='code-tab-f0ec7aad98dde896371a6692eea0ba756254b07e' checked>
+        <label data-title='curl' for='code-tab-f0ec7aad98dde896371a6692eea0ba756254b07e'>curl</label>
+        <input type='radio' name='group-310db5ee27e612f30ed602ce3d8b607ce85a49a5' id='code-tab-e8e9de021442a1c2e462b4074ecf82eafdc1230c'>
+        <label data-title='httpie' for='code-tab-e8e9de021442a1c2e462b4074ecf82eafdc1230c'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-89e875ec850a08be74940fbd56eb9619f1efe719' class='active'><pre class="language-sh"><code>curl -X POST \
-    http://localhost:3000/api/invoice/transform-and-create/UBL \
+            <code-block id='code-block-f0ec7aad98dde896371a6692eea0ba756254b07e' class='active'><pre class="language-sh"><code>curl -X POST \
+    http://localhost:3000/api/invoice/create/UBL \
     -F lang=de \
     -F data=@contrib/templates/default-invoice.ods \
     -F mapping=@contrib/mappings/default-invoice.yaml \
@@ -277,7 +306,7 @@ example creates a Factur-X Extended invoice with two attachments:</p>
     -F attachmentDescription=&#34;Our payment terms&#34;</code></pre>
 
 </code-block>
-            <code-block id='code-block-d8e2e7401bb2a1ef07b8e6c89724257a5b63f434'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
+            <code-block id='code-block-e8e9de021442a1c2e462b4074ecf82eafdc1230c'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
     lang=de \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml \
@@ -406,18 +435,18 @@ is binary and you want to redirect it to a file.</p>
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-b4eb9816b26c84db301dd2e883d1dfa383730263' id='code-tab-2cdd01a3b7ff18a372cb2a01e8dae39bd4832c4b' checked>
-        <label data-title='curl' for='code-tab-2cdd01a3b7ff18a372cb2a01e8dae39bd4832c4b'>curl</label>
-        <input type='radio' name='group-b4eb9816b26c84db301dd2e883d1dfa383730263' id='code-tab-863edab256a17295b4beb0d25920729d9a00250a'>
-        <label data-title='httpie' for='code-tab-863edab256a17295b4beb0d25920729d9a00250a'>httpie</label>
+        <input type='radio' name='group-5afae79ce283db051774c557cea052aa3d4066ad' id='code-tab-d521d38e483677088ca6b75ef350d51a67390f3e' checked>
+        <label data-title='curl' for='code-tab-d521d38e483677088ca6b75ef350d51a67390f3e'>curl</label>
+        <input type='radio' name='group-5afae79ce283db051774c557cea052aa3d4066ad' id='code-tab-745d67fd7f69f28a71ff6a2e3a70ae4aa87017d6'>
+        <label data-title='httpie' for='code-tab-745d67fd7f69f28a71ff6a2e3a70ae4aa87017d6'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-2cdd01a3b7ff18a372cb2a01e8dae39bd4832c4b' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/transform-and-create/Factur-X-Extended \
+            <code-block id='code-block-d521d38e483677088ca6b75ef350d51a67390f3e' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
     -F data=@contrib/templates/default-invoice.ods \
     -F mapping=@contrib/mappings/default-invoice.yaml &#62;e-invoice.pdf</code></pre>
 
 </code-block>
-            <code-block id='code-block-863edab256a17295b4beb0d25920729d9a00250a'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/transform-and-create/Factur-X-Extended \
+            <code-block id='code-block-745d67fd7f69f28a71ff6a2e3a70ae4aa87017d6'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml &#62;e-invoice.pdf</code></pre>
 </code-block>
@@ -440,8 +469,9 @@ from the spreadsheet file <code>data</code>.</p>
 
 <h2><a href="#" name="creating-invoices-from-json" id="creating-invoices-from-json"></a>Creating Invoices from JSON</h2>
 
-<p>You can bypass the <a href="/e-invoice-eu/en/docs/details/mapping/">mapping step</a> and generate the invoice directly from
-JSON.  The endpoint for that is <code>/api/invoice/create/:FORMAT</code>.</p>
+<p>You can bypass the <a href="/e-invoice-eu/en/docs/details/mapping/">mapping step</a> and generate
+the invoice directly from JSON.  All you have to do is to omit the parameter
+<code>mapping</code>.</p>
 
 <p>Example:</p>
 
@@ -881,7 +911,7 @@ an explicitly specified customization ID is never overwritten.
   <script src="/e-invoice-eu/assets/bundle.min.js" type="text/javascript"></script>
 
 
-  <script src="/e-invoice-eu/site/js/modal-image-popup.js?1741200103" type="text/javascript"></script>
+  <script src="/e-invoice-eu/site/js/modal-image-popup.js?1741200137" type="text/javascript"></script>
 
 
 </body>

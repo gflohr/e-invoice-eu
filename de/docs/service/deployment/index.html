@@ -433,9 +433,7 @@ bun run start:dev</code></pre>
 
 <p>Diese Umgebungsvariablen können entweder auf der Kommandozeile oder in einer Datei <code>.env</code> im Verzeichnis, in dem der Service gestartet wird, angegeben werden. Diese Datei besteht aus Zeilen im Format <code>VARIABLE=WERT</code>, siehe die <a href="https://www.npmjs.com/package/dotenv#%EF%B8%8F-usage" target="_blank">dotenv-Dokumentation</a> für weitergehende Informationen.</p>
 
-<p>If you are running the docker container, you must either bind mount an
-<code>.env</code> file into the container or pass the environment variable on the
-commandline with option <code>-e</code>:</p>
+<p>Wird der Docker-Container gestartet, muss entweder ein Bind-Mount für die <code>.env</code>-Datei in den Container stattfinden, oder die Umgebungsvariablen müssen mit der Option <code>-e</code> auf der Kommandozeile übergeben werden.</p>
 
 
 
@@ -461,8 +459,7 @@ commandline with option <code>-e</code>:</p>
 
 
 
-<p>This would start the service on port 3300 instead of port 3000 (although it
-would be easier to simply map port 3300 to the host port 3000).</p>
+<p>Dies würde den Dienst auf Port 3300 statt auf Port 3000 starten, wobei es allerdings einfacher wäre, einfach den Container-Port 3300 auf den Host-Port 3000 zu mappen.</p>
 
 <p>Die folgenden Umgebungsvariablen werden unterstützt:</p>
 
