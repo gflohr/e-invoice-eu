@@ -1,5 +1,6 @@
+import { ValidationService } from '@e-invoice-eu/core';
 import * as XLSX from '@e965/xlsx';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import Ajv2019, {
 	ErrorObject,
 	JSONSchemaType,
@@ -15,7 +16,6 @@ import { mappingSchema } from './mapping.schema';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { Invoice } from '../invoice/invoice.interface';
 import { invoiceSchema } from '../invoice/invoice.schema';
-import { ValidationService } from '../validation/validation.service';
 
 type SectionRanges = { [key: string]: { [key: string]: number[] } };
 
@@ -30,18 +30,18 @@ type MappingContext = {
 
 @Injectable()
 export class MappingService {
+	private readonly logger = new Logger(MappingService.name);
 	private readonly validator: ValidateFunction<Mapping>;
+	private readonly validationService: ValidationService;
 
-	constructor(
-		private readonly formatFactoryService: FormatFactoryService,
-		private readonly validationService: ValidationService,
-	) {
+	constructor(private readonly formatFactoryService: FormatFactoryService) {
 		const ajv = new Ajv2019({
 			strict: true,
 			allErrors: true,
 			useDefaults: true,
 		});
 		this.validator = ajv.compile(mappingSchema);
+		this.validationService = new ValidationService(this.logger);
 	}
 
 	private parseMapping(format: string, yamlData: string): Mapping {

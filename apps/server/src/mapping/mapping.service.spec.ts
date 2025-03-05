@@ -1,3 +1,4 @@
+import { ValidationService } from '@e-invoice-eu/core';
 import * as XLSX from '@e965/xlsx';
 import { Test, TestingModule } from '@nestjs/testing';
 import { JSONSchemaType } from 'ajv';
@@ -8,7 +9,6 @@ import { AppConfigService } from '../app-config/app-config.service';
 import { EInvoiceFormat } from '../format/format.e-invoice-format.interface';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { Invoice } from '../invoice/invoice.interface';
-import { ValidationService } from '../validation/validation.service';
 
 jest.mock('fs/promises');
 
@@ -155,7 +155,6 @@ const defaultMappingContext = {
 describe('MappingService', () => {
 	let service: MappingService;
 	let formatFactoryService: FormatFactoryService;
-	let validationService: ValidationService;
 
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
@@ -173,20 +172,12 @@ describe('MappingService', () => {
 						createFormatService: jest.fn(),
 					},
 				},
-				ValidationService,
-				{
-					provide: 'ValidationService',
-					useValue: {
-						validate: jest.fn(),
-					},
-				},
 			],
 		}).compile();
 
 		service = module.get<MappingService>(MappingService);
 		formatFactoryService =
 			module.get<FormatFactoryService>(FormatFactoryService);
-		validationService = module.get<ValidationService>(ValidationService);
 	});
 
 	afterEach(() => {
@@ -444,7 +435,7 @@ describe('MappingService', () => {
 				.spyOn(formatFactoryService, 'createFormatService')
 				.mockReturnValue(formatter);
 			const validateSpy = jest
-				.spyOn(validationService, 'validate')
+				.spyOn(ValidationService.prototype, 'validate')
 				.mockReturnValue({ 'ubl:Invoice': {} });
 
 			const buf: Buffer = [] as unknown as Buffer;
