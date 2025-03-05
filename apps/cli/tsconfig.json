@@ -1,11 +1,9 @@
 {
-	"extends": "@tsconfig/recommended",
+	"extends": "../../tsconfig.json",
 	"compilerOptions": {
-		"baseUrl": ".",
-		"paths": {
-			"@e-invoice-eu/core": ["../../packages/core"]
-		}
+		"declaration": false,
+		"outDir": "../../dist/apps/cli"
 	},
-	"includes": ["./src/**/*.ts"],
-	"exclude": ["node_modules", "dist"]
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }

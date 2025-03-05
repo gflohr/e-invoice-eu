@@ -1,26 +1,25 @@
 {
 	"compilerOptions": {
-		"declarationMap": true,
-		"declarationDir": "./dist",
-		"rootDir": "./src",
 		"module": "commonjs",
 		"declaration": true,
 		"removeComments": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"allowSyntheticDefaultImports": true,
-		"target": "ES2021",
+		"target": "ES2023",
 		"sourceMap": true,
 		"outDir": "./dist",
 		"baseUrl": "./",
 		"incremental": true,
 		"skipLibCheck": true,
 		"strictNullChecks": true,
-		"noImplicitAny": true,
-		"strictBindCallApply": true,
 		"forceConsistentCasingInFileNames": true,
-		"noFallthroughCasesInSwitch": true,
-		"resolveJsonModule": true
-	},
-	"includes": ["./src"]
+		"noImplicitAny": false,
+		"strictBindCallApply": false,
+		"noFallthroughCasesInSwitch": false,
+		"paths": {
+			"@e-invoice-eu/core": ["packages/core/src"],
+			"@e-invoice-eu/core/*": ["packages/core/src/*"]
+		}
+	}
 }

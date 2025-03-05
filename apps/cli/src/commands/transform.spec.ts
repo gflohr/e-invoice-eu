@@ -24,7 +24,7 @@ describe('Transform Command', () => {
 	});
 
 	test('build() should add expected options to yargs', () => {
-		const mockArgv = yargs();
+		const mockArgv = yargs([]);
 		const optionsSpy = jest.spyOn(mockArgv, 'options');
 
 		transform.build(mockArgv);
