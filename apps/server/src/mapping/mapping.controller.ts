@@ -1,3 +1,4 @@
+import { Invoice } from '@e-invoice-eu/core';
 import {
 	BadRequestException,
 	Controller,
@@ -13,7 +14,6 @@ import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ValidationError } from 'ajv/dist/2019';
 
 import { MappingService } from './mapping.service';
-import { Invoice } from '../invoice/invoice.interface';
 
 @ApiTags('mapping')
 @Controller('mapping')

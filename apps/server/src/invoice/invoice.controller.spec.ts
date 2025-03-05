@@ -1,3 +1,4 @@
+import { Invoice } from '@e-invoice-eu/core';
 import {
 	INestApplication,
 	InternalServerErrorException,
@@ -9,7 +10,6 @@ import { Response } from 'express';
 import * as request from 'supertest';
 
 import { InvoiceController } from './invoice.controller';
-import { Invoice } from './invoice.interface';
 import { InvoiceService } from './invoice.service';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { MappingService } from '../mapping/mapping.service';

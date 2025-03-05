@@ -9,7 +9,7 @@ import { Mapping } from './mapping.interface';
 
 export const mappingSchema: JSONSchemaType<Mapping> = {
 	$schema: 'https://json-schema.org/draft/2019-09/schema',
-	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v2.0.0-alpha',
+	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v1.4.2',
 	type: 'object',
 	title: 'Mapping',
 	description: 'Maps invoice data to the cells in a spreadsheet.',

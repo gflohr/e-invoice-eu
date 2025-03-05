@@ -1,3 +1,4 @@
+import { Invoice } from '@e-invoice-eu/core';
 import {
 	BadRequestException,
 	Body,
@@ -22,7 +23,6 @@ import {
 import { ValidationError } from 'ajv/dist/2019';
 import { Response } from 'express';
 
-import { Invoice } from './invoice.interface';
 import { InvoiceAttachment, InvoiceService } from './invoice.service';
 import { MappingService } from '../mapping/mapping.service';
 

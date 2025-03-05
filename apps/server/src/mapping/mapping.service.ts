@@ -1,4 +1,13 @@
-import { ValidationService } from '@e-invoice-eu/core';
+import {
+	Mapping,
+	Invoice,
+	ValidationService,
+	mappingValueRe,
+	sectionReferenceRe,
+	mappingSchema,
+	invoiceSchema,
+} from '@e-invoice-eu/core';
+import { MappingMetaInformation } from '@e-invoice-eu/core/mapping/mapping.interface';
 import * as XLSX from '@e965/xlsx';
 import { Injectable, Logger } from '@nestjs/common';
 import Ajv2019, {
@@ -10,12 +19,7 @@ import Ajv2019, {
 import * as yaml from 'js-yaml';
 import * as jsonpath from 'jsonpath-plus';
 
-import { Mapping, MappingMetaInformation } from './mapping.interface';
-import { mappingValueRe, sectionReferenceRe } from './mapping.regex';
-import { mappingSchema } from './mapping.schema';
 import { FormatFactoryService } from '../format/format.factory.service';
-import { Invoice } from '../invoice/invoice.interface';
-import { invoiceSchema } from '../invoice/invoice.schema';
 
 type SectionRanges = { [key: string]: { [key: string]: number[] } };
 

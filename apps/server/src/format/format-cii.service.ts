@@ -1,9 +1,9 @@
+import { Invoice } from '@e-invoice-eu/core';
 import { Injectable } from '@nestjs/common';
 import * as jsonpath from 'jsonpath-plus';
 
 import { FormatUBLService } from './format-ubl.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
-import { Invoice } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 
 // This is what we are looking at while traversing the input tree:

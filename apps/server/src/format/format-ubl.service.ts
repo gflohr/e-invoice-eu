@@ -1,16 +1,15 @@
+import { Invoice, invoiceSchema } from '@e-invoice-eu/core';
+import { Mapping } from '@e-invoice-eu/core';
+import {
+	ADDITIONALSUPPORTINGDOCUMENTS,
+	AttachedDocumentMimeCode,
+} from '@e-invoice-eu/core/invoice/invoice.interface';
 import { Injectable } from '@nestjs/common';
 import * as path from 'path';
 
 import { FormatXMLService } from './format-xml.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
-import {
-	ADDITIONALSUPPORTINGDOCUMENTS,
-	AttachedDocumentMimeCode,
-	Invoice,
-} from '../invoice/invoice.interface';
-import { invoiceSchema } from '../invoice/invoice.schema';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
-import { Mapping } from '../mapping/mapping.interface';
 import { sortBySchema } from '../utils/sort-by-schema';
 
 @Injectable()
