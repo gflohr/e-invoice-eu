@@ -81,6 +81,9 @@
 			"json",
 			"ts"
 		],
+        "moduleNameMapper": {
+            "^@e-invoice-eu/core$": "<rootDir>/../../../packages/core/src"
+        },
 		"rootDir": "src",
 		"testRegex": ".*\\.spec\\.ts$",
 		"transform": {

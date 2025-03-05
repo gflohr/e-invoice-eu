@@ -30,7 +30,7 @@
 		"esgettext": "dist/index.js"
 	},
 	"scripts": {
-		"build": "bun run clean && tsc --project tsconfig-build.json && chmod +x dist/index.js",
+		"build": "bun run clean && tsc --project tsconfig.build.json",
 		"prebuild": "node ./write-package.mjs >src/package.ts",
 		"prepublishOnly": "bun run build",
 		"check:clean": "./check-clean",
@@ -107,6 +107,7 @@
 	},
 	"dependencies": {
 		"@esgettext/runtime": "^1.3.6",
+		"ajv": "^8.17.1",
 		"yargs": "^17.7.2"
 	}
 }

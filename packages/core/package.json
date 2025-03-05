@@ -28,7 +28,7 @@
 	},
 	"homepage": "https://github.com/gflohr/e-invoice-eu/packages/runtime",
 	"scripts": {
-		"build": "rimraf dist && rollup -c",
+		"build": "rimraf dist && nest build",
 		"prepublishOnly": "npm run build",
 		"check:clean": "../../check-clean",
 		"format": "prettier --write *.json 'src/**/*.ts'",
