@@ -1,0 +1,7 @@
+../src/command.ts
+../src/commands/transform.spec.ts
+../src/commands/transform.ts
+../src/index.ts
+../src/optspec.ts
+../src/package.ts
+../write-package.mjs

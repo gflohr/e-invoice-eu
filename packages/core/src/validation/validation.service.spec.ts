@@ -1,19 +1,19 @@
-import { Logger } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
-import { ErrorObject, ValidateFunction, ValidationError } from 'ajv/dist/2019';
+import { ErrorObject, ValidateFunction, ValidationError } from 'ajv';
 
 import { ValidationService } from './validation.service';
+import { ILogger } from '../ilogger';
 
 describe('ValidationService', () => {
+	let logger: ILogger;
 	let service: ValidationService;
 	let mockValidate: ValidateFunction;
 
 	beforeEach(async () => {
-		const module: TestingModule = await Test.createTestingModule({
-			providers: [ValidationService],
-		}).compile();
+		logger = {
+			error: jest.fn(),
+		};
 
-		service = module.get<ValidationService>(ValidationService);
+		service = new ValidationService(logger);
 
 		// Mock the validate function
 		mockValidate = jest.fn() as unknown as ValidateFunction;
@@ -32,9 +32,10 @@ describe('ValidationService', () => {
 		expect(service.validate('test', mockValidate, validData)).toEqual(
 			validData,
 		);
+		expect(logger.error).not.toHaveBeenCalled();
 	});
 
-	it('should throw ValidationError when validation fails', () => {
+	it('should throw a ValidationError when validation fails', () => {
 		const invalidData = { name: 'John' }; // Missing 'age'
 
 		const errors: ErrorObject[] = [
@@ -48,8 +49,6 @@ describe('ValidationService', () => {
 		(mockValidate as unknown as jest.Mock).mockReturnValue(false);
 		mockValidate.errors = errors;
 
-		jest.spyOn(Logger.prototype, 'error').mockImplementation(() => {});
-
 		expect(() => service.validate('test', mockValidate, invalidData)).toThrow(
 			ValidationError,
 		);
@@ -61,5 +60,6 @@ describe('ValidationService', () => {
 			expect(error.message).toBe('validation failed');
 			expect(error.errors).toEqual(errors);
 		}
+		expect(logger.error).toHaveBeenCalledTimes(2);
 	});
 });

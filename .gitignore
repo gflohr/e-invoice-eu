@@ -53,3 +53,5 @@ ZUGFeRD*
 invoice.pdf
 payment-terms.pdf
 time-sheet.ods
+
+*.tsbuildinfo

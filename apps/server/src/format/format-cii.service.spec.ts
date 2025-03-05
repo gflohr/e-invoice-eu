@@ -1,8 +1,8 @@
+import { Invoice } from '@e-invoice-eu/core';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { FormatCIIService } from './format-cii.service';
 import { AppConfigService } from '../app-config/app-config.service';
-import { Invoice } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 
 describe('CII', () => {

@@ -1,3 +1,4 @@
+import { Invoice } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
 import { Injectable } from '@nestjs/common';
 import { webcrypto as crypto } from 'crypto';
@@ -16,7 +17,6 @@ import { XMLBuilder } from 'xmlbuilder2/lib/interfaces';
 
 import { FormatCIIService, FULL_CII, FXProfile } from './format-cii.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
-import { Invoice } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 
 type FacturXConformanceLevel =

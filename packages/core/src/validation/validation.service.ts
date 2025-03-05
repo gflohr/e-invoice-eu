@@ -1,9 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { ErrorObject, ValidateFunction, ValidationError } from 'ajv';
+import { ErrorObject, ValidateFunction, ValidationError } from 'ajv/dist/2019';
 
-@Injectable()
+import { ILogger } from '../ilogger';
+
 export class ValidationService {
-	private readonly logger = new Logger(ValidationService.name);
+	constructor(private readonly logger: ILogger) {}
 
 	validate<T>(id: string, f: ValidateFunction<T>, data: unknown): T {
 		if (f(data)) {

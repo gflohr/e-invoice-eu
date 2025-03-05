@@ -2,6 +2,7 @@
 
 import * as fs from 'fs';
 import { compile } from 'json-schema-to-typescript';
+import { LinkedJSONSchema } from 'json-schema-to-typescript/dist/src/types/JSONSchema';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 

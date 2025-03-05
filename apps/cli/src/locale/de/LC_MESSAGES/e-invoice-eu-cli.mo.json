@@ -1,0 +1,9 @@
+{
+	"major": 0,
+	"minor": 0,
+	"entries": {
+		"": [
+			"Project-Id-Version: @e-invoice-eu/cli\nReport-Msgid-Bugs-To: https://github.com/gflohr/e-invoice-eu/issues\nPO-Revision-Date: 2025-03-04 10:32+0200\nLast-Translator: Guido Flohr <guido.flohr@cantanea.com>\nLanguage-Team: German <translation-team-de@lists.sourceforge.net>\nLanguage: de\nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\nPlural-Forms: nplurals=2; plural=(n != 1);\n"
+		]
+	}
+}
