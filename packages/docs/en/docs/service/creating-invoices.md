@@ -41,7 +41,22 @@ other sources instead of generating it from spreadsheet data.
 ## Creating Invoices from Spreadsheet Data
 
 The API endpoint for this functionality is
-`/api/invoice/transform-and-create/:FORMAT`.
+`/api/invoice/create/:FORMAT`.
+
+[% title = "The endpoint /invoice/transform-and-create is deprecated!" %]
+
+<!--qgoda-no-xgettext-->
+[% WRAPPER components/infobox.html
+type='warning' title=title %]
+<!--/qgoda-no-xgettext-->
+As of version 1.4.3, the endpoint <code>/invoice/transform-and-create</code>
+is deprecated. It will be removed in the next major version 2.x.x of the
+software. All you have to do is to replace
+<code>/invoice/transform-and-create</code> with
+<code>/invoice/create</code>. The parameters are the same.
+<!--qgoda-no-xgettext-->
+[% END %]
+<!--/qgoda-no-xgettext-->
 
 ### Basic E-invoice
 
@@ -53,14 +68,14 @@ like this:
 
 [curl]
 [% FILTER $Highlight "language-sh" %]
-curl -X POST http://localhost:3000/api/invoice/transform-and-create/UBL \
+curl -X POST http://localhost:3000/api/invoice/create/UBL \
     -F data=@contrib/templates/default-invoice.ods \
     -F mapping=@contrib/mappings/default-invoice.yaml
 [% END %]
 
 [httpie]
 [% FILTER $Highlight "language-sh" %]
-http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
+http --form POST http://localhost:3000/api/invoice/create/UBL \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml
 [% END %]
@@ -69,7 +84,7 @@ http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
 <!--/qgoda-no-xgettext-->
 
 The format is a path parameter that is specified after the endpoint path
-`api/invoice/transform-and-create`, in this case `UBL`. The format is
+`api/invoice/create`, in this case `UBL`. The format is
 case-insensitive.
 
 The invoice data (parameter `data`) is read from the spreadsheet file
@@ -89,7 +104,7 @@ example creates a Factur-X Extended invoice with two attachments:
 [curl]
 [% FILTER $Highlight "language-sh" %]
 curl -X POST \
-    http://localhost:3000/api/invoice/transform-and-create/UBL \
+    http://localhost:3000/api/invoice/create/UBL \
     -F lang=de \
     -F data=@contrib/templates/default-invoice.ods \
     -F mapping=@contrib/mappings/default-invoice.yaml \
@@ -106,7 +121,7 @@ curl -X POST \
 
 [httpie]
 [% FILTER $Highlight "language-sh" %]
-http --form POST http://localhost:3000/api/invoice/transform-and-create/UBL \
+http --form POST http://localhost:3000/api/invoice/create/UBL \
     lang=de \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml \
@@ -180,14 +195,14 @@ is binary and you want to redirect it to a file.
 
 [curl]
 [% FILTER $Highlight "language-sh" %]
-curl -X POST http://localhost:3000/api/invoice/transform-and-create/Factur-X-Extended \
+curl -X POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
     -F data=@contrib/templates/default-invoice.ods \
     -F mapping=@contrib/mappings/default-invoice.yaml >e-invoice.pdf
 [% END %]
 
 [httpie]
 [% FILTER $Highlight "language-sh" %]
-http --form POST http://localhost:3000/api/invoice/transform-and-create/Factur-X-Extended \
+http --form POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
     data@contrib/templates/default-invoice.ods \
     mapping@contrib/mappings/default-invoice.yaml >e-invoice.pdf
 [% END %]
@@ -205,8 +220,9 @@ from the spreadsheet file `data`.
 
 ## Creating Invoices from JSON
 
-You can bypass the [mapping step]([% q.llink(name='mapping') %]) and generate the invoice directly from
-JSON.  The endpoint for that is `/api/invoice/create/:FORMAT`.
+You can bypass the [mapping step]([% q.llink(name='mapping') %]) and generate
+the invoice directly from JSON.  All you have to do is to omit the parameter
+`mapping`.
 
 Example:
 

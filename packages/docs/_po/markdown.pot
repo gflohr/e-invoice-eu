@@ -870,8 +870,8 @@ msgid ""
 msgstr ""
 
 #: ../en/docs/details/mapping.md:184
-#: ../en/docs/service/creating-invoices.md:211
-#: ../en/docs/service/creating-invoices.md:245
+#: ../en/docs/service/creating-invoices.md:227
+#: ../en/docs/service/creating-invoices.md:261
 msgid "Example:"
 msgstr ""
 
@@ -2103,26 +2103,39 @@ msgstr ""
 
 #: ../en/docs/service/creating-invoices.md:43
 msgid "The API endpoint for this functionality is\n"
-"`/api/invoice/transform-and-create/:FORMAT`."
+"`/api/invoice/create/:FORMAT`."
 msgstr ""
 
 #: ../en/docs/service/creating-invoices.md:46
+msgid "[% title = \"The endpoint /invoice/transform-and-create is deprecated!\" %]"
+msgstr ""
+
+#: ../en/docs/service/creating-invoices.md:52
+msgid ""
+"As of version 1.4.3, the endpoint <code>/invoice/transform-and-create</code>\n"
+"is deprecated. It will be removed in the next major version 2.x.x of the\n"
+"software. All you have to do is to replace\n"
+"<code>/invoice/transform-and-create</code> with\n"
+"<code>/invoice/create</code>. The parameters are the same."
+msgstr ""
+
+#: ../en/docs/service/creating-invoices.md:61
 msgid "### Basic E-invoice"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:48
+#: ../en/docs/service/creating-invoices.md:63
 msgid "In its most simple form, you can create an e-invoice from the spreadsheet data\n"
 "like this:"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:71
+#: ../en/docs/service/creating-invoices.md:86
 msgid ""
 "The format is a path parameter that is specified after the endpoint path\n"
-"`api/invoice/transform-and-create`, in this case `UBL`. The format is\n"
+"`api/invoice/create`, in this case `UBL`. The format is\n"
 "case-insensitive."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:75
+#: ../en/docs/service/creating-invoices.md:90
 msgid ""
 "The invoice data (parameter `data`) is read from the spreadsheet file\n"
 "`contrib/templates/default-invoice.ods`. That spreadsheet data is then\n"
@@ -2130,22 +2143,22 @@ msgid ""
 "`contrib/mappings/default-invoice.yaml`."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:80
+#: ../en/docs/service/creating-invoices.md:95
 msgid "### E-Invoice with Additional Attachments"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:82
+#: ../en/docs/service/creating-invoices.md:97
 msgid ""
 "It is possible to attach files with additional information.  This works\n"
 "both for pure XML formats and for hybrid Factur-X/ZUGFeRD e-invoices.  The\n"
 "example creates a Factur-X Extended invoice with two attachments:"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:127
+#: ../en/docs/service/creating-invoices.md:142
 msgid "Let us break that down into the individual URL parameters sent:"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:129
+#: ../en/docs/service/creating-invoices.md:144
 msgid ""
 "* `lang`: This is used to determine the language for some canned texts.\n"
 "* `data`: The spreadsheet with the invoice data.\n"
@@ -2159,11 +2172,11 @@ msgid ""
 "* `attachmentDescription`: An optional description of the attachment."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:140
+#: ../en/docs/service/creating-invoices.md:155
 msgid "[% title = \"Generate PDF From Spreadsheet Data\" %]"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:144
+#: ../en/docs/service/creating-invoices.md:159
 msgid ""
 "If the PDF is not provided with the parameter <code>pdf</code>, it is generated from\n"
 "the spreadsheet file (parameter <code>data</code>).  In that case you must\n"
@@ -2173,7 +2186,7 @@ msgid ""
 "location</a>."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:154
+#: ../en/docs/service/creating-invoices.md:169
 msgid ""
 "Each attachment to the e-invoice may have an optional id and an optional\n"
 "description. However, the service only \"sees\" 3 lists of the URL parameters\n"
@@ -2181,14 +2194,14 @@ msgid ""
 "group them per attachment."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:159
+#: ../en/docs/service/creating-invoices.md:174
 msgid ""
 "If you use the parameter `attachment` four times, `attachmentID` twice,\n"
 "and `attachmentDescription` three times, in whatever order, the following\n"
 "attachments are embedded:"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:163
+#: ../en/docs/service/creating-invoices.md:178
 msgid ""
 "| Attachment        | Filename        | ID | Description |\n"
 "|-------------------|-----------------|----|-------------|\n"
@@ -2198,26 +2211,26 @@ msgid ""
 "| **Attachment #4** | `attachment` #4 | - | - |"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:170
+#: ../en/docs/service/creating-invoices.md:185
 msgid "You will probably want to avoid that hassle by specifying an id and/or\n"
 "description either for all attachments or for none."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:173
+#: ../en/docs/service/creating-invoices.md:188
 msgid "## Factur-X/ZUGFeRD Example"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:175
+#: ../en/docs/service/creating-invoices.md:190
 msgid "There is nothing special about creating Factur-X/ZUGFeRD, only that the output\n"
 "is binary and you want to redirect it to a file."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:198
+#: ../en/docs/service/creating-invoices.md:213
 msgid "This would create a Factur-X/ZUGFeRD e-invoice with the profile\n"
 "*Extended*."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:201
+#: ../en/docs/service/creating-invoices.md:216
 msgid ""
 "You must also keep in mind that the hybrid Factur-X/ZUGFeRD format *requires*\n"
 "a PDF version of the input. You must either specify it yourself with the\n"
@@ -2225,20 +2238,22 @@ msgid ""
 "from the spreadsheet file `data`."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:206
+#: ../en/docs/service/creating-invoices.md:221
 msgid "## Creating Invoices from JSON"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:208
-msgid "You can bypass the [mapping step]([% q.llink(name='mapping') %]) and generate the invoice directly from\n"
-"JSON.  The endpoint for that is `/api/invoice/create/:FORMAT`."
+#: ../en/docs/service/creating-invoices.md:223
+msgid ""
+"You can bypass the [mapping step]([% q.llink(name='mapping') %]) and generate\n"
+"the invoice directly from JSON.  All you have to do is to omit the parameter\n"
+"`mapping`."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:231
+#: ../en/docs/service/creating-invoices.md:247
 msgid "In this case, a Peppol UBL invoice is created."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:233
+#: ../en/docs/service/creating-invoices.md:249
 msgid ""
 "This endpoint allows the exact same URL parameters as the [endpoint for\n"
 "creating invoices from spreadsheet\n"
@@ -2246,11 +2261,11 @@ msgid ""
 "`mapping` which makes no sense."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:238
+#: ../en/docs/service/creating-invoices.md:254
 msgid "## Create JSON Data from Spreadsheet Data"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:240
+#: ../en/docs/service/creating-invoices.md:256
 msgid ""
 "You can also create invoice data in the [internal format]([% q.llink(name='internal-format') %]) from a spreadsheet\n"
 "file with the endpoint `/api/mapping/transform/:format`. This is probably\n"
@@ -2258,20 +2273,20 @@ msgid ""
 "for e-invoices."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:267
+#: ../en/docs/service/creating-invoices.md:283
 msgid "This endpoint only supports two URL parameters:"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:269
+#: ../en/docs/service/creating-invoices.md:285
 msgid "* `data`: The spreadsheet with the invoice data.\n"
 "* `mapping`: The [mapping definition]([% q.llink(name='mapping') %]) for the invoice data."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:272
+#: ../en/docs/service/creating-invoices.md:288
 msgid "[% title = \"Why is the Format Needed?\" %]"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:276
+#: ../en/docs/service/creating-invoices.md:292
 msgid ""
 "This endpoint [maps]([% q.llink(name='mapping') %]) data from a spreadsheet file into the [internal format]([% q.llink(name='internal-format') %]) which\n"
 "is supposed to be independent of the output format. Still, you have to supply\n"
@@ -2401,53 +2416,65 @@ msgid ""
 msgstr ""
 
 #: ../en/docs/service/deployment.md:205
+msgid ""
+"If you are running the docker container, you must either bind mount an\n"
+"`.env` file into the container or pass the environment variable on the\n"
+"commandline with option `-e`:"
+msgstr ""
+
+#: ../en/docs/service/deployment.md:222
+msgid "This would start the service on port 3300 instead of port 3000 (although it\n"
+"would be easier to simply map port 3300 to the host port 3000)."
+msgstr ""
+
+#: ../en/docs/service/deployment.md:225
 msgid "The following environment variables are supported:"
 msgstr ""
 
-#: ../en/docs/service/deployment.md:211
+#: ../en/docs/service/deployment.md:231
 msgid "To quote the NestJS documentation:"
 msgstr ""
 
-#: ../en/docs/service/deployment.md:213
+#: ../en/docs/service/deployment.md:233
 msgid "> While there's technically no difference between development and production in Node.js and NestJS, it's a good practice to set the NODE_ENV environment variable to production when running your application in a production environment, as some libraries in the ecosystem may behave differently based on this variable (e.g., enabling or disabling debugging output, etc.)."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:215
+#: ../en/docs/service/deployment.md:235
 msgid "In brief: Set the environment variable to \"production\", when running the\n"
 "service in production mode."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:222
+#: ../en/docs/service/deployment.md:242
 msgid "Set this to a valid port number if you are not happy with the default port of\n"
 "3000."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:225
+#: ../en/docs/service/deployment.md:245
 msgid "Note: This has currently no effect, when running the service in a container,\n"
 "see https://github.com/gflohr/e-invoice-eu/issues/76."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:232
+#: ../en/docs/service/deployment.md:252
 msgid ""
 "Path to [LibreOffice](https://www.libreoffice.org/). E-Invoice-EU uses\n"
 "LibreOffice in headless mode to generate PDFs from spreadsheet files. It\n"
 "depends on your usage whether you need that or not."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:236
+#: ../en/docs/service/deployment.md:256
 msgid "On macOS, LibreOffice is usually installed as:"
 msgstr ""
 
-#: ../en/docs/service/deployment.md:244
+#: ../en/docs/service/deployment.md:264
 msgid "On Windows, the path is:"
 msgstr ""
 
-#: ../en/docs/service/deployment.md:252
+#: ../en/docs/service/deployment.md:272
 msgid "If the location of the LibreOffice executable is not configured, it is searched\n"
 "in `$PATH`."
 msgstr ""
 
-#: ../en/docs/service/deployment.md:259
+#: ../en/docs/service/deployment.md:279
 msgid "An alias for the environment variable [`LIBRE_OFFICE`](#libre_office-code)."
 msgstr ""
 
