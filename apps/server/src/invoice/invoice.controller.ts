@@ -397,6 +397,17 @@ export class InvoiceController {
 			pdfDescription?: string;
 		},
 	) {
+		const deprecationWarning = `
+*********************************************************************
+* DEPRECATION WARNING:                                              *
+*                                                                   *
+* The /invoice/transform-and-create endpoint is deprecated. It will *
+* be removed in the next major version 2.x.x.  Use /invoice/create  *
+* with the same parameters instead!                                 *
+*********************************************************************
+`.trimEnd();
+		this.logger.warn(deprecationWarning);
+
 		const { data, mapping, pdf, attachment } = files;
 
 		let attachmentIDs = body.attachmentID || [];

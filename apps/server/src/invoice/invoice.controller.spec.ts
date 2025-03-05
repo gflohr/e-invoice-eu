@@ -23,6 +23,7 @@ describe('InvoiceController', () => {
 
 	const mockedLogger = {
 		error: jest.fn(),
+		warn: jest.fn(),
 	};
 
 	beforeEach(async () => {
