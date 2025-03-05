@@ -106,7 +106,7 @@ describe('InvoiceController', () => {
 				size: 9,
 			} as Express.Multer.File;
 			const response = await request(app.getHttpServer())
-				.post('/invoice/transform-and-create/UBL')
+				.post('/invoice/create/UBL')
 				.attach('mapping', Buffer.from(mapping), 'mapping.yaml')
 				.attach('data', data.buffer, 'invoice.ods');
 
@@ -129,21 +129,10 @@ describe('InvoiceController', () => {
 			);
 		});
 
-		it('should throw a BadRequestException if no mapping file is uploaded', async () => {
-			const data = ' data';
-			const response = await request(app.getHttpServer())
-				.post('/invoice/transform-and-create/UBL')
-				.attach('data', Buffer.from(data), 'invoice.ods');
-
-			expect(response.status).toBe(400);
-			expect(response.body.statusCode).toBe(400);
-			expect(response.body.message).toBe('No mapping file uploaded');
-		});
-
 		it('should throw a BadRequestException if no invoice file is uploaded', async () => {
 			const mapping = 'test: data success';
 			const response = await request(app.getHttpServer())
-				.post('/invoice/transform-and-create/UBL')
+				.post('/invoice/create/UBL')
 				.attach('mapping', Buffer.from(mapping), 'mapping.yaml');
 
 			expect(response.status).toBe(400);
@@ -166,7 +155,7 @@ describe('InvoiceController', () => {
 				});
 
 			const response = await request(app.getHttpServer())
-				.post('/invoice/transform-and-create/UBL')
+				.post('/invoice/create/UBL')
 				.attach('mapping', Buffer.from('test: data fail'), 'mapping.yaml')
 				.attach('data', Buffer.from('test data'), 'invoice.ods');
 

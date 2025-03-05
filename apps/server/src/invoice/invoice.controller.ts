@@ -408,68 +408,6 @@ export class InvoiceController {
 `.trimEnd();
 		this.logger.warn(deprecationWarning);
 
-		const { data, mapping, pdf, attachment } = files;
-
-		let attachmentIDs = body.attachmentID || [];
-		if (typeof attachmentIDs !== 'object') attachmentIDs = [attachmentIDs];
-
-		let attachmentDescriptions = body.attachmentDescription || [];
-		if (typeof attachmentDescriptions !== 'object')
-			attachmentDescriptions = [attachmentDescriptions];
-
-		if (!data) {
-			throw new BadRequestException('No invoice file uploaded');
-		}
-
-		if (!mapping) {
-			throw new BadRequestException('No mapping file uploaded');
-		}
-
-		const attachments: InvoiceAttachment[] = [];
-		if (attachment) {
-			for (let i = 0; i < attachment.length; ++i) {
-				attachments[i] = {
-					file: attachment[i],
-					id: attachmentIDs[i],
-					description: attachmentDescriptions[i],
-				};
-			}
-		}
-
-		try {
-			const invoice = this.mappingService.transform(
-				format.toLowerCase(),
-				mapping[0].buffer.toString(),
-				data[0].buffer,
-			);
-
-			const document = await this.invoiceService.generate(invoice, {
-				format: format.toLowerCase(),
-				data: data[0],
-				pdf: pdf ? pdf[0] : undefined,
-				lang: body.lang ?? 'en',
-				attachments: attachments,
-				embedPDF: body.embedPDF,
-				pdfID: body.pdfID,
-				pdfDescription: body.pdfDescription,
-			});
-			if (typeof document === 'string') {
-				response.set('Content-Type', 'application/xml');
-			} else {
-				response.set('Content-Type', 'application/pdf');
-			}
-			response.status(HttpStatus.CREATED).send(document);
-		} catch (error) {
-			if (error instanceof ValidationError) {
-				throw new BadRequestException({
-					message: 'Transformation failed.',
-					details: error,
-				});
-			} else {
-				this.logger.error(`unknown error: ${error.message}\n${error.stack}`);
-
-				throw new InternalServerErrorException();
-			}
-		}
+		return this.create(response, format, files, body);
 	}
 }
