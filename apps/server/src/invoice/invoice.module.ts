@@ -10,15 +10,12 @@ import { FormatFactoryService } from '../format/format.factory.service';
 import { FormatModule } from '../format/format.module';
 import { MappingModule } from '../mapping/mapping.module';
 import { MappingService } from '../mapping/mapping.service';
-import { ValidationModule } from '../validation/validation.module';
-import { ValidationService } from '../validation/validation.service';
 
 @Module({
 	imports: [
 		AppConfigModule,
 		FormatModule,
 		MappingModule,
-		ValidationModule,
 		MulterModule.registerAsync({
 			imports: [AppConfigModule],
 			useFactory: async (configService: AppConfigService) => ({
@@ -30,13 +27,7 @@ import { ValidationService } from '../validation/validation.service';
 		}),
 	],
 	controllers: [InvoiceController],
-	providers: [
-		Logger,
-		FormatFactoryService,
-		InvoiceService,
-		MappingService,
-		ValidationService,
-	],
+	providers: [Logger, FormatFactoryService, InvoiceService, MappingService],
 	exports: [InvoiceService],
 })
 export class InvoiceModule {}

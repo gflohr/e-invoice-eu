@@ -13,7 +13,6 @@ import { Invoice } from './invoice.interface';
 import { InvoiceService } from './invoice.service';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { MappingService } from '../mapping/mapping.service';
-import { ValidationService } from '../validation/validation.service';
 
 describe('InvoiceController', () => {
 	let app: INestApplication;
@@ -32,7 +31,6 @@ describe('InvoiceController', () => {
 				InvoiceService,
 				MappingService,
 				{ provide: FormatFactoryService, useValue: {} },
-				{ provide: ValidationService, useValue: {} },
 				{ provide: Logger, useValue: mockedLogger },
 			],
 		}).compile();
