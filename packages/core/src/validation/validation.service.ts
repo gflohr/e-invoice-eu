@@ -1,4 +1,4 @@
-import { ErrorObject, ValidateFunction, ValidationError } from 'ajv';
+import { ErrorObject, ValidateFunction, ValidationError } from 'ajv/dist/2019';
 
 import { ILogger } from '../ilogger';
 

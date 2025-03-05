@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { ValidationService } from '@e-invoice-eu/core';
+import { Injectable, Logger } from '@nestjs/common';
 import Ajv2019, { ValidateFunction } from 'ajv/dist/2019';
 
 import { Invoice } from './invoice.interface';
 import { invoiceSchema } from './invoice.schema';
 import { FormatFactoryService } from '../format/format.factory.service';
-import { ValidationService } from '../validation/validation.service';
 
 export type InvoiceAttachment = {
 	/**
@@ -68,11 +68,12 @@ export type InvoiceServiceOptions = {
 
 @Injectable()
 export class InvoiceService {
+	private readonly logger = new Logger(InvoiceService.name);
 	private readonly validator: ValidateFunction<Invoice>;
+	private readonly validationService: ValidationService;
 
 	constructor(
 		private readonly formatFactoryService: FormatFactoryService,
-		private readonly validationService: ValidationService,
 	) {
 		const ajv = new Ajv2019({
 			strict: true,
@@ -80,6 +81,7 @@ export class InvoiceService {
 			useDefaults: true,
 		});
 		this.validator = ajv.compile(invoiceSchema);
+		this.validationService = new ValidationService(this.logger);
 	}
 
 	async generate(
