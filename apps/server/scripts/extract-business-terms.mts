@@ -32,9 +32,13 @@ console.log('---');
 console.log(`title: ${title}`);
 console.log(`name: ${name}`);
 console.log('section: other');
-console.log(`description: This table maps all EN16931 ${lctitle}`
-	+ ' their respective XML elements.');
-console.log('styles: "<style>td { word-break: break-all; font-size: smaller; }</style>"')
+console.log(
+	`description: This table maps all EN16931 ${lctitle}` +
+		' their respective XML elements.',
+);
+console.log(
+	'styles: "<style>td { word-break: break-all; font-size: smaller; }</style>"',
+);
 console.log('---');
 console.log('<!-- This file is generated! Do not edit! -->');
 console.log(`| ${shortTitle} | Usage<!--qgoda-no-xgettext-->|`);
@@ -83,14 +87,18 @@ function recurseSchema(
 
 				if (typeof schema[key] !== 'object') continue;
 
-				const description = schema[key].type === 'array' ? schema[key].items.description : schema[key].description;
+				const description =
+					schema[key].type === 'array'
+						? schema[key].items.description
+						: schema[key].description;
 
 				if (description && description.match(re)) {
-					const terms = (
-						re.exec(description) as RegExpExecArray
-					)[1].split(', ');
+					const terms = (re.exec(description) as RegExpExecArray)[1].split(
+						', ',
+					);
 
-					const typeRe = type === 'terms' ? new RegExp(/^BT-/) : new RegExp(/^BG-/);
+					const typeRe =
+						type === 'terms' ? new RegExp(/^BT-/) : new RegExp(/^BG-/);
 					for (const term of terms.filter(term => term.match(typeRe))) {
 						allTerms[term] ??= [];
 						allTerms[term].push('/' + newPath.join('/'));
