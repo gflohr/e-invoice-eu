@@ -118,13 +118,6 @@
 		"test:cov": "jest --coverage",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
 		"test:e2e": "jest --config ./test/jest-e2e.json",
-		"prepare": "husky",
-		"esgettext": "npm-run-all esgettext:potfiles esgettext:extract esgettext:update-po esgettext:update-mo esgettext:install",
-		"esgettext:potfiles": "esgettext potfiles --directory=po --git --exclude=\"node_modules/**/*\" --exclude=\"test/*/**\" --exclude=\"**/*.spec.*\" \"././**/*.mjs\" \"./test/**/*.ts\" \"./src/**/*.ts\" \"./contrib/**/*.mjs\" >po/POTFILES",
-		"esgettext:extract": "esgettext extract --from-code=utf-8 --directory po --files-from=po/POTFILES",
-		"esgettext:update-po": "esgettext msgmerge-all",
-		"esgettext:update-mo": "esgettext msgfmt-all",
-		"esgettext:install": "esgettext install",
-		"esgettext:addlang": "esgettext msginit"
+		"prepare": "husky"
 	}
 }
