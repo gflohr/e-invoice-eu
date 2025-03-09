@@ -44,7 +44,7 @@ ZUGFeRD*
 *-report.xml
 
 # Configuration
-/.env
+.env
 
 # Visual Studio Code
 .vscode/
