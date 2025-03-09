@@ -11,6 +11,7 @@ import * as request from 'supertest';
 
 import { InvoiceController } from './invoice.controller';
 import { InvoiceService } from './invoice.service';
+import { AppConfigService } from '../app-config/app-config.service';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { MappingService } from '../mapping/mapping.service';
 
@@ -32,6 +33,7 @@ describe('InvoiceController', () => {
 				MappingService,
 				{ provide: FormatFactoryService, useValue: {} },
 				{ provide: Logger, useValue: mockedLogger },
+				{ provide: AppConfigService, useValue: {} },
 			],
 		}).compile();
 

@@ -27,6 +27,14 @@ describe('InvoiceService', () => {
 		}).compile();
 
 		service = module.get<InvoiceService>(InvoiceService);
+
+		jest
+			.spyOn(AppConfigService.prototype, 'get')
+			.mockReturnValue({ libreOffice: 'libreoffice' });
+	});
+
+	afterEach(() => {
+		jest.resetAllMocks();
 	});
 
 	it('should be defined', () => {

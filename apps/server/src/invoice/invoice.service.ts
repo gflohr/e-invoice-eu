@@ -4,6 +4,8 @@ import {
 } from '@e-invoice-eu/core';
 import { Injectable, Logger } from '@nestjs/common';
 
+import { AppConfigService } from '../app-config/app-config.service';
+
 export type InvoiceAttachment = {
 	/**
 	 * The uploaded file.
@@ -68,6 +70,8 @@ type InvoiceServiceOptions = {
 export class InvoiceService {
 	private readonly logger = new Logger(InvoiceService.name);
 
+	constructor(private readonly appConfigService: AppConfigService) {}
+
 	async generate(
 		input: unknown,
 		options: InvoiceServiceOptions,
@@ -106,6 +110,9 @@ export class InvoiceService {
 				},
 			});
 		}
+
+		coreOptions.libreOfficePath =
+			this.appConfigService.get('programs').libreOffice;
 
 		const coreInvoiceService = new CoreInvoiceService(this.logger);
 
