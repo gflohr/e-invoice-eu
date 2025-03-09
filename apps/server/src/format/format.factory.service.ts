@@ -1,4 +1,7 @@
-import { FormatFactoryService as FormatFactorCoreService, EInvoiceFormat } from '@e-invoice-eu/core';
+import {
+	FormatFactoryService as FormatFactorCoreService,
+	EInvoiceFormat,
+} from '@e-invoice-eu/core';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
 
