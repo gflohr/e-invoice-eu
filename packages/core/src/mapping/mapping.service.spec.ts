@@ -1,11 +1,12 @@
-import { Mapping, Invoice, ValidationService } from '@e-invoice-eu/core';
-import { EInvoiceFormat } from '@e-invoice-eu/core';
-import { MappingMetaInformation } from '@e-invoice-eu/core/mapping/mapping.interface';
 import * as XLSX from '@e965/xlsx';
 import { JSONSchemaType } from 'ajv';
 
 import { MappingService } from './mapping.service';
+import { EInvoiceFormat } from '../format';
+import { Mapping, MappingMetaInformation } from './mapping.interface';
 import { FormatFactoryService } from '../format/format.factory.service';
+import { Invoice } from '../invoice';
+import { ValidationService } from '../validation';
 
 jest.mock('fs/promises');
 

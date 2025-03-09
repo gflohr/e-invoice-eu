@@ -1,13 +1,3 @@
-import {
-	Mapping,
-	Invoice,
-	ValidationService,
-	mappingValueRe,
-	sectionReferenceRe,
-	mappingSchema,
-	invoiceSchema,
-} from '@e-invoice-eu/core';
-import { MappingMetaInformation } from '@e-invoice-eu/core/mapping/mapping.interface';
 import * as XLSX from '@e965/xlsx';
 import Ajv2019, {
 	ErrorObject,
@@ -20,6 +10,11 @@ import * as jsonpath from 'jsonpath-plus';
 
 import { FormatFactoryService } from '../format/format.factory.service';
 import { ILogger } from '../logger.interface';
+import { Mapping, MappingMetaInformation } from './mapping.interface';
+import { ValidationService } from '../validation';
+import { mappingSchema } from './mapping.schema';
+import { Invoice, invoiceSchema } from '../invoice';
+import { mappingValueRe, sectionReferenceRe } from './mapping.regex';
 
 type SectionRanges = { [key: string]: { [key: string]: number[] } };
 
