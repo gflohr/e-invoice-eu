@@ -870,8 +870,8 @@ msgid ""
 msgstr ""
 
 #: ../en/docs/details/mapping.md:184
-#: ../en/docs/service/creating-invoices.md:227
-#: ../en/docs/service/creating-invoices.md:261
+#: ../en/docs/service/creating-invoices.md:247
+#: ../en/docs/service/creating-invoices.md:281
 msgid "Example:"
 msgstr ""
 
@@ -1417,7 +1417,7 @@ msgid "You can now open a web interface at http://localhost:8080/ and upload inv
 msgstr ""
 
 #: ../en/docs/details/validation.md:280
-msgid "Alternatively, you can auch `curl` oder `httpie` verwendet werden:"
+msgid "Alternatively, you can also use `curl` or `httpie`:"
 msgstr ""
 
 #: ../en/docs/details/validation.md:296
@@ -1862,10 +1862,6 @@ msgctxt "description"
 msgid "Free and open source tool chain for generating EN16931 conforming invoices (Factur-X/ZUGFeRD, UBL, CII, XRechnung) from popular spreadsheet formats or JSON."
 msgstr ""
 
-#: ../en/docs/index.md:15
-msgid "[% title = \"Incomplete Translation!\" %]"
-msgstr ""
-
 #: ../en/docs/index.md:21
 msgid "The translation for this site is not yet ready. The parts that are not\n"
 "yet translated will be displayed in English instead."
@@ -2225,12 +2221,12 @@ msgid "There is nothing special about creating Factur-X/ZUGFeRD, only that the o
 "is binary and you want to redirect it to a file."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:213
+#: ../en/docs/service/creating-invoices.md:215
 msgid "This would create a Factur-X/ZUGFeRD e-invoice with the profile\n"
 "*Extended*."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:216
+#: ../en/docs/service/creating-invoices.md:218
 msgid ""
 "You must also keep in mind that the hybrid Factur-X/ZUGFeRD format *requires*\n"
 "a PDF version of the input. You must either specify it yourself with the\n"
@@ -2238,22 +2234,39 @@ msgid ""
 "from the spreadsheet file `data`."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:221
+#: ../en/docs/service/creating-invoices.md:223
+msgid "[% title = \"Do Not Redirect Standard Output on Windows!\" %]"
+msgstr ""
+
+#: ../en/docs/service/creating-invoices.md:228
+msgid ""
+"Depending on what shell you are using, redirecting standard output messes\n"
+"up the generated PDF. More precisely, it converts all newline characters\n"
+"(`LF`) to `CRLF` which corrupts the binary file.  It also encodes it as\n"
+"UTF-16-LE, a 2-byte character encoding, which is again wrong for binary\n"
+"files. You can avoid that by using the option `-o` resp. `--output`. See\n"
+"<a href=\"https://github.com/gflohr/e-invoice-eu/issues/96#issuecomment-2708171823\">\n"
+"https://github.com/gflohr/e-invoice-eu/issues/96#issuecomment-2708171823\n"
+"</a>\n"
+"for more information!"
+msgstr ""
+
+#: ../en/docs/service/creating-invoices.md:241
 msgid "## Creating Invoices from JSON"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:223
+#: ../en/docs/service/creating-invoices.md:243
 msgid ""
 "You can bypass the [mapping step]([% q.llink(name='mapping') %]) and generate\n"
 "the invoice directly from JSON.  All you have to do is to omit the parameter\n"
 "`mapping`."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:247
+#: ../en/docs/service/creating-invoices.md:267
 msgid "In this case, a Peppol UBL invoice is created."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:249
+#: ../en/docs/service/creating-invoices.md:269
 msgid ""
 "This endpoint allows the exact same URL parameters as the [endpoint for\n"
 "creating invoices from spreadsheet\n"
@@ -2261,11 +2274,11 @@ msgid ""
 "`mapping` which makes no sense."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:254
+#: ../en/docs/service/creating-invoices.md:274
 msgid "## Create JSON Data from Spreadsheet Data"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:256
+#: ../en/docs/service/creating-invoices.md:276
 msgid ""
 "You can also create invoice data in the [internal format]([% q.llink(name='internal-format') %]) from a spreadsheet\n"
 "file with the endpoint `/api/mapping/transform/:format`. This is probably\n"
@@ -2273,20 +2286,20 @@ msgid ""
 "for e-invoices."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:283
+#: ../en/docs/service/creating-invoices.md:303
 msgid "This endpoint only supports two URL parameters:"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:285
+#: ../en/docs/service/creating-invoices.md:305
 msgid "* `data`: The spreadsheet with the invoice data.\n"
 "* `mapping`: The [mapping definition]([% q.llink(name='mapping') %]) for the invoice data."
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:288
+#: ../en/docs/service/creating-invoices.md:308
 msgid "[% title = \"Why is the Format Needed?\" %]"
 msgstr ""
 
-#: ../en/docs/service/creating-invoices.md:292
+#: ../en/docs/service/creating-invoices.md:312
 msgid ""
 "This endpoint [maps]([% q.llink(name='mapping') %]) data from a spreadsheet file into the [internal format]([% q.llink(name='internal-format') %]) which\n"
 "is supposed to be independent of the output format. Still, you have to supply\n"

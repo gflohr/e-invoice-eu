@@ -197,14 +197,16 @@ is binary and you want to redirect it to a file.
 [% FILTER $Highlight "language-sh" %]
 curl -X POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
     -F data=@contrib/templates/default-invoice.ods \
-    -F mapping=@contrib/mappings/default-invoice.yaml >e-invoice.pdf
+    -F mapping=@contrib/mappings/default-invoice.yaml \
+	--output e-invoice.pdf
 [% END %]
 
 [httpie]
 [% FILTER $Highlight "language-sh" %]
 http --form POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
     data@contrib/templates/default-invoice.ods \
-    mapping@contrib/mappings/default-invoice.yaml >e-invoice.pdf
+    mapping@contrib/mappings/default-invoice.yaml \
+	--output e-invoice.pdf
 [% END %]
 
 [% END %]
@@ -217,6 +219,24 @@ You must also keep in mind that the hybrid Factur-X/ZUGFeRD format *requires*
 a PDF version of the input. You must either specify it yourself with the
 parameter `pdf` or `LibreOffice` must be available so that it can be generated
 from the spreadsheet file `data`.
+
+[% title = "Do Not Redirect Standard Output on Windows!" %]
+<!--qgoda-no-xgettext-->
+[% WRAPPER components/infobox.html
+type='warning' title=title %]
+<!--/qgoda-no-xgettext-->
+Depending on what shell you are using, redirecting standard output messes
+up the generated PDF. More precisely, it converts all newline characters
+(`LF`) to `CRLF` which corrupts the binary file.  It also encodes it as
+UTF-16-LE, a 2-byte character encoding, which is again wrong for binary
+files. You can avoid that by using the option `-o` resp. `--output`. See
+<a href="https://github.com/gflohr/e-invoice-eu/issues/96#issuecomment-2708171823">
+https://github.com/gflohr/e-invoice-eu/issues/96#issuecomment-2708171823
+</a>
+for more information!
+<!--qgoda-no-xgettext-->
+[% END %]
+<!--/qgoda-no-xgettext-->
 
 ## Creating Invoices from JSON
 

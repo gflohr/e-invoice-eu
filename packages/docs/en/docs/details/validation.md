@@ -277,7 +277,7 @@ The option `-D` is an alias for `--daemon`.
 You can now open a web interface at http://localhost:8080/ and upload invoices
 to be validated.
 
-Alternatively, you can auch `curl` oder `httpie` verwendet werden:
+Alternatively, you can also use `curl` or `httpie`:
 
 <!--qgoda-no-xgettext-->
 [% FILTER $CodeGroup %]
