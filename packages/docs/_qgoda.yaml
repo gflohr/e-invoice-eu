@@ -21,6 +21,8 @@ helpers:
   browser-sync: bun run server
 permalink: /e-invoice-eu{significant-path}
 pre-build:
+  - name: install
+    run: npm install
   - name: webpack
     run: npm run build
 # See https://github.com/peaceiris/actions-gh-pages/issues/892!
