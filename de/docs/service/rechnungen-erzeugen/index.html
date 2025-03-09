@@ -30,7 +30,7 @@
   <link href="/e-invoice-eu/assets/bundle.min.css" rel="stylesheet">
 
 
-  <link href="/e-invoice-eu/site/css/modal-image-popup.css?1741200255" rel="stylesheet">
+  <link href="/e-invoice-eu/site/css/modal-image-popup.css?1741564273" rel="stylesheet">
 
 
   <meta name="generator" content="Qgoda vv0.11.0 (https://www.qgoda.net/)" />
@@ -265,14 +265,16 @@ Die Erzeugung von Factur-X/ZUGFeRD unterscheidet sich eigentlich nur darin, dass
 [% FILTER $Highlight "language-sh" %]
 curl -X POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
     -F data=@contrib/templates/default-invoice.ods \
-    -F mapping=@contrib/mappings/default-invoice.yaml >e-invoice.pdf
+    -F mapping=@contrib/mappings/default-invoice.yaml \
+	--output e-invoice.pdf
 [% END %]
 
 [httpie]
 [% FILTER $Highlight "language-sh" %]
 http --form POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
     data@contrib/templates/default-invoice.ods \
-    mapping@contrib/mappings/default-invoice.yaml >e-invoice.pdf
+    mapping@contrib/mappings/default-invoice.yaml \
+	--output e-invoice.pdf
 [% END %]
 
 [% END %]
@@ -281,6 +283,19 @@ http --form POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
 Dies würde eine E-Rechnung im Format Factur-X/ZUGFeRD mit dem Profil *Extended* erzeugen.
 
 Man muss sich allerdings vergegenwärtigen, dass das hybride Format Factur-X/ZUGFeRD eine PDF-Version *verlangt*. Diese PDF-Version muss entweder mit dem Parameter `pdf` übergeben werden, oder `LibreOffice` muss verfügbar sein, damit sie aus der Tabellenkalkulations-Datei `data` erzeugt werden kann.
+
+[% title = ”Unter Windows nicht die Standardausgabe umleiten!” %]
+
+[% WRAPPER components/infobox.html
+type='warning' title=title %]
+
+Je nachdem, welche Shell verwendet wird, kann das generierte PDF beschädigt werden. Genauer gesagt, werden alle Zeilenumbrüche (<code>LF</code>) in <code>CRLF</code> umgewandelt, was die binäre Datei unbrauchbar macht. Sie wird weiterh als UTF-16-LE kodiert. Das ist ein 2-Byte-Kodierung, und auch das ist falsch für binäre Dateien. Das lässt sich vermeiden indem die Option <code>-o</code> bzw. <code>—output</code> verwendet wird. Siehe <a href=”https://github.com/gflohr/e-invoice-eu/issues/96#issuecomment-2708171823”>
+https://github.com/gflohr/e-invoice-eu/issues/96#issuecomment-2708171823
+</a>
+für weitere Informationen!
+
+[% END %]
+
 
 ## Rechnungen aus JSON erzeugen
 
@@ -676,7 +691,7 @@ Dieser Endpunkt bildet Daten aus einer Tabellendatei in das [interne Format]([% 
   <script src="/e-invoice-eu/assets/bundle.min.js" type="text/javascript"></script>
 
 
-  <script src="/e-invoice-eu/site/js/modal-image-popup.js?1741200255" type="text/javascript"></script>
+  <script src="/e-invoice-eu/site/js/modal-image-popup.js?1741564273" type="text/javascript"></script>
 
 
 </body>

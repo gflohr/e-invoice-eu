@@ -30,7 +30,7 @@
   <link href="/e-invoice-eu/assets/bundle.min.css" rel="stylesheet">
 
 
-  <link href="/e-invoice-eu/site/css/modal-image-popup.css?1741200255" rel="stylesheet">
+  <link href="/e-invoice-eu/site/css/modal-image-popup.css?1741564273" rel="stylesheet">
 
 
   <meta name="generator" content="Qgoda vv0.11.0 (https://www.qgoda.net/)" />
@@ -435,20 +435,22 @@ is binary and you want to redirect it to a file.</p>
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-5afae79ce283db051774c557cea052aa3d4066ad' id='code-tab-d521d38e483677088ca6b75ef350d51a67390f3e' checked>
-        <label data-title='curl' for='code-tab-d521d38e483677088ca6b75ef350d51a67390f3e'>curl</label>
-        <input type='radio' name='group-5afae79ce283db051774c557cea052aa3d4066ad' id='code-tab-745d67fd7f69f28a71ff6a2e3a70ae4aa87017d6'>
-        <label data-title='httpie' for='code-tab-745d67fd7f69f28a71ff6a2e3a70ae4aa87017d6'>httpie</label>
+        <input type='radio' name='group-131236d10e278f11984d0a6863a2156dfd4f1f4c' id='code-tab-f7a66e5d481ee908bceba6314c4f9648723060cf' checked>
+        <label data-title='curl' for='code-tab-f7a66e5d481ee908bceba6314c4f9648723060cf'>curl</label>
+        <input type='radio' name='group-131236d10e278f11984d0a6863a2156dfd4f1f4c' id='code-tab-0fc2984301a98a6338d2c91adf9ba7886b029f43'>
+        <label data-title='httpie' for='code-tab-0fc2984301a98a6338d2c91adf9ba7886b029f43'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-d521d38e483677088ca6b75ef350d51a67390f3e' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
+            <code-block id='code-block-f7a66e5d481ee908bceba6314c4f9648723060cf' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
     -F data=@contrib/templates/default-invoice.ods \
-    -F mapping=@contrib/mappings/default-invoice.yaml &#62;e-invoice.pdf</code></pre>
+    -F mapping=@contrib/mappings/default-invoice.yaml \
+    --output e-invoice.pdf</code></pre>
 
 </code-block>
-            <code-block id='code-block-745d67fd7f69f28a71ff6a2e3a70ae4aa87017d6'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
+            <code-block id='code-block-0fc2984301a98a6338d2c91adf9ba7886b029f43'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
     data@contrib/templates/default-invoice.ods \
-    mapping@contrib/mappings/default-invoice.yaml &#62;e-invoice.pdf</code></pre>
+    mapping@contrib/mappings/default-invoice.yaml \
+    --output e-invoice.pdf</code></pre>
 </code-block>
     </code-blocks>
 </code-group></div>
@@ -466,6 +468,39 @@ is binary and you want to redirect it to a file.</p>
 a PDF version of the input. You must either specify it yourself with the
 parameter <code>pdf</code> or <code>LibreOffice</code> must be available so that it can be generated
 from the spreadsheet file <code>data</code>.</p>
+
+
+
+
+
+
+<div class="alert alert-warning" role="alert">
+    <div>
+        <strong>
+            <i class="bi-exclamation-triangle"></i>
+            <span class="title">Do Not Redirect Standard Output on Windows!</span>
+        </strong>
+    </div>
+    <p>
+
+Depending on what shell you are using, redirecting standard output messes
+up the generated PDF. More precisely, it converts all newline characters
+(`LF`) to `CRLF` which corrupts the binary file.  It also encodes it as
+UTF-16-LE, a 2-byte character encoding, which is again wrong for binary
+files. You can avoid that by using the option `-o` resp. `--output`. See
+<a href="https://github.com/gflohr/e-invoice-eu/issues/96#issuecomment-2708171823" target="_blank">
+https://github.com/gflohr/e-invoice-eu/issues/96#issuecomment-2708171823
+</a>
+for more information!
+
+</p>
+</div>
+
+
+
+
+
+
 
 <h2><a href="#" name="creating-invoices-from-json" id="creating-invoices-from-json"></a>Creating Invoices from JSON</h2>
 
@@ -911,7 +946,7 @@ an explicitly specified customization ID is never overwritten.
   <script src="/e-invoice-eu/assets/bundle.min.js" type="text/javascript"></script>
 
 
-  <script src="/e-invoice-eu/site/js/modal-image-popup.js?1741200255" type="text/javascript"></script>
+  <script src="/e-invoice-eu/site/js/modal-image-popup.js?1741564273" type="text/javascript"></script>
 
 
 </body>
