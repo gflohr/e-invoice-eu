@@ -63,7 +63,7 @@ export class FormatFactoryService {
 		return infos;
 	}
 
-	createFormatService(format: string): EInvoiceFormat | undefined {
+	createFormatService(format: string): EInvoiceFormat {
 		const normalizedFormat = this.normalizeFormat(format);
 		const FormatService = this.formatServicesLookup[normalizedFormat];
 
