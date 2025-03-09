@@ -104,7 +104,7 @@
 		]
 	},
 	"scripts": {
-		"build": "nest build",
+		"build": "rimraf dist && tsc --project tsconfig.build.json && chmod +x dist/main.js",
 		"format": "prettier --write *.json *.md scripts/* \"contrib/**/*.json\" \"src/**/*.{ts,json}\" \"test/**/*.ts\"",
 		"start": "nest start",
 		"start:dev": "nest start --watch",
