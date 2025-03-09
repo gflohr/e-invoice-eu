@@ -15,7 +15,6 @@ export class AppConfigService extends ConfigService<AppConfig> {
 				port: parseInt(env.PORT ?? '3000', 10) || 3000,
 			},
 			programs: {
-				gs: env.GS ?? 'gs',
 				libreOffice: env.LIBRE_OFFICE ?? env.LIBREOFFICE ?? 'libreoffice',
 			},
 			uploads: {
