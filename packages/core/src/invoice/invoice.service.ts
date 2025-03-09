@@ -1,8 +1,10 @@
-import { Invoice, invoiceSchema, ValidationService } from '@e-invoice-eu/core';
 import Ajv2019, { ValidateFunction } from 'ajv/dist/2019';
 
+import { Invoice } from './invoice.interface';
+import { invoiceSchema } from './invoice.schema';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { ILogger } from '../ilogger';
+import { ValidationService } from '../validation';
 
 /**
  * A container for a file used for an e-invoice.
@@ -90,13 +92,14 @@ export type InvoiceServiceOptions = {
 };
 
 export class InvoiceService {
+	private readonly formatFactoryService: FormatFactoryService;
 	private readonly validator: ValidateFunction<Invoice>;
 	private readonly validationService: ValidationService;
 
 	constructor(
-		private readonly formatFactoryService: FormatFactoryService,
 		private readonly logger: ILogger,
 	) {
+		this.formatFactoryService = new FormatFactoryService();
 		const ajv = new Ajv2019({
 			strict: true,
 			allErrors: true,
