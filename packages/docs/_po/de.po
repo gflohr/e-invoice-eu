@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: qgoda-site 0.1\n"
 "Report-Msgid-Bugs-To: 'Guido Flohr <guido.flohr@cantanea.com>'\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-03-05 20:36+0200\n"
+"PO-Revision-Date: 2025-03-10 01:49+0200\n"
 "Last-Translator: Guido Flohr <guido.flohr@cantanea.com>\n"
 "Language-Team: German\n"
 "Language: de\n"
@@ -1454,8 +1454,8 @@ msgstr ""
 "werden kann."
 
 #: ../en/docs/details/mapping.md:184
-#: ../en/docs/service/creating-invoices.md:227
-#: ../en/docs/service/creating-invoices.md:261
+#: ../en/docs/service/creating-invoices.md:247
+#: ../en/docs/service/creating-invoices.md:281
 msgid "Example:"
 msgstr "Beispiel:"
 
@@ -2326,7 +2326,7 @@ msgstr ""
 "werden, dass das Hochladen und die Validierung von Rechnungen erlaubt."
 
 #: ../en/docs/details/validation.md:280
-msgid "Alternatively, you can auch `curl` oder `httpie` verwendet werden:"
+msgid "Alternatively, you can also use `curl` or `httpie`:"
 msgstr "Alternativ dazu kann auch `curl` oder `httpie` verwendet werden:"
 
 #: ../en/docs/details/validation.md:296
@@ -3032,10 +3032,6 @@ msgstr ""
 "Rechnungen (Factur-X/ZUGFeRD, UBL, CII, XRechnung) aus populären "
 "Tabellenkalkulationsformaten oder JSON."
 
-#: ../en/docs/index.md:15
-msgid "[% title = \"Incomplete Translation!\" %]"
-msgstr "[% title = \"Unvollständige Übersetzung!\" %]"
-
 #: ../en/docs/index.md:21
 msgid ""
 "The translation for this site is not yet ready. The parts that are not\n"
@@ -3591,7 +3587,7 @@ msgstr ""
 "dass die Ausgabe binär ist, und deshalb in eine Datei umgeleitet werden "
 "sollte."
 
-#: ../en/docs/service/creating-invoices.md:213
+#: ../en/docs/service/creating-invoices.md:215
 msgid ""
 "This would create a Factur-X/ZUGFeRD e-invoice with the profile\n"
 "*Extended*."
@@ -3599,7 +3595,7 @@ msgstr ""
 "Dies würde eine E-Rechnung im Format Factur-X/ZUGFeRD mit dem Profil "
 "*Extended* erzeugen."
 
-#: ../en/docs/service/creating-invoices.md:216
+#: ../en/docs/service/creating-invoices.md:218
 msgid ""
 "You must also keep in mind that the hybrid Factur-X/ZUGFeRD format "
 "*requires*\n"
@@ -3613,11 +3609,40 @@ msgstr ""
 "Parameter `pdf` übergeben werden, oder `LibreOffice` muss verfügbar sein, "
 "damit sie aus der Tabellenkalkulations-Datei `data` erzeugt werden kann."
 
-#: ../en/docs/service/creating-invoices.md:221
+#: ../en/docs/service/creating-invoices.md:223
+msgid "[% title = \"Do Not Redirect Standard Output on Windows!\" %]"
+msgstr "[% title = ”Unter Windows nicht die Standardausgabe umleiten!” %]"
+
+#: ../en/docs/service/creating-invoices.md:228
+msgid ""
+"Depending on what shell you are using, redirecting standard output messes\n"
+"up the generated PDF. More precisely, it converts all newline characters\n"
+"(`LF`) to `CRLF` which corrupts the binary file.  It also encodes it as\n"
+"UTF-16-LE, a 2-byte character encoding, which is again wrong for binary\n"
+"files. You can avoid that by using the option `-o` resp. `--output`. See\n"
+"<a href=\"https://github.com/gflohr/e-invoice-eu/issues/"
+"96#issuecomment-2708171823\">\n"
+"https://github.com/gflohr/e-invoice-eu/issues/96#issuecomment-2708171823\n"
+"</a>\n"
+"for more information!"
+msgstr ""
+"Je nachdem, welche Shell verwendet wird, kann das generierte PDF beschädigt "
+"werden. Genauer gesagt, werden alle Zeilenumbrüche (<code>LF</code>) in "
+"<code>CRLF</code> umgewandelt, was die binäre Datei unbrauchbar macht. Sie "
+"wird weiterh als UTF-16-LE kodiert. Das ist ein 2-Byte-Kodierung, und auch "
+"das ist falsch für binäre Dateien. Das lässt sich vermeiden indem die Option "
+"<code>-o</code> bzw. <code>—output</code> verwendet wird. Siehe <a "
+"href=”https://github.com/gflohr/e-invoice-eu/issues/"
+"96#issuecomment-2708171823”>\n"
+"https://github.com/gflohr/e-invoice-eu/issues/96#issuecomment-2708171823\n"
+"</a>\n"
+"für weitere Informationen!"
+
+#: ../en/docs/service/creating-invoices.md:241
 msgid "## Creating Invoices from JSON"
 msgstr "## Rechnungen aus JSON erzeugen"
 
-#: ../en/docs/service/creating-invoices.md:223
+#: ../en/docs/service/creating-invoices.md:243
 msgid ""
 "You can bypass the [mapping step]([% q.llink(name='mapping') %]) and "
 "generate\n"
@@ -3629,11 +3654,11 @@ msgstr ""
 "auch übersprungen werden. Dafür muss lediglich der Parameter `mapping` "
 "weggelassen werden."
 
-#: ../en/docs/service/creating-invoices.md:247
+#: ../en/docs/service/creating-invoices.md:267
 msgid "In this case, a Peppol UBL invoice is created."
 msgstr "In diesem Fall wird ein Peppol-UBL-Rechnung erzeugt."
 
-#: ../en/docs/service/creating-invoices.md:249
+#: ../en/docs/service/creating-invoices.md:269
 msgid ""
 "This endpoint allows the exact same URL parameters as the [endpoint for\n"
 "creating invoices from spreadsheet\n"
@@ -3645,11 +3670,11 @@ msgstr ""
 "additional-attachments), bis auf den Parameter `mapping` der hier keinen "
 "Sinn ergibt."
 
-#: ../en/docs/service/creating-invoices.md:254
+#: ../en/docs/service/creating-invoices.md:274
 msgid "## Create JSON Data from Spreadsheet Data"
 msgstr "## JSON-Daten aus Tabellendaten erzeugen"
 
-#: ../en/docs/service/creating-invoices.md:256
+#: ../en/docs/service/creating-invoices.md:276
 msgid ""
 "You can also create invoice data in the [internal format]([% "
 "q.llink(name='internal-format') %]) from a spreadsheet\n"
@@ -3664,11 +3689,11 @@ msgstr ""
 "Informationszwecke Sinn, weil JSON kein erlaubtes Format für E-Rechnungen "
 "ist."
 
-#: ../en/docs/service/creating-invoices.md:283
+#: ../en/docs/service/creating-invoices.md:303
 msgid "This endpoint only supports two URL parameters:"
 msgstr "Dieser Endpunkt erlaubt nur zwei Parameter:"
 
-#: ../en/docs/service/creating-invoices.md:285
+#: ../en/docs/service/creating-invoices.md:305
 msgid ""
 "* `data`: The spreadsheet with the invoice data.\n"
 "* `mapping`: The [mapping definition]([% q.llink(name='mapping') %]) for the "
@@ -3677,11 +3702,11 @@ msgstr ""
 "* `data`: Die Tabellendatei mit den Rechnungsdaten.\n"
 "* `mapping`: Die Mapping-Definition für die Rechnungsdaten."
 
-#: ../en/docs/service/creating-invoices.md:288
+#: ../en/docs/service/creating-invoices.md:308
 msgid "[% title = \"Why is the Format Needed?\" %]"
 msgstr "[% title = \"Weshalb wird das Format benötigt?\" %]"
 
-#: ../en/docs/service/creating-invoices.md:292
+#: ../en/docs/service/creating-invoices.md:312
 msgid ""
 "This endpoint [maps]([% q.llink(name='mapping') %]) data from a spreadsheet "
 "file into the [internal format]([% q.llink(name='internal-format') %]) "
@@ -3868,7 +3893,7 @@ msgid ""
 msgstr ""
 "Wird der Docker-Container gestartet, muss entweder ein Bind-Mount für die "
 "`.env`-Datei in den Container stattfinden, oder die Umgebungsvariablen "
-"müssen mit der Option `-e` auf der Kommandozeile übergeben werden."
+"müssen mit der Option `-e` auf der Kommandozeile übergeben werden:"
 
 #: ../en/docs/service/deployment.md:222
 msgid ""
@@ -4154,6 +4179,9 @@ msgstr ""
 "<i>Quelle: </i><a href=”http://www.muster-vorlagen.net” "
 "target=”_blank”>Rechtliche Hinweise online erstellen - http://www.muster-"
 "vorlagen.net</a><br /><br />"
+
+#~ msgid "[% title = \"Incomplete Translation!\" %]"
+#~ msgstr "[% title = \"Unvollständige Übersetzung!\" %]"
 
 #~ msgid "Start"
 #~ msgstr "Start"

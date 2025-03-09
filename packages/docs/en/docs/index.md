@@ -12,9 +12,9 @@ description: Free and open source tool chain for generating EN16931 conforming i
 [% USE q = Qgoda %]
 <!--/qgoda-no-xgettext-->
 
-[% title = "Incomplete Translation!" %]
 <!--qgoda-no-xgettext-->
 [% IF asset.lingua != 'en' %]
+[% title = "Incomplete Translation!" %]
 [% WRAPPER components/infobox.html
 type='warning' title=title %]
 <!--/qgoda-no-xgettext-->
