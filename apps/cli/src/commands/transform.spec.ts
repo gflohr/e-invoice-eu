@@ -1,4 +1,5 @@
-import yargs, { demandOption } from 'yargs';
+import * as fs from 'fs/promises';
+import yargs from 'yargs';
 
 import { Transform } from './transform';
 import { coerceOptions } from '../optspec';
@@ -6,6 +7,18 @@ import { Package } from '../package';
 
 jest.mock('../optspec');
 jest.mock('../package');
+
+jest.mock('fs/promises');
+const mockedFs = fs as jest.Mocked<typeof fs>;
+
+const mockedTransformation = { transformed: 'data' };
+
+jest.mock('@e-invoice-eu/core', () => ({
+	MappingService: jest.fn().mockImplementation(() => ({
+		transform: jest.fn().mockReturnValue(mockedTransformation),
+	})),
+	FormatFactoryService: jest.fn(),
+}));
 
 describe('Transform Command', () => {
 	let transform: Transform;
@@ -49,7 +62,7 @@ describe('Transform Command', () => {
 				alias: ['o'],
 				type: 'string',
 				demandOption: false,
-				describe: 'the output file; standard output if `-`'
+				describe: 'the output file; standard output if `-`',
 			}),
 		});
 	});
@@ -91,5 +104,46 @@ describe('Transform Command', () => {
 		expect(result).toBe(1);
 
 		consoleErrorSpy.mockRestore();
+	});
+
+	it('should write to a file when output is specified', async () => {
+		const argv = {
+			data: 'data.xlsx',
+			mapping: 'mapping.json',
+			output: 'output.json',
+		} as unknown as yargs.Arguments;
+
+		mockedFs.readFile.mockResolvedValueOnce(Buffer.from('spreadsheet data'));
+		mockedFs.readFile.mockResolvedValueOnce('mapping data');
+
+		await transform.run(argv);
+
+		expect(mockedFs.writeFile).toHaveBeenCalledWith(
+			'output.json',
+			JSON.stringify(mockedTransformation),
+			'utf-8',
+		);
+	});
+
+	it('should write to stdout when output is not specified', async () => {
+		const argv = {
+			data: 'data.xlsx',
+			mapping: 'mapping.json',
+		} as unknown as yargs.Arguments;
+
+		mockedFs.readFile.mockResolvedValueOnce(Buffer.from('spreadsheet data'));
+		mockedFs.readFile.mockResolvedValueOnce('mapping data');
+
+		const stdoutWriteMock = jest
+			.spyOn(process.stdout, 'write')
+			.mockImplementation(() => true);
+
+		await transform.run(argv);
+
+		expect(stdoutWriteMock).toHaveBeenCalledWith(
+			JSON.stringify(mockedTransformation),
+		);
+
+		stdoutWriteMock.mockRestore();
 	});
 });

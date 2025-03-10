@@ -33,8 +33,8 @@ const options: {
 		alias: ['o'],
 		type: 'string',
 		demandOption: false,
-		describe: gtx._('the output file; standard output if `-`')
-	}
+		describe: gtx._('the output file; standard output if `-`'),
+	},
 };
 
 export type ConfigOptions = InferredOptionTypes<typeof options>;
@@ -60,10 +60,15 @@ export class Transform implements Command {
 
 		const mappingService = new MappingService(formatFactoryService, console);
 
-		const output = JSON.stringify(mappingService.transform('UBL', mapping, data));
+		const output = JSON.stringify(
+			mappingService.transform('UBL', mapping, data),
+		);
 
-		if (typeof configOptions.output === 'undefined' || configOptions.output === '-') {
-			console.log(output);
+		if (
+			typeof configOptions.output === 'undefined' ||
+			configOptions.output === '-'
+		) {
+			process.stdout.write(output);
 		} else {
 			await fs.writeFile(configOptions.output as string, output, 'utf-8');
 		}
