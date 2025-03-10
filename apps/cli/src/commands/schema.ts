@@ -1,4 +1,4 @@
-import { FormatFactoryService, MappingService } from '@e-invoice-eu/core';
+import { mappingSchema, invoiceSchema } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
 import * as fs from 'fs/promises';
 import yargs, { InferredOptionTypes } from 'yargs';
@@ -11,23 +11,16 @@ import { safeStdoutWrite } from '../safe-stdout-write';
 const gtx = Textdomain.getInstance('e-invoice-eu-cli');
 
 const options: {
-	data: OptSpec;
-	mapping: OptSpec;
+	id: OptSpec;
 	output?: OptSpec;
 } = {
-	data: {
-		group: gtx._('Input file location'),
-		alias: ['d'],
+	id: {
+		group: gtx._('Schema selection'),
+		alias: ['i'],
 		type: 'string',
+		choices: ['invoice', 'mapping'],
 		demandOption: true,
-		describe: gtx._('the invoice spreadsheet file'),
-	},
-	mapping: {
-		group: gtx._('Input file location'),
-		alias: ['m'],
-		type: 'string',
-		demandOption: true,
-		describe: gtx._('the mapping file'),
+		describe: gtx._('the schema to output'),
 	},
 	output: {
 		group: gtx._('Output file location'),
@@ -40,9 +33,9 @@ const options: {
 
 export type ConfigOptions = InferredOptionTypes<typeof options>;
 
-export class Transform implements Command {
+export class Schema implements Command {
 	description(): string {
-		return gtx._('Transform spreadsheet data to JSON.');
+		return gtx._('Output JSON schema.');
 	}
 
 	aliases(): Array<string> {
@@ -54,22 +47,15 @@ export class Transform implements Command {
 	}
 
 	private async doRun(configOptions: ConfigOptions) {
-		const data = await fs.readFile(configOptions.data as string);
-		const mapping = await fs.readFile(configOptions.mapping as string, 'utf-8');
-
-		const formatFactoryService = new FormatFactoryService();
-
-		const mappingService = new MappingService(formatFactoryService, console);
-
-		const output = JSON.stringify(
-			mappingService.transform('UBL', mapping, data),
-		);
+		const schema =
+			configOptions.id === 'mapping' ? mappingSchema : invoiceSchema;
+		const output = JSON.stringify(schema);
 
 		if (
 			typeof configOptions.output === 'undefined' ||
 			configOptions.output === '-'
 		) {
-			safeStdoutWrite(output);
+			await safeStdoutWrite(output);
 		} else {
 			await fs.writeFile(configOptions.output as string, output, 'utf-8');
 		}

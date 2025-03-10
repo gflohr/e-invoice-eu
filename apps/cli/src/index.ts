@@ -7,10 +7,12 @@ import '@valibot/i18n/de';
 import yargs from 'yargs';
 
 import { Command } from './command';
+import { Format } from './commands/format';
+import { Schema } from './commands/schema';
 import { Transform } from './commands/transform';
 import { Package } from './package';
 
-const commandNames = ['transform'];
+const commandNames = ['transform', 'format', 'schema'];
 
 const gtx = Textdomain.getInstance('e-einvoice-eu-cli');
 v.setGlobalConfig({ lang: Textdomain.locale });
@@ -24,6 +26,8 @@ gtx
 
 		const commands: { [key: string]: Command } = {
 			transform: new Transform(),
+			format: new Format(),
+			schema: new Schema(),
 		};
 
 		const program = yargs(process.argv.slice(2))
