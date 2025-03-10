@@ -24,7 +24,7 @@ export class FormatFactoryService {
 	} = {
 		CII: FormatCIIService,
 		'Factur-X-Basic': FormatFacturXBasicService,
-		'Factur-X-BasicWL': FormatFacturXBasicWLService,
+		'Factur-X-Basic WL': FormatFacturXBasicWLService,
 		'Factur-X-EN16931': FormatFacturXEN16931Service,
 		'Factur-X-Extended': FormatFacturXExtendedService,
 		'Factur-X-Minimum': FormatFacturXMinimumService,
@@ -77,7 +77,7 @@ export class FormatFactoryService {
 	normalizeFormat(format: string): string {
 		format = format.toLowerCase();
 		format = format.replace(/-comfort$/, '-en16931');
-		format = format.replace(/-basic-wl$/, '-basic-wl');
+		format = format.replace(/-basic[-_]?wl$/, '-basic wl');
 		format = format.replace(/^zugferd-/, 'factur-x-');
 
 		return format;
