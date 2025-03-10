@@ -32,6 +32,7 @@ export class MappingService {
 	private readonly validationService: ValidationService;
 
 	constructor(
+		// FIXME! No need to inject the FormatFactoryService!
 		private readonly formatFactoryService: FormatFactoryService,
 		private readonly logger: ILogger,
 	) {

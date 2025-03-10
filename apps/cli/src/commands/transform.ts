@@ -1,4 +1,6 @@
+import { FormatFactoryService, MappingService } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
+import * as fs from 'fs/promises';
 import yargs, { InferredOptionTypes } from 'yargs';
 
 import { Command } from '../command';
@@ -42,9 +44,18 @@ export class Transform implements Command {
 		return argv.options(options);
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 	private async doRun(configOptions: ConfigOptions) {
-		console.log('todo');
+		const data = await fs.readFile(configOptions.data as string);
+		const mapping = await fs.readFile(configOptions.mapping as string, 'utf-8');
+
+		const formatFactoryService = new FormatFactoryService();
+
+		const mappingService = new MappingService(formatFactoryService, console);
+
+		const output = JSON.stringify(mappingService.transform('UBL', mapping, data));
+
+		console.log(output);
 	}
 
 	public async run(argv: yargs.Arguments): Promise<number> {
