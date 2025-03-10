@@ -17,22 +17,22 @@ Free and open source tool chain for generating EN16931 conforming e-invoices
 JSON.
 
 - [E-Invoice-EU](#e-invoice-eu)
-	- [Supported Formats](#supported-formats)
-	- [Using the software](#using-the-software)
-	- [Security](#security)
-	- [Description](#description)
-	- [Documentation](#documentation)
-	- [Alternatives](#alternatives)
-	- [Pre-requisites](#pre-requisites)
-	- [Installation](#installation)
-	- [Running the app](#running-the-app)
-	- [Test](#test)
-	- [Running in a Container](#running-in-a-container)
-	- [BUGS](#bugs)
-		- [Report a Bug](#report-a-bug)
-		- [PDF/A](#pdfa)
-	- [License](#license)
-	- [Disclaimer](#disclaimer)
+  - [Supported Formats](#supported-formats)
+  - [Using the software](#using-the-software)
+  - [Security](#security)
+  - [Description](#description)
+  - [Documentation](#documentation)
+  - [Alternatives](#alternatives)
+  - [Pre-requisites](#pre-requisites)
+  - [Installation](#installation)
+  - [Running the app](#running-the-app)
+  - [Test](#test)
+  - [Running in a Container](#running-in-a-container)
+  - [BUGS](#bugs)
+    - [Report a Bug](#report-a-bug)
+    - [PDF/A](#pdfa)
+  - [Copyright](#copyright)
+  - [Disclaimer](#disclaimer)
 
 ## Supported Formats
 
@@ -212,7 +212,10 @@ On Un\*x systems, `libreoffice` should be in your `$PATH`. On MacOS, you will
 find it under `/Applications/LibreOffice.app/Contents/MacOS/soffice`. On
 MS Windows, it is probably somewhere like `C:\\Program Files\\LibreOffice\\libreoffice.exe` (corrections are welcome).
 
-## License
+## Copyright
+
+Copyright (C) 2024-2025 Guido Flohr <guido.flohr@cantanea.com>, all
+rights reserved.
 
 This is free software available under the terms of the
 [WTFPL](http://www.wtfpl.net/).

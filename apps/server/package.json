@@ -68,7 +68,6 @@
 		"ts-loader": "^9.5.1",
 		"ts-node": "^10.9.2",
 		"tsconfig-paths": "^4.2.0",
-		"tsx": "^4.19.2",
 		"typescript": "^5.7.2"
 	},
 	"description": "Tools for generating EN16931 conforming electronic invoices",
@@ -81,6 +80,9 @@
 			"json",
 			"ts"
 		],
+		"moduleNameMapper": {
+			"^@e-invoice-eu/core$": "<rootDir>/../../../packages/core/src"
+		},
 		"rootDir": "src",
 		"testRegex": ".*\\.spec\\.ts$",
 		"transform": {
@@ -102,7 +104,7 @@
 		]
 	},
 	"scripts": {
-		"build": "nest build",
+		"build": "rimraf dist && tsc --project tsconfig.build.json && chmod +x dist/main.js",
 		"format": "prettier --write *.json *.md scripts/* \"contrib/**/*.json\" \"src/**/*.{ts,json}\" \"test/**/*.ts\"",
 		"start": "nest start",
 		"start:dev": "nest start --watch",
@@ -116,13 +118,6 @@
 		"test:cov": "jest --coverage",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
 		"test:e2e": "jest --config ./test/jest-e2e.json",
-		"prepare": "husky",
-		"esgettext": "npm-run-all esgettext:potfiles esgettext:extract esgettext:update-po esgettext:update-mo esgettext:install",
-		"esgettext:potfiles": "esgettext potfiles --directory=po --git --exclude=\"node_modules/**/*\" --exclude=\"test/*/**\" --exclude=\"**/*.spec.*\" \"././**/*.mjs\" \"./test/**/*.ts\" \"./src/**/*.ts\" \"./contrib/**/*.mjs\" >po/POTFILES",
-		"esgettext:extract": "esgettext extract --from-code=utf-8 --directory po --files-from=po/POTFILES",
-		"esgettext:update-po": "esgettext msgmerge-all",
-		"esgettext:update-mo": "esgettext msgfmt-all",
-		"esgettext:install": "esgettext install",
-		"esgettext:addlang": "esgettext msginit"
+		"prepare": "husky"
 	}
 }

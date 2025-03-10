@@ -9,7 +9,6 @@ describe('AppConfigService', () => {
 		// Mock environment variables
 		const mockEnv = {
 			PORT: '4000',
-			GS: '/usr/bin/gs',
 			LIBRE_OFFICE: '/usr/bin/libreoffice',
 			MAX_ATTACHMENTS: '10',
 			MAX_SIZE_MB: '20',
@@ -43,7 +42,6 @@ describe('AppConfigService', () => {
 	it('should return the correct programs configuration', () => {
 		const programs = service.get('programs');
 		expect(programs).toEqual({
-			gs: '/usr/bin/gs',
 			libreOffice: '/usr/bin/libreoffice',
 		});
 	});

@@ -44,7 +44,7 @@ ZUGFeRD*
 *-report.xml
 
 # Configuration
-/.env
+.env
 
 # Visual Studio Code
 .vscode/
@@ -53,3 +53,5 @@ ZUGFeRD*
 invoice.pdf
 payment-terms.pdf
 time-sheet.ods
+
+*.tsbuildinfo

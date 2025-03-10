@@ -48,7 +48,7 @@ describe('XRECHNUNG-UBL', () => {
 		expect(allFormats).toEqual([
 			'CII',
 			'Factur-X-Basic',
-			'Factur-X-BasicWL',
+			'Factur-X-Basic WL',
 			'Factur-X-EN16931',
 			'Factur-X-Extended',
 			'Factur-X-Minimum',

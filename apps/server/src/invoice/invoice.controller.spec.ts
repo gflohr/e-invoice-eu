@@ -1,3 +1,4 @@
+import { Invoice } from '@e-invoice-eu/core';
 import {
 	INestApplication,
 	InternalServerErrorException,
@@ -9,11 +10,10 @@ import { Response } from 'express';
 import * as request from 'supertest';
 
 import { InvoiceController } from './invoice.controller';
-import { Invoice } from './invoice.interface';
 import { InvoiceService } from './invoice.service';
+import { AppConfigService } from '../app-config/app-config.service';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { MappingService } from '../mapping/mapping.service';
-import { ValidationService } from '../validation/validation.service';
 
 describe('InvoiceController', () => {
 	let app: INestApplication;
@@ -33,8 +33,8 @@ describe('InvoiceController', () => {
 				InvoiceService,
 				MappingService,
 				{ provide: FormatFactoryService, useValue: {} },
-				{ provide: ValidationService, useValue: {} },
 				{ provide: Logger, useValue: mockedLogger },
+				{ provide: AppConfigService, useValue: {} },
 			],
 		}).compile();
 

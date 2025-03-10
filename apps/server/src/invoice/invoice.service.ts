@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import Ajv2019, { ValidateFunction } from 'ajv/dist/2019';
+import {
+	InvoiceService as CoreInvoiceService,
+	InvoiceServiceOptions as CoreInvoiceServiceOptions,
+} from '@e-invoice-eu/core';
+import { Injectable, Logger } from '@nestjs/common';
 
-import { Invoice } from './invoice.interface';
-import { invoiceSchema } from './invoice.schema';
-import { FormatFactoryService } from '../format/format.factory.service';
-import { ValidationService } from '../validation/validation.service';
+import { AppConfigService } from '../app-config/app-config.service';
 
 export type InvoiceAttachment = {
 	/**
@@ -23,7 +23,7 @@ export type InvoiceAttachment = {
 	description?: string;
 };
 
-export type InvoiceServiceOptions = {
+type InvoiceServiceOptions = {
 	/**
 	 * The invoice format like `XRECHNUNG-UBL` or `Factur-X-Extended`.
 	 */
@@ -68,34 +68,54 @@ export type InvoiceServiceOptions = {
 
 @Injectable()
 export class InvoiceService {
-	private readonly validator: ValidateFunction<Invoice>;
+	private readonly logger = new Logger(InvoiceService.name);
 
-	constructor(
-		private readonly formatFactoryService: FormatFactoryService,
-		private readonly validationService: ValidationService,
-	) {
-		const ajv = new Ajv2019({
-			strict: true,
-			allErrors: true,
-			useDefaults: true,
-		});
-		this.validator = ajv.compile(invoiceSchema);
-	}
+	constructor(private readonly appConfigService: AppConfigService) {}
 
 	async generate(
 		input: unknown,
 		options: InvoiceServiceOptions,
 	): Promise<string | Buffer> {
-		const invoice = this.validationService.validate(
-			'invoice data',
-			this.validator,
-			input,
-		);
+		const coreOptions: CoreInvoiceServiceOptions = {
+			format: options.format,
+			lang: options.lang,
+			attachments: [],
+			embedPDF: options.embedPDF,
+			pdfID: options.pdfID,
+			pdfDescription: options.pdfDescription,
+		};
 
-		const formatter = this.formatFactoryService.createFormatService(
-			options.format,
-		);
+		if (options.data) {
+			coreOptions.data = {
+				buffer: options.data.buffer,
+				filename: options.data.originalname,
+				mimetype: options.data.mimetype,
+			};
+		}
 
-		return formatter.generate(invoice, options);
+		if (options.pdf) {
+			coreOptions.pdf = {
+				buffer: options.pdf.buffer,
+				filename: options.pdf.originalname,
+				mimetype: options.pdf.mimetype,
+			};
+		}
+
+		for (const attachment of options.attachments) {
+			coreOptions.attachments.push({
+				file: {
+					buffer: attachment.file.buffer,
+					filename: attachment.file.originalname,
+					mimetype: attachment.file.mimetype,
+				},
+			});
+		}
+
+		coreOptions.libreOfficePath =
+			this.appConfigService.get('programs').libreOffice;
+
+		const coreInvoiceService = new CoreInvoiceService(this.logger);
+
+		return coreInvoiceService.generate(input, coreOptions);
 	}
 }
