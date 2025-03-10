@@ -1,4 +1,4 @@
-import yargs from 'yargs';
+import yargs, { demandOption } from 'yargs';
 
 import { Transform } from './transform';
 import { coerceOptions } from '../optspec';
@@ -31,18 +31,25 @@ describe('Transform Command', () => {
 
 		expect(optionsSpy).toHaveBeenCalledWith({
 			data: expect.objectContaining({
-				group: 'Input data',
+				group: 'Input file location',
 				alias: ['d'],
 				type: 'string',
 				demandOption: true,
 				describe: 'the invoice spreadsheet file',
 			}),
 			mapping: expect.objectContaining({
-				group: 'Input data',
+				group: 'Input file location',
 				alias: ['m'],
 				type: 'string',
 				demandOption: true,
 				describe: 'the mapping file',
+			}),
+			output: expect.objectContaining({
+				group: 'Output file location',
+				alias: ['o'],
+				type: 'string',
+				demandOption: false,
+				describe: 'the output file; standard output if `-`'
 			}),
 		});
 	});

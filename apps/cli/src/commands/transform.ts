@@ -63,7 +63,7 @@ export class Transform implements Command {
 		const output = JSON.stringify(mappingService.transform('UBL', mapping, data));
 
 		if (typeof configOptions.output === 'undefined' || configOptions.output === '-') {
-			process.stdout.write(output);
+			console.log(output);
 		} else {
 			await fs.writeFile(configOptions.output as string, output, 'utf-8');
 		}
