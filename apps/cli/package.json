@@ -30,7 +30,7 @@
 		"esgettext": "dist/index.js"
 	},
 	"scripts": {
-		"build": "bun run clean && tsc --project tsconfig.build.json",
+		"build": "rimraf ./dist && tsc --project tsconfig.build.json",
 		"prebuild": "node ./write-package.mjs >src/package.ts",
 		"prepublishOnly": "bun run build",
 		"check:clean": "./check-clean",
