@@ -12,21 +12,29 @@ const gtx = Textdomain.getInstance('e-invoice-eu-cli');
 const options: {
 	data: OptSpec;
 	mapping: OptSpec;
+	output?: OptSpec;
 } = {
 	data: {
-		group: gtx._('Input data'),
+		group: gtx._('Input file location'),
 		alias: ['d'],
 		type: 'string',
 		demandOption: true,
 		describe: gtx._('the invoice spreadsheet file'),
 	},
 	mapping: {
-		group: gtx._('Input data'),
+		group: gtx._('Input file location'),
 		alias: ['m'],
 		type: 'string',
 		demandOption: true,
 		describe: gtx._('the mapping file'),
 	},
+	output: {
+		group: gtx._('Output file location'),
+		alias: ['o'],
+		type: 'string',
+		demandOption: false,
+		describe: gtx._('the output file; standard output if `-`')
+	}
 };
 
 export type ConfigOptions = InferredOptionTypes<typeof options>;
@@ -44,7 +52,6 @@ export class Transform implements Command {
 		return argv.options(options);
 	}
 
-
 	private async doRun(configOptions: ConfigOptions) {
 		const data = await fs.readFile(configOptions.data as string);
 		const mapping = await fs.readFile(configOptions.mapping as string, 'utf-8');
@@ -55,7 +62,11 @@ export class Transform implements Command {
 
 		const output = JSON.stringify(mappingService.transform('UBL', mapping, data));
 
-		console.log(output);
+		if (typeof configOptions.output === 'undefined' || configOptions.output === '-') {
+			process.stdout.write(output);
+		} else {
+			await fs.writeFile(configOptions.output as string, output, 'utf-8');
+		}
 	}
 
 	public async run(argv: yargs.Arguments): Promise<number> {
