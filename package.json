@@ -19,7 +19,7 @@
 		"test": "lerna run test --stream",
 		"test:cov": "lerna run test:cov --stream",
 		"test:watch": "lerna watch -- lerna run test --scope=\\$LERNA_PACKAGE_NAME --stream",
-		"posttest:cov": "node merge-lcov.js apps/*",
+		"posttest:cov": "node merge-lcov.js apps/* packages/core",
 		"clean": "lerna run clean --stream",
 		"prepare": "husky"
 	},
