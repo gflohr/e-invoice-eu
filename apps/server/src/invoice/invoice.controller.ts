@@ -139,7 +139,6 @@ export class InvoiceController {
 					description: 'Optional description for the embedded PDF.',
 				},
 			},
-			required: ['data', 'mapping'],
 		},
 	})
 	@ApiResponse({
