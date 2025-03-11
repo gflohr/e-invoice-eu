@@ -1,6 +1,6 @@
 export class Package {
 	public static getName(): string {
-		return 'e-invoice-eu-cli';
+		return 'e-invoice-eu';
 	}
 
 	public static getBugTrackerUrl(): string {
