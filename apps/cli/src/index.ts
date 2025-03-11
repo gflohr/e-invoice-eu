@@ -8,11 +8,12 @@ import yargs from 'yargs';
 
 import { Command } from './command';
 import { Format } from './commands/format';
+import { Invoice } from './commands/invoice';
 import { Schema } from './commands/schema';
 import { Transform } from './commands/transform';
 import { Package } from './package';
 
-const commandNames = ['transform', 'format', 'schema'];
+const commandNames = ['invoice', 'transform', 'format', 'schema'];
 
 const gtx = Textdomain.getInstance('e-einvoice-eu-cli');
 v.setGlobalConfig({ lang: Textdomain.locale });
@@ -25,6 +26,7 @@ gtx
 		const ulocale = Textdomain.locale.replace('-', '_');
 
 		const commands: { [key: string]: Command } = {
+			invoice: new Invoice(),
 			transform: new Transform(),
 			format: new Format(),
 			schema: new Schema(),
