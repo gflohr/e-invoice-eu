@@ -39,6 +39,13 @@ describe('Invoice Command', () => {
 				demandOption: true,
 				describe: 'invoice format (case-insensitive), try `format --list` for a list of allowed values',
 			},
+			output: {
+				group: 'Output file location',
+				alias: ['o'],
+				type: 'string',
+				demandOption: false,
+				describe: 'write output to specified file instead of standard output',
+			},
 			invoice: {
 				group: 'Input data',
 				alias: ['i'],

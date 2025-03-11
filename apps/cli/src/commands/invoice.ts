@@ -10,6 +10,7 @@ const gtx = Textdomain.getInstance('e-invoice-eu-cli');
 
 const options: {
 	format: OptSpec;
+	output: OptSpec;
 	invoice: OptSpec;
 	mapping: OptSpec;
 	data: OptSpec;
@@ -28,6 +29,13 @@ const options: {
 		type: 'string',
 		demandOption: true,
 		describe: gtx._('invoice format (case-insensitive), try `format --list` for a list of allowed values'),
+	},
+	output: {
+		group: gtx._('Output file location'),
+		alias: ['o'],
+		type: 'string',
+		demandOption: false,
+		describe: gtx._('write output to specified file instead of standard output'),
 	},
 	invoice: {
 		group: gtx._('Input data'),
