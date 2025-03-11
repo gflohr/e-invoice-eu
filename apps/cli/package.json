@@ -27,7 +27,7 @@
 		"dist"
 	],
 	"bin": {
-		"esgettext": "dist/index.js"
+		"e-invoice-eu": "dist/index.js"
 	},
 	"scripts": {
 		"build": "rimraf ./dist && tsc --project tsconfig.build.json",
