@@ -12,7 +12,7 @@ const pkg = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
 
 console.log(`export class Package {
 	public static getName(): string {
-		return 'e-invoice-eu-cli';
+		return 'e-invoice-eu';
 	}
 
 	public static getBugTrackerUrl(): string {
