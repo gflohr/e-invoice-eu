@@ -38,3 +38,21 @@ export const safeStdoutWrite = async (output: string) => {
 
 	await finished(process.stdout);
 };
+
+export const safeStdoutBufferWrite = async (output: Buffer) => {
+	let offset = 0;
+
+	while (offset < output.length) {
+		const chunk = output.subarray(offset, offset + CHUNK_SIZE);
+		const canContinue = process.stdout.write(chunk);
+
+		if (!canContinue) {
+			await once(process.stdout, "drain");
+		}
+
+		offset += CHUNK_SIZE;
+	}
+
+	process.stdout.end();
+	await finished(process.stdout);
+};

@@ -30,12 +30,12 @@ type MappingContext = {
 export class MappingService {
 	private readonly validator: ValidateFunction<Mapping>;
 	private readonly validationService: ValidationService;
+	private readonly formatFactoryService: FormatFactoryService;
 
 	constructor(
-		// FIXME! No need to inject the FormatFactoryService!
-		private readonly formatFactoryService: FormatFactoryService,
 		private readonly logger: ILogger,
 	) {
+		this.formatFactoryService = new FormatFactoryService();
 		const ajv = new Ajv2019({
 			strict: true,
 			allErrors: true,

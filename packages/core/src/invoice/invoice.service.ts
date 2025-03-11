@@ -9,7 +9,7 @@ import { ValidationService } from '../validation';
 /**
  * A container for a file used for an e-invoice.
  */
-type InvoiceFile = {
+export type InvoiceFile = {
 	/**
 	 * The data of the file.
 	 */

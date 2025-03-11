@@ -152,14 +152,12 @@ const defaultMappingContext = {
 
 describe('MappingService', () => {
 	let service: MappingService;
-	let formatFactoryService: FormatFactoryService;
 	const logger = {
 		error: jest.fn(),
 	};
 
 	beforeEach(async () => {
-		formatFactoryService = new FormatFactoryService();
-		service = new MappingService(formatFactoryService, logger);
+		service = new MappingService(logger);
 	});
 
 	afterEach(() => {
@@ -414,7 +412,7 @@ describe('MappingService', () => {
 				fillMappingDefaults: jest.fn(),
 			} as unknown as EInvoiceFormat;
 			const formatFactorySpy = jest
-				.spyOn(formatFactoryService, 'createFormatService')
+				.spyOn(FormatFactoryService.prototype, 'createFormatService')
 				.mockReturnValue(formatter);
 			const validateSpy = jest
 				.spyOn(ValidationService.prototype, 'validate')
