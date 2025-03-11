@@ -105,21 +105,55 @@ describe('Format Command', () => {
 	});
 
 	describe('list()', () => {
-		it('should list all supported formats', () => {
-			format['list']();
+		it('should list all supported formats', async () => {
+			const options = { list: true } as unknown as yargs.Arguments;
+
+			await format.run(options);
+
 			expect(consoleSpy).toHaveBeenCalledWith('FormatA\nFormatB');
 		});
 	});
 
 	describe('info()', () => {
-		it('should display detailed information about a format', () => {
-			format['info']('FormatA');
+		let consoleErrorSpy: jest.SpyInstance;
+
+		beforeEach(() => {
+			consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+		});
+
+		afterEach(() => {
+			consoleErrorSpy.mockRestore();
+		});
+
+		it('should display detailed information about a format', async () => {
+			const options = { info: 'FormatA' } as unknown as yargs.Arguments;
+
+			await format.run(options);
+
 			expect(consoleSpy).toHaveBeenCalledWith('name: FormatA');
 		});
 
-		it('should throw an error if the format is not supported', () => {
-			expect(() => format['info']('UnknownFormat')).toThrow(
-				"Format 'UnknownFormat' is not supported!",
+		it('should throw an error if the format is not supported', async () => {
+			const options = { info: 'ZIRKUSFeRD' } as unknown as yargs.Arguments;
+
+			const exitCode = await format.run(options);
+
+			expect(exitCode).not.toBe(0);
+			expect(consoleErrorSpy).toHaveBeenCalledWith(
+				expect.stringContaining("Error: Format 'ZIRKUSFeRD' is not supported!"),
+			);
+		});
+
+		it('should throw an error if neither --info nor --list is passed', async () => {
+			const options = {} as unknown as yargs.Arguments;
+
+			const exitCode = await format.run(options);
+
+			expect(exitCode).not.toBe(0);
+			expect(consoleErrorSpy).toHaveBeenCalledWith(
+				expect.stringContaining(
+					"Error: One of the options '--list' or '--info' is required!",
+				),
 			);
 		});
 	});
