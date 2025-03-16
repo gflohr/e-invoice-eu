@@ -5,8 +5,8 @@ import * as tmp from 'tmp-promise';
 import * as url from 'url';
 import { create } from 'xmlbuilder2';
 
-import { Logger } from '../logger.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
+import { Logger } from '../logger.interface';
 
 export class FormatXMLService {
 	constructor(private readonly logger: Logger) {}

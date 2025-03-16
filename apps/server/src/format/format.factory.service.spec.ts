@@ -1,8 +1,8 @@
+import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { FormatFactoryService } from './format.factory.service';
 import { AppConfigService } from '../app-config/app-config.service';
-import { Logger } from '@nestjs/common';
 
 describe('XRECHNUNG-UBL', () => {
 	let service: FormatFactoryService;
