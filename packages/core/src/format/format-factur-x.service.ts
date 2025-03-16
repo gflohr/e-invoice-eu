@@ -1,4 +1,4 @@
-import { Invoice } from '@e-invoice-eu/core';
+import { EInvoiceMIMEType, Invoice } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
 import { webcrypto as crypto } from 'crypto';
 import {
@@ -101,7 +101,7 @@ export class FormatFacturXService
 {
 	private gtx: Textdomain;
 
-	get mimeType(): string {
+	get mimeType(): EInvoiceMIMEType {
 		return 'application/pdf';
 	}
 

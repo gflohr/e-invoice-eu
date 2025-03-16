@@ -7,11 +7,12 @@ import { create } from 'xmlbuilder2';
 
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Logger } from '../logger.interface';
+import { EInvoiceMIMEType } from './format.factory.service';
 
 export class FormatXMLService {
 	constructor(private readonly logger: Logger) {}
 
-	get mimeType(): string {
+	get mimeType(): EInvoiceMIMEType {
 		return 'application/xml';
 	}
 

@@ -60,6 +60,7 @@ export class MappingService {
 		return valid;
 	}
 
+	// FIXME! The yamlMapping should be passed as an object, not as a string!
 	transform(format: string, yamlMapping: string, dataBuffer: Buffer): Invoice {
 		const mapping = this.parseMapping(format, yamlMapping);
 		const workbook = XLSX.read(dataBuffer, {

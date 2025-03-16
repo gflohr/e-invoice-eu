@@ -11,11 +11,35 @@ import { FormatXRECHNUNGCIIService } from './format-xrechnung-cii.service';
 import { FormatXRECHNUNGUBLService } from './format-xrechnung-ubl.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 
-export class FormatInfo {
+export type EInvoiceMIMEType = 'application/pdf' | 'application/xml';
+
+/**
+ * Describe a format.
+ */
+export type FormatInfo = {
+	/**
+	 * The name of the format like "UBL" or "Factur-X-Extended".
+	 */
 	name: string;
+
+	/**
+	 * The customization id of the format.
+	 */
 	customizationID: string;
+
+	/**
+	 * The profile id of the format.
+	 */
 	profileID: string;
-	mimeType: string;
+
+	/**
+	 * The MIME type of the format.
+	 */
+	mimeType: EInvoiceMIMEType;
+
+	/**
+	 * The general syntax in the sense of EN16931.
+	 */
 	syntax: 'UBL' | 'CII';
 }
 
@@ -45,6 +69,29 @@ export class FormatFactoryService {
 		}
 	}
 
+	/**
+	 * Create a service that is able to create a specific invoice format.
+	 *
+	 * @param format one of the supported formats, see {@link listFormatServices}
+	 * @param logger an object that implements the {@link Logger} interface
+	 * @returns
+	 */
+	createFormatService(format: string, logger: Logger): EInvoiceFormat {
+		const normalizedFormat = this.normalizeFormat(format);
+		const FormatService = this.formatServicesLookup[normalizedFormat];
+
+		if (!FormatService) {
+			throw new Error(`Format '${format}' not supported.`);
+		}
+
+		return new FormatService(logger);
+	}
+
+	/**
+	 * List all supported invoice formats.
+	 *
+	 * @returns an array of format information objects
+	 */
 	listFormatServices(): FormatInfo[] {
 		const infos: FormatInfo[] = [];
 
@@ -62,17 +109,6 @@ export class FormatFactoryService {
 		}
 
 		return infos;
-	}
-
-	createFormatService(format: string, logger: Logger): EInvoiceFormat {
-		const normalizedFormat = this.normalizeFormat(format);
-		const FormatService = this.formatServicesLookup[normalizedFormat];
-
-		if (!FormatService) {
-			throw new Error(`Format '${format}' not supported.`);
-		}
-
-		return new FormatService(logger);
 	}
 
 	normalizeFormat(format: string): string {

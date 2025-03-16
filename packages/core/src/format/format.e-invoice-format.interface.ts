@@ -1,3 +1,4 @@
+import { EInvoiceMIMEType } from './format.factory.service';
 import { Invoice } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Mapping } from '../mapping/mapping.interface';
@@ -16,7 +17,7 @@ export interface EInvoiceFormat {
 	/**
 	 * The MIME type for that format.
 	 */
-	get mimeType(): string;
+	get mimeType(): EInvoiceMIMEType;
 
 	/**
 	 * One of 'UBL' or 'CII'.
