@@ -37,7 +37,7 @@
 		"lint:fix": "eslint --fix './src/**/*.ts'",
 		"lint:fix-dry-run": "eslint --fix-dry-run './src/**/*.ts'",
 		"lint:staged": "lint-staged",
-		"typedoc": "typedoc --out ../docs/api-docs --excludeNotDocumented --excludePrivate --excludeProtected src",
+		"typedoc": "typedoc --tsconfig tsconfig.typedoc.json --out ../docs/api-docs --excludePrivate --excludeProtected src/index.ts",
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:cov": "jest --coverage",
