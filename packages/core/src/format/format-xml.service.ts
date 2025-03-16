@@ -1,4 +1,3 @@
-import { Logger } from '@nestjs/common';
 import { spawn } from 'child_process';
 import { promises as fs } from 'fs';
 import * as path from 'path';
@@ -6,12 +5,11 @@ import * as tmp from 'tmp-promise';
 import * as url from 'url';
 import { create } from 'xmlbuilder2';
 
+import { Logger } from '../logger.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 
 export class FormatXMLService {
-	private readonly logger = new Logger(FormatXMLService.name);
-
-	constructor() {}
+	constructor(private readonly logger: Logger) {}
 
 	get mimeType(): string {
 		return 'application/xml';

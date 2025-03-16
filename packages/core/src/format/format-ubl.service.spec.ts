@@ -2,12 +2,13 @@ import { Invoice, Mapping } from '@e-invoice-eu/core';
 
 import { FormatUBLService } from './format-ubl.service';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
+import { Logger } from '../logger.interface';
 
 describe('UBL', () => {
 	let service: FormatUBLService;
 
 	beforeEach(async () => {
-		service = new FormatUBLService();
+		service = new FormatUBLService({} as unknown as Logger);
 	});
 
 	it('should be defined', () => {

@@ -9,7 +9,7 @@ import * as yaml from 'js-yaml';
 import * as jsonpath from 'jsonpath-plus';
 
 import { FormatFactoryService } from '../format/format.factory.service';
-import { ILogger } from '../logger.interface';
+import { Logger } from '../logger.interface';
 import { Mapping, MappingMetaInformation } from './mapping.interface';
 import { ValidationService } from '../validation';
 import { mappingSchema } from './mapping.schema';
@@ -33,7 +33,7 @@ export class MappingService {
 	private readonly formatFactoryService: FormatFactoryService;
 
 	constructor(
-		private readonly logger: ILogger,
+		private readonly logger: Logger,
 	) {
 		this.formatFactoryService = new FormatFactoryService();
 		const ajv = new Ajv2019({
@@ -54,7 +54,7 @@ export class MappingService {
 			obj,
 		);
 
-		const formatter = this.formatFactoryService.createFormatService(format);
+		const formatter = this.formatFactoryService.createFormatService(format, this.logger);
 		formatter.fillMappingDefaults(valid);
 
 		return valid;

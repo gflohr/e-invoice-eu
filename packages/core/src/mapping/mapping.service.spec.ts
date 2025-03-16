@@ -6,6 +6,7 @@ import { EInvoiceFormat } from '../format';
 import { Mapping, MappingMetaInformation } from './mapping.interface';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { Invoice } from '../invoice';
+import { Logger } from '../logger.interface';
 import { ValidationService } from '../validation';
 
 jest.mock('fs/promises');
@@ -157,7 +158,7 @@ describe('MappingService', () => {
 	};
 
 	beforeEach(async () => {
-		service = new MappingService(logger);
+		service = new MappingService(logger as unknown as Logger);
 	});
 
 	afterEach(() => {
@@ -436,7 +437,7 @@ describe('MappingService', () => {
 			);
 
 			expect(formatFactorySpy).toHaveBeenCalledTimes(1);
-			expect(formatFactorySpy).toHaveBeenCalledWith('ZIRKUSFeRD');
+			expect(formatFactorySpy).toHaveBeenCalledWith('ZIRKUSFeRD', logger);
 			expect(formatter.fillMappingDefaults).toHaveBeenCalledTimes(1);
 			expect(formatter.fillMappingDefaults).toHaveBeenCalledWith({
 				'ubl:Invoice': {},

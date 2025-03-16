@@ -1,3 +1,4 @@
+import { Logger } from '../logger.interface';
 import { FormatCIIService } from './format-cii.service';
 import { FormatFacturXBasicWLService } from './format-factur-x-basic-wl.service';
 import { FormatFacturXBasicService } from './format-factur-x-basic.service';
@@ -63,7 +64,7 @@ export class FormatFactoryService {
 		return infos;
 	}
 
-	createFormatService(format: string): EInvoiceFormat {
+	createFormatService(format: string, logger: Logger): EInvoiceFormat {
 		const normalizedFormat = this.normalizeFormat(format);
 		const FormatService = this.formatServicesLookup[normalizedFormat];
 
@@ -71,7 +72,7 @@ export class FormatFactoryService {
 			throw new Error(`Format '${format}' not supported.`);
 		}
 
-		return new FormatService();
+		return new FormatService(logger);
 	}
 
 	normalizeFormat(format: string): string {

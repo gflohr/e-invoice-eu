@@ -2,12 +2,12 @@ import { Invoice } from '@e-invoice-eu/core';
 
 import { FormatCIIService } from './format-cii.service';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
+import { Logger } from '../logger.interface';
 
 describe('CII', () => {
 	let service: FormatCIIService;
-
 	beforeEach(async () => {
-		service = new FormatCIIService();
+		service = new FormatCIIService({} as unknown as Logger);
 	});
 
 	it('should be defined', () => {

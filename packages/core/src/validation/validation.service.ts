@@ -1,9 +1,9 @@
 import { ErrorObject, ValidateFunction, ValidationError } from 'ajv/dist/2019';
 
-import { ILogger } from '../ilogger';
+import { Logger } from '../logger.interface';
 
 export class ValidationService {
-	constructor(private readonly logger: ILogger) {}
+	constructor(private readonly logger: Logger) {}
 
 	validate<T>(id: string, f: ValidateFunction<T>, data: unknown): T {
 		if (f(data)) {

@@ -5,8 +5,10 @@ import { ValidationService } from '../validation/validation.service';
 
 describe('InvoiceService', () => {
 	const logger = {
+		log: jest.fn(),
+		warn: jest.fn(),
 		error: jest.fn(),
-	}
+	};
 	let service: InvoiceService;
 
 	beforeEach(async () => {

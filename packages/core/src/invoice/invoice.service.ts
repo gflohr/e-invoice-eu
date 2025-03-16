@@ -3,7 +3,7 @@ import Ajv2019, { ValidateFunction } from 'ajv/dist/2019';
 import { Invoice } from './invoice.interface';
 import { invoiceSchema } from './invoice.schema';
 import { FormatFactoryService } from '../format/format.factory.service';
-import { ILogger } from '../ilogger';
+import { Logger } from '../logger.interface';
 import { ValidationService } from '../validation';
 
 /**
@@ -97,7 +97,7 @@ export class InvoiceService {
 	private readonly validationService: ValidationService;
 
 	constructor(
-		private readonly logger: ILogger,
+		private readonly logger: Logger,
 	) {
 		this.formatFactoryService = new FormatFactoryService();
 		const ajv = new Ajv2019({
@@ -120,7 +120,7 @@ export class InvoiceService {
 		);
 
 		const formatter = this.formatFactoryService.createFormatService(
-			options.format,
+			options.format, this.logger,
 		);
 
 		if (typeof formatter === 'undefined') {

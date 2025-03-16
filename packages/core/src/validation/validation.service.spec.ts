@@ -1,17 +1,17 @@
 import { ErrorObject, ValidateFunction, ValidationError } from 'ajv';
 
 import { ValidationService } from './validation.service';
-import { ILogger } from '../ilogger';
+import { Logger } from '../logger.interface';
 
 describe('ValidationService', () => {
-	let logger: ILogger;
+	let logger: Logger;
 	let service: ValidationService;
 	let mockValidate: ValidateFunction;
 
 	beforeEach(async () => {
 		logger = {
 			error: jest.fn(),
-		};
+		} as unknown as Logger;
 
 		service = new ValidationService(logger);
 
