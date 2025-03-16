@@ -1556,7 +1556,7 @@ export class FormatCIIService
 				].replace(/@.+/, '');
 				const parentPath = this.applySubPaths(destPath, parentPaths);
 				const parents = jsonpath.JSONPath({ path: parentPath, json: dest });
-				if (parents.length === 0) {
+				if (Array.isArray(parents) && parents.length === 0) {
 					continue;
 				}
 				src = lastSrcKey.substring(6);
@@ -1564,7 +1564,7 @@ export class FormatCIIService
 			} else {
 				childSrcPath = this.applySubPaths(srcPath, transformation.src);
 				const srcs = jsonpath.JSONPath({ path: childSrcPath, json: invoice });
-				if (srcs.length === 0) {
+				if (Array.isArray(srcs) && srcs.length === 0) {
 					continue;
 				}
 				src = srcs[0];
