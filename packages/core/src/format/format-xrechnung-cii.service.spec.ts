@@ -1,10 +1,11 @@
+import { Logger } from '../logger.interface';
 import { FormatXRECHNUNGCIIService } from './format-xrechnung-cii.service';
 
 describe('XRECHNUNG-CII', () => {
 	let service: FormatXRECHNUNGCIIService;
 
 	beforeEach(async () => {
-		service = new FormatXRECHNUNGCIIService();
+		service = new FormatXRECHNUNGCIIService({} as unknown as Logger);
 	});
 
 	it('should be defined', () => {

@@ -1,10 +1,11 @@
+import { Logger } from '../logger.interface';
 import { FormatFacturXMinimumService } from './format-factur-x-minimum.service';
 
 describe('Factur-X-Minimum', () => {
 	let service: FormatFacturXMinimumService;
 
 	beforeEach(async () => {
-		service = new FormatFacturXMinimumService();
+		service = new FormatFacturXMinimumService({} as unknown as Logger);
 	});
 
 	it('should be defined', () => {

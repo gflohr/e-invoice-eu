@@ -1,10 +1,11 @@
+import { Logger } from '../logger.interface';
 import { FormatXRECHNUNGUBLService } from './format-xrechnung-ubl.service';
 
 describe('XRECHNUNG-UBL', () => {
 	let service: FormatXRECHNUNGUBLService;
 
 	beforeEach(async () => {
-		service = new FormatXRECHNUNGUBLService();
+		service = new FormatXRECHNUNGUBLService({} as unknown as Logger);
 	});
 
 	it('should be defined', () => {

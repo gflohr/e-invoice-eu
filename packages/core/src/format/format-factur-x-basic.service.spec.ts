@@ -1,10 +1,11 @@
+import { Logger } from '../logger.interface';
 import { FormatFacturXBasicService } from './format-factur-x-basic.service';
 
 describe('Factur-X-Basic', () => {
 	let service: FormatFacturXBasicService;
 
 	beforeEach(async () => {
-		service = new FormatFacturXBasicService();
+		service = new FormatFacturXBasicService({} as unknown as Logger);
 	});
 
 	it('should be defined', () => {

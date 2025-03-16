@@ -1,3 +1,4 @@
+// istanbul ignore file
 /*
  * This file is generated from 'src/schema/mapping.schema.json'.
  * Do not edit!
