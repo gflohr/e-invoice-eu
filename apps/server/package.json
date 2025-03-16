@@ -49,6 +49,9 @@
 	"files": [
 		"dist"
 	],
+	"bin": {
+		"e-invoice-eu-server": "dist/main.js"
+	},
 	"jest": {
 		"moduleFileExtensions": [
 			"js",
