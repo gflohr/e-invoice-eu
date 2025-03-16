@@ -1,9 +1,9 @@
 import yargs from 'yargs';
 
-import { Invoice } from './invoice';
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';
-
+import { Invoice } from './invoice';
+import { guessLibreOfficePath } from './invoice';
 jest.mock('../optspec');
 jest.mock('../package');
 
@@ -140,7 +140,7 @@ describe('Invoice Command', () => {
 				alias: ['libreoffice'],
 				type: 'string',
 				demandOption: false,
-				default: 'libreoffice',
+				default: guessLibreOfficePath(),
 				describe: 'path to LibreOffice executable, mandatory if PDF creation is requested',
 			},
 		});

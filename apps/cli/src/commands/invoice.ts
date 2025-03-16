@@ -8,8 +8,10 @@ import {
 	MappingService,
 } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
+import { accessSync, statSync } from 'fs';
 import * as fs from 'fs/promises';
 import { lookup } from 'mime-types';
+import * as os from 'os';
 import * as path from 'path';
 import yargs, { InferredOptionTypes } from 'yargs';
 
@@ -19,6 +21,42 @@ import { Package } from '../package';
 import { safeStdoutBufferWrite, safeStdoutWrite } from '../safe-stdout-write';
 
 const gtx = Textdomain.getInstance('e-invoice-eu-cli');
+
+function findExecutable(command: string): string | null {
+	const paths = process.env.PATH?.split(path.delimiter) || [];
+
+	for (const dir of paths) {
+		const fullPath = path.join(dir, command);
+		try {
+			if (
+				statSync(fullPath).isFile() &&
+				accessSync(fullPath, fs.constants.X_OK) === undefined
+			) {
+				return fullPath;
+			}
+		} catch {
+			// Ignore errors (e.g., file doesn't exist or no access)
+		}
+	}
+
+	return null;
+}
+
+export function guessLibreOfficePath(): string {
+	const platform = os.platform();
+
+	if (platform === 'win32') {
+		return 'C:\\Program Files\\LibreOffice\\program\\soffice.exe';
+	} else if (platform === 'darwin') {
+		return '/Applications/LibreOffice.app/Contents/MacOS/soffice';
+	} else {
+		return (
+			findExecutable('libreoffice') ??
+			findExecutable('soffice') ??
+			'libreoffice'
+		);
+	}
+}
 
 const options: {
 	format: OptSpec;
@@ -150,8 +188,10 @@ const options: {
 		alias: ['libreoffice'],
 		type: 'string',
 		demandOption: false,
-		default: 'libreoffice',
-		describe: gtx._('path to LibreOffice executable, mandatory if PDF creation is requested'),
+		default: guessLibreOfficePath(),
+		describe: gtx._(
+			'path to LibreOffice executable, mandatory if PDF creation is requested',
+		),
 	},
 };
 
@@ -271,7 +311,9 @@ export class Invoice implements Command {
 			}
 		} else if (typeof configOptions.mapping !== 'undefined') {
 			if (typeof configOptions.data == 'undefined') {
-				throw new Error(gtx._("The option '--data' is mandatory if a mapping is specified!"));
+				throw new Error(
+					gtx._("The option '--data' is mandatory if a mapping is specified!"),
+				);
 			}
 
 			const mapping = await fs.readFile(
@@ -286,7 +328,9 @@ export class Invoice implements Command {
 				options.data!.buffer,
 			);
 		} else {
-			throw new Error(gtx._("You must either specify '--data' or '--invoice'!"));
+			throw new Error(
+				gtx._("You must either specify '--data' or '--invoice'!"),
+			);
 		}
 
 		options.libreOfficePath = configOptions['libre-office'] as string;
