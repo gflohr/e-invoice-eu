@@ -127,6 +127,8 @@ export class InvoiceService {
 			throw new Error(`Unsupported format: ${options.format}`);
 		}
 
+		this.logger.log('here we go ...');
+
 		return formatter.generate(invoice, options);
 	}
 }

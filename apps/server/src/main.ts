@@ -13,10 +13,6 @@ async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
 	app.setGlobalPrefix('api');
 
-	const gtx = Textdomain.getInstance('e-invoice-eu');
-	const localePath = path.join(__dirname, 'locale');
-	gtx.bindtextdomain(localePath);
-
 	const config = new DocumentBuilder()
 		.setTitle('EInvoice EU API')
 		.setDescription('Generate electronic invoices conforming to EN16931')
