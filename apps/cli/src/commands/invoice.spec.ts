@@ -9,16 +9,16 @@ jest.mock('../package');
 
 describe('Invoice Command', () => {
 	let invoice: Invoice;
-	let consoleSpy: jest.SpyInstance;
 
 	beforeEach(() => {
 		invoice = new Invoice();
-		consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
 		jest.clearAllMocks();
 	});
 
 	it('description() should return a valid description', () => {
-		expect(invoice.description()).toBe('Create an e-invoice from spreadsheet data or JSON.');
+		expect(invoice.description()).toBe(
+			'Create an e-invoice from spreadsheet data or JSON.',
+		);
 	});
 
 	it('aliases() should return an empty array', () => {
@@ -37,7 +37,8 @@ describe('Invoice Command', () => {
 				alias: ['f'],
 				type: 'string',
 				demandOption: true,
-				describe: "invoice format (case-insensitive), try 'format --list' for a list of allowed values",
+				describe:
+					"invoice format (case-insensitive), try 'format --list' for a list of allowed values",
 			},
 			output: {
 				group: 'Output file location',
@@ -52,7 +53,7 @@ describe('Invoice Command', () => {
 				type: 'string',
 				conflicts: ['mapping'],
 				demandOption: false,
-				describe: 'invoice data as JSON',
+				describe: 'invoice data as JSON, mandatory for json data input',
 			},
 			mapping: {
 				group: 'Input data',
@@ -60,14 +61,16 @@ describe('Invoice Command', () => {
 				type: 'string',
 				conflicts: ['invoice'],
 				demandOption: false,
-				describe: 'mapping file (YAML or JSON), mandatory for spreadsheet data input',
+				describe:
+					'mapping file (YAML or JSON), mandatory for spreadsheet data input',
 			},
 			data: {
 				group: 'Input data',
 				alias: ['d'],
 				type: 'string',
 				demandOption: false,
-				describe: 'invoice spreadsheet data, mandatory for spreadsheet data input',
+				describe:
+					'invoice spreadsheet data, mandatory for spreadsheet data input',
 			},
 			pdf: {
 				group: 'Input data',

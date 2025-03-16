@@ -1,6 +1,12 @@
 // FIXME! Name all the commands SubjectCommand so that we can import the
 // Invoice interface in a normal fashion.
-import { Invoice as CoreInvoice, InvoiceFile, InvoiceService, InvoiceServiceOptions, MappingService } from '@e-invoice-eu/core';
+import {
+	Invoice as CoreInvoice,
+	InvoiceFile,
+	InvoiceService,
+	InvoiceServiceOptions,
+	MappingService,
+} from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
 import * as fs from 'fs/promises';
 import { lookup } from 'mime-types';
@@ -23,7 +29,7 @@ const options: {
 	lang: OptSpec;
 	pdf: OptSpec;
 	'pdf-id': OptSpec;
-	'pdf-description': OptSpec,
+	'pdf-description': OptSpec;
 	attachment: OptSpec;
 	'attachment-id': OptSpec;
 	'attachment-description': OptSpec;
@@ -35,14 +41,18 @@ const options: {
 		alias: ['f'],
 		type: 'string',
 		demandOption: true,
-		describe: gtx._("invoice format (case-insensitive), try 'format --list' for a list of allowed values"),
+		describe: gtx._(
+			"invoice format (case-insensitive), try 'format --list' for a list of allowed values",
+		),
 	},
 	output: {
 		group: gtx._('Output file location'),
 		alias: ['o'],
 		type: 'string',
 		demandOption: false,
-		describe: gtx._('write output to specified file instead of standard output'),
+		describe: gtx._(
+			'write output to specified file instead of standard output',
+		),
 	},
 	invoice: {
 		group: gtx._('Input data'),
@@ -50,7 +60,7 @@ const options: {
 		type: 'string',
 		conflicts: ['mapping'],
 		demandOption: false,
-		describe: gtx._('invoice data as JSON'),
+		describe: gtx._('invoice data as JSON, mandatory for json data input'),
 	},
 	mapping: {
 		group: gtx._('Input data'),
@@ -58,14 +68,18 @@ const options: {
 		type: 'string',
 		conflicts: ['invoice'],
 		demandOption: false,
-		describe: gtx._('mapping file (YAML or JSON), mandatory for spreadsheet data input'),
+		describe: gtx._(
+			'mapping file (YAML or JSON), mandatory for spreadsheet data input',
+		),
 	},
 	data: {
 		group: gtx._('Input data'),
 		alias: ['d'],
 		type: 'string',
 		demandOption: false,
-		describe: gtx._('invoice spreadsheet data, mandatory for spreadsheet data input'),
+		describe: gtx._(
+			'invoice spreadsheet data, mandatory for spreadsheet data input',
+		),
 	},
 	pdf: {
 		group: gtx._('Input data'),
@@ -78,13 +92,13 @@ const options: {
 		group: gtx._('Input data'),
 		type: 'string',
 		demandOption: false,
-		describe: gtx._('ID of the embedded PDF, defaults to the document number')
+		describe: gtx._('ID of the embedded PDF, defaults to the document number'),
 	},
 	'pdf-description': {
 		group: gtx._('Input data'),
 		type: 'string',
 		demandOption: false,
-		describe: gtx._('optional description of the embedded PDF')
+		describe: gtx._('optional description of the embedded PDF'),
 	},
 	attachment: {
 		group: gtx._('Input data'),
@@ -99,14 +113,14 @@ const options: {
 		type: 'string',
 		multi: true,
 		demandOption: false,
-		describe: gtx._('optional ids of the attachments')
+		describe: gtx._('optional ids of the attachments'),
 	},
 	'attachment-description': {
 		group: gtx._('Input data'),
 		type: 'string',
 		multi: true,
 		demandOption: false,
-		describe: gtx._('optional descriptions of the attachments')
+		describe: gtx._('optional descriptions of the attachments'),
 	},
 	'attachment-mimetype': {
 		group: gtx._('Input data'),
@@ -114,7 +128,7 @@ const options: {
 		type: 'string',
 		multi: true,
 		demandOption: false,
-		describe: gtx._('optional MIME types of the attachments')
+		describe: gtx._('optional MIME types of the attachments'),
 	},
 	lang: {
 		group: gtx._('Invoice details'),
@@ -147,7 +161,10 @@ export class Invoice implements Command {
 		return argv.options(options);
 	}
 
-	private async addPdf(options: InvoiceServiceOptions, configOptions: ConfigOptions) {
+	private async addPdf(
+		options: InvoiceServiceOptions,
+		configOptions: ConfigOptions,
+	) {
 		if (configOptions.pdf) {
 			const invoiceFile: InvoiceFile = {
 				buffer: await fs.readFile(configOptions.pdf as string),
@@ -160,25 +177,40 @@ export class Invoice implements Command {
 	}
 
 	private checkConfigOptions(configOptions: ConfigOptions) {
-		if (typeof configOptions.invoice === 'undefined' && typeof configOptions.mapping === 'undefined') {
-			throw new Error(gtx._("One of the options '--invoice' or '--mapping' is mandatory."));
-		} else if (typeof configOptions.mapping !== 'undefined'
-			&& typeof configOptions.data === 'undefined') {
+		if (
+			typeof configOptions.invoice === 'undefined' &&
+			typeof configOptions.mapping === 'undefined'
+		) {
+			throw new Error(
+				gtx._("One of the options '--invoice' or '--mapping' is mandatory."),
+			);
+		} else if (
+			typeof configOptions.mapping !== 'undefined' &&
+			typeof configOptions.data === 'undefined'
+		) {
 			throw new Error(gtx._('No invoice spreadsheet specified.'));
 		}
 	}
 
-	private async addAttachments(options: InvoiceServiceOptions, configOptions: ConfigOptions) {
+	private async addAttachments(
+		options: InvoiceServiceOptions,
+		configOptions: ConfigOptions,
+	) {
 		if (!configOptions.attachment) return;
 
 		const attachments = configOptions.attachment as string[];
 		for (let i = 0; i < attachments.length; ++i) {
 			const filename = attachments[i];
 			const basename = path.basename(filename);
-			const mimetype = configOptions['attachment-mimetype']?.[i] ?? lookup(basename);
+			const mimetype =
+				configOptions['attachment-mimetype']?.[i] ?? lookup(basename);
 
 			if (!mimetype) {
-				throw new Error(gtx._x("cannot guess MIME type of attachment '{filename}'!", { filename }));
+				throw new Error(
+					gtx._x("cannot guess MIME type of attachment '{filename}'!", {
+						filename,
+					}),
+				);
 			}
 
 			const file: InvoiceFile = {
@@ -195,7 +227,10 @@ export class Invoice implements Command {
 		}
 	}
 
-	private async createInvoice(options: InvoiceServiceOptions, configOptions: ConfigOptions): Promise<string | Buffer> {
+	private async createInvoice(
+		options: InvoiceServiceOptions,
+		configOptions: ConfigOptions,
+	): Promise<string | Buffer> {
 		let invoiceData: CoreInvoice;
 
 		const format = configOptions.format as string;
@@ -206,12 +241,15 @@ export class Invoice implements Command {
 			const json = await fs.readFile(filename, 'utf-8');
 			try {
 				invoiceData = JSON.parse(json) as CoreInvoice;
-			} catch(e) {
+			} catch (e) {
 				throw new Error(`${filename}: ${e.message}`);
 			}
 		} else {
-			const mapping = await fs.readFile((configOptions.mapping as string), 'utf-8');
-			const data = await fs.readFile((configOptions.data as string));
+			const mapping = await fs.readFile(
+				configOptions.mapping as string,
+				'utf-8',
+			);
+			const data = await fs.readFile(configOptions.data as string);
 			const mappingService = new MappingService(console);
 			invoiceData = mappingService.transform(
 				format.toLowerCase(),
