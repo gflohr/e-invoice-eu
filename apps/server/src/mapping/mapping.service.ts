@@ -3,6 +3,7 @@ import {
 	Invoice,
 } from '@e-invoice-eu/core';
 import { Injectable, Logger } from '@nestjs/common';
+import * as yaml from 'js-yaml';
 
 @Injectable()
 export class MappingService {
@@ -15,7 +16,9 @@ export class MappingService {
 		);
 	}
 
-	transform(format: string, yamlMapping: string, dataBuffer: Buffer): Invoice {
-		return this.mappingService.transform(format, yamlMapping, dataBuffer);
+	transform(format: string, mapping: string, dataBuffer: Buffer): Invoice {
+		const mappingData = yaml.load(mapping);
+
+		return this.mappingService.transform(format, mappingData, dataBuffer);
 	}
 }

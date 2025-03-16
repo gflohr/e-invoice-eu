@@ -5,7 +5,6 @@ import Ajv2019, {
 	ValidateFunction,
 	ValidationError,
 } from 'ajv/dist/2019';
-import * as yaml from 'js-yaml';
 import * as jsonpath from 'jsonpath-plus';
 
 import { FormatFactoryService } from '../format/format.factory.service';
@@ -45,13 +44,11 @@ export class MappingService {
 		this.validationService = new ValidationService(this.logger);
 	}
 
-	private parseMapping(format: string, yamlData: string): Mapping {
-		const obj = yaml.load(yamlData);
-
+	private validateMapping(format: string, data: Mapping): Mapping {
 		const valid = this.validationService.validate(
 			'mapping data',
 			this.validator,
-			obj,
+			data,
 		);
 
 		const formatter = this.formatFactoryService.createFormatService(format, this.logger);
@@ -60,9 +57,8 @@ export class MappingService {
 		return valid;
 	}
 
-	// FIXME! The yamlMapping should be passed as an object, not as a string!
-	transform(format: string, yamlMapping: string, dataBuffer: Buffer): Invoice {
-		const mapping = this.parseMapping(format, yamlMapping);
+	transform(format: string, mappingData: Mapping, dataBuffer: Buffer): Invoice {
+		const mapping = this.validateMapping(format, mappingData);
 		const workbook = XLSX.read(dataBuffer, {
 			type: 'buffer',
 			cellDates: true,

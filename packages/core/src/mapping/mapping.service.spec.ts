@@ -263,15 +263,15 @@ describe('MappingService', () => {
 		it('should throw an exception if a non-existing section is referenced', async () => {
 			const localMapping = structuredClone(mapping);
 			localMapping['ubl:Invoice']['cac:InvoiceLine']['cbc:ID'] = '=:Lines.A1';
-			const mockParseMapping = jest
-				.spyOn(service as any, 'parseMapping')
+			const mockValidateMapping = jest
+				.spyOn(service as any, 'validateMapping')
 				.mockReturnValue(localMapping);
 			const buf: Buffer = [] as unknown as Buffer;
 
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
 			try {
-				service.transform('UBL', '{}', buf);
+				service.transform('UBL', {} as Mapping, buf);
 				throw new Error('no exception thrown');
 			} catch (e) {
 				expect(e).toBeDefined();
@@ -294,22 +294,22 @@ describe('MappingService', () => {
 				);
 			}
 
-			mockParseMapping.mockRestore();
+			mockValidateMapping.mockRestore();
 		});
 
 		it('should throw an exception if a non-existing sheet is referenced as section', async () => {
 			const localMapping = structuredClone(mapping);
 			localMapping['ubl:Invoice']['cac:InvoiceLine']['section'] =
 				'Infoice:Line';
-			const mockParseMapping = jest
-				.spyOn(service as any, 'parseMapping')
+			const mockValidateMapping = jest
+				.spyOn(service as any, 'validateMapping')
 				.mockReturnValue(localMapping);
 			const buf: Buffer = [] as unknown as Buffer;
 
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
 			try {
-				service.transform('UBL', '{}', buf);
+				service.transform('UBL', {} as Mapping, buf);
 				throw new Error('no exception thrown');
 			} catch (e) {
 				expect(e).toBeDefined();
@@ -330,22 +330,22 @@ describe('MappingService', () => {
 				);
 			}
 
-			mockParseMapping.mockRestore();
+			mockValidateMapping.mockRestore();
 		});
 
 		it('should throw an exception if a non-existing section is referenced as section', async () => {
 			const localMapping = structuredClone(mapping);
 			localMapping['ubl:Invoice']['cac:InvoiceLine']['section'] =
 				'Invoice:Lime';
-			const mockParseMapping = jest
-				.spyOn(service as any, 'parseMapping')
+			const mockValidateMapping = jest
+				.spyOn(service as any, 'validateMapping')
 				.mockReturnValue(localMapping);
 			const buf: Buffer = [] as unknown as Buffer;
 
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
 			try {
-				service.transform('UBL', '{}', buf);
+				service.transform('UBL', {} as Mapping, buf);
 				throw new Error('no exception thrown');
 			} catch (e) {
 				expect(e).toBeDefined();
@@ -366,12 +366,12 @@ describe('MappingService', () => {
 				);
 			}
 
-			mockParseMapping.mockRestore();
+			mockValidateMapping.mockRestore();
 		});
 
 		it('should throw an exception if multiple unbound sections are encountered', async () => {
-			const mockParseMapping = jest
-				.spyOn(service as any, 'parseMapping')
+			const mockValidateMapping = jest
+				.spyOn(service as any, 'validateMapping')
 				.mockReturnValue(mapping);
 			const buf: Buffer = [] as unknown as Buffer;
 
@@ -381,7 +381,7 @@ describe('MappingService', () => {
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(localWorkbook);
 
 			try {
-				service.transform('UBL', '{}', buf);
+				service.transform('UBL', {} as Mapping, buf);
 				throw new Error('no exception thrown');
 			} catch (e) {
 				expect(e).toBeDefined();
@@ -404,7 +404,7 @@ describe('MappingService', () => {
 				);
 			}
 
-			mockParseMapping.mockRestore();
+			mockValidateMapping.mockRestore();
 		});
 
 		// Test the parseMapping() method.
@@ -426,7 +426,7 @@ describe('MappingService', () => {
 				.spyOn(service as any, 'fillSectionRanges')
 				.mockImplementationOnce(() => {});
 
-			const invoice = service.transform('ZIRKUSFeRD', '{}', buf);
+			const invoice = service.transform('ZIRKUSFeRD', {} as Mapping, buf);
 
 			expect(invoice).toEqual({ 'ubl:Invoice': {} });
 			expect(validateSpy).toHaveBeenCalledTimes(1);
@@ -452,16 +452,16 @@ describe('MappingService', () => {
 			let invoice: Invoice;
 
 			beforeAll(async () => {
-				const mockParseMapping = jest
-					.spyOn(service as any, 'parseMapping')
+				const mockValidateMapping = jest
+					.spyOn(service as any, 'validateMapping')
 					.mockReturnValue(mapping);
 				const buf: Buffer = [] as unknown as Buffer;
 
 				jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
-				invoice = service.transform('UBL', '{}', buf);
+				invoice = service.transform('UBL', {} as Mapping, buf);
 
-				mockParseMapping.mockRestore();
+				mockValidateMapping.mockRestore();
 			});
 
 			it('should return an invoice object', () => {
