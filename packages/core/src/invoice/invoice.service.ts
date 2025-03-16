@@ -110,13 +110,13 @@ export class InvoiceService {
 	}
 
 	/**
-	 * Generate an e-invoice. The {@link input} gets validated against the
+	 * Generate an e-invoice. The input gets validated against the
 	 * {@link invoiceSchema} JSON schema, to make sure that it properly
 	 * fulfills the {@link Invoice} interface.
 	 *
 	 * If the specific format is an XML format (has the MIME type
-	 * `"application/xml"`), it gets returned as a {@link string}. In case of a
-	 * PDF format (MIME type `"application/pdf"`), a {@link Buffer} is returned.
+	 * `"application/xml"`), it gets returned as a `string`. In case of a
+	 * PDF format (MIME type `"application/pdf"`), a `Buffer` is returned.
 	 *
 	 * @param input the input data
 	 * @param options modify various aspects of the invoice.
