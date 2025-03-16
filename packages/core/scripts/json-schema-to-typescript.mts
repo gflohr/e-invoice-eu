@@ -16,7 +16,7 @@ async function generateCode(name: string) {
 	const interfaceName = name.replace(/^(.)/, c => c.toUpperCase());
 
 	const code =
-		'// istanbul ignore file' +
+		'// istanbul ignore file\n' +
 		'/*\n' +
 		` * This file is generated from '${schemaFile}'.\n` +
 		' * Do not edit!\n' +
