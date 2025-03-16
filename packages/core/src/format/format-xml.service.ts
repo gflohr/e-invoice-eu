@@ -53,6 +53,7 @@ export class FormatXMLService {
 		if (options.pdf) {
 			return options.pdf.buffer;
 		} else if (!options.data) {
+			console.trace('here');
 			throw new Error(
 				'Either a data spreadsheet file or an invoice PDF is needed!',
 			);

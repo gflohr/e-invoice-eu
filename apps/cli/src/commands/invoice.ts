@@ -35,6 +35,7 @@ const options: {
 	'attachment-description': OptSpec;
 	'attachment-mimetype': OptSpec;
 	'embed-pdf': OptSpec;
+	'libre-office': OptSpec;
 } = {
 	format: {
 		group: gtx._('Format selection'),
@@ -144,6 +145,14 @@ const options: {
 		demandOption: false,
 		describe: gtx._('embed a PDF version of the invoice'),
 	},
+	'libre-office': {
+		group: gtx._('External programs'),
+		alias: ['libreoffice'],
+		type: 'string',
+		demandOption: false,
+		default: 'libreoffice',
+		describe: gtx._('path to LibreOffice executable, mandatory if PDF creation is requested'),
+	},
 };
 
 export type ConfigOptions = InferredOptionTypes<typeof options>;
@@ -173,6 +182,14 @@ export class Invoice implements Command {
 			};
 
 			options.pdf = invoiceFile;
+			if (typeof configOptions['pdf-id'] !== 'undefined') {
+				options.pdfID = configOptions['pdf-id'] as string;
+			}
+			if (typeof configOptions['pdf-description'] !== 'undefined') {
+				options.pdfID = configOptions['pdf-description'] as string;
+			}
+
+			options.embedPDF = !!configOptions['embed-pdf'];
 		}
 	}
 
@@ -235,6 +252,14 @@ export class Invoice implements Command {
 
 		const format = configOptions.format as string;
 
+		if (typeof configOptions.data !== 'undefined') {
+			options.data = {
+				filename: configOptions.data as string,
+				buffer: await fs.readFile(configOptions.data as string),
+				mimetype: lookup[configOptions.data as string],
+			};
+		}
+
 		if (typeof configOptions.invoice !== 'undefined') {
 			const filename = configOptions.invoice as string;
 
@@ -244,19 +269,27 @@ export class Invoice implements Command {
 			} catch (e) {
 				throw new Error(`${filename}: ${e.message}`);
 			}
-		} else {
+		} else if (typeof configOptions.mapping !== 'undefined') {
+			if (typeof configOptions.data == 'undefined') {
+				throw new Error(gtx._("The option '--data' is mandatory if a mapping is specified!"));
+			}
+
 			const mapping = await fs.readFile(
 				configOptions.mapping as string,
 				'utf-8',
 			);
-			const data = await fs.readFile(configOptions.data as string);
+
 			const mappingService = new MappingService(console);
 			invoiceData = mappingService.transform(
 				format.toLowerCase(),
 				mapping,
-				data,
+				options.data!.buffer,
 			);
+		} else {
+			throw new Error(gtx._("You must either specify '--data' or '--invoice'!"));
 		}
+
+		options.libreOfficePath = configOptions['libre-office'] as string;
 
 		const invoiceService = new InvoiceService(console);
 
@@ -264,7 +297,6 @@ export class Invoice implements Command {
 	}
 
 	private async doRun(configOptions: ConfigOptions) {
-		console.dir(configOptions);
 		const options: InvoiceServiceOptions = {
 			format: configOptions.format as string,
 			lang: configOptions.lang as string,
@@ -285,6 +317,8 @@ export class Invoice implements Command {
 		} else {
 			if (typeof configOptions.output === 'undefined') {
 				safeStdoutBufferWrite(document);
+			} else {
+				await fs.writeFile(configOptions.output as string, document);
 			}
 		}
 	}

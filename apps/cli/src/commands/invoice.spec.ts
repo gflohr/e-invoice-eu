@@ -135,6 +135,14 @@ describe('Invoice Command', () => {
 				demandOption: false,
 				describe: 'embed a PDF version of the invoice',
 			},
+			'libre-office': {
+				group: 'External programs',
+				alias: ['libreoffice'],
+				type: 'string',
+				demandOption: false,
+				default: 'libreoffice',
+				describe: 'path to LibreOffice executable, mandatory if PDF creation is requested',
+			},
 		});
 	});
 
