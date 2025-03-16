@@ -2,7 +2,7 @@ import {
 	FormatFactoryService as FormatFactorCoreService,
 	EInvoiceFormat,
 } from '@e-invoice-eu/core';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
 
 import { AppConfigService } from '../app-config/app-config.service';
@@ -50,9 +50,9 @@ export class FormatFactoryService {
 		return this.coreService.listFormatServices();
 	}
 
-	createFormatService(format: string): EInvoiceFormat {
+	createFormatService(format: string, logger: Logger): EInvoiceFormat {
 		try {
-			return this.coreService.createFormatService(format);
+			return this.coreService.createFormatService(format, logger);
 		} catch {
 			throw new NotFoundException(`Format '${format}' not supported.`);
 		}
