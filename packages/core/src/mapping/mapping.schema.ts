@@ -8,6 +8,11 @@ import { JSONSchemaType } from 'ajv';
 
 import { Mapping } from './mapping.interface';
 
+/**
+ * This schema can be passed as an argument to the compile method of an
+ * `Ajv` instance, see https://ajv.js.org/api.html#ajv-compile-schema-object-data-any-boolean-promise-any
+ * for more information!
+ */
 export const mappingSchema: JSONSchemaType<Mapping> = {
 	$schema: 'https://json-schema.org/draft/2019-09/schema',
 	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v1.4.2',

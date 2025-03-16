@@ -26,6 +26,10 @@ type MappingContext = {
 	rowRange: [number, number];
 };
 
+/**
+ * Generate an {@link Invoice} object (data in the internal invoice format)
+ * from spreadsheet data and a {@link Mapping}.
+ */
 export class MappingService {
 	private readonly validator: ValidateFunction<Mapping>;
 	private readonly validationService: ValidationService;

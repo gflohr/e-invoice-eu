@@ -26,6 +26,9 @@ export type InvoiceFile = {
 	mimetype: string;
 };
 
+/**
+ * A contain for an attachment to an invoice.
+ */
 export type InvoiceAttachment = {
 	/**
 	 * The uploaded file.
@@ -43,6 +46,9 @@ export type InvoiceAttachment = {
 	description?: string;
 };
 
+/**
+ * Invoice creation options.
+ */
 export type InvoiceServiceOptions = {
 	/**
 	 * The invoice format like `XRECHNUNG-UBL` or `Factur-X-Extended`.
@@ -91,6 +97,10 @@ export type InvoiceServiceOptions = {
 	libreOfficePath?: string;
 };
 
+/**
+ * Render an e-invoice from either an {@link Invoice} object or a spreadsheet
+ * and a {@link Mapping}.
+ */
 export class InvoiceService {
 	private readonly formatFactoryService: FormatFactoryService;
 	private readonly validator: ValidateFunction<Invoice>;

@@ -15,6 +15,13 @@ async function generateCode(name: string) {
 
 	const interfaceName = name.replace(/^(.)/, c => c.toUpperCase());
 
+	const typedoc = `
+/**
+ * This schema can be passed as an argument to the compile method of an
+ * \`Ajv\` instance, see https://ajv.js.org/api.html#ajv-compile-schema-object-data-any-boolean-promise-any
+ * for more information!
+ */
+`;
 	const code =
 		'// istanbul ignore file\n' +
 		'/*\n' +
@@ -25,6 +32,7 @@ async function generateCode(name: string) {
 		`import { JSONSchemaType } from 'ajv';\n` +
 		`import { ${interfaceName} } from './${name}.interface';\n` +
 		'\n' +
+		typedoc +
 		`export const ${name}Schema: JSONSchemaType<${interfaceName}> = ${json}` +
 		` as unknown as JSONSchemaType<${interfaceName}>;\n`;
 

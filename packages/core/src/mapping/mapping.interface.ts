@@ -11,6 +11,11 @@ export type SectionRef = string;
 /**
  * Maps invoice data to the cells in a spreadsheet.
  */
+
+/**
+ * This is a TypeScript interface for the JSON Schema definition
+ * (https://json-schema.org/) for the corresponding data type.
+ */
 export interface Mapping {
 	meta: MappingMetaInformation;
 	'ubl:Invoice': {

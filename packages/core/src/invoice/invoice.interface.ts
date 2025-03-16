@@ -11162,6 +11162,11 @@ export type ItemPriceDiscount = string;
  */
 export type ItemGrossPrice = string;
 
+
+/**
+ * This is a TypeScript interface for the JSON Schema definition
+ * (https://json-schema.org/) for the corresponding data type.
+ */
 export interface Invoice {
 	'ubl:Invoice': {
 		'cbc:CustomizationID'?: SpecificationIdentifier;

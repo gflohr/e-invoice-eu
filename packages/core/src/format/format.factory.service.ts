@@ -43,6 +43,9 @@ export type FormatInfo = {
 	syntax: 'UBL' | 'CII';
 }
 
+/**
+ * Factory service for a an e-invoice generating service.
+ */
 export class FormatFactoryService {
 	private readonly formatServices: {
 		[key: string]: new (...args: any[]) => EInvoiceFormat;

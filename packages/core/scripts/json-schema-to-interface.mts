@@ -2,7 +2,6 @@
 
 import * as fs from 'fs';
 import { compile } from 'json-schema-to-typescript';
-import { LinkedJSONSchema } from 'json-schema-to-typescript/dist/src/types/JSONSchema';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -26,5 +25,11 @@ const style = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
 const options = { style };
 
 compile(inputSchema, 'Invoice', options).then(ts => {
-	fs.writeFileSync(interfaceFilename, ts);
+	const typedoc = `
+/**
+ * This is a TypeScript interface for the JSON Schema definition
+ * (https://json-schema.org/) for the corresponding data type.
+ */
+`;
+	fs.writeFileSync(interfaceFilename, ts.replace(/^export interface/m, typedoc + 'export interface'));
 });
