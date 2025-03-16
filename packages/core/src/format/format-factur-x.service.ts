@@ -1,6 +1,5 @@
 import { Invoice } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
-import { Injectable } from '@nestjs/common';
 import { webcrypto as crypto } from 'crypto';
 import {
 	AFRelationship,
@@ -96,7 +95,6 @@ bnNvcnRpdW0sIDIwMTUAAHNmMzIAAAAAAAEMRAAABd////MmAAAHlAAA/Y////uh///9ogAAA9sA
 AMB1
 `.trim();
 
-@Injectable()
 export class FormatFacturXService
 	extends FormatCIIService
 	implements EInvoiceFormat

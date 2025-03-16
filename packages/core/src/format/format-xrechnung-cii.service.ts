@@ -1,9 +1,6 @@
-import { Injectable } from '@nestjs/common';
-
 import { FormatCIIService } from './format-cii.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 
-@Injectable()
 export class FormatXRECHNUNGCIIService
 	extends FormatCIIService
 	implements EInvoiceFormat

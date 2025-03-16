@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { spawn } from 'child_process';
 import { promises as fs } from 'fs';
 import * as path from 'path';
@@ -8,7 +8,6 @@ import { create } from 'xmlbuilder2';
 
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 
-@Injectable()
 export class FormatXMLService {
 	private readonly logger = new Logger(FormatXMLService.name);
 

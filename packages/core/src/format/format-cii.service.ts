@@ -1,5 +1,4 @@
 import { Invoice } from '@e-invoice-eu/core';
-import { Injectable } from '@nestjs/common';
 import * as jsonpath from 'jsonpath-plus';
 
 import { FormatUBLService } from './format-ubl.service';
@@ -1485,7 +1484,6 @@ export const ublInvoice: Transformation = {
 	],
 };
 
-@Injectable()
 export class FormatCIIService
 	extends FormatUBLService
 	implements EInvoiceFormat

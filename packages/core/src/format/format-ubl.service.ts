@@ -3,7 +3,6 @@ import {
 	ADDITIONALSUPPORTINGDOCUMENTS,
 	AttachedDocumentMimeCode,
 } from '@e-invoice-eu/core/invoice/invoice.interface';
-import { Injectable } from '@nestjs/common';
 import * as path from 'path';
 
 import { FormatXMLService } from './format-xml.service';
@@ -13,7 +12,6 @@ import { invoiceSchema } from '../invoice/invoice.schema';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { sortBySchema } from '../utils/sort-by-schema';
 
-@Injectable()
 export class FormatUBLService
 	extends FormatXMLService
 	implements EInvoiceFormat

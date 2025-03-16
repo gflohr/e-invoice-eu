@@ -1,10 +1,7 @@
-import { Injectable } from '@nestjs/common';
-
 import { FX_EN16931, FXProfile } from './format-cii.service';
 import { FormatFacturXService } from './format-factur-x.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 
-@Injectable()
 export class FormatFacturXEN16931Service
 	extends FormatFacturXService
 	implements EInvoiceFormat
