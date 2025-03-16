@@ -271,7 +271,7 @@ describe('MappingService', () => {
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
 			try {
-				service.transform('UBL', {} as Mapping, buf);
+				service.transform(buf, 'UBL', {} as Mapping);
 				throw new Error('no exception thrown');
 			} catch (e) {
 				expect(e).toBeDefined();
@@ -309,7 +309,7 @@ describe('MappingService', () => {
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
 			try {
-				service.transform('UBL', {} as Mapping, buf);
+				service.transform(buf, 'UBL', {} as Mapping);
 				throw new Error('no exception thrown');
 			} catch (e) {
 				expect(e).toBeDefined();
@@ -345,7 +345,7 @@ describe('MappingService', () => {
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
 			try {
-				service.transform('UBL', {} as Mapping, buf);
+				service.transform(buf, 'UBL', {} as Mapping);
 				throw new Error('no exception thrown');
 			} catch (e) {
 				expect(e).toBeDefined();
@@ -381,7 +381,7 @@ describe('MappingService', () => {
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(localWorkbook);
 
 			try {
-				service.transform('UBL', {} as Mapping, buf);
+				service.transform(buf, 'UBL', {} as Mapping);
 				throw new Error('no exception thrown');
 			} catch (e) {
 				expect(e).toBeDefined();
@@ -426,7 +426,7 @@ describe('MappingService', () => {
 				.spyOn(service as any, 'fillSectionRanges')
 				.mockImplementationOnce(() => {});
 
-			const invoice = service.transform('ZIRKUSFeRD', {} as Mapping, buf);
+			const invoice = service.transform(buf, 'ZIRKUSFeRD', {} as Mapping);
 
 			expect(invoice).toEqual({ 'ubl:Invoice': {} });
 			expect(validateSpy).toHaveBeenCalledTimes(1);
@@ -459,7 +459,7 @@ describe('MappingService', () => {
 
 				jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
-				invoice = service.transform('UBL', {} as Mapping, buf);
+				invoice = service.transform(buf, 'UBL', {} as Mapping);
 
 				mockValidateMapping.mockRestore();
 			});

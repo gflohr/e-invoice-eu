@@ -10,6 +10,7 @@ import {
 import { Textdomain } from '@esgettext/runtime';
 import { accessSync, statSync } from 'fs';
 import * as fs from 'fs/promises';
+import * as yaml from 'js-yaml';
 import { lookup } from 'mime-types';
 import * as os from 'os';
 import * as path from 'path';
@@ -316,16 +317,18 @@ export class Invoice implements Command {
 				);
 			}
 
-			const mapping = await fs.readFile(
+			const mappingYaml = await fs.readFile(
 				configOptions.mapping as string,
 				'utf-8',
 			);
 
+			const mapping = yaml.load(mappingYaml);
+
 			const mappingService = new MappingService(console);
 			invoiceData = mappingService.transform(
+				options.data!.buffer,
 				format.toLowerCase(),
 				mapping,
-				options.data!.buffer,
 			);
 		} else {
 			throw new Error(

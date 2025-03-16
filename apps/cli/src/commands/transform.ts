@@ -62,7 +62,7 @@ export class Transform implements Command {
 		const mappingService = new MappingService(console);
 
 		const output = JSON.stringify(
-			mappingService.transform('UBL', mapping, data),
+			mappingService.transform(data, 'UBL', mapping),
 		);
 
 		if (

@@ -57,8 +57,17 @@ export class MappingService {
 		return valid;
 	}
 
-	transform(format: string, mappingData: Mapping, dataBuffer: Buffer): Invoice {
-		const mapping = this.validateMapping(format, mappingData);
+	/**
+	 * Transform invoice spreadsheet data to invoice data in the internal
+	 * format via a mapping.
+	 *
+	 * @param dataBuffer the spreadsheet data
+	 * @param format one of the supported invoice formats, see {@link FormatFactoryService.listFormatServices}
+	 * @param mapping the mapping definition
+	 * @returns the invoice data in the internal format
+	 */
+	transform(dataBuffer: Buffer, format: string, mapping: Mapping): Invoice {
+		mapping = this.validateMapping(format, mapping);
 		const workbook = XLSX.read(dataBuffer, {
 			type: 'buffer',
 			cellDates: true,
