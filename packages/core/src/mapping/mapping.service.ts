@@ -35,6 +35,11 @@ export class MappingService {
 	private readonly validationService: ValidationService;
 	private readonly formatFactoryService: FormatFactoryService;
 
+	/**
+	 * Creates a new instance of the service.
+	 *
+	 * @param logger - The logger instance used for logging messages, warnings and errors.
+	 */
 	constructor(
 		private readonly logger: Logger,
 	) {

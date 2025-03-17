@@ -14,7 +14,7 @@ export default [
 	{
 		input: 'src/index.ts',
 		output: {
-			name: 'e-invoice-eu',
+			name: 'eInvoiceEU',
 			file: './dist/e-invoice-eu.min.js',
 			format: 'umd',
 			sourcemap: true,
