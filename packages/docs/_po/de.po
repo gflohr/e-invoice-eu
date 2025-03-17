@@ -3393,7 +3393,7 @@ msgstr "Der API-Endpunkt für diese Funktion ist `/api/invoice/create/:FORMAT`."
 msgid ""
 "[% title = \"The endpoint /invoice/transform-and-create is deprecated!\" %]"
 msgstr ""
-"[% title = ”Der Endpunkt /invoice/transform-and-create ist veraltet!” %]"
+"[% title = \"Der Endpunkt /invoice/transform-and-create ist veraltet!\" %]"
 
 #: ../en/docs/service/creating-invoices.md:52
 msgid ""
