@@ -22,13 +22,22 @@ and the [E-Invoice-EU web service](https://github.com/gflohr/e-invoice-eu/tree/m
 use it as their foundation.
 
 ## Table of Contents<!-- omit from toc -->
+
 - [Features](#features)
 - [Documentation](#documentation)
 - [Installation](#installation)
 - [Usage](#usage)
-	- [Importing/Requiring the Library](#importingrequiring-the-library)
-	- [Creating Invoice Data from Spreadsheet Files](#creating-invoice-data-from-spreadsheet-files)
-	- [Generating an Invoice from Data in the Internal Format](#generating-an-invoice-from-data-in-the-internal-format)
+  - [Importing/Requiring the Library](#importingrequiring-the-library)
+  - [Creating Invoice Data from Spreadsheet Files](#creating-invoice-data-from-spreadsheet-files)
+  - [Generating an Invoice from Data in the Internal Format](#generating-an-invoice-from-data-in-the-internal-format)
+    - [Argument `format`](#argument-format)
+    - [Argument `lang`](#argument-lang)
+    - [Argument `embedPDF`](#argument-embedpdf)
+    - [Argument `pdf`](#argument-pdf)
+    - [Argument `data`](#argument-data)
+    - [Argument `attachments`](#argument-attachments)
+  - [Getting Supported Formats](#getting-supported-formats)
+  - [Getting the JSON Schema Definitions](#getting-the-json-schema-definitions)
 - [Copyright](#copyright)
 - [Disclaimer](#disclaimer)
 
@@ -36,9 +45,9 @@ use it as their foundation.
 
 The library can create e-invoices in the following formats:
 
-* Cross Industry Invoice - CII
-* Universal Business Language - UBL
-* Factur-X/ZUGFeRD (all profiles including XRECHNUNG) with full PDF/A support
+- Cross Industry Invoice - CII
+- Universal Business Language - UBL
+- Factur-X/ZUGFeRD (all profiles including XRECHNUNG) with full PDF/A support
 
 E-Invoices can be created directly from data in the [E-Invoice-EU internal
 format](https://gflohr.github.io/e-invoice-eu/en/docs/details/internal-format/)
@@ -73,13 +82,13 @@ npm install @e-invoice-eu/core
 If you have the `import` keyword:
 
 ```typescript
-import { InvoiceService, MappingService } from '@e-invoice-eu/core'
+import { InvoiceService, MappingService } from '@e-invoice-eu/core';
 ```
 
 With `require`:
 
 ```javascript
-const { InvoiceService, MappingService } = require('@e-invoice-eu/core')
+const { InvoiceService, MappingService } = require('@e-invoice-eu/core');
 ```
 
 In the browser:
@@ -111,7 +120,7 @@ const invoice = mappingService.transform(
 );
 ```
 
-The returned `invoice` object is an 
+The returned `invoice` object is an
 [`Invoice`](https://gflohr.github.io/e-invoice-eu/api-docs/interfaces/Invoice.html)
 instance in the internal format. It is not yet an XML string or PDF buffer!
 
@@ -133,15 +142,85 @@ const renderedInvoice = await invoiceService.generate(invoiceData, options);
 See this summary for the `options` (optional options are marked with an
 question mark `?`):
 
-| Name  | Type | Description |
-|------ |------|-------------|
-| format | `string` | a [supported format]( https://gflohr.github.io/e-invoice-eu/en/docs/basics/supported-formats/) |
-| lang | `string` | a language identifier like `fr-fr` |
-| embedPDF? | `boolean` | pass `true` if a PDF version should be embedded into XML output |
-| pdf | `InvoiceFile` | |
-| attachments | `InvoiceAttachment[]` | |
+| Name         | Type                                                                               | Description                                                                                   |
+| ------------ | ---------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| format       | `string`                                                                           | a [supported format](https://gflohr.github.io/e-invoice-eu/en/docs/basics/supported-formats/) |
+| lang         | `string`                                                                           | a language identifier like `fr-fr`                                                            |
+| embedPDF?    | `boolean`                                                                          | pass `true` if a PDF version should be embedded into XML output                               |
+| pdf?         | [`FileInfo`](https://gflohr.github.io/e-invoice-eu/api-docs/types/FileInfo.html)   | the PDF version of the invoice                                                                |
+| data?        | [`FileInfo`](https://gflohr.github.io/e-invoice-eu/api-docs/types/FileInfo.html)   | invoice spreadsheet file                                                                      |
+| attachments? | [`FileInfo[]`](https://gflohr.github.io/e-invoice-eu/api-docs/types/FileInfo.html) | an arbitrary number of attachments                                                            |
 
-TODO!
+#### Argument `format`
+
+This contains the format of the e-invoice as a case-insensitive string. You
+can also use aliases. For example, `Factur-X-Comfort` is an alias for
+`Factur-X-EN16931`.
+
+#### Argument `lang`
+
+A language identifier like `fr-fr`. This is only used for the Factur-X/ZUGFeRD
+formats for some canned texts in the PDF XMP meta data.
+
+#### Argument `embedPDF`
+
+This is only used for the pure XML formats (everything that is not
+Factur-X/ZUGFeRD). If it has a truthy value, a PDF version of the invoice
+is embedded as a base64 encoded string in the XML.
+
+#### Argument `pdf`
+
+This is required in two cases:
+
+1. The format is a Factur-X/ZUGFeRD format and `data` was **not** specified.
+2. The format is a pure XML format, `embedPDF` was specified and `data` was not specified.
+
+#### Argument `data`
+
+A spreadsheet version of the invoice. If a PDF is required, either because
+embedPDF was specified for pure XML or because the format is Factur-X/ZUGFeRD,
+[LibreOffice](https://libreoffice.org) is invoked for rendering the spreadsheet
+as a PDF.
+
+This feature will trigger an exception if used in the browser.
+
+#### Argument `attachments`
+
+You can specify an arbitrary number of additional attachments.
+
+In case of the pure XML formats, they are embedded as base64 encoded strings
+in the XML. In case of Factur-X/ZUGFeRD they are attached to the PDF,
+additionally to the mandatory attachment `factur-x.xml`.
+
+### Getting Supported Formats
+
+```typescript
+import { FormatFactoryService } from '@e-invoice-eu/core';
+
+const factoryService = new FormatFactoryService();
+const formats = factoryService.listFormatServices();
+```
+
+In `format` you will find an array of
+[`FormatInfo`](https://gflohr.github.io/e-invoice-eu/api-docs/types/FormatInfo.html)
+objects.
+
+### Getting the JSON Schema Definitions
+
+```typescript
+import { invoiceSchema, mappingSchema } from '@e-invoice-eu/core';
+```
+
+These variables contain the schema for the
+[`Invoice`](https://gflohr.github.io/e-invoice-eu/api-docs/types/Invoice.html)
+and [`Mapping`](https://gflohr.github.io/e-invoice-eu/api-docs/types/Mapping.html)
+interfaces. These schemas can be passed as an argument to the compile method of an Ajv instance, see https://ajv.js.org/api.html#ajv-compile-schema-object-data-any-boolean-promise-any for more information!
+
+The schemas have the type
+[`JSONSchemaType<Invoice>`](https://ajv.js.org/guide/typescript.html#utility-types-for-schemas)
+and
+[`JSONSchemaType<Mapping>`](https://ajv.js.org/guide/typescript.html#utility-types-for-schemas)
+respectively.
 
 ## Copyright
 
