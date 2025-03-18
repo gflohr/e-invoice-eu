@@ -143,10 +143,6 @@ question mark `?`):
 
 TODO!
 
-1) Types InvoiceFile and InvoiceAttachment are actually the same. Remove type InvoiceFile!
-2) The `attachments` should not be mandatory but default to an empty array.
-3) Rename type `InvoiceAttachment` to type `Attachment`.
-
 ## Copyright
 
 Copyright (C) 2024-2025 Guido Flohr <guido.flohr@cantanea.com>, all

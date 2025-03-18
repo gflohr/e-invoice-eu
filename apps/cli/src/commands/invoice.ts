@@ -265,6 +265,7 @@ export class Invoice implements Command {
 				);
 			}
 
+			options.attachments ??= [];
 			options.attachments.push({
 				buffer: await fs.readFile(filename),
 				filename: basename,

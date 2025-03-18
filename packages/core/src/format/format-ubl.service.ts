@@ -123,7 +123,7 @@ export class FormatUBLService
 			'application/vnd.oasis.opendocument.spreadsheet',
 		]);
 
-		for (const attachment of options.attachments) {
+		for (const attachment of options.attachments || []) {
 			const mimeType: AttachedDocumentMimeCode = attachment.mimetype as AttachedDocumentMimeCode;
 			if (!validMimeCodes.has(mimeType)) {
 				throw new Error(

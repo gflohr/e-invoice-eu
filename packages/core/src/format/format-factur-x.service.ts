@@ -149,7 +149,7 @@ export class FormatFacturXService
 	}
 
 	private attachFiles(pdfDoc: PDFDocument, options: InvoiceServiceOptions) {
-		for (const attachment of options.attachments) {
+		for (const attachment of options.attachments || []) {
 			pdfDoc.attach(attachment.buffer, attachment.filename, {
 				mimeType: attachment.mimetype,
 				description: attachment.description ?? 'Supplementary file',

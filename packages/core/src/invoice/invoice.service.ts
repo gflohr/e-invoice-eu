@@ -64,7 +64,7 @@ export type InvoiceServiceOptions = {
 	/**
 	 * An array of supplementary attachments.
 	 */
-	attachments: FileInfo[];
+	attachments?: FileInfo[];
 
 	/**
 	 * Set to invoice description if invoice should be embedded.
