@@ -29,7 +29,7 @@ const getCrypto = (): SubtleCrypto => {
 			// eslint-disable-next-line @typescript-eslint/no-require-imports
 			const { webcrypto } = require('crypto');
 			return webcrypto.subtle;
-		} catch (e) {
+		} catch {
 			throw new Error('Web Crypto API is not available in this environment.');
 		}
 	}

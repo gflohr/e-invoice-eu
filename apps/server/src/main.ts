@@ -1,10 +1,8 @@
 /* istanbul ignore file */
-import { Textdomain } from '@esgettext/runtime';
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import * as path from 'path';
 
 import { AppModule } from './app.module';
 

@@ -2,7 +2,6 @@
 // Invoice interface in a normal fashion.
 import {
 	Invoice as CoreInvoice,
-	FileInfo,
 	InvoiceService,
 	InvoiceServiceOptions,
 	MappingService,
@@ -14,7 +13,7 @@ import * as yaml from 'js-yaml';
 import { lookup } from 'mime-types';
 import * as os from 'os';
 import * as path from 'path';
-import yargs, { config, InferredOptionTypes } from 'yargs';
+import yargs, { InferredOptionTypes } from 'yargs';
 
 import { Command } from '../command';
 import { coerceOptions, OptSpec } from '../optspec';
