@@ -3,7 +3,6 @@ import {
 	ADDITIONALSUPPORTINGDOCUMENTS,
 	AttachedDocumentMimeCode,
 } from '@e-invoice-eu/core/invoice/invoice.interface';
-import * as path from 'path';
 
 import { FormatXMLService } from './format-xml.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
@@ -83,8 +82,14 @@ export class FormatUBLService
 			}
 			filename = options.pdf.filename;
 		} else if (options.data) {
-			const parsed = path.parse(options.data.filename);
-			filename = parsed.name + '.pdf';
+			// Avoid using path.parse() here because it is not available in
+			// the browser.
+			const normalized = options.data.filename.replace(/\\/g, '/');
+			const lastSlashIndex = normalized.lastIndexOf('/');
+			const lastDotIndex = normalized.lastIndexOf('.');
+			const name = lastDotIndex > lastSlashIndex ? normalized.substring(lastSlashIndex + 1, lastDotIndex) : normalized;
+
+			filename = name + '.pdf';
 		} else {
 			throw new Error(
 				'Either a data spreadsheet file or an invoice PDF' +
