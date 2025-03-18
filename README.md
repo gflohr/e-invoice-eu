@@ -10,29 +10,28 @@
 [![documentation](https://img.shields.io/badge/documentation-Qgoda🍓-ffc107)](https://www.qgoda.net/)
 [![stand with](https://img.shields.io/badge/stand%20with-Ukraine🇺🇦-ffc107)](https://www.standwithukraineeurope.com/en//)
 
-# E-Invoice-EU
+# E-Invoice-EU<!-- omit from toc -->
 
 Free and open source tool chain for generating EN16931 conforming e-invoices
 (Factur-X/ZUGFeRD, UBL, CII, XRechnung) from popular spreadsheet formats or
 JSON.
 
-- [E-Invoice-EU](#e-invoice-eu)
-  - [Supported Formats](#supported-formats)
-  - [Using the software](#using-the-software)
-  - [Security](#security)
-  - [Description](#description)
-  - [Documentation](#documentation)
-  - [Alternatives](#alternatives)
-  - [Pre-requisites](#pre-requisites)
-  - [Installation](#installation)
-  - [Running the app](#running-the-app)
-  - [Test](#test)
-  - [Running in a Container](#running-in-a-container)
-  - [BUGS](#bugs)
-    - [Report a Bug](#report-a-bug)
-    - [PDF/A](#pdfa)
-  - [Copyright](#copyright)
-  - [Disclaimer](#disclaimer)
+- [Supported Formats](#supported-formats)
+- [Using the software](#using-the-software)
+- [Security](#security)
+- [Description](#description)
+- [Documentation](#documentation)
+- [Alternatives](#alternatives)
+- [Pre-requisites](#pre-requisites)
+- [Installation](#installation)
+- [Running the app](#running-the-app)
+- [Test](#test)
+- [Running in a Container](#running-in-a-container)
+- [BUGS](#bugs)
+	- [Report a Bug](#report-a-bug)
+	- [PDF/A](#pdfa)
+- [Copyright](#copyright)
+- [Disclaimer](#disclaimer)
 
 ## Supported Formats
 
