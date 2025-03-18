@@ -5,6 +5,7 @@ import replace from '@rollup/plugin-replace';
 import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
 import * as fs from 'fs';
+import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 const pkg = JSON.parse(
 	fs.readFileSync('./package.json', { encoding: 'utf-8' }),
@@ -30,10 +31,12 @@ export default [
 				preventAssignment: true,
 			}),
 			json(),
+			nodePolyfills({ sourceMap: true }),
 			resolve({ preferBuiltins: true }),
 			commonjs(),
 			typescript({
 				exclude: 'src/**/*.spec.ts',
+				tsconfig: 'tsconfig.build.json',
 			}),
 			terser(),
 		],
@@ -56,10 +59,12 @@ export default [
 				preventAssignment: true,
 			}),
 			json(),
+			nodePolyfills({ sourceMap: true }),
 			resolve({ preferBuiltins: true }),
 			commonjs(),
 			typescript({
 				exclude: 'src/**/*.spec.ts',
+				tsconfig: 'tsconfig.build.json',
 			}),
 		],
 	},
@@ -70,6 +75,7 @@ export default [
 			json(),
 			typescript({
 				exclude: 'src/**/*.spec.ts',
+				tsconfig: 'tsconfig.build.json',
 			}),
 		],
 		output: [
