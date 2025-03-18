@@ -41,7 +41,7 @@ export type FormatInfo = {
 	 * The general syntax in the sense of EN16931.
 	 */
 	syntax: 'UBL' | 'CII';
-}
+};
 
 /**
  * Factory service for a an e-invoice generating service.

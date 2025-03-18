@@ -40,9 +40,7 @@ export class MappingService {
 	 *
 	 * @param logger - The logger instance used for logging messages, warnings and errors.
 	 */
-	constructor(
-		private readonly logger: Logger,
-	) {
+	constructor(private readonly logger: Logger) {
 		this.formatFactoryService = new FormatFactoryService();
 		const ajv = new Ajv2019({
 			strict: true,
@@ -60,7 +58,10 @@ export class MappingService {
 			data,
 		);
 
-		const formatter = this.formatFactoryService.createFormatService(format, this.logger);
+		const formatter = this.formatFactoryService.createFormatService(
+			format,
+			this.logger,
+		);
 		formatter.fillMappingDefaults(valid);
 
 		return valid;

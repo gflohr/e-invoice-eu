@@ -106,9 +106,7 @@ export class InvoiceService {
 	private readonly validator: ValidateFunction<Invoice>;
 	private readonly validationService: ValidationService;
 
-	constructor(
-		private readonly logger: Logger,
-	) {
+	constructor(private readonly logger: Logger) {
 		this.formatFactoryService = new FormatFactoryService();
 		const ajv = new Ajv2019({
 			strict: true,
@@ -143,7 +141,8 @@ export class InvoiceService {
 		);
 
 		const formatter = this.formatFactoryService.createFormatService(
-			options.format, this.logger,
+			options.format,
+			this.logger,
 		);
 
 		if (typeof formatter === 'undefined') {
