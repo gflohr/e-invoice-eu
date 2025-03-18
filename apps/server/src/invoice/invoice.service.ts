@@ -102,7 +102,7 @@ export class InvoiceService {
 		}
 
 		for (const attachment of options.attachments) {
-			coreOptions.attachments.push({
+			coreOptions.attachments!.push({
 				buffer: attachment.file.buffer,
 				filename: attachment.file.originalname,
 				mimetype: attachment.file.mimetype,
