@@ -1,6 +1,5 @@
 import { EInvoiceMIMEType, Invoice } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
-import { webcrypto as crypto } from 'crypto';
 import {
 	AFRelationship,
 	PDFArray,
@@ -17,6 +16,24 @@ import { XMLBuilder } from 'xmlbuilder2/lib/interfaces';
 import { FormatCIIService, FULL_CII, FXProfile } from './format-cii.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
+
+const getCrypto = (): SubtleCrypto => {
+	if (typeof window !== 'undefined' && window.crypto?.subtle) {
+		return window.crypto.subtle;
+	}
+	if (typeof globalThis !== 'undefined' && globalThis.crypto?.subtle) {
+		return globalThis.crypto.subtle;
+	}
+	if (typeof require !== 'undefined') {
+		try {
+			const { webcrypto } = require('crypto');
+			return webcrypto.subtle;
+		} catch (e) {
+			throw new Error('Web Crypto API is not available in this environment.');
+		}
+	}
+	throw new Error('Web Crypto API is not available.');
+};
 
 type FacturXConformanceLevel =
 	| 'MINIMUM'
@@ -319,7 +336,8 @@ export class FormatFacturXService
 	) {
 		const encoder = new TextEncoder();
 		const data = invoiceMeta.subject;
-		const hash = await crypto.subtle.digest('SHA-512', encoder.encode(data));
+		const subtle: SubtleCrypto = getCrypto();
+		const hash = await subtle.digest('SHA-512', encoder.encode(data));
 		const hashArray = Array.from(new Uint8Array(hash));
 		const hashHex = hashArray
 			.map(b => b.toString(16).padStart(2, '0'))
