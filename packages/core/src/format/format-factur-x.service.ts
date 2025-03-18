@@ -26,6 +26,7 @@ const getCrypto = (): SubtleCrypto => {
 	}
 	if (typeof require !== 'undefined') {
 		try {
+			// eslint-disable-next-line @typescript-eslint/no-require-imports
 			const { webcrypto } = require('crypto');
 			return webcrypto.subtle;
 		} catch (e) {
@@ -149,8 +150,8 @@ export class FormatFacturXService
 
 	private attachFiles(pdfDoc: PDFDocument, options: InvoiceServiceOptions) {
 		for (const attachment of options.attachments) {
-			pdfDoc.attach(attachment.file.buffer, attachment.file.filename, {
-				mimeType: attachment.file.mimetype,
+			pdfDoc.attach(attachment.buffer, attachment.filename, {
+				mimeType: attachment.mimetype,
 				description: attachment.description ?? 'Supplementary file',
 				creationDate: new Date(),
 				modificationDate: new Date(),

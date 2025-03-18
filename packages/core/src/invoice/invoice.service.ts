@@ -9,7 +9,7 @@ import { ValidationService } from '../validation';
 /**
  * A container for a file used for an e-invoice.
  */
-export type InvoiceFile = {
+export type FileInfo = {
 	/**
 	 * The data of the file.
 	 */
@@ -24,16 +24,6 @@ export type InvoiceFile = {
 	 * The MIME type of the file.
 	 */
 	mimetype: string;
-};
-
-/**
- * A contain for an attachment to an invoice.
- */
-export type InvoiceAttachment = {
-	/**
-	 * The uploaded file.
-	 */
-	file: InvoiceFile;
 
 	/**
 	 * An optional ID.
@@ -58,13 +48,13 @@ export type InvoiceServiceOptions = {
 	/**
 	 * The spreadsheet data.
 	 */
-	data?: InvoiceFile;
+	data?: FileInfo;
 
 	/**
 	 * A PDF version of the invoice.  For Factur-X, either `data` or `pdf`
 	 * must be present.
 	 */
-	pdf?: InvoiceFile;
+	pdf?: FileInfo;
 
 	/**
 	 * A language identifier like "fr-ca".
@@ -74,22 +64,12 @@ export type InvoiceServiceOptions = {
 	/**
 	 * An array of supplementary attachments.
 	 */
-	attachments: InvoiceAttachment[];
+	attachments: FileInfo[];
 
 	/**
 	 * Set to invoice description if invoice should be embedded.
 	 */
 	embedPDF?: boolean;
-
-	/**
-	 * ID for an embedded PDF, defaults to the document id.
-	 */
-	pdfID?: string;
-
-	/**
-	 * Description for the embedded PDF.
-	 */
-	pdfDescription?: string;
 
 	/**
 	 * Path to LibreOffice executable.

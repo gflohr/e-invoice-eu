@@ -98,7 +98,7 @@ export class FormatUBLService
 		}
 
 		const ref: ADDITIONALSUPPORTINGDOCUMENTS = {
-			'cbc:ID': options.pdfID ?? invoice['ubl:Invoice']['cbc:ID'],
+			'cbc:ID': options.pdf?.id ?? invoice['ubl:Invoice']['cbc:ID'],
 			'cac:Attachment': {
 				'cbc:EmbeddedDocumentBinaryObject': pdf.toString('base64'),
 				'cbc:EmbeddedDocumentBinaryObject@filename': filename,
@@ -106,8 +106,8 @@ export class FormatUBLService
 			},
 		};
 
-		if (typeof options.pdfDescription !== 'undefined') {
-			ref['cbc:DocumentDescription'] = options.pdfDescription;
+		if (typeof options.pdf?.description !== 'undefined') {
+			ref['cbc:DocumentDescription'] = options.pdf.description;
 		}
 		invoice['ubl:Invoice']['cac:AdditionalDocumentReference'] ??= [];
 		invoice['ubl:Invoice']['cac:AdditionalDocumentReference'].push(ref);
@@ -124,21 +124,20 @@ export class FormatUBLService
 		]);
 
 		for (const attachment of options.attachments) {
-			const mimeType: AttachedDocumentMimeCode = attachment.file
-				.mimetype as AttachedDocumentMimeCode;
+			const mimeType: AttachedDocumentMimeCode = attachment.mimetype as AttachedDocumentMimeCode;
 			if (!validMimeCodes.has(mimeType)) {
 				throw new Error(
 					`The attachment MIME type '${mimeType}' is not allowed!`,
 				);
 			}
-			const filename = attachment.file.filename;
+			const filename = attachment.filename;
 			const id = attachment.id ?? filename;
 
 			const ref: ADDITIONALSUPPORTINGDOCUMENTS = {
 				'cbc:ID': id,
 				'cac:Attachment': {
 					'cbc:EmbeddedDocumentBinaryObject':
-						attachment.file.buffer.toString('base64'),
+						attachment.buffer.toString('base64'),
 					'cbc:EmbeddedDocumentBinaryObject@filename': filename,
 					'cbc:EmbeddedDocumentBinaryObject@mimeCode': mimeType,
 				},

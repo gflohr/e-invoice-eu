@@ -1,10 +1,9 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"declaration": false,
-		"outDir": "dist",
-		"paths": {}
-	},
-	"include": ["src/**/*"],
-	"exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
+		"module": "NodeNext",
+		"moduleResolution": "nodenext",
+		"paths": {},
+		"typeRoots": ["node_modules/@types"]
+	}
 }

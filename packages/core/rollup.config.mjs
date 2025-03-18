@@ -32,7 +32,7 @@ export default [
 			}),
 			json(),
 			nodePolyfills({ sourceMap: true }),
-			resolve({ preferBuiltins: true }),
+			resolve({ preferBuiltins: true, browser: true }),
 			commonjs(),
 			typescript({
 				exclude: 'src/**/*.spec.ts',
@@ -60,7 +60,7 @@ export default [
 			}),
 			json(),
 			nodePolyfills({ sourceMap: true }),
-			resolve({ preferBuiltins: true }),
+			resolve({ preferBuiltins: true, browser: true }),
 			commonjs(),
 			typescript({
 				exclude: 'src/**/*.spec.ts',

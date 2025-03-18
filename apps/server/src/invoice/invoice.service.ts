@@ -81,8 +81,6 @@ export class InvoiceService {
 			lang: options.lang,
 			attachments: [],
 			embedPDF: options.embedPDF,
-			pdfID: options.pdfID,
-			pdfDescription: options.pdfDescription,
 		};
 
 		if (options.data) {
@@ -98,16 +96,18 @@ export class InvoiceService {
 				buffer: options.pdf.buffer,
 				filename: options.pdf.originalname,
 				mimetype: options.pdf.mimetype,
+				id: options.pdfID,
+				description: options.pdfDescription,
 			};
 		}
 
 		for (const attachment of options.attachments) {
 			coreOptions.attachments.push({
-				file: {
-					buffer: attachment.file.buffer,
-					filename: attachment.file.originalname,
-					mimetype: attachment.file.mimetype,
-				},
+				buffer: attachment.file.buffer,
+				filename: attachment.file.originalname,
+				mimetype: attachment.file.mimetype,
+				id: attachment.id,
+				description: attachment.description,
 			});
 		}
 

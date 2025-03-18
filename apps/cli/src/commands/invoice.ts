@@ -2,7 +2,7 @@
 // Invoice interface in a normal fashion.
 import {
 	Invoice as CoreInvoice,
-	InvoiceFile,
+	FileInfo,
 	InvoiceService,
 	InvoiceServiceOptions,
 	MappingService,
@@ -14,7 +14,7 @@ import * as yaml from 'js-yaml';
 import { lookup } from 'mime-types';
 import * as os from 'os';
 import * as path from 'path';
-import yargs, { InferredOptionTypes } from 'yargs';
+import yargs, { config, InferredOptionTypes } from 'yargs';
 
 import { Command } from '../command';
 import { coerceOptions, OptSpec } from '../optspec';
@@ -216,19 +216,13 @@ export class Invoice implements Command {
 		configOptions: ConfigOptions,
 	) {
 		if (configOptions.pdf) {
-			const invoiceFile: InvoiceFile = {
+			options.pdf = {
 				buffer: await fs.readFile(configOptions.pdf as string),
 				filename: path.basename(configOptions.pdf as string),
 				mimetype: 'application/pdf',
+				id: configOptions['pdf-id'] as string,
+				description: configOptions['pdf-id'] as string,
 			};
-
-			options.pdf = invoiceFile;
-			if (typeof configOptions['pdf-id'] !== 'undefined') {
-				options.pdfID = configOptions['pdf-id'] as string;
-			}
-			if (typeof configOptions['pdf-description'] !== 'undefined') {
-				options.pdfID = configOptions['pdf-description'] as string;
-			}
 
 			options.embedPDF = !!configOptions['embed-pdf'];
 		}
@@ -271,14 +265,10 @@ export class Invoice implements Command {
 				);
 			}
 
-			const file: InvoiceFile = {
+			options.attachments.push({
 				buffer: await fs.readFile(filename),
 				filename: basename,
 				mimetype,
-			};
-
-			options.attachments.push({
-				file,
 				id: configOptions['attachment-id']?.[i],
 				description: configOptions['attachment-description']?.[i],
 			});

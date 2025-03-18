@@ -146,7 +146,6 @@ TODO!
 1) Types InvoiceFile and InvoiceAttachment are actually the same. Remove type InvoiceFile!
 2) The `attachments` should not be mandatory but default to an empty array.
 3) Rename type `InvoiceAttachment` to type `Attachment`.
-4) Invoking LibreOffice in the browser cannot work.
 
 ## Copyright
 
