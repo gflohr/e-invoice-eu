@@ -35,9 +35,9 @@ describe('MappingService', () => {
 		const result = service.transform(format, yamlMapping, dataBuffer);
 
 		expect(coreMappingServiceMock.transform).toHaveBeenCalledWith(
+			dataBuffer,
 			format,
 			yamlMapping,
-			dataBuffer,
 		);
 		expect(result).toBe(mockInvoice);
 	});

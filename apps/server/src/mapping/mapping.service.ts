@@ -11,14 +11,12 @@ export class MappingService {
 	private readonly logger = new Logger(MappingService.name);
 
 	constructor() {
-		this.mappingService = new CoreMappingService(
-			this.logger,
-		);
+		this.mappingService = new CoreMappingService(this.logger);
 	}
 
 	transform(format: string, mapping: string, dataBuffer: Buffer): Invoice {
 		const mappingData = yaml.load(mapping);
 
-		return this.mappingService.transform(format, mappingData, dataBuffer);
+		return this.mappingService.transform(dataBuffer, format, mappingData);
 	}
 }
