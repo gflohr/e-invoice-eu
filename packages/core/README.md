@@ -1,6 +1,6 @@
 <p align="center">
 	<img
-		src="./assets/e-invoice-eu-logo-2.webp"
+		src="../../assets/e-invoice-eu-logo-2.webp"
 		width="256" height="256" />
 </p>
 
@@ -27,17 +27,17 @@ use it as their foundation.
 - [Documentation](#documentation)
 - [Installation](#installation)
 - [Usage](#usage)
-  - [Importing/Requiring the Library](#importingrequiring-the-library)
-  - [Creating Invoice Data from Spreadsheet Files](#creating-invoice-data-from-spreadsheet-files)
-  - [Generating an Invoice from Data in the Internal Format](#generating-an-invoice-from-data-in-the-internal-format)
-    - [Argument `format`](#argument-format)
-    - [Argument `lang`](#argument-lang)
-    - [Argument `embedPDF`](#argument-embedpdf)
-    - [Argument `pdf`](#argument-pdf)
-    - [Argument `data`](#argument-data)
-    - [Argument `attachments`](#argument-attachments)
-  - [Getting Supported Formats](#getting-supported-formats)
-  - [Getting the JSON Schema Definitions](#getting-the-json-schema-definitions)
+	- [Importing/Requiring the Library](#importingrequiring-the-library)
+	- [Creating Invoice Data from Spreadsheet Files](#creating-invoice-data-from-spreadsheet-files)
+	- [Generating an Invoice from Data in the Internal Format](#generating-an-invoice-from-data-in-the-internal-format)
+		- [Argument `format`](#argument-format)
+		- [Argument `lang`](#argument-lang)
+		- [Argument `embedPDF`](#argument-embedpdf)
+		- [Argument `pdf`](#argument-pdf)
+		- [Argument `data`](#argument-data)
+		- [Argument `attachments`](#argument-attachments)
+	- [Getting Supported Formats](#getting-supported-formats)
+	- [Getting the JSON Schema Definitions](#getting-the-json-schema-definitions)
 - [Copyright](#copyright)
 - [Disclaimer](#disclaimer)
 

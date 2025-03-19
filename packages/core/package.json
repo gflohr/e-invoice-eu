@@ -37,7 +37,7 @@
 		"lint:fix": "eslint --fix './src/**/*.ts'",
 		"lint:fix-dry-run": "eslint --fix-dry-run './src/**/*.ts'",
 		"lint:staged": "lint-staged",
-		"typedoc": "typedoc --tsconfig tsconfig.build.json --out ../docs/api-docs --excludeNotDocumented --excludePrivate --excludeProtected src/index.ts",
+		"typedoc": "typedoc src/index.ts && node patch-image.mjs",
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:cov": "jest --coverage",

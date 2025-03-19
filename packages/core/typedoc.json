@@ -1,4 +1,9 @@
 {
 	"plugin": ["typedoc-material-theme"],
-	"themeColor": "#3f7bca"
+	"themeColor": "#3f7bca",
+	"tsconfig": "tsconfig.build.json",
+	"out": "../docs/api-docs",
+	"excludeNotDocumented": true,
+	"excludePrivate": true,
+	"excludeProtected": true
 }
