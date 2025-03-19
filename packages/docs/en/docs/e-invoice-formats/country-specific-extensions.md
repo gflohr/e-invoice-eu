@@ -4,8 +4,11 @@ name: country-specific-extensions
 section: e-invoice-formats
 description: Member states may define their own extensions to the standard in the form of Core Invoice Usage Specifications (CIUS)
 ---
+
 <!--qgoda-no-xgettext-->
+
 [% USE q = Qgoda %]
+
 <!--/qgoda-no-xgettext-->
 
 You may expect from an e-invoice standard like EN16931 that it
@@ -34,9 +37,11 @@ Both [% q.lanchor(name='ubl') %] and [% q.lanchor(name='cii') %] require the
 presence of a so-called [customization ID](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-CustomizationID/). The customization ID is an opaque string like this:
 
 <!--qgoda-no-xgettext-->
+
 ```
 urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0
 ```
+
 <!--/qgoda-no-xgettext-->
 
 It identifies a particular flavour of the e-invoice.
@@ -46,9 +51,11 @@ example the alias "XRechnung" for the German extension automatically sets
 the customization id of the document to this:
 
 <!--qgoda-no-xgettext-->
+
 ```
 urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0
 ```
+
 <!--/qgoda-no-xgettext-->
 
 If you want to produce a flavour that is not directly supported by

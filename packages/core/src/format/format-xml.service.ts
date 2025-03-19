@@ -58,6 +58,11 @@ export class FormatXMLService {
 			throw new Error('LibreOffice path is required for conversion to PDF!');
 		}
 
-		return await renderSpreadsheet(options.data.filename, options.data.buffer, libreoffice, this.logger);
+		return await renderSpreadsheet(
+			options.data.filename,
+			options.data.buffer,
+			libreoffice,
+			this.logger,
+		);
 	}
 }

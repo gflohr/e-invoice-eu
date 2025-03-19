@@ -87,7 +87,10 @@ export class FormatUBLService
 			const normalized = options.data.filename.replace(/\\/g, '/');
 			const lastSlashIndex = normalized.lastIndexOf('/');
 			const lastDotIndex = normalized.lastIndexOf('.');
-			const name = lastDotIndex > lastSlashIndex ? normalized.substring(lastSlashIndex + 1, lastDotIndex) : normalized;
+			const name =
+				lastDotIndex > lastSlashIndex
+					? normalized.substring(lastSlashIndex + 1, lastDotIndex)
+					: normalized;
 
 			filename = name + '.pdf';
 		} else {
@@ -124,7 +127,8 @@ export class FormatUBLService
 		]);
 
 		for (const attachment of options.attachments || []) {
-			const mimeType: AttachedDocumentMimeCode = attachment.mimetype as AttachedDocumentMimeCode;
+			const mimeType: AttachedDocumentMimeCode =
+				attachment.mimetype as AttachedDocumentMimeCode;
 			if (!validMimeCodes.has(mimeType)) {
 				throw new Error(
 					`The attachment MIME type '${mimeType}' is not allowed!`,

@@ -141,7 +141,8 @@ describe('Invoice Command', () => {
 				type: 'string',
 				demandOption: false,
 				default: guessLibreOfficePath(),
-				describe: 'path to LibreOffice executable, mandatory if PDF creation is requested',
+				describe:
+					'path to LibreOffice executable, mandatory if PDF creation is requested',
 			},
 		});
 	});

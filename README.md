@@ -28,8 +28,8 @@ JSON.
 - [Test](#test)
 - [Running in a Container](#running-in-a-container)
 - [BUGS](#bugs)
-	- [Report a Bug](#report-a-bug)
-	- [PDF/A](#pdfa)
+  - [Report a Bug](#report-a-bug)
+  - [PDF/A](#pdfa)
 - [Copyright](#copyright)
 - [Disclaimer](#disclaimer)
 

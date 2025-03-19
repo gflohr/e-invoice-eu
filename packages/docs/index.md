@@ -11,6 +11,7 @@ scripts: [/js/negotiate-language.js]
 name: 'language-negotiator'
 multilang: false
 ---
+
 <!--qgoda-no-xgettext-->
 <script>
 var lingua,

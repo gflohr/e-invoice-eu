@@ -4,6 +4,7 @@ name: e-invoice-eu-library
 section: other
 description: The JavaScript/TypeScript library `@e-invoice-eu/core` can be used to deeply integrate the logic into your own applications.
 ---
+
 [% USE q = Qgoda %]
 Both the commandline tool `e-invoice-eu` and the
 [web service]([% q.llink(name='deployment') %]) use a common library

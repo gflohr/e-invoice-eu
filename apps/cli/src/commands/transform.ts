@@ -56,7 +56,10 @@ export class Transform implements Command {
 
 	private async doRun(configOptions: ConfigOptions) {
 		const data = await fs.readFile(configOptions.data as string);
-		const yamlData = await fs.readFile(configOptions.mapping as string, 'utf-8');
+		const yamlData = await fs.readFile(
+			configOptions.mapping as string,
+			'utf-8',
+		);
 		const mapping = yaml.load(yamlData);
 
 		const mappingService = new MappingService(console);

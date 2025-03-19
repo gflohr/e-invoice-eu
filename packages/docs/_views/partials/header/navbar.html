@@ -1,5 +1,4 @@
-[% USE gtx = Gettext('net.qgoda.www', asset.lingua) %]
-[% USE q = Qgoda %]
+[% USE gtx = Gettext('net.qgoda.www', asset.lingua) %] [% USE q = Qgoda %]
 <nav class="navbar navbar-expand-md navbar-dark bg-warning">
 	<button
 		class="navbar-toggler"
@@ -18,8 +17,12 @@
 			href="[% q.llink(name='documentation') %]"
 			title="[% gtx.gettext('E-Invoice-EU Documentation') %]"
 		>
-			<img src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"=
-				alt="E-Invoice-EU logo" height="80" />
+			<img
+				src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"
+				="alt"
+				="E-Invoice-EU logo"
+				height="80"
+			/>
 		</a>
 	</div>
 	<div class="collapse navbar-collapse" id="navbarCollapse">

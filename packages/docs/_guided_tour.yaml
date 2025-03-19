@@ -2,8 +2,27 @@
 doc:
   sections:
     - ['basics', 'general-mode-of-operation', 'supported-formats', 'disclaimer']
-    - ['e-invoice-formats', 'hybrid-vs-xml', 'ubl', 'cii', 'factur-x-zugferd', 'country-specific-extensions']
+    - [
+        'e-invoice-formats',
+        'hybrid-vs-xml',
+        'ubl',
+        'cii',
+        'factur-x-zugferd',
+        'country-specific-extensions',
+      ]
     - ['cli', 'installation', 'getting-help']
-    - ['service', 'deployment', 'creating-invoices', 'other-endpoints', 'api-documentation']
+    - [
+        'service',
+        'deployment',
+        'creating-invoices',
+        'other-endpoints',
+        'api-documentation',
+      ]
     - ['details', 'internal-format', 'mapping', 'validation']
-    - ['other', 'e-invoice-eu-library', 'business-terms', 'business-groups', 'faq']
+    - [
+        'other',
+        'e-invoice-eu-library',
+        'business-terms',
+        'business-groups',
+        'faq',
+      ]

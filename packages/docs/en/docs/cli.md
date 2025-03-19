@@ -1,5 +1,5 @@
 ---
 title: Commandline Tool
 name: cli
-virtual: 1 
+virtual: 1
 ---

@@ -377,7 +377,10 @@ blockquote {
 	background-size: 20px !important;
 	border: 1px solid #e2e2e3 !important;
 	border-radius: 4px !important;
-	transition: border-color .25s,background-color .25s,opacity .25s !important;
+	transition:
+		border-color 0.25s,
+		background-color 0.25s,
+		opacity 0.25s !important;
 }
 
 .copy-to-clipboard-button span {
@@ -389,7 +392,7 @@ blockquote {
 	background-color: white !important;
 }
 
-button.copy-to-clipboard-button[data-copy-state="copy-success"] {
+button.copy-to-clipboard-button[data-copy-state='copy-success'] {
 	background-image: var(--qgoda-icon-copied) !important;
 	background-color: white !important;
 	border: 1px solid #e2e2e3 !important;
@@ -423,7 +426,7 @@ code-tabs input {
 	pointer-events: none;
 }
 
-code-tabs input:checked+label {
+code-tabs input:checked + label {
 	color: #3c3c43;
 }
 
@@ -438,12 +441,12 @@ code-tabs label {
 	font-weight: 500;
 	white-space: nowrap;
 	cursor: pointer;
-	transition: color .25s;
+	transition: color 0.25s;
 	color: #67676c;
-	transition: border-bottom .25s;
+	transition: border-bottom 0.25s;
 }
 
-code-tabs input:checked+label {
+code-tabs input:checked + label {
 	border-bottom: 2px solid #3451b2;
 }
 
@@ -454,4 +457,3 @@ code-block {
 code-block.active {
 	display: block;
 }
-

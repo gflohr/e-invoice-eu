@@ -1,5 +1,5 @@
 ---
 title: E-invoice Formats
 name: e-invoice-formats
-virtual: 1 
+virtual: 1
 ---

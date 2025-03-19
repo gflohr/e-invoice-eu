@@ -47,7 +47,7 @@ export const safeStdoutBufferWrite = async (output: Buffer) => {
 		const canContinue = process.stdout.write(chunk);
 
 		if (!canContinue) {
-			await once(process.stdout, "drain");
+			await once(process.stdout, 'drain');
 		}
 
 		offset += CHUNK_SIZE;
