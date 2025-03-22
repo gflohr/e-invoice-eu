@@ -53,7 +53,7 @@ describe('Invoice Command', () => {
 				type: 'string',
 				conflicts: ['mapping'],
 				demandOption: false,
-				describe: 'invoice data as JSON, mandatory for json data input',
+				describe: 'JSON file with invoice data, mandatory for json data input',
 			},
 			mapping: {
 				group: 'Input data',

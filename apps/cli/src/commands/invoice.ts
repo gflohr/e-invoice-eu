@@ -99,7 +99,9 @@ const options: {
 		type: 'string',
 		conflicts: ['mapping'],
 		demandOption: false,
-		describe: gtx._('invoice data as JSON, mandatory for json data input'),
+		describe: gtx._(
+			'JSON file with invoice data, mandatory for json data input',
+		),
 	},
 	mapping: {
 		group: gtx._('Input data'),
