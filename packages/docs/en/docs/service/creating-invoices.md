@@ -69,7 +69,7 @@ software. All you have to do is to replace
 
 ### Basic E-invoice
 
-In its most simple form, you can create an e-invoice from the spreadsheet data
+In its most simple form, you can create an e-invoice from spreadsheet data
 like this:
 
 <!--qgoda-no-xgettext-->
@@ -107,7 +107,7 @@ The invoice data (parameter `data`) is read from the spreadsheet file
 
 It is possible to attach files with additional information. This works
 both for pure XML formats and for hybrid Factur-X/ZUGFeRD e-invoices. The
-example creates a Factur-X Extended invoice with two attachments:
+example creates a Factur-X Extended invoice with three attachments:
 
 <!--qgoda-no-xgettext-->
 
@@ -154,16 +154,19 @@ http --form POST http://localhost:3000/api/invoice/create/UBL \
 
 Let us break that down into the individual URL parameters sent:
 
-- `lang`: This is used to determine the language for some canned texts.
-- `data`: The spreadsheet with the invoice data.
-- `mapping`: The [mapping definition]([% q.llink(name='mapping') %]) for the invoice data.
-- `embedPDF`: Embed a PDF version of the e-invoice in the XML; ignored for Factur-X/ZUGFeRD.
-- `pdf`: The PDF version of the e-invoice. If embedding a PDF was requested but the parameter `pdf` is missing, the PDF is generated from the spreadsheet file (parameter `data`).
-- `pdfID`: The attachment id of the embedded PDF, defaults to the filename.
-- `pdfDescription`: An optional description of that attachment.
-- `attachment`: Optionally, an additional file to be embedded.
-- `attachmentID`: Optionally, the id of the attachment, defaults to the filename.
-- `attachmentDescription`: An optional description of the attachment.
+- <!--qgoda-no-xgettext-->`lang`<!--/qgoda-no-xgettext-->: This is used to determine the language for some canned texts.
+- <!--qgoda-no-xgettext-->`data`<!--/qgoda-no-xgettext-->: The spreadsheet with the invoice data.
+- <!--qgoda-no-xgettext-->`mapping`<!--/qgoda-no-xgettext-->: The [mapping definition]([% q.llink(name='mapping') %]) for the invoice data.
+- <!--qgoda-no-xgettext-->`embedPDF`<!--/qgoda-no-xgettext-->: Embed a PDF version of the e-invoice in the XML; ignored for Factur-X/ZUGFeRD.
+- <!--qgoda-no-xgettext-->`pdf`<!--/qgoda-no-xgettext-->: The PDF version of the e-invoice. If embedding a PDF was requested but the parameter `pdf` is missing, the PDF is generated from the spreadsheet file (parameter `data`).
+- <!--qgoda-no-xgettext-->`pdfID`<!--/qgoda-no-xgettext-->: The attachment id of the embedded PDF, defaults to the filename.
+- <!--qgoda-no-xgettext-->`pdfDescription`<!--/qgoda-no-xgettext-->: An optional description of that attachment.
+- <!--qgoda-no-xgettext-->`attachment`<!--/qgoda-no-xgettext-->: Optionally, an additional file to be embedded.
+- <!--qgoda-no-xgettext-->`attachmentID`<!--/qgoda-no-xgettext-->: Optionally, the id of the attachment, defaults to the filename.
+- <!--qgoda-no-xgettext-->`attachmentDescription`<!--/qgoda-no-xgettext-->: An optional description of the attachment.
+
+The last group of parameters `attachment`, `attachmentID` is used twice for
+two additional attachments. The last attachment does not have an ID.
 
 [% title = "Generate PDF From Spreadsheet Data" %]
 
@@ -175,7 +178,8 @@ Let us break that down into the individual URL parameters sent:
 
 If the PDF is not provided with the parameter <code>pdf</code>, it is generated from
 the spreadsheet file (parameter <code>data</code>). In that case you must
-ensure that the LibreOffice executable is found. It must be either in your
+ensure that the LibreOffice executable is found. The software tries to guess
+the correct location. If that fails, it must be either in your
 <code>$PATH</code> or you have <a
 href="[% q.llink(name='deployment') %]#libre_office-code">configured its
 location</a>.

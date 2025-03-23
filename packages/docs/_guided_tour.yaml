@@ -10,7 +10,15 @@ doc:
         'factur-x-zugferd',
         'country-specific-extensions',
       ]
-    - ['cli', 'installation', 'getting-help']
+    - [
+        'cli',
+        'installation',
+        'getting-help',
+        'command-invoice',
+        'command-transform',
+        'command-format',
+        'command-schema',
+      ]
     - [
         'service',
         'deployment',

@@ -4,13 +4,10 @@ name: other-endpoints
 section: service
 description: This page describes other endpoints provided by the API
 ---
-
 <!--qgoda-no-xgettext-->
-
 [% USE q = Qgoda %]
 [% USE Highlight %]
 [% USE CodeGroup %]
-
 <!--/qgoda-no-xgettext-->
 
 <qgoda-toc/>
