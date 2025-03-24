@@ -3,7 +3,6 @@
 	"compilerOptions": {
 		"module": "NodeNext",
 		"moduleResolution": "nodenext",
-		"paths": {},
-		"typeRoots": ["node_modules/@types"]
+		"paths": {}
 	}
 }
