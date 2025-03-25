@@ -11,6 +11,18 @@
 		const formatOption = formatSelect.options[formatSelect.selectedIndex];
 		const mimeType = formatOption.dataset.mimeType;
 
+		const invoiceInput = document.querySelector('input[name="invoice-input"]:checked').value;
+		const needMapping = invoiceInput === 'spreadsheet';
+		if (needMapping) {
+			document.getElementById('mapping-file-upload').style.display = 'block';
+			document.getElementById('spreadsheet-file-upload').style.display = 'block';
+			document.getElementById('json-file-upload').style.display = 'none';
+		} else {
+			document.getElementById('mapping-file-upload').style.display = 'none';
+			document.getElementById('spreadsheet-file-upload').style.display = 'none';
+			document.getElementById('json-file-upload').style.display = 'block';
+		}
+
 		const embedPDF = document.getElementById('embed-pdf').checked;
 		const needPDF = mimeType === 'application/pdf' || embedPDF;
 		if (needPDF) {

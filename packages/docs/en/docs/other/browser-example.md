@@ -51,8 +51,8 @@ The application is structured as a wizard.
 		<label class="form-check-label" for="jsonOption">JSON</label>
 	</div>
 	<br />
-	<label>Spreadsheet file (*)</label>
-	<div class="form-group">
+	<div class="form-group" id="spreadsheet-file-upload">
+		<label>Spreadsheet file (*)</label>
 		<div class="custom-file">
 			<input type="file" class="custom-file-input" id="spreadsheet-file" required>
 			<label class="custom-file-label" for="spreadsheet-file">
@@ -66,8 +66,8 @@ The application is structured as a wizard.
 			</small>
 		</div>
 	</div>
-	<label>[% q.lanchor(name='mapping') %] (*)</label>
-	<div class="form-group">
+	<div class="form-group" id="mapping-file-upload">
+		<label>[% q.lanchor(name='mapping') %] (*)</label>
 		<div class="custom-file">
 			<input type="file" class="custom-file-input" id="mapping-file" required>
 			<label class="custom-file-label" for="mapping-file">
@@ -81,8 +81,8 @@ The application is structured as a wizard.
 			</small>
 		</div>
 	</div>
-	<label>JSON Data ([% q.lanchor(name='internal-format') %]) (*)</label>
-	<div class="form-group">
+	<div class="form-group" id="json-file-upload">
+		<label>JSON Data ([% q.lanchor(name='internal-format') %]) (*)</label>
 		<div class="custom-file">
 			<input type="file" class="custom-file-input" id="invoice-file" required>
 			<label class="custom-file-label" for="invoice-file">
