@@ -118,7 +118,7 @@ The application is structured as a wizard.
 			</small>
 		</div>
 	</div>
-	<h3>Attachments</h3>
+	<h3>Optional Attachments</h3>
 	<div class="form-group">
 		<div id="attachments-list">
 			<template id="attachment">
