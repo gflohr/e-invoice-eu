@@ -3,11 +3,23 @@
 	addUploadLabelHandlers();
 	document.getElementById('add-attachment').addEventListener('click', onAttachmentAdded);
 	document.querySelectorAll('#e-invoice-eu input, #e-invoice-eu select')
-	.forEach(element => { element.addEventListener('change', onFormChange) });
+	.forEach(element => { element.addEventListener('change', updateForm) });
+	updateForm();
 
-	function onFormChange() {
-		console.log(`Changed: ${this.name || this.id}, New Value: ${this.value}`);
-		console.log(`Embed PDF is: ${document.getElementById('embed-pdf').checked}`);
+	function updateForm() {
+		const formatSelect = document.getElementById('format');
+		const formatOption = formatSelect.options[formatSelect.selectedIndex];
+		const mimeType = formatOption.dataset.mimeType;
+
+		const embedPDF = document.getElementById('embed-pdf').checked;
+		const needPDF = mimeType === 'application/pdf' || embedPDF;
+		if (needPDF) {
+			document.getElementById('invoice-pdf-required').style.display = 'inline';
+			document.getElementById('pdf-file').setAttribute('required', 'required');
+		} else {
+			document.getElementById('invoice-pdf-required').style.display = 'none';
+			document.getElementById('pdf-file').removeAttribute('required');
+		}
 	}
 
 	function fillFormats() {

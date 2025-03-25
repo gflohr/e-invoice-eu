@@ -103,10 +103,10 @@ The application is structured as a wizard.
 			<label class="form-check-label" for="embedPDF">Embed PDF?</label>
 		</div>
 	</div>
-	<label>Invoice PDF <span id="invoice-pdf-required">(*)</span></label>
 	<div class="form-group">
+		<label>Invoice PDF <span id="invoice-pdf-required">(*)</span></label>
 		<div class="custom-file">
-			<input type="file" class="custom-file-input" id="pdf-file" required>
+			<input type="file" class="custom-file-input" id="pdf-file">
 			<label class="custom-file-label" for="ppdf-file">
 				No file selected.
 			</label>
