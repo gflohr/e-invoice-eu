@@ -28,7 +28,7 @@ The application is structured as a wizard.
 ## E-Invoice Generate Based on [E-Invoice-EU](https://github.com/gflohr/e-invoice-eu)
 
 <!--qgoda-no-xgettext-->
-<form>
+<form id="e-invoice-eu">
 	<div class="form-group">
 		<label for="format">Output format (*)</label>
 		<select id="format" class="form-control" required>
@@ -36,21 +36,21 @@ The application is structured as a wizard.
 	</div>
 	<label>Input data (*)</label>
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="invoiceInput"
-			id="spreadsheetOption" value="spreadsheet" checked>
+		<input class="form-check-input" type="radio" name="invoice-input"
+			value="spreadsheet" checked>
 		<label class="form-check-label" for="spreadsheetOption">Spreadsheet</label>
 	</div>
 	<div class="form-check">
-		<input class="form-check-input" type="radio" name="invoiceInput"
-			id="jsonOption" value="json">
+		<input class="form-check-input" type="radio" name="invoice-input"
+			value="json">
 		<label class="form-check-label" for="jsonOption">JSON</label>
 	</div>
 	<br />
 	<label>Spreadsheet file (*)</label>
 	<div class="form-group">
 		<div class="custom-file">
-			<input type="file" class="custom-file-input" id="spreadsheetFile">
-			<label class="custom-file-label" for="spreadsheetFile">
+			<input type="file" class="custom-file-input" id="spreadsheet-file" required>
+			<label class="custom-file-label" for="spreadsheet-file">
 				No file selected.
 			</label>
 			<small class="form-text text-muted">For example
@@ -64,8 +64,8 @@ The application is structured as a wizard.
 	<label>[% q.lanchor(name='mapping') %] (*)</label>
 	<div class="form-group">
 		<div class="custom-file">
-			<input type="file" class="custom-file-input" id="mappingFile">
-			<label class="custom-file-label" for="mappingFile">
+			<input type="file" class="custom-file-input" id="mapping-file" required>
+			<label class="custom-file-label" for="mapping-file">
 				No file selected.
 			</label>
 			<small class="form-text text-muted">For example
@@ -79,8 +79,8 @@ The application is structured as a wizard.
 	<label>JSON Data ([% q.lanchor(name='internal-format') %]) (*)</label>
 	<div class="form-group">
 		<div class="custom-file">
-			<input type="file" class="custom-file-input" id="invoiceFile">
-			<label class="custom-file-label" for="invoiceFile">
+			<input type="file" class="custom-file-input" id="invoice-file" required>
+			<label class="custom-file-label" for="invoice-file">
 				No file selected.
 			</label>
 			<small class="form-text text-muted">For example
@@ -92,12 +92,17 @@ The application is structured as a wizard.
 		</div>
 	</div>
 	<div class="form-group">
+		<div class="form-check">
+			<input class="form-check-input" type="checkbox" name="embed-pdf"
+				id="embed-pdf">
+			<label class="form-check-label" for="embedPDF">Embed PDF?</label>
+		</div>
 	</div>
 	<label>Invoice PDF <span id="invoice-pdf-required">(*)</span></label>
 	<div class="form-group">
 		<div class="custom-file">
-			<input type="file" class="custom-file-input" id="pdfFile">
-			<label class="custom-file-label" for="pdfFile">
+			<input type="file" class="custom-file-input" id="pdf-file" required>
+			<label class="custom-file-label" for="ppdf-file">
 				No file selected.
 			</label>
 			<small class="form-text text-muted">For example

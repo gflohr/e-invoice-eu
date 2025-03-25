@@ -2,6 +2,13 @@
 	fillFormats();
 	addUploadLabelHandlers();
 	document.getElementById('add-attachment').addEventListener('click', onAttachmentAdded);
+	document.querySelectorAll('#e-invoice-eu input, #e-invoice-eu select')
+	.forEach(element => { element.addEventListener('change', onFormChange) });
+
+	function onFormChange() {
+		console.log(`Changed: ${this.name || this.id}, New Value: ${this.value}`);
+		console.log(`Embed PDF is: ${document.getElementById('embed-pdf').checked}`);
+	}
 
 	function fillFormats() {
 		const formatFactoryService = new eInvoiceEU.FormatFactoryService();
