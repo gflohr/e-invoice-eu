@@ -34,6 +34,11 @@ The application is structured as a wizard.
 		<select id="format" class="form-control" required>
 		</select>
 	</div>
+	<label for="lang">Language code (*)</label>
+	<div class="form-group">
+		<input id="lang" name="lang" pattern="^[a-zA-Z]{2}(?:-[a-zA-Z]{2})?"
+			value="en-gb" required/>
+	</div>
 	<label>Input data (*)</label>
 	<div class="form-check">
 		<input class="form-check-input" type="radio" name="invoice-input"
