@@ -9,7 +9,7 @@
 	"homepage": "https://gflohr.github.io/e-invoice-eu",
 	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
 	"dependencies": {
-		"@e-invoice-eu/core": "workspace:*",
+		"@e-invoice-eu/core": "^1.4.4",
 		"@nestjs/common": "^10.4.15",
 		"@nestjs/config": "^3.3.0",
 		"@nestjs/core": "^10.4.15",
