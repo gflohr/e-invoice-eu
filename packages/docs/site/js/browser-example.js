@@ -19,7 +19,7 @@
 	}
 
 	function addUploadLabelHandlers() {
-		Array.from(document.getElementsByClassName('custom-file-input')).forEach(function (input) {
+		document.querySelectorAll('.custom-file-input').forEach(function (input) {
 			input.addEventListener('change', function () {
 				this.nextElementSibling.textContent = this.files.length > 0 ? this.files[0].name : 'No file selected.';
 			});
