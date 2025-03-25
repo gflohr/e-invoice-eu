@@ -23,14 +23,19 @@
 			document.getElementById('json-file-upload').style.display = 'block';
 		}
 
-		const embedPDF = document.getElementById('embed-pdf').checked;
-		const needPDF = mimeType === 'application/pdf' || embedPDF;
-		if (needPDF) {
-			document.getElementById('invoice-pdf-required').style.display = 'inline';
-			document.getElementById('pdf-file').setAttribute('required', 'required');
+		const showEmbedPDF = mimeType !== 'application/pdf';
+		if (showEmbedPDF) {
+			document.getElementById('embed-pdf-checkbox').style.display = 'block';
 		} else {
-			document.getElementById('invoice-pdf-required').style.display = 'none';
-			document.getElementById('pdf-file').removeAttribute('required');
+			document.getElementById('embed-pdf-checkbox').style.display = 'none';
+		}
+
+		const embedPDF = document.getElementById('embed-pdf').checked;
+		const needPDF = mimeType === 'application/pdf' || (embedPDF && showEmbedPDF);
+		if (needPDF) {
+			document.getElementById('pdf-file-upload').style.display = 'block';
+		} else {
+			document.getElementById('pdf-file-upload').style.display = 'none';
 		}
 	}
 

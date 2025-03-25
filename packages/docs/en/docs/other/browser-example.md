@@ -96,15 +96,15 @@ The application is structured as a wizard.
 			</small>
 		</div>
 	</div>
-	<div class="form-group">
+	<div class="form-group" id="embed-pdf-checkbox">
 		<div class="form-check">
 			<input class="form-check-input" type="checkbox" name="embed-pdf"
 				id="embed-pdf">
 			<label class="form-check-label" for="embedPDF">Embed PDF?</label>
 		</div>
 	</div>
-	<div class="form-group">
-		<label>Invoice PDF <span id="invoice-pdf-required">(*)</span></label>
+	<div class="form-group" id="pdf-file-upload">
+		<label>Invoice PDF (*)</label>
 		<div class="custom-file">
 			<input type="file" class="custom-file-input" id="pdf-file">
 			<label class="custom-file-label" for="ppdf-file">
@@ -113,7 +113,7 @@ The application is structured as a wizard.
 			<small class="form-text text-muted">For example
 				<a href="https://github.com/gflohr/e-invoice-eu/blob/main/contrib/templates/default-invoice.pdf"
 				target="_blank">
-					default-invoice.yaml
+					default-invoice.pdf
 				</a>
 			</small>
 		</div>
