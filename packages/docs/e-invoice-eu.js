@@ -1,0 +1,1 @@
+../core/dist/e-invoice-eu.js

@@ -1,22 +1,32 @@
 (() => {
-	const formatFactoryService = new eInvoiceEU.FormatFactoryService();
-	const formatOptions = document.getElementById('format');
-	const formatInfos = formatFactoryService.listFormatServices();
-	for (const formatInfo of formatInfos) {
-		const option = document.createElement('option');
-		option.value = option.textContent = formatInfo.name;
-		if (formatInfo.name === 'UBL') {
-			option.setAttribute('selected', 'selected');
+	fillFormats();
+	addUploadLabelHandlers();
+	document.getElementById('add-attachment').addEventListener('click', onAttachmentAdded);
+
+	function fillFormats() {
+		const formatFactoryService = new eInvoiceEU.FormatFactoryService();
+		const formatOptions = document.getElementById('format');
+		const formatInfos = formatFactoryService.listFormatServices();
+		for (const formatInfo of formatInfos) {
+			const option = document.createElement('option');
+			option.value = option.textContent = formatInfo.name;
+			if (formatInfo.name === 'UBL') {
+				option.setAttribute('selected', 'selected');
+			}
+			option.dataset.mimeType = formatInfo.mimeType;
+			formatOptions.appendChild(option);
 		}
-		option.dataset.mimeType = formatInfo.mimeType;
-		formatOptions.appendChild(option);
 	}
 
-	document.getElementById('attachment-file').addEventListener('change', function () {
-		document.getElementById('attachment-file-label').textContent = this.files.length > 0 ? this.files[0].name : 'No file selected.';
-	});
+	function addUploadLabelHandlers() {
+		Array.from(document.getElementsByClassName('custom-file-input')).forEach(function (input) {
+			input.addEventListener('change', function () {
+				this.nextElementSibling.textContent = this.files.length > 0 ? this.files[0].name : 'No file selected.';
+			});
+		});
+	}
 
-	document.getElementById('add-attachment').addEventListener('click', function (event) {
+	function onAttachmentAdded(event) {
 		event.preventDefault();
 
 		const fileInput = document.getElementById('attachment-file');
@@ -57,5 +67,5 @@
 		document.getElementById('attachment-id').value = '';
 		document.getElementById('attachment-description').value = '';
 		document.getElementById('attachment-mime-type').value = '';
-	});
+	}
 })();
