@@ -30,6 +30,7 @@ doc:
     - [
         'other',
         'e-invoice-eu-library',
+        'browser-example',
         'business-terms',
         'business-groups',
         'faq',

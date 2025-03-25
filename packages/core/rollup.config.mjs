@@ -44,7 +44,7 @@ export default [
 	{
 		input: 'src/index.ts',
 		output: {
-			name: 'esgettext',
+			name: 'eInvoiceEU',
 			file: './dist/e-invoice-eu.js',
 			format: 'umd',
 			sourcemap: true,
