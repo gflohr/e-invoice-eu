@@ -23,9 +23,11 @@ The form below will create an e-invoice. You can see the source code in the
 source of this page at
 https://raw.githubusercontent.com/gflohr/e-invoice-eu/refs/heads/main/packages/docs/en/docs/other/browser-example.md!
 
-The application is structured as a wizard.
+The application uses a wizard-like approach. No data is sent to a server.
+The processing of the input data and generation of the invoice happens
+entirely in your browser.
 
-## E-Invoice Generate Based on [E-Invoice-EU](https://github.com/gflohr/e-invoice-eu)
+## E-Invoice Generatition with [E-Invoice-EU](https://github.com/gflohr/e-invoice-eu)
 
 <!--qgoda-no-xgettext-->
 <form id="e-invoice-eu">
@@ -54,7 +56,8 @@ The application is structured as a wizard.
 	<div class="form-group" id="spreadsheet-file-upload">
 		<label>Spreadsheet file (*)</label>
 		<div class="custom-file">
-			<input type="file" class="custom-file-input" id="spreadsheet-file" required>
+			<input type="file" class="custom-file-input" id="spreadsheet-file"
+				name="spreadsheet-file" required>
 			<label class="custom-file-label" for="spreadsheet-file">
 				No file selected.
 			</label>
@@ -69,7 +72,8 @@ The application is structured as a wizard.
 	<div class="form-group" id="mapping-file-upload">
 		<label>[% q.lanchor(name='mapping') %] (*)</label>
 		<div class="custom-file">
-			<input type="file" class="custom-file-input" id="mapping-file" required>
+			<input type="file" class="custom-file-input" id="mapping-file"
+				name="mapping-file" required>
 			<label class="custom-file-label" for="mapping-file">
 				No file selected.
 			</label>
@@ -81,10 +85,11 @@ The application is structured as a wizard.
 			</small>
 		</div>
 	</div>
-	<div class="form-group" id="json-file-upload">
+	<div class="form-group" id="invoice-file-upload">
 		<label>JSON Data ([% q.lanchor(name='internal-format') %]) (*)</label>
 		<div class="custom-file">
-			<input type="file" class="custom-file-input" id="invoice-file" required>
+			<input type="file" class="custom-file-input" id="invoice-file"
+				name="invoice-file" required>
 			<label class="custom-file-label" for="invoice-file">
 				No file selected.
 			</label>
@@ -106,8 +111,9 @@ The application is structured as a wizard.
 	<div class="form-group" id="pdf-file-upload">
 		<label>Invoice PDF (*)</label>
 		<div class="custom-file">
-			<input type="file" class="custom-file-input" id="pdf-file">
-			<label class="custom-file-label" for="ppdf-file">
+			<input type="file" class="custom-file-input" id="pdf-file"
+				name="pdf-file">
+			<label class="custom-file-label" for="pdf-file">
 				No file selected.
 			</label>
 			<small class="form-text text-muted">For example
@@ -137,7 +143,8 @@ The application is structured as a wizard.
 		</div>
 		<label>File</label>
 		<div class="custom-file">
-			<input type="file" class="custom-file-input" id="attachment-file">
+			<input type="file" class="custom-file-input" id="attachment-file"
+				name="attachment-file">
 			<label class="custom-file-label" for="attachment-file" id="attachment-file-label">
 				No file selected.
 			</label>
@@ -152,7 +159,10 @@ The application is structured as a wizard.
 		<input id="attachment-mime-type" class="form-control"
 			placeholder="Optional MIME type"></input>
 	</div>
-	<button class="btn btn-primary" id="add-attachment">Add attachment</button>
+	<div class="d-flex justify-content-between">
+		<button class="btn btn-primary btn-sm" id="add-attachment">Add another attachment</button>
+		<button class="btn btn-primary ml-auto" id="generate-invoice" type="submit">Generate invoice</button>
+	</div>
 </form>
 <script src="/e-invoice-eu/e-invoice-eu.js"></script>
 <!--/qgoda-no-xgettext-->

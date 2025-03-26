@@ -1,4 +1,20 @@
+class BootstrapLogger {
+	log(msg) {
+		console.log(msg);
+	}
+
+	warn(msg) {
+		console.warn(msg);
+	}
+
+	error(msg) {
+		console.error(msg);
+	}
+}
+
 (() => {
+	const logger = new BootstrapLogger();
+
 	fillFormats();
 	addUploadLabelHandlers();
 	document.getElementById('add-attachment').addEventListener('click', onAttachmentAdded);
@@ -15,12 +31,18 @@
 		const needMapping = invoiceInput === 'spreadsheet';
 		if (needMapping) {
 			document.getElementById('mapping-file-upload').style.display = 'block';
+			document.getElementById('mapping-file').required = true;
 			document.getElementById('spreadsheet-file-upload').style.display = 'block';
-			document.getElementById('json-file-upload').style.display = 'none';
+			document.getElementById('spreadsheet-file').required = true;
+			document.getElementById('invoice-file-upload').style.display = 'none';
+			document.getElementById('invoice-file').required = false;
 		} else {
 			document.getElementById('mapping-file-upload').style.display = 'none';
+			document.getElementById('mapping-file').required = false;
 			document.getElementById('spreadsheet-file-upload').style.display = 'none';
-			document.getElementById('json-file-upload').style.display = 'block';
+			document.getElementById('spreadsheet-file').required = false;
+			document.getElementById('invoice-file-upload').style.display = 'block';
+			document.getElementById('invoice-file').required = true;
 		}
 
 		const showEmbedPDF = mimeType !== 'application/pdf';
@@ -37,6 +59,49 @@
 		} else {
 			document.getElementById('pdf-file-upload').style.display = 'none';
 		}
+
+		const submitButton = document.getElementById('generate-invoice');
+		submitButton.disabled = !checkFormComplete(mimeType, invoiceInput);
+
+		const attachButton = document.getElementById('add-attachment');
+		if (checkAttachmentComplete()) {
+			attachButton.style.display = 'block';
+		} else {
+			attachButton.style.display = 'none';
+		}
+	}
+
+	function checkAttachmentComplete() {
+		if (!document.getElementById('attachment-file').files[0]) {
+			return false;
+		}
+
+		// FIXME! Check that ID, description, and MIME type are set, when
+		// needed.
+
+		return true;
+	}
+
+	function checkFormComplete(mimeType, invoiceInput) {
+		if (mimeType === 'application/pdf'
+			|| document.getElementById('embed-pdf').checked) {
+			return false;
+		}
+
+		if (invoiceInput === 'spreadsheet') {
+			if (!document.getElementById('spreadsheet-file').files[0]) {
+				return false;
+			}
+			if (!document.getElementById('mapping-file').files[0]) {
+				return false;
+			}
+		} else {
+			if (!document.getElementById('invoice-file').files[0]) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	function fillFormats() {
