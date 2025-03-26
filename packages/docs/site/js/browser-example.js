@@ -13,13 +13,19 @@ class BootstrapLogger {
 }
 
 (() => {
-	const logger = new BootstrapLogger();
-
 	fillFormats();
 	addUploadLabelHandlers();
-	document.getElementById('add-attachment').addEventListener('click', onAttachmentAdded);
-	document.querySelectorAll('#e-invoice-eu input, #e-invoice-eu select')
-	.forEach(element => { element.addEventListener('change', updateForm) });
+	document
+		.getElementById('generate-invoice')
+		.addEventListener('click', onGenerateInvoice);
+	document
+		.getElementById('add-attachment')
+		.addEventListener('click', onAttachmentAdded);
+	document
+		.querySelectorAll('#e-invoice-eu input, #e-invoice-eu select')
+		.forEach(element => {
+			element.addEventListener('change', updateForm);
+		});
 	updateForm();
 
 	function updateForm() {
@@ -27,12 +33,15 @@ class BootstrapLogger {
 		const formatOption = formatSelect.options[formatSelect.selectedIndex];
 		const mimeType = formatOption.dataset.mimeType;
 
-		const invoiceInput = document.querySelector('input[name="invoice-input"]:checked').value;
+		const invoiceInput = document.querySelector(
+			'input[name="invoice-input"]:checked',
+		).value;
 		const needMapping = invoiceInput === 'spreadsheet';
 		if (needMapping) {
 			document.getElementById('mapping-file-upload').style.display = 'block';
 			document.getElementById('mapping-file').required = true;
-			document.getElementById('spreadsheet-file-upload').style.display = 'block';
+			document.getElementById('spreadsheet-file-upload').style.display =
+				'block';
 			document.getElementById('spreadsheet-file').required = true;
 			document.getElementById('invoice-file-upload').style.display = 'none';
 			document.getElementById('invoice-file').required = false;
@@ -53,7 +62,8 @@ class BootstrapLogger {
 		}
 
 		const embedPDF = document.getElementById('embed-pdf').checked;
-		const needPDF = mimeType === 'application/pdf' || (embedPDF && showEmbedPDF);
+		const needPDF =
+			mimeType === 'application/pdf' || (embedPDF && showEmbedPDF);
 		if (needPDF) {
 			document.getElementById('pdf-file-upload').style.display = 'block';
 		} else {
@@ -83,8 +93,10 @@ class BootstrapLogger {
 	}
 
 	function checkFormComplete(mimeType, invoiceInput) {
-		if (mimeType === 'application/pdf'
-			|| document.getElementById('embed-pdf').checked) {
+		if (
+			mimeType === 'application/pdf' ||
+			document.getElementById('embed-pdf').checked
+		) {
 			return false;
 		}
 
@@ -122,7 +134,8 @@ class BootstrapLogger {
 	function addUploadLabelHandlers() {
 		document.querySelectorAll('.custom-file-input').forEach(function (input) {
 			input.addEventListener('change', function () {
-				this.nextElementSibling.textContent = this.files.length > 0 ? this.files[0].name : 'No file selected.';
+				this.nextElementSibling.textContent =
+					this.files.length > 0 ? this.files[0].name : 'No file selected.';
 			});
 		});
 	}
@@ -132,7 +145,8 @@ class BootstrapLogger {
 
 		const fileInput = document.getElementById('attachment-file');
 		const fileLabel = fileInput.nextElementSibling;
-		const fileName = fileInput.files.length > 0 ? fileInput.files[0].name : 'No file selected';
+		const fileName =
+			fileInput.files.length > 0 ? fileInput.files[0].name : 'No file selected';
 		const attachmentId = document.getElementById('attachment-id').value;
 		const description = document.getElementById('attachment-description').value;
 		const mimeType = document.getElementById('attachment-mime-type').value;
@@ -157,9 +171,11 @@ class BootstrapLogger {
 		const wrapper = document.createElement('div');
 		wrapper.appendChild(clone);
 
-		wrapper.querySelector('.delete-attachment').addEventListener('click', function () {
-			wrapper.remove();
-		});
+		wrapper
+			.querySelector('.delete-attachment')
+			.addEventListener('click', function () {
+				wrapper.remove();
+			});
 
 		container.appendChild(wrapper);
 
@@ -168,5 +184,31 @@ class BootstrapLogger {
 		document.getElementById('attachment-id').value = '';
 		document.getElementById('attachment-description').value = '';
 		document.getElementById('attachment-mime-type').value = '';
+	}
+
+	function onGenerateInvoice(event) {
+		event.preventDefault();
+
+		try {
+			const invoiceInput = document.querySelector(
+				'input[name="invoice-input"]:checked',
+			).value;
+			if (invoiceInput === 'spreadsheet') {
+				//const mappingService = new eInvoiceEU.MappingSErvice();
+				console.log('must map data');
+			}
+			//const logger = new BootstrapLogger();
+
+			//const invoiceService = new eInvoiceEU.InvoiceService({
+
+			//});
+
+			throw new Error('did not work');
+		} catch (e) {
+			// Yuck! Upgrade to Bootstrap 5 so that we can make do without
+			// jQuery.
+			$('#error-message').text(e.message);
+			$('#dialog').modal('show');
+		}
 	}
 })();
