@@ -1,18 +1,4 @@
-class BootstrapLogger {
-	log(msg) {
-		console.log(msg);
-	}
-
-	warn(msg) {
-		console.warn(msg);
-	}
-
-	error(msg) {
-		console.error(msg);
-	}
-}
-
-(() => {
+(async () => {
 	fillFormats();
 	addUploadLabelHandlers();
 	document
@@ -27,6 +13,43 @@ class BootstrapLogger {
 			element.addEventListener('change', updateForm);
 		});
 	updateForm();
+
+	function onGenerateInvoice(event) {
+		event.preventDefault();
+
+		try {
+			const invoiceInput = document.querySelector(
+				'input[name="invoice-input"]:checked',
+			).value;
+
+			let invoice;
+
+			if (invoiceInput === 'spreadsheet') {
+				const formatSelect = document.getElementById('format');
+				const formatOption = formatSelect.options[formatSelect.selectedIndex];
+				const format = formatOption.value;
+
+				const mappingReader = new FileReader();
+				const mappingYAML = mappingReader.readAsText(document.getElementById('mapping-file').files[0]);
+				console.log(mappingYAML);
+				const mapping = jsyaml.load(mappingYAML);
+				console.log(mapping);
+				const spreadsheetReader = new FileReader();
+				const spreadsheet = spreadsheetReader.readAsArrayBuffer(document.getElementById('spreadsheet-file').files[0]);
+
+				const mappingService = new eInvoiceEU.MappingService(console);
+				invoice = mappingService.transform(spreadsheet, mapping, format);
+
+				console.log(invoice);
+			}
+		} catch (e) {
+			// Yuck! Upgrade to Bootstrap 5 so that we can make do without
+			// jQuery.
+			$('#error-message').text(e.message);
+			$('#dialog').modal('show');
+			throw e;
+		}
+	}
 
 	function updateForm() {
 		const formatSelect = document.getElementById('format');
@@ -184,31 +207,5 @@ class BootstrapLogger {
 		document.getElementById('attachment-id').value = '';
 		document.getElementById('attachment-description').value = '';
 		document.getElementById('attachment-mime-type').value = '';
-	}
-
-	function onGenerateInvoice(event) {
-		event.preventDefault();
-
-		try {
-			const invoiceInput = document.querySelector(
-				'input[name="invoice-input"]:checked',
-			).value;
-			if (invoiceInput === 'spreadsheet') {
-				//const mappingService = new eInvoiceEU.MappingSErvice();
-				console.log('must map data');
-			}
-			//const logger = new BootstrapLogger();
-
-			//const invoiceService = new eInvoiceEU.InvoiceService({
-
-			//});
-
-			throw new Error('did not work');
-		} catch (e) {
-			// Yuck! Upgrade to Bootstrap 5 so that we can make do without
-			// jQuery.
-			$('#error-message').text(e.message);
-			$('#dialog').modal('show');
-		}
 	}
 })();

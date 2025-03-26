@@ -12,6 +12,8 @@
   [%- NEXT IF seen.$script; seen.$script = 1 %]
   [%- IF (script.match('^[ \t\n]*<script')) %]
   [%- script -%]
+  [%- ELSIF (script.match('^https?://')) %]
+	<script src="[% script %]" type="text/javascript"></script>
   [%- ELSE %]
   <script src="/e-invoice-eu[% q.bustCache(script) | url %]" type="text/javascript"></script>
   [%- END %]
