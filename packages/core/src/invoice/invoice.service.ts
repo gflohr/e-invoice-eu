@@ -86,6 +86,11 @@ export class InvoiceService {
 	private readonly validator: ValidateFunction<Invoice>;
 	private readonly validationService: ValidationService;
 
+	/**
+	 * Creates a new instance of the service.
+	 *
+	 * @param logger - The logger instance used for logging messages, warnings and errors.
+	 */
 	constructor(private readonly logger: Logger) {
 		this.formatFactoryService = new FormatFactoryService();
 		const ajv = new Ajv2019({
@@ -128,8 +133,6 @@ export class InvoiceService {
 		if (typeof formatter === 'undefined') {
 			throw new Error(`Unsupported format: ${options.format}`);
 		}
-
-		this.logger.log('here we go ...');
 
 		return formatter.generate(invoice, options);
 	}
