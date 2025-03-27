@@ -14,7 +14,7 @@
 		});
 	updateForm();
 
-	function onGenerateInvoice(event) {
+	async function onGenerateInvoice(event) {
 		event.preventDefault();
 
 		try {
@@ -22,25 +22,41 @@
 				'input[name="invoice-input"]:checked',
 			).value;
 
-			let invoice;
+			let invoice, spreadsheet;
 
 			if (invoiceInput === 'spreadsheet') {
 				const formatSelect = document.getElementById('format');
 				const formatOption = formatSelect.options[formatSelect.selectedIndex];
 				const format = formatOption.value;
 
-				const mappingReader = new FileReader();
-				const mappingYAML = mappingReader.readAsText(document.getElementById('mapping-file').files[0]);
-				console.log(mappingYAML);
+				const mappingYAML = await readFile('mapping-file');
 				const mapping = jsyaml.load(mappingYAML);
-				console.log(mapping);
-				const spreadsheetReader = new FileReader();
-				const spreadsheet = spreadsheetReader.readAsArrayBuffer(document.getElementById('spreadsheet-file').files[0]);
+				spreadsheet = await readFile('spreadsheet-file', true);
 
 				const mappingService = new eInvoiceEU.MappingService(console);
-				invoice = mappingService.transform(spreadsheet, mapping, format);
+				invoice = mappingService.transform(spreadsheet, format, mapping);
+			} else {
+				const invoiceJSON = await readFile('invoice-file');
+				invoice = JSON.parse(invoiceJSON);
+			}
 
-				console.log(invoice);
+			if (!spreadsheet && document.getElementById('spreadsheet-file').files) {
+				spreadsheet = await readFile('spreadsheet-file', binary);
+			}
+
+			const invoiceService = new eInvoiceEU.InvoiceService(console);
+			const options = {
+				format: document.getElementById('format').value,
+				lang: document.getElementById('lang').value,
+				pdf: await pdfFileInfo(),
+			};
+			const renderedInvoice = await invoiceService.generate(invoice, options);
+			if (typeof renderedInvoice === 'string') {
+				downloadInvoice(renderedInvoice, 'invoice.xml', 'application/xml');
+			} else if (renderedInvoice instanceof Uint8Array || renderedInvoice instanceof ArrayBuffer) {
+				downloadInvoice(renderedInvoice, 'invoice.pdf', 'application/pdf');
+			} else {
+				console.error('Unknown invoice format:', renderedInvoice);
 			}
 		} catch (e) {
 			// Yuck! Upgrade to Bootstrap 5 so that we can make do without
@@ -49,6 +65,51 @@
 			$('#dialog').modal('show');
 			throw e;
 		}
+	}
+
+	async function pdfFileInfo() {
+		const files = document.getElementById('pdf-file').files;
+		if (!files) return;
+
+		return {
+			buffer: await readFile('pdf-file', true),
+			filename: files[0].name,
+			mimetype: 'application/pdf',
+		}
+	}
+
+	function downloadInvoice(data, filename, mimeType) {
+		const blob = new Blob([data], { type: mimeType });
+		const url = URL.createObjectURL(blob);
+
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = filename;
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+
+		URL.revokeObjectURL(url); // Clean up
+	}
+
+	async function readFile(inputId, binary) {
+		return new Promise((resolve, reject) => {
+			const element = document.getElementById(inputId);
+
+			const reader = new FileReader();
+
+			reader.onload = (e) => {
+				resolve(e.target.result);
+			};
+
+			reader.onerror = (e) => reject(`Error reading spreadsheet file: ${e}`);
+
+			if (binary) {
+				reader.readAsArrayBuffer(element.files[0]);
+			} else {
+				reader.readAsText(element.files[0]);
+			}
+		});
 	}
 
 	function updateForm() {
@@ -120,7 +181,8 @@
 			mimeType === 'application/pdf' ||
 			document.getElementById('embed-pdf').checked
 		) {
-			return false;
+			if (!document.getElementById('pdf-file').files[0])
+				return false;
 		}
 
 		if (invoiceInput === 'spreadsheet') {
