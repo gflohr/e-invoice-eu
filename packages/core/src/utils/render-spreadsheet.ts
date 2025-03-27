@@ -8,10 +8,10 @@ import { Logger } from '../logger.interface';
 
 export const renderSpreadsheet = async (
 	filename: string,
-	buffer: Buffer,
+	buffer: Uint8Array,
 	libreoffice: string,
 	logger: Logger,
-): Promise<Buffer> => {
+): Promise<Uint8Array> => {
 	const userDir = await tmp.tmpName();
 	const userDirUrl = url.pathToFileURL(path.resolve(userDir));
 	const parsedOriginalFilename = path.parse(filename);

@@ -280,7 +280,7 @@ export class Invoice implements Command {
 	private async createInvoice(
 		options: InvoiceServiceOptions,
 		configOptions: ConfigOptions,
-	): Promise<string | Buffer> {
+	): Promise<string | Uint8Array> {
 		let invoiceData: CoreInvoice;
 
 		const format = configOptions.format as string;

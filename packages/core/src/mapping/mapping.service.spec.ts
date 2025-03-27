@@ -266,7 +266,7 @@ describe('MappingService', () => {
 			const mockValidateMapping = jest
 				.spyOn(service as any, 'validateMapping')
 				.mockReturnValue(localMapping);
-			const buf: Buffer = [] as unknown as Buffer;
+			const buf: Uint8Array = [] as unknown as Uint8Array;
 
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
@@ -304,7 +304,7 @@ describe('MappingService', () => {
 			const mockValidateMapping = jest
 				.spyOn(service as any, 'validateMapping')
 				.mockReturnValue(localMapping);
-			const buf: Buffer = [] as unknown as Buffer;
+			const buf: Uint8Array = [] as unknown as Uint8Array;
 
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
@@ -340,7 +340,7 @@ describe('MappingService', () => {
 			const mockValidateMapping = jest
 				.spyOn(service as any, 'validateMapping')
 				.mockReturnValue(localMapping);
-			const buf: Buffer = [] as unknown as Buffer;
+			const buf: Uint8Array = [] as unknown as Uint8Array;
 
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
@@ -373,7 +373,7 @@ describe('MappingService', () => {
 			const mockValidateMapping = jest
 				.spyOn(service as any, 'validateMapping')
 				.mockReturnValue(mapping);
-			const buf: Buffer = [] as unknown as Buffer;
+			const buf: Uint8Array = [] as unknown as Uint8Array;
 
 			const localWorkbook = structuredClone(workbook);
 			localWorkbook.Sheets.Invoice.K28 = { t: 's', v: 'SubTotal' };
@@ -419,7 +419,7 @@ describe('MappingService', () => {
 				.spyOn(ValidationService.prototype, 'validate')
 				.mockReturnValue({ 'ubl:Invoice': {} });
 
-			const buf: Buffer = [] as unknown as Buffer;
+			const buf: Uint8Array = [] as unknown as Uint8Array;
 			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
 			const mockFillSectionRanges = jest
@@ -455,7 +455,7 @@ describe('MappingService', () => {
 				const mockValidateMapping = jest
 					.spyOn(service as any, 'validateMapping')
 					.mockReturnValue(mapping);
-				const buf: Buffer = [] as unknown as Buffer;
+				const buf: Uint8Array = [] as unknown as Uint8Array;
 
 				jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 

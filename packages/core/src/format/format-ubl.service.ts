@@ -50,7 +50,7 @@ export class FormatUBLService
 	async generate(
 		invoice: Invoice,
 		options: InvoiceServiceOptions,
-	): Promise<string | Buffer> {
+	): Promise<string | Uint8Array> {
 		await this.embedPDF(invoice, options);
 		this.embedAttachments(invoice, options);
 
@@ -103,7 +103,7 @@ export class FormatUBLService
 		const ref: ADDITIONALSUPPORTINGDOCUMENTS = {
 			'cbc:ID': options.pdf?.id ?? invoice['ubl:Invoice']['cbc:ID'],
 			'cac:Attachment': {
-				'cbc:EmbeddedDocumentBinaryObject': pdf.toString('base64'),
+				'cbc:EmbeddedDocumentBinaryObject': this.uint8ArrayToBase64(pdf),
 				'cbc:EmbeddedDocumentBinaryObject@filename': filename,
 				'cbc:EmbeddedDocumentBinaryObject@mimeCode': mimeType,
 			},
@@ -141,7 +141,7 @@ export class FormatUBLService
 				'cbc:ID': id,
 				'cac:Attachment': {
 					'cbc:EmbeddedDocumentBinaryObject':
-						attachment.buffer.toString('base64'),
+						this.uint8ArrayToBase64(attachment.buffer),
 					'cbc:EmbeddedDocumentBinaryObject@filename': filename,
 					'cbc:EmbeddedDocumentBinaryObject@mimeCode': mimeType,
 				},

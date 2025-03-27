@@ -130,7 +130,7 @@ export class FormatFacturXService
 	async generate(
 		invoice: Invoice,
 		options: InvoiceServiceOptions,
-	): Promise<string | Buffer> {
+	): Promise<string | Uint8Array> {
 		Textdomain.locale = options.lang;
 		this.gtx = Textdomain.getInstance('e-invoice-eu');
 		await this.gtx.resolve();
@@ -145,7 +145,7 @@ export class FormatFacturXService
 		await this.attachFacturX(pdfDoc, options, xml);
 		await this.createPDFA(pdfDoc, options, invoice);
 
-		return Buffer.from(await pdfDoc.save());
+		return await pdfDoc.save();
 	}
 
 	private attachFiles(pdfDoc: PDFDocument, options: InvoiceServiceOptions) {
@@ -580,7 +580,7 @@ export class FormatFacturXService
 					? 'xrechnung.xml'
 					: 'factur-x.xml';
 
-			pdfDoc.attach(Buffer.from(xml), filename, {
+			pdfDoc.attach(xml, filename, {
 				mimeType: 'application/xml',
 				description: 'Factur-X',
 				creationDate: new Date(),

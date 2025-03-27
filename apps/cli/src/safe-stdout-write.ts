@@ -39,7 +39,7 @@ export const safeStdoutWrite = async (output: string) => {
 	await finished(process.stdout);
 };
 
-export const safeStdoutBufferWrite = async (output: Buffer) => {
+export const safeStdoutBufferWrite = async (output: Uint8Array) => {
 	let offset = 0;
 
 	while (offset < output.length) {

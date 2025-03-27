@@ -43,7 +43,7 @@ export class FormatXMLService {
 
 	protected async getInvoicePdf(
 		options: InvoiceServiceOptions,
-	): Promise<Buffer> {
+	): Promise<Uint8Array> {
 		if (options.pdf) {
 			return options.pdf.buffer;
 		} else if (!options.data) {
@@ -64,5 +64,15 @@ export class FormatXMLService {
 			libreoffice,
 			this.logger,
 		);
+	}
+
+	protected uint8ArrayToBase64(uint8Array: Uint8Array) {
+		let binary = '';
+		const len = uint8Array.length;
+		for (let i = 0; i < len; i++) {
+			binary += String.fromCharCode(uint8Array[i]);
+		}
+
+		return btoa(binary);
 	}
 }

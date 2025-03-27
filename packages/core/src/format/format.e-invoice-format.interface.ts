@@ -68,11 +68,11 @@ export interface EInvoiceFormat {
 	 * @param invoice - The invoice data structure containing all required information.
 	 * @param options - Additional options influencing invoice generation.
 	 *
-	 * @returns A promise resolving to the generated invoice as a string or a Buffer,
+	 * @returns A promise resolving to the generated invoice as a string or a Uint8Array,
 	 *          depending on the format.
 	 */
 	generate(
 		invoice: Invoice,
 		options: InvoiceServiceOptions,
-	): Promise<string | Buffer>;
+	): Promise<string | Uint8Array>;
 }

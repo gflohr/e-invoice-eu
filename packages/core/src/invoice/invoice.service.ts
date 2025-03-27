@@ -13,7 +13,7 @@ export type FileInfo = {
 	/**
 	 * The data of the file.
 	 */
-	buffer: Buffer;
+	buffer: Uint8Array;
 
 	/**
 	 * The filename.
@@ -109,7 +109,7 @@ export class InvoiceService {
 	 *
 	 * If the specific format is an XML format (has the MIME type
 	 * `"application/xml"`), it gets returned as a `string`. In case of a
-	 * PDF format (MIME type `"application/pdf"`), a `Buffer` is returned.
+	 * PDF format (MIME type `"application/pdf"`), a `Uint8Array` is returned.
 	 *
 	 * @param input the input data
 	 * @param options modify various aspects of the invoice.
@@ -118,7 +118,7 @@ export class InvoiceService {
 	async generate(
 		input: unknown,
 		options: InvoiceServiceOptions,
-	): Promise<string | Buffer> {
+	): Promise<string | Uint8Array> {
 		const invoice = this.validationService.validate(
 			'invoice data',
 			this.validator,

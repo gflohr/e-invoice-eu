@@ -1508,7 +1508,7 @@ export class FormatCIIService
 		invoice: Invoice,
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		_options: InvoiceServiceOptions,
-	): Promise<string | Buffer> {
+	): Promise<string | Uint8Array> {
 		const cii: ObjectNode = {};
 
 		this.convert(invoice, '$', cii, '$', [ublInvoice]);
