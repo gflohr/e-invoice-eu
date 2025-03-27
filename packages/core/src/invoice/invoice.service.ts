@@ -116,7 +116,7 @@ export class InvoiceService {
 	 * @returns the rendered invoice
 	 */
 	async generate(
-		input: unknown,
+		input: Invoice,
 		options: InvoiceServiceOptions,
 	): Promise<string | Uint8Array> {
 		const invoice = this.validationService.validate(
