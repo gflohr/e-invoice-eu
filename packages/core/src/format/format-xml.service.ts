@@ -46,10 +46,10 @@ export class FormatXMLService {
 	): Promise<Uint8Array> {
 		if (options.pdf) {
 			return options.pdf.buffer;
-		} else if (!options.data) {
+		} else if (!options.spreadsheet) {
 			console.trace('here');
 			throw new Error(
-				'Either a data spreadsheet file or an invoice PDF is needed!',
+				'Either an invoice spreadsheet file or an invoice PDF is needed!',
 			);
 		}
 
@@ -59,8 +59,8 @@ export class FormatXMLService {
 		}
 
 		return await renderSpreadsheet(
-			options.data.filename,
-			options.data.buffer,
+			options.spreadsheet!.filename,
+			options.spreadsheet!.buffer,
 			libreoffice,
 			this.logger,
 		);

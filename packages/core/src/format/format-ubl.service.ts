@@ -81,10 +81,10 @@ export class FormatUBLService
 				throw new Error('A PDF filename is required!');
 			}
 			filename = options.pdf.filename;
-		} else if (options.data) {
+		} else if (options.spreadsheet) {
 			// Avoid using path.parse() here because it is not available in
 			// the browser.
-			const normalized = options.data.filename.replace(/\\/g, '/');
+			const normalized = options.spreadsheet.filename.replace(/\\/g, '/');
 			const lastSlashIndex = normalized.lastIndexOf('/');
 			const lastDotIndex = normalized.lastIndexOf('.');
 			const name =
@@ -140,8 +140,9 @@ export class FormatUBLService
 			const ref: ADDITIONALSUPPORTINGDOCUMENTS = {
 				'cbc:ID': id,
 				'cac:Attachment': {
-					'cbc:EmbeddedDocumentBinaryObject':
-						this.uint8ArrayToBase64(attachment.buffer),
+					'cbc:EmbeddedDocumentBinaryObject': this.uint8ArrayToBase64(
+						attachment.buffer,
+					),
 					'cbc:EmbeddedDocumentBinaryObject@filename': filename,
 					'cbc:EmbeddedDocumentBinaryObject@mimeCode': mimeType,
 				},

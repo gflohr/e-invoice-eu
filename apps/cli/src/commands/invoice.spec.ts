@@ -55,6 +55,14 @@ describe('Invoice Command', () => {
 				demandOption: false,
 				describe: 'JSON file with invoice data, mandatory for json data input',
 			},
+			spreadsheet: {
+				group: 'Input data',
+				alias: ['s'],
+				type: 'string',
+				demandOption: false,
+				describe:
+					'invoice spreadsheet data, mandatory for spreadsheet data input',
+			},
 			mapping: {
 				group: 'Input data',
 				alias: ['m'],
@@ -63,14 +71,6 @@ describe('Invoice Command', () => {
 				demandOption: false,
 				describe:
 					'mapping file (YAML or JSON), mandatory for spreadsheet data input',
-			},
-			data: {
-				group: 'Input data',
-				alias: ['d'],
-				type: 'string',
-				demandOption: false,
-				describe:
-					'invoice spreadsheet data, mandatory for spreadsheet data input',
 			},
 			pdf: {
 				group: 'Input data',

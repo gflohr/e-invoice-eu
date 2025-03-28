@@ -70,11 +70,19 @@ export class InvoiceController {
 					description:
 						'Primary language of your document as a locale identifier like fr-ca, defaults to en',
 				},
-				data: {
+				spreadsheet: {
 					type: 'string',
 					nullable: true,
 					format: 'binary',
 					description: 'The spreadsheet to be transformed.',
+				},
+				data: {
+					type: 'string',
+					nullable: true,
+					format: 'binary',
+					description:
+						'Will be removed in 2026! An alias for "spreadsheet". Use that instead!',
+					deprecated: true,
 				},
 				pdf: {
 					type: 'string',
@@ -155,6 +163,7 @@ export class InvoiceController {
 		FileFieldsInterceptor([
 			{ name: 'invoice', maxCount: 1 },
 			{ name: 'mapping', maxCount: 1 },
+			{ name: 'spreadsheet', maxCount: 1 },
 			{ name: 'data', maxCount: 1 },
 			{ name: 'pdf', maxCount: 1 },
 			{ name: 'attachment' }, // FIXME! How to set maxCount asynchronously?
@@ -165,6 +174,7 @@ export class InvoiceController {
 		@Param('format') format: string,
 		@UploadedFiles()
 		files: {
+			spreadsheet?: Express.Multer.File[];
 			data?: Express.Multer.File[];
 			invoice?: Express.Multer.File[];
 			mapping?: Express.Multer.File[];
@@ -183,6 +193,17 @@ export class InvoiceController {
 		},
 	) {
 		const { data, mapping, invoice, pdf, attachment } = files;
+		let spreadsheet = files.spreadsheet;
+
+		if (spreadsheet && data) {
+			throw new BadRequestException(
+				'The parameters "spreadsheet" and data" are mutually exclusive.',
+			);
+		}
+
+		if (data) {
+			spreadsheet = data;
+		}
 
 		let attachmentIDs = body.attachmentID || [];
 		if (typeof attachmentIDs !== 'object') attachmentIDs = [attachmentIDs];
@@ -199,7 +220,7 @@ export class InvoiceController {
 			throw new BadRequestException(
 				'Both an invoice and mapping file cannot be provided',
 			);
-		} else if (mapping && !data) {
+		} else if (mapping && !spreadsheet) {
 			throw new BadRequestException('No invoice file uploaded');
 		}
 
@@ -224,13 +245,13 @@ export class InvoiceController {
 				invoiceData = this.mappingService.transform(
 					format.toLowerCase(),
 					mapping![0].buffer.toString(),
-					data![0].buffer,
+					spreadsheet![0].buffer,
 				);
 			}
 
 			const document = await this.invoiceService.generate(invoiceData, {
 				format: format.toLowerCase(),
-				data: data ? data[0] : undefined,
+				spreadsheet: spreadsheet ? spreadsheet[0] : undefined,
 				pdf: pdf ? pdf[0] : undefined,
 				lang: body.lang ?? 'en',
 				attachments: attachments,

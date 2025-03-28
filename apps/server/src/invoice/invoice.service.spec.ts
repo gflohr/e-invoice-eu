@@ -1,4 +1,4 @@
-import { ValidationService } from '@e-invoice-eu/core';
+import { Invoice, ValidationService } from '@e-invoice-eu/core';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ErrorObject, ValidationError } from 'ajv/dist/2019';
 
@@ -46,7 +46,7 @@ describe('InvoiceService', () => {
 			.spyOn(ValidationService.prototype, 'validate')
 			.mockReturnValue({ 'ubl:Invoice': {} });
 
-		const input = {} as unknown;
+		const input = {} as unknown as Invoice;
 		const got = await service.generate(input, {
 			lang: 'en-us',
 			format: 'UBL',
@@ -73,7 +73,7 @@ describe('InvoiceService', () => {
 				throw new ValidationError([] as ErrorObject[]);
 			});
 
-		const input = {} as unknown;
+		const input = {} as unknown as Invoice;
 
 		try {
 			await service.generate(input, {

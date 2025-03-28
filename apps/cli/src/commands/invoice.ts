@@ -63,7 +63,7 @@ const options: {
 	output: OptSpec;
 	invoice: OptSpec;
 	mapping: OptSpec;
-	data: OptSpec;
+	spreadsheet: OptSpec;
 	lang: OptSpec;
 	pdf: OptSpec;
 	'pdf-id': OptSpec;
@@ -103,6 +103,15 @@ const options: {
 			'JSON file with invoice data, mandatory for json data input',
 		),
 	},
+	spreadsheet: {
+		group: gtx._('Input data'),
+		alias: ['s'],
+		type: 'string',
+		demandOption: false,
+		describe: gtx._(
+			'invoice spreadsheet data, mandatory for spreadsheet data input',
+		),
+	},
 	mapping: {
 		group: gtx._('Input data'),
 		alias: ['m'],
@@ -111,15 +120,6 @@ const options: {
 		demandOption: false,
 		describe: gtx._(
 			'mapping file (YAML or JSON), mandatory for spreadsheet data input',
-		),
-	},
-	data: {
-		group: gtx._('Input data'),
-		alias: ['d'],
-		type: 'string',
-		demandOption: false,
-		describe: gtx._(
-			'invoice spreadsheet data, mandatory for spreadsheet data input',
 		),
 	},
 	pdf: {
@@ -239,7 +239,7 @@ export class Invoice implements Command {
 			);
 		} else if (
 			typeof configOptions.mapping !== 'undefined' &&
-			typeof configOptions.data === 'undefined'
+			typeof configOptions.spreadsheet === 'undefined'
 		) {
 			throw new Error(gtx._('No invoice spreadsheet specified.'));
 		}
@@ -285,11 +285,11 @@ export class Invoice implements Command {
 
 		const format = configOptions.format as string;
 
-		if (typeof configOptions.data !== 'undefined') {
-			options.data = {
-				filename: configOptions.data as string,
-				buffer: await fs.readFile(configOptions.data as string),
-				mimetype: lookup[configOptions.data as string],
+		if (typeof configOptions.spreadsheet !== 'undefined') {
+			options.spreadsheet = {
+				filename: configOptions.spreadsheet as string,
+				buffer: await fs.readFile(configOptions.spreadsheet as string),
+				mimetype: lookup[configOptions.spreadsheet as string],
 			};
 		}
 
@@ -303,9 +303,9 @@ export class Invoice implements Command {
 				throw new Error(`${filename}: ${e.message}`);
 			}
 		} else if (typeof configOptions.mapping !== 'undefined') {
-			if (typeof configOptions.data == 'undefined') {
+			if (typeof configOptions.spreadsheet == 'undefined') {
 				throw new Error(
-					gtx._("The option '--data' is mandatory if a mapping is specified!"),
+					gtx._("The option '--spreadsheet' is mandatory if a mapping is specified!"),
 				);
 			}
 
@@ -318,7 +318,7 @@ export class Invoice implements Command {
 
 			const mappingService = new MappingService(console);
 			invoiceData = mappingService.transform(
-				options.data!.buffer,
+				options.spreadsheet!.buffer,
 				format.toLowerCase(),
 				mapping,
 			);

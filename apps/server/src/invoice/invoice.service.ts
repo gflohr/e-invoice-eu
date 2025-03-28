@@ -1,6 +1,7 @@
 import {
 	InvoiceService as CoreInvoiceService,
 	InvoiceServiceOptions as CoreInvoiceServiceOptions,
+	Invoice,
 } from '@e-invoice-eu/core';
 import { Injectable, Logger } from '@nestjs/common';
 
@@ -32,7 +33,7 @@ type InvoiceServiceOptions = {
 	/**
 	 * The spreadsheet data.
 	 */
-	data?: Express.Multer.File;
+	spreadsheet?: Express.Multer.File;
 
 	/**
 	 * A PDF version of the invoice.  For Factur-X, either `data` or `pdf`
@@ -73,9 +74,9 @@ export class InvoiceService {
 	constructor(private readonly appConfigService: AppConfigService) {}
 
 	async generate(
-		input: unknown,
+		input: Invoice,
 		options: InvoiceServiceOptions,
-	): Promise<string | Buffer> {
+	): Promise<string | Uint8Array> {
 		const coreOptions: CoreInvoiceServiceOptions = {
 			format: options.format,
 			lang: options.lang,
@@ -83,11 +84,11 @@ export class InvoiceService {
 			embedPDF: options.embedPDF,
 		};
 
-		if (options.data) {
-			coreOptions.data = {
-				buffer: options.data.buffer,
-				filename: options.data.originalname,
-				mimetype: options.data.mimetype,
+		if (options.spreadsheet) {
+			coreOptions.spreadsheet = {
+				buffer: options.spreadsheet.buffer,
+				filename: options.spreadsheet.originalname,
+				mimetype: options.spreadsheet.mimetype,
 			};
 		}
 

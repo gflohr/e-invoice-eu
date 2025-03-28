@@ -48,9 +48,9 @@ describe('Transform Command', () => {
 		transform.build(mockArgv);
 
 		expect(optionsSpy).toHaveBeenCalledWith({
-			data: expect.objectContaining({
+			spreadsheet: expect.objectContaining({
 				group: 'Input file location',
-				alias: ['d'],
+				alias: ['s'],
 				type: 'string',
 				demandOption: true,
 				describe: 'the invoice spreadsheet file',

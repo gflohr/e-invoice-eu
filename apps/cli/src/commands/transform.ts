@@ -12,13 +12,13 @@ import { safeStdoutWrite } from '../safe-stdout-write';
 const gtx = Textdomain.getInstance('e-invoice-eu-cli');
 
 const options: {
-	data: OptSpec;
+	spreadsheet: OptSpec;
 	mapping: OptSpec;
 	output?: OptSpec;
 } = {
-	data: {
+	spreadsheet: {
 		group: gtx._('Input file location'),
-		alias: ['d'],
+		alias: ['s'],
 		type: 'string',
 		demandOption: true,
 		describe: gtx._('the invoice spreadsheet file'),
@@ -55,7 +55,7 @@ export class Transform implements Command {
 	}
 
 	private async doRun(configOptions: ConfigOptions) {
-		const data = await fs.readFile(configOptions.data as string);
+		const spreadsheet = await fs.readFile(configOptions.spreadsheet as string);
 		const yamlData = await fs.readFile(
 			configOptions.mapping as string,
 			'utf-8',
@@ -65,7 +65,7 @@ export class Transform implements Command {
 		const mappingService = new MappingService(console);
 
 		const output = JSON.stringify(
-			mappingService.transform(data, 'UBL', mapping),
+			mappingService.transform(spreadsheet, 'UBL', mapping),
 		);
 
 		if (
