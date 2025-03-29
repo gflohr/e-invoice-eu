@@ -79,14 +79,14 @@ like this:
 [curl]
 [% FILTER $Highlight "language-sh" %]
 curl -X POST http://localhost:3000/api/invoice/create/UBL \
- -F data=@contrib/templates/default-invoice.ods \
+ -F spreadsheet=@contrib/templates/default-invoice.ods \
  -F mapping=@contrib/mappings/default-invoice.yaml
 [% END %]
 
 [httpie]
 [% FILTER $Highlight "language-sh" %]
 http --form POST http://localhost:3000/api/invoice/create/UBL \
- data@contrib/templates/default-invoice.ods \
+ spreadsheet@contrib/templates/default-invoice.ods \
  mapping@contrib/mappings/default-invoice.yaml
 [% END %]
 
@@ -98,7 +98,7 @@ The format is a path parameter that is specified after the endpoint path
 `api/invoice/create`, in this case `UBL`. The format is
 case-insensitive.
 
-The invoice data (parameter `data`) is read from the spreadsheet file
+The invoice data (parameter `spreadsheet`) is read from the spreadsheet file
 `contrib/templates/default-invoice.ods`. That spreadsheet data is then
 [mapped]([% q.llink(name='mapping') %]) (parameter `mapping`) with the mapping definition
 `contrib/mappings/default-invoice.yaml`.
@@ -118,7 +118,7 @@ example creates a Factur-X Extended invoice with three attachments:
 curl -X POST \
  http://localhost:3000/api/invoice/create/UBL \
  -F lang=de \
- -F data=@contrib/templates/default-invoice.ods \
+ -F spreadsheet=@contrib/templates/default-invoice.ods \
  -F mapping=@contrib/mappings/default-invoice.yaml \
  -F embedPDF=1 \
  -F pdf=@invoice.pdf \
@@ -135,7 +135,7 @@ curl -X POST \
 [% FILTER $Highlight "language-sh" %]
 http --form POST http://localhost:3000/api/invoice/create/UBL \
  lang=de \
- data@contrib/templates/default-invoice.ods \
+ spreadsheet@contrib/templates/default-invoice.ods \
  mapping@contrib/mappings/default-invoice.yaml \
  embedPDF=1 \
  pdf@invoice.pdf \
@@ -155,10 +155,10 @@ http --form POST http://localhost:3000/api/invoice/create/UBL \
 Let us break that down into the individual URL parameters sent:
 
 - <!--qgoda-no-xgettext-->`lang`<!--/qgoda-no-xgettext-->: This is used to determine the language for some canned texts.
-- <!--qgoda-no-xgettext-->`data`<!--/qgoda-no-xgettext-->: The spreadsheet with the invoice data.
+- <!--qgoda-no-xgettext-->`spreadsheet`<!--/qgoda-no-xgettext-->: The spreadsheet with the invoice data.
 - <!--qgoda-no-xgettext-->`mapping`<!--/qgoda-no-xgettext-->: The [mapping definition]([% q.llink(name='mapping') %]) for the invoice data.
 - <!--qgoda-no-xgettext-->`embedPDF`<!--/qgoda-no-xgettext-->: Embed a PDF version of the e-invoice in the XML; ignored for Factur-X/ZUGFeRD.
-- <!--qgoda-no-xgettext-->`pdf`<!--/qgoda-no-xgettext-->: The PDF version of the e-invoice. If embedding a PDF was requested but the parameter `pdf` is missing, the PDF is generated from the spreadsheet file (parameter `data`).
+- <!--qgoda-no-xgettext-->`pdf`<!--/qgoda-no-xgettext-->: The PDF version of the e-invoice. If embedding a PDF was requested but the parameter `pdf` is missing, the PDF is generated from the spreadsheet file (parameter `spreadsheet`).
 - <!--qgoda-no-xgettext-->`pdfID`<!--/qgoda-no-xgettext-->: The attachment id of the embedded PDF, defaults to the filename.
 - <!--qgoda-no-xgettext-->`pdfDescription`<!--/qgoda-no-xgettext-->: An optional description of that attachment.
 - <!--qgoda-no-xgettext-->`attachment`<!--/qgoda-no-xgettext-->: Optionally, an additional file to be embedded.
@@ -177,7 +177,7 @@ two additional attachments. The last attachment does not have an ID.
 <!--/qgoda-no-xgettext-->
 
 If the PDF is not provided with the parameter <code>pdf</code>, it is generated from
-the spreadsheet file (parameter <code>data</code>). In that case you must
+the spreadsheet file (parameter <code>spreadsheet</code>). In that case you must
 ensure that the LibreOffice executable is found. The software tries to guess
 the correct location. If that fails, it must be either in your
 <code>$PATH</code> or you have <a
@@ -221,7 +221,7 @@ is binary and you want to redirect it to a file.
 [curl]
 [% FILTER $Highlight "language-sh" %]
 curl -X POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
- -F data=@contrib/templates/default-invoice.ods \
+ -F spreadsheet=@contrib/templates/default-invoice.ods \
  -F mapping=@contrib/mappings/default-invoice.yaml \
  --output e-invoice.pdf
 [% END %]
@@ -229,7 +229,7 @@ curl -X POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
 [httpie]
 [% FILTER $Highlight "language-sh" %]
 http --form POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
- data@contrib/templates/default-invoice.ods \
+ spreadsheet@contrib/templates/default-invoice.ods \
  mapping@contrib/mappings/default-invoice.yaml \
  --output e-invoice.pdf
 [% END %]
@@ -244,7 +244,7 @@ _Extended_.
 You must also keep in mind that the hybrid Factur-X/ZUGFeRD format _requires_
 a PDF version of the input. You must either specify it yourself with the
 parameter `pdf` or `LibreOffice` must be available so that it can be generated
-from the spreadsheet file `data`.
+from the spreadsheet file `spreadsheet`.
 
 [% title = "Do Not Redirect Standard Output on Windows!" %]
 
@@ -322,14 +322,14 @@ Example:
 [curl]
 [% FILTER $Highlight "language-sh" %]
 curl -X POST http://localhost:3000/api/mapping/transform/UBL \
- -F data=@contrib/templates/default-invoice.ods \
+ -F spreadsheet=@contrib/templates/default-invoice.ods \
  -F mapping=@contrib/mappings/default-invoice.yaml
 [% END %]
 
 [httpie]
 [% FILTER $Highlight "language-sh" %]
 http --form POST http://localhost:3000/api/mapping/transform/UBL \
- data@contrib/templates/default-invoice.ods \
+ spreadsheet@contrib/templates/default-invoice.ods \
  mapping@contrib/mappings/default-invoice.yaml
 [% END %]
 
@@ -339,7 +339,7 @@ http --form POST http://localhost:3000/api/mapping/transform/UBL \
 
 This endpoint only supports two URL parameters:
 
-- `data`: The spreadsheet with the invoice data.
+- `spreadsheet`: The spreadsheet with the invoice spreadsheet.
 - `mapping`: The [mapping definition]([% q.llink(name='mapping') %]) for the invoice data.
 
 [% title = "Why is the Format Needed?" %]

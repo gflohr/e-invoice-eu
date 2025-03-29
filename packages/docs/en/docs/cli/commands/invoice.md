@@ -51,7 +51,7 @@ The command `invoice` supports the following options:
 | -o, --output      | `string` | write output to specified file instead of standard output                                     |
 | -i, --invoice     | `string` | JSON file with invoice data, mandatory for invoice generation from JSON                       |
 | -m, --mapping     | `string` | YAML or JSON file with mapping, mandatory for invoice generation from spreadsheet data        |
-| -d, --data        | `string` | invoice spreadsheet file, mandataory for invoice generation from spreadsheet data             |
+| -s, --spreadsheet | `string` | invoice spreadsheet file, mandataory for invoice generation from spreadsheet data             |
 | -l, --lang        | `string` | a language identifier like `fr-fr`                                                            |
 | --embedPDF        |          | use if a PDF version should be embedded into XML output                                       |
 | -p, --pdf         | `string` | a PDF version of the invoice                                                                  |
@@ -70,7 +70,7 @@ like this:
 <!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-sh" %]
 e-invoice-eu --format=UBL \
-        --data=contrib/templates/default-invoice.ods \
+        --spreadsheet=contrib/templates/default-invoice.ods \
         --mapping=contrib/mappings/default-invoice.yaml
 [% END %]
 <!--/qgoda-no-xgettext-->
@@ -92,7 +92,7 @@ example creates a Factur-X Extended invoice with three attachments:
 [% FILTER $Highlight "language-sh" %]
 e-invoice-eu --format=UBL
         --lang=de \
-        --data=contrib/templates/default-invoice.ods \
+        --spreadsheet=contrib/templates/default-invoice.ods \
         --mapping=@contrib/mappings/default-invoice.yaml \
         --embedPDF \
         --pdf=@invoice.pdf \
@@ -110,7 +110,7 @@ e-invoice-eu --format=UBL
 Let us break that down into the individual options used:
 
 - <!--qgoda-no-xgettext-->`--lang`<!--/qgoda-no-xgettext-->: This is used to determine the language for some canned texts.
-- <!--qgoda-no-xgettext-->`--data`<!--/qgoda-no-xgettext-->: The spreadsheet with the invoice data.
+- <!--qgoda-no-xgettext-->`--spreadsheet`<!--/qgoda-no-xgettext-->: The spreadsheet with the invoice data.
 - <!--qgoda-no-xgettext-->`--mapping`<!--/qgoda-no-xgettext-->: The [mapping definition]([% q.llink(name='mapping') %]) for the invoice data.
 - <!--qgoda-no-xgettext-->`--embedPDF`<!--/qgoda-no-xgettext-->: Embed a PDF version of the e-invoice in the XML; ignored for Factur-X/ZUGFeRD.
 - <!--qgoda-no-xgettext-->`--pdf`<!--/qgoda-no-xgettext-->: The PDF version of the e-invoice. If embedding a PDF was requested but the parameter `pdf` is missing, the PDF is generated from the spreadsheet file (parameter `data`).
@@ -131,7 +131,7 @@ attachments. Because the second group omits the option
 [% WRAPPER components/infobox.html type='warning' title=title %]
 <!--/qgoda-no-xgettext-->
 If the PDF is not provided with the option <code>--pdf</code>, it is generated from
-the spreadsheet file (optoin <code>--data</code>). In that case you must
+the spreadsheet file (optoin <code>--spreadsheet</code>). In that case you must
 ensure that the LibreOffice executable is found. The program tries to guess
 the correct location. If that fails, it must be either in your
 <code>$PATH</code> or you have <a
@@ -168,7 +168,7 @@ is binary and you want to redirect it to a file or use the option `--output`.
 <!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-sh" %]
 e-invoice-eu --format=Factur-X-Extended \
- --data=contrib/templates/default-invoice.ods \
+ --spreadsheet=contrib/templates/default-invoice.ods \
  --mapping=@contrib/mappings/default-invoice.yaml \
  --output e-invoice.pdf
 [% END %]
@@ -180,7 +180,7 @@ _Extended_.
 You must also keep in mind that the hybrid Factur-X/ZUGFeRD format _requires_
 a PDF version of the input. You must either specify it yourself with the
 option `--pdf` or `LibreOffice` must be available so that it can be generated
-from the spreadsheet file specified as an argument to `--data`.
+from the spreadsheet file specified as an argument to `--spreadsheet`.
 
 [% title = "Do Not Redirect Standard Output on Windows!" %]
 <!--qgoda-no-xgettext-->

@@ -21,14 +21,14 @@ Example:
 <!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-sh" %]
 e-invoice-eu --format=UBL \
-        --data=contrib/templates/default-invoice.ods \
+        --spreadsheet=contrib/templates/default-invoice.ods \
         --mappingcontrib/mappings/default-invoice.yaml
 [% END %]
 <!--/qgoda-no-xgettext-->
 
-This endpoint only supports three options:
+This command only supports three options:
 
-- `--data`: The spreadsheet with the invoice data.
+- `--spreadsheet`: The spreadsheet with the invoice data.
 - `--mapping`: The [mapping definition]([% q.llink(name='mapping') %]) for the invoice data.
 - `--output`: An optional output file. If not present, the output is written to standard output.
 

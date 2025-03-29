@@ -3,12 +3,9 @@ title: FAQ
 name: faq
 section: other
 ---
-
 <!--qgoda-no-xgettext-->
-
 [% USE q = Qgoda %]
 [% USE Highlight %]
-
 <!--/qgoda-no-xgettext-->
 
 <qgoda-toc/>
@@ -23,7 +20,7 @@ have the invoice data as structured data in the internal format, you can
 pass the data with the parameter `invoice` or the commandline option
 `--invoice` as JSON. The other option is to generate the invoice data from a
 spreadsheet. In that case you have to pass the spreadsheet data with the
-parameter `data` (commandline option `--data`) and a YAML or JSON mapping
+parameter `spreadsheet` (commandline option `--spreadsheet`) and a YAML or JSON mapping
 with the option `mapping` (commandline option `--mapping`).
 
 Then, you must decide whether you want to create a pure XML invoice format
@@ -37,7 +34,7 @@ have a PDF version of the invoice, you can just pass it to the application
 with the parameter `pdf` respectively the commandline option `--pdf`. The
 other option is to generate the PDF from a spreadsheet file with
 [LibreOffice](https://www.libreoffice.org). In that case, you have to pass the
-spreadsheet file as a parameter `data` or the commandline option `--data`.
+spreadsheet file as a parameter `spreadsheet` or the commandline option `--spreadsheet`.
 
 For Factur-X/ZUGFeRD, you cannot specify a PDF id or PDF description because
 it is implied. For pure XML formats you can specify them with the parameter
