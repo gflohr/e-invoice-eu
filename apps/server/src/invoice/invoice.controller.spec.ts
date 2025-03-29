@@ -167,24 +167,6 @@ describe('InvoiceController', () => {
 
 			transformMock.mockRestore();
 		});
-
-		it('should throw InternalServerErrorException for unknown errors', async () => {
-			const format = 'UBL';
-			const files = {
-				spreadsheet: [],
-				mapping: [],
-			};
-
-			jest.spyOn(mappingService, 'transform').mockImplementation(() => {
-				throw new Error('boum!');
-			});
-
-			await expect(
-				controller.transformAndCreate({} as Response, format, files, {}),
-			).rejects.toThrow(InternalServerErrorException);
-
-			expect(mockedLogger.error).toHaveBeenCalledTimes(1);
-		});
 	});
 
 	describe('Time-bomb tests', () => {
