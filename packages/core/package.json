@@ -127,5 +127,6 @@
 		"pdf-lib": "^1.17.1",
 		"tmp-promise": "^3.0.3",
 		"xmlbuilder2": "^3.1.1"
-	}
+	},
+	"gitHead": "45da167e3520f872914bd124389df8326c70e020"
 }
