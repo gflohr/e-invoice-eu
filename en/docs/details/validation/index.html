@@ -11,7 +11,11 @@
 <meta name="description" content="Validating an e-invoice ensures that it adheres to the European standard EN16931. A number of options exist for this task." />
 <title>Validation</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
-<link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
+<link
+	rel="shortcut icon"
+	href="/e-invoice-eu/images/favicon.png"
+	type="image/png"
+/>
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
 <link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/details/validation/" />
 <meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/details/validation/" />
@@ -27,7 +31,7 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1743335721" rel="stylesheet">
 
 
 
@@ -38,8 +42,7 @@
 
 
 <body>
-	
-
+	 
 <nav class="navbar navbar-expand-md navbar-dark bg-warning">
 	<button
 		class="navbar-toggler"
@@ -58,8 +61,12 @@
 			href="/e-invoice-eu/en/docs/"
 			title="E-Invoice-EU Documentation"
 		>
-			<img src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"=
-				alt="E-Invoice-EU logo" height="80" />
+			<img
+				src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"
+				="alt"
+				="E-Invoice-EU logo"
+				height="80"
+			/>
 		</a>
 	</div>
 	<div class="collapse navbar-collapse" id="navbarCollapse">
@@ -274,12 +281,16 @@ and where they live inside the syntax tree.</p>
     </div>
     <p>
 
+
+
 The XML standards also specify the exact order of elements. Fortunately,
 E-Invoice-EU automatically sorts its output so that you don't have to bother
 about the order of your input data, no matter whether it comes from a
 spreadsheet via a <a href="/e-invoice-eu/en/docs/details/mapping/">Mapping</a> or
 directly from JSON in the <a
 href="/e-invoice-eu/en/docs/details/internal-format/">internal invoice format</a>.
+
+
 
 </p>
 </div>
@@ -337,10 +348,14 @@ documentation</a>.</p>
     </div>
     <p>
 
+
+
 Well, you will have no choice. E-invoice validation software quotes these
 rules in their error messages. It is very hard to understand the error
 messages without knowing what exactly the business terms mentioned in the
 rule stand for.
+
+
 
 </p>
 </div>
@@ -397,8 +412,12 @@ software for validation purposes.</p>
     </div>
     <p>
 
+
+
 The list of software and websites following is incomplete. If you want to
 add an entry, please file an [issue](https://github.com/gflohr/e-invoice-eu/issues)!
+
+
 
 </p>
 </div>
@@ -412,7 +431,7 @@ add an entry, please file an [issue](https://github.com/gflohr/e-invoice-eu/issu
 <h3><a href="#" name="online-validators" id="online-validators"></a>Online Validators</h3>
 
 <p>Online validators are easy to use but you have to keep in mind that invoices
-contain personal data and may also contain business or trade secrets.  Please
+contain personal data and may also contain business or trade secrets. Please
 check all legal requirements before you use them.</p>
 
 <h4><a href="#" name="factur-x-zugferd" id="factur-x-zugferd"></a>Factur-X/ZUGFeRD</h4>
@@ -469,7 +488,11 @@ it as <code>Mustang-CLI.jar</code> in the directory <code>contrib/validators/fac
 
 
 
+
+
 <pre class="language-shell"><code>node contrib/validators/factur-x/factur-x-validate.mjs INVOICE_DOCUMENT</code></pre>
+
+
 
 
 
@@ -515,7 +538,11 @@ in the directory <code>contrib/validators/kosit</code>.</p>
 
 
 
+
+
 <pre class="language-shell"><code>java -jar contrib/validators/kosit/validationtool.jar</code></pre>
+
+
 
 
 
@@ -534,7 +561,11 @@ This should now work:</p>
 
 
 
+
+
 <pre class="language-shell"><code>ls contrib/validators/kosit/xrechnung-scenario/scenarios.xml</code></pre>
+
+
 
 
 
@@ -550,7 +581,11 @@ German XRECHNUNG format.</p>
 
 
 
+
+
 <pre class="language-shell"><code>node contrib/validators/kosit/validate.mjs invoice.pdf</code></pre>
+
+
 
 
 
@@ -570,7 +605,11 @@ more than one document at once.</p>
 
 
 
+
+
 <pre class="language-shell"><code>node contrib/validators/kosit/validate.mjs --daemon</code></pre>
+
+
 
 
 
@@ -582,6 +621,8 @@ more than one document at once.</p>
 to be validated.</p>
 
 <p>Alternatively, you can also use <code>curl</code> or <code>httpie</code>:</p>
+
+
 
 
 
@@ -613,7 +654,11 @@ to be validated.</p>
 
 
 
+
+
 <pre class="language-shell"><code>$ node contrib/validators/kosit/validate.mjs --help</code></pre>
+
+
 
 
 
@@ -638,8 +683,8 @@ and <code>--repository</code>.</p>
 		</div>
 		<div class="col-5 text-right guided-tour-link">
 			
-			<a href="/e-invoice-eu/en/docs/other/business-terms/"
-				>Business Terms&nbsp;<i
+			<a href="/e-invoice-eu/en/docs/other/e-invoice-eu-library/"
+				>E-Invoice-EU Library&nbsp;<i
 					class="bi-arrow-right-circle"
 				></i></a>
 			
@@ -743,6 +788,52 @@ and <code>--repository</code>.</p>
 </div>
 
  
+<h4>Commandline Tool</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/installation/">Installation</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/getting-help/">Getting Help</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/commands/invoice/">The Command &quot;invoice&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/commands/transform/">The Command &quot;transform&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/commands/format/">The Command &quot;format&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/commands/schema/">The Command &quot;schema&quot;</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
 <h4>Service</h4>
  
 <div class="sidebar-module">
@@ -812,6 +903,18 @@ and <code>--repository</code>.</p>
 		
 		<li>
 			
+			<a href="/e-invoice-eu/en/docs/other/e-invoice-eu-library/">E-Invoice-EU Library</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/other/browser-example/">Browser Example</a>
+			
+		</li>
+		
+		<li>
+			
 			<a href="/e-invoice-eu/en/docs/other/business-terms/">Business Terms</a>
 			
 		</li>
@@ -846,7 +949,8 @@ and <code>--repository</code>.</p>
 		<div class="col-sm-8">
 			
 			<div class="col-12 col-md-6 footer-links text-md-center">
-				 Copyright &copy; 2016-2025 <a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
+				 Copyright &copy; 2016-2025
+				<a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
 			</div>
 			<div class="col-12 col-md-3 footer-links text-md-center">
 				<a href="/e-invoice-eu/en/legal-disclosure/">
@@ -875,8 +979,7 @@ and <code>--repository</code>.</p>
 	
 
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
-
-	 <cookie-consent-banner
+  <cookie-consent-banner
 	btn-label-accept-and-continue="Agree and continue"
 	btn-label-only-essential-and-continue="Continue with technically required cookies only"
 	btn-label-persist-selection-and-continue="Save selection and continue"
@@ -933,19 +1036,18 @@ and <code>--repository</code>.</p>
 	type="module"
 	src="https://unpkg.com/@porscheofficial/cookie-consent-banner@3.1.3/dist/cookie-consent-banner/cookie-consent-banner.esm.js"
 ></script>
-
-	<script>
-// 
-(function () {
-	document.querySelectorAll('.copy-to-clipboard-button').forEach(btn => {
-		btn.title = "Copy code";
-	});
-})();
+ <script>
+	// 
+	(function () {
+		document.querySelectorAll('.copy-to-clipboard-button').forEach(btn => {
+			btn.title = "Copy code";
+		});
+	})();
 </script>
+ 
 
-	
 
-  <script src="/e-invoice-eu/assets/bundle.min.js" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1743335721" type="text/javascript"></script>
 
 
 

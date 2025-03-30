@@ -1,0 +1,360 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="."><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@e-invoice-eu/core</title><meta name="description" content="Documentation for @e-invoice-eu/core"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script><style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-sys-color-primary: #a7c8ff;
+    --md-sys-color-on-primary: #003060;
+    --md-sys-color-primary-container: #004788;
+    --md-sys-color-on-primary-container: #d5e3ff;
+    --md-sys-color-secondary: #bdc7dc;
+    --md-sys-color-on-secondary: #273141;
+    --md-sys-color-secondary-container: #3d4758;
+    --md-sys-color-on-secondary-container: #d9e3f8;
+    --md-sys-color-tertiary: #dbbde2;
+    --md-sys-color-on-tertiary: #3e2845;
+    --md-sys-color-tertiary-container: #553e5d;
+    --md-sys-color-on-tertiary-container: #f8d8fe;
+    --md-sys-color-error: #ffb4ab;
+    --md-sys-color-on-error: #690005;
+    --md-sys-color-error-container: #93000a;
+    --md-sys-color-on-error-container: #ffb4ab;
+    --md-sys-color-background: #1a1c1e;
+    --md-sys-color-on-background: #e3e2e6;
+    --md-sys-color-surface: #1a1c1e;
+    --md-sys-color-on-surface: #e3e2e6;
+    --md-sys-color-surface-variant: #43474e;
+    --md-sys-color-on-surface-variant: #c4c6cf;
+    --md-sys-color-outline: #8e9199;
+    --md-sys-color-outline-variant: #43474e;
+    --md-sys-color-shadow: #000000;
+    --md-sys-color-scrim: #000000;
+    --md-sys-color-inverse-surface: #e3e2e6;
+    --md-sys-color-inverse-on-surface: #2f3033;
+    --md-sys-color-inverse-primary: #185eac;
+    --md-sys-color-surface-dim: #121316;
+    --md-sys-color-surface-bright: #38393c;
+    --md-sys-color-surface-container-lowest: #0d0e11;
+    --md-sys-color-surface-container-low: #1a1c1e;
+    --md-sys-color-surface-container: #1e2023;
+    --md-sys-color-surface-container-high: #292a2d;
+    --md-sys-color-surface-container-highest: #343538
+  }
+}
+:root[data-theme="dark"] {
+  --md-sys-color-primary: #a7c8ff;
+  --md-sys-color-on-primary: #003060;
+  --md-sys-color-primary-container: #004788;
+  --md-sys-color-on-primary-container: #d5e3ff;
+  --md-sys-color-secondary: #bdc7dc;
+  --md-sys-color-on-secondary: #273141;
+  --md-sys-color-secondary-container: #3d4758;
+  --md-sys-color-on-secondary-container: #d9e3f8;
+  --md-sys-color-tertiary: #dbbde2;
+  --md-sys-color-on-tertiary: #3e2845;
+  --md-sys-color-tertiary-container: #553e5d;
+  --md-sys-color-on-tertiary-container: #f8d8fe;
+  --md-sys-color-error: #ffb4ab;
+  --md-sys-color-on-error: #690005;
+  --md-sys-color-error-container: #93000a;
+  --md-sys-color-on-error-container: #ffb4ab;
+  --md-sys-color-background: #1a1c1e;
+  --md-sys-color-on-background: #e3e2e6;
+  --md-sys-color-surface: #1a1c1e;
+  --md-sys-color-on-surface: #e3e2e6;
+  --md-sys-color-surface-variant: #43474e;
+  --md-sys-color-on-surface-variant: #c4c6cf;
+  --md-sys-color-outline: #8e9199;
+  --md-sys-color-outline-variant: #43474e;
+  --md-sys-color-shadow: #000000;
+  --md-sys-color-scrim: #000000;
+  --md-sys-color-inverse-surface: #e3e2e6;
+  --md-sys-color-inverse-on-surface: #2f3033;
+  --md-sys-color-inverse-primary: #185eac;
+  --md-sys-color-surface-dim: #121316;
+  --md-sys-color-surface-bright: #38393c;
+  --md-sys-color-surface-container-lowest: #0d0e11;
+  --md-sys-color-surface-container-low: #1a1c1e;
+  --md-sys-color-surface-container: #1e2023;
+  --md-sys-color-surface-container-high: #292a2d;
+  --md-sys-color-surface-container-highest: #343538
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --md-sys-color-primary: #185eac;
+    --md-sys-color-on-primary: #ffffff;
+    --md-sys-color-primary-container: #d5e3ff;
+    --md-sys-color-on-primary-container: #001b3b;
+    --md-sys-color-secondary: #555f71;
+    --md-sys-color-on-secondary: #ffffff;
+    --md-sys-color-secondary-container: #d9e3f8;
+    --md-sys-color-on-secondary-container: #121c2b;
+    --md-sys-color-tertiary: #6e5676;
+    --md-sys-color-on-tertiary: #ffffff;
+    --md-sys-color-tertiary-container: #f8d8fe;
+    --md-sys-color-on-tertiary-container: #27132f;
+    --md-sys-color-error: #ba1a1a;
+    --md-sys-color-on-error: #ffffff;
+    --md-sys-color-error-container: #ffdad6;
+    --md-sys-color-on-error-container: #410002;
+    --md-sys-color-background: #fdfbff;
+    --md-sys-color-on-background: #1a1c1e;
+    --md-sys-color-surface: #fdfbff;
+    --md-sys-color-on-surface: #1a1c1e;
+    --md-sys-color-surface-variant: #e0e2ec;
+    --md-sys-color-on-surface-variant: #43474e;
+    --md-sys-color-outline: #74777f;
+    --md-sys-color-outline-variant: #c4c6cf;
+    --md-sys-color-shadow: #000000;
+    --md-sys-color-scrim: #000000;
+    --md-sys-color-inverse-surface: #2f3033;
+    --md-sys-color-inverse-on-surface: #f1f0f4;
+    --md-sys-color-inverse-primary: #a7c8ff;
+    --md-sys-color-surface-dim: #dad9dd;
+    --md-sys-color-surface-bright: #faf9fd;
+    --md-sys-color-surface-container-lowest: #ffffff;
+    --md-sys-color-surface-container-low: #f4f3f7;
+    --md-sys-color-surface-container: #eeedf1;
+    --md-sys-color-surface-container-high: #e9e7eb;
+    --md-sys-color-surface-container-highest: #e3e2e6
+  }
+}
+:root[data-theme="light"] {
+  --md-sys-color-primary: #185eac;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #d5e3ff;
+  --md-sys-color-on-primary-container: #001b3b;
+  --md-sys-color-secondary: #555f71;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #d9e3f8;
+  --md-sys-color-on-secondary-container: #121c2b;
+  --md-sys-color-tertiary: #6e5676;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #f8d8fe;
+  --md-sys-color-on-tertiary-container: #27132f;
+  --md-sys-color-error: #ba1a1a;
+  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-error-container: #ffdad6;
+  --md-sys-color-on-error-container: #410002;
+  --md-sys-color-background: #fdfbff;
+  --md-sys-color-on-background: #1a1c1e;
+  --md-sys-color-surface: #fdfbff;
+  --md-sys-color-on-surface: #1a1c1e;
+  --md-sys-color-surface-variant: #e0e2ec;
+  --md-sys-color-on-surface-variant: #43474e;
+  --md-sys-color-outline: #74777f;
+  --md-sys-color-outline-variant: #c4c6cf;
+  --md-sys-color-shadow: #000000;
+  --md-sys-color-scrim: #000000;
+  --md-sys-color-inverse-surface: #2f3033;
+  --md-sys-color-inverse-on-surface: #f1f0f4;
+  --md-sys-color-inverse-primary: #a7c8ff;
+  --md-sys-color-surface-dim: #dad9dd;
+  --md-sys-color-surface-bright: #faf9fd;
+  --md-sys-color-surface-container-lowest: #ffffff;
+  --md-sys-color-surface-container-low: #f4f3f7;
+  --md-sys-color-surface-container: #eeedf1;
+  --md-sys-color-surface-container-high: #e9e7eb;
+  --md-sys-color-surface-container-highest: #e3e2e6
+}
+</style><link rel="stylesheet" href="assets/material-style.css"/></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search"><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">@e-invoice-eu/core</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h1>@e-invoice-eu/core</h1></div><div class="tsd-panel tsd-typography"><p align="center">
+	<img
+		src="https://raw.githubusercontent.com/gflohr/e-invoice-eu/main/assets/e-invoice-eu-logo-2.webp"
+		width="256" height="256" />
+</p>
+<p><a href="http://www.wtfpl.net/"><img src="https://img.shields.io/badge/licence-WTFPL-blue" alt="licence"></a>
+<a href="https://github.com/gflohr/qgoda/blob/main/LICENSE"><img src="https://img.shields.io/badge/price-FREE-green" alt="price"></a>
+<a href="https://coveralls.io/github/gflohr/e-invoice-eu?branch=main"><img src="https://img.shields.io/coverallsCoverage/github/gflohr/e-invoice-eu?branch=main" alt="coverage"></a>
+<a href="https://www.qgoda.net/"><img src="https://img.shields.io/badge/documentation-Qgoda%F0%9F%8D%93-ffc107" alt="documentation"></a>
+<a href="https://www.standwithukraineeurope.com/en//"><img src="https://img.shields.io/badge/stand%20with-Ukraine%F0%9F%87%BA%F0%9F%87%A6-ffc107" alt="stand with"></a></p>
+<a id="e-invoice-eu" class="tsd-anchor"></a><h1 class="tsd-anchor-link">E-Invoice-EU<!-- omit from toc --><a href="#e-invoice-eu" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h1><p>Free and open source tool chain for generating EN16931 conforming e-invoices
+(Factur-X/ZUGFeRD, UBL, CII, XRechnung) from popular spreadsheet formats or
+JSON.</p>
+<p>This package contains the core library of <code>@e-invoice-eu/core</code>. Both the
+<a href="https://github.com/gflohr/e-invoice-eu/tree/main/apps/cli">E-Invoice-EU command line tool</a>
+and the <a href="https://github.com/gflohr/e-invoice-eu/tree/main/apps/server">E-Invoice-EU web service</a>
+use it as their foundation.</p>
+<a id="table-of-contents" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Table of Contents<!-- omit from toc --><a href="#table-of-contents" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><ul>
+<li><a href="#features">Features</a></li>
+<li><a href="#documentation">Documentation</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#usage">Usage</a>
+<ul>
+<li><a href="#importingrequiring-the-library">Importing/Requiring the Library</a></li>
+<li><a href="#creating-invoice-data-from-spreadsheet-files">Creating Invoice Data from Spreadsheet Files</a></li>
+<li><a href="#generating-an-invoice-from-data-in-the-internal-format">Generating an Invoice from Data in the Internal Format</a>
+<ul>
+<li><a href="#argument-format">Argument <code>format</code></a></li>
+<li><a href="#argument-lang">Argument <code>lang</code></a></li>
+<li><a href="#argument-embedpdf">Argument <code>embedPDF</code></a></li>
+<li><a href="#argument-pdf">Argument <code>pdf</code></a></li>
+<li><a href="#argument-data">Argument <code>data</code></a></li>
+<li><a href="#argument-attachments">Argument <code>attachments</code></a></li>
+</ul>
+</li>
+<li><a href="#getting-supported-formats">Getting Supported Formats</a></li>
+<li><a href="#getting-the-json-schema-definitions">Getting the JSON Schema Definitions</a></li>
+</ul>
+</li>
+<li><a href="#reporting-bugs">Reporting Bugs</a></li>
+<li><a href="#copyright">Copyright</a></li>
+<li><a href="#disclaimer">Disclaimer</a></li>
+</ul>
+<a id="features" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Features<a href="#features" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>The library can create e-invoices in the following formats:</p>
+<ul>
+<li>Cross Industry Invoice - CII</li>
+<li>Universal Business Language - UBL</li>
+<li>Factur-X/ZUGFeRD (all profiles including XRECHNUNG) with full PDF/A support</li>
+</ul>
+<p>E-Invoices can be created directly from data in the <a href="https://gflohr.github.io/e-invoice-eu/en/docs/details/internal-format/">E-Invoice-EU internal
+format</a>
+or via a <a href="https://gflohr.github.io/e-invoice-eu/en/docs/details/mapping/">mapping definition</a>
+from popular spreadsheet formats like <code>.ods</code>, <code>.xlsx</code>, <code>.csv</code>, ...</p>
+<p>The library is implemented in TypeScript and provides complete type definitions
+out of the box. No additional @types package is required. All data structures,
+including those for the internal invoice format and mapping definitions, are
+fully typed, ensuring comprehensive IntelliSense support.</p>
+<p>The library is available as an ES module, CommonJS, and UMD, making it
+compatible with both browser environments and JavaScript runtimes like Node.js.</p>
+<a id="documentation" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Documentation<a href="#documentation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>The general documentation of <code>e-invoice-eu</code> is available at the
+<a href="https://github.com/gflohr/e-invoice-eu/tree/main/packages/core"><code>e-invoice-eu</code> GitHub page</a>.
+For reference, you can also consult the
+<a href="https://gflohr.github.io/e-invoice-eu/api-docs/">API documentation</a>.</p>
+<a id="installation" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Installation<a href="#installation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><pre><code class="sh"><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><span class="hl-2">@e-invoice-eu/core</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="usage" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Usage<a href="#usage" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><a id="importingrequiring-the-library" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Importing/Requiring the Library<a href="#importingrequiring-the-library" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p>If you have the <code>import</code> keyword:</p>
+<pre><code class="typescript"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">InvoiceService</span><span class="hl-1">, </span><span class="hl-4">MappingService</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@e-invoice-eu/core&#39;</span><span class="hl-1">;</span>
+</code><button type="button">Copy</button></pre>
+
+<p>With <code>require</code>:</p>
+<pre><code class="javascript"><span class="hl-5">const</span><span class="hl-1"> { </span><span class="hl-6">InvoiceService</span><span class="hl-1">, </span><span class="hl-6">MappingService</span><span class="hl-1"> } = </span><span class="hl-0">require</span><span class="hl-1">(</span><span class="hl-2">&#39;@e-invoice-eu/core&#39;</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+<p>In the browser:</p>
+<pre><code class="html"><span class="hl-7">&lt;</span><span class="hl-8">script</span><span class="hl-9"> </span><span class="hl-10">src</span><span class="hl-9">=</span><span class="hl-11">&quot;https://cdn.jsdelivr.net/npm/@e-invoice-eu/core@latest/dist/e-invoice-eu.min.js&quot;</span><span class="hl-7">&gt;&lt;/</span><span class="hl-8">script</span><span class="hl-7">&gt;</span><br/><span class="hl-7">&lt;</span><span class="hl-8">script</span><span class="hl-7">&gt;</span><br/><span class="hl-9">	</span><span class="hl-5">const</span><span class="hl-9"> </span><span class="hl-6">invoiceService</span><span class="hl-9"> </span><span class="hl-1">=</span><span class="hl-9"> </span><span class="hl-5">new</span><span class="hl-9"> </span><span class="hl-4">eInvoiceEU</span><span class="hl-9">.</span><span class="hl-0">InvoiceService</span><span class="hl-9">(</span><span class="hl-12">/* arguments */</span><span class="hl-9">);</span><br/><span class="hl-9">	</span><span class="hl-5">const</span><span class="hl-9"> </span><span class="hl-6">mappingService</span><span class="hl-9"> </span><span class="hl-1">=</span><span class="hl-9"> </span><span class="hl-5">new</span><span class="hl-9"> </span><span class="hl-4">eInvoiceEU</span><span class="hl-9">.</span><span class="hl-0">MappingService</span><span class="hl-9">(</span><span class="hl-12">/* arguments */</span><span class="hl-9">);</span><br/><span class="hl-9">	</span><span class="hl-12">// Your code goes here ...</span><br/><span class="hl-7">&lt;/</span><span class="hl-8">script</span><span class="hl-7">&gt;</span>
+</code><button type="button">Copy</button></pre>
+
+<a id="creating-invoice-data-from-spreadsheet-files" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Creating Invoice Data from Spreadsheet Files<a href="#creating-invoice-data-from-spreadsheet-files" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p>For this optional step, you need both the spreadsheet file as a <code>Buffer</code> and a
+mapping definition as a
+<a href="https://gflohr.github.io/e-invoice-eu/api-docs/interfaces/Mapping.html"><code>Mapping</code></a>
+object:</p>
+<pre><code class="typescript"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">MappingService</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@e-invoice-eu/core&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">mappingService</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">MappingService</span><span class="hl-1">(</span><span class="hl-4">console</span><span class="hl-1">);</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">invoice</span><span class="hl-1"> = </span><span class="hl-4">mappingService</span><span class="hl-1">.</span><span class="hl-0">transform</span><span class="hl-1">(</span><br/><span class="hl-1">	</span><span class="hl-4">spreadsheet</span><span class="hl-1">, </span><span class="hl-12">// a `Buffer`</span><br/><span class="hl-1">	</span><span class="hl-2">&#39;Factur-X-Extended&#39;</span><span class="hl-1">, </span><span class="hl-12">// see https://gflohr.github.io/e-invoice-eu/en/docs/basics/supported-formats/</span><br/><span class="hl-1">	</span><span class="hl-4">mapping</span><span class="hl-1">, </span><span class="hl-12">// a `Mapping`</span><br/><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+<p>The returned <code>invoice</code> object is an
+<a href="https://gflohr.github.io/e-invoice-eu/api-docs/interfaces/Invoice.html"><code>Invoice</code></a>
+instance in the internal format. It is not yet an XML string or PDF buffer!</p>
+<a id="generating-an-invoice-from-data-in-the-internal-format" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Generating an Invoice from Data in the Internal Format<a href="#generating-an-invoice-from-data-in-the-internal-format" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p>You can either provide the invoice data yourself as an
+<a href="https://gflohr.github.io/e-invoice-eu/api-docs/interfaces/Invoice.html"><code>Invoice</code></a>
+instance or you can create it from spreadsheet data and a mapping definition
+as shown in the <a href="#creating-invoice-data-from-spreadsheet-files">previous section</a>.</p>
+<pre><code class="typescript"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">InvoiceService</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@e-invoice-eu/core&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">invoiceService</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">InvoiceService</span><span class="hl-1">(</span><span class="hl-4">console</span><span class="hl-1">);</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">renderedInvoice</span><span class="hl-1"> = </span><span class="hl-3">await</span><span class="hl-1"> </span><span class="hl-4">invoiceService</span><span class="hl-1">.</span><span class="hl-0">generate</span><span class="hl-1">(</span><span class="hl-4">invoiceData</span><span class="hl-1">, </span><span class="hl-4">options</span><span class="hl-1">);</span>
+</code><button type="button">Copy</button></pre>
+
+<p>See this summary for the <code>options</code> (optional options are marked with an
+question mark <code>?</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>format</td>
+<td><code>string</code></td>
+<td>a <a href="https://gflohr.github.io/e-invoice-eu/en/docs/basics/supported-formats/">supported format</a></td>
+</tr>
+<tr>
+<td>lang</td>
+<td><code>string</code></td>
+<td>a language identifier like <code>fr-fr</code></td>
+</tr>
+<tr>
+<td>embedPDF?</td>
+<td><code>boolean</code></td>
+<td>pass <code>true</code> if a PDF version should be embedded into XML output</td>
+</tr>
+<tr>
+<td>pdf?</td>
+<td><a href="https://gflohr.github.io/e-invoice-eu/api-docs/types/FileInfo.html"><code>FileInfo</code></a></td>
+<td>the PDF version of the invoice</td>
+</tr>
+<tr>
+<td>data?</td>
+<td><a href="https://gflohr.github.io/e-invoice-eu/api-docs/types/FileInfo.html"><code>FileInfo</code></a></td>
+<td>invoice spreadsheet file</td>
+</tr>
+<tr>
+<td>attachments?</td>
+<td><a href="https://gflohr.github.io/e-invoice-eu/api-docs/types/FileInfo.html"><code>FileInfo[]</code></a></td>
+<td>an arbitrary number of attachments</td>
+</tr>
+</tbody>
+</table>
+<a id="argument-format" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Argument <code>format</code><a href="#argument-format" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4><p>This contains the format of the e-invoice as a case-insensitive string. You
+can also use aliases. For example, <code>Factur-X-Comfort</code> is an alias for
+<code>Factur-X-EN16931</code>.</p>
+<a id="argument-lang" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Argument <code>lang</code><a href="#argument-lang" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4><p>A language identifier like <code>fr-fr</code>. This is only used for the Factur-X/ZUGFeRD
+formats for some canned texts in the PDF XMP meta data.</p>
+<a id="argument-embedpdf" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Argument <code>embedPDF</code><a href="#argument-embedpdf" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4><p>This is only used for the pure XML formats (everything that is not
+Factur-X/ZUGFeRD). If it has a truthy value, a PDF version of the invoice
+is embedded as a base64 encoded string in the XML.</p>
+<a id="argument-pdf" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Argument <code>pdf</code><a href="#argument-pdf" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4><p>This is required in two cases:</p>
+<ol>
+<li>The format is a Factur-X/ZUGFeRD format and <code>data</code> was <strong>not</strong> specified.</li>
+<li>The format is a pure XML format, <code>embedPDF</code> was specified and <code>data</code> was not specified.</li>
+</ol>
+<a id="argument-data" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Argument <code>data</code><a href="#argument-data" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4><p>A spreadsheet version of the invoice. If a PDF is required, either because
+embedPDF was specified for pure XML or because the format is Factur-X/ZUGFeRD,
+<a href="https://libreoffice.org">LibreOffice</a> is invoked for rendering the spreadsheet
+as a PDF.</p>
+<p>This feature will trigger an exception if used in the browser.</p>
+<a id="argument-attachments" class="tsd-anchor"></a><h4 class="tsd-anchor-link">Argument <code>attachments</code><a href="#argument-attachments" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h4><p>You can specify an arbitrary number of additional attachments.</p>
+<p>In case of the pure XML formats, they are embedded as base64 encoded strings
+in the XML. In case of Factur-X/ZUGFeRD they are attached to the PDF,
+additionally to the mandatory attachment <code>factur-x.xml</code>.</p>
+<a id="getting-supported-formats" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Getting Supported Formats<a href="#getting-supported-formats" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><pre><code class="typescript"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">FormatFactoryService</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@e-invoice-eu/core&#39;</span><span class="hl-1">;</span><br/><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">factoryService</span><span class="hl-1"> = </span><span class="hl-5">new</span><span class="hl-1"> </span><span class="hl-0">FormatFactoryService</span><span class="hl-1">();</span><br/><span class="hl-5">const</span><span class="hl-1"> </span><span class="hl-6">formats</span><span class="hl-1"> = </span><span class="hl-4">factoryService</span><span class="hl-1">.</span><span class="hl-0">listFormatServices</span><span class="hl-1">();</span>
+</code><button type="button">Copy</button></pre>
+
+<p>In <code>format</code> you will find an array of
+<a href="https://gflohr.github.io/e-invoice-eu/api-docs/types/FormatInfo.html"><code>FormatInfo</code></a>
+objects.</p>
+<a id="getting-the-json-schema-definitions" class="tsd-anchor"></a><h3 class="tsd-anchor-link">Getting the JSON Schema Definitions<a href="#getting-the-json-schema-definitions" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><pre><code class="typescript"><span class="hl-3">import</span><span class="hl-1"> { </span><span class="hl-4">invoiceSchema</span><span class="hl-1">, </span><span class="hl-4">mappingSchema</span><span class="hl-1"> } </span><span class="hl-3">from</span><span class="hl-1"> </span><span class="hl-2">&#39;@e-invoice-eu/core&#39;</span><span class="hl-1">;</span>
+</code><button type="button">Copy</button></pre>
+
+<p>These variables contain the schema for the
+<a href="https://gflohr.github.io/e-invoice-eu/api-docs/types/Invoice.html"><code>Invoice</code></a>
+and <a href="https://gflohr.github.io/e-invoice-eu/api-docs/types/Mapping.html"><code>Mapping</code></a>
+interfaces. These schemas can be passed as an argument to the compile method of an Ajv instance, see <a href="https://ajv.js.org/api.html#ajv-compile-schema-object-data-any-boolean-promise-any">https://ajv.js.org/api.html#ajv-compile-schema-object-data-any-boolean-promise-any</a> for more information!</p>
+<p>The schemas have the type
+<a href="https://ajv.js.org/guide/typescript.html#utility-types-for-schemas"><code>JSONSchemaType&lt;Invoice&gt;</code></a>
+and
+<a href="https://ajv.js.org/guide/typescript.html#utility-types-for-schemas"><code>JSONSchemaType&lt;Mapping&gt;</code></a>
+respectively.</p>
+<a id="reporting-bugs" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Reporting Bugs<a href="#reporting-bugs" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Please report bugs at <a href="https://github.com/gflohr/e-invoice-eu/issues">https://github.com/gflohr/e-invoice-eu/issues</a>.</p>
+<a id="copyright" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Copyright<a href="#copyright" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>Copyright (C) 2024-2025 Guido Flohr <a href="mailto:guido.flohr@cantanea.com">guido.flohr@cantanea.com</a>, all
+rights reserved.</p>
+<p>This is free software available under the terms of the
+<a href="http://www.wtfpl.net/">WTFPL</a>.</p>
+<a id="disclaimer" class="tsd-anchor"></a><h2 class="tsd-anchor-link">Disclaimer<a href="#disclaimer" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>This free software has been written with the greatest possible care, but like
+all software it may contain errors. Use at your own risk! There is no
+warranty and no liability.</p>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#e-invoice-eu"><span>E-<wbr/>Invoice-<wbr/>EU&lt;!-- omit from toc --&gt;</span></a><ul><li><a href="#table-of-contents"><span>Table of <wbr/>Contents&lt;!-- omit from toc --&gt;</span></a></li><li><a href="#features"><span>Features</span></a></li><li><a href="#documentation"><span>Documentation</span></a></li><li><a href="#installation"><span>Installation</span></a></li><li><a href="#usage"><span>Usage</span></a></li><li><ul><li><a href="#importingrequiring-the-library"><span>Importing/<wbr/>Requiring the <wbr/>Library</span></a></li><li><a href="#creating-invoice-data-from-spreadsheet-files"><span>Creating <wbr/>Invoice <wbr/>Data from <wbr/>Spreadsheet <wbr/>Files</span></a></li><li><a href="#generating-an-invoice-from-data-in-the-internal-format"><span>Generating an <wbr/>Invoice from <wbr/>Data in the <wbr/>Internal <wbr/>Format</span></a></li><li><ul><li><a href="#argument-format"><span>Argument format</span></a></li><li><a href="#argument-lang"><span>Argument lang</span></a></li><li><a href="#argument-embedpdf"><span>Argument embedPDF</span></a></li><li><a href="#argument-pdf"><span>Argument pdf</span></a></li><li><a href="#argument-data"><span>Argument data</span></a></li><li><a href="#argument-attachments"><span>Argument attachments</span></a></li></ul></li><li><a href="#getting-supported-formats"><span>Getting <wbr/>Supported <wbr/>Formats</span></a></li><li><a href="#getting-the-json-schema-definitions"><span>Getting the JSON <wbr/>Schema <wbr/>Definitions</span></a></li></ul></li><li><a href="#reporting-bugs"><span>Reporting <wbr/>Bugs</span></a></li><li><a href="#copyright"><span>Copyright</span></a></li><li><a href="#disclaimer"><span>Disclaimer</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html">@e-invoice-eu/core</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div><script>
+          try {
+            const generateLinkElement = document.querySelector(".tsd-generator a");
+            const link = document.createElement("a");
+            Object.assign(link, {
+              href: "https://github.com/dmnsgn/typedoc-material-theme",
+              target: "_blank",
+              rel: "noreferrer",
+              innerText: "typedoc-material-theme."
+            });
+            generateLinkElement.insertAdjacentElement("afterend", link);
+            generateLinkElement.insertAdjacentText("afterend", " with ");
+          } catch (error) {
+
+          }
+        </script></body></html>

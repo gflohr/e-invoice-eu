@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="utf-8" />
+<meta http-equiv="X-UA-compatible" content="IE=edge" />
+  <link
+	rel="alternate"
+	hreflang="de"
+	href="/e-invoice-eu/de/docs/anderes/browser-beispiel/"
+/> 
+<meta name="description" content="The E-Invoice-EU core library also works in the browser." />
+<title>Browser Example</title>
+<link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
+<link
+	rel="shortcut icon"
+	href="/e-invoice-eu/images/favicon.png"
+	type="image/png"
+/>
+<link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/other/browser-example/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/other/browser-example/" />
+ <meta property="og:type" content="article" />
+<meta property="og:title" content="Browser Example" />
+<meta property="og:description" content="The E-Invoice-EU core library also works in the browser." />
+
+
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no"
+	/>
+
+	
+
+  <link href="/e-invoice-eu/assets/bundle.min.css?1743335721" rel="stylesheet">
+
+
+
+  <meta name="generator" content="Qgoda vv0.11.0 (https://www.qgoda.net/)" />
+</head>
+  
+
+
+
+<body>
+	 
+<nav class="navbar navbar-expand-md navbar-dark bg-warning">
+	<button
+		class="navbar-toggler"
+		type="button"
+		data-toggle="collapse"
+		data-target="#navbarCollapse"
+		aria-controls="navbarCollapse"
+		aria-expanded="false"
+		aria-label="Toggle navigation"
+	>
+		&#9776;
+	</button>
+	<div class="qgoda-brand">
+		<a
+			class="navbar-brand"
+			href="/e-invoice-eu/en/docs/"
+			title="E-Invoice-EU Documentation"
+		>
+			<img
+				src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"
+				="alt"
+				="E-Invoice-EU logo"
+				height="80"
+			/>
+		</a>
+	</div>
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="d-md-none nav-item">
+				<a
+					class="nav-link"
+					href="/e-invoice-eu/en/docs/"
+					title="E-Invoice-EU Documentation"
+				>
+					<i class="bi-house"></i>&nbsp;Home
+				</a>
+			</li>
+			<li class="nav-item">
+				<a
+					class="nav-link"
+					href="/e-invoice-eu/en/docs/"
+					title="E-Invoice-EU Documentation"
+				>
+					<i class="bi-book"></i>&nbsp;Docs
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/gflohr/e-invoice-eu/releases" title="E-Invoice-EU Releases" target="_blank">
+					<i class="bi-download"></i>&nbsp;Download
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/gflohr/e-invoice-eu" title="E-Invoice-EU on GitHub" target="_blank">
+					<i class="bi-github"></i>&nbsp;Github
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 content">
+				<div class="content-head">
+					<h1>Browser Example</h1>
+					
+					<div class="description">The E-Invoice-EU core library also works in the browser.</div>
+				</div>
+				<qgoda-content> 
+
+
+
+
+
+
+
+<p>Creating e-invoices in the browser is absolutely possible but has one little
+caveat. If you want to embed a PDF version of the invoice to be embedded into
+an XML invoice format or if you are targetting a hybrid Factur-X/ZUGFeRD format,
+you have to always provide a PDF. The server and commandline versions can
+also create a PDF from a spreadsheet file but that is not possible in the
+browser because it requires executing
+<a href="https://www.libreoffice.org/" target="_blank">LibreOffice</a>.</p>
+
+<p>The form below will create an e-invoice. You can see the source code in the
+source of this page at
+<a href="https://raw.githubusercontent.com/gflohr/e-invoice-eu/refs/heads/main/packages/docs/en/docs/other/browser-example.md" target="_blank">https://raw.githubusercontent.com/gflohr/e-invoice-eu/refs/heads/main/packages/docs/en/docs/other/browser-example.md</a>!</p>
+
+<p>The application uses a wizard-like approach. No data is sent to a server.
+The processing of the input data and generation of the invoice happens
+entirely in your browser.</p>
+
+<div class="alert alert-warning" role="alert">
+    <div>
+        <strong>
+            <i class="bi-exclamation-triangle"></i>
+            <span class="title">Missing Error Handling!</span>
+        </strong>
+    </div>
+    <p>
+
+The application is not meant to be a serious invoice generation portal but
+just a show case for the capabilities of the E-Invoice-EU library for the
+browser. Please make sure that you have filled all required input fields
+marked with `(*)` before you generate the invoice because the error handling
+of the application is only rudimentary.
+
+</p>
+</div>
+
+
+<h2><a href="#" name="e-invoice-generatition-with-e-invoice-eu-a" id="e-invoice-generatition-with-e-invoice-eu-a"></a>E-Invoice Generatition with <a href="https://github.com/gflohr/e-invoice-eu" target="_blank">E-Invoice-EU</a></h2>
+
+
+
+
+<form id="e-invoice-eu">
+    <div class="form-group">
+        <label for="format">Output format (*)</label>
+        <select id="format" class="form-control" required>
+        </select>
+    </div>
+    <label for="lang">Language code (*)</label>
+    <div class="form-group">
+        <input id="lang" name="lang" pattern="^[a-zA-Z]{2}(?:-[a-zA-Z]{2})?"
+            value="en-gb" required/>
+    </div>
+    <label>Input data (*)</label>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="invoice-input"
+            value="spreadsheet" checked>
+        <label class="form-check-label" for="spreadsheetOption">Spreadsheet</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="invoice-input"
+            value="json">
+        <label class="form-check-label" for="jsonOption">JSON</label>
+    </div>
+    <br />
+    <div class="form-group" id="spreadsheet-file-upload">
+        <label>Spreadsheet file (*)</label>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="spreadsheet-file"
+                name="spreadsheet-file" required>
+            <label class="custom-file-label" for="spreadsheet-file">
+                No file selected.
+            </label>
+            <small class="form-text text-muted">For example
+                <a href="https://github.com/gflohr/e-invoice-eu/raw/refs/heads/main/contrib/templates/default-invoice.ods"
+                target="_blank">
+                    default-invoice.ods
+                </a>
+            </small>
+        </div>
+    </div>
+    <div class="form-group" id="mapping-file-upload">
+        <label><a href="/e-invoice-eu/en/docs/details/mapping/">Mapping</a> (*)</label>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="mapping-file"
+                name="mapping-file" required>
+            <label class="custom-file-label" for="mapping-file">
+                No file selected.
+            </label>
+            <small class="form-text text-muted">For example
+                <a href="https://github.com/gflohr/e-invoice-eu/blob/main/contrib/mappings/default-invoice.yaml"
+                target="_blank">
+                    default-invoice.yaml
+                </a>
+            </small>
+        </div>
+    </div>
+    <div class="form-group" id="invoice-file-upload">
+        <label>JSON Data (<a href="/e-invoice-eu/en/docs/details/internal-format/">Internal Format</a>) (*)</label>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="invoice-file"
+                name="invoice-file" required>
+            <label class="custom-file-label" for="invoice-file">
+                No file selected.
+            </label>
+            <small class="form-text text-muted">For example
+                <a href="https://github.com/gflohr/e-invoice-eu/blob/main/contrib/data/default-invoice.json"
+                target="_blank">
+                    default-invoice.yaml
+                </a>
+            </small>
+        </div>
+    </div>
+    <div class="form-group" id="embed-pdf-checkbox">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="embed-pdf"
+                id="embed-pdf">
+            <label class="form-check-label" for="embedPDF">Embed PDF?</label>
+        </div>
+    </div>
+    <div class="form-group" id="pdf-file-upload">
+        <label>Invoice PDF (*)</label>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="pdf-file"
+                name="pdf-file">
+            <label class="custom-file-label" for="pdf-file">
+                No file selected.
+            </label>
+            <small class="form-text text-muted">For example
+                <a href="https://github.com/gflohr/e-invoice-eu/blob/main/contrib/templates/default-invoice.pdf"
+                target="_blank">
+                    default-invoice.pdf
+                </a>
+            </small>
+        </div>
+    </div>
+    <h3><a href="#" name="optional-attachments" id="optional-attachments"></a>Optional Attachments</h3>
+    <div class="form-group">
+        <div id="attachments-list">
+            <template id="attachment">
+                <div class="d-flex align-items-center">
+                    <div class="flex-grow-1 border p-2">
+                        <div>File:</div>
+                        <div>ID:</div>
+                        <div>Description:</div>
+                        <div>MIME type:</div>
+                    </div>
+                    <button type="button" class="btn btn-danger btn-sm ml-2 delete-attachment">
+                        <i class="bi-trash"></i>
+                    </button>
+                </div>
+            </template>
+        </div>
+        <label>File</label>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="attachment-file"
+                placeholder="Please select a file" name="attachment-file">
+            <label class="custom-file-label" for="mapping-file">Please select a file!</label>
+            </label>
+        </div>
+        <label for="attachment-id">Attachment ID</label>
+        <input id="attachment-id" class="form-control"
+            placeholder="Optional ID"></input>
+        <label for="attachment-description">Attachment description</label>
+        <input id="attachment-description" class="form-control"
+            placeholder="Optional description"></input>
+        <label for="attachment-mime-type">Attachment MIME type</label>
+        <input id="attachment-mime-type" class="form-control"
+            placeholder="Optional MIME type"></input>
+    </div>
+    <div class="d-flex justify-content-between">
+        <button class="btn btn-primary btn-sm" id="add-attachment">Add another attachment</button>
+        <button class="btn btn-primary ml-auto" id="generate-invoice" type="submit">Generate invoice</button>
+    </div>
+</form>
+
+
+<div id="dialog" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="error-message">Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="/e-invoice-eu/e-invoice-eu.js"></script>
+
+
+
+
+ 
+				 
+<div class="guided-tour container">
+	<div class="row">
+		<div class="col-5 text-left guided-tour-link">
+			
+			<a href="/e-invoice-eu/en/docs/other/e-invoice-eu-library/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;E-Invoice-EU Library</a>
+			
+		</div>
+		<div class="col-2 text-center guided-tour-link">
+			
+			<a href="/e-invoice-eu/en/docs/">Home</a>
+			
+		</div>
+		<div class="col-5 text-right guided-tour-link">
+			
+			<a href="/e-invoice-eu/en/docs/other/business-terms/"
+				>Business Terms&nbsp;<i
+					class="bi-arrow-right-circle"
+				></i></a>
+			
+		</div>
+	</div>
+</div>
+
+				
+			</div>
+			<div class="col-sm-3 offset-sm-1 sidebar">
+				 
+ 
+<div class="sidebar-module sidebar-general">
+	<ol>
+		<li>
+			<a class="github-button" href="https://github.com/gflohr/e-invoice-eu" data-icon="octicon-star" data-show-count="true" aria-label="Stars on GitHub" target="_blank">Stars</a>
+			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
+		</li>
+		<li>
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/main/packages/docs/en/docs/other/browser-example.md?plain=1" target="_blank">
+				<i class="bi-code-slash"></i>
+				Source code of this page
+			</a>
+		</li>
+		 
+		<li>
+			<a href="/e-invoice-eu/de/docs/anderes/browser-beispiel/">
+				<i class="bi-translate"></i>
+				Diese Seite auf Deutsch lesen
+			</a>
+		</li>
+		
+	</ol>
+</div>
+   
+<h4>Basics</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/basics/general-mode-of-operation/">General Mode of Operation</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/basics/supported-formats/">Supported Formats</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/basics/disclaimer/">Disclaimer</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>E-invoice Formats</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/hybrid-vs-xml/">Hybrid vs XML</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/ubl/">UBL</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/cii/">CII</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/factur-x-zugferd/">Factur-X/ZUGFeRD</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/country-specific-extensions/">Extensions</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Commandline Tool</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/installation/">Installation</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/getting-help/">Getting Help</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/commands/invoice/">The Command &quot;invoice&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/commands/transform/">The Command &quot;transform&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/commands/format/">The Command &quot;format&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/commands/schema/">The Command &quot;schema&quot;</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Service</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/service/deployment/">Deployment</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/service/creating-invoices/">Creating Invoices</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/service/other-endpoints/">Other Endpoints</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/service/api-documentation/">API Documentation</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Details</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/details/internal-format/">Internal Format</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/details/mapping/">Mapping</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/details/validation/">Validation</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Other</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/other/e-invoice-eu-library/">E-Invoice-EU Library</a>
+			
+		</li>
+		
+		<li>
+			
+			<i class="bi-arrow-right-circle"></i>&nbsp;Browser Example 
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/other/business-terms/">Business Terms</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/other/business-groups/">Business Groups</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/other/faq/">FAQ</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+
+			</div>
+		</div>
+	</div>
+
+	
+	<footer id="footer" class="bg-warning-opaque">
+		 
+<div class="container">
+	
+	<div class="row">
+		<div class="col-sm-8">
+			
+			<div class="col-12 col-md-6 footer-links text-md-center">
+				 Copyright &copy; 2016-2025
+				<a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a href="/e-invoice-eu/en/legal-disclosure/">
+					Legal Disclosure
+				</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a href="/e-invoice-eu/en/data-privacy-policy/">
+					Data Privacy
+				</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a
+					href="javascript:document.dispatchEvent(new Event('cookie_consent_show'))"
+				>
+					Cookie Settings
+				</a>
+			</div>
+			
+		</div>
+	</div>
+	
+</div>
+
+	</footer>
+	
+
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
+  <cookie-consent-banner
+	btn-label-accept-and-continue="Agree and continue"
+	btn-label-only-essential-and-continue="Continue with technically required cookies only"
+	btn-label-persist-selection-and-continue="Save selection and continue"
+	btn-label-select-all-and-continue="Select all and continue"
+	content-settings-description="You can decide which cookies are used by selecting the respective options below. Please note that your selection may impair in the functionality of the service."
+>
+	This website uses cookies and similar technologies to provide certain
+	features, enhance the user experience and deliver content that is relevant to
+	your interests. Depending on their purpose, analysis and marketing cookies may
+	be used in addition to technically necessary cookies. By clicking on "Agree
+	and continue", you declare your consent to the use of the aforementioned
+	cookies.
+	<a
+		href="javascript:document.dispatchEvent(new Event('cookie_consent_details_show'))"
+		class="consent-banner-link"
+	>
+		Here
+	</a>
+	you can make detailed settings or revoke your consent (in part if necessary)
+	with effect for the future. For further information, please refer to our
+	<a href="/en/data-privacy/" class="consent-banner-link">Privacy Policy</a>.
+</cookie-consent-banner>
+
+<script>
+	const cookieConsentBannerElement = document.querySelector(
+		'cookie-consent-banner',
+	);
+	cookieConsentBannerElement.availableCategories = [
+		{
+			description:
+				'Enable you to navigate and use the basic functions and to store preferences.',
+			key: 'technically_required',
+			label: 'Technically necessary cookies',
+			isMandatory: true,
+		},
+		{
+			description:
+				'Enable the site owner to determine how visitors interact with our service in order to improve the user experience.',
+			key: 'analytics',
+			label: 'Analysis cookies',
+		},
+		/*
+		{
+			description:
+				"Enable us to offer and evaluate relevant content and interest-based advertising.",
+			key: "marketing",
+			label: "Marketing cookies",
+		},
+		*/
+	];
+</script>
+ 
+<script
+	type="module"
+	src="https://unpkg.com/@porscheofficial/cookie-consent-banner@3.1.3/dist/cookie-consent-banner/cookie-consent-banner.esm.js"
+></script>
+ <script>
+	// 
+	(function () {
+		document.querySelectorAll('.copy-to-clipboard-button').forEach(btn => {
+			btn.title = "Copy code";
+		});
+	})();
+</script>
+ 
+
+
+  <script src="/e-invoice-eu/assets/bundle.min.js?1743335721" type="text/javascript"></script>
+
+
+  <script src="/e-invoice-eu/site/js/browser-example.js?1743335688" type="text/javascript"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/js-yaml@latest/dist/js-yaml.min.js" type="text/javascript"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/@e-invoice-eu/core@latest/dist/e-invoice-eu.js" type="text/javascript"></script>
+
+
+</body>
+ 
+</html>

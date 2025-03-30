@@ -11,7 +11,11 @@
 <meta name="description" content="You can create e-invoices either from spreadsheet data or directly from JSON." />
 <title>Creating Invoices</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
-<link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
+<link
+	rel="shortcut icon"
+	href="/e-invoice-eu/images/favicon.png"
+	type="image/png"
+/>
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
 <link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/service/creating-invoices/" />
 <meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/service/creating-invoices/" />
@@ -27,10 +31,10 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1743335721" rel="stylesheet">
 
 
-  <link href="/e-invoice-eu/site/css/modal-image-popup.css?1741709891" rel="stylesheet">
+  <link href="/e-invoice-eu/site/css/modal-image-popup.css?1743335688" rel="stylesheet">
 
 
   <meta name="generator" content="Qgoda vv0.11.0 (https://www.qgoda.net/)" />
@@ -40,8 +44,7 @@
 
 
 <body>
-	
-
+	 
 <nav class="navbar navbar-expand-md navbar-dark bg-warning">
 	<button
 		class="navbar-toggler"
@@ -60,8 +63,12 @@
 			href="/e-invoice-eu/en/docs/"
 			title="E-Invoice-EU Documentation"
 		>
-			<img src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"=
-				alt="E-Invoice-EU logo" height="80" />
+			<img
+				src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"
+				="alt"
+				="E-Invoice-EU logo"
+				height="80"
+			/>
 		</a>
 	</div>
 	<div class="collapse navbar-collapse" id="navbarCollapse">
@@ -215,11 +222,15 @@ other sources instead of generating it from spreadsheet data.</p>
     </div>
     <p>
 
+
+
 As of version 1.4.3, the endpoint <code>/invoice/transform-and-create</code>
 is deprecated. It will be removed in the next major version 2.x.x of the
 software. All you have to do is to replace
 <code>/invoice/transform-and-create</code> with
 <code>/invoice/create</code>. The parameters are the same.
+
+
 
 </p>
 </div>
@@ -232,28 +243,30 @@ software. All you have to do is to replace
 
 <h3><a href="#" name="basic-e-invoice" id="basic-e-invoice"></a>Basic E-invoice</h3>
 
-<p>In its most simple form, you can create an e-invoice from the spreadsheet data
+<p>In its most simple form, you can create an e-invoice from spreadsheet data
 like this:</p>
+
+
 
 
 
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-e5e5e97a72d53eb951d12bb8a7745bb0f2bce5ac' id='code-tab-20823ea5d1b81d55182dcc1783801a2f40095897' checked>
-        <label data-title='curl' for='code-tab-20823ea5d1b81d55182dcc1783801a2f40095897'>curl</label>
-        <input type='radio' name='group-e5e5e97a72d53eb951d12bb8a7745bb0f2bce5ac' id='code-tab-5fded52f2f551fd57e7098d8107fd25371755c0c'>
-        <label data-title='httpie' for='code-tab-5fded52f2f551fd57e7098d8107fd25371755c0c'>httpie</label>
+        <input type='radio' name='group-57103e9e8bb43b5daaf60b823b77582f9dfee4bb' id='code-tab-308cab381a7e4d77c669ed537981fab7252e52cf' checked>
+        <label data-title='curl' for='code-tab-308cab381a7e4d77c669ed537981fab7252e52cf'>curl</label>
+        <input type='radio' name='group-57103e9e8bb43b5daaf60b823b77582f9dfee4bb' id='code-tab-b9db4ae2251b21066ba8f3fc8407a1b0b48230d5'>
+        <label data-title='httpie' for='code-tab-b9db4ae2251b21066ba8f3fc8407a1b0b48230d5'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-20823ea5d1b81d55182dcc1783801a2f40095897' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/UBL \
-    -F data=@contrib/templates/default-invoice.ods \
-    -F mapping=@contrib/mappings/default-invoice.yaml</code></pre>
+            <code-block id='code-block-308cab381a7e4d77c669ed537981fab7252e52cf' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/UBL \
+ -F spreadsheet=@contrib/templates/default-invoice.ods \
+ -F mapping=@contrib/mappings/default-invoice.yaml</code></pre>
 
 </code-block>
-            <code-block id='code-block-5fded52f2f551fd57e7098d8107fd25371755c0c'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
-    data@contrib/templates/default-invoice.ods \
-    mapping@contrib/mappings/default-invoice.yaml</code></pre>
+            <code-block id='code-block-b9db4ae2251b21066ba8f3fc8407a1b0b48230d5'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
+ spreadsheet@contrib/templates/default-invoice.ods \
+ mapping@contrib/mappings/default-invoice.yaml</code></pre>
 </code-block>
     </code-blocks>
 </code-group></div>
@@ -268,57 +281,59 @@ like this:</p>
 <code>api/invoice/create</code>, in this case <code>UBL</code>. The format is
 case-insensitive.</p>
 
-<p>The invoice data (parameter <code>data</code>) is read from the spreadsheet file
+<p>The invoice data (parameter <code>spreadsheet</code>) is read from the spreadsheet file
 <code>contrib/templates/default-invoice.ods</code>. That spreadsheet data is then
 <a href="/e-invoice-eu/en/docs/details/mapping/">mapped</a> (parameter <code>mapping</code>) with the mapping definition
 <code>contrib/mappings/default-invoice.yaml</code>.</p>
 
 <h3><a href="#" name="e-invoice-with-additional-attachments" id="e-invoice-with-additional-attachments"></a>E-Invoice with Additional Attachments</h3>
 
-<p>It is possible to attach files with additional information.  This works
-both for pure XML formats and for hybrid Factur-X/ZUGFeRD e-invoices.  The
-example creates a Factur-X Extended invoice with two attachments:</p>
+<p>It is possible to attach files with additional information. This works
+both for pure XML formats and for hybrid Factur-X/ZUGFeRD e-invoices. The
+example creates a Factur-X Extended invoice with three attachments:</p>
+
+
 
 
 
 
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-310db5ee27e612f30ed602ce3d8b607ce85a49a5' id='code-tab-f0ec7aad98dde896371a6692eea0ba756254b07e' checked>
-        <label data-title='curl' for='code-tab-f0ec7aad98dde896371a6692eea0ba756254b07e'>curl</label>
-        <input type='radio' name='group-310db5ee27e612f30ed602ce3d8b607ce85a49a5' id='code-tab-e8e9de021442a1c2e462b4074ecf82eafdc1230c'>
-        <label data-title='httpie' for='code-tab-e8e9de021442a1c2e462b4074ecf82eafdc1230c'>httpie</label>
+        <input type='radio' name='group-23fba9955daeff2e586b2986dbf1bb84bc235b2d' id='code-tab-f5cb3bb2496c92beaff7e56dcb72e1dd0a0a53e3' checked>
+        <label data-title='curl' for='code-tab-f5cb3bb2496c92beaff7e56dcb72e1dd0a0a53e3'>curl</label>
+        <input type='radio' name='group-23fba9955daeff2e586b2986dbf1bb84bc235b2d' id='code-tab-8b3d6a1195c6ffe9ee93b89bfffdf17151324c2a'>
+        <label data-title='httpie' for='code-tab-8b3d6a1195c6ffe9ee93b89bfffdf17151324c2a'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-f0ec7aad98dde896371a6692eea0ba756254b07e' class='active'><pre class="language-sh"><code>curl -X POST \
-    http://localhost:3000/api/invoice/create/UBL \
-    -F lang=de \
-    -F data=@contrib/templates/default-invoice.ods \
-    -F mapping=@contrib/mappings/default-invoice.yaml \
-    -F embedPDF=1 \
-    -F pdf=@invoice.pdf \
-    -F pdfID=1234567890 \
-    -F pdfDescription=&#34;Invoice as PDF.&#34; \
-    -F &#34;attachment=@time-sheet.ods;type=application/vnd.oasis.opendocument.spreadsheet&#34; \
-        -F &#34;attachmentID=abc-123-xyz&#34; \
-    -F attachmentDescription=&#34;Detailed description of hours spent.&#34; \
-    -F attachment=@payment-terms.pdf \
-    -F attachmentDescription=&#34;Our payment terms&#34;</code></pre>
+            <code-block id='code-block-f5cb3bb2496c92beaff7e56dcb72e1dd0a0a53e3' class='active'><pre class="language-sh"><code>curl -X POST \
+ http://localhost:3000/api/invoice/create/UBL \
+ -F lang=de \
+ -F spreadsheet=@contrib/templates/default-invoice.ods \
+ -F mapping=@contrib/mappings/default-invoice.yaml \
+ -F embedPDF=1 \
+ -F pdf=@invoice.pdf \
+ -F pdfID=1234567890 \
+ -F pdfDescription=&#34;Invoice as PDF.&#34; \
+ -F &#34;attachment=@time-sheet.ods;type=application/vnd.oasis.opendocument.spreadsheet&#34; \
+ -F &#34;attachmentID=abc-123-xyz&#34; \
+ -F attachmentDescription=&#34;Detailed description of hours spent.&#34; \
+ -F attachment=@payment-terms.pdf \
+ -F attachmentDescription=&#34;Our payment terms&#34;</code></pre>
 
 </code-block>
-            <code-block id='code-block-e8e9de021442a1c2e462b4074ecf82eafdc1230c'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
-    lang=de \
-    data@contrib/templates/default-invoice.ods \
-    mapping@contrib/mappings/default-invoice.yaml \
-    embedPDF=1 \
-    pdf@invoice.pdf \
-    pdfID=1234567890 \
-    pdfDescription=&#34;Invoice as PDF.&#34; \
-    attachment@time-sheet.ods\;type=application/vnd.oasis.opendocument.spreadsheet \
-    attachmentID=abc-123-xyz \
-    attachmentDescription=&#34;Detailed description of hours spent.&#34; \
-    attachment@payment-terms.pdf \
-    attachmentDescription=&#34;Our payment terms&#34;</code></pre>
+            <code-block id='code-block-8b3d6a1195c6ffe9ee93b89bfffdf17151324c2a'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
+ lang=de \
+ spreadsheet@contrib/templates/default-invoice.ods \
+ mapping@contrib/mappings/default-invoice.yaml \
+ embedPDF=1 \
+ pdf@invoice.pdf \
+ pdfID=1234567890 \
+ pdfDescription=&#34;Invoice as PDF.&#34; \
+ attachment@time-sheet.ods\;type=application/vnd.oasis.opendocument.spreadsheet \
+ attachmentID=abc-123-xyz \
+ attachmentDescription=&#34;Detailed description of hours spent.&#34; \
+ attachment@payment-terms.pdf \
+ attachmentDescription=&#34;Our payment terms&#34;</code></pre>
 </code-block>
     </code-blocks>
 </code-group></div>
@@ -333,10 +348,10 @@ example creates a Factur-X Extended invoice with two attachments:</p>
 
 <ul>
 <li><code>lang</code>: This is used to determine the language for some canned texts.</li>
-<li><code>data</code>: The spreadsheet with the invoice data.</li>
+<li><code>spreadsheet</code>: The spreadsheet with the invoice data.</li>
 <li><code>mapping</code>: The <a href="/e-invoice-eu/en/docs/details/mapping/">mapping definition</a> for the invoice data.</li>
 <li><code>embedPDF</code>: Embed a PDF version of the e-invoice in the XML; ignored for Factur-X/ZUGFeRD.</li>
-<li><code>pdf</code>: The PDF version of the e-invoice. If embedding a PDF was requested but the parameter <code>pdf</code> is missing, the PDF is generated from the spreadsheet file (parameter <code>data</code>).</li>
+<li><code>pdf</code>: The PDF version of the e-invoice. If embedding a PDF was requested but the parameter <code>pdf</code> is missing, the PDF is generated from the spreadsheet file (parameter <code>spreadsheet</code>).</li>
 <li><code>pdfID</code>: The attachment id of the embedded PDF, defaults to the filename.</li>
 <li><code>pdfDescription</code>: An optional description of that attachment.</li>
 <li><code>attachment</code>: Optionally, an additional file to be embedded.</li>
@@ -344,6 +359,9 @@ example creates a Factur-X Extended invoice with two attachments:</p>
 <li><code>attachmentDescription</code>: An optional description of the attachment.</li>
 </ul>
 
+
+<p>The last group of parameters <code>attachment</code>, <code>attachmentID</code> is used twice for
+two additional attachments. The last attachment does not have an ID.</p>
 
 
 
@@ -359,12 +377,17 @@ example creates a Factur-X Extended invoice with two attachments:</p>
     </div>
     <p>
 
+
+
 If the PDF is not provided with the parameter <code>pdf</code>, it is generated from
-the spreadsheet file (parameter <code>data</code>).  In that case you must
-ensure that the LibreOffice executable is found. It must be either in your
+the spreadsheet file (parameter <code>spreadsheet</code>). In that case you must
+ensure that the LibreOffice executable is found. The software tries to guess
+the correct location. If that fails, it must be either in your
 <code>$PATH</code> or you have <a
 href="/e-invoice-eu/en/docs/service/deployment/#libre_office-code">configured its
 location</a>.
+
+
 
 </p>
 </div>
@@ -389,8 +412,8 @@ attachments are embedded:</p>
 <tr>
 <th> Attachment        </th>
 <th> Filename        </th>
-<th> ID </th>
-<th> Description </th>
+<th> ID                </th>
+<th> Description                </th>
 </tr>
 </thead>
 <tbody>
@@ -409,14 +432,14 @@ attachments are embedded:</p>
 <tr>
 <td> <strong>Attachment #3</strong> </td>
 <td> <code>attachment</code> #3 </td>
-<td> - </td>
+<td> -                 </td>
 <td> <code>attachmentDescription #3</code> </td>
 </tr>
 <tr>
 <td> <strong>Attachment #4</strong> </td>
 <td> <code>attachment</code> #4 </td>
-<td> - </td>
-<td> - </td>
+<td> -                 </td>
+<td> -                          </td>
 </tr>
 </tbody>
 </table>
@@ -433,24 +456,26 @@ is binary and you want to redirect it to a file.</p>
 
 
 
+
+
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-131236d10e278f11984d0a6863a2156dfd4f1f4c' id='code-tab-f7a66e5d481ee908bceba6314c4f9648723060cf' checked>
-        <label data-title='curl' for='code-tab-f7a66e5d481ee908bceba6314c4f9648723060cf'>curl</label>
-        <input type='radio' name='group-131236d10e278f11984d0a6863a2156dfd4f1f4c' id='code-tab-0fc2984301a98a6338d2c91adf9ba7886b029f43'>
-        <label data-title='httpie' for='code-tab-0fc2984301a98a6338d2c91adf9ba7886b029f43'>httpie</label>
+        <input type='radio' name='group-8116a100f002c7c53b5e2c5d1580e471a4b39c0b' id='code-tab-531937bfc6e720b0c99297fb8d6886a0e2518151' checked>
+        <label data-title='curl' for='code-tab-531937bfc6e720b0c99297fb8d6886a0e2518151'>curl</label>
+        <input type='radio' name='group-8116a100f002c7c53b5e2c5d1580e471a4b39c0b' id='code-tab-87269f180856c08856fc88dcaa53dfdfbac542e6'>
+        <label data-title='httpie' for='code-tab-87269f180856c08856fc88dcaa53dfdfbac542e6'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-f7a66e5d481ee908bceba6314c4f9648723060cf' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
-    -F data=@contrib/templates/default-invoice.ods \
-    -F mapping=@contrib/mappings/default-invoice.yaml \
-    --output e-invoice.pdf</code></pre>
+            <code-block id='code-block-531937bfc6e720b0c99297fb8d6886a0e2518151' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
+ -F spreadsheet=@contrib/templates/default-invoice.ods \
+ -F mapping=@contrib/mappings/default-invoice.yaml \
+ --output e-invoice.pdf</code></pre>
 
 </code-block>
-            <code-block id='code-block-0fc2984301a98a6338d2c91adf9ba7886b029f43'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
-    data@contrib/templates/default-invoice.ods \
-    mapping@contrib/mappings/default-invoice.yaml \
-    --output e-invoice.pdf</code></pre>
+            <code-block id='code-block-87269f180856c08856fc88dcaa53dfdfbac542e6'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
+ spreadsheet@contrib/templates/default-invoice.ods \
+ mapping@contrib/mappings/default-invoice.yaml \
+ --output e-invoice.pdf</code></pre>
 </code-block>
     </code-blocks>
 </code-group></div>
@@ -467,7 +492,7 @@ is binary and you want to redirect it to a file.</p>
 <p>You must also keep in mind that the hybrid Factur-X/ZUGFeRD format <em>requires</em>
 a PDF version of the input. You must either specify it yourself with the
 parameter <code>pdf</code> or <code>LibreOffice</code> must be available so that it can be generated
-from the spreadsheet file <code>data</code>.</p>
+from the spreadsheet file <code>spreadsheet</code>.</p>
 
 
 
@@ -483,15 +508,19 @@ from the spreadsheet file <code>data</code>.</p>
     </div>
     <p>
 
+
+
 Depending on what shell you are using, redirecting standard output messes
 up the generated PDF. More precisely, it converts all newline characters
-(`LF`) to `CRLF` which corrupts the binary file.  It also encodes it as
+(`LF`) to `CRLF` which corrupts the binary file. It also encodes it as
 UTF-16-LE, a 2-byte character encoding, which is again wrong for binary
 files. You can avoid that by using the option `-o` resp. `--output`. See
 <a href="https://github.com/gflohr/e-invoice-eu/issues/96#issuecomment-2708171823" target="_blank">
 https://github.com/gflohr/e-invoice-eu/issues/96#issuecomment-2708171823
 </a>
 for more information!
+
+
 
 </p>
 </div>
@@ -505,7 +534,7 @@ for more information!
 <h2><a href="#" name="creating-invoices-from-json" id="creating-invoices-from-json"></a>Creating Invoices from JSON</h2>
 
 <p>You can bypass the <a href="/e-invoice-eu/en/docs/details/mapping/">mapping step</a> and generate
-the invoice directly from JSON.  All you have to do is to omit the parameter
+the invoice directly from JSON. All you have to do is to omit the parameter
 <code>mapping</code>.</p>
 
 <p>Example:</p>
@@ -513,20 +542,22 @@ the invoice directly from JSON.  All you have to do is to omit the parameter
 
 
 
+
+
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-155356c2d06f374f900c9171839675fb2cc7c8d3' id='code-tab-f257526b303f13a0ac75171dc6a86069eb5c30f3' checked>
-        <label data-title='curl' for='code-tab-f257526b303f13a0ac75171dc6a86069eb5c30f3'>curl</label>
-        <input type='radio' name='group-155356c2d06f374f900c9171839675fb2cc7c8d3' id='code-tab-ea38da99819963ba80c0a6476631f375d2537a83'>
-        <label data-title='httpie' for='code-tab-ea38da99819963ba80c0a6476631f375d2537a83'>httpie</label>
+        <input type='radio' name='group-32583cf14ae2c9da7d21efdba69302fc6a33f984' id='code-tab-1bfef5aafacc293826c3746b9fedd2dc319a34b2' checked>
+        <label data-title='curl' for='code-tab-1bfef5aafacc293826c3746b9fedd2dc319a34b2'>curl</label>
+        <input type='radio' name='group-32583cf14ae2c9da7d21efdba69302fc6a33f984' id='code-tab-60ade24936356eaf2e229b609ca434e9952ee873'>
+        <label data-title='httpie' for='code-tab-60ade24936356eaf2e229b609ca434e9952ee873'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-f257526b303f13a0ac75171dc6a86069eb5c30f3' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/UBL \
-    -F invoice=@contrib/data/default-invoice.json</code></pre>
+            <code-block id='code-block-1bfef5aafacc293826c3746b9fedd2dc319a34b2' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/UBL \
+ -F invoice=@contrib/data/default-invoice.json</code></pre>
 
 </code-block>
-            <code-block id='code-block-ea38da99819963ba80c0a6476631f375d2537a83'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
-    invoice@contrib/data/default-invoice.json</code></pre>
+            <code-block id='code-block-60ade24936356eaf2e229b609ca434e9952ee873'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
+ invoice@contrib/data/default-invoice.json</code></pre>
 </code-block>
     </code-blocks>
 </code-group></div>
@@ -556,22 +587,24 @@ for e-invoices.</p>
 
 
 
+
+
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-78102ffe326d536dde8d78ec4b6d3e8d7741015e' id='code-tab-7d1ffe32a8aab923ae7d71c49fc19d741376ca60' checked>
-        <label data-title='curl' for='code-tab-7d1ffe32a8aab923ae7d71c49fc19d741376ca60'>curl</label>
-        <input type='radio' name='group-78102ffe326d536dde8d78ec4b6d3e8d7741015e' id='code-tab-89f12464335220b6da5cfe01f5d9cbdfd3dedb3d'>
-        <label data-title='httpie' for='code-tab-89f12464335220b6da5cfe01f5d9cbdfd3dedb3d'>httpie</label>
+        <input type='radio' name='group-1895faa928d40a10eaa9336ac6326ba1dfe63ef5' id='code-tab-4c4e7f715343ff79103dad56dd3b3fb284acc54c' checked>
+        <label data-title='curl' for='code-tab-4c4e7f715343ff79103dad56dd3b3fb284acc54c'>curl</label>
+        <input type='radio' name='group-1895faa928d40a10eaa9336ac6326ba1dfe63ef5' id='code-tab-37c72ffc1a5973e717433eefb687e4cca322d58b'>
+        <label data-title='httpie' for='code-tab-37c72ffc1a5973e717433eefb687e4cca322d58b'>httpie</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-7d1ffe32a8aab923ae7d71c49fc19d741376ca60' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/mapping/transform/UBL \
-    -F data=@contrib/templates/default-invoice.ods \
-    -F mapping=@contrib/mappings/default-invoice.yaml</code></pre>
+            <code-block id='code-block-4c4e7f715343ff79103dad56dd3b3fb284acc54c' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/mapping/transform/UBL \
+ -F spreadsheet=@contrib/templates/default-invoice.ods \
+ -F mapping=@contrib/mappings/default-invoice.yaml</code></pre>
 
 </code-block>
-            <code-block id='code-block-89f12464335220b6da5cfe01f5d9cbdfd3dedb3d'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/mapping/transform/UBL \
-    data@contrib/templates/default-invoice.ods \
-    mapping@contrib/mappings/default-invoice.yaml</code></pre>
+            <code-block id='code-block-37c72ffc1a5973e717433eefb687e4cca322d58b'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/mapping/transform/UBL \
+ spreadsheet@contrib/templates/default-invoice.ods \
+ mapping@contrib/mappings/default-invoice.yaml</code></pre>
 </code-block>
     </code-blocks>
 </code-group></div>
@@ -585,7 +618,7 @@ for e-invoices.</p>
 <p>This endpoint only supports two URL parameters:</p>
 
 <ul>
-<li><code>data</code>: The spreadsheet with the invoice data.</li>
+<li><code>spreadsheet</code>: The spreadsheet with the invoice spreadsheet.</li>
 <li><code>mapping</code>: The <a href="/e-invoice-eu/en/docs/details/mapping/">mapping definition</a> for the invoice data.</li>
 </ul>
 
@@ -604,12 +637,16 @@ for e-invoices.</p>
     </div>
     <p>
 
+
+
 This endpoint [maps](/e-invoice-eu/en/docs/details/mapping/) data from a spreadsheet file into the [internal format](/e-invoice-eu/en/docs/details/internal-format/) which
 is supposed to be independent of the output format. Still, you have to supply
 the format because the transformation also inserts the default customization id
 in the field `/ubl:Invoice/cbc:customizationID`. If the customization ID is
 supplied in the spreadsheet data, you can pass an arbitrary format because
 an explicitly specified customization ID is never overwritten.
+
+
 
 </p>
 </div>
@@ -741,6 +778,52 @@ an explicitly specified customization ID is never overwritten.
 </div>
 
  
+<h4>Commandline Tool</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/installation/">Installation</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/getting-help/">Getting Help</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/commands/invoice/">The Command &quot;invoice&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/commands/transform/">The Command &quot;transform&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/commands/format/">The Command &quot;format&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/commands/schema/">The Command &quot;schema&quot;</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
 <h4>Service</h4>
  
 <div class="sidebar-module">
@@ -810,6 +893,18 @@ an explicitly specified customization ID is never overwritten.
 		
 		<li>
 			
+			<a href="/e-invoice-eu/en/docs/other/e-invoice-eu-library/">E-Invoice-EU Library</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/other/browser-example/">Browser Example</a>
+			
+		</li>
+		
+		<li>
+			
 			<a href="/e-invoice-eu/en/docs/other/business-terms/">Business Terms</a>
 			
 		</li>
@@ -844,7 +939,8 @@ an explicitly specified customization ID is never overwritten.
 		<div class="col-sm-8">
 			
 			<div class="col-12 col-md-6 footer-links text-md-center">
-				 Copyright &copy; 2016-2025 <a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
+				 Copyright &copy; 2016-2025
+				<a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
 			</div>
 			<div class="col-12 col-md-3 footer-links text-md-center">
 				<a href="/e-invoice-eu/en/legal-disclosure/">
@@ -873,8 +969,7 @@ an explicitly specified customization ID is never overwritten.
 	
 
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
-
-	 <cookie-consent-banner
+  <cookie-consent-banner
 	btn-label-accept-and-continue="Agree and continue"
 	btn-label-only-essential-and-continue="Continue with technically required cookies only"
 	btn-label-persist-selection-and-continue="Save selection and continue"
@@ -931,22 +1026,21 @@ an explicitly specified customization ID is never overwritten.
 	type="module"
 	src="https://unpkg.com/@porscheofficial/cookie-consent-banner@3.1.3/dist/cookie-consent-banner/cookie-consent-banner.esm.js"
 ></script>
-
-	<script>
-// 
-(function () {
-	document.querySelectorAll('.copy-to-clipboard-button').forEach(btn => {
-		btn.title = "Copy code";
-	});
-})();
+ <script>
+	// 
+	(function () {
+		document.querySelectorAll('.copy-to-clipboard-button').forEach(btn => {
+			btn.title = "Copy code";
+		});
+	})();
 </script>
-
-	
-
-  <script src="/e-invoice-eu/assets/bundle.min.js" type="text/javascript"></script>
+ 
 
 
-  <script src="/e-invoice-eu/site/js/modal-image-popup.js?1741709891" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1743335721" type="text/javascript"></script>
+
+
+  <script src="/e-invoice-eu/site/js/modal-image-popup.js?1743335688" type="text/javascript"></script>
 
 
 </body>

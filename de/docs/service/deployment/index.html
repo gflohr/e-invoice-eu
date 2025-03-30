@@ -11,7 +11,11 @@
 <meta name="description" content="Der Dienst kann entweder als Container lokal im Produktions- oder Entwicklungsmodus gestartet werden." />
 <title>Ausrollen (Deployment)</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
-<link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
+<link
+	rel="shortcut icon"
+	href="/e-invoice-eu/images/favicon.png"
+	type="image/png"
+/>
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
 <link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/service/deployment/" />
 <meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/service/deployment/" />
@@ -27,7 +31,7 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1743335721" rel="stylesheet">
 
 
 
@@ -38,8 +42,7 @@
 
 
 <body>
-	
-
+	 
 <nav class="navbar navbar-expand-md navbar-dark bg-warning">
 	<button
 		class="navbar-toggler"
@@ -58,8 +61,12 @@
 			href="/e-invoice-eu/de/docs/"
 			title="E-Invoice-EU Documentation"
 		>
-			<img src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"=
-				alt="E-Invoice-EU logo" height="80" />
+			<img
+				src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"
+				="alt"
+				="E-Invoice-EU logo"
+				height="80"
+			/>
 		</a>
 	</div>
 	<div class="collapse navbar-collapse" id="navbarCollapse">
@@ -116,9 +123,9 @@
 <p>Der Dienst E-Invoice-EU kann auf eine von mehreren Arten gestartet werden:</p>
 
 <ul>
-<li>Als (Docker-)Container.</li>
-<li>Kompiliert im Produktionsmodus.</li>
-<li>Lokal im Entwicklungsmodus.</li>
+<li>Run as a (docker) container.</li>
+<li>Build and run it in production mode.</li>
+<li>Run it locally in development mode.</li>
 </ul>
 
 
@@ -212,19 +219,21 @@
 
 
 
+
+
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-9a4038fc6f2a8cd4791c669f6a337fe5ef3e3f75' id='code-tab-e95397df0aad3e6603bf1975e4bce28815bfd059' checked>
-        <label data-title='docker' for='code-tab-e95397df0aad3e6603bf1975e4bce28815bfd059'>docker</label>
-        <input type='radio' name='group-9a4038fc6f2a8cd4791c669f6a337fe5ef3e3f75' id='code-tab-2e9f61c21f065bfbf614d1cc1bdc12e48e3aebbf'>
-        <label data-title='nerdctl' for='code-tab-2e9f61c21f065bfbf614d1cc1bdc12e48e3aebbf'>nerdctl</label>
+        <input type='radio' name='group-80fc6f27d666b190cb1e15de9799d1fee17f131c' id='code-tab-822eb948e9e880071ff4a5a7203a98f8582c0601' checked>
+        <label data-title='docker' for='code-tab-822eb948e9e880071ff4a5a7203a98f8582c0601'>docker</label>
+        <input type='radio' name='group-80fc6f27d666b190cb1e15de9799d1fee17f131c' id='code-tab-6006d8fa32f4689c98c499eebd8e7fa78bada019'>
+        <label data-title='nerdctl' for='code-tab-6006d8fa32f4689c98c499eebd8e7fa78bada019'>nerdctl</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-e95397df0aad3e6603bf1975e4bce28815bfd059' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>docker pull gflohr/e-invoice-eu:latest
-docker run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest</code></pre> 
+            <code-block id='code-block-822eb948e9e880071ff4a5a7203a98f8582c0601' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>docker pull gflohr/e-invoice-eu:latest
+docker run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest</code></pre>
 </code-block>
-            <code-block id='code-block-2e9f61c21f065bfbf614d1cc1bdc12e48e3aebbf'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>nerdctl pull gflohr/e-invoice-eu:latest
-nerdctl run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest</code></pre> 
+            <code-block id='code-block-6006d8fa32f4689c98c499eebd8e7fa78bada019'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>nerdctl pull gflohr/e-invoice-eu:latest
+nerdctl run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest</code></pre>
 </code-block>
     </code-blocks>
 </code-group></div>
@@ -246,14 +255,18 @@ nerdctl run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest</co
 
 
 
+
+
 <pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code># HTTPS
+
 git clone https://github.com/gflohr/e-invoice-eu.git
 
 # SSH
+
 git clone git@github.com:gflohr/e-invoice-eu.git</code></pre>
 
 
-<p></p>
+
 
 
 
@@ -267,16 +280,18 @@ git clone git@github.com:gflohr/e-invoice-eu.git</code></pre>
 
 
 
+
+
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-c67c5a86f3c6b2389e6e1b2f9a4b2c58b418c40b' id='code-tab-4532c1ff585c61fc0e88e3bd17be1159762c4236' checked>
+        <input type='radio' name='group-4e9854ca557cf3a349da8914363a20dc9eef82d2' id='code-tab-4532c1ff585c61fc0e88e3bd17be1159762c4236' checked>
         <label data-title='npm' for='code-tab-4532c1ff585c61fc0e88e3bd17be1159762c4236'>npm</label>
-        <input type='radio' name='group-c67c5a86f3c6b2389e6e1b2f9a4b2c58b418c40b' id='code-tab-8d69352251d4ff1b38456feb04554161fff12663'>
+        <input type='radio' name='group-4e9854ca557cf3a349da8914363a20dc9eef82d2' id='code-tab-8d69352251d4ff1b38456feb04554161fff12663'>
         <label data-title='yarn' for='code-tab-8d69352251d4ff1b38456feb04554161fff12663'>yarn</label>
-        <input type='radio' name='group-c67c5a86f3c6b2389e6e1b2f9a4b2c58b418c40b' id='code-tab-86fe1d27f4ff178f13b1b9b88b35a5ffe613f5e5'>
-        <label data-title='pnpm' for='code-tab-86fe1d27f4ff178f13b1b9b88b35a5ffe613f5e5'>pnpm</label>
-        <input type='radio' name='group-c67c5a86f3c6b2389e6e1b2f9a4b2c58b418c40b' id='code-tab-8a75c1392e9e02a7a2b36d2fea26cf890c4b2e62'>
-        <label data-title='bun' for='code-tab-8a75c1392e9e02a7a2b36d2fea26cf890c4b2e62'>bun</label>
+        <input type='radio' name='group-4e9854ca557cf3a349da8914363a20dc9eef82d2' id='code-tab-9bd6e2400483a6b1f1385699dbed0593985caafd'>
+        <label data-title='pnpm' for='code-tab-9bd6e2400483a6b1f1385699dbed0593985caafd'>pnpm</label>
+        <input type='radio' name='group-4e9854ca557cf3a349da8914363a20dc9eef82d2' id='code-tab-45485235ba2dcb3924b39a0929abee8623e4e3c4'>
+        <label data-title='bun' for='code-tab-45485235ba2dcb3924b39a0929abee8623e4e3c4'>bun</label>
     </code-tabs>
     <code-blocks>
             <code-block id='code-block-4532c1ff585c61fc0e88e3bd17be1159762c4236' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>npm install
@@ -287,12 +302,12 @@ npm run build</code></pre>
 yarn run build</code></pre>
 
 </code-block>
-            <code-block id='code-block-86fe1d27f4ff178f13b1b9b88b35a5ffe613f5e5'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>pnpm install
-pnpm run build</code></pre> 
+            <code-block id='code-block-9bd6e2400483a6b1f1385699dbed0593985caafd'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>pnpm install
+pnpm run build</code></pre>
 
 </code-block>
-            <code-block id='code-block-8a75c1392e9e02a7a2b36d2fea26cf890c4b2e62'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>bun install
-bun run build</code></pre> 
+            <code-block id='code-block-45485235ba2dcb3924b39a0929abee8623e4e3c4'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>bun install
+bun run build</code></pre>
 </code-block>
     </code-blocks>
 </code-group></div>
@@ -306,6 +321,8 @@ bun run build</code></pre>
 <h3><a href="#" name="mit-node.js-starten" id="mit-node.js-starten"></a>Mit Node.js starten</h3>
 
 <p>Das folgende Kommando startet die Applikation mit Node.js:</p>
+
+
 
 
 
@@ -351,6 +368,8 @@ bun run build</code></pre>
 
 
 
+
+
 <div class="code-group"><code-group>
     <code-tabs>
         <input type='radio' name='group-23ead06a8b3c23b4dd00acd9bd88ca5671bc131c' id='code-tab-0405101cb4119a400d8f1c6fa486bf11cdc1fd47' checked>
@@ -385,16 +404,18 @@ bun run build</code></pre>
 
 
 
+
+
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-2553c678d3d9b388bad11fbc79af272baf2de0d6' id='code-tab-fbb3b955f31b963a667877f7f042d438ac4815d2' checked>
+        <input type='radio' name='group-d5f0b8ca09383c455ff3d723310ceae33ee590ef' id='code-tab-fbb3b955f31b963a667877f7f042d438ac4815d2' checked>
         <label data-title='npm' for='code-tab-fbb3b955f31b963a667877f7f042d438ac4815d2'>npm</label>
-        <input type='radio' name='group-2553c678d3d9b388bad11fbc79af272baf2de0d6' id='code-tab-5e7e887584e42172be241240a6de2bc4b93b85b0'>
+        <input type='radio' name='group-d5f0b8ca09383c455ff3d723310ceae33ee590ef' id='code-tab-5e7e887584e42172be241240a6de2bc4b93b85b0'>
         <label data-title='yarn' for='code-tab-5e7e887584e42172be241240a6de2bc4b93b85b0'>yarn</label>
-        <input type='radio' name='group-2553c678d3d9b388bad11fbc79af272baf2de0d6' id='code-tab-27925d06f27ffea4823c8e84d461a924c26b611c'>
-        <label data-title='pnpm' for='code-tab-27925d06f27ffea4823c8e84d461a924c26b611c'>pnpm</label>
-        <input type='radio' name='group-2553c678d3d9b388bad11fbc79af272baf2de0d6' id='code-tab-db9efd2dff97b8b469c5b4b3f0fdd824d5559f6e'>
-        <label data-title='bun' for='code-tab-db9efd2dff97b8b469c5b4b3f0fdd824d5559f6e'>bun</label>
+        <input type='radio' name='group-d5f0b8ca09383c455ff3d723310ceae33ee590ef' id='code-tab-e2a7d14913437dd323a13e94e6a81965b46436d5'>
+        <label data-title='pnpm' for='code-tab-e2a7d14913437dd323a13e94e6a81965b46436d5'>pnpm</label>
+        <input type='radio' name='group-d5f0b8ca09383c455ff3d723310ceae33ee590ef' id='code-tab-e32fb4767830edfe77180cba0031c60aa0049361'>
+        <label data-title='bun' for='code-tab-e32fb4767830edfe77180cba0031c60aa0049361'>bun</label>
     </code-tabs>
     <code-blocks>
             <code-block id='code-block-fbb3b955f31b963a667877f7f042d438ac4815d2' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
@@ -407,14 +428,14 @@ yarn install
 yarn run start:dev</code></pre>
 
 </code-block>
-            <code-block id='code-block-27925d06f27ffea4823c8e84d461a924c26b611c'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+            <code-block id='code-block-e2a7d14913437dd323a13e94e6a81965b46436d5'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
 pnpm install
-pnpm run start:dev</code></pre> 
+pnpm run start:dev</code></pre>
 
 </code-block>
-            <code-block id='code-block-db9efd2dff97b8b469c5b4b3f0fdd824d5559f6e'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
+            <code-block id='code-block-e32fb4767830edfe77180cba0031c60aa0049361'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>cd apps/server
 bun install
-bun run start:dev</code></pre> 
+bun run start:dev</code></pre>
 </code-block>
     </code-blocks>
 </code-group></div>
@@ -431,24 +452,30 @@ bun run start:dev</code></pre>
 
 <p>Der Dienst wird mit Umgebungsvariablen konfiguriert.</p>
 
-<p>Diese Umgebungsvariablen können entweder auf der Kommandozeile oder in einer Datei <code>.env</code> im Verzeichnis, in dem der Service gestartet wird, angegeben werden. Diese Datei besteht aus Zeilen im Format <code>VARIABLE=WERT</code>, siehe die <a href="https://www.npmjs.com/package/dotenv#%EF%B8%8F-usage" target="_blank">dotenv-Dokumentation</a> für weitergehende Informationen.</p>
+<p>You can either pass these environment variables on the commandline or place
+a file called <code>.env</code> in the directory, where you start the service. This
+file has lines of the form <code>VARIABLE=VALUE</code>, see the <a href="https://www.npmjs.com/package/dotenv#%EF%B8%8F-usage" target="_blank">dotenv
+docs</a> for more
+information.</p>
 
 <p>Wird der Docker-Container gestartet, muss entweder ein Bind-Mount für die <code>.env</code>-Datei in den Container stattfinden, oder die Umgebungsvariablen müssen mit der Option <code>-e</code> auf der Kommandozeile übergeben werden:</p>
 
 
 
 
+
+
 <div class="code-group"><code-group>
     <code-tabs>
-        <input type='radio' name='group-8bf81487b0e353f1ca4e040aba391421b4cf2b9f' id='code-tab-4dcaaccccfd74e5a99d6323c2bb87866c39a6f6d' checked>
-        <label data-title='docker' for='code-tab-4dcaaccccfd74e5a99d6323c2bb87866c39a6f6d'>docker</label>
-        <input type='radio' name='group-8bf81487b0e353f1ca4e040aba391421b4cf2b9f' id='code-tab-5b498c7807f6b8399f9a78f1134471af475753ad'>
-        <label data-title='nerdctl' for='code-tab-5b498c7807f6b8399f9a78f1134471af475753ad'>nerdctl</label>
+        <input type='radio' name='group-039bd94bb89dfe82b6d045aea32dd0ebc7b130bb' id='code-tab-5c187cb0b3c4ec2796c0337b3f62e54846b3f20a' checked>
+        <label data-title='docker' for='code-tab-5c187cb0b3c4ec2796c0337b3f62e54846b3f20a'>docker</label>
+        <input type='radio' name='group-039bd94bb89dfe82b6d045aea32dd0ebc7b130bb' id='code-tab-ec471a9470f1e6c37cf82e5c3c556832ff7160d8'>
+        <label data-title='nerdctl' for='code-tab-ec471a9470f1e6c37cf82e5c3c556832ff7160d8'>nerdctl</label>
     </code-tabs>
     <code-blocks>
-            <code-block id='code-block-4dcaaccccfd74e5a99d6323c2bb87866c39a6f6d' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>docker run --rm -p 3300:3300 --name e-invoice-eu -e PORT=3300 gflohr/e-invoice-eu:latest</code></pre> 
+            <code-block id='code-block-5c187cb0b3c4ec2796c0337b3f62e54846b3f20a' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>docker run --rm -p 3300:3300 --name e-invoice-eu -e PORT=3300 gflohr/e-invoice-eu:latest</code></pre>
 </code-block>
-            <code-block id='code-block-5b498c7807f6b8399f9a78f1134471af475753ad'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>nerdctl run --rm -p 3300:3300 --name e-invoice-eu -e PORT=3300 gflohr/e-invoice-eu:latest</code></pre> 
+            <code-block id='code-block-ec471a9470f1e6c37cf82e5c3c556832ff7160d8'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>nerdctl run --rm -p 3300:3300 --name e-invoice-eu -e PORT=3300 gflohr/e-invoice-eu:latest</code></pre>
 </code-block>
     </code-blocks>
 </code-group></div>
@@ -485,7 +512,7 @@ bun run start:dev</code></pre>
 
 
 
-<p>Wenn der Standard-Port 3000 nicht passt, kann hier eine andere Portnummer angegeben werden.</p>
+<p>Set this to a valid port number if you are not happy with the default port of 3000.</p>
 
 <p>Anmerkung: Dies hat zur Zeit keine Auswirkung, wenn die Applikation als Container gestartet wird, siehe <a href="https://github.com/gflohr/e-invoice-eu/issues/76" target="_blank">https://github.com/gflohr/e-invoice-eu/issues/76</a>.</p>
 
@@ -504,8 +531,12 @@ bun run start:dev</code></pre>
 
 
 
+
+
 <pre><code>/Applications/LibreOffice.app/Contents/MacOS/soffice
 </code></pre>
+
+
 
 
 
@@ -515,8 +546,12 @@ bun run start:dev</code></pre>
 
 
 
+
+
 <pre><code>C:\Program Files\LibreOffice\program\soffice.exe
 </code></pre>
+
+
 
 
 
@@ -538,8 +573,8 @@ bun run start:dev</code></pre>
 	<div class="row">
 		<div class="col-5 text-left guided-tour-link">
 			
-			<a href="/e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/"
-				><i class="bi-arrow-left-circle"></i>&nbsp;Erweiterungen</a>
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/schema/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;The Command &quot;schema&quot;</a>
 			
 		</div>
 		<div class="col-2 text-center guided-tour-link">
@@ -654,6 +689,52 @@ bun run start:dev</code></pre>
 </div>
 
  
+<h4>Commandline Tool</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/installation/">Installation</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/hilfe-bekommen/">Getting Help</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/invoice/">The Command &quot;invoice&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/transform/">The Command &quot;transform&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/format/">The Command &quot;format&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/schema/">The Command &quot;schema&quot;</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
 <h4>Dienst (Service)</h4>
  
 <div class="sidebar-module">
@@ -723,6 +804,18 @@ bun run start:dev</code></pre>
 		
 		<li>
 			
+			<a href="/e-invoice-eu/de/docs/anderes/bibliothek-e-invoice-eu/">E-Invoice-EU Library</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/anderes/browser-beispiel/">Browser Example</a>
+			
+		</li>
+		
+		<li>
+			
 			<a href="/e-invoice-eu/de/docs/anderes/business-terms/">Business-Terms</a>
 			
 		</li>
@@ -757,7 +850,8 @@ bun run start:dev</code></pre>
 		<div class="col-sm-8">
 			
 			<div class="col-12 col-md-6 footer-links text-md-center">
-				 Copyright &copy; 2016-2025 <a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
+				 Copyright &copy; 2016-2025
+				<a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
 			</div>
 			<div class="col-12 col-md-3 footer-links text-md-center">
 				<a href="/e-invoice-eu/de/impressum/">
@@ -786,8 +880,7 @@ bun run start:dev</code></pre>
 	
 
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
-
-	 <cookie-consent-banner
+  <cookie-consent-banner
 	btn-label-accept-and-continue="Zustimmen und weiter"
 	btn-label-only-essential-and-continue="Weiter mit nur technisch notwendigen Cookies"
 	btn-label-persist-selection-and-continue="Auswahl speichern und weiter"
@@ -844,19 +937,18 @@ bun run start:dev</code></pre>
 	type="module"
 	src="https://unpkg.com/@porscheofficial/cookie-consent-banner@3.1.3/dist/cookie-consent-banner/cookie-consent-banner.esm.js"
 ></script>
-
-	<script>
-// 
-(function () {
-	document.querySelectorAll('.copy-to-clipboard-button').forEach(btn => {
-		btn.title = "Quelltext kopieren";
-	});
-})();
+ <script>
+	// 
+	(function () {
+		document.querySelectorAll('.copy-to-clipboard-button').forEach(btn => {
+			btn.title = "Quelltext kopieren";
+		});
+	})();
 </script>
+ 
 
-	
 
-  <script src="/e-invoice-eu/assets/bundle.min.js" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1743335721" type="text/javascript"></script>
 
 
 

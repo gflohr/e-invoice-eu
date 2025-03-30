@@ -11,7 +11,11 @@
 <meta name="description" content="Die Validierung einer E-Rechnung stellt sicher, dass sie den Anforderungen des europäischen Standards EN16931 entspricht. Für diese Aufgabe gibt es verschiedene Optionen." />
 <title>Validierung</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
-<link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
+<link
+	rel="shortcut icon"
+	href="/e-invoice-eu/images/favicon.png"
+	type="image/png"
+/>
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
 <link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/details/validierung/" />
 <meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/details/validierung/" />
@@ -27,7 +31,7 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1743335721" rel="stylesheet">
 
 
 
@@ -38,8 +42,7 @@
 
 
 <body>
-	
-
+	 
 <nav class="navbar navbar-expand-md navbar-dark bg-warning">
 	<button
 		class="navbar-toggler"
@@ -58,8 +61,12 @@
 			href="/e-invoice-eu/de/docs/"
 			title="E-Invoice-EU Documentation"
 		>
-			<img src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"=
-				alt="E-Invoice-EU logo" height="80" />
+			<img
+				src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"
+				="alt"
+				="E-Invoice-EU logo"
+				height="80"
+			/>
 		</a>
 	</div>
 	<div class="collapse navbar-collapse" id="navbarCollapse">
@@ -253,7 +260,11 @@
     </div>
     <p>
 
+
+
 Die XML-Standards geben auch die genaue Reihenfolge der Elemente vor. Glücklicherweise sortiert E-Invoice-EU die Ausgabe automatisch, so dass man sich keine Gedanken um die Reihenfolge der Eingabedaten zu machen braucht. Dabei spielt es keine Rolle, ob sie über ein <a href="/e-invoice-eu/de/docs/details/mapping/>Mapping</a>  aus einer Tabelle oder direkt aus JSON im <a href="/e-invoice-eu/de/docs/details/internes-format/">internen Rechnungsformat</a> kommen.
+
+
 
 </p>
 </div>
@@ -270,16 +281,24 @@ Die XML-Standards geben auch die genaue Reihenfolge der Elemente vor. Glücklich
 
 <h2><a href="#" name="business-regeln" id="business-regeln"></a>Business-Regeln</h2>
 
-<p>Weiterhin gibt es semantische Anforderungen, die <em>Business-Regeln</em> genannt werden. Ein Beispiel für eine solche Regelung ist die Forderung, dass wenn die fällige Summe positiv ist, entweder ein Fälligkeitsdatum oder aber Zahlungsbedingungen angegeben werden müssen, siehe <a href="https://docs.peppol.eu/poacc/billing/3.0/rules/ubl-tc434/BR-CO-25/" target="_blank">BR-CO-25</a>.</p>
+<p>But there are also semantic requirements called <em>business rules</em>. An example
+for such a rule is that if the payable amount of the invoice is positive,
+it must either include a due date or payment terms, see
+<a href="https://docs.peppol.eu/poacc/billing/3.0/rules/ubl-tc434/BR-CO-25/" target="_blank">BR-CO-25</a>.</p>
 
-<p>Im allgemeinen werden diese Anforderungen von E-Invoice-EU <em>nicht</em> überprüft.</p>
+<p>In general, E-Invoice-EU does <em>not</em> check these semantic requirements.</p>
 
-<p>Viele dieser Regeln kommen aus dem Standard selbst. Andere Regeln werden von den Mitgliedsländern in Form von <em>Core Invoice Usage Specifications (CIUS)</em>,
-siehe das Kapitel <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/">Erweiterungen</a>, aufgestellt.</p>
+<p>A lot of these rules come from the standard itself. Others rules are set up
+by the member states in the form of <em>Core Invoice Usage Specifications (CIUS)</em>,
+see the chapter <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/laender-spezifisches/">Erweiterungen</a>.</p>
 
 <h3><a href="#" name="business-terms" id="business-terms"></a>Business-Terms</h3>
 
-<p>Beim Lesen dieser Regeln, taucht häufig die Abkürzung <em>BT</em> auf. BT steht für <em>Business Term</em>. Gemeint ist damit einfach ein Bezeichner für ein bestimmtes Rechnungsfeld. Zum Beispiel ist das Ausgabedatum einer Rechnung Business Term 2 oder kurz BT-2, siehe die Dokumentation für (<code>cbc:IssueDate</code>)[<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-IssueDate/" target="_blank">https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-IssueDate/</a>].</p>
+<p>When reading these rules, you will often see the abbreviation <em>BT</em>. BT stands
+for <em>business term</em> and is simply the identifier for a certain invoice field.
+For example, the issue date of an invoice is business term number 2 or short
+BT-2, see the documentation for
+(<code>cbc:IssueDate</code>)[<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-IssueDate/" target="_blank">https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-IssueDate/</a>].</p>
 
 <p>Diese Dokumentation enthält eine fast vollständige Liste von Business-Terms, siehe <a href="/e-invoice-eu/de/docs/anderes/business-terms/">Business-Terms</a> mit weiterführenden Links zur <a href="https://docs.peppol.eu/poacc/billing/3.0/" target="_blank">Dokumentation von Peppol UBL invoice</a>.</p>
 
@@ -297,7 +316,11 @@ siehe das Kapitel <a href="/e-invoice-eu/de/docs/e-rechnungs-formate/laender-spe
     </div>
     <p>
 
+
+
 Weil einem nichts anderes übrigbleibt. Validierungssoftware für E-Rechnungen zitiert diese Regeln in den Fehlermeldungen. Und es ist ziemlich schwer, diese Fehlermeldungen zu verstehen, wenn man nicht weiß, wofür die in der Regel erwähnten Business-Terms genau stehen.
+
+
 
 </p>
 </div>
@@ -340,7 +363,11 @@ Weil einem nichts anderes übrigbleibt. Validierungssoftware für E-Rechnungen z
     </div>
     <p>
 
+
+
 Die folgende Liste von Software und Websites ist unvollständig. Um einen Eintrag zuzufügen, bitte ein [Ticket](https://github.com/gflohr/e-invoice-eu/issues) erstellen!
+
+
 
 </p>
 </div>
@@ -353,7 +380,9 @@ Die folgende Liste von Software und Websites ist unvollständig. Um einen Eintra
 
 <h2><a href="#" name="online-validatoren" id="online-validatoren"></a>Online-Validatoren</h2>
 
-<p>Online-Validatoren sind einfach zu benutzen. Man sollte jedoch daran denken, dass Rechnungen persönlische Daten oder sogar Geschäftsgeheimnisse enthalten können. Vor der Verwendung sollten deshalb alle rechtlichen Aspekte gewürdigt werden.</p>
+<p>Online validators are easy to use but you have to keep in mind that invoices
+contain personal data and may also contain business or trade secrets. Please
+check all legal requirements before you use them.</p>
 
 <h4>Factur-X/ZUGFeRD</h4>
 
@@ -403,7 +432,11 @@ Die folgende Liste von Software und Websites ist unvollständig. Um einen Eintra
 
 
 
+
+
 <pre class="language-shell"><code>node contrib/validators/factur-x/factur-x-validate.mjs INVOICE_DOCUMENT</code></pre>
+
+
 
 
 
@@ -436,7 +469,11 @@ Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
 
 
 
+
+
 <pre class="language-shell"><code>java -jar contrib/validators/kosit/validationtool.jar</code></pre>
+
+
 
 
 
@@ -453,7 +490,11 @@ Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
 
 
 
+
+
 <pre class="language-shell"><code>ls contrib/validators/kosit/xrechnung-scenario/scenarios.xml</code></pre>
+
+
 
 
 
@@ -468,7 +509,11 @@ Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
 
 
 
+
+
 <pre class="language-shell"><code>node contrib/validators/kosit/validate.mjs invoice.pdf</code></pre>
+
+
 
 
 
@@ -483,7 +528,11 @@ Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
 
 
 
+
+
 <pre class="language-shell"><code>node contrib/validators/kosit/validate.mjs --daemon</code></pre>
+
+
 
 
 
@@ -494,6 +543,8 @@ Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
 <p>Jetzt kann eine Web-Interface <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a> im Browser geöffnet werden, dass das Hochladen und die Validierung von Rechnungen erlaubt.</p>
 
 <p>Alternativ dazu kann auch <code>curl</code> oder <code>httpie</code> verwendet werden:</p>
+
+
 
 
 
@@ -525,7 +576,11 @@ Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
 
 
 
+
+
 <pre class="language-shell"><code>$ node contrib/validators/kosit/validate.mjs --help</code></pre>
+
+
 
 
 
@@ -549,8 +604,8 @@ Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
 		</div>
 		<div class="col-5 text-right guided-tour-link">
 			
-			<a href="/e-invoice-eu/de/docs/anderes/business-terms/"
-				>Business-Terms&nbsp;<i
+			<a href="/e-invoice-eu/de/docs/anderes/bibliothek-e-invoice-eu/"
+				>E-Invoice-EU Library&nbsp;<i
 					class="bi-arrow-right-circle"
 				></i></a>
 			
@@ -654,6 +709,52 @@ Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
 </div>
 
  
+<h4>Commandline Tool</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/installation/">Installation</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/hilfe-bekommen/">Getting Help</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/invoice/">The Command &quot;invoice&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/transform/">The Command &quot;transform&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/format/">The Command &quot;format&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/schema/">The Command &quot;schema&quot;</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
 <h4>Dienst (Service)</h4>
  
 <div class="sidebar-module">
@@ -723,6 +824,18 @@ Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
 		
 		<li>
 			
+			<a href="/e-invoice-eu/de/docs/anderes/bibliothek-e-invoice-eu/">E-Invoice-EU Library</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/anderes/browser-beispiel/">Browser Example</a>
+			
+		</li>
+		
+		<li>
+			
 			<a href="/e-invoice-eu/de/docs/anderes/business-terms/">Business-Terms</a>
 			
 		</li>
@@ -757,7 +870,8 @@ Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
 		<div class="col-sm-8">
 			
 			<div class="col-12 col-md-6 footer-links text-md-center">
-				 Copyright &copy; 2016-2025 <a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
+				 Copyright &copy; 2016-2025
+				<a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
 			</div>
 			<div class="col-12 col-md-3 footer-links text-md-center">
 				<a href="/e-invoice-eu/de/impressum/">
@@ -786,8 +900,7 @@ Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
 	
 
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
-
-	 <cookie-consent-banner
+  <cookie-consent-banner
 	btn-label-accept-and-continue="Zustimmen und weiter"
 	btn-label-only-essential-and-continue="Weiter mit nur technisch notwendigen Cookies"
 	btn-label-persist-selection-and-continue="Auswahl speichern und weiter"
@@ -844,19 +957,18 @@ Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
 	type="module"
 	src="https://unpkg.com/@porscheofficial/cookie-consent-banner@3.1.3/dist/cookie-consent-banner/cookie-consent-banner.esm.js"
 ></script>
-
-	<script>
-// 
-(function () {
-	document.querySelectorAll('.copy-to-clipboard-button').forEach(btn => {
-		btn.title = "Quelltext kopieren";
-	});
-})();
+ <script>
+	// 
+	(function () {
+		document.querySelectorAll('.copy-to-clipboard-button').forEach(btn => {
+			btn.title = "Quelltext kopieren";
+		});
+	})();
 </script>
+ 
 
-	
 
-  <script src="/e-invoice-eu/assets/bundle.min.js" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1743335721" type="text/javascript"></script>
 
 
 

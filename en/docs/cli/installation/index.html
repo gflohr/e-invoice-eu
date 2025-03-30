@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="utf-8" />
+<meta http-equiv="X-UA-compatible" content="IE=edge" />
+  <link
+	rel="alternate"
+	hreflang="de"
+	href="/e-invoice-eu/de/docs/kommandozeilen-tool/installation/"
+/> 
+<meta name="description" content="The tool &lt;code&gt;e-invoice-eu&lt;/code&gt; can be used to create electronic invoices on the commandline." />
+<title>Installation</title>
+<link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
+<link
+	rel="shortcut icon"
+	href="/e-invoice-eu/images/favicon.png"
+	type="image/png"
+/>
+<link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/cli/installation/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/cli/installation/" />
+ <meta property="og:type" content="article" />
+<meta property="og:title" content="Installation" />
+<meta property="og:description" content="The tool &lt;code&gt;e-invoice-eu&lt;/code&gt; can be used to create electronic invoices on the commandline." />
+
+
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no"
+	/>
+
+	
+
+  <link href="/e-invoice-eu/assets/bundle.min.css?1743335721" rel="stylesheet">
+
+
+
+  <meta name="generator" content="Qgoda vv0.11.0 (https://www.qgoda.net/)" />
+</head>
+  
+
+
+
+<body>
+	 
+<nav class="navbar navbar-expand-md navbar-dark bg-warning">
+	<button
+		class="navbar-toggler"
+		type="button"
+		data-toggle="collapse"
+		data-target="#navbarCollapse"
+		aria-controls="navbarCollapse"
+		aria-expanded="false"
+		aria-label="Toggle navigation"
+	>
+		&#9776;
+	</button>
+	<div class="qgoda-brand">
+		<a
+			class="navbar-brand"
+			href="/e-invoice-eu/en/docs/"
+			title="E-Invoice-EU Documentation"
+		>
+			<img
+				src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"
+				="alt"
+				="E-Invoice-EU logo"
+				height="80"
+			/>
+		</a>
+	</div>
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<ul class="navbar-nav mr-auto">
+			<li class="d-md-none nav-item">
+				<a
+					class="nav-link"
+					href="/e-invoice-eu/en/docs/"
+					title="E-Invoice-EU Documentation"
+				>
+					<i class="bi-house"></i>&nbsp;Home
+				</a>
+			</li>
+			<li class="nav-item">
+				<a
+					class="nav-link"
+					href="/e-invoice-eu/en/docs/"
+					title="E-Invoice-EU Documentation"
+				>
+					<i class="bi-book"></i>&nbsp;Docs
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/gflohr/e-invoice-eu/releases" title="E-Invoice-EU Releases" target="_blank">
+					<i class="bi-download"></i>&nbsp;Download
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="https://github.com/gflohr/e-invoice-eu" title="E-Invoice-EU on GitHub" target="_blank">
+					<i class="bi-github"></i>&nbsp;Github
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 content">
+				<div class="content-head">
+					<h1>Installation</h1>
+					
+					<div class="description">The tool <code>e-invoice-eu</code> can be used to create electronic invoices on the commandline.</div>
+				</div>
+				<qgoda-content> 
+
+
+
+
+
+
+
+<p>You can install the commandline tool <code>e-invoice-eu</code> like this:</p>
+
+
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-23fec64cc3f03070047d879434bd0e0cf782bdc0' id='code-tab-6643a9677b12759e779befd0f9fefe3affb8f04a' checked>
+        <label data-title='npm' for='code-tab-6643a9677b12759e779befd0f9fefe3affb8f04a'>npm</label>
+        <input type='radio' name='group-23fec64cc3f03070047d879434bd0e0cf782bdc0' id='code-tab-ebc745803545958b4f876ea2ed94c3c2947e4c5f'>
+        <label data-title='yarn' for='code-tab-ebc745803545958b4f876ea2ed94c3c2947e4c5f'>yarn</label>
+        <input type='radio' name='group-23fec64cc3f03070047d879434bd0e0cf782bdc0' id='code-tab-dccc9b9df1eb61179bde6b298d647bc45f92a854'>
+        <label data-title='pnpm' for='code-tab-dccc9b9df1eb61179bde6b298d647bc45f92a854'>pnpm</label>
+        <input type='radio' name='group-23fec64cc3f03070047d879434bd0e0cf782bdc0' id='code-tab-84cb4e54900c1e4e1d50c1b84a351fbc6fc39eec'>
+        <label data-title='bun' for='code-tab-84cb4e54900c1e4e1d50c1b84a351fbc6fc39eec'>bun</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-6643a9677b12759e779befd0f9fefe3affb8f04a' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>npm install -g @e-invoice-eu/cli</code></pre>
+
+</code-block>
+            <code-block id='code-block-ebc745803545958b4f876ea2ed94c3c2947e4c5f'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>yarn global add @e-invoice-eu/cli</code></pre>
+
+</code-block>
+            <code-block id='code-block-dccc9b9df1eb61179bde6b298d647bc45f92a854'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>pnpm add -g @e-invoice-eu/cli</code></pre>
+
+</code-block>
+            <code-block id='code-block-84cb4e54900c1e4e1d50c1b84a351fbc6fc39eec'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>bun add -g @e-invoice-eu/cli</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
+
+
+<p>If you lack the required permissions to install the command globally,
+you may have to prepend <code>sudo</code> to the command.</p>
+
+
+
+
+
+
+<div class="alert alert-info" role="alert">
+    <div>
+        <strong>
+            <i class="bi-info-circle"></i>
+            <span class="title">Pro Tip: Use <code>nvm</code></span>
+        </strong>
+    </div>
+    <p>
+
+
+
+You can avoid using <code>sudo</code> by using the <a href="https://github.com/nvm-sh/nvm" target="_blank">Node
+Version Manager <code>nvm</code></a>. That has the additional benefit that
+you have multiple versions of <a href="https://nodejs.org/" target="_blank">Node.js</a>
+available simultaneously.
+
+
+
+</p>
+</div>
+
+
+
+
+
+
+
+<p>Test that the installation has worked:</p>
+
+<pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>e-invoice-eu --version</code></pre>
+
+
+<p>That should output version information.</p>
+ 
+				 
+<div class="guided-tour container">
+	<div class="row">
+		<div class="col-5 text-left guided-tour-link">
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/country-specific-extensions/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;Extensions</a>
+			
+		</div>
+		<div class="col-2 text-center guided-tour-link">
+			
+			<a href="/e-invoice-eu/en/docs/">Home</a>
+			
+		</div>
+		<div class="col-5 text-right guided-tour-link">
+			
+			<a href="/e-invoice-eu/en/docs/cli/getting-help/"
+				>Getting Help&nbsp;<i
+					class="bi-arrow-right-circle"
+				></i></a>
+			
+		</div>
+	</div>
+</div>
+
+				
+			</div>
+			<div class="col-sm-3 offset-sm-1 sidebar">
+				 
+ 
+<div class="sidebar-module sidebar-general">
+	<ol>
+		<li>
+			<a class="github-button" href="https://github.com/gflohr/e-invoice-eu" data-icon="octicon-star" data-show-count="true" aria-label="Stars on GitHub" target="_blank">Stars</a>
+			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
+		</li>
+		<li>
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/main/packages/docs/en/docs/cli/installation.md?plain=1" target="_blank">
+				<i class="bi-code-slash"></i>
+				Source code of this page
+			</a>
+		</li>
+		 
+		<li>
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/installation/">
+				<i class="bi-translate"></i>
+				Diese Seite auf Deutsch lesen
+			</a>
+		</li>
+		
+	</ol>
+</div>
+   
+<h4>Basics</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/basics/general-mode-of-operation/">General Mode of Operation</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/basics/supported-formats/">Supported Formats</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/basics/disclaimer/">Disclaimer</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>E-invoice Formats</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/hybrid-vs-xml/">Hybrid vs XML</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/ubl/">UBL</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/cii/">CII</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/factur-x-zugferd/">Factur-X/ZUGFeRD</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/e-invoice-formats/country-specific-extensions/">Extensions</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Commandline Tool</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<i class="bi-arrow-right-circle"></i>&nbsp;Installation 
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/getting-help/">Getting Help</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/commands/invoice/">The Command &quot;invoice&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/commands/transform/">The Command &quot;transform&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/commands/format/">The Command &quot;format&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/cli/commands/schema/">The Command &quot;schema&quot;</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Service</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/service/deployment/">Deployment</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/service/creating-invoices/">Creating Invoices</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/service/other-endpoints/">Other Endpoints</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/service/api-documentation/">API Documentation</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Details</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/details/internal-format/">Internal Format</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/details/mapping/">Mapping</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/details/validation/">Validation</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+<h4>Other</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/other/e-invoice-eu-library/">E-Invoice-EU Library</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/other/browser-example/">Browser Example</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/other/business-terms/">Business Terms</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/other/business-groups/">Business Groups</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/en/docs/other/faq/">FAQ</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
+
+			</div>
+		</div>
+	</div>
+
+	
+	<footer id="footer" class="bg-warning-opaque">
+		 
+<div class="container">
+	
+	<div class="row">
+		<div class="col-sm-8">
+			
+			<div class="col-12 col-md-6 footer-links text-md-center">
+				 Copyright &copy; 2016-2025
+				<a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a href="/e-invoice-eu/en/legal-disclosure/">
+					Legal Disclosure
+				</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a href="/e-invoice-eu/en/data-privacy-policy/">
+					Data Privacy
+				</a>
+			</div>
+			<div class="col-12 col-md-3 footer-links text-md-center">
+				<a
+					href="javascript:document.dispatchEvent(new Event('cookie_consent_show'))"
+				>
+					Cookie Settings
+				</a>
+			</div>
+			
+		</div>
+	</div>
+	
+</div>
+
+	</footer>
+	
+
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
+  <cookie-consent-banner
+	btn-label-accept-and-continue="Agree and continue"
+	btn-label-only-essential-and-continue="Continue with technically required cookies only"
+	btn-label-persist-selection-and-continue="Save selection and continue"
+	btn-label-select-all-and-continue="Select all and continue"
+	content-settings-description="You can decide which cookies are used by selecting the respective options below. Please note that your selection may impair in the functionality of the service."
+>
+	This website uses cookies and similar technologies to provide certain
+	features, enhance the user experience and deliver content that is relevant to
+	your interests. Depending on their purpose, analysis and marketing cookies may
+	be used in addition to technically necessary cookies. By clicking on "Agree
+	and continue", you declare your consent to the use of the aforementioned
+	cookies.
+	<a
+		href="javascript:document.dispatchEvent(new Event('cookie_consent_details_show'))"
+		class="consent-banner-link"
+	>
+		Here
+	</a>
+	you can make detailed settings or revoke your consent (in part if necessary)
+	with effect for the future. For further information, please refer to our
+	<a href="/en/data-privacy/" class="consent-banner-link">Privacy Policy</a>.
+</cookie-consent-banner>
+
+<script>
+	const cookieConsentBannerElement = document.querySelector(
+		'cookie-consent-banner',
+	);
+	cookieConsentBannerElement.availableCategories = [
+		{
+			description:
+				'Enable you to navigate and use the basic functions and to store preferences.',
+			key: 'technically_required',
+			label: 'Technically necessary cookies',
+			isMandatory: true,
+		},
+		{
+			description:
+				'Enable the site owner to determine how visitors interact with our service in order to improve the user experience.',
+			key: 'analytics',
+			label: 'Analysis cookies',
+		},
+		/*
+		{
+			description:
+				"Enable us to offer and evaluate relevant content and interest-based advertising.",
+			key: "marketing",
+			label: "Marketing cookies",
+		},
+		*/
+	];
+</script>
+ 
+<script
+	type="module"
+	src="https://unpkg.com/@porscheofficial/cookie-consent-banner@3.1.3/dist/cookie-consent-banner/cookie-consent-banner.esm.js"
+></script>
+ <script>
+	// 
+	(function () {
+		document.querySelectorAll('.copy-to-clipboard-button').forEach(btn => {
+			btn.title = "Copy code";
+		});
+	})();
+</script>
+ 
+
+
+  <script src="/e-invoice-eu/assets/bundle.min.js?1743335721" type="text/javascript"></script>
+
+
+
+</body>
+ 
+</html>

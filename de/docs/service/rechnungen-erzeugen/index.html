@@ -11,7 +11,11 @@
 <meta name="description" content="E-Rechnungen können aus Tabellenkalkulationsdaten oder direkt aus JSON erzeugt werden." />
 <title>Rechnungen erzeugen</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
-<link rel="shortcut icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
+<link
+	rel="shortcut icon"
+	href="/e-invoice-eu/images/favicon.png"
+	type="image/png"
+/>
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
 <link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/service/rechnungen-erzeugen/" />
 <meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/service/rechnungen-erzeugen/" />
@@ -27,10 +31,10 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1743335721" rel="stylesheet">
 
 
-  <link href="/e-invoice-eu/site/css/modal-image-popup.css?1741709891" rel="stylesheet">
+  <link href="/e-invoice-eu/site/css/modal-image-popup.css?1743335688" rel="stylesheet">
 
 
   <meta name="generator" content="Qgoda vv0.11.0 (https://www.qgoda.net/)" />
@@ -40,8 +44,7 @@
 
 
 <body>
-	
-
+	 
 <nav class="navbar navbar-expand-md navbar-dark bg-warning">
 	<button
 		class="navbar-toggler"
@@ -60,8 +63,12 @@
 			href="/e-invoice-eu/de/docs/"
 			title="E-Invoice-EU Documentation"
 		>
-			<img src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"=
-				alt="E-Invoice-EU logo" height="80" />
+			<img
+				src="https://github.com/gflohr/e-invoice-eu/raw/main/assets/e-invoice-eu-logo-2.webp"
+				="alt"
+				="E-Invoice-EU logo"
+				height="80"
+			/>
 		</a>
 	</div>
 	<div class="collapse navbar-collapse" id="navbarCollapse">
@@ -108,261 +115,514 @@
 					<div class="description">E-Rechnungen können aus Tabellenkalkulationsdaten oder direkt aus JSON erzeugt werden.</div>
 				</div>
 				<qgoda-content> 
-[% USE q = Qgoda %]
-[% USE Highlight %]
-[% USE CodeGroup %]
-
-
-Die [% q.lanchor(name='general-mode-of-operation') %] besteht darin, zuerst die Daten aus der Tabellenkalkulation auf das [interne Rechnungsformat]([% q.llink(name='internal-format') %]) in JSON abzubilden, und daraus im nächsten Schritt eine XML-E-Rechnung oder eine hybrid PDF/XML-Datei aus den JSON-Daten zu erzeugen. Es ist aber auch möglich, den Mapping-Schritt zu überspringen und die Rechnung direkt aus den JSON-Daten zu erzeugen.
 
 
 
-## Voraussetzungen
-
-Bevor begonnen werden kann, müssen die folgenden Voraussetzungen vorliegen:
-
-* Ein Tabellenkalkulations-Template. Die Beispiele gehen davon aus, dass das Template `contrib/templates/default-invoice.ods` Verwendung findet.
-* Eine Mapping-Datei. Die Beispiele gehen davon aus, dass die Mapping-Datei `contrib/mappings/default-invoice.yaml` Verwendung findet.
-* [LibreOffice](https://libreoffice.org/) ist auf dem System installiert (nicht immer notwendig).
-* Der [Server ist gestartet]([% q.llink(name='deployment') %]). Die Beispiele gehen davon aus, dass der Server unter http://localhost:3000 erreichbar ist.
-* Das aktuelle Arbeitsverzeichnis ist das Wurzelverzeichnis des Repositories, so dass die Beispieldateien zur verfügbar sind..
-* Die notwendigen [Umgebungsvariablen]([% q.llink(name='deployment') %]#umgebungsvariablen) sind gesetzt.
-
-E-Invoice-EU verwendet [LibreOffice](https://libreoffice.org/) im Headless-Modus, um PDFs aus Tabellenkalkulations-Daten zu erzeugen. Wird dieses Feature nicht genutzt, muss LibreOffice nicht installiert sein. Alternativ kann immer eine PDF-Datei aus anderen Quellen zur Verfügung gestellt werden, statt sie aus der Tabellenkalkulation zu erzeugen.
-
-## Rechnungen aus Tabellenkalkulations-Daten erzeugen
-
-Der API-Endpunkt für diese Funktion ist `/api/invoice/create/:FORMAT`.
-
-[% title = ”Der Endpunkt /invoice/transform-and-create ist veraltet!” %]
 
 
-[% WRAPPER components/infobox.html
-type='warning' title=title %]
+
+
+<p>Die <a href="/e-invoice-eu/de/docs/grundlagen/funktionsweise/">Generelle Funktionsweise</a> besteht darin, zuerst die Daten aus der Tabellenkalkulation auf das <a href="/e-invoice-eu/de/docs/details/internes-format/">interne Rechnungsformat</a> in JSON abzubilden, und daraus im nächsten Schritt eine XML-E-Rechnung oder eine hybrid PDF/XML-Datei aus den JSON-Daten zu erzeugen. Es ist aber auch möglich, den Mapping-Schritt zu überspringen und die Rechnung direkt aus den JSON-Daten zu erzeugen.</p>
+
+<p> 
+<div class="toc">
+	<div class="toc-title">Inhaltsverzeichnis</div>
+	<ul class="toclevel-1">
+	
+	<li class="toclevel-1">
+		1
+		<a href="#voraussetzungen">Voraussetzungen</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		2
+		<a href="#rechnungen-aus-tabellenkalkulations-daten-erzeugen">Rechnungen aus Tabellenkalkulations-Daten erzeugen</a>
+		 <ul class="toclevel-2">
+	
+	<li class="toclevel-2">
+		2.1
+		<a href="#einfache-e-rechnung">Einfache E-Rechnung</a>
+		
+	</li>
+	
+	<li class="toclevel-2">
+		2.2
+		<a href="#e-rechnung-mit-zusatzlichen-attachments">E-Rechnung mit zusätzlichen Attachments</a>
+		
+	</li>
+	
+</ul>
+ 
+	</li>
+	
+	<li class="toclevel-1">
+		3
+		<a href="#beispiel-fur-factur-x-zugferd">Beispiel für Factur-X/ZUGFeRD</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		4
+		<a href="#rechnungen-aus-json-erzeugen">Rechnungen aus JSON erzeugen</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		5
+		<a href="#json-daten-aus-tabellendaten-erzeugen">JSON-Daten aus Tabellendaten erzeugen</a>
+		
+	</li>
+	
+</ul>
+
+</div>
+
+</p>
+
+<h2><a href="#" name="voraussetzungen" id="voraussetzungen"></a>Voraussetzungen</h2>
+
+<p>Bevor begonnen werden kann, müssen die folgenden Voraussetzungen vorliegen:</p>
+
+<ul>
+<li>A spreadsheet template. The examples assume that you use the template in <code>contrib/templates/default-invoice.ods</code>.</li>
+<li>A <a href="/e-invoice-eu/de/docs/details/mapping/">mapping definition</a>. The examples assume that you use the mapping file in <code>contrib/mappings/default-invoice.yaml</code>.</li>
+<li><a href="https://libreoffice.org/" target="_blank">LibreOffice</a> installed on your system (not always necessary).</li>
+<li>You have <a href="/e-invoice-eu/de/docs/service/deployment/">started the server</a>. The examples assume that the server is available at <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>.</li>
+<li>You have changed directory to the top-level directory of the repository so that the sample files are available.</li>
+<li>You have set the necessary <a href="/e-invoice-eu/de/docs/service/deployment/#environment-variables">environment variables</a>.</li>
+</ul>
+
+
+<p>E-Invoice-EU verwendet <a href="https://libreoffice.org/" target="_blank">LibreOffice</a> im Headless-Modus, um PDFs aus Tabellenkalkulations-Daten zu erzeugen. Wird dieses Feature nicht genutzt, muss LibreOffice nicht installiert sein. Alternativ kann immer eine PDF-Datei aus anderen Quellen zur Verfügung gestellt werden, statt sie aus der Tabellenkalkulation zu erzeugen.</p>
+
+<h2><a href="#" name="rechnungen-aus-tabellenkalkulations-daten-erzeugen" id="rechnungen-aus-tabellenkalkulations-daten-erzeugen"></a>Rechnungen aus Tabellenkalkulations-Daten erzeugen</h2>
+
+<p>Der API-Endpunkt für diese Funktion ist <code>/api/invoice/create/:FORMAT</code>.</p>
+
+
+
+
+
+
+<div class="alert alert-warning" role="alert">
+    <div>
+        <strong>
+            <i class="bi-exclamation-triangle"></i>
+            <span class="title">Der Endpunkt /invoice/transform-and-create ist veraltet!</span>
+        </strong>
+    </div>
+    <p>
+
+
 
 Ab Version 1.4.3 gilt der Endpunkt <code>/invoice/transform-and-create</code> als veraltet. Er wird in der nächsten Version 2.x.x der Software entfernt. Der einzig notwendige Schritt ist <code>/invoice/transform-and-create</code> mit <code>/invoice/create</code> zu ersetzen. Die Parameter bleiben die gleichen.
 
-[% END %]
 
 
-### Einfache E-Rechnung
-
-In seiner einfachsten Form, lässt sich eine E-Rechnung aus Tabellenkalkulations-Daten folgendermaßen erzeugen:
-
-
-[% FILTER $CodeGroup %]
-
-[curl]
-[% FILTER $Highlight "language-sh" %]
-curl -X POST http://localhost:3000/api/invoice/create/UBL \
-    -F data=@contrib/templates/default-invoice.ods \
-    -F mapping=@contrib/mappings/default-invoice.yaml
-[% END %]
-
-[httpie]
-[% FILTER $Highlight "language-sh" %]
-http --form POST http://localhost:3000/api/invoice/create/UBL \
-    data@contrib/templates/default-invoice.ods \
-    mapping@contrib/mappings/default-invoice.yaml
-[% END %]
-
-[% END %]
+</p>
+</div>
 
 
-Das Format ist ein Pfad-Parameter, der nach dem Endpunkt-Pfad `api/invoice/create` angegeben wird, in diesem Fall `UBL`. Groß- und Kleinschreibung spielt bei der Angabe des Formats keine Rolle.
-
-Die Rechnungsdaten (Parameter `data`) werden aus der Tabellenkalkulations-Datei `contrib/templates/default-invoice.ods` gelesen. Diese Daten werden dann mit der Mapping-Definition in `contrib/mappings/default-invoice.yaml` auf die E-Rechnungsdaten abgebildet.
-
-### E-Rechnung mit zusätzlichen Attachments
-
-Es ist möglich, weitere Dateien mit zusätzlichen Informationen anzuhängen. Dies funktioniert sowohl für reine XML-Formate als auch für hybride Factur-X/ZUGFeRD-E-Rechnungen. Dieses Beispiel erzeugt eine Factur-X-Rechnung mit dem Profile „Extended“ mit zwei Attachments:
 
 
-[% FILTER $CodeGroup %]
-
-[curl]
-[% FILTER $Highlight "language-sh" %]
-curl -X POST \
-    http://localhost:3000/api/invoice/create/UBL \
-    -F lang=de \
-    -F data=@contrib/templates/default-invoice.ods \
-    -F mapping=@contrib/mappings/default-invoice.yaml \
-    -F embedPDF=1 \
-    -F pdf=@invoice.pdf \
-    -F pdfID=1234567890 \
-    -F pdfDescription="Invoice as PDF." \
-    -F "attachment=@time-sheet.ods;type=application/vnd.oasis.opendocument.spreadsheet" \
-        -F "attachmentID=abc-123-xyz" \
-    -F attachmentDescription="Detailed description of hours spent." \
-    -F attachment=@payment-terms.pdf \
-    -F attachmentDescription="Our payment terms"
-[% END %]
-
-[httpie]
-[% FILTER $Highlight "language-sh" %]
-http --form POST http://localhost:3000/api/invoice/create/UBL \
-    lang=de \
-    data@contrib/templates/default-invoice.ods \
-    mapping@contrib/mappings/default-invoice.yaml \
-    embedPDF=1 \
-    pdf@invoice.pdf \
-    pdfID=1234567890 \
-    pdfDescription="Invoice as PDF." \
-    attachment@time-sheet.ods\;type=application/vnd.oasis.opendocument.spreadsheet \
-    attachmentID=abc-123-xyz \
-    attachmentDescription="Detailed description of hours spent." \
-    attachment@payment-terms.pdf \
-    attachmentDescription="Our payment terms"
-[% END %]
-
-[% END %]
 
 
-Die Bedeutungen der einzelnen URL-Parameter sind:
 
-* `lang`: Wird für die Übersetzung einiger Standardtexte verwendet .
-* `data`: Die Tabellenkalkulations-Datei mit den Rechnungsdaten.
-* `mapping`: Die Mapping-Definition für die Zuordnung der Rechnungsdaten.
-* `embedPDF`: Bewirkt, dass eine PDF-Version der E-Rechnung in XML eingebettet wird; ignoriert für Factur-X/ZUGFeRD.
-* `pdf`: Die PDF-Version der E-Rechnung. Falls die Einbettung gewünscht ist, der Parameter `pdf` jedoch nicht angegeben wurde, wird das PDF aus der Tabellenkalkulations-Datei (Parameter `data`) erzeugt.
-* `pdfID`: Die Attachment-ID des eingebetteten PDFs. Standardwert ist der Dateiname.
-* `pdfDescription`: Eine optionale Beschreibung des Dateianhangs.
-* `attachment`: Optional, eine zusätzlich einzubettende Datei.
-* `attachmentID`: Optional, die ID des Dateianhangs. Standardwert ist der Dateiname.
-* `attachmentDescription`: Eine optionale Beschreibung des Dateianhangs.
+<h3><a href="#" name="einfache-e-rechnung" id="einfache-e-rechnung"></a>Einfache E-Rechnung</h3>
 
-[% title = "PDF aus Tabellenkalkulations-Daten erzeugen" %]
-
-[% WRAPPER components/infobox.html type='warning' title=title %]
-
-Wird das PDF nicht mit dem Parameter <code>pdf</code> übergeben, wird es aus der Tabellenkalkulations-Datei (Parameter <code>data</code>) erzeugt. In diesem Fall muss sichergestellt werden, dass die ausführbare LibreOffice-Datei gefunden wird. Sie muss entweder in <code>$PATH</code> liegen, oder ihr genauer Ort muss <a
-href=”[% q.llink(name='deployment') %]#libre_office-code”>konfiguriert werden</a>.
-
-[% END %]
+<p>In its most simple form, you can create an e-invoice from spreadsheet data
+like this:</p>
 
 
-Jeder Anhang an die E-Rechnung kann eine optionale ID und eine optionale Beschreibung erhalten. Der Service „sieht” allerdings nur 3 Listen der URL-Parameter `attachment`, `attachmentID` und `attachmentDescription`, selbst wenn sie pro Anhang gruppiert wurden.
-
-Wird der Paramter `Attachment` viermal, `attachmentID` zweimal und `attachmentDescription` dreimal angegeben, ganz gleich in welcher Reihenfolge, werden die folgenden Anhänge eingebettet:
-
-| Anhang        | Dateiname        | ID | Beschreibung |
-|—————————|————————|——|——————|
-| **Anhang #1** | `attachment` #1 | `attachmentID #1` | `attachmentDescription #1` |
-| **Anhang #2** | `attachment` #2 | `attachmentID #2` | `attachmentDescription #2` |
-| **Anhang #3** | `attachment` #3 | - | `attachmentDescription #3` |
-| **Anhang #4** | `attachment` #4 | - | - |
-
-Normalerweise wird man diesen Komplikationen aus dem Wege gehen wollen und entweder für jeden Anhang eine ID und/oder Beschreibung übergeben oder für keinen.
-
-## Beispiel für Factur-X/ZUGFeRD
-
-Die Erzeugung von Factur-X/ZUGFeRD unterscheidet sich eigentlich nur darin, dass die Ausgabe binär ist, und deshalb in eine Datei umgeleitet werden sollte.
 
 
-[% FILTER $CodeGroup %]
-
-[curl]
-[% FILTER $Highlight "language-sh" %]
-curl -X POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
-    -F data=@contrib/templates/default-invoice.ods \
-    -F mapping=@contrib/mappings/default-invoice.yaml \
-	--output e-invoice.pdf
-[% END %]
-
-[httpie]
-[% FILTER $Highlight "language-sh" %]
-http --form POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
-    data@contrib/templates/default-invoice.ods \
-    mapping@contrib/mappings/default-invoice.yaml \
-	--output e-invoice.pdf
-[% END %]
-
-[% END %]
 
 
-Dies würde eine E-Rechnung im Format Factur-X/ZUGFeRD mit dem Profil *Extended* erzeugen.
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-57103e9e8bb43b5daaf60b823b77582f9dfee4bb' id='code-tab-308cab381a7e4d77c669ed537981fab7252e52cf' checked>
+        <label data-title='curl' for='code-tab-308cab381a7e4d77c669ed537981fab7252e52cf'>curl</label>
+        <input type='radio' name='group-57103e9e8bb43b5daaf60b823b77582f9dfee4bb' id='code-tab-b9db4ae2251b21066ba8f3fc8407a1b0b48230d5'>
+        <label data-title='httpie' for='code-tab-b9db4ae2251b21066ba8f3fc8407a1b0b48230d5'>httpie</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-308cab381a7e4d77c669ed537981fab7252e52cf' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/UBL \
+ -F spreadsheet=@contrib/templates/default-invoice.ods \
+ -F mapping=@contrib/mappings/default-invoice.yaml</code></pre>
 
-Man muss sich allerdings vergegenwärtigen, dass das hybride Format Factur-X/ZUGFeRD eine PDF-Version *verlangt*. Diese PDF-Version muss entweder mit dem Parameter `pdf` übergeben werden, oder `LibreOffice` muss verfügbar sein, damit sie aus der Tabellenkalkulations-Datei `data` erzeugt werden kann.
+</code-block>
+            <code-block id='code-block-b9db4ae2251b21066ba8f3fc8407a1b0b48230d5'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
+ spreadsheet@contrib/templates/default-invoice.ods \
+ mapping@contrib/mappings/default-invoice.yaml</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
 
-[% title = ”Unter Windows nicht die Standardausgabe umleiten!” %]
 
-[% WRAPPER components/infobox.html
-type='warning' title=title %]
 
-Je nachdem, welche Shell verwendet wird, kann das generierte PDF beschädigt werden. Genauer gesagt, werden alle Zeilenumbrüche (<code>LF</code>) in <code>CRLF</code> umgewandelt, was die binäre Datei unbrauchbar macht. Sie wird weiterh als UTF-16-LE kodiert. Das ist ein 2-Byte-Kodierung, und auch das ist falsch für binäre Dateien. Das lässt sich vermeiden indem die Option <code>-o</code> bzw. <code>—output</code> verwendet wird. Siehe <a href=”https://github.com/gflohr/e-invoice-eu/issues/96#issuecomment-2708171823”>
+
+
+
+
+<p>Das Format ist ein Pfad-Parameter, der nach dem Endpunkt-Pfad <code>api/invoice/create</code> angegeben wird, in diesem Fall <code>UBL</code>. Groß- und Kleinschreibung spielt bei der Angabe des Formats keine Rolle.</p>
+
+<p>The invoice data (parameter <code>spreadsheet</code>) is read from the spreadsheet file
+<code>contrib/templates/default-invoice.ods</code>. That spreadsheet data is then
+<a href="/e-invoice-eu/de/docs/details/mapping/">mapped</a> (parameter <code>mapping</code>) with the mapping definition
+<code>contrib/mappings/default-invoice.yaml</code>.</p>
+
+<h3><a href="#" name="e-rechnung-mit-zusatzlichen-attachments" id="e-rechnung-mit-zusatzlichen-attachments"></a>E-Rechnung mit zusätzlichen Attachments</h3>
+
+<p>It is possible to attach files with additional information. This works
+both for pure XML formats and for hybrid Factur-X/ZUGFeRD e-invoices. The
+example creates a Factur-X Extended invoice with three attachments:</p>
+
+
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-23fba9955daeff2e586b2986dbf1bb84bc235b2d' id='code-tab-f5cb3bb2496c92beaff7e56dcb72e1dd0a0a53e3' checked>
+        <label data-title='curl' for='code-tab-f5cb3bb2496c92beaff7e56dcb72e1dd0a0a53e3'>curl</label>
+        <input type='radio' name='group-23fba9955daeff2e586b2986dbf1bb84bc235b2d' id='code-tab-8b3d6a1195c6ffe9ee93b89bfffdf17151324c2a'>
+        <label data-title='httpie' for='code-tab-8b3d6a1195c6ffe9ee93b89bfffdf17151324c2a'>httpie</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-f5cb3bb2496c92beaff7e56dcb72e1dd0a0a53e3' class='active'><pre class="language-sh"><code>curl -X POST \
+ http://localhost:3000/api/invoice/create/UBL \
+ -F lang=de \
+ -F spreadsheet=@contrib/templates/default-invoice.ods \
+ -F mapping=@contrib/mappings/default-invoice.yaml \
+ -F embedPDF=1 \
+ -F pdf=@invoice.pdf \
+ -F pdfID=1234567890 \
+ -F pdfDescription=&#34;Invoice as PDF.&#34; \
+ -F &#34;attachment=@time-sheet.ods;type=application/vnd.oasis.opendocument.spreadsheet&#34; \
+ -F &#34;attachmentID=abc-123-xyz&#34; \
+ -F attachmentDescription=&#34;Detailed description of hours spent.&#34; \
+ -F attachment=@payment-terms.pdf \
+ -F attachmentDescription=&#34;Our payment terms&#34;</code></pre>
+
+</code-block>
+            <code-block id='code-block-8b3d6a1195c6ffe9ee93b89bfffdf17151324c2a'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
+ lang=de \
+ spreadsheet@contrib/templates/default-invoice.ods \
+ mapping@contrib/mappings/default-invoice.yaml \
+ embedPDF=1 \
+ pdf@invoice.pdf \
+ pdfID=1234567890 \
+ pdfDescription=&#34;Invoice as PDF.&#34; \
+ attachment@time-sheet.ods\;type=application/vnd.oasis.opendocument.spreadsheet \
+ attachmentID=abc-123-xyz \
+ attachmentDescription=&#34;Detailed description of hours spent.&#34; \
+ attachment@payment-terms.pdf \
+ attachmentDescription=&#34;Our payment terms&#34;</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
+
+
+<p>Die Bedeutungen der einzelnen URL-Parameter sind:</p>
+
+<ul>
+<li><code>lang</code>: This is used to determine the language for some canned texts.</li>
+<li><code>spreadsheet</code>: The spreadsheet with the invoice data.</li>
+<li><code>mapping</code>: The <a href="/e-invoice-eu/de/docs/details/mapping/">mapping definition</a> for the invoice data.</li>
+<li><code>embedPDF</code>: Embed a PDF version of the e-invoice in the XML; ignored for Factur-X/ZUGFeRD.</li>
+<li><code>pdf</code>: The PDF version of the e-invoice. If embedding a PDF was requested but the parameter <code>pdf</code> is missing, the PDF is generated from the spreadsheet file (parameter <code>spreadsheet</code>).</li>
+<li><code>pdfID</code>: The attachment id of the embedded PDF, defaults to the filename.</li>
+<li><code>pdfDescription</code>: An optional description of that attachment.</li>
+<li><code>attachment</code>: Optionally, an additional file to be embedded.</li>
+<li><code>attachmentID</code>: Optionally, the id of the attachment, defaults to the filename.</li>
+<li><code>attachmentDescription</code>: An optional description of the attachment.</li>
+</ul>
+
+
+<p>The last group of parameters <code>attachment</code>, <code>attachmentID</code> is used twice for
+two additional attachments. The last attachment does not have an ID.</p>
+
+
+
+
+
+
+<div class="alert alert-warning" role="alert">
+    <div>
+        <strong>
+            <i class="bi-exclamation-triangle"></i>
+            <span class="title">PDF aus Tabellenkalkulations-Daten erzeugen</span>
+        </strong>
+    </div>
+    <p>
+
+
+
+If the PDF is not provided with the parameter <code>pdf</code>, it is generated from
+the spreadsheet file (parameter <code>spreadsheet</code>). In that case you must
+ensure that the LibreOffice executable is found. The software tries to guess
+the correct location. If that fails, it must be either in your
+<code>$PATH</code> or you have <a
+href="/e-invoice-eu/de/docs/service/deployment/#libre_office-code">configured its
+location</a>.
+
+
+
+</p>
+</div>
+
+
+
+
+
+
+
+<p>Jeder Anhang an die E-Rechnung kann eine optionale ID und eine optionale Beschreibung erhalten. Der Service „sieht” allerdings nur 3 Listen der URL-Parameter <code>attachment</code>, <code>attachmentID</code> und <code>attachmentDescription</code>, selbst wenn sie pro Anhang gruppiert wurden.</p>
+
+<p>Wird der Paramter <code>Attachment</code> viermal, <code>attachmentID</code> zweimal und <code>attachmentDescription</code> dreimal angegeben, ganz gleich in welcher Reihenfolge, werden die folgenden Anhänge eingebettet:</p>
+
+<table>
+<thead>
+<tr>
+<th> Attachment        </th>
+<th> Filename        </th>
+<th> ID                </th>
+<th> Description                </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <strong>Attachment #1</strong> </td>
+<td> <code>attachment</code> #1 </td>
+<td> <code>attachmentID #1</code> </td>
+<td> <code>attachmentDescription #1</code> </td>
+</tr>
+<tr>
+<td> <strong>Attachment #2</strong> </td>
+<td> <code>attachment</code> #2 </td>
+<td> <code>attachmentID #2</code> </td>
+<td> <code>attachmentDescription #2</code> </td>
+</tr>
+<tr>
+<td> <strong>Attachment #3</strong> </td>
+<td> <code>attachment</code> #3 </td>
+<td> -                 </td>
+<td> <code>attachmentDescription #3</code> </td>
+</tr>
+<tr>
+<td> <strong>Attachment #4</strong> </td>
+<td> <code>attachment</code> #4 </td>
+<td> -                 </td>
+<td> -                          </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>Normalerweise wird man diesen Komplikationen aus dem Wege gehen wollen und entweder für jeden Anhang eine ID und/oder Beschreibung übergeben oder für keinen.</p>
+
+<h2><a href="#" name="beispiel-fur-factur-x-zugferd" id="beispiel-fur-factur-x-zugferd"></a>Beispiel für Factur-X/ZUGFeRD</h2>
+
+<p>Die Erzeugung von Factur-X/ZUGFeRD unterscheidet sich eigentlich nur darin, dass die Ausgabe binär ist, und deshalb in eine Datei umgeleitet werden sollte.</p>
+
+
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-8116a100f002c7c53b5e2c5d1580e471a4b39c0b' id='code-tab-531937bfc6e720b0c99297fb8d6886a0e2518151' checked>
+        <label data-title='curl' for='code-tab-531937bfc6e720b0c99297fb8d6886a0e2518151'>curl</label>
+        <input type='radio' name='group-8116a100f002c7c53b5e2c5d1580e471a4b39c0b' id='code-tab-87269f180856c08856fc88dcaa53dfdfbac542e6'>
+        <label data-title='httpie' for='code-tab-87269f180856c08856fc88dcaa53dfdfbac542e6'>httpie</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-531937bfc6e720b0c99297fb8d6886a0e2518151' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
+ -F spreadsheet=@contrib/templates/default-invoice.ods \
+ -F mapping=@contrib/mappings/default-invoice.yaml \
+ --output e-invoice.pdf</code></pre>
+
+</code-block>
+            <code-block id='code-block-87269f180856c08856fc88dcaa53dfdfbac542e6'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/Factur-X-Extended \
+ spreadsheet@contrib/templates/default-invoice.ods \
+ mapping@contrib/mappings/default-invoice.yaml \
+ --output e-invoice.pdf</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
+
+
+<p>This would create a Factur-X/ZUGFeRD e-invoice with the profile
+<em>Extended</em>.</p>
+
+<p>You must also keep in mind that the hybrid Factur-X/ZUGFeRD format <em>requires</em>
+a PDF version of the input. You must either specify it yourself with the
+parameter <code>pdf</code> or <code>LibreOffice</code> must be available so that it can be generated
+from the spreadsheet file <code>spreadsheet</code>.</p>
+
+
+
+
+
+
+<div class="alert alert-warning" role="alert">
+    <div>
+        <strong>
+            <i class="bi-exclamation-triangle"></i>
+            <span class="title">Unter Windows nicht die Standardausgabe umleiten!</span>
+        </strong>
+    </div>
+    <p>
+
+
+
+Depending on what shell you are using, redirecting standard output messes
+up the generated PDF. More precisely, it converts all newline characters
+(`LF`) to `CRLF` which corrupts the binary file. It also encodes it as
+UTF-16-LE, a 2-byte character encoding, which is again wrong for binary
+files. You can avoid that by using the option `-o` resp. `--output`. See
+<a href="https://github.com/gflohr/e-invoice-eu/issues/96#issuecomment-2708171823" target="_blank">
 https://github.com/gflohr/e-invoice-eu/issues/96#issuecomment-2708171823
 </a>
-für weitere Informationen!
-
-[% END %]
+for more information!
 
 
-## Rechnungen aus JSON erzeugen
 
-Das Mapping, also die Zuordnung von Tabellendaten zu Rechnungsdaten kann auch übersprungen werden. Dafür muss lediglich der Parameter `mapping` weggelassen werden.
-
-Beispiel:
+</p>
+</div>
 
 
-[% FILTER $CodeGroup %]
-
-[curl]
-[% FILTER $Highlight "language-sh" %]
-curl -X POST http://localhost:3000/api/invoice/create/UBL \
-    -F invoice=@contrib/data/default-invoice.json
-[% END %]
-
-[httpie]
-[% FILTER $Highlight "language-sh" %]
-http --form POST http://localhost:3000/api/invoice/create/UBL \
-    invoice@contrib/data/default-invoice.json
-[% END %]
-
-[% END %]
 
 
-In diesem Fall wird ein Peppol-UBL-Rechnung erzeugt.
-
-Dieser Endpunkt erlaubt exakt die gleichen URL-Parameter wie der [Endpunkt für die Erzeugung von Rechnungen aus Tabellen-Daten](#e-invoice-with-additional-attachments), bis auf den Parameter `mapping` der hier keinen Sinn ergibt.
-
-## JSON-Daten aus Tabellendaten erzeugen
-
-Mit dem API-Endpunkt `/api/mapping/transform/:FORMAT` lassen sich Rechnungsdaten im [internen Format]([% q.llink(name='internal-format') %]) aus einer Tabellendatei erzeugen. Das ergibt vermutlich nur für Informationszwecke Sinn, weil JSON kein erlaubtes Format für E-Rechnungen ist.
-
-Beispiel:
 
 
-[% FILTER $CodeGroup %]
 
-[curl]
-[% FILTER $Highlight "language-sh" %]
-curl -X POST http://localhost:3000/api/mapping/transform/UBL \
-    -F data=@contrib/templates/default-invoice.ods \
-    -F mapping=@contrib/mappings/default-invoice.yaml
-[% END %]
+<h2><a href="#" name="rechnungen-aus-json-erzeugen" id="rechnungen-aus-json-erzeugen"></a>Rechnungen aus JSON erzeugen</h2>
 
-[httpie]
-[% FILTER $Highlight "language-sh" %]
-http --form POST http://localhost:3000/api/mapping/transform/UBL \
-    data@contrib/templates/default-invoice.ods \
-    mapping@contrib/mappings/default-invoice.yaml
-[% END %]
+<p>You can bypass the <a href="/e-invoice-eu/de/docs/details/mapping/">mapping step</a> and generate
+the invoice directly from JSON. All you have to do is to omit the parameter
+<code>mapping</code>.</p>
 
-[% END %]
+<p>Beispiel:</p>
 
 
-Dieser Endpunkt erlaubt nur zwei Parameter:
 
-* `data`: Die Tabellendatei mit den Rechnungsdaten.
-* `mapping`: Die Mapping-Definition für die Rechnungsdaten.
 
-[% title = "Weshalb wird das Format benötigt?" %]
 
-[% WRAPPER components/infobox.html type='info' title=title %]
 
-Dieser Endpunkt bildet Daten aus einer Tabellendatei in das [interne Format]([% q.llink(name='internal-format') %]) ab, was eigentlich unabhängig vom Ausgabeformat sein sollte. Das Format muss dennoch angegeben werden, weil die Transformierung auch die Customization-ID im Feld `/ubl:Invoice/cbc:customizationID` einfügt. Wird die Customization-ID mit der Tabelle übergeben, kann ein beliebiges Format angegeben werden, weil eine explizit angegebene Customization-ID nie überschrieben wird.
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-32583cf14ae2c9da7d21efdba69302fc6a33f984' id='code-tab-1bfef5aafacc293826c3746b9fedd2dc319a34b2' checked>
+        <label data-title='curl' for='code-tab-1bfef5aafacc293826c3746b9fedd2dc319a34b2'>curl</label>
+        <input type='radio' name='group-32583cf14ae2c9da7d21efdba69302fc6a33f984' id='code-tab-60ade24936356eaf2e229b609ca434e9952ee873'>
+        <label data-title='httpie' for='code-tab-60ade24936356eaf2e229b609ca434e9952ee873'>httpie</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-1bfef5aafacc293826c3746b9fedd2dc319a34b2' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/invoice/create/UBL \
+ -F invoice=@contrib/data/default-invoice.json</code></pre>
 
-[% END %]
+</code-block>
+            <code-block id='code-block-60ade24936356eaf2e229b609ca434e9952ee873'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/invoice/create/UBL \
+ invoice@contrib/data/default-invoice.json</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
+
+
+<p>In diesem Fall wird ein Peppol-UBL-Rechnung erzeugt.</p>
+
+<p>Dieser Endpunkt erlaubt exakt die gleichen URL-Parameter wie der <a href="#e-invoice-with-additional-attachments">Endpunkt für die Erzeugung von Rechnungen aus Tabellen-Daten</a>, bis auf den Parameter <code>mapping</code> der hier keinen Sinn ergibt.</p>
+
+<h2><a href="#" name="json-daten-aus-tabellendaten-erzeugen" id="json-daten-aus-tabellendaten-erzeugen"></a>JSON-Daten aus Tabellendaten erzeugen</h2>
+
+<p>Mit dem API-Endpunkt <code>/api/mapping/transform/:FORMAT</code> lassen sich Rechnungsdaten im <a href="/e-invoice-eu/de/docs/details/internes-format/">internen Format</a> aus einer Tabellendatei erzeugen. Das ergibt vermutlich nur für Informationszwecke Sinn, weil JSON kein erlaubtes Format für E-Rechnungen ist.</p>
+
+<p>Beispiel:</p>
+
+
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-1895faa928d40a10eaa9336ac6326ba1dfe63ef5' id='code-tab-4c4e7f715343ff79103dad56dd3b3fb284acc54c' checked>
+        <label data-title='curl' for='code-tab-4c4e7f715343ff79103dad56dd3b3fb284acc54c'>curl</label>
+        <input type='radio' name='group-1895faa928d40a10eaa9336ac6326ba1dfe63ef5' id='code-tab-37c72ffc1a5973e717433eefb687e4cca322d58b'>
+        <label data-title='httpie' for='code-tab-37c72ffc1a5973e717433eefb687e4cca322d58b'>httpie</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-4c4e7f715343ff79103dad56dd3b3fb284acc54c' class='active'><pre class="language-sh"><code>curl -X POST http://localhost:3000/api/mapping/transform/UBL \
+ -F spreadsheet=@contrib/templates/default-invoice.ods \
+ -F mapping=@contrib/mappings/default-invoice.yaml</code></pre>
+
+</code-block>
+            <code-block id='code-block-37c72ffc1a5973e717433eefb687e4cca322d58b'><pre class="language-sh"><code>http --form POST http://localhost:3000/api/mapping/transform/UBL \
+ spreadsheet@contrib/templates/default-invoice.ods \
+ mapping@contrib/mappings/default-invoice.yaml</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
+
+
+<p>Dieser Endpunkt erlaubt nur zwei Parameter:</p>
+
+<ul>
+<li><code>spreadsheet</code>: The spreadsheet with the invoice spreadsheet.</li>
+<li><code>mapping</code>: The <a href="/e-invoice-eu/de/docs/details/mapping/">mapping definition</a> for the invoice data.</li>
+</ul>
+
+
+
+
+
+
+
+<div class="alert alert-info" role="alert">
+    <div>
+        <strong>
+            <i class="bi-info-circle"></i>
+            <span class="title">Weshalb wird das Format benötigt?</span>
+        </strong>
+    </div>
+    <p>
+
+
+
+Dieser Endpunkt bildet Daten aus einer Tabellendatei in das [interne Format](/e-invoice-eu/de/docs/details/internes-format/) ab, was eigentlich unabhängig vom Ausgabeformat sein sollte. Das Format muss dennoch angegeben werden, weil die Transformierung auch die Customization-ID im Feld `/ubl:Invoice/cbc:customizationID` einfügt. Wird die Customization-ID mit der Tabelle übergeben, kann ein beliebiges Format angegeben werden, weil eine explizit angegebene Customization-ID nie überschrieben wird.
+
+
+
+</p>
+</div>
+
+
+
+
+
 
  
 				 
@@ -486,6 +746,52 @@ Dieser Endpunkt bildet Daten aus einer Tabellendatei in das [interne Format]([% 
 </div>
 
  
+<h4>Commandline Tool</h4>
+ 
+<div class="sidebar-module">
+	<h4 class="sidebar-title"></h4>
+	<ol>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/installation/">Installation</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/hilfe-bekommen/">Getting Help</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/invoice/">The Command &quot;invoice&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/transform/">The Command &quot;transform&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/format/">The Command &quot;format&quot;</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/schema/">The Command &quot;schema&quot;</a>
+			
+		</li>
+		
+	</ol>
+</div>
+
+ 
 <h4>Dienst (Service)</h4>
  
 <div class="sidebar-module">
@@ -555,6 +861,18 @@ Dieser Endpunkt bildet Daten aus einer Tabellendatei in das [interne Format]([% 
 		
 		<li>
 			
+			<a href="/e-invoice-eu/de/docs/anderes/bibliothek-e-invoice-eu/">E-Invoice-EU Library</a>
+			
+		</li>
+		
+		<li>
+			
+			<a href="/e-invoice-eu/de/docs/anderes/browser-beispiel/">Browser Example</a>
+			
+		</li>
+		
+		<li>
+			
 			<a href="/e-invoice-eu/de/docs/anderes/business-terms/">Business-Terms</a>
 			
 		</li>
@@ -589,7 +907,8 @@ Dieser Endpunkt bildet Daten aus einer Tabellendatei in das [interne Format]([% 
 		<div class="col-sm-8">
 			
 			<div class="col-12 col-md-6 footer-links text-md-center">
-				 Copyright &copy; 2016-2025 <a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
+				 Copyright &copy; 2016-2025
+				<a href="https://www.cantanea.com/" target="_blank">cantanea EOOD</a>
 			</div>
 			<div class="col-12 col-md-3 footer-links text-md-center">
 				<a href="/e-invoice-eu/de/impressum/">
@@ -618,8 +937,7 @@ Dieser Endpunkt bildet Daten aus einer Tabellendatei in das [interne Format]([% 
 	
 
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
-
-	 <cookie-consent-banner
+  <cookie-consent-banner
 	btn-label-accept-and-continue="Zustimmen und weiter"
 	btn-label-only-essential-and-continue="Weiter mit nur technisch notwendigen Cookies"
 	btn-label-persist-selection-and-continue="Auswahl speichern und weiter"
@@ -676,22 +994,21 @@ Dieser Endpunkt bildet Daten aus einer Tabellendatei in das [interne Format]([% 
 	type="module"
 	src="https://unpkg.com/@porscheofficial/cookie-consent-banner@3.1.3/dist/cookie-consent-banner/cookie-consent-banner.esm.js"
 ></script>
-
-	<script>
-// 
-(function () {
-	document.querySelectorAll('.copy-to-clipboard-button').forEach(btn => {
-		btn.title = "Quelltext kopieren";
-	});
-})();
+ <script>
+	// 
+	(function () {
+		document.querySelectorAll('.copy-to-clipboard-button').forEach(btn => {
+			btn.title = "Quelltext kopieren";
+		});
+	})();
 </script>
-
-	
-
-  <script src="/e-invoice-eu/assets/bundle.min.js" type="text/javascript"></script>
+ 
 
 
-  <script src="/e-invoice-eu/site/js/modal-image-popup.js?1741709891" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1743335721" type="text/javascript"></script>
+
+
+  <script src="/e-invoice-eu/site/js/modal-image-popup.js?1743335688" type="text/javascript"></script>
 
 
 </body>
