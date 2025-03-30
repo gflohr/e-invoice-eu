@@ -28,6 +28,18 @@ The application uses a wizard-like approach. No data is sent to a server.
 The processing of the input data and generation of the invoice happens
 entirely in your browser.
 
+[% title = "Missing Error Handling!" %]
+[% WRAPPER components/infobox.html
+type='warning' title=title %]
+<!--/qgoda-no-xgettext-->
+The application is not meant to be a serious invoice generation portal but
+just a show case for the capabilities of the E-Invoice-EU library for the
+browser. Please make sure that you have filled all required input fields
+marked with `(*)` before you generate the invoice because the error handling
+of the application is only rudimentary.
+<!--qgoda-no-xgettext-->
+[% END %]
+
 ## E-Invoice Generatition with [E-Invoice-EU](https://github.com/gflohr/e-invoice-eu)
 
 <!--qgoda-no-xgettext-->
@@ -145,9 +157,8 @@ entirely in your browser.
 		<label>File</label>
 		<div class="custom-file">
 			<input type="file" class="custom-file-input" id="attachment-file"
-				name="attachment-file">
-			<label class="custom-file-label" for="attachment-file" id="attachment-file-label">
-				No file selected.
+				placeholder="Please select a file" name="attachment-file">
+			<label class="custom-file-label" for="mapping-file">Please select a file!</label>
 			</label>
 		</div>
 		<label for="attachment-id">Attachment ID</label>

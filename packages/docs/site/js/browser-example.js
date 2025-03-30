@@ -14,6 +14,8 @@
 		});
 	updateForm();
 
+	const attachments = [];
+
 	async function onGenerateInvoice(event) {
 		event.preventDefault();
 
@@ -44,16 +46,24 @@
 				spreadsheet = await readFile('spreadsheet-file', binary);
 			}
 
-			const invoiceService = new eInvoiceEU.InvoiceService(console);
+			await addAttachment();
 			const options = {
 				format: document.getElementById('format').value,
 				lang: document.getElementById('lang').value,
 				pdf: await pdfFileInfo(),
+				embedPDF: document.getElementById('embed-pdf').checked,
+				spreadsheet,
+				attachments,
 			};
+
+			const invoiceService = new eInvoiceEU.InvoiceService(console);
 			const renderedInvoice = await invoiceService.generate(invoice, options);
 			if (typeof renderedInvoice === 'string') {
 				downloadInvoice(renderedInvoice, 'invoice.xml', 'application/xml');
-			} else if (renderedInvoice instanceof Uint8Array || renderedInvoice instanceof ArrayBuffer) {
+			} else if (
+				renderedInvoice instanceof Uint8Array ||
+				renderedInvoice instanceof ArrayBuffer
+			) {
 				downloadInvoice(renderedInvoice, 'invoice.pdf', 'application/pdf');
 			} else {
 				console.error('Unknown invoice format:', renderedInvoice);
@@ -75,7 +85,7 @@
 			buffer: await readFile('pdf-file', true),
 			filename: files[0].name,
 			mimetype: 'application/pdf',
-		}
+		};
 	}
 
 	function downloadInvoice(data, filename, mimeType) {
@@ -98,11 +108,11 @@
 
 			const reader = new FileReader();
 
-			reader.onload = (e) => {
+			reader.onload = e => {
 				resolve(e.target.result);
 			};
 
-			reader.onerror = (e) => reject(`Error reading spreadsheet file: ${e}`);
+			reader.onerror = e => reject(`Error reading spreadsheet file: ${e}`);
 
 			if (binary) {
 				reader.readAsArrayBuffer(element.files[0]);
@@ -170,8 +180,10 @@
 			return false;
 		}
 
-		// FIXME! Check that ID, description, and MIME type are set, when
-		// needed.
+		if (document.getElementById('attachment-mime-type').value === '') {
+			document.getElementById('attachment-mime-type').value =
+				document.getElementById('attachment-file').files[0].type;
+		}
 
 		return true;
 	}
@@ -181,8 +193,7 @@
 			mimeType === 'application/pdf' ||
 			document.getElementById('embed-pdf').checked
 		) {
-			if (!document.getElementById('pdf-file').files[0])
-				return false;
+			if (!document.getElementById('pdf-file').files[0]) return false;
 		}
 
 		if (invoiceInput === 'spreadsheet') {
@@ -225,18 +236,11 @@
 		});
 	}
 
-	function onAttachmentAdded(event) {
+	async function onAttachmentAdded(event) {
 		event.preventDefault();
 
 		const fileInput = document.getElementById('attachment-file');
-		const fileLabel = fileInput.nextElementSibling;
-		const fileName =
-			fileInput.files.length > 0 ? fileInput.files[0].name : 'No file selected';
-		const attachmentId = document.getElementById('attachment-id').value;
-		const description = document.getElementById('attachment-description').value;
-		const mimeType = document.getElementById('attachment-mime-type').value;
-
-		if (fileName === 'No file selected') {
+		if (!fileInput.files.length > 0) {
 			alert('Please select a file.');
 			return;
 		}
@@ -244,12 +248,16 @@
 		const template = document.getElementById('attachment');
 		const clone = template.content.cloneNode(true);
 
+		const attachmentIndex = attachments.length;
+		await addAttachment();
+		const attachment = attachments[attachmentIndex];
+
 		const details = clone.querySelector('.flex-grow-1');
 		details.innerHTML = `
-			<div>File: ${fileName}</div>
-			<div>ID: ${attachmentId || '—'}</div>
-			<div>Description: ${description || '—'}</div>
-			<div>MIME type: ${mimeType || '—'}</div>
+			<div>File: ${attachment.filename}</div>
+			<div>ID: ${attachment.id ?? 'n/a'}</div>
+			<div>Description: ${attachment.description ?? 'n/a'}</div>
+			<div>MIME type: ${attachment.mimetype ?? 'n/a'}</div>
 		`;
 
 		const container = document.getElementById('attachments-list');
@@ -260,14 +268,35 @@
 			.querySelector('.delete-attachment')
 			.addEventListener('click', function () {
 				wrapper.remove();
+				attachments.splice(attachmentIndex, 1);
 			});
 
 		container.appendChild(wrapper);
 
 		fileInput.value = '';
-		fileLabel.textContent = 'No file selected.';
+		fileInput.nextElementSibling.textContent = 'Please select a file!';
 		document.getElementById('attachment-id').value = '';
 		document.getElementById('attachment-description').value = '';
 		document.getElementById('attachment-mime-type').value = '';
+	}
+
+	async function addAttachment() {
+		const fileInput = document.getElementById('attachment-file');
+		if (!fileInput.files.length > 0) {
+			return;
+		}
+
+		const fileName = fileInput.files[0].name;
+		const attachmentId = document.getElementById('attachment-id').value;
+		const description = document.getElementById('attachment-description').value;
+		const mimeType = document.getElementById('attachment-mime-type').value;
+
+		attachments.push({
+			buffer: await readFile('attachment-file', true),
+			filename: fileName,
+			mimeType: mimeType,
+			id: attachmentId,
+			description,
+		});
 	}
 })();
