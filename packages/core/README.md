@@ -38,6 +38,7 @@ use it as their foundation.
 		- [Argument `attachments`](#argument-attachments)
 	- [Getting Supported Formats](#getting-supported-formats)
 	- [Getting the JSON Schema Definitions](#getting-the-json-schema-definitions)
+- [Reporting Bugs](#reporting-bugs)
 - [Copyright](#copyright)
 - [Disclaimer](#disclaimer)
 
@@ -221,6 +222,10 @@ The schemas have the type
 and
 [`JSONSchemaType<Mapping>`](https://ajv.js.org/guide/typescript.html#utility-types-for-schemas)
 respectively.
+
+## Reporting Bugs
+
+Please report bugs at https://github.com/gflohr/e-invoice-eu/issues.
 
 ## Copyright
 

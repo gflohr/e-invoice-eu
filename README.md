@@ -21,14 +21,9 @@ JSON.
 - [Description](#description)
 - [Documentation](#documentation)
 - [Alternatives](#alternatives)
-- [Pre-requisites](#pre-requisites)
-- [Installation](#installation)
-- [Running the app](#running-the-app)
-- [Test](#test)
-- [Running in a Container](#running-in-a-container)
 - [BUGS](#bugs)
-	- [Report a Bug](#report-a-bug)
 	- [PDF/A](#pdfa)
+- [Reporting Bugs](#reporting-bugs)
 - [Copyright](#copyright)
 - [Disclaimer](#disclaimer)
 
@@ -101,90 +96,7 @@ You can achieve similar results with these projects:
 - [Factur-X extension for LibreOffice](https://github.com/akretion/factur-x-libreoffice-extension)
   is a LibreOffice extension to generate Factur-X invoices from LibreOffice Calc published under the GPL licence with a [video tutorial](https://www.youtube.com/watch?v=ldD-1W8yIv0). It is maybe less flexible but easier to set up.
 
-## Pre-requisites
-
-- NodeJS 17 or newer (currently tested with NodeJS 18, 20, and 22)
-- A package manager like bun, npm, yarn, pnpm, ...
-
-## Installation
-
-```bash
-$ bun install
-```
-
-This may warn about "husky" missing. Just run `bun install` again in order
-to fix this.
-
-If you do not like `bun`, replace it with `npm`, `yarn`, `pnpm` or whatever
-is currently hyped.
-
-## Running the app
-
-```bash
-# development
-$ bun run start
-
-# watch mode
-$ bun run start:dev
-
-# production mode
-$ bun run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ bun run test
-
-# e2e tests
-$ bun run test:e2e
-
-# test coverage
-$ bun run test:cov
-```
-
-## Running in a Container
-
-By far the easiest way is to run the application in a software container.
-
-Pull the Docker image:
-
-```sh
-$ docker pull gflohr/e-invoice-eu:latest
-```
-
-Run the container:
-
-```sh
-$ docker run -it --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:1.0.0
-```
-
-If you want to debug issues, omit the option `-d` so that you can see the
-output of the application running inside of the container.
-
-Access the application from your host computer:
-
-```sh
-$ curl http://localhost:3000/api/format/list
-```
-
-Or you can see the [OpenAPI/Swagger documentation](https://www.openapis.org/):
-
-```bash
-curl http://localhost:3000/api
-```
-
-It probably makes more sense to open that URL in the browser.
-
-See the [documentation](http://localhost:3000/e-invoice-eu/e-invoice-eu/en/docs/service/creating-invoices/)
-for information on how to create e-invoices with the API.
-
 ## BUGS
-
-### Report a Bug
-
-Please report bugs at https://github.com/gflohr/e-invoice-eu/issues.
 
 ### PDF/A
 
@@ -208,6 +120,10 @@ in the meantime:
 On Un\*x systems, `libreoffice` should be in your `$PATH`. On MacOS, you will
 find it under `/Applications/LibreOffice.app/Contents/MacOS/soffice`. On
 MS Windows, it is probably somewhere like `C:\\Program Files\\LibreOffice\\libreoffice.exe` (corrections are welcome).
+
+## Reporting Bugs
+
+Please report bugs at https://github.com/gflohr/e-invoice-eu/issues.
 
 ## Copyright
 

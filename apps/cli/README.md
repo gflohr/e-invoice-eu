@@ -21,16 +21,17 @@ Generate e-invoices (E-Rechnung in German) conforming to EN16931 (Factur-X/ZUGFe
 - [Documentation](#documentation)
 - [Installation](#installation)
 - [Usage](#usage)
-  - [General](#general)
-  - [The Command `invoice`](#the-command-invoice)
-    - [Argument `format`](#argument-format)
-    - [Argument `lang`](#argument-lang)
-    - [Argument `embedPDF`](#argument-embedpdf)
-    - [Argument `pdf`](#argument-pdf)
-    - [Argument `data`](#argument-data)
-    - [Argument `attachments`](#argument-attachments)
-  - [Getting Supported Formats](#getting-supported-formats)
-  - [Getting the JSON Schema Definitions](#getting-the-json-schema-definitions)
+	- [General](#general)
+	- [The Command `invoice`](#the-command-invoice)
+		- [Argument `format`](#argument-format)
+		- [Argument `lang`](#argument-lang)
+		- [Argument `embedPDF`](#argument-embedpdf)
+		- [Argument `pdf`](#argument-pdf)
+		- [Argument `data`](#argument-data)
+		- [Argument `attachments`](#argument-attachments)
+	- [Getting Supported Formats](#getting-supported-formats)
+	- [Getting the JSON Schema Definitions](#getting-the-json-schema-definitions)
+- [Reporting Bugs](#reporting-bugs)
 - [Copyright](#copyright)
 - [Disclaimer](#disclaimer)
 
@@ -176,6 +177,10 @@ The schemas have the type
 and
 [`JSONSchemaType<Mapping>`](https://ajv.js.org/guide/typescript.html#utility-types-for-schemas)
 respectively.
+
+## Reporting Bugs
+
+Please report bugs at https://github.com/gflohr/e-invoice-eu/issues.
 
 ## Copyright
 
