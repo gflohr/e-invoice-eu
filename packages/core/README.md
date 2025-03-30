@@ -94,7 +94,7 @@ const { InvoiceService, MappingService } = require('@e-invoice-eu/core');
 In the browser:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@e-invoice-eu/core/dist/esgettext.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@e-invoice-eu/core/dist/e-invoice-eu.min.js"></script>
 <script>
 	const invoiceService = new eInvoiceEU.InvoiceService(/* arguments */);
 	const mappingService = new eInvoiceEU.MappingService(/* arguments */);
