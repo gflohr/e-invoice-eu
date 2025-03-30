@@ -14,7 +14,6 @@ import { MappingModule } from './mapping/mapping.module';
 import { MappingService } from './mapping/mapping.service';
 import { SchemaModule } from './schema/schema.module';
 import { LoggingInterceptor } from './utils/logging.interceptor';
-import { ValidationModule } from './validation/validation.module';
 
 @Module({
 	imports: [
@@ -28,7 +27,6 @@ import { ValidationModule } from './validation/validation.module';
 		InvoiceModule,
 		MappingModule,
 		SchemaModule,
-		ValidationModule,
 		AppConfigModule,
 	],
 	providers: [

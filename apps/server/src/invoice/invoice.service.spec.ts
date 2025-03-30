@@ -1,14 +1,13 @@
+import { Invoice, ValidationService } from '@e-invoice-eu/core';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ErrorObject, ValidationError } from 'ajv/dist/2019';
 
 import { InvoiceService } from './invoice.service';
 import { AppConfigService } from '../app-config/app-config.service';
 import { FormatFactoryService } from '../format/format.factory.service';
-import { ValidationService } from '../validation/validation.service';
 
 describe('InvoiceService', () => {
 	let service: InvoiceService;
-	let validationService: ValidationService;
 
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
@@ -24,18 +23,18 @@ describe('InvoiceService', () => {
 					provide: 'FormatFactoryService',
 					useValue: {},
 				},
-				ValidationService,
-				{
-					provide: 'ValidationService',
-					useValue: {
-						validate: jest.fn(),
-					},
-				},
 			],
 		}).compile();
 
 		service = module.get<InvoiceService>(InvoiceService);
-		validationService = module.get<ValidationService>(ValidationService);
+
+		jest
+			.spyOn(AppConfigService.prototype, 'get')
+			.mockReturnValue({ libreOffice: 'libreoffice' });
+	});
+
+	afterEach(() => {
+		jest.resetAllMocks();
 	});
 
 	it('should be defined', () => {
@@ -44,10 +43,10 @@ describe('InvoiceService', () => {
 
 	it('should validate input data and create an invoice', async () => {
 		const validateSpy = jest
-			.spyOn(validationService, 'validate')
+			.spyOn(ValidationService.prototype, 'validate')
 			.mockReturnValue({ 'ubl:Invoice': {} });
 
-		const input = {} as unknown;
+		const input = {} as unknown as Invoice;
 		const got = await service.generate(input, {
 			lang: 'en-us',
 			format: 'UBL',
@@ -68,13 +67,13 @@ describe('InvoiceService', () => {
 
 	it('should reject invalid input data', async () => {
 		const validateSpy = jest
-			.spyOn(validationService, 'validate')
+			.spyOn(ValidationService.prototype, 'validate')
 			.mockImplementationOnce(() => {
 				// FIXME: Use more specific error here!
 				throw new ValidationError([] as ErrorObject[]);
 			});
 
-		const input = {} as unknown;
+		const input = {} as unknown as Invoice;
 
 		try {
 			await service.generate(input, {

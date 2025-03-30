@@ -1,3 +1,4 @@
+import { Invoice } from '@e-invoice-eu/core';
 import { INestApplication, Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ErrorObject, ValidationError } from 'ajv/dist/2019';
@@ -6,7 +7,6 @@ import * as request from 'supertest';
 import { MappingController } from './mapping.controller';
 import { MappingService } from './mapping.service';
 import { FormatFactoryService } from '../format/format.factory.service';
-import { Invoice } from '../invoice/invoice.interface';
 
 describe('MappingController', () => {
 	let app: INestApplication;
@@ -131,5 +131,11 @@ describe('MappingController', () => {
 		expect(mockedLogger.error).toHaveBeenCalledWith(
 			expect.stringMatching(/^unknown error: boum!/),
 		);
+	});
+
+	describe('Time-bomb tests', () => {
+		it('should remove the deprecated URL parameter "data" in 2026', () => {
+			expect(new Date().getFullYear()).toBeLessThan(2026);
+		});
 	});
 });

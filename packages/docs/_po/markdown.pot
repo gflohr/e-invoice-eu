@@ -1938,6 +1938,15 @@ msgstr ""
 msgid "| Term | Usage"
 msgstr ""
 
+#: ../en/docs/other/e-invoice-eu-library.md:2
+msgctxt "title"
+msgid "E-Invoice-EU Library"
+msgstr ""
+
+#: ../en/docs/other/e-invoice-eu-library.md:6
+msgid "TODO ..."
+msgstr ""
+
 #: ../en/docs/other/faq.md:2
 msgctxt "title"
 msgid "FAQ"

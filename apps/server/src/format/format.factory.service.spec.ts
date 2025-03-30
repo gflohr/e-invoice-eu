@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { FormatFactoryService } from './format.factory.service';
@@ -26,21 +27,27 @@ describe('XRECHNUNG-UBL', () => {
 	});
 
 	it('should throw an exception for unknown format serviceces', () => {
-		expect(() => service.createFormatService('ZIRKUSFeRD')).toThrow(
-			"Format 'ZIRKUSFeRD' not supported.",
-		);
+		expect(() =>
+			service.createFormatService('ZIRKUSFeRD', {} as unknown as Logger),
+		).toThrow("Format 'ZIRKUSFeRD' not supported.");
 	});
 
 	it('should create a UBL format service', () => {
-		expect(service.createFormatService('UBL')).toBeDefined();
+		expect(
+			service.createFormatService('UBL', {} as unknown as Logger),
+		).toBeDefined();
 	});
 
 	it('should treat format identifiers case-insensitively', () => {
-		expect(service.createFormatService('uBl')).toBeDefined();
+		expect(
+			service.createFormatService('uBl', {} as unknown as Logger),
+		).toBeDefined();
 	});
 
 	it('should create an XRECHNUNG-UBL format service', () => {
-		expect(service.createFormatService('XRECHNUNG-UBL')).toBeDefined();
+		expect(
+			service.createFormatService('XRECHNUNG-UBL', {} as unknown as Logger),
+		).toBeDefined();
 	});
 
 	it('should list all formats alphabetically', () => {
@@ -48,7 +55,7 @@ describe('XRECHNUNG-UBL', () => {
 		expect(allFormats).toEqual([
 			'CII',
 			'Factur-X-Basic',
-			'Factur-X-BasicWL',
+			'Factur-X-Basic WL',
 			'Factur-X-EN16931',
 			'Factur-X-Extended',
 			'Factur-X-Minimum',

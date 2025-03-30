@@ -1,5 +1,5 @@
 ---
 title: Other
 name: other
-virtual: 1 
+virtual: 1
 ---

@@ -1,3 +1,7 @@
+// jQuery. :(
+const $ = require('jquery');
+window.$ = window.jQuery = $;
+
 // Bootstrap.
 require('bootstrap/dist/css/bootstrap.css');
 require('bootstrap-icons/font/bootstrap-icons.css');

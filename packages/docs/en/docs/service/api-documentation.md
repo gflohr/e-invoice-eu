@@ -4,13 +4,16 @@ name: api-documentation
 section: service
 description: The OpenAPI (Swagger) documentation is built into the server.
 styles:
-- /site/css/modal-image-popup.css
+  - /site/css/modal-image-popup.css
 scripts:
-- /site/js/modal-image-popup.js
+  - /site/js/modal-image-popup.js
 ---
+
 <!--qgoda-no-xgettext-->
+
 [% USE q = Qgoda %]
 [% USE Srcset %]
+
 <!--/qgoda-no-xgettext-->
 
 The service uses the [OpenAPI](https://www.openapis.org/) specification to
@@ -23,4 +26,4 @@ the service.
 
 It is also possible to try out the individual endpoints in the browser.
 
-[% FILTER $Srcset alt="API documentation for /api/format/list" %]/images/service/api-documentation/openapi-format-docs.webp[% END %] 
+[% FILTER $Srcset alt="API documentation for /api/format/list" %]/images/service/api-documentation/openapi-format-docs.webp[% END %]

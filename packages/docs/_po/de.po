@@ -3140,6 +3140,18 @@ msgstr ""
 msgid "| Term | Usage"
 msgstr "| Business-Term | Verwendung"
 
+#: ../en/docs/other/e-invoice-eu-library.md:2
+#, fuzzy
+#| msgctxt "title"
+#| msgid "E-Invoice-EU"
+msgctxt "title"
+msgid "E-Invoice-EU Library"
+msgstr "E-Invoice-EU"
+
+#: ../en/docs/other/e-invoice-eu-library.md:6
+msgid "TODO ..."
+msgstr ""
+
 #: ../en/docs/other/faq.md:2
 msgctxt "title"
 msgid "FAQ"
@@ -3393,7 +3405,7 @@ msgstr "Der API-Endpunkt für diese Funktion ist `/api/invoice/create/:FORMAT`."
 msgid ""
 "[% title = \"The endpoint /invoice/transform-and-create is deprecated!\" %]"
 msgstr ""
-"[% title = ”Der Endpunkt /invoice/transform-and-create ist veraltet!” %]"
+"[% title = \"Der Endpunkt /invoice/transform-and-create ist veraltet!\" %]"
 
 #: ../en/docs/service/creating-invoices.md:52
 msgid ""
@@ -3611,7 +3623,7 @@ msgstr ""
 
 #: ../en/docs/service/creating-invoices.md:223
 msgid "[% title = \"Do Not Redirect Standard Output on Windows!\" %]"
-msgstr "[% title = ”Unter Windows nicht die Standardausgabe umleiten!” %]"
+msgstr "[% title = \"Unter Windows nicht die Standardausgabe umleiten!\" %]"
 
 #: ../en/docs/service/creating-invoices.md:228
 msgid ""
@@ -3632,8 +3644,8 @@ msgstr ""
 "wird weiterh als UTF-16-LE kodiert. Das ist ein 2-Byte-Kodierung, und auch "
 "das ist falsch für binäre Dateien. Das lässt sich vermeiden indem die Option "
 "<code>-o</code> bzw. <code>—output</code> verwendet wird. Siehe <a "
-"href=”https://github.com/gflohr/e-invoice-eu/issues/"
-"96#issuecomment-2708171823”>\n"
+"href=\"https://github.com/gflohr/e-invoice-eu/issues/"
+"96#issuecomment-2708171823\">\n"
 "https://github.com/gflohr/e-invoice-eu/issues/96#issuecomment-2708171823\n"
 "</a>\n"
 "für weitere Informationen!"

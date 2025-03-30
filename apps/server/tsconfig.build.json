@@ -1,11 +1,8 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"outDir": "./dist",
-		"rootDir": "./src",
-		"incremental": true,
-		"tsBuildInfoFile": "./dist/tsconfig.build.tsbuildinfo"
-	},
-	"include": ["src/**/*.ts"],
-	"exclude": ["scripts", "node_modules", "test", "**/*.spec.ts"]
+		"module": "NodeNext",
+		"moduleResolution": "nodenext",
+		"paths": {}
+	}
 }

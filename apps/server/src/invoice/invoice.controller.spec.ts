@@ -1,3 +1,4 @@
+import { Invoice } from '@e-invoice-eu/core';
 import {
 	INestApplication,
 	InternalServerErrorException,
@@ -9,11 +10,10 @@ import { Response } from 'express';
 import * as request from 'supertest';
 
 import { InvoiceController } from './invoice.controller';
-import { Invoice } from './invoice.interface';
 import { InvoiceService } from './invoice.service';
+import { AppConfigService } from '../app-config/app-config.service';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { MappingService } from '../mapping/mapping.service';
-import { ValidationService } from '../validation/validation.service';
 
 describe('InvoiceController', () => {
 	let app: INestApplication;
@@ -33,8 +33,8 @@ describe('InvoiceController', () => {
 				InvoiceService,
 				MappingService,
 				{ provide: FormatFactoryService, useValue: {} },
-				{ provide: ValidationService, useValue: {} },
 				{ provide: Logger, useValue: mockedLogger },
+				{ provide: AppConfigService, useValue: {} },
 			],
 		}).compile();
 
@@ -59,7 +59,7 @@ describe('InvoiceController', () => {
 			const invoice: Express.Multer.File = {
 				buffer: Buffer.from('{}'),
 				encoding: '7bit',
-				fieldname: 'data',
+				fieldname: 'spreadsheet',
 				mimetype: 'application/json',
 				originalname: 'invoice.json',
 				size: 2,
@@ -97,10 +97,10 @@ describe('InvoiceController', () => {
 			jest.spyOn(invoiceService, 'generate').mockResolvedValue(mockXml);
 
 			const mapping = 'test: data success';
-			const data: Express.Multer.File = {
+			const spreadsheet: Express.Multer.File = {
 				buffer: Buffer.from('test data'),
 				encoding: '7bit',
-				fieldname: 'data',
+				fieldname: 'spreadsheet',
 				mimetype: 'application/vnd.oasis.opendocument.spreadsheet',
 				originalname: 'invoice.ods',
 				size: 9,
@@ -108,21 +108,21 @@ describe('InvoiceController', () => {
 			const response = await request(app.getHttpServer())
 				.post('/invoice/create/UBL')
 				.attach('mapping', Buffer.from(mapping), 'mapping.yaml')
-				.attach('data', data.buffer, 'invoice.ods');
+				.attach('spreadsheet', spreadsheet.buffer, 'invoice.ods');
 
 			expect(response.status).toBe(201);
 			expect(response.text).toEqual(mockXml);
 			expect(mappingService.transform).toHaveBeenCalledWith(
 				'ubl',
 				mapping,
-				data.buffer,
+				spreadsheet.buffer,
 			);
 			expect(invoiceService.generate).toHaveBeenCalledWith(
 				mockTransformedData,
 				{
 					format: 'ubl',
 					lang: 'en',
-					data,
+					spreadsheet,
 					pdf: undefined,
 					attachments: [],
 				},
@@ -157,7 +157,7 @@ describe('InvoiceController', () => {
 			const response = await request(app.getHttpServer())
 				.post('/invoice/create/UBL')
 				.attach('mapping', Buffer.from('test: data fail'), 'mapping.yaml')
-				.attach('data', Buffer.from('test data'), 'invoice.ods');
+				.attach('spreadsheet', Buffer.from('test data'), 'invoice.ods');
 
 			expect(response.status).toBe(400);
 			expect(response.body.message).toEqual('Transformation failed.');
@@ -167,23 +167,11 @@ describe('InvoiceController', () => {
 
 			transformMock.mockRestore();
 		});
+	});
 
-		it('should throw InternalServerErrorException for unknown errors', async () => {
-			const format = 'UBL';
-			const files = {
-				data: [],
-				mapping: [],
-			};
-
-			jest.spyOn(mappingService, 'transform').mockImplementation(() => {
-				throw new Error('boum!');
-			});
-
-			await expect(
-				controller.transformAndCreate({} as Response, format, files, {}),
-			).rejects.toThrow(InternalServerErrorException);
-
-			expect(mockedLogger.error).toHaveBeenCalledTimes(1);
+	describe('Time-bomb tests', () => {
+		it('should remove the deprecated URL parameter "data" in 2026', () => {
+			expect(new Date().getFullYear()).toBeLessThan(2026);
 		});
 	});
 });

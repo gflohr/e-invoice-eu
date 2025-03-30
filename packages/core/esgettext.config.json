@@ -1,0 +1,23 @@
+{
+	"package": {
+		"name": "e-invoice-eu",
+		"version": "1.0.0",
+		"textdomain": "e-invoice-eu",
+		"msgid-bugs-address": "https://github.com/gflohr/e-invoice-eu/issues"
+	},
+	"po": {
+		"directory": "po",
+		"locales": ["de"]
+	},
+	"install": {
+		"directory": "src/locale"
+	},
+	"programs": {
+		"msgmerge": {
+			"options": ["previous"]
+		},
+		"msgfmt": {
+			"options": ["check", "statistics", "verbose"]
+		}
+	}
+}

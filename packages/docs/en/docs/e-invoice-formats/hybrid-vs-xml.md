@@ -4,8 +4,11 @@ name: hybrid-vs-xml
 section: e-invoice-formats
 description: E-Invoice-EU supports e-invoice formats that conform to the European standard EN16931.
 ---
+
 <!--qgoda-no-xgettext-->
+
 [% USE q = Qgoda %]
+
 <!--/qgoda-no-xgettext-->
 
 There are different approaches to distinguish e-invoice formats.
@@ -17,14 +20,21 @@ sense of the European standard EN16931. They have to be XML documents using
 one of the syntaxes [UBL]([% q.llink(name='ubl') %]) or [CII]([% q.llink(name='cii') %]).
 
 [% title = "XML Syntax" %]
+
 <!--qgoda-no-xgettext-->
+
 [% WRAPPER components/infobox.html type='info' title=title %]
+
 <!--/qgoda-no-xgettext-->
+
 What is meant with syntax? A UBL and a CII invoice can contain the exact same
 information. What differs is the name of the XML elements and their location in
-the document object model. 
+the document object model.
+
 <!--qgoda-no-xgettext-->
+
 [% END %]
+
 <!--/qgoda-no-xgettext-->
 
 Both UBL and CII allow embedding a human-readable, normally PDF version of the
@@ -44,6 +54,6 @@ prevalent in Germany.
 ## Takeaway
 
 An electronic invoice is either an XML document in one of the flavours UBL and
-CII or a Factur-X/ZUGFeRD PDF. If you opt for an XML version you *may* include
-a PDF version. If you go with the hybrid format Factur-X/ZUGFeRD you *must*
+CII or a Factur-X/ZUGFeRD PDF. If you opt for an XML version you _may_ include
+a PDF version. If you go with the hybrid format Factur-X/ZUGFeRD you _must_
 include an XML version of the invoice.

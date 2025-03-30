@@ -1,3 +1,4 @@
+import { Invoice } from '@e-invoice-eu/core';
 import {
 	BadRequestException,
 	Controller,
@@ -13,7 +14,6 @@ import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ValidationError } from 'ajv/dist/2019';
 
 import { MappingService } from './mapping.service';
-import { Invoice } from '../invoice/invoice.interface';
 
 @ApiTags('mapping')
 @Controller('mapping')
@@ -31,13 +31,24 @@ export class MappingController {
 		schema: {
 			type: 'object',
 			properties: {
+				spreadsheet: {
+					type: 'string',
+					format: 'binary',
+					nullable: true,
+					description: 'The spreadsheet to be transformed.'
+				},
 				data: {
 					type: 'string',
 					format: 'binary',
+					deprecated: true,
+					nullable: true,
+					description:
+						'Will be removed in 2026! An alias for "spreadsheet". Use that instead!',
 				},
 				mapping: {
 					type: 'string',
 					format: 'binary',
+					description: 'The mapping file in YAML or JSON format.',
 				},
 			},
 		},
@@ -63,6 +74,7 @@ export class MappingController {
 	})
 	@UseInterceptors(
 		FileFieldsInterceptor([
+			{ name: 'spreadsheet', maxCount: 1 },
 			{ name: 'data', maxCount: 1 },
 			{ name: 'mapping', maxCount: 1 },
 		]),
@@ -71,11 +83,18 @@ export class MappingController {
 		@Param('format') format: string,
 		@UploadedFiles()
 		files: {
+			spreadsheet?: Express.Multer.File[];
 			data?: Express.Multer.File[];
 			mapping?: Express.Multer.File[];
 		},
 	): Invoice {
-		const dataFile = files.data?.[0];
+		if (files.spreadsheet && files.data) {
+			throw new BadRequestException(
+				'The parameters "spreadsheet" and data" are mutually exclusive.',
+			);
+		}
+
+		const dataFile = files.spreadsheet ? files.spreadsheet[0] : files.data?.[0];
 		if (!dataFile) {
 			throw new BadRequestException('No invoice file uploaded');
 		}
