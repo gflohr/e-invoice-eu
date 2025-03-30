@@ -4,9 +4,9 @@ name: browser-example
 section: other
 description: The E-Invoice-EU core library also works in the browser.
 scripts:
-- /site/js/browser-example.js
 - https://cdn.jsdelivr.net/npm/js-yaml@latest/dist/js-yaml.min.js
 - https://cdn.jsdelivr.net/npm/@e-invoice-eu/core@latest/dist/e-invoice-eu.js
+- /site/js/browser-example.js
 ---
 <!--qgoda-no-xgettext-->
 [% USE q = Qgoda %]
@@ -195,6 +195,4 @@ of the application is only rudimentary.
 		</div>
 	</div>
 </div>
-
-<script src="/e-invoice-eu/e-invoice-eu.js"></script>
 <!--/qgoda-no-xgettext-->
