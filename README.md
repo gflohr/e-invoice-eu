@@ -18,7 +18,6 @@ JSON.
 
 - [Supported Formats](#supported-formats)
 - [Using the software](#using-the-software)
-- [Security](#security)
 - [Description](#description)
 - [Documentation](#documentation)
 - [Alternatives](#alternatives)
@@ -28,8 +27,8 @@ JSON.
 - [Test](#test)
 - [Running in a Container](#running-in-a-container)
 - [BUGS](#bugs)
-  - [Report a Bug](#report-a-bug)
-  - [PDF/A](#pdfa)
+	- [Report a Bug](#report-a-bug)
+	- [PDF/A](#pdfa)
 - [Copyright](#copyright)
 - [Disclaimer](#disclaimer)
 
@@ -62,29 +61,28 @@ Case does not matter, when you specify a format.
 
 ## Using the software
 
-Currently, the only way to use the software is to run the server providing the REST
-API and sending requests to the server.
+There are several ways to use the software:
 
-This may eventually change in the future, when a commandline interface will
-be added.
+* a [commandline tool `e-invoice-eu`](apps/cli/README.md)
+* a [web service with a RESTful API](apps/server/README.md)
+* a [JavaScript/TypeScript library](packages/core/README.md)
 
-## Security
+The JavaScript/TypeScript library works both on the commandline and in the
+browser. The only limitation of the browser version is that it cannot generate
+PDF versions of invoices from spreadsheet data because this requires invocation
+of [LibreOffice](https://www.libreoffice.org/) which is not possible in the
+browser. Instead, you have to provide a PDF version yourself, in case it is
+needed.
 
-The service in its current state is meant to be run in a network with limited
-access or behind an API gateway that prevents abuse of the service.
-
-One simple solution is to use [`ngninx`](https://nginx.org/) as a
-gateway and configure rate-limiting there. You will also want to limit
-the maximum request body size.
+The [E-Invoice-EU documentation](https://gflohr.github.eu/e-invoice-eu/)
+contains a [fully working demo of invoice generation right in your
+browser](https://gflohr.github.io/e-invoice-eu/en/docs/other/browser-example/).
 
 ## Description
 
-This repository is an attempt to aid small businesses, especially in France and
+This repository is an attempt to aid businesses, especially in France and
 Germany but also in other parts of the European Union to create e-invoices
 conforming with EN16931 with only free and open-source software.
-
-It is quite unlikely that you can use anything here out of the box. See it as
-a starter template for your own solution.
 
 ## Documentation
 
