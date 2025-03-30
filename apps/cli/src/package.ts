@@ -8,7 +8,7 @@ export class Package {
 	}
 
 	public static getVersion(): string {
-		return '2.0.0';
+		return '2.0.1';
 	}
 
 	public static getAuthorName(): string {
