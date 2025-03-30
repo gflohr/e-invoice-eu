@@ -8,7 +8,7 @@ description: The JavaScript/TypeScript library `@e-invoice-eu/core` can be used 
 [% USE q = Qgoda %]
 Both the commandline tool `e-invoice-eu` and the
 [web service]([% q.llink(name='deployment') %]) use a common library
-[`@e-invoice-eu/core`](https://www.npmjs.com/package/@esgettext/runtime) as
+[`@e-invoice-eu/core`](https://www.npmjs.com/package/@e-invoice-eu/core) as
 their foundation. The library can be used to add e-invoice creation as a
 feature to your own applications.
 
