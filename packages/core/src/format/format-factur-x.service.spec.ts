@@ -14,8 +14,12 @@ jest.mock('pdf-lib', () => ({
 	PDFDocument: {
 		load: jest.fn().mockResolvedValue({
 			save: jest.fn().mockResolvedValue(new Uint8Array()),
+			attach: jest.fn(),
 		}),
 	},
+	AFRelationship: {
+		Alternative: 'whatever',
+	}
 }));
 
 const mockLogger = {
@@ -40,7 +44,6 @@ describe('FormatFacturXService', () => {
 		mockGtx = { resolve: jest.fn().mockResolvedValue(undefined) };
 		(Textdomain.getInstance as jest.Mock).mockReturnValue(mockGtx);
 
-		jest.spyOn(service as any, 'attachFacturX').mockImplementation(async () => {});
 		jest.spyOn(service as any, 'createPDFA').mockImplementation(async () => {});
 		jest.spyOn(FormatCIIService.prototype, 'generate').mockResolvedValue('<xml>Mocked XML</xml>');
 	});
