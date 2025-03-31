@@ -1,5 +1,22 @@
-import { FULL_CII } from "./format-cii.service";
+import { Textdomain } from "@esgettext/runtime";
+
+import { Invoice, InvoiceServiceOptions } from "../invoice";
+import { FormatCIIService, FULL_CII } from "./format-cii.service";
 import { FormatFacturXService } from "./format-factur-x.service";
+
+jest.mock('@esgettext/runtime', () => ({
+	Textdomain: {
+		getInstance: jest.fn(),
+	},
+}));
+
+jest.mock('pdf-lib', () => ({
+	PDFDocument: {
+		load: jest.fn().mockResolvedValue({
+			save: jest.fn().mockResolvedValue(new Uint8Array()),
+		}),
+	},
+}));
 
 const mockLogger = {
 	log: jest.fn(),
@@ -9,9 +26,19 @@ const mockLogger = {
 
 describe('FormatFacturXService', () => {
 	let service: FormatFacturXService;
+	let mockGtx: { resolve: jest.Mock };
 
 	beforeEach(() => {
 		service = new FormatFacturXService(mockLogger);
+
+		mockGtx = { resolve: jest.fn().mockResolvedValue(undefined) };
+		(Textdomain.getInstance as jest.Mock).mockReturnValue(mockGtx);
+
+		jest.spyOn(service as any, 'getInvoicePdf').mockResolvedValue(new Uint8Array());
+		jest.spyOn(service as any, 'attachFiles').mockImplementation(() => {});
+		jest.spyOn(service as any, 'attachFacturX').mockImplementation(async () => {});
+		jest.spyOn(service as any, 'createPDFA').mockImplementation(async () => {});
+		jest.spyOn(FormatCIIService.prototype, 'generate').mockResolvedValue('<xml>Mocked XML</xml>');
 	});
 
 	it('should be defined', () => {
@@ -20,5 +47,12 @@ describe('FormatFacturXService', () => {
 
 	it('should have the FULL_CII profile', () => {
 		expect(service.fxProfile).toBe(FULL_CII);
+	});
+
+	it('should initialize the textdomain', async () => {
+		const invoice = {} as Invoice;
+		const options = { lang: 'ab-cd' } as InvoiceServiceOptions;
+
+		await service.generate(invoice, options);
 	});
 });
