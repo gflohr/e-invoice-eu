@@ -1,6 +1,6 @@
 <p align="center">
 	<img
-		src="./assets/e-invoice-eu-logo-2.webp"
+		src="https://raw.githubusercontent.com/gflohr/e-invoice-eu/main/assets/e-invoice-eu-logo-2.webp"
 		width="256" height="256" />
 </p>
 
