@@ -40,7 +40,6 @@ describe('FormatFacturXService', () => {
 		mockGtx = { resolve: jest.fn().mockResolvedValue(undefined) };
 		(Textdomain.getInstance as jest.Mock).mockReturnValue(mockGtx);
 
-		jest.spyOn(service as any, 'attachFiles').mockImplementation(() => {});
 		jest.spyOn(service as any, 'attachFacturX').mockImplementation(async () => {});
 		jest.spyOn(service as any, 'createPDFA').mockImplementation(async () => {});
 		jest.spyOn(FormatCIIService.prototype, 'generate').mockResolvedValue('<xml>Mocked XML</xml>');
