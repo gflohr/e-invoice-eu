@@ -1,6 +1,6 @@
 import { Textdomain } from "@esgettext/runtime";
 
-import { Invoice, InvoiceServiceOptions } from "../invoice";
+import { FileInfo, Invoice, InvoiceServiceOptions } from "../invoice";
 import { FormatCIIService, FULL_CII } from "./format-cii.service";
 import { FormatFacturXService } from "./format-factur-x.service";
 
@@ -24,6 +24,12 @@ const mockLogger = {
 	error: jest.fn(),
 };
 
+const mockPdfFileInfo = {
+	buffer: [] as unknown as Buffer,
+	filename: 'invoice.pdf',
+	mimetype: 'application/pdf',
+} as FileInfo;
+
 describe('FormatFacturXService', () => {
 	let service: FormatFacturXService;
 	let mockGtx: { resolve: jest.Mock };
@@ -34,7 +40,6 @@ describe('FormatFacturXService', () => {
 		mockGtx = { resolve: jest.fn().mockResolvedValue(undefined) };
 		(Textdomain.getInstance as jest.Mock).mockReturnValue(mockGtx);
 
-		jest.spyOn(service as any, 'getInvoicePdf').mockResolvedValue(new Uint8Array());
 		jest.spyOn(service as any, 'attachFiles').mockImplementation(() => {});
 		jest.spyOn(service as any, 'attachFacturX').mockImplementation(async () => {});
 		jest.spyOn(service as any, 'createPDFA').mockImplementation(async () => {});
@@ -51,7 +56,10 @@ describe('FormatFacturXService', () => {
 
 	it('should initialize the textdomain', async () => {
 		const invoice = {} as Invoice;
-		const options = { lang: 'ab-cd' } as InvoiceServiceOptions;
+		const options = {
+			lang: 'ab-cd',
+			pdf: mockPdfFileInfo,
+		} as InvoiceServiceOptions;
 
 		await service.generate(invoice, options);
 	});
