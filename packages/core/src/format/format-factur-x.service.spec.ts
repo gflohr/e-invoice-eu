@@ -1,26 +1,9 @@
 import { Textdomain } from "@esgettext/runtime";
+import { PDFDocument } from "pdf-lib";
 
-import { FileInfo, Invoice, InvoiceServiceOptions } from "../invoice";
+import { Invoice, InvoiceServiceOptions } from "../invoice";
 import { FormatCIIService, FULL_CII } from "./format-cii.service";
 import { FormatFacturXService } from "./format-factur-x.service";
-
-jest.mock('@esgettext/runtime', () => ({
-	Textdomain: {
-		getInstance: jest.fn(),
-	},
-}));
-
-jest.mock('pdf-lib', () => ({
-	PDFDocument: {
-		load: jest.fn().mockResolvedValue({
-			save: jest.fn().mockResolvedValue(new Uint8Array()),
-			attach: jest.fn(),
-		}),
-	},
-	AFRelationship: {
-		Alternative: 'whatever',
-	}
-}));
 
 const mockLogger = {
 	log: jest.fn(),
@@ -28,41 +11,60 @@ const mockLogger = {
 	error: jest.fn(),
 };
 
-const mockPdfFileInfo = {
-	buffer: [] as unknown as Buffer,
-	filename: 'invoice.pdf',
-	mimetype: 'application/pdf',
-} as FileInfo;
+const mockInvoice = {
+	'ubl:Invoice': {
+		'cbc:ID': '42',
+		'cbc:IssueDate': '2025-03-31',
+		'cac:AccountingSupplierParty': {
+			'cac:Party': {
+				'cac:PartyLegalEntity': {
+					'cbc:RegistrationName': 'Acme Ltd.',
+				},
+			},
+		},
+	},
+} as Invoice;
 
 describe('FormatFacturXService', () => {
 	let service: FormatFacturXService;
-	let mockGtx: { resolve: jest.Mock };
+	let mockOptions: InvoiceServiceOptions;
 
-	beforeEach(() => {
+	beforeEach(async () => {
 		service = new FormatFacturXService(mockLogger);
 
-		mockGtx = { resolve: jest.fn().mockResolvedValue(undefined) };
-		(Textdomain.getInstance as jest.Mock).mockReturnValue(mockGtx);
+		jest.spyOn(FormatCIIService.prototype, 'generate').mockResolvedValue('<invoice></invoice>');
 
-		jest.spyOn(service as any, 'createPDFA').mockImplementation(async () => {});
-		jest.spyOn(FormatCIIService.prototype, 'generate').mockResolvedValue('<xml>Mocked XML</xml>');
-	});
-
-	it('should be defined', () => {
-		expect(service).toBeDefined();
-	});
-
-	it('should have the FULL_CII profile', () => {
-		expect(service.fxProfile).toBe(FULL_CII);
-	});
-
-	it('should initialize the textdomain', async () => {
-		const invoice = {} as Invoice;
-		const options = {
+		const pdfDoc = await PDFDocument.create();
+		pdfDoc.addPage([600, 800]);
+		mockOptions = {
+			format: 'Factur-X-Extended',
 			lang: 'ab-cd',
-			pdf: mockPdfFileInfo,
+			pdf: {
+				buffer: await pdfDoc.save(),
+				filename: 'invoice.pdf',
+				mimetype: 'application/pdf',
+			},
 		} as InvoiceServiceOptions;
+	});
 
-		await service.generate(invoice, options);
+	describe(('general features'), () => {
+		it('should be defined', () => {
+			expect(service).toBeDefined();
+		});
+
+		it('should have the FULL_CII profile', () => {
+			expect(service.fxProfile).toBe(FULL_CII);
+		});
+	});
+
+	describe('i18n', () => {
+		it('should initialize the textdomain', async () => {
+			await service.generate(mockInvoice, mockOptions);
+
+			const locale = mockOptions.lang.replace(/^([a-z]{2})-([a-z]{2})$/i, (_, lang, country) =>
+				`${lang.toLowerCase()}-${country.toUpperCase()}`
+			  );
+			expect(Textdomain.locale).toBe(locale);
+		});
 	});
 });
