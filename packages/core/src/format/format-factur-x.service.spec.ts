@@ -1,9 +1,14 @@
-import { Textdomain } from "@esgettext/runtime";
-import { decodePDFRawStream, PDFDocument, PDFName, PDFObject, PDFRawStream } from "pdf-lib";
+import { Textdomain } from '@esgettext/runtime';
+import {
+	decodePDFRawStream,
+	PDFDocument,
+	PDFName,
+	PDFRawStream,
+} from 'pdf-lib';
 
-import { Invoice, InvoiceServiceOptions } from "../invoice";
-import { FormatCIIService, FULL_CII } from "./format-cii.service";
-import { FormatFacturXService } from "./format-factur-x.service";
+import { Invoice, InvoiceServiceOptions } from '../invoice';
+import { FormatCIIService, FULL_CII } from './format-cii.service';
+import { FormatFacturXService } from './format-factur-x.service';
 
 const mockLogger = {
 	log: jest.fn(),
@@ -25,6 +30,27 @@ const mockInvoice = {
 	},
 } as Invoice;
 
+async function extractXMPMetadata(
+	pdfBytes: string | Uint8Array<ArrayBufferLike>,
+): Promise<string> {
+	const pdfDoc = await PDFDocument.load(pdfBytes);
+
+	const metadataRef = pdfDoc.catalog.get(PDFName.of('Metadata'));
+	expect(metadataRef).toBeDefined();
+
+	const metadataStream = pdfDoc.context.lookup(metadataRef);
+	expect(metadataStream).toBeInstanceOf(PDFRawStream);
+
+	const rawStream = metadataStream as PDFRawStream;
+
+	const decodedStream = decodePDFRawStream(rawStream).decode();
+	expect(decodedStream).toBeInstanceOf(Uint8Array);
+
+	return new TextDecoder('utf-8').decode(
+		decodedStream as unknown as Uint8Array,
+	);
+}
+
 describe('FormatFacturXService', () => {
 	let service: FormatFacturXService;
 	let mockOptions: InvoiceServiceOptions;
@@ -32,7 +58,9 @@ describe('FormatFacturXService', () => {
 	beforeEach(async () => {
 		service = new FormatFacturXService(mockLogger);
 
-		jest.spyOn(FormatCIIService.prototype, 'generate').mockResolvedValue('<invoice></invoice>');
+		jest
+			.spyOn(FormatCIIService.prototype, 'generate')
+			.mockResolvedValue('<invoice></invoice>');
 
 		const pdfDoc = await PDFDocument.create();
 		pdfDoc.addPage([600, 800]);
@@ -47,7 +75,7 @@ describe('FormatFacturXService', () => {
 		} as InvoiceServiceOptions;
 	});
 
-	describe(('general features'), () => {
+	describe('general features', () => {
 		it('should be defined', () => {
 			expect(service).toBeDefined();
 		});
@@ -61,9 +89,10 @@ describe('FormatFacturXService', () => {
 		it('should initialize the textdomain', async () => {
 			await service.generate(mockInvoice, mockOptions);
 
-			const locale = mockOptions.lang.replace(/^([a-z]{2})-([a-z]{2})$/i, (_, lang, country) =>
-				`${lang.toLowerCase()}-${country.toUpperCase()}`
-			  );
+			const locale = mockOptions.lang.replace(
+				/^([a-z]{2})-([a-z]{2})$/i,
+				(_, lang, country) => `${lang.toLowerCase()}-${country.toUpperCase()}`,
+			);
 			expect(Textdomain.locale).toBe(locale);
 		});
 	});
@@ -77,24 +106,50 @@ describe('FormatFacturXService', () => {
 			jest.useRealTimers();
 		});
 
+		it('should add XMP metadata for Factur-X-Minimum', async () => {
+			mockOptions.format = 'Factur-X-Minimum';
+
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
+
+			expect(await extractXMPMetadata(pdfBytes)).toMatchSnapshot();
+		});
+
+		it('should add XMP metadata for Factur-X-Basic WL', async () => {
+			mockOptions.format = 'Factur-X-BasicWL';
+
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
+
+			expect(await extractXMPMetadata(pdfBytes)).toMatchSnapshot();
+		});
+
+		it('should add XMP metadata for Factur-X-Basic', async () => {
+			mockOptions.format = 'Factur-X-Basic';
+
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
+
+			expect(await extractXMPMetadata(pdfBytes)).toMatchSnapshot();
+		});
+
+		it('should add XMP metadata for Factur-X-EN16931', async () => {
+			mockOptions.format = 'Factur-X-EN16931';
+
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
+
+			expect(await extractXMPMetadata(pdfBytes)).toMatchSnapshot();
+		});
+
 		it('should add XMP metadata for Factur-X-Extended', async () => {
 			const pdfBytes = await service.generate(mockInvoice, mockOptions);
-			const pdfDoc = await PDFDocument.load(pdfBytes);
 
-			const metadataRef = pdfDoc.catalog.get(PDFName.of('Metadata'));
-			expect(metadataRef).toBeDefined();
+			expect(await extractXMPMetadata(pdfBytes)).toMatchSnapshot();
+		});
 
-			const metadataStream = pdfDoc.context.lookup(metadataRef);
-			expect(metadataStream).toBeInstanceOf(PDFRawStream);
+		it('should add XMP metadata for Factur-XRechnung', async () => {
+			mockOptions.format = 'Factur-X-XRechnung';
 
-			const rawStream = metadataStream as PDFRawStream;
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
 
-			const decodedStream = decodePDFRawStream(rawStream).decode();
-			expect(decodedStream).toBeInstanceOf(Uint8Array);
-
-			const xml = new TextDecoder('utf-8').decode(decodedStream as unknown as Uint8Array);
-
-			expect(xml).toMatchSnapshot();
+			expect(await extractXMPMetadata(pdfBytes)).toMatchSnapshot();
 		});
 	});
 });
