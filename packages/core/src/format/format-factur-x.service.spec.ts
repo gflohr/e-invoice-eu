@@ -83,6 +83,13 @@ describe('FormatFacturXService', () => {
 		it('should have the FULL_CII profile', () => {
 			expect(service.fxProfile).toBe(FULL_CII);
 		});
+
+		it('should throw an exception for unknown formats', async () => {
+			mockOptions.format = 'ZirkusFErD-Extended';
+			expect(service.generate(mockInvoice, mockOptions)).rejects.toThrow(
+				"unknown Factur-X format 'ZirkusFErD-Extended",
+			);
+		});
 	});
 
 	describe('i18n', () => {
