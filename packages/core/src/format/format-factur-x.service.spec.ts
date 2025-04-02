@@ -1,8 +1,10 @@
 import { Textdomain } from '@esgettext/runtime';
 import {
 	decodePDFRawStream,
+	PDFArray,
 	PDFDocument,
 	PDFName,
+	PDFNumber,
 	PDFRawStream,
 } from 'pdf-lib';
 
@@ -51,6 +53,35 @@ async function extractXMPMetadata(
 	);
 }
 
+async function createTestPDF(): Promise<PDFDocument> {
+	const pdfDoc = await PDFDocument.create();
+	const page = pdfDoc.addPage([600, 800]);
+	const linkAnnotation = pdfDoc.context.obj({
+		Type: 'Annot',
+		Subtype: 'Link',
+		Rect: [100, 700, 200, 750],
+		Border: [0, 0, 0],
+		C: [1, 0, 0],
+		A: {
+			Type: 'Action',
+			S: 'URI',
+			URI: 'https://example.com',
+		},
+		F: PDFNumber.of(0),
+	});
+
+	const linkAnnotationRef = pdfDoc.context.register(linkAnnotation);
+
+	let annotations = page.node.get(PDFName.of('Annots')) as PDFArray | undefined;
+	if (!annotations) {
+		annotations = pdfDoc.context.obj([]) as PDFArray;
+		page.node.set(PDFName.of('Annots'), annotations);
+	}
+	annotations.push(linkAnnotationRef);
+
+	return pdfDoc;
+}
+
 describe('FormatFacturXService', () => {
 	let service: FormatFacturXService;
 	let mockOptions: InvoiceServiceOptions;
@@ -62,8 +93,8 @@ describe('FormatFacturXService', () => {
 			.spyOn(FormatCIIService.prototype, 'generate')
 			.mockResolvedValue('<invoice></invoice>');
 
-		const pdfDoc = await PDFDocument.create();
-		pdfDoc.addPage([600, 800]);
+		const pdfDoc = await createTestPDF();
+
 		mockOptions = {
 			format: 'Factur-X-Extended',
 			lang: 'ab-cd',
