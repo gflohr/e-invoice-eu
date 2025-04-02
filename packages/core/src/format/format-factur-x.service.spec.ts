@@ -1,5 +1,5 @@
 import { Textdomain } from "@esgettext/runtime";
-import { PDFDocument } from "pdf-lib";
+import { decodePDFRawStream, PDFDocument, PDFName, PDFObject, PDFRawStream } from "pdf-lib";
 
 import { Invoice, InvoiceServiceOptions } from "../invoice";
 import { FormatCIIService, FULL_CII } from "./format-cii.service";
@@ -65,6 +65,36 @@ describe('FormatFacturXService', () => {
 				`${lang.toLowerCase()}-${country.toUpperCase()}`
 			  );
 			expect(Textdomain.locale).toBe(locale);
+		});
+	});
+
+	describe('XMP metadata', () => {
+		beforeAll(() => {
+			jest.useFakeTimers().setSystemTime(new Date('2025-04-01T12:00:00Z'));
+		});
+
+		afterAll(() => {
+			jest.useRealTimers();
+		});
+
+		it('should add XMP metadata for Factur-X-Extended', async () => {
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
+			const pdfDoc = await PDFDocument.load(pdfBytes);
+
+			const metadataRef = pdfDoc.catalog.get(PDFName.of('Metadata'));
+			expect(metadataRef).toBeDefined();
+
+			const metadataStream = pdfDoc.context.lookup(metadataRef);
+			expect(metadataStream).toBeInstanceOf(PDFRawStream);
+
+			const rawStream = metadataStream as PDFRawStream;
+
+			const decodedStream = decodePDFRawStream(rawStream).decode();
+			expect(decodedStream).toBeInstanceOf(Uint8Array);
+
+			const xml = new TextDecoder('utf-8').decode(decodedStream as unknown as Uint8Array);
+
+			expect(xml).toMatchSnapshot();
 		});
 	});
 });
