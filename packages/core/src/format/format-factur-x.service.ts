@@ -576,7 +576,7 @@ export class FormatFacturXService
 	): Promise<void> {
 		try {
 			const filename =
-				options.format === 'factur-x-xrechnung'
+				options.format.toLowerCase() === 'factur-x-xrechnung'
 					? 'xrechnung.xml'
 					: 'factur-x.xml';
 
