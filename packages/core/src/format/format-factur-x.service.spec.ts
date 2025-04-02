@@ -115,25 +115,6 @@ describe('FormatFacturXService', () => {
 			expect(service.fxProfile).toBe(FULL_CII);
 		});
 
-		it('should throw an exception if attaching the Factur-X XML fails', async () => {
-			const attachMock = jest.spyOn(PDFDocument.prototype, 'attach').mockRejectedValue('no string attached');
-			const consoleMock = jest.spyOn(globalThis.console, 'error').mockImplementation(() => {});
-
-			try {
-				await expect(service.generate(mockInvoice, mockOptions)).rejects.toThrow(
-					'Error attaching Factur-X XML file to PDF: no string attached',
-				);
-			} finally {
-				expect(attachMock).toHaveBeenCalledTimes(1);
-				expect(consoleMock).toHaveBeenCalledTimes(1);
-				expect(consoleMock).toHaveBeenCalledWith(
-					'Error attaching Factur-X XML file to PDF: no string attached',
-				);
-				attachMock.mockRestore();
-				consoleMock.mockRestore();
-			}
-		});
-
 		it('should throw an exception for unknown formats', async () => {
 			mockOptions.format = 'ZirkusFErD-Extended';
 			await expect(service.generate(mockInvoice, mockOptions)).rejects.toThrow(
@@ -207,6 +188,27 @@ describe('FormatFacturXService', () => {
 			const pdfBytes = await service.generate(mockInvoice, mockOptions);
 
 			expect(await extractXMPMetadata(pdfBytes)).toMatchSnapshot();
+		});
+	});
+
+	describe('XML attachment to PDF', () => {
+		it('should throw an exception if attaching the Factur-X XML fails', async () => {
+			const attachMock = jest.spyOn(PDFDocument.prototype, 'attach').mockRejectedValue('no string attached');
+			const consoleMock = jest.spyOn(globalThis.console, 'error').mockImplementation(() => {});
+
+			try {
+				await expect(service.generate(mockInvoice, mockOptions)).rejects.toThrow(
+					'Error attaching Factur-X XML file to PDF: no string attached',
+				);
+			} finally {
+				expect(attachMock).toHaveBeenCalledTimes(1);
+				expect(consoleMock).toHaveBeenCalledTimes(1);
+				expect(consoleMock).toHaveBeenCalledWith(
+					'Error attaching Factur-X XML file to PDF: no string attached',
+				);
+				attachMock.mockRestore();
+				consoleMock.mockRestore();
+			}
 		});
 	});
 });
