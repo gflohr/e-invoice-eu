@@ -576,11 +576,11 @@ export class FormatFacturXService
 	): Promise<void> {
 		try {
 			const filename =
-				options.format === 'factur-x-xrechnung'
+				options.format.toLowerCase() === 'factur-x-xrechnung'
 					? 'xrechnung.xml'
 					: 'factur-x.xml';
 
-			pdfDoc.attach(xml, filename, {
+			await pdfDoc.attach(xml, filename, {
 				mimeType: 'application/xml',
 				description: 'Factur-X',
 				creationDate: new Date(),
@@ -588,8 +588,8 @@ export class FormatFacturXService
 				afRelationship: AFRelationship.Alternative,
 			});
 		} catch (error) {
-			console.error('Error attaching string to PDF:', error);
-			throw new Error('Error modifying PDF');
+			console.error(`Error attaching Factur-X XML file to PDF: ${error}`);
+			throw new Error(`Error attaching Factur-X XML file to PDF: ${error}`);
 		}
 	}
 }
