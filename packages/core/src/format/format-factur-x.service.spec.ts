@@ -1,5 +1,6 @@
 import { Textdomain } from '@esgettext/runtime';
 import {
+	AFRelationship,
 	decodePDFRawStream,
 	PDFArray,
 	PDFDict,
@@ -111,17 +112,31 @@ const extractRawAttachments = (
 	return rawAttachments;
 };
 
-const extractAttachments = (
-	pdfDoc: PDFDocument,
-): { name: string; data: Uint8Array<ArrayBufferLike> }[] => {
+type Attachment = {
+	name: string;
+	data: Uint8Array<ArrayBufferLike>;
+	afRelationship: AFRelationship;
+};
+
+const extractAttachments = (pdfDoc: PDFDocument): Attachment[] => {
 	const rawAttachments = extractRawAttachments(pdfDoc);
+
 	return rawAttachments.map(({ fileName, fileSpec }) => {
 		const stream = fileSpec
 			.lookup(PDFName.of('EF'), PDFDict)
 			.lookup(PDFName.of('F'), PDFStream) as PDFRawStream;
+		const afr = fileSpec.lookup(PDFName.of('AFRelationship'));
+
+		const afRelationship =
+			afr instanceof PDFName
+				? afr.toString().slice(1) // Remove leading slash
+				: afr instanceof PDFString
+					? afr.decodeText()
+					: undefined;
 		return {
 			name: fileName.decodeText(),
 			data: decodePDFRawStream(stream).decode(),
+			afRelationship: afRelationship as AFRelationship,
 		};
 	});
 };
@@ -254,7 +269,9 @@ describe('FormatFacturXService', () => {
 			const attachments = extractAttachments(pdfDoc);
 
 			expect(attachments.length).toBe(1);
-			expect(attachments[0].name).toBe('factur-x.xml');
+			const attachment = attachments[0];
+			expect(attachment.name).toBe('factur-x.xml');
+			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
 		});
 
 		it('should throw an exception if attaching the Factur-X XML fails', async () => {
