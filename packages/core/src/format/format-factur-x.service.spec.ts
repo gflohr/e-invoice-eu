@@ -396,4 +396,43 @@ describe('FormatFacturXService', () => {
 			}
 		});
 	});
+
+	describe('Attachments', () => {
+		it('should attach supplementary files', async () => {
+			mockOptions.attachments = [
+				{
+					filename: 'hour-sheet.ods',
+					buffer: Buffer.from('hour sheet'),
+					mimetype: 'application/vnd.oasis.opendocument.spreadsheet',
+				},
+				{
+					filename: 'catalogue.pdf',
+					buffer: Buffer.from('our products'),
+					mimetype: 'application/pdf',
+					id: 'catalogue',
+					description: 'All the products that we offer',
+				},
+			];
+
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
+			const pdfDoc = await PDFDocument.load(pdfBytes);
+			const attachments = extractAttachments(pdfDoc);
+
+			expect(attachments.length).toBe(3);
+
+			const invoiceAttachments = attachments.filter(a => a.name === 'factur-x.xml');
+			expect(invoiceAttachments.length).toBe(1);
+			expect(invoiceAttachments[0].name).toBe('factur-x.xml');
+			expect(invoiceAttachments[0].mimeType).toBe('application/xml');
+			expect(invoiceAttachments[0].afRelationship).toBe(AFRelationship.Alternative);
+
+			const hoursheetAttachments = attachments.filter(a => a.name === 'hour-sheet.ods');
+			expect(hoursheetAttachments.length).toBe(1);
+			expect(hoursheetAttachments[0].name).toBe('hour-sheet.ods');
+			expect(hoursheetAttachments[0].mimeType).toBe('application/vnd.oasis.opendocument.spreadsheet');
+			expect(hoursheetAttachments[0].afRelationship).toBe(AFRelationship.Supplement);
+
+			console.dir(attachments);
+		});
+	});
 });
