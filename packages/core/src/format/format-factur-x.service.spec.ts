@@ -115,6 +115,7 @@ const extractRawAttachments = (
 type Attachment = {
 	name: string;
 	data: Uint8Array<ArrayBufferLike>;
+	mimeType: string | undefined;
 	afRelationship: AFRelationship;
 };
 
@@ -125,6 +126,7 @@ const extractAttachments = (pdfDoc: PDFDocument): Attachment[] => {
 		const stream = fileSpec
 			.lookup(PDFName.of('EF'), PDFDict)
 			.lookup(PDFName.of('F'), PDFStream) as PDFRawStream;
+
 		const afr = fileSpec.lookup(PDFName.of('AFRelationship'));
 
 		const afRelationship =
@@ -133,9 +135,23 @@ const extractAttachments = (pdfDoc: PDFDocument): Attachment[] => {
 				: afr instanceof PDFString
 					? afr.decodeText()
 					: undefined;
+
+		const embeddedFileDict = stream.dict;
+		const subtype = embeddedFileDict.lookup(PDFName.of('Subtype'));
+
+		const mimeType =
+		subtype instanceof PDFName
+		  ? subtype.toString().slice(1)
+		  : subtype instanceof PDFString
+		  ? subtype.decodeText()
+		  : undefined;
+
 		return {
 			name: fileName.decodeText(),
 			data: decodePDFRawStream(stream).decode(),
+			mimeType: mimeType?.replace(/#([0-9A-Fa-f]{2})/g, (_, hex) =>
+				String.fromCharCode(parseInt(hex, 16))
+			),
 			afRelationship: afRelationship as AFRelationship,
 		};
 	});
@@ -271,6 +287,7 @@ describe('FormatFacturXService', () => {
 			expect(attachments.length).toBe(1);
 			const attachment = attachments[0];
 			expect(attachment.name).toBe('factur-x.xml');
+			expect(attachment.mimeType).toBe('application/xml');
 			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
 		});
 
