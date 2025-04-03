@@ -117,6 +117,7 @@ type Attachment = {
 	data: Uint8Array<ArrayBufferLike>;
 	mimeType: string | undefined;
 	afRelationship: AFRelationship;
+	description: string;
 };
 
 const extractAttachments = (pdfDoc: PDFDocument): Attachment[] => {
@@ -128,7 +129,6 @@ const extractAttachments = (pdfDoc: PDFDocument): Attachment[] => {
 			.lookup(PDFName.of('F'), PDFStream) as PDFRawStream;
 
 		const afr = fileSpec.lookup(PDFName.of('AFRelationship'));
-
 		const afRelationship =
 			afr instanceof PDFName
 				? afr.toString().slice(1) // Remove leading slash
@@ -146,6 +146,8 @@ const extractAttachments = (pdfDoc: PDFDocument): Attachment[] => {
 		  ? subtype.decodeText()
 		  : undefined;
 
+		  const description = (fileSpec.lookup(PDFName.of('Desc')) as PDFHexString).decodeText();
+
 		return {
 			name: fileName.decodeText(),
 			data: decodePDFRawStream(stream).decode(),
@@ -153,6 +155,7 @@ const extractAttachments = (pdfDoc: PDFDocument): Attachment[] => {
 				String.fromCharCode(parseInt(hex, 16))
 			),
 			afRelationship: afRelationship as AFRelationship,
+			description,
 		};
 	});
 };
@@ -289,6 +292,7 @@ describe('FormatFacturXService', () => {
 			expect(attachment.name).toBe('factur-x.xml');
 			expect(attachment.mimeType).toBe('application/xml');
 			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
+			expect(attachment.description).toBe('Factur-X');
 		});
 
 		it("should use 'factur-x.xml' as the filename for Factur-X-BasicWL", async () => {
@@ -305,6 +309,7 @@ describe('FormatFacturXService', () => {
 			expect(attachment.name).toBe('factur-x.xml');
 			expect(attachment.mimeType).toBe('application/xml');
 			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
+			expect(attachment.description).toBe('Factur-X');
 		});
 
 		it("should use 'factur-x.xml' as the filename for Factur-X-Basic", async () => {
@@ -321,6 +326,7 @@ describe('FormatFacturXService', () => {
 			expect(attachment.name).toBe('factur-x.xml');
 			expect(attachment.mimeType).toBe('application/xml');
 			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
+			expect(attachment.description).toBe('Factur-X');
 		});
 
 		it("should use 'factur-x.xml' as the filename for Factur-X-EN16931", async () => {
@@ -337,6 +343,7 @@ describe('FormatFacturXService', () => {
 			expect(attachment.name).toBe('factur-x.xml');
 			expect(attachment.mimeType).toBe('application/xml');
 			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
+			expect(attachment.description).toBe('Factur-X');
 		});
 
 		it("should use 'factur-x.xml' as the filename for Factur-X-Extended", async () => {
@@ -353,6 +360,7 @@ describe('FormatFacturXService', () => {
 			expect(attachment.name).toBe('factur-x.xml');
 			expect(attachment.mimeType).toBe('application/xml');
 			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
+			expect(attachment.description).toBe('Factur-X');
 		});
 
 		it("should use 'xrechnung.xml' as the filename for Factur-X-XRechnung", async () => {
@@ -369,6 +377,7 @@ describe('FormatFacturXService', () => {
 			expect(attachment.name).toBe('xrechnung.xml');
 			expect(attachment.mimeType).toBe('application/xml');
 			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
+			expect(attachment.description).toBe('Factur-X');
 		});
 
 		it('should throw an exception if attaching the Factur-X XML fails', async () => {
@@ -409,7 +418,7 @@ describe('FormatFacturXService', () => {
 					filename: 'catalogue.pdf',
 					buffer: Buffer.from('our products'),
 					mimetype: 'application/pdf',
-					id: 'catalogue',
+					id: 'catalogue', // Ignored for Factur-X.
 					description: 'All the products that we offer',
 				},
 			];
@@ -425,14 +434,21 @@ describe('FormatFacturXService', () => {
 			expect(invoiceAttachments[0].name).toBe('factur-x.xml');
 			expect(invoiceAttachments[0].mimeType).toBe('application/xml');
 			expect(invoiceAttachments[0].afRelationship).toBe(AFRelationship.Alternative);
+			expect(invoiceAttachments[0].description).toBe('Factur-X');
 
 			const hoursheetAttachments = attachments.filter(a => a.name === 'hour-sheet.ods');
 			expect(hoursheetAttachments.length).toBe(1);
 			expect(hoursheetAttachments[0].name).toBe('hour-sheet.ods');
 			expect(hoursheetAttachments[0].mimeType).toBe('application/vnd.oasis.opendocument.spreadsheet');
 			expect(hoursheetAttachments[0].afRelationship).toBe(AFRelationship.Supplement);
+			expect(hoursheetAttachments[0].description).toBe('Supplementary file');
 
-			console.dir(attachments);
+			const catalogueAttachments = attachments.filter(a => a.name === 'catalogue.pdf');
+			expect(catalogueAttachments.length).toBe(1);
+			expect(catalogueAttachments[0].name).toBe('catalogue.pdf');
+			expect(catalogueAttachments[0].mimeType).toBe('application/pdf');
+			expect(catalogueAttachments[0].afRelationship).toBe(AFRelationship.Supplement);
+			expect(catalogueAttachments[0].description).toBe('All the products that we offer');
 		});
 	});
 });
