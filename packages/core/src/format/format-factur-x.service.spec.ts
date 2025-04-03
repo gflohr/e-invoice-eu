@@ -136,11 +136,19 @@ describe('FormatFacturXService', () => {
 	});
 
 	describe('XMP metadata', () => {
+		let originalGetTimezoneOffset: () => number;
+
 		beforeAll(() => {
 			jest.useFakeTimers().setSystemTime(new Date('2025-04-01T12:00:00Z'));
+
+			// useFakeTimers() does not honour the TZ environment variable.
+			// We have to monkey patch getTimezoneOffset() instead.
+			originalGetTimezoneOffset = Date.prototype.getTimezoneOffset;
+			Date.prototype.getTimezoneOffset = () => -120;
 		});
 
 		afterAll(() => {
+			Date.prototype.getTimezoneOffset = originalGetTimezoneOffset;
 			jest.useRealTimers();
 		});
 
@@ -192,6 +200,10 @@ describe('FormatFacturXService', () => {
 	});
 
 	describe('XML attachment to PDF', () => {
+		it('should use \'factur-x.xml\' as the filename for Factur-X-Minimum', async () => {
+
+		});
+
 		it('should throw an exception if attaching the Factur-X XML fails', async () => {
 			const attachMock = jest.spyOn(PDFDocument.prototype, 'attach').mockRejectedValue('no string attached');
 			const consoleMock = jest.spyOn(globalThis.console, 'error').mockImplementation(() => {});
