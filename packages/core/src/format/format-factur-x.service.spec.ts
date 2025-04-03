@@ -291,6 +291,86 @@ describe('FormatFacturXService', () => {
 			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
 		});
 
+		it("should use 'factur-x.xml' as the filename for Factur-X-BasicWL", async () => {
+			mockOptions.format = 'Factur-X-BasicWL';
+
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
+			expect(pdfBytes).toBeInstanceOf(Uint8Array);
+
+			const pdfDoc = await PDFDocument.load(pdfBytes);
+			const attachments = extractAttachments(pdfDoc);
+
+			expect(attachments.length).toBe(1);
+			const attachment = attachments[0];
+			expect(attachment.name).toBe('factur-x.xml');
+			expect(attachment.mimeType).toBe('application/xml');
+			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
+		});
+
+		it("should use 'factur-x.xml' as the filename for Factur-X-Basic", async () => {
+			mockOptions.format = 'Factur-X-Basic';
+
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
+			expect(pdfBytes).toBeInstanceOf(Uint8Array);
+
+			const pdfDoc = await PDFDocument.load(pdfBytes);
+			const attachments = extractAttachments(pdfDoc);
+
+			expect(attachments.length).toBe(1);
+			const attachment = attachments[0];
+			expect(attachment.name).toBe('factur-x.xml');
+			expect(attachment.mimeType).toBe('application/xml');
+			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
+		});
+
+		it("should use 'factur-x.xml' as the filename for Factur-X-EN16931", async () => {
+			mockOptions.format = 'Factur-X-EN16931';
+
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
+			expect(pdfBytes).toBeInstanceOf(Uint8Array);
+
+			const pdfDoc = await PDFDocument.load(pdfBytes);
+			const attachments = extractAttachments(pdfDoc);
+
+			expect(attachments.length).toBe(1);
+			const attachment = attachments[0];
+			expect(attachment.name).toBe('factur-x.xml');
+			expect(attachment.mimeType).toBe('application/xml');
+			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
+		});
+
+		it("should use 'factur-x.xml' as the filename for Factur-X-Extended", async () => {
+			mockOptions.format = 'Factur-X-Extended';
+
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
+			expect(pdfBytes).toBeInstanceOf(Uint8Array);
+
+			const pdfDoc = await PDFDocument.load(pdfBytes);
+			const attachments = extractAttachments(pdfDoc);
+
+			expect(attachments.length).toBe(1);
+			const attachment = attachments[0];
+			expect(attachment.name).toBe('factur-x.xml');
+			expect(attachment.mimeType).toBe('application/xml');
+			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
+		});
+
+		it("should use 'xrechnung.xml' as the filename for Factur-X-XRechnung", async () => {
+			mockOptions.format = 'Factur-X-XRechnung';
+
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
+			expect(pdfBytes).toBeInstanceOf(Uint8Array);
+
+			const pdfDoc = await PDFDocument.load(pdfBytes);
+			const attachments = extractAttachments(pdfDoc);
+
+			expect(attachments.length).toBe(1);
+			const attachment = attachments[0];
+			expect(attachment.name).toBe('xrechnung.xml');
+			expect(attachment.mimeType).toBe('application/xml');
+			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
+		});
+
 		it('should throw an exception if attaching the Factur-X XML fails', async () => {
 			const attachMock = jest
 				.spyOn(PDFDocument.prototype, 'attach')
