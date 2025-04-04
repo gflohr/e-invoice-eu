@@ -130,10 +130,6 @@ export class InvoiceService {
 			this.logger,
 		);
 
-		if (typeof formatter === 'undefined') {
-			throw new Error(`Unsupported format: ${options.format}`);
-		}
-
 		return formatter.generate(invoice, options);
 	}
 }
