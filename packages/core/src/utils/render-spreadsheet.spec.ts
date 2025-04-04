@@ -1,4 +1,5 @@
 import { spawn } from 'child_process';
+import { EventEmitter } from 'events';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 import * as tmp from 'tmp-promise';
@@ -123,5 +124,19 @@ describe('renderSpreadsheet', () => {
 		expect(mockLogger.error).toHaveBeenCalledWith(
 			expect.stringContaining('Error reading output PDF'),
 		);
+	});
+
+	it('should reject when spawn emits an error event', async () => {
+		const mockChild = new EventEmitter();
+		(spawn as jest.Mock).mockReturnValue(mockChild);
+
+		const promise = renderSpreadsheet(filename, buffer, libreofficePath, mockLogger);
+
+		const testError = new Error('spawn failed');
+		process.nextTick(() => {
+			mockChild.emit('error', testError);
+		});
+
+		await expect(promise).rejects.toThrow('spawn failed');
 	});
 });
