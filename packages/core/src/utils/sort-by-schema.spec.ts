@@ -208,9 +208,9 @@ describe('Sort by schema', () => {
 	});
 
 	it('should throw an exception if the object is not valid', () => {
-		expect(() => sortBySchema('house' as unknown as House, houseSchema)).toThrow(
-			'Data must be a non-null object.',
-		);
+		expect(() =>
+			sortBySchema('house' as unknown as House, houseSchema),
+		).toThrow('Data must be a non-null object.');
 	});
 
 	it('should throw an exception if the object is null', () => {
@@ -220,15 +220,15 @@ describe('Sort by schema', () => {
 	});
 
 	it('should throw an exception if the schema is not valid', () => {
-		expect(() => sortBySchema(unsortedHouse, 'schema' as unknown as JSONSchemaType<House>)).toThrow(
-			'Schema must be a valid JSON schema.',
-		);
+		expect(() =>
+			sortBySchema(unsortedHouse, 'schema' as unknown as JSONSchemaType<House>),
+		).toThrow('Schema must be a valid JSON schema.');
 	});
 
 	it('should throw an exception if the schema is null', () => {
-		expect(() => sortBySchema(unsortedHouse, null as unknown as JSONSchemaType<House>)).toThrow(
-			'Schema must be a valid JSON schema.',
-		);
+		expect(() =>
+			sortBySchema(unsortedHouse, null as unknown as JSONSchemaType<House>),
+		).toThrow('Schema must be a valid JSON schema.');
 	});
 
 	it('should assign arrays of primitives directly when item schema is not an object with properties', () => {

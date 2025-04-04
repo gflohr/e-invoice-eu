@@ -130,7 +130,12 @@ describe('renderSpreadsheet', () => {
 		const mockChild = new EventEmitter();
 		(spawn as jest.Mock).mockReturnValue(mockChild);
 
-		const promise = renderSpreadsheet(filename, buffer, libreofficePath, mockLogger);
+		const promise = renderSpreadsheet(
+			filename,
+			buffer,
+			libreofficePath,
+			mockLogger,
+		);
 
 		const testError = new Error('spawn failed');
 		process.nextTick(() => {
