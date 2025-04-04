@@ -32,6 +32,9 @@ const mapping = {
 			// No section.
 			'cbc:PaymentMeansCode': '30',
 		},
+		'cac:TaxTotal': {
+			'cbc:TaxAmount@currencyID': 'EUR',
+		},
 		'cac:LegalMonetaryTotal': {
 			'cbc:LineExtensionAmount': '=:SubTotal.F1',
 		},
