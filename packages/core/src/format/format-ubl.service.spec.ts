@@ -60,4 +60,13 @@ describe('UBL', () => {
 			'Either an invoice spreadsheet file or an invoice PDF is needed!',
 		);
 	});
+
+	it('should throw an error if LibreOffice path is not provided', async () => {
+		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
+		const options = { embedPDF: true, spreadsheet: {} } as unknown as InvoiceServiceOptions;
+
+		await expect(service.generate(invoice, options)).rejects.toThrow(
+			'LibreOffice path is required for conversion to PDF!',
+		);
+	});
 });
