@@ -51,4 +51,13 @@ describe('UBL', () => {
 
 		expect(xml).toMatchSnapshot();
 	});
+
+	it('should throw an error if PDF source is missing', async () => {
+		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
+		const options = { embedPDF: true } as unknown as InvoiceServiceOptions;
+
+		await expect(service.generate(invoice, options)).rejects.toThrow(
+			'Either an invoice spreadsheet file or an invoice PDF is needed!',
+		);
+	});
 });
