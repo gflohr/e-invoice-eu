@@ -95,4 +95,44 @@ describe('UBL', () => {
 		const xml = await service.generate(invoice, options);
 		expect(xml).toMatchSnapshot();
 	});
+
+	it('should throw an error if pdf buffer is missing', async () => {
+		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
+		const options = {
+			embedPDF: true,
+			pdf: {},
+			libreOfficePath: 'libreoffice',
+		} as unknown as InvoiceServiceOptions;
+
+		await expect(service.generate(invoice, options)).rejects.toThrow(
+			'A PDF buffer is required!',
+		);
+	});
+
+	it('should throw an error if spreadsheet is missing', async () => {
+		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
+		const options = {
+			embedPDF: true,
+			libreOfficePath: 'libreoffice',
+		} as unknown as InvoiceServiceOptions;
+
+		await expect(service.generate(invoice, options)).rejects.toThrow(
+			'Either an invoice spreadsheet file or an invoice PDF is needed!',
+		);
+	});
+
+	it('should throw an error if spreadsheet buffer is missing', async () => {
+		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
+		const options = {
+			embedPDF: true,
+			spreadsheet: {
+				filename: 'invoice.ods',
+			},
+			libreOfficePath: 'libreoffice',
+		} as unknown as InvoiceServiceOptions;
+
+		await expect(service.generate(invoice, options)).rejects.toThrow(
+			'A spreadsheet buffer is required!',
+		);
+	});
 });

@@ -61,10 +61,6 @@ export class FormatXMLService {
 			throw new Error('LibreOffice path is required for conversion to PDF!');
 		}
 
-		if (typeof options.spreadsheet !== 'object') {
-			throw new Error('A spreadsheet file is required!');
-		}
-
 		if (!options.spreadsheet.buffer) {
 			throw new Error('A spreadsheet buffer is required!');
 		}
