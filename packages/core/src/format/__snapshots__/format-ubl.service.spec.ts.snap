@@ -1,11 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`UBL should attach attachments 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+	<cac:AdditionalDocumentReference>
+		<cbc:ID>hours-sheet</cbc:ID>
+		<cbc:DocumentDescription>A detailed breakdown of the hours worked</cbc:DocumentDescription>
+		<cac:Attachment>
+			<cbc:EmbeddedDocumentBinaryObject mimeCode="application/vnd.oasis.opendocument.spreadsheet" filename="hours-sheet.ods">dGVzdA==</cbc:EmbeddedDocumentBinaryObject>
+		</cac:Attachment>
+	</cac:AdditionalDocumentReference>
+	<cac:AdditionalDocumentReference>
+		<cbc:ID>catalogue.pdf</cbc:ID>
+		<cac:Attachment>
+			<cbc:EmbeddedDocumentBinaryObject mimeCode="application/pdf" filename="catalogue.pdf">dGVzdA==</cbc:EmbeddedDocumentBinaryObject>
+		</cac:Attachment>
+	</cac:AdditionalDocumentReference>
+</Invoice>"
+`;
+
 exports[`UBL should embed a PDF 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
 	<cac:AdditionalDocumentReference>
 		<cac:Attachment>
 			<cbc:EmbeddedDocumentBinaryObject mimeCode="application/pdf" filename="invoice.pdf">SW52b2ljZQ==</cbc:EmbeddedDocumentBinaryObject>
+		</cac:Attachment>
+	</cac:AdditionalDocumentReference>
+</Invoice>"
+`;
+
+exports[`UBL should embed a PDF passed as an argument 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+	<cac:AdditionalDocumentReference>
+		<cbc:DocumentDescription>A human-readable version of the invoice</cbc:DocumentDescription>
+		<cac:Attachment>
+			<cbc:EmbeddedDocumentBinaryObject mimeCode="application/pdf" filename="invoice.pdf">dGVzdA==</cbc:EmbeddedDocumentBinaryObject>
 		</cac:Attachment>
 	</cac:AdditionalDocumentReference>
 </Invoice>"
