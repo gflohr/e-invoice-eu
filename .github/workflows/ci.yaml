@@ -13,7 +13,8 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        node-version: [18, 20, 22]
+        # Version 22 has been tested in the push workflow
+        node-version: [18, 20]
 
     steps:
       - name: Checkout code

@@ -70,7 +70,7 @@ export class FormatUBLService
 		return this.renderXML(invoiceObject);
 	}
 
-	async embedPDF(invoice: Invoice, options: InvoiceServiceOptions) {
+	private async embedPDF(invoice: Invoice, options: InvoiceServiceOptions) {
 		if (typeof options.embedPDF === 'undefined') return;
 
 		const pdf = await this.getInvoicePdf(options);
@@ -93,18 +93,13 @@ export class FormatUBLService
 					: normalized;
 
 			filename = name + '.pdf';
-		} else {
-			throw new Error(
-				'Either a data spreadsheet file or an invoice PDF' +
-					' is needed, when a PDF should be embedded!',
-			);
-		}
+		} // No else because this is already checked in getInvoicePdf().
 
 		const ref: ADDITIONALSUPPORTINGDOCUMENTS = {
 			'cbc:ID': options.pdf?.id ?? invoice['ubl:Invoice']['cbc:ID'],
 			'cac:Attachment': {
 				'cbc:EmbeddedDocumentBinaryObject': this.uint8ArrayToBase64(pdf),
-				'cbc:EmbeddedDocumentBinaryObject@filename': filename,
+				'cbc:EmbeddedDocumentBinaryObject@filename': filename!,
 				'cbc:EmbeddedDocumentBinaryObject@mimeCode': mimeType,
 			},
 		};
@@ -116,7 +111,7 @@ export class FormatUBLService
 		invoice['ubl:Invoice']['cac:AdditionalDocumentReference'].push(ref);
 	}
 
-	embedAttachments(invoice: Invoice, options: InvoiceServiceOptions) {
+	private embedAttachments(invoice: Invoice, options: InvoiceServiceOptions) {
 		const validMimeCodes: Set<AttachedDocumentMimeCode> = new Set([
 			'text/csv',
 			'application/pdf',
@@ -127,6 +122,7 @@ export class FormatUBLService
 		]);
 
 		for (const attachment of options.attachments || []) {
+			// FIXME! Guess MIME type from filename if missing.
 			const mimeType: AttachedDocumentMimeCode =
 				attachment.mimetype as AttachedDocumentMimeCode;
 			if (!validMimeCodes.has(mimeType)) {
@@ -135,6 +131,14 @@ export class FormatUBLService
 				);
 			}
 			const filename = attachment.filename;
+			if (typeof filename === 'undefined') {
+				throw new Error('The attachment filename is required!');
+			}
+
+			if (typeof attachment.buffer === 'undefined') {
+				throw new Error('The attachment buffer is required!');
+			}
+
 			const id = attachment.id ?? filename;
 
 			const ref: ADDITIONALSUPPORTINGDOCUMENTS = {

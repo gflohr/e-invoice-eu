@@ -45,6 +45,10 @@ export class FormatXMLService {
 		options: InvoiceServiceOptions,
 	): Promise<Uint8Array> {
 		if (options.pdf) {
+			if (!options.pdf.buffer) {
+				throw new Error('A PDF buffer is required!');
+			}
+
 			return options.pdf.buffer;
 		} else if (!options.spreadsheet) {
 			throw new Error(
@@ -55,6 +59,10 @@ export class FormatXMLService {
 		const libreoffice = options.libreOfficePath;
 		if (typeof libreoffice === 'undefined') {
 			throw new Error('LibreOffice path is required for conversion to PDF!');
+		}
+
+		if (!options.spreadsheet.buffer) {
+			throw new Error('A spreadsheet buffer is required!');
 		}
 
 		return await renderSpreadsheet(

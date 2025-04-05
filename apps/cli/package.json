@@ -3,12 +3,16 @@
 	"version": "2.0.3",
 	"description": "Generate e-invoices (E-Rechnung in German) conforming to EN16931 (Factur-X/ZUGFeRD, UBL, CII, XRechnung aka X-Rechnung) from LibreOffice Calc/Excel data or JSON. ",
 	"keywords": [
-		"e-invoice",
-		"en16931",
 		"factur-x",
 		"zugferd",
-		"UBL",
-		"CII"
+		"e-invoice",
+		"ubl",
+		"cii",
+		"en16931",
+		"xrechnung",
+		"pdfa",
+		"e-rechnung",
+		"e-invoice-eu"
 	],
 	"publishConfig": {
 		"access": "public"
