@@ -1,0 +1,38 @@
+name: Upload Coverage to Coveralls
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  test:
+    name: Test on ubuntu-latest with Node.js 22
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run tests
+        run: bun run test
+
+      - name: Test with coverage
+        run: bun run test:cov
+
+      - name: Upload coverage
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          fail-on-error: false

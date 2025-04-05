@@ -14,10 +14,6 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         node-version: [18, 20, 22]
-        include:
-        - node-version: '22'
-          os: ubuntu-latest
-          coverage: true
 
     steps:
       - name: Checkout code
@@ -36,14 +32,3 @@ jobs:
 
       - name: Run tests
         run: bun run test
-
-      - name: Test with coverage
-        if: ${{ matrix.coverage }}
-        run: bun run test:cov
-
-      - name: Upload coverage
-        uses: coverallsapp/github-action@v2
-        if: ${{ matrix.coverage }}
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          fail-on-error: false
