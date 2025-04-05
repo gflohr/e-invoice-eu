@@ -1,6 +1,19 @@
 {
 	"name": "@e-invoice-eu/server",
 	"version": "2.0.3",
+	"description": "REST API for generating EN16931 conforming electronic invoices",
+	"keywords": [
+		"factur-x",
+		"zugferd",
+		"e-invoice",
+		"ubl",
+		"cii",
+		"en16931",
+		"xrechnung",
+		"pdfa",
+		"e-rechnung",
+		"e-invoice-eu"
+	],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/gflohr/e-invoice-eu.git"
@@ -50,7 +63,6 @@
 		"tsconfig-paths": "^4.2.0",
 		"typescript": "^5.7.2"
 	},
-	"description": "Tools for generating EN16931 conforming electronic invoices",
 	"files": [
 		"dist"
 	],
