@@ -8,6 +8,7 @@ jest.mock('../utils/render-spreadsheet', () => ({
 
 import { FormatUBLService } from './format-ubl.service';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
+import { file } from 'bun';
 
 describe('UBL', () => {
 	let service: FormatUBLService;
@@ -190,5 +191,78 @@ describe('UBL', () => {
 
 		const xml = await service.generate(invoice, options);
 		expect(xml).toMatchSnapshot();
+	});
+
+	it('should throw an error for invalid MIME types', async () => {
+		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
+		const options = {
+			attachments: [
+				{
+					filename: 'hours-sheet.txt',
+					id: 'hours-sheet',
+					mimetype: 'text/plain',
+					buffer: Buffer.from('test'),
+					description: 'A detailed breakdown of the hours worked',
+				},
+				{
+					filename: 'catalogue.pdf',
+					mimetype: 'application/pdf',
+					buffer: Buffer.from('test'),
+				},
+			],
+			libreOfficePath: 'libreoffice',
+		} as unknown as InvoiceServiceOptions;
+
+		await expect(service.generate(invoice, options)).rejects.toThrow(
+			"The attachment MIME type 'text/plain' is not allowed!",
+		);
+	});
+
+	it('should throw an error if the filename is missing', async () => {
+		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
+		const options = {
+			attachments: [
+				{
+					filename: 'hours-sheet.ods',
+					id: 'hours-sheet',
+					mimetype: 'application/vnd.oasis.opendocument.spreadsheet',
+					buffer: Buffer.from('test'),
+					description: 'A detailed breakdown of the hours worked',
+				},
+				{
+					mimetype: 'application/pdf',
+					buffer: Buffer.from('test'),
+				},
+			],
+			libreOfficePath: 'libreoffice',
+		} as unknown as InvoiceServiceOptions;
+
+		await expect(service.generate(invoice, options)).rejects.toThrow(
+			'The attachment filename is required!',
+		);
+	});
+
+	it('should throw an error if the filename is missing', async () => {
+		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
+		const options = {
+			attachments: [
+				{
+					filename: 'hours-sheet.ods',
+					id: 'hours-sheet',
+					mimetype: 'application/vnd.oasis.opendocument.spreadsheet',
+					buffer: Buffer.from('test'),
+					description: 'A detailed breakdown of the hours worked',
+				},
+				{
+					filename: 'catalogue.pdf',
+					mimetype: 'application/pdf',
+				},
+			],
+			libreOfficePath: 'libreoffice',
+		} as unknown as InvoiceServiceOptions;
+
+		await expect(service.generate(invoice, options)).rejects.toThrow(
+			'The attachment buffer is required!',
+		);
 	});
 });
