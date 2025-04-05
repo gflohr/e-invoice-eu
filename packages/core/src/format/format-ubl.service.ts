@@ -70,7 +70,7 @@ export class FormatUBLService
 		return this.renderXML(invoiceObject);
 	}
 
-	async embedPDF(invoice: Invoice, options: InvoiceServiceOptions) {
+	private async embedPDF(invoice: Invoice, options: InvoiceServiceOptions) {
 		if (typeof options.embedPDF === 'undefined') return;
 
 		const pdf = await this.getInvoicePdf(options);
@@ -116,7 +116,7 @@ export class FormatUBLService
 		invoice['ubl:Invoice']['cac:AdditionalDocumentReference'].push(ref);
 	}
 
-	embedAttachments(invoice: Invoice, options: InvoiceServiceOptions) {
+	private embedAttachments(invoice: Invoice, options: InvoiceServiceOptions) {
 		const validMimeCodes: Set<AttachedDocumentMimeCode> = new Set([
 			'text/csv',
 			'application/pdf',
