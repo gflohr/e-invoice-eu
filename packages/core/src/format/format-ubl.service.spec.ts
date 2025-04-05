@@ -8,7 +8,6 @@ jest.mock('../utils/render-spreadsheet', () => ({
 
 import { FormatUBLService } from './format-ubl.service';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
-import { file } from 'bun';
 
 describe('UBL', () => {
 	let service: FormatUBLService;
