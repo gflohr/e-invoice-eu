@@ -47,7 +47,6 @@ export class FormatXMLService {
 		if (options.pdf) {
 			return options.pdf.buffer;
 		} else if (!options.spreadsheet) {
-			console.trace('here');
 			throw new Error(
 				'Either an invoice spreadsheet file or an invoice PDF is needed!',
 			);

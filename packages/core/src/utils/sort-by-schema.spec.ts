@@ -15,7 +15,7 @@ type House = {
 	};
 	groundFloor: {
 		kitchen: string;
-		landroom: string;
+		loungeRoom: string;
 		bedrooms: Bedroom[];
 	};
 	attic: {
@@ -55,7 +55,7 @@ const houseSchema: JSONSchemaType<House> = {
 			nullable: false,
 			properties: {
 				kitchen: { type: 'string' },
-				landroom: { type: 'string' },
+				loungeRoom: { type: 'string' },
 				bedrooms: {
 					type: 'array',
 					nullable: false,
@@ -120,7 +120,7 @@ const wantedHouse: House = {
 	},
 	groundFloor: {
 		kitchen: 'yellow',
-		landroom: 'white',
+		loungeRoom: 'white',
 		bedrooms: [
 			{
 				colour: 'blue',
@@ -181,7 +181,7 @@ const unsortedHouse: House = {
 				colour: 'red',
 			},
 		],
-		landroom: 'white',
+		loungeRoom: 'white',
 		kitchen: 'yellow',
 	},
 	basement: {
@@ -201,9 +201,68 @@ const unsortedHouse: House = {
 };
 
 describe('Sort by schema', () => {
-	it('Should sort an object by a JSON schema', () => {
+	it('should sort an object by a JSON schema', () => {
 		const sortedHouse = sortBySchema(unsortedHouse, houseSchema);
 
 		expect(sortedHouse).toEqual(wantedHouse);
+	});
+
+	it('should throw an exception if the object is not valid', () => {
+		expect(() =>
+			sortBySchema('house' as unknown as House, houseSchema),
+		).toThrow('Data must be a non-null object.');
+	});
+
+	it('should throw an exception if the object is null', () => {
+		expect(() => sortBySchema(null as unknown as House, houseSchema)).toThrow(
+			'Data must be a non-null object.',
+		);
+	});
+
+	it('should throw an exception if the schema is not valid', () => {
+		expect(() =>
+			sortBySchema(unsortedHouse, 'schema' as unknown as JSONSchemaType<House>),
+		).toThrow('Schema must be a valid JSON schema.');
+	});
+
+	it('should throw an exception if the schema is null', () => {
+		expect(() =>
+			sortBySchema(unsortedHouse, null as unknown as JSONSchemaType<House>),
+		).toThrow('Schema must be a valid JSON schema.');
+	});
+
+	it('should assign arrays of primitives directly when item schema is not an object with properties', () => {
+		const data = {
+			tags: ['factur-x', 'ubl', 'zugferd'],
+		};
+
+		const schema: JSONSchemaType<{ tags: string[] }> = {
+			type: 'object',
+			properties: {
+				tags: {
+					type: 'array',
+					items: { type: 'string' }, // Not an object → triggers else branch
+				},
+			},
+			required: ['tags'],
+			additionalProperties: false,
+		};
+
+		const result = sortBySchema(data, schema);
+		expect(result).toEqual({
+			tags: ['factur-x', 'ubl', 'zugferd'],
+		});
+	});
+
+	// This behaviour is actually not really what we want but it does not
+	// happen for our use case.
+	it('should discard unknown properties', () => {
+		const data = { z: 1, y: 2, x: 3, w: 4, v: 5, u: 6, t: 7, s: 8, r: 9 };
+		const schema: JSONSchemaType<object> = {
+			type: 'object',
+			additionalProperties: true,
+		};
+
+		expect(sortBySchema(data, schema)).toEqual({});
 	});
 });

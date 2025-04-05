@@ -140,19 +140,21 @@ const extractAttachments = (pdfDoc: PDFDocument): Attachment[] => {
 		const subtype = embeddedFileDict.lookup(PDFName.of('Subtype'));
 
 		const mimeType =
-		subtype instanceof PDFName
-		  ? subtype.toString().slice(1)
-		  : subtype instanceof PDFString
-		  ? subtype.decodeText()
-		  : undefined;
+			subtype instanceof PDFName
+				? subtype.toString().slice(1)
+				: subtype instanceof PDFString
+					? subtype.decodeText()
+					: undefined;
 
-		  const description = (fileSpec.lookup(PDFName.of('Desc')) as PDFHexString).decodeText();
+		const description = (
+			fileSpec.lookup(PDFName.of('Desc')) as PDFHexString
+		).decodeText();
 
 		return {
 			name: fileName.decodeText(),
 			data: decodePDFRawStream(stream).decode(),
 			mimeType: mimeType?.replace(/#([0-9A-Fa-f]{2})/g, (_, hex) =>
-				String.fromCharCode(parseInt(hex, 16))
+				String.fromCharCode(parseInt(hex, 16)),
 			),
 			afRelationship: afRelationship as AFRelationship,
 			description,
@@ -429,26 +431,42 @@ describe('FormatFacturXService', () => {
 
 			expect(attachments.length).toBe(3);
 
-			const invoiceAttachments = attachments.filter(a => a.name === 'factur-x.xml');
+			const invoiceAttachments = attachments.filter(
+				a => a.name === 'factur-x.xml',
+			);
 			expect(invoiceAttachments.length).toBe(1);
 			expect(invoiceAttachments[0].name).toBe('factur-x.xml');
 			expect(invoiceAttachments[0].mimeType).toBe('application/xml');
-			expect(invoiceAttachments[0].afRelationship).toBe(AFRelationship.Alternative);
+			expect(invoiceAttachments[0].afRelationship).toBe(
+				AFRelationship.Alternative,
+			);
 			expect(invoiceAttachments[0].description).toBe('Factur-X');
 
-			const hoursheetAttachments = attachments.filter(a => a.name === 'hour-sheet.ods');
+			const hoursheetAttachments = attachments.filter(
+				a => a.name === 'hour-sheet.ods',
+			);
 			expect(hoursheetAttachments.length).toBe(1);
 			expect(hoursheetAttachments[0].name).toBe('hour-sheet.ods');
-			expect(hoursheetAttachments[0].mimeType).toBe('application/vnd.oasis.opendocument.spreadsheet');
-			expect(hoursheetAttachments[0].afRelationship).toBe(AFRelationship.Supplement);
+			expect(hoursheetAttachments[0].mimeType).toBe(
+				'application/vnd.oasis.opendocument.spreadsheet',
+			);
+			expect(hoursheetAttachments[0].afRelationship).toBe(
+				AFRelationship.Supplement,
+			);
 			expect(hoursheetAttachments[0].description).toBe('Supplementary file');
 
-			const catalogueAttachments = attachments.filter(a => a.name === 'catalogue.pdf');
+			const catalogueAttachments = attachments.filter(
+				a => a.name === 'catalogue.pdf',
+			);
 			expect(catalogueAttachments.length).toBe(1);
 			expect(catalogueAttachments[0].name).toBe('catalogue.pdf');
 			expect(catalogueAttachments[0].mimeType).toBe('application/pdf');
-			expect(catalogueAttachments[0].afRelationship).toBe(AFRelationship.Supplement);
-			expect(catalogueAttachments[0].description).toBe('All the products that we offer');
+			expect(catalogueAttachments[0].afRelationship).toBe(
+				AFRelationship.Supplement,
+			);
+			expect(catalogueAttachments[0].description).toBe(
+				'All the products that we offer',
+			);
 		});
 	});
 });

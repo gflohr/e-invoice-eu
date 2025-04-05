@@ -20,7 +20,6 @@
 		"test": "lerna run test --stream",
 		"test:cov": "lerna run test:cov --stream",
 		"test:watch": "lerna watch -- lerna run test --scope=\\$LERNA_PACKAGE_NAME --stream",
-		"posttest:cov": "node merge-lcov.js apps/* packages/core",
 		"publish": "HUSKY=0 lerna publish --no-private",
 		"check:clean": "./check-clean && lerna run --no-private --stream check:clean",
 		"prepublish": "lerna run check:clean && lerna run test --stream",
