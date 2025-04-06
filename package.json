@@ -29,8 +29,8 @@
 	"dependencies": {},
 	"devDependencies": {
 		"@esgettext/tools": "^1.3.6",
-		"bun": "^1.2.3",
+		"bun": "^1.2.8",
 		"husky": "^9.1.7",
-		"lerna": "^8.1.9"
+		"lerna": "^8.2.1"
 	}
 }
