@@ -1618,6 +1618,7 @@ export class FormatCIIService
 
 	private applySubPaths(path: string, subPaths: string[]) {
 		for (const subPath of subPaths) {
+			// FIXME! The first two branches seem to be dead code.
 			if (subPath === '..') {
 				path = path.replace(/[[.][^[.]+$/, '');
 			} else if (subPath.startsWith('@')) {
