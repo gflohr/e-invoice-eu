@@ -172,394 +172,404 @@ describe('MappingService', () => {
 		expect(service).toBeDefined();
 	});
 
-	describe('should parse mappings and map data', () => {
-		it('should throw an exception if a non-existing sheet is referenced', () => {
-			const wb: XLSX.WorkBook = {
-				Sheets: {},
-			} as XLSX.WorkBook;
+	describe('v1', () => {
+		describe('should parse mappings and map data', () => {
+			it('should throw an exception if a non-existing sheet is referenced', () => {
+				const wb: XLSX.WorkBook = {
+					Sheets: {},
+				} as XLSX.WorkBook;
 
-			try {
-				service['resolveValue']('=Inwoice.A1', {} as JSONSchemaType<any>, {
-					...defaultMappingContext,
-					schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
-					workbook: wb,
-				});
-				throw new Error('no exception thrown');
-			} catch (e) {
-				expect(e).toBeDefined();
-				expect(e.validation).toBeTruthy();
-				expect(e.ajv).toBeTruthy();
-				expect(Array.isArray(e.errors)).toBeTruthy();
-				expect(e.errors.length).toBe(1);
+				try {
+					service['resolveValue']('=Inwoice.A1', {} as JSONSchemaType<any>, {
+						...defaultMappingContext,
+						schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
+						workbook: wb,
+					});
+					throw new Error('no exception thrown');
+				} catch (e) {
+					expect(e).toBeDefined();
+					expect(e.validation).toBeTruthy();
+					expect(e.ajv).toBeTruthy();
+					expect(Array.isArray(e.errors)).toBeTruthy();
+					expect(e.errors.length).toBe(1);
 
-				const error = e.errors[0];
-				expect(error.instancePath).toBe('/ubl:Invoice/cbc:ID');
-				expect(error.schemaPath).toBe(
-					'#/properties/ubl%3AInvoice/properties/cbc%3AID',
+					const error = e.errors[0];
+					expect(error.instancePath).toBe('/ubl:Invoice/cbc:ID');
+					expect(error.schemaPath).toBe(
+						'#/properties/ubl%3AInvoice/properties/cbc%3AID',
+					);
+					expect(error.keyword).toBe('type');
+					expect(error.params).toEqual({ type: 'string' });
+					expect(error.message).toBe(
+						"reference '=Inwoice.A1' resolves to null: no such sheet 'Inwoice'",
+					);
+				}
+			});
+
+			it('should return an empty string if a non-existing cell is referenced', () => {
+				const wb: XLSX.WorkBook = {
+					Sheets: {
+						Invoice: {},
+					},
+					SheetNames: ['Invoice'],
+				} as XLSX.WorkBook;
+				const value = service['resolveValue'](
+					'=ET742',
+					{} as JSONSchemaType<any>,
+					{
+						...defaultMappingContext,
+						schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
+						workbook: wb,
+					},
 				);
-				expect(error.keyword).toBe('type');
-				expect(error.params).toEqual({ type: 'string' });
-				expect(error.message).toBe(
-					"reference '=Inwoice.A1' resolves to null: no such sheet 'Inwoice'",
-				);
-			}
-		});
+				expect(value).toBe('');
+			});
 
-		it('should return an empty string if a non-existing cell is referenced', () => {
-			const wb: XLSX.WorkBook = {
-				Sheets: {
-					Invoice: {},
-				},
-				SheetNames: ['Invoice'],
-			} as XLSX.WorkBook;
-			const value = service['resolveValue'](
-				'=ET742',
-				{} as JSONSchemaType<any>,
-				{
-					...defaultMappingContext,
-					schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
-					workbook: wb,
-				},
-			);
-			expect(value).toBe('');
-		});
-
-		it('should return an empty string for configured empty values', () => {
-			const wb: XLSX.WorkBook = {
-				Sheets: {
-					Invoice: {
-						A1: {
-							t: 's',
-							v: '[:empty:]',
-						},
-						A2: {
-							t: 's',
-							v: 'not empty',
+			it('should return an empty string for configured empty values', () => {
+				const wb: XLSX.WorkBook = {
+					Sheets: {
+						Invoice: {
+							A1: {
+								t: 's',
+								v: '[:empty:]',
+							},
+							A2: {
+								t: 's',
+								v: 'not empty',
+							},
 						},
 					},
-				},
-				SheetNames: ['Invoice'],
-			} as XLSX.WorkBook;
-			const empty = service['resolveValue']('=A1', {} as JSONSchemaType<any>, {
-				...defaultMappingContext,
-				meta: {
-					sectionColumn: {},
-					empty: ['[:empty:]'],
-				},
-				schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
-				workbook: wb,
-			});
-			expect(empty).toBe('');
-
-			const notEmpty = service['resolveValue'](
-				'=A2',
-				{} as JSONSchemaType<any>,
-				{
-					...defaultMappingContext,
-					schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
-					workbook: wb,
-				},
-			);
-			expect(notEmpty).toBe('not empty');
-		});
-
-		it('should throw an exception if a non-existing section is referenced', async () => {
-			const localMapping = structuredClone(mapping);
-			localMapping['ubl:Invoice']['cac:InvoiceLine']['cbc:ID'] = '=:Lines.A1';
-			const mockValidateMapping = jest
-				.spyOn(service as any, 'validateMapping')
-				.mockReturnValue(localMapping);
-			const buf: Uint8Array = [] as unknown as Uint8Array;
-
-			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
-
-			try {
-				service.transform(buf, 'UBL', {} as Mapping);
-				throw new Error('no exception thrown');
-			} catch (e) {
-				expect(e).toBeDefined();
-				expect(e.validation).toBeTruthy();
-				expect(e.ajv).toBeTruthy();
-				expect(Array.isArray(e.errors)).toBeTruthy();
-				expect(e.errors.length).toBe(1);
-
-				const error = e.errors[0];
-				expect(error.instancePath).toBe(
-					'/ubl:Invoice/cac:InvoiceLine/0/cbc:ID',
+					SheetNames: ['Invoice'],
+				} as XLSX.WorkBook;
+				const empty = service['resolveValue'](
+					'=A1',
+					{} as JSONSchemaType<any>,
+					{
+						...defaultMappingContext,
+						meta: {
+							sectionColumn: {},
+							empty: ['[:empty:]'],
+						},
+						schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
+						workbook: wb,
+					},
 				);
-				expect(error.schemaPath).toBe(
-					'#/properties/ubl%3AInvoice/properties/cac%3AInvoiceLine/items/properties/cbc%3AID',
+				expect(empty).toBe('');
+
+				const notEmpty = service['resolveValue'](
+					'=A2',
+					{} as JSONSchemaType<any>,
+					{
+						...defaultMappingContext,
+						schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
+						workbook: wb,
+					},
 				);
-				expect(error.keyword).toBe('type');
-				expect(error.params).toEqual({ type: 'string' });
-				expect(error.message).toBe(
-					"reference '=:Lines.A1' resolves to null: cannot find section 'Lines' in sheet 'Invoice'",
-				);
-			}
-
-			mockValidateMapping.mockRestore();
-		});
-
-		it('should throw an exception if a non-existing sheet is referenced as section', async () => {
-			const localMapping = structuredClone(mapping);
-			localMapping['ubl:Invoice']['cac:InvoiceLine']['section'] =
-				'Infoice:Line';
-			const mockValidateMapping = jest
-				.spyOn(service as any, 'validateMapping')
-				.mockReturnValue(localMapping);
-			const buf: Uint8Array = [] as unknown as Uint8Array;
-
-			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
-
-			try {
-				service.transform(buf, 'UBL', {} as Mapping);
-				throw new Error('no exception thrown');
-			} catch (e) {
-				expect(e).toBeDefined();
-				expect(e.validation).toBeTruthy();
-				expect(e.ajv).toBeTruthy();
-				expect(Array.isArray(e.errors)).toBeTruthy();
-				expect(e.errors.length).toBe(1);
-
-				const error = e.errors[0];
-				expect(error.instancePath).toBe('/ubl:Invoice/cac:InvoiceLine/section');
-				expect(error.schemaPath).toBe(
-					'#/properties/ubl%3AInvoice/properties/cac%3AInvoiceLine/properties/section',
-				);
-				expect(error.keyword).toBe('type');
-				expect(error.params).toEqual({ type: 'string' });
-				expect(error.message).toBe(
-					"section reference 'Infoice:Line' resolves to null: no section column for sheet 'Infoice'",
-				);
-			}
-
-			mockValidateMapping.mockRestore();
-		});
-
-		it('should throw an exception if a non-existing section is referenced as section', async () => {
-			const localMapping = structuredClone(mapping);
-			localMapping['ubl:Invoice']['cac:InvoiceLine']['section'] =
-				'Invoice:Lime';
-			const mockValidateMapping = jest
-				.spyOn(service as any, 'validateMapping')
-				.mockReturnValue(localMapping);
-			const buf: Uint8Array = [] as unknown as Uint8Array;
-
-			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
-
-			try {
-				service.transform(buf, 'UBL', {} as Mapping);
-				throw new Error('no exception thrown');
-			} catch (e) {
-				expect(e).toBeDefined();
-				expect(e.validation).toBeTruthy();
-				expect(e.ajv).toBeTruthy();
-				expect(Array.isArray(e.errors)).toBeTruthy();
-				expect(e.errors.length).toBe(1);
-
-				const error = e.errors[0];
-				expect(error.instancePath).toBe('/ubl:Invoice/cac:InvoiceLine/section');
-				expect(error.schemaPath).toBe(
-					'#/properties/ubl%3AInvoice/properties/cac%3AInvoiceLine/properties/section',
-				);
-				expect(error.keyword).toBe('type');
-				expect(error.params).toEqual({ type: 'string' });
-				expect(error.message).toBe(
-					"section reference 'Invoice:Lime' resolves to null: no section 'Lime' in sheet 'Invoice'",
-				);
-			}
-
-			mockValidateMapping.mockRestore();
-		});
-
-		it('should throw an exception if multiple unbound sections are encountered', async () => {
-			const mockValidateMapping = jest
-				.spyOn(service as any, 'validateMapping')
-				.mockReturnValue(mapping);
-			const buf: Uint8Array = [] as unknown as Uint8Array;
-
-			const localWorkbook = structuredClone(workbook);
-			localWorkbook.Sheets.Invoice.K28 = { t: 's', v: 'SubTotal' };
-
-			jest.spyOn(XLSX, 'read').mockReturnValueOnce(localWorkbook);
-
-			try {
-				service.transform(buf, 'UBL', {} as Mapping);
-				throw new Error('no exception thrown');
-			} catch (e) {
-				expect(e).toBeDefined();
-				expect(e.validation).toBeTruthy();
-				expect(e.ajv).toBeTruthy();
-				expect(Array.isArray(e.errors)).toBeTruthy();
-				expect(e.errors.length).toBe(1);
-
-				const error = e.errors[0];
-				expect(error.instancePath).toBe(
-					'/ubl:Invoice/cac:LegalMonetaryTotal/cbc:LineExtensionAmount',
-				);
-				expect(error.schemaPath).toBe(
-					'#/properties/ubl%3AInvoice/properties/cac%3ALegalMonetaryTotal/properties/cbc%3ALineExtensionAmount',
-				);
-				expect(error.keyword).toBe('type');
-				expect(error.params).toEqual({ type: 'string' });
-				expect(error.message).toBe(
-					"reference '=:SubTotal.F1' resolves to null: multiple unbound sections 'SubTotal' in sheet 'Invoice'",
-				);
-			}
-
-			mockValidateMapping.mockRestore();
-		});
-
-		// Test the parseMapping() method.
-		it('should validate mappings and fill defaults', () => {
-			const formatter: EInvoiceFormat = {
-				fillMappingDefaults: jest.fn(),
-			} as unknown as EInvoiceFormat;
-			const formatFactorySpy = jest
-				.spyOn(FormatFactoryService.prototype, 'createFormatService')
-				.mockReturnValue(formatter);
-			const validateSpy = jest
-				.spyOn(ValidationService.prototype, 'validate')
-				.mockReturnValue({ 'ubl:Invoice': {} });
-
-			const buf: Uint8Array = [] as unknown as Uint8Array;
-			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
-
-			const mockFillSectionRanges = jest
-				.spyOn(service as any, 'fillSectionRanges')
-				.mockImplementationOnce(() => {});
-
-			const invoice = service.transform(buf, 'ZIRKUSFeRD', {} as Mapping);
-
-			expect(invoice).toEqual({ 'ubl:Invoice': {} });
-			expect(validateSpy).toHaveBeenCalledTimes(1);
-			expect(validateSpy).toHaveBeenCalledWith(
-				'mapping data',
-				expect.anything(),
-				{},
-			);
-
-			expect(formatFactorySpy).toHaveBeenCalledTimes(1);
-			expect(formatFactorySpy).toHaveBeenCalledWith('ZIRKUSFeRD', logger);
-			expect(formatter.fillMappingDefaults).toHaveBeenCalledTimes(1);
-			expect(formatter.fillMappingDefaults).toHaveBeenCalledWith({
-				'ubl:Invoice': {},
+				expect(notEmpty).toBe('not empty');
 			});
 
-			formatFactorySpy.mockRestore();
-			validateSpy.mockRestore();
-			mockFillSectionRanges.mockRestore();
-		});
+			it('should throw an exception if a non-existing section is referenced', async () => {
+				const localMapping = structuredClone(mapping);
+				localMapping['ubl:Invoice']['cac:InvoiceLine']['cbc:ID'] = '=:Lines.A1';
+				const mockValidateMapping = jest
+					.spyOn(service as any, 'validateMapping')
+					.mockReturnValue(localMapping);
+				const buf: Uint8Array = [] as unknown as Uint8Array;
 
-		describe('should transform invoice data', () => {
-			let invoice: Invoice;
+				jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
-			beforeAll(async () => {
+				try {
+					service.transform(buf, 'UBL', {} as Mapping);
+					throw new Error('no exception thrown');
+				} catch (e) {
+					expect(e).toBeDefined();
+					expect(e.validation).toBeTruthy();
+					expect(e.ajv).toBeTruthy();
+					expect(Array.isArray(e.errors)).toBeTruthy();
+					expect(e.errors.length).toBe(1);
+
+					const error = e.errors[0];
+					expect(error.instancePath).toBe(
+						'/ubl:Invoice/cac:InvoiceLine/0/cbc:ID',
+					);
+					expect(error.schemaPath).toBe(
+						'#/properties/ubl%3AInvoice/properties/cac%3AInvoiceLine/items/properties/cbc%3AID',
+					);
+					expect(error.keyword).toBe('type');
+					expect(error.params).toEqual({ type: 'string' });
+					expect(error.message).toBe(
+						"reference '=:Lines.A1' resolves to null: cannot find section 'Lines' in sheet 'Invoice'",
+					);
+				}
+
+				mockValidateMapping.mockRestore();
+			});
+
+			it('should throw an exception if a non-existing sheet is referenced as section', async () => {
+				const localMapping = structuredClone(mapping);
+				localMapping['ubl:Invoice']['cac:InvoiceLine']['section'] =
+					'Infoice:Line';
+				const mockValidateMapping = jest
+					.spyOn(service as any, 'validateMapping')
+					.mockReturnValue(localMapping);
+				const buf: Uint8Array = [] as unknown as Uint8Array;
+
+				jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
+
+				try {
+					service.transform(buf, 'UBL', {} as Mapping);
+					throw new Error('no exception thrown');
+				} catch (e) {
+					expect(e).toBeDefined();
+					expect(e.validation).toBeTruthy();
+					expect(e.ajv).toBeTruthy();
+					expect(Array.isArray(e.errors)).toBeTruthy();
+					expect(e.errors.length).toBe(1);
+
+					const error = e.errors[0];
+					expect(error.instancePath).toBe(
+						'/ubl:Invoice/cac:InvoiceLine/section',
+					);
+					expect(error.schemaPath).toBe(
+						'#/properties/ubl%3AInvoice/properties/cac%3AInvoiceLine/properties/section',
+					);
+					expect(error.keyword).toBe('type');
+					expect(error.params).toEqual({ type: 'string' });
+					expect(error.message).toBe(
+						"section reference 'Infoice:Line' resolves to null: no section column for sheet 'Infoice'",
+					);
+				}
+
+				mockValidateMapping.mockRestore();
+			});
+
+			it('should throw an exception if a non-existing section is referenced as section', async () => {
+				const localMapping = structuredClone(mapping);
+				localMapping['ubl:Invoice']['cac:InvoiceLine']['section'] =
+					'Invoice:Lime';
+				const mockValidateMapping = jest
+					.spyOn(service as any, 'validateMapping')
+					.mockReturnValue(localMapping);
+				const buf: Uint8Array = [] as unknown as Uint8Array;
+
+				jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
+
+				try {
+					service.transform(buf, 'UBL', {} as Mapping);
+					throw new Error('no exception thrown');
+				} catch (e) {
+					expect(e).toBeDefined();
+					expect(e.validation).toBeTruthy();
+					expect(e.ajv).toBeTruthy();
+					expect(Array.isArray(e.errors)).toBeTruthy();
+					expect(e.errors.length).toBe(1);
+
+					const error = e.errors[0];
+					expect(error.instancePath).toBe(
+						'/ubl:Invoice/cac:InvoiceLine/section',
+					);
+					expect(error.schemaPath).toBe(
+						'#/properties/ubl%3AInvoice/properties/cac%3AInvoiceLine/properties/section',
+					);
+					expect(error.keyword).toBe('type');
+					expect(error.params).toEqual({ type: 'string' });
+					expect(error.message).toBe(
+						"section reference 'Invoice:Lime' resolves to null: no section 'Lime' in sheet 'Invoice'",
+					);
+				}
+
+				mockValidateMapping.mockRestore();
+			});
+
+			it('should throw an exception if multiple unbound sections are encountered', async () => {
 				const mockValidateMapping = jest
 					.spyOn(service as any, 'validateMapping')
 					.mockReturnValue(mapping);
 				const buf: Uint8Array = [] as unknown as Uint8Array;
 
-				jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
+				const localWorkbook = structuredClone(workbook);
+				localWorkbook.Sheets.Invoice.K28 = { t: 's', v: 'SubTotal' };
 
-				invoice = service.transform(buf, 'UBL', {} as Mapping);
+				jest.spyOn(XLSX, 'read').mockReturnValueOnce(localWorkbook);
+
+				try {
+					service.transform(buf, 'UBL', {} as Mapping);
+					throw new Error('no exception thrown');
+				} catch (e) {
+					expect(e).toBeDefined();
+					expect(e.validation).toBeTruthy();
+					expect(e.ajv).toBeTruthy();
+					expect(Array.isArray(e.errors)).toBeTruthy();
+					expect(e.errors.length).toBe(1);
+
+					const error = e.errors[0];
+					expect(error.instancePath).toBe(
+						'/ubl:Invoice/cac:LegalMonetaryTotal/cbc:LineExtensionAmount',
+					);
+					expect(error.schemaPath).toBe(
+						'#/properties/ubl%3AInvoice/properties/cac%3ALegalMonetaryTotal/properties/cbc%3ALineExtensionAmount',
+					);
+					expect(error.keyword).toBe('type');
+					expect(error.params).toEqual({ type: 'string' });
+					expect(error.message).toBe(
+						"reference '=:SubTotal.F1' resolves to null: multiple unbound sections 'SubTotal' in sheet 'Invoice'",
+					);
+				}
 
 				mockValidateMapping.mockRestore();
 			});
 
-			it('should return an invoice object', () => {
-				expect(invoice).toBeDefined();
-				expect(invoice['ubl:Invoice']).toBeDefined();
-			});
+			// Test the parseMapping() method.
+			it('should validate mappings and fill defaults', () => {
+				const formatter: EInvoiceFormat = {
+					fillMappingDefaults: jest.fn(),
+				} as unknown as EInvoiceFormat;
+				const formatFactorySpy = jest
+					.spyOn(FormatFactoryService.prototype, 'createFormatService')
+					.mockReturnValue(formatter);
+				const validateSpy = jest
+					.spyOn(ValidationService.prototype, 'validate')
+					.mockReturnValue({ 'ubl:Invoice': {} });
 
-			it('should map a literal value', () => {
-				expect(invoice['ubl:Invoice']['cbc:ID']).toBe('1234567890');
-				expect(typeof invoice['ubl:Invoice']['cbc:ID']).toBe('string');
-			});
+				const buf: Uint8Array = [] as unknown as Uint8Array;
+				jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
 
-			it('should map a literal date', () => {
-				expect(invoice['ubl:Invoice']['cbc:IssueDate']).toBe('2024-10-21');
-			});
+				const mockFillSectionRanges = jest
+					.spyOn(service as any, 'fillSectionRanges')
+					.mockImplementationOnce(() => {});
 
-			it('should map a date', () => {
-				expect(invoice['ubl:Invoice']['cbc:DueDate']).toBe('2024-10-28');
-			});
+				const invoice = service.transform(buf, 'ZIRKUSFeRD', {} as Mapping);
 
-			it('should map a string value', () => {
-				const wanted = workbook.Sheets.Invoice.B1.v;
-				expect(invoice['ubl:Invoice']['cbc:CustomizationID']).toBe(wanted);
-			});
-
-			it('should map a quoted literal value', () => {
-				const wanted = '= not equals eagles';
-				expect(invoice['ubl:Invoice']['cbc:Note']).toBe(wanted);
-			});
-
-			it('should map a nested object property', () => {
-				const wanted = '0815';
-				expect(invoice['ubl:Invoice']['cac:OrderReference']?.['cbc:ID']).toBe(
-					wanted,
+				expect(invoice).toEqual({ 'ubl:Invoice': {} });
+				expect(validateSpy).toHaveBeenCalledTimes(1);
+				expect(validateSpy).toHaveBeenCalledWith(
+					'mapping data',
+					expect.anything(),
+					{},
 				);
+
+				expect(formatFactorySpy).toHaveBeenCalledTimes(1);
+				expect(formatFactorySpy).toHaveBeenCalledWith('ZIRKUSFeRD', logger);
+				expect(formatter.fillMappingDefaults).toHaveBeenCalledTimes(1);
+				expect(formatter.fillMappingDefaults).toHaveBeenCalledWith({
+					'ubl:Invoice': {},
+				});
+
+				formatFactorySpy.mockRestore();
+				validateSpy.mockRestore();
+				mockFillSectionRanges.mockRestore();
 			});
 
-			it('should map an array of invoice lines', () => {
-				const target = invoice['ubl:Invoice']['cac:InvoiceLine'];
-				expect(target).toBeDefined();
-				expect(Array.isArray(target)).toBe(true);
-				expect(target.length).toBe(3);
-				expect(target[0]['cbc:ID']).toBe('1');
-				expect(target[1]['cbc:ID']).toBe('2');
-				expect(target[2]['cbc:ID']).toBe('3');
-			});
+			describe('should transform invoice data', () => {
+				let invoice: Invoice;
 
-			it('should map allowances charges of invoice line #1', () => {
-				const target =
-					invoice['ubl:Invoice']['cac:InvoiceLine'][0]['cac:AllowanceCharge'];
-				expect(target).toBeDefined();
-				if (typeof target !== 'undefined') {
+				beforeAll(async () => {
+					const mockValidateMapping = jest
+						.spyOn(service as any, 'validateMapping')
+						.mockReturnValue(mapping);
+					const buf: Uint8Array = [] as unknown as Uint8Array;
+
+					jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
+
+					invoice = service.transform(buf, 'UBL', {} as Mapping);
+
+					mockValidateMapping.mockRestore();
+				});
+
+				it('should return an invoice object', () => {
+					expect(invoice).toBeDefined();
+					expect(invoice['ubl:Invoice']).toBeDefined();
+				});
+
+				it('should map a literal value', () => {
+					expect(invoice['ubl:Invoice']['cbc:ID']).toBe('1234567890');
+					expect(typeof invoice['ubl:Invoice']['cbc:ID']).toBe('string');
+				});
+
+				it('should map a literal date', () => {
+					expect(invoice['ubl:Invoice']['cbc:IssueDate']).toBe('2024-10-21');
+				});
+
+				it('should map a date', () => {
+					expect(invoice['ubl:Invoice']['cbc:DueDate']).toBe('2024-10-28');
+				});
+
+				it('should map a string value', () => {
+					const wanted = workbook.Sheets.Invoice.B1.v;
+					expect(invoice['ubl:Invoice']['cbc:CustomizationID']).toBe(wanted);
+				});
+
+				it('should map a quoted literal value', () => {
+					const wanted = '= not equals eagles';
+					expect(invoice['ubl:Invoice']['cbc:Note']).toBe(wanted);
+				});
+
+				it('should map a nested object property', () => {
+					const wanted = '0815';
+					expect(invoice['ubl:Invoice']['cac:OrderReference']?.['cbc:ID']).toBe(
+						wanted,
+					);
+				});
+
+				it('should map an array of invoice lines', () => {
+					const target = invoice['ubl:Invoice']['cac:InvoiceLine'];
+					expect(target).toBeDefined();
 					expect(Array.isArray(target)).toBe(true);
-					expect(target.length).toBe(1);
-					expect(target[0]['cbc:Amount']).toBe('23.04');
-					expect(target[0]['cbc:Amount@currencyID']).toBe('EUR');
-				}
-			});
+					expect(target.length).toBe(3);
+					expect(target[0]['cbc:ID']).toBe('1');
+					expect(target[1]['cbc:ID']).toBe('2');
+					expect(target[2]['cbc:ID']).toBe('3');
+				});
 
-			it('should map allowances charges of invoice line #2', () => {
-				const target =
-					invoice['ubl:Invoice']['cac:InvoiceLine'][1]['cac:AllowanceCharge'];
-				expect(target).toBeDefined();
-				if (typeof target !== 'undefined') {
+				it('should map allowances charges of invoice line #1', () => {
+					const target =
+						invoice['ubl:Invoice']['cac:InvoiceLine'][0]['cac:AllowanceCharge'];
+					expect(target).toBeDefined();
+					if (typeof target !== 'undefined') {
+						expect(Array.isArray(target)).toBe(true);
+						expect(target.length).toBe(1);
+						expect(target[0]['cbc:Amount']).toBe('23.04');
+						expect(target[0]['cbc:Amount@currencyID']).toBe('EUR');
+					}
+				});
+
+				it('should map allowances charges of invoice line #2', () => {
+					const target =
+						invoice['ubl:Invoice']['cac:InvoiceLine'][1]['cac:AllowanceCharge'];
+					expect(target).toBeDefined();
+					if (typeof target !== 'undefined') {
+						expect(Array.isArray(target)).toBe(true);
+						expect(target.length).toBe(0);
+					}
+				});
+
+				it('should map allowances charges of invoice line #3', () => {
+					const target =
+						invoice['ubl:Invoice']['cac:InvoiceLine'][2]['cac:AllowanceCharge'];
+					expect(target).toBeDefined();
+					if (typeof target !== 'undefined') {
+						expect(Array.isArray(target)).toBe(true);
+						expect(target.length).toBe(2);
+						expect(target[0]['cbc:Amount']).toBe('13.03');
+						expect(target[0]['cbc:Amount@currencyID']).toBe('EUR');
+						expect(target[1]['cbc:Amount']).toBe('42.00');
+						expect(target[1]['cbc:Amount@currencyID']).toBe('EUR');
+					}
+				});
+
+				it('should map non-array sections', () => {
+					const target =
+						invoice['ubl:Invoice']['cac:LegalMonetaryTotal'][
+							'cbc:LineExtensionAmount'
+						];
+					expect(target).toBe('12345.67');
+				});
+
+				it('should map arrays without sections', () => {
+					const target = invoice['ubl:Invoice']['cac:PaymentMeans'];
 					expect(Array.isArray(target)).toBe(true);
-					expect(target.length).toBe(0);
-				}
-			});
-
-			it('should map allowances charges of invoice line #3', () => {
-				const target =
-					invoice['ubl:Invoice']['cac:InvoiceLine'][2]['cac:AllowanceCharge'];
-				expect(target).toBeDefined();
-				if (typeof target !== 'undefined') {
-					expect(Array.isArray(target)).toBe(true);
-					expect(target.length).toBe(2);
-					expect(target[0]['cbc:Amount']).toBe('13.03');
-					expect(target[0]['cbc:Amount@currencyID']).toBe('EUR');
-					expect(target[1]['cbc:Amount']).toBe('42.00');
-					expect(target[1]['cbc:Amount@currencyID']).toBe('EUR');
-				}
-			});
-
-			it('should map non-array sections', () => {
-				const target =
-					invoice['ubl:Invoice']['cac:LegalMonetaryTotal'][
-						'cbc:LineExtensionAmount'
-					];
-				expect(target).toBe('12345.67');
-			});
-
-			it('should map arrays without sections', () => {
-				const target = invoice['ubl:Invoice']['cac:PaymentMeans'];
-				expect(Array.isArray(target)).toBe(true);
-				expect(target?.[0]['cbc:PaymentMeansCode']).toBe('30');
+					expect(target?.[0]['cbc:PaymentMeansCode']).toBe('30');
+				});
 			});
 		});
 	});

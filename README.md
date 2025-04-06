@@ -22,7 +22,7 @@ JSON.
 - [Documentation](#documentation)
 - [Alternatives](#alternatives)
 - [BUGS](#bugs)
-	- [PDF/A](#pdfa)
+  - [PDF/A](#pdfa)
 - [Reporting Bugs](#reporting-bugs)
 - [Copyright](#copyright)
 - [Disclaimer](#disclaimer)
@@ -58,9 +58,9 @@ Case does not matter, when you specify a format.
 
 There are several ways to use the software:
 
-* a [commandline tool `e-invoice-eu`](apps/cli/README.md)
-* a [web service with a RESTful API](apps/server/README.md)
-* a [JavaScript/TypeScript library](packages/core/README.md)
+- a [commandline tool `e-invoice-eu`](apps/cli/README.md)
+- a [web service with a RESTful API](apps/server/README.md)
+- a [JavaScript/TypeScript library](packages/core/README.md)
 
 The JavaScript/TypeScript library works both on the commandline and in the
 browser. The only limitation of the browser version is that it cannot generate

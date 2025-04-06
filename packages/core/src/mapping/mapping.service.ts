@@ -51,12 +51,16 @@ export class MappingService {
 		this.validationService = new ValidationService(this.logger);
 	}
 
-	private validateMapping(format: string, data: Mapping): Mapping {
+	private validateMapping(data: Mapping, format?: string): Mapping {
 		const valid = this.validationService.validate(
 			'mapping data',
 			this.validator,
 			data,
 		);
+
+		if (typeof format === 'undefined') {
+			return valid;
+		}
 
 		const formatter = this.formatFactoryService.createFormatService(
 			format,
@@ -77,7 +81,7 @@ export class MappingService {
 	 * @returns the invoice data in the internal format
 	 */
 	transform(dataBuffer: Uint8Array, format: string, mapping: Mapping): Invoice {
-		mapping = this.validateMapping(format, mapping);
+		mapping = this.validateMapping(mapping, format);
 		const workbook = XLSX.read(dataBuffer, {
 			type: 'buffer',
 			cellDates: true,
@@ -100,6 +104,18 @@ export class MappingService {
 		this.cleanAttributes(invoice);
 
 		return invoice as unknown as Invoice;
+	}
+
+	/**
+	 * Migrate a mapping to the latest version.
+	 *
+	 * @param mapping a mapping definition
+	 * @returns the migrated mapping
+	 */
+	migrate(mapping: Mapping): Mapping {
+		mapping = this.validateMapping(mapping);
+
+		return mapping;
 	}
 
 	private cleanAttributes(data: { [key: string]: any }) {
