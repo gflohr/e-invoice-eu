@@ -138,7 +138,7 @@ export class MappingService {
 
 					const args = [cellName, sectionName, sheetName]
 						.filter(val => typeof val !== 'undefined')
-						.map(val => `'${val}'`);
+						.map(val => `"${val}"`);
 					mapping[property] = `=SECTIONVALUE(${args.join(', ')})`;
 				}
 			} else if (typeof mapping[property] === 'object') {
