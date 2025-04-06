@@ -13,6 +13,7 @@
 	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
 	"license": "WTFPL",
 	"devDependencies": {
+		"@porscheofficial/cookie-consent-banner": "^4.0.3",
 		"ajv": "^8.17.1",
 		"autoprefixer": "^10.4.21",
 		"bootstrap": "~>5.3.5",
