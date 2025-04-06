@@ -36,7 +36,7 @@
 	"scripts": {
 		"build": "rimraf ./dist && tsc --project tsconfig.build.json && chmod +x dist/index.js",
 		"prebuild": "node ./write-package.mjs >src/package.ts",
-		"prepublishOnly": "bun run build && git resetore src/package.ts",
+		"prepublishOnly": "bun run build",
 		"check:clean": "../../check-clean",
 		"format": "prettier --write 'src/**/*.ts' *.mjs *.json",
 		"prestart": "node ./write-package.mjs >src/package.ts",
