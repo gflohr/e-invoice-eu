@@ -277,6 +277,18 @@ describe('FormatFacturXService', () => {
 
 			expect(await extractXMPMetadata(pdfBytes)).toMatchSnapshot();
 		});
+
+		it('should work in western timezones', async () => {
+			const originalGetTimezoneOffset = Date.prototype.getTimezoneOffset;
+			// This is the timezone of Greenland, not of the US! ;)
+			Date.prototype.getTimezoneOffset = () => +60;
+
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
+
+			expect(await extractXMPMetadata(pdfBytes)).toMatchSnapshot();
+
+			Date.prototype.getTimezoneOffset = originalGetTimezoneOffset;
+		});
 	});
 
 	describe('XML attachment to PDF', () => {
