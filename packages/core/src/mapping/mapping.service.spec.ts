@@ -577,11 +577,12 @@ describe('MappingService', () => {
 	describe('migration', () => {
 		it('should migrate mapping v1 to v3', () => {
 			const mockValidateMapping = jest
-			.spyOn(service as any, 'validateMapping')
-			.mockReturnValue(mapping);
+				.spyOn(service as any, 'validateMapping')
+				.mockReturnValue(mapping);
 
 			const migrated = service.migrate(mapping);
 			expect(migrated).toBeDefined();
+			expect(migrated).toMatchSnapshot();
 
 			mockValidateMapping.mockRestore();
 		});

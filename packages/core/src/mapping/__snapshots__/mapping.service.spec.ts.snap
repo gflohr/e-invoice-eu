@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MappingService migration should migrate mapping v1 to v3 1`] = `
+{
+  "meta": {
+    "sectionColumn": {
+      "Invoice": "K",
+      "Unused": "L",
+    },
+    "version": 3,
+  },
+  "ubl:Invoice": {
+    "cac:InvoiceLine": {
+      "cac:AllowanceCharge": {
+        "cbc:Amount": "=SECTIONVALUE('B1', 'ACLine')",
+        "cbc:Amount@currencyID": "=SECTIONVALUE('B1', 'Line')",
+        "section": ":ACLine",
+      },
+      "cbc:ID": "=SECTIONVALUE('A1', 'Line')",
+      "section": ":Line",
+    },
+    "cac:LegalMonetaryTotal": {
+      "cbc:LineExtensionAmount": "=SECTIONVALUE('F1', 'SubTotal')",
+    },
+    "cac:OrderReference": {
+      "cbc:ID": "=A3",
+    },
+    "cac:PaymentMeans": {
+      "cbc:PaymentMeansCode": "30",
+    },
+    "cac:TaxTotal": {
+      "cbc:TaxAmount@currencyID": "EUR",
+    },
+    "cbc:CustomizationID": "=B1",
+    "cbc:DueDate": "='Invoice'.A2",
+    "cbc:ID": "1234567890",
+    "cbc:IssueDate": "=A1",
+    "cbc:Note": "'= not equals eagles",
+  },
+}
+`;
