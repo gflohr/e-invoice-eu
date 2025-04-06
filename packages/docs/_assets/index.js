@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 // jQuery. :(
 const $ = require('jquery');
 window.$ = window.jQuery = $;
@@ -11,7 +12,7 @@ require('./css/bootstrap.css');
 require('./css/prism.css');
 
 // Prism.
-var Prism = require('prismjs');
+require('prismjs');
 
 // Prism languages.
 require('prismjs/components/prism-markup-templating');
