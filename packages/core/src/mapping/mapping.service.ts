@@ -5,6 +5,7 @@ import Ajv2019, {
 	ValidateFunction,
 	ValidationError,
 } from 'ajv/dist/2019';
+import * as FormulaParserModule from 'fast-formula-parser';
 import * as jsonpath from 'jsonpath-plus';
 
 import { FormatFactoryService } from '../format/format.factory.service';
@@ -15,6 +16,9 @@ import { mappingSchema } from './mapping.schema';
 import { Invoice, invoiceSchema } from '../invoice';
 import { mappingValueRe, sectionReferenceRe } from './mapping.regex';
 
+const FormulaParser = FormulaParserModule.default || FormulaParserModule;
+const { FormulaHelpers, Types } = FormulaParserModule;
+
 type SectionRanges = { [key: string]: { [key: string]: number[] } };
 
 type MappingContext = {
@@ -24,6 +28,19 @@ type MappingContext = {
 	schemaPath: string[];
 	arrayPath: Array<[string, number, number]>;
 	rowRange: [number, number];
+};
+
+type CellReference = {
+	value: unknown;
+	sheet: string;
+	row: number;
+	col: number;
+	address?: string;
+};
+
+type RangeReference = {
+	from: CellReference;
+	to: CellReference;
 };
 
 /**
@@ -313,6 +330,10 @@ export class MappingService {
 		schema: JSONSchemaType<any>,
 		ctx: MappingContext,
 	): string {
+		if (ref[0] === '=' && ctx.meta.version && ctx.meta.version >= 3) {
+			return this.resolveComputedValue(ref, schema, ctx);
+		}
+
 		const matches = ref.match(mappingValueRe) as RegExpMatchArray;
 		if (typeof matches[4] !== 'undefined') {
 			return this.unquoteLiteral(matches[4]);
@@ -353,6 +374,87 @@ export class MappingService {
 			const message = `reference '${ref}' resolves to null: ${x.message}`;
 			throw this.makeValidationError(message, ctx);
 		}
+	}
+
+	private resolveComputedValue(
+		ref: string,
+		schema: JSONSchemaType<any>,
+		ctx: MappingContext,
+	): string {
+		const parser = new FormulaParser({
+			functions: {
+				UPPER: (text: string): string => {
+					text = FormulaHelpers.accept(text, Types.STRING);
+					return text.toUpperCase();
+				},
+
+				SECTIONVALUE: (cellRef: CellReference, sectionRef: CellReference, sheet?: string): string => {
+					const section = FormulaHelpers.accept(sectionRef, Types.STRING);
+					const cellAddress = FormulaHelpers.accept(cellRef, Types.STRING);
+
+					const match = cellAddress.match(/^([A-Z]+)(\d+)$/) as RegExpMatchArray;
+					const letters = match[1];
+					if (typeof sheet === 'undefined') {
+						sheet = ctx.workbook.SheetNames[0];
+					}
+
+					const worksheet = ctx.workbook.Sheets[sheet!];
+					if (typeof worksheet === 'undefined') {
+						throw new Error(`no such sheet '${sheet}'`);
+					}
+
+					const offset = this.getOffset(sheet!, section as string, ctx);
+					const number = offset + parseInt(match[2], 10) - 1;
+
+					const relocatedCellAddress = letters + number;
+
+					const value = this.getCellValue(worksheet, relocatedCellAddress, schema);
+					if (ctx.meta.empty && ctx.meta.empty.includes(value)) {
+						return '';
+					}
+
+					return value;
+				},
+			},
+
+			onCell: (cellReference: CellReference) => {
+				const worksheet = ctx.workbook.Sheets[cellReference.sheet];
+				if (typeof worksheet === 'undefined') {
+					throw new Error(`no such sheet '${cellReference.sheet}'`);
+				}
+
+				if (typeof cellReference.address === 'undefined') {
+					throw new Error(`no cell address for '${cellReference.value}'`);
+				}
+
+				const value = this.getCellValue(worksheet, cellReference.address, schema);
+				if (ctx.meta.empty && ctx.meta.empty.includes(value)) {
+					return '';
+				}
+
+				return value;
+			},
+
+			onRange: (rangeReference: RangeReference): unknown[] => {
+				// using 1-based index
+				// Be careful when ref.to.col is MAX_COLUMN or ref.to.row is MAX_ROW, this will result in
+				// unnecessary loops in this approach.
+				const arr: unknown[] = [];
+				for (let row = rangeReference.from.row; row <= rangeReference.to.row; row++) {
+					const innerArr: string[] = [];
+					for (let col = rangeReference.from.col; col <= rangeReference.to.col; col++) {
+						innerArr.push('range value');
+					}
+					arr.push(innerArr);
+				}
+
+				return arr;
+			},
+		});
+
+		const position = { row: 1, col: 1, sheet: ctx.workbook.SheetNames[0] };
+
+		return parser.parse(ref.substring(1), position);
 	}
 
 	private unquoteLiteral(literal: string): string {

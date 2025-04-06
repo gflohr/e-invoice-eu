@@ -1,0 +1,143 @@
+meta:
+  sectionColumn:
+    Invoice: L
+  empty:
+    - '[:empty:]'
+  version: 3
+ubl:Invoice:
+  cbc:ID: '=O12'
+  cbc:IssueDate: '=I6'
+  cbc:DueDate: '=I12'
+  cbc:InvoiceTypeCode: '380'
+  cbc:DocumentCurrencyCode: '=O11'
+  cbc:BuyerReference: '=I11'
+  cac:InvoicePeriod:
+    cbc:StartDate: '=I7'
+    cbc:EndDate: '=I8'
+  cac:OrderReference:
+    cbc:ID: '=I10'
+  cac:AccountingSupplierParty:
+    cac:Party:
+      cbc:EndpointID: '=O6'
+      cbc:EndpointID@schemeID: '9930'
+      cac:PartyName:
+        cbc:Name: '=O1'
+      cac:PostalAddress:
+        cbc:StreetName: '=O2'
+        cbc:CityName: '=O4'
+        cbc:PostalZone: '=O3'
+        cac:Country:
+          cbc:IdentificationCode: '=O5'
+      cac:PartyTaxScheme:
+        section: ':SellerTaxScheme'
+        cbc:CompanyID: '=SECTIONVALUE("O1", "SellerTaxScheme")'
+        cac:TaxScheme:
+          cbc:ID: VAT
+      cac:PartyLegalEntity:
+        cbc:RegistrationName: '=O1'
+      cac:Contact:
+        cbc:Name: '=I14'
+        cbc:Telephone: '=I16'
+        cbc:ElectronicMail: '=I15'
+  cac:AccountingCustomerParty:
+    cac:Party:
+      cbc:EndpointID: '=I9'
+      cbc:EndpointID@schemeID: '9930'
+      cac:PartyName:
+        cbc:Name: '=A7'
+      cac:PostalAddress:
+        cbc:StreetName: '=O7'
+        cbc:CityName: '=O9'
+        cbc:PostalZone: '=O8'
+        cac:Country:
+          cbc:IdentificationCode: '=O10'
+      cac:PartyTaxScheme:
+        cbc:CompanyID: '=I9'
+        cac:TaxScheme:
+          cbc:ID: VAT
+      cac:PartyLegalEntity:
+        cbc:RegistrationName: '=A1'
+  cac:Delivery:
+    cbc:ActualDeliveryDate: '=I8'
+    cac:DeliveryLocation:
+      cac:Address:
+        cbc:StreetName: '=O7'
+        cbc:CityName: '=O9'
+        cbc:PostalZone: '=O8'
+        cac:Country:
+          cbc:IdentificationCode: '=O10'
+    cac:DeliveryParty:
+      cac:PartyName:
+        cbc:Name: '=A7'
+  cac:PaymentMeans:
+    cbc:PaymentMeansCode: '=L13'
+    cbc:PaymentMeansCode@name: '=I13'
+    cbc:PaymentID: '=A19'
+    cac:PayeeFinancialAccount:
+      cbc:ID: '=O15'
+      cbc:Name: '=O1'
+      cac:FinancialInstitutionBranch:
+        cbc:ID: '=O16'
+  cac:PaymentTerms:
+    cbc:Note: '=SECTIONVALUE("A1", "PaymentTerms")'
+  cac:AllowanceCharge:
+    section: ':AllowanceCharge'
+    cbc:ChargeIndicator: '=SECTIONVALUE("N1", "AllowanceCharge")'
+    cbc:AllowanceChargeReasonCode: '=SECTIONVALUE("M1", "AllowanceCharge")'
+    cbc:AllowanceChargeReason: '=SECTIONVALUE("A1", "AllowanceCharge")'
+    cbc:MultiplierFactorNumeric: '=SECTIONVALUE("O1", "AllowanceCharge")'
+    cbc:Amount: '=SECTIONVALUE("R1", "AllowanceCharge")'
+    cbc:Amount@currencyID: EUR
+    cbc:BaseAmount: '=SECTIONVALUE("S1", "AllowanceCharge")'
+    cbc:BaseAmount@currencyID: EUR
+    cac:TaxCategory:
+      cbc:ID: '=SECTIONVALUE("P1", "AllowanceCharge")'
+      cbc:Percent: '=SECTIONVALUE("Q1", "AllowanceCharge")'
+      cac:TaxScheme:
+        cbc:ID: VAT
+  cac:TaxTotal:
+    section: ':TaxTotal'
+    cbc:TaxAmount: '=SECTIONVALUE("M1", "TaxTotal")'
+    cbc:TaxAmount@currencyID: EUR
+    cac:TaxSubtotal:
+      section: ':TaxSubtotal'
+      cbc:TaxableAmount: '=SECTIONVALUE("F1", "TaxSubtotal")'
+      cbc:TaxableAmount@currencyID: EUR
+      cbc:TaxAmount: '=SECTIONVALUE("J1", "TaxSubtotal")'
+      cbc:TaxAmount@currencyID: EUR
+      cac:TaxCategory:
+        cbc:ID: '=SECTIONVALUE("N1", "TaxSubtotal")'
+        cbc:Percent: '=SECTIONVALUE("O1", "TaxSubtotal")'
+        cbc:TaxExemptionReasonCode: '=SECTIONVALUE("Q1", "TaxSubtotal")'
+        cac:TaxScheme:
+          cbc:ID: VAT
+  cac:LegalMonetaryTotal:
+    cbc:LineExtensionAmount: '=SECTIONVALUE("J1", "Subtotal")'
+    cbc:LineExtensionAmount@currencyID: EUR
+    cbc:TaxExclusiveAmount: '=SECTIONVALUE("J1", "NetTotal")'
+    cbc:TaxExclusiveAmount@currencyID: EUR
+    cbc:TaxInclusiveAmount: '=SECTIONVALUE("J1", "GrandTotal")'
+    cbc:TaxInclusiveAmount@currencyID: EUR
+    cbc:AllowanceTotalAmount: '=SECTIONVALUE("N1", "AllowanceChargeTotal")'
+    cbc:AllowanceTotalAmount@currencyID: EUR
+    cbc:ChargeTotalAmount: '=SECTIONVALUE("P1", "AllowanceChargeTotal")'
+    cbc:ChargeTotalAmount@currencyID: EUR
+    cbc:PayableAmount: '=SECTIONVALUE("J1", "GrandTotal")'
+    cbc:PayableAmount@currencyID: EUR
+  cac:InvoiceLine:
+    section: ':InvoiceLine'
+    cbc:ID: '=SECTIONVALUE("A1", "InvoiceLine")'
+    cbc:InvoicedQuantity: '=SECTIONVALUE("D1", "InvoiceLine")'
+    cbc:InvoicedQuantity@unitCode: '=SECTIONVALUE("M1", "InvoiceLine")'
+    cbc:LineExtensionAmount: '=SECTIONVALUE("J1", "InvoiceLine")'
+    cbc:LineExtensionAmount@currencyID: EUR
+    cac:Item:
+      cbc:Name: '=SECTIONVALUE("B1", "InvoiceLine")'
+      cac:ClassifiedTaxCategory:
+        cbc:ID: '=SECTIONVALUE("N1", "InvoiceLine")'
+        cbc:Percent: '=SECTIONVALUE("O1", "InvoiceLine")'
+        cac:TaxScheme:
+          cbc:ID: VAT
+    cac:Price:
+      cbc:PriceAmount: '=SECTIONVALUE("F1", "InvoiceLine")'
+      cbc:PriceAmount@currencyID: '=O11'

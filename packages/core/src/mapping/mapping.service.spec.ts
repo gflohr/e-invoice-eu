@@ -12,6 +12,47 @@ import { ValidationService } from '../validation';
 jest.mock('fs/promises');
 
 // Used for testing `transform()`.
+const mappingv3 = {
+	meta: {
+		sectionColumn: {
+			Unused: 'L',
+			Invoice: 'K',
+		},
+		version: 3,
+	},
+	'ubl:Invoice': {
+		'cbc:CustomizationID': '=B1',
+		'cbc:ID': '1234567890',
+		'cbc:IssueDate': '=A1',
+		'cbc:DueDate': '=Invoice!A2',
+		'cbc:Note': "'= not equals eagles",
+		'cac:OrderReference': {
+			'cbc:ID': '=A3',
+		},
+		'cac:PaymentMeans': {
+			// No section.
+			'cbc:PaymentMeansCode': '30',
+		},
+		'cac:TaxTotal': {
+			'cbc:TaxAmount@currencyID': 'EUR',
+		},
+		'cac:LegalMonetaryTotal': {
+			'cbc:LineExtensionAmount': '=SECTIONVALUE("F1", "SubTotal")',
+		},
+		'cac:InvoiceLine': {
+			section: ':Line',
+			'cbc:ID': '=SECTIONVALUE("A1", "Line")',
+			'cac:AllowanceCharge': {
+				section: ':ACLine',
+				// This is relative to the allowanche/charge section.
+				'cbc:Amount': '=SECTIONVALUE("B1", "ACLine")',
+				// And this is relative to the invoice line section.
+				'cbc:Amount@currencyID': '=SECTIONVALUE("B1", "Line")',
+			},
+		},
+	},
+} as unknown as Mapping;
+
 const mapping = {
 	meta: {
 		sectionColumn: {
@@ -170,6 +211,34 @@ describe('MappingService', () => {
 
 	it('should be defined', () => {
 		expect(service).toBeDefined();
+	});
+
+	describe('v3', () => {
+		let invoice: Invoice;
+
+		beforeAll(async () => {
+			const mockValidateMapping = jest
+				.spyOn(service as any, 'validateMapping')
+				.mockReturnValue(mappingv3);
+			const buf: Uint8Array = [] as unknown as Uint8Array;
+
+			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
+
+			invoice = service.transform(buf, 'UBL', {} as Mapping);
+
+			mockValidateMapping.mockRestore();
+		});
+
+		describe('should parse mappings and map data', () => {
+			it('should return an invoice object', () => {
+				expect(invoice).toBeDefined();
+				expect(invoice['ubl:Invoice']).toBeDefined();
+			});
+
+			it('should generate the correct invoice', () => {
+				expect(invoice).toMatchSnapshot();
+			});
+		});
 	});
 
 	describe('v1', () => {
