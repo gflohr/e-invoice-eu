@@ -277,6 +277,18 @@ describe('FormatFacturXService', () => {
 
 			expect(await extractXMPMetadata(pdfBytes)).toMatchSnapshot();
 		});
+
+		it('should work in western timezones', async () => {
+			const originalGetTimezoneOffset = Date.prototype.getTimezoneOffset;
+			// This is the timezone of Greenland, not of the US! ;)
+			Date.prototype.getTimezoneOffset = () => +60;
+
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
+
+			expect(await extractXMPMetadata(pdfBytes)).toMatchSnapshot();
+
+			Date.prototype.getTimezoneOffset = originalGetTimezoneOffset;
+		});
 	});
 
 	describe('XML attachment to PDF', () => {
@@ -467,6 +479,87 @@ describe('FormatFacturXService', () => {
 			expect(catalogueAttachments[0].description).toBe(
 				'All the products that we offer',
 			);
+		});
+	});
+
+	describe('crypto API', () => {
+		it('should return window.crypto.subtle when running in browser', async () => {
+			const subtleMock = {
+				digest: jest.fn(),
+			} as unknown as SubtleCrypto;
+			(globalThis as any).window = {
+				crypto: { subtle: subtleMock },
+			};
+
+			await service.generate(mockInvoice, mockOptions);
+			expect(subtleMock.digest).toHaveBeenCalledTimes(1);
+			expect(subtleMock.digest).toHaveBeenCalledWith(
+				'SHA-512',
+				expect.anything(),
+			);
+
+			delete (globalThis as any).window;
+		});
+
+		it('should return globalThis.crypto.subtle in Node with webcrypto', async () => {
+			const subtleMock = {
+				digest: jest.fn(),
+			} as unknown as SubtleCrypto;
+
+			const savedCrypto = (globalThis as any).crypto;
+			(globalThis as any).crypto = { subtle: subtleMock };
+
+			await service.generate(mockInvoice, mockOptions);
+
+			expect(subtleMock.digest).toHaveBeenCalledTimes(1);
+			expect(subtleMock.digest).toHaveBeenCalledWith(
+				'SHA-512',
+				expect.anything(),
+			);
+
+			(globalThis as any).crypto = savedCrypto
+		});
+
+		it('should use webcrypto.subtle where applicable', () => {
+			const savedCrypto = (globalThis as any).crypto;
+			delete (globalThis as any).crypto;
+
+			const customRequire = jest.fn().mockImplementation((module: string) => {
+				if (module === 'crypto') {
+					return {webcrypto: { subtle: 'catchme' }};
+				}
+
+				throw new Error(`Module ${module} not found`);
+			});
+
+			expect(service['getCrypto'](customRequire)).toBe('catchme');
+			(globalThis as any).crypto = savedCrypto;
+		});
+
+		it('should throw if webcrypto.subtle is not available in an environment', () => {
+			const savedCrypto = (globalThis as any).crypto;
+			delete (globalThis as any).crypto;
+
+			const customRequire = jest.fn().mockImplementation((module: string) => {
+				throw new Error(`Module ${module} not found`);
+			});
+
+			try {
+				expect(() => service['getCrypto'](customRequire)).toThrow('Web Crypto API is not available in this environment');
+			} finally {
+				(globalThis as any).crypto = savedCrypto;
+			}
+		});
+
+		it('should throw if no crypto API is available', () => {
+			const savedCrypto = (globalThis as any).crypto;
+			delete (globalThis as any).crypto;
+
+			try {
+				expect(() => service['getCrypto']()).toThrow('Web Crypto API is not available');
+			} finally {
+				(globalThis as any).crypto = savedCrypto;
+			}
 		});
 	});
 });
