@@ -469,4 +469,54 @@ describe('FormatFacturXService', () => {
 			);
 		});
 	});
+
+	describe('crypto API', () => {
+		it('should return window.crypto.subtle when running in browser', async () => {
+			const subtleMock = {
+				digest: jest.fn(),
+			} as unknown as SubtleCrypto;
+			(globalThis as any).window = {
+				crypto: { subtle: subtleMock },
+			};
+
+			await service.generate(mockInvoice, mockOptions);
+			expect(subtleMock.digest).toHaveBeenCalledTimes(1);
+			expect(subtleMock.digest).toHaveBeenCalledWith(
+				'SHA-512',
+				expect.anything(),
+			);
+
+			delete (globalThis as any).window;
+		});
+
+		it('should return globalThis.crypto.subtle in Node with webcrypto', async () => {
+			const subtleMock = {
+				digest: jest.fn(),
+			} as unknown as SubtleCrypto;
+
+			const savedCrypto = (globalThis as any).crypto;
+			(globalThis as any).crypto = { subtle: subtleMock };
+
+			await service.generate(mockInvoice, mockOptions);
+
+			expect(subtleMock.digest).toHaveBeenCalledTimes(1);
+			expect(subtleMock.digest).toHaveBeenCalledWith(
+				'SHA-512',
+				expect.anything(),
+			);
+
+			(globalThis as any).crypto = savedCrypto
+		});
+
+		it('should throw if no crypto API is available', () => {
+			const savedCrypto = (globalThis as any).crypto;
+			delete (globalThis as any).crypto;
+
+			try {
+				expect(() => service['getCrypto']()).toThrow('Web Crypto API is not available');
+			} finally {
+				(globalThis as any).crypto = savedCrypto;
+			}
+		});
+	});
 });

@@ -17,25 +17,6 @@ import { FormatCIIService, FULL_CII, FXProfile } from './format-cii.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 
-const getCrypto = (): SubtleCrypto => {
-	if (typeof window !== 'undefined' && window.crypto?.subtle) {
-		return window.crypto.subtle;
-	}
-	if (typeof globalThis !== 'undefined' && globalThis.crypto?.subtle) {
-		return globalThis.crypto.subtle;
-	}
-	if (typeof require !== 'undefined') {
-		try {
-			// eslint-disable-next-line @typescript-eslint/no-require-imports
-			const { webcrypto } = require('crypto');
-			return webcrypto.subtle;
-		} catch {
-			throw new Error('Web Crypto API is not available in this environment.');
-		}
-	}
-	throw new Error('Web Crypto API is not available.');
-};
-
 type FacturXConformanceLevel =
 	| 'MINIMUM'
 	| 'BASIC WL'
@@ -337,7 +318,7 @@ export class FormatFacturXService
 	) {
 		const encoder = new TextEncoder();
 		const data = invoiceMeta.subject;
-		const subtle: SubtleCrypto = getCrypto();
+		const subtle: SubtleCrypto = this.getCrypto(require);
 		const hash = await subtle.digest('SHA-512', encoder.encode(data));
 		const hashArray = Array.from(new Uint8Array(hash));
 		const hashHex = hashArray
@@ -591,5 +572,24 @@ export class FormatFacturXService
 			console.error(`Error attaching Factur-X XML file to PDF: ${error}`);
 			throw new Error(`Error attaching Factur-X XML file to PDF: ${error}`);
 		}
+	}
+
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+	private getCrypto(customRequire?: Function): SubtleCrypto {
+		if (typeof window !== 'undefined' && window.crypto?.subtle) {
+			return window.crypto.subtle;
+		}
+		if (typeof globalThis !== 'undefined' && globalThis.crypto?.subtle) {
+			return globalThis.crypto.subtle;
+		}
+		if (typeof customRequire === 'function') {
+			try {
+				const { webcrypto } = customRequire('crypto');
+				return webcrypto.subtle;
+			} catch {
+				throw new Error('Web Crypto API is not available in this environment.');
+			}
+		}
+		throw new Error('Web Crypto API is not available.');
 	}
 }
