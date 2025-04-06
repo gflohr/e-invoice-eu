@@ -115,6 +115,8 @@ export class MappingService {
 	migrate(mapping: Mapping): Mapping {
 		mapping = this.validateMapping(mapping);
 
+		mapping.version = 3;
+
 		return mapping;
 	}
 

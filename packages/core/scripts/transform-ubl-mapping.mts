@@ -53,6 +53,11 @@ const mappingSchema = {
 						minLength: 1,
 					},
 				},
+				version: {
+					type: 'number',
+					const: 3,
+					description: 'Version of the mapping schema (currently only 3 is allowed).',
+				}
 			},
 			required: ['sectionColumn'],
 		},

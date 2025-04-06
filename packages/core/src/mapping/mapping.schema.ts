@@ -15,7 +15,7 @@ import { Mapping } from './mapping.interface';
  */
 export const mappingSchema: JSONSchemaType<Mapping> = {
 	$schema: 'https://json-schema.org/draft/2019-09/schema',
-	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v1.4.2',
+	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v2.0.3',
 	type: 'object',
 	title: 'Mapping',
 	description: 'Maps invoice data to the cells in a spreadsheet.',
@@ -39,6 +39,12 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 						type: 'string',
 						minLength: 1,
 					},
+				},
+				version: {
+					type: 'number',
+					const: 3,
+					description:
+						'Version of the mapping schema (currently only 3 is allowed).',
 				},
 			},
 			required: ['sectionColumn'],
