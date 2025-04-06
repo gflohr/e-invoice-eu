@@ -103,7 +103,7 @@ describe('UBL', () => {
 		const options = {
 			embedPDF: true,
 			spreadsheet: {
-				filename: 'invoice',
+				filename: '/path/to.files/invoice',
 				buffer: Buffer.from('test'),
 			},
 			libreOfficePath: 'libreoffice',
