@@ -98,6 +98,21 @@ describe('UBL', () => {
 		expect(xml).toMatchSnapshot();
 	});
 
+	it('should filenames without a dot correctly', async () => {
+		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
+		const options = {
+			embedPDF: true,
+			spreadsheet: {
+				filename: 'invoice',
+				buffer: Buffer.from('test'),
+			},
+			libreOfficePath: 'libreoffice',
+		} as unknown as InvoiceServiceOptions;
+
+		const xml = await service.generate(invoice, options);
+		expect(xml).toMatchSnapshot();
+	});
+
 	it('should throw an error if pdf buffer is missing', async () => {
 		const invoice: Invoice = { 'ubl:Invoice': {} } as unknown as Invoice;
 		const options = {
