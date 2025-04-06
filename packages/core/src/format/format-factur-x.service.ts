@@ -246,7 +246,7 @@ export class FormatFacturXService
 		pdfDoc.setSubject(invoiceSubject);
 		pdfDoc.setTitle(`${invoiceCreator}: Invoice ${invoiceNumber}`);
 
-		this.setTrailerInfoID(pdfDoc, invoiceMeta);
+		await this.setTrailerInfoID(pdfDoc, invoiceMeta);
 		this.setOutputIntent(pdfDoc);
 		this.fixLinkAnnotations(pdfDoc);
 		this.setMarkInfo(pdfDoc);
