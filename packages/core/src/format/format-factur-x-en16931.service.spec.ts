@@ -1,4 +1,5 @@
 import { Logger } from '../logger.interface';
+import { FX_EN16931 } from './format-cii.service';
 import { FormatFacturXEN16931Service } from './format-factur-x-en16931.service';
 
 describe('Factur-X-EN16931', () => {
@@ -18,5 +19,9 @@ describe('Factur-X-EN16931', () => {
 
 	it('should have a profile id', () => {
 		expect(service.profileID).toBeDefined();
+	});
+
+	it('should use the EN16931 Factur-X profile', () => {
+		expect(service.fxProfile).toEqual(FX_EN16931);
 	});
 });

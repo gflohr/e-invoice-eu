@@ -1,4 +1,5 @@
 import { Logger } from '../logger.interface';
+import { FX_BASIC } from './format-cii.service';
 import { FormatFacturXBasicService } from './format-factur-x-basic.service';
 
 describe('Factur-X-Basic', () => {
@@ -18,5 +19,9 @@ describe('Factur-X-Basic', () => {
 
 	it('should have a profile id', () => {
 		expect(service.profileID).toBeDefined();
+	});
+
+	it('should use the Basic Factur-X profile', () => {
+		expect(service.fxProfile).toEqual(FX_BASIC);
 	});
 });
