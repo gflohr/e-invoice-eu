@@ -1,49 +1,44 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-// jQuery. :(
-const $ = require('jquery');
-window.$ = window.jQuery = $;
-
 // Bootstrap.
-require('bootstrap/dist/css/bootstrap.css');
-require('bootstrap-icons/font/bootstrap-icons.css');
-require('bootstrap');
-require('./css/bootstrap.css');
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'bootstrap';
+import './css/bootstrap.css';
 
-require('./css/prism.css');
+import './css/prism.css';
 
 // Prism.
-require('prismjs');
+import 'prismjs';
 
 // Prism languages.
-require('prismjs/components/prism-markup-templating');
-require('prismjs/components/prism-yaml');
-require('prismjs/components/prism-bash');
-require('prismjs/components/prism-javascript');
-require('prismjs/components/prism-json');
-require('prismjs/components/prism-markup');
+import 'prismjs/components/prism-markup-templating';
+import 'prismjs/components/prism-yaml';
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-markup';
 
 // Prism plug-ins.
-require('prismjs/plugins/line-numbers/prism-line-numbers');
-require('prismjs/plugins/autolinker/prism-autolinker');
-require('prismjs/plugins/toolbar/prism-toolbar');
-require('prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard');
+import 'prismjs/plugins/line-numbers/prism-line-numbers';
+import 'prismjs/plugins/autolinker/prism-autolinker';
+import 'prismjs/plugins/toolbar/prism-toolbar';
+import 'prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard';
 
 // Prism CSS.
-require('prismjs/themes/prism.css');
-require('prismjs/plugins/line-numbers/prism-line-numbers.css');
-require('prismjs/plugins/toolbar/prism-toolbar.css');
+import 'prismjs/themes/prism.css';
+import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+import 'prismjs/plugins/toolbar/prism-toolbar.css';
 
 // Custom CSS.
-require('./css/qgoda.css');
-require('./css/toc.css');
+import './css/qgoda.css';
+import './css/toc.css';
 
-require('./css/cookie-consent.css');
-require('./js/cookie-consent.js');
+import './css/cookie-consent.css';
+import './js/cookie-consent.js';
 
 // Custom JS.
-require('./js/code-language');
+import './js/code-language';
 
 // Matomo.
-require('./js/matomo');
+import './js/matomo';
 
-require('./js/code-group');
+import './js/code-group';
