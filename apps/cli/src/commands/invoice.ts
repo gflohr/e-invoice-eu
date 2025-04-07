@@ -6,6 +6,7 @@ import {
 	InvoiceServiceOptions,
 	MappingService,
 } from '@e-invoice-eu/core';
+import { Mapping } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
 import { accessSync, statSync } from 'fs';
 import * as fs from 'fs/promises';
@@ -305,7 +306,9 @@ export class Invoice implements Command {
 		} else if (typeof configOptions.mapping !== 'undefined') {
 			if (typeof configOptions.spreadsheet == 'undefined') {
 				throw new Error(
-					gtx._("The option '--spreadsheet' is mandatory if a mapping is specified!"),
+					gtx._(
+						"The option '--spreadsheet' is mandatory if a mapping is specified!",
+					),
 				);
 			}
 
@@ -314,7 +317,7 @@ export class Invoice implements Command {
 				'utf-8',
 			);
 
-			const mapping = yaml.load(mappingYaml);
+			const mapping = yaml.load(mappingYaml) as Mapping;
 
 			const mappingService = new MappingService(console);
 			invoiceData = mappingService.transform(

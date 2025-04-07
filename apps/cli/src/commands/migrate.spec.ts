@@ -133,8 +133,6 @@ describe('Transform Command', () => {
 		await migrate.run(argv);
 
 		expect(safeStdoutWrite).toHaveBeenCalledTimes(1);
-		expect(safeStdoutWrite).toHaveBeenCalledWith(
-			mockedData + '\n',
-		);
+		expect(safeStdoutWrite).toHaveBeenCalledWith(mockedData + '\n');
 	});
 });

@@ -7,7 +7,7 @@ exports[`MappingService migration should migrate mapping v1 to v3 1`] = `
       "Invoice": "K",
       "Unused": "L",
     },
-    "version": 3,
+    "version": "3.0",
   },
   "ubl:Invoice": {
     "cac:InvoiceLine": {

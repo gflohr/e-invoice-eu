@@ -18,7 +18,7 @@ const mappingv3 = {
 			Unused: 'L',
 			Invoice: 'K',
 		},
-		version: 3,
+		version: '3',
 	},
 	'ubl:Invoice': {
 		'cbc:CustomizationID': '=B1',

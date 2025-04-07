@@ -7,6 +7,7 @@ import Ajv2019, {
 } from 'ajv/dist/2019';
 import * as FormulaParserModule from 'fast-formula-parser';
 import * as jsonpath from 'jsonpath-plus';
+import * as semver from 'semver';
 
 import { FormatFactoryService } from '../format/format.factory.service';
 import { Logger } from '../logger.interface';
@@ -31,16 +32,16 @@ type MappingContext = {
 };
 
 type CellReference = {
-	value: unknown;
-	sheet: string;
+	address: string;
 	row: number;
 	col: number;
-	address?: string;
+	sheet: string;
 };
 
 type RangeReference = {
 	from: CellReference;
 	to: CellReference;
+	sheet: string;
 };
 
 /**
@@ -132,7 +133,7 @@ export class MappingService {
 	migrate(mapping: Mapping): Mapping {
 		mapping = this.validateMapping(mapping);
 
-		mapping.meta.version = 3;
+		mapping.meta.version = '3.0';
 
 		this.migrateObject(mapping);
 
@@ -330,7 +331,11 @@ export class MappingService {
 		schema: JSONSchemaType<any>,
 		ctx: MappingContext,
 	): string {
-		if (ref[0] === '=' && ctx.meta.version && ctx.meta.version >= 3) {
+		if (
+			ref[0] === '=' &&
+			ctx.meta.version &&
+			semver.gte(semver.coerce(ctx.meta.version)!, '3.0.0')
+		) {
 			return this.resolveComputedValue(ref, schema, ctx);
 		}
 
@@ -388,11 +393,17 @@ export class MappingService {
 					return text.toUpperCase();
 				},
 
-				SECTIONVALUE: (cellRef: CellReference, sectionRef: CellReference, sheet?: string): string => {
+				SECTIONVALUE: (
+					cellRef: CellReference,
+					sectionRef: CellReference,
+					sheet?: string,
+				): string => {
 					const section = FormulaHelpers.accept(sectionRef, Types.STRING);
 					const cellAddress = FormulaHelpers.accept(cellRef, Types.STRING);
 
-					const match = cellAddress.match(/^([A-Z]+)(\d+)$/) as RegExpMatchArray;
+					const match = cellAddress.match(
+						/^([A-Z]+)(\d+)$/,
+					) as RegExpMatchArray;
 					const letters = match[1];
 					if (typeof sheet === 'undefined') {
 						sheet = ctx.workbook.SheetNames[0];
@@ -408,7 +419,11 @@ export class MappingService {
 
 					const relocatedCellAddress = letters + number;
 
-					const value = this.getCellValue(worksheet, relocatedCellAddress, schema);
+					const value = this.getCellValue(
+						worksheet,
+						relocatedCellAddress,
+						schema,
+					);
 					if (ctx.meta.empty && ctx.meta.empty.includes(value)) {
 						return '';
 					}
@@ -423,11 +438,11 @@ export class MappingService {
 					throw new Error(`no such sheet '${cellReference.sheet}'`);
 				}
 
-				if (typeof cellReference.address === 'undefined') {
-					throw new Error(`no cell address for '${cellReference.value}'`);
-				}
-
-				const value = this.getCellValue(worksheet, cellReference.address, schema);
+				const value = this.getCellValue(
+					worksheet,
+					cellReference.address,
+					schema,
+				);
 				if (ctx.meta.empty && ctx.meta.empty.includes(value)) {
 					return '';
 				}
@@ -440,9 +455,17 @@ export class MappingService {
 				// Be careful when ref.to.col is MAX_COLUMN or ref.to.row is MAX_ROW, this will result in
 				// unnecessary loops in this approach.
 				const arr: unknown[] = [];
-				for (let row = rangeReference.from.row; row <= rangeReference.to.row; row++) {
+				for (
+					let row = rangeReference.from.row;
+					row <= rangeReference.to.row;
+					row++
+				) {
 					const innerArr: string[] = [];
-					for (let col = rangeReference.from.col; col <= rangeReference.to.col; col++) {
+					for (
+						let col = rangeReference.from.col;
+						col <= rangeReference.to.col;
+						col++
+					) {
 						innerArr.push('range value');
 					}
 					arr.push(innerArr);

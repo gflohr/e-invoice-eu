@@ -1,4 +1,4 @@
-import { MappingService } from '@e-invoice-eu/core';
+import { Mapping, MappingService } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
 import * as fs from 'fs/promises';
 import * as yaml from 'js-yaml';
@@ -51,13 +51,11 @@ export class Migrate implements Command {
 			configOptions.mapping as string,
 			'utf-8',
 		);
-		const mapping = yaml.load(yamlData);
+		const mapping = yaml.load(yamlData) as Mapping;
 
 		const mappingService = new MappingService(console);
 
-		const output = yaml.dump(
-			mappingService.migrate(mapping),
-		);
+		const output = yaml.dump(mappingService.migrate(mapping));
 
 		if (
 			typeof configOptions.output === 'undefined' ||

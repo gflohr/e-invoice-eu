@@ -1,4 +1,5 @@
 import { MappingService } from '@e-invoice-eu/core';
+import { Mapping } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
 import * as fs from 'fs/promises';
 import * as yaml from 'js-yaml';
@@ -60,7 +61,7 @@ export class Transform implements Command {
 			configOptions.mapping as string,
 			'utf-8',
 		);
-		const mapping = yaml.load(yamlData);
+		const mapping = yaml.load(yamlData) as Mapping;
 
 		const mappingService = new MappingService(console);
 
