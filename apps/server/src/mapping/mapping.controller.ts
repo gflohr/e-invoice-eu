@@ -26,7 +26,8 @@ export class MappingController {
 	@Post('transform/:format')
 	@ApiConsumes('multipart/form-data')
 	@ApiBody({
-		description: 'The spreadsheet to be transformed.',
+		description:
+			'Transform a spreadsheet with a mapping into the internal invoice format.',
 		required: true,
 		schema: {
 			type: 'object',
@@ -35,7 +36,7 @@ export class MappingController {
 					type: 'string',
 					format: 'binary',
 					nullable: true,
-					description: 'The spreadsheet to be transformed.'
+					description: 'The spreadsheet to be transformed.',
 				},
 				data: {
 					type: 'string',
@@ -114,6 +115,60 @@ export class MappingController {
 			if (error instanceof ValidationError) {
 				throw new BadRequestException({
 					message: 'Transformation failed.',
+					details: error,
+				});
+			} else {
+				this.logger.error(`unknown error: ${error.message}\n${error.stack}`);
+				throw new InternalServerErrorException();
+			}
+		}
+	}
+
+	@Post('migrate')
+	@ApiConsumes('multipart/form-data')
+	@ApiBody({
+		description: 'Migrate a mapping to the latest version.',
+		required: true,
+		schema: {
+			type: 'object',
+			properties: {
+				mapping: {
+					type: 'string',
+					format: 'binary',
+					nullable: false,
+					description: 'The mapping file in YAML or JSON format.',
+				},
+			},
+		},
+	})
+	@ApiResponse({
+		status: 201,
+		description: 'Migration successful. The output is in JSON format.',
+	})
+	@ApiResponse({
+		status: 400,
+		description: 'Bad request with error details',
+	})
+	@UseInterceptors(FileFieldsInterceptor([{ name: 'mapping', maxCount: 1 }]))
+	migrate(
+		@UploadedFiles()
+		files: {
+			mapping: Express.Multer.File[];
+		},
+	): string {
+		const mappingFile = files.mapping?.[0];
+		if (!mappingFile) {
+			throw new BadRequestException('No mapping file uploaded');
+		}
+
+		try {
+			return JSON.stringify(
+				this.mappingService.migrate(mappingFile.buffer.toString()),
+			);
+		} catch (error) {
+			if (error instanceof ValidationError) {
+				throw new BadRequestException({
+					message: 'Migration failed.',
 					details: error,
 				});
 			} else {

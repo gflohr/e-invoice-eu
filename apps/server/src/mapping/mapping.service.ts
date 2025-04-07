@@ -20,4 +20,10 @@ export class MappingService {
 
 		return this.mappingService.transform(dataBuffer, format, mappingData);
 	}
+
+	migrate(mapping: string): Mapping {
+		const mappingData = yaml.load(mapping) as Mapping;
+
+		return this.mappingService.migrate(mappingData);
+	}
 }
