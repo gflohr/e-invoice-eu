@@ -101,21 +101,21 @@ Let's look at an excerpt of an actual mapping:
 
 [% FILTER $Highlight "language-yaml" "line-numbers" %]
 meta:
-sectionColumn:
-Invoice: K
-emtpy: ['[:empty:]', '%no-no-nothing%'],
+  sectionColumn:
+    Invoice: K
+   emtpy: ['[:empty:]', '%no-no-nothing%'],
 ubl:Invoice:
-cbc:ID: =Invoice.D7
-cbc:IssueDate: =F7
-cac:InvoiceLine:
-section: :Line
-cbc:ID: =Invoice:Line.A1
-cbc:Note: =Invoice.M3
-cac:Item:
-cbcName: =Line.B1
-cac:Price:
-cbc:PriceAmount: =Invoice:Line.F1
-cbc:PriceAmount@currencyCode: EUR
+  cbc:ID: =Invoice.D7
+  cbc:IssueDate: =F7
+  cac:InvoiceLine:
+    section: :Line
+    cbc:ID: =Invoice:Line.A1
+    cbc:Note: =Invoice.M3
+    cac:Item:
+    cbcName: =Line.B1
+    cac:Price:
+    cbc:PriceAmount: =Invoice:Line.F1
+    cbc:PriceAmount@currencyCode: EUR
 [% END %]
 
 <!--/qgoda-no-xgettext-->
@@ -160,7 +160,7 @@ must be a string. That means that numbers must be put into quotes, for example:
 
 [% FILTER $Highlight "language-yaml" %]
 ubl:Invoice:
-cbc:InvoiceTypeCode: '380'
+  cbc:InvoiceTypeCode: '380'
 [% END %]
 
 <!--/qgoda-no-xgettext-->
@@ -203,10 +203,10 @@ Example:
 
 [% FILTER $Highlight "language-yaml" %]
 ubl:Invoice:
-cac:InvoiceLine:
-section: :Line
-cbc:ID: =:Line.A1
-cbc:Note: =SomeSheet.Q23
+  cac:InvoiceLine:
+  section: :Line
+    cbc:ID: =:Line.A1
+    cbc:Note: =SomeSheet.Q23
 [% END %]
 
 <!--/qgoda-no-xgettext-->
