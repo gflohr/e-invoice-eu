@@ -6,12 +6,23 @@ import {
 	Logger,
 	Param,
 	Post,
+	Query,
+	Res,
 	UploadedFiles,
 	UseInterceptors,
 } from '@nestjs/common';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+	ApiBody,
+	ApiConsumes,
+	ApiProduces,
+	ApiQuery,
+	ApiResponse,
+	ApiTags,
+} from '@nestjs/swagger';
 import { ValidationError } from 'ajv/dist/2019';
+import { Response } from 'express';
+import * as yaml from 'js-yaml';
 
 import { MappingService } from './mapping.service';
 
@@ -126,6 +137,13 @@ export class MappingController {
 
 	@Post('migrate')
 	@ApiConsumes('multipart/form-data')
+	@ApiQuery({
+		name: 'format',
+		required: false,
+		enum: ['yaml', 'json'],
+		description: 'The format of the output mapping file (YAML or JSON).',
+	})
+	@ApiProduces('application/yaml', 'application/json')
 	@ApiBody({
 		description: 'Migrate a mapping to the latest version.',
 		required: true,
@@ -142,8 +160,28 @@ export class MappingController {
 		},
 	})
 	@ApiResponse({
-		status: 201,
-		description: 'Migration successful. The output is in JSON format.',
+		status: 200,
+		description: 'Returns the converted mapping as YAML',
+		content: {
+			'application/yaml': {
+				schema: { type: 'string', example: 'version: 2.1\nmeta:\n  ...' },
+			},
+		},
+	})
+	@ApiResponse({
+		status: 200,
+		description: 'Returns the converted mapping as JSON',
+		content: {
+			'application/json': {
+				schema: {
+					type: 'object',
+					properties: {
+						meta: { type: 'object' },
+						'ubl:Invoice': { type: 'object' },
+					},
+				},
+			},
+		},
 	})
 	@ApiResponse({
 		status: 400,
@@ -155,16 +193,23 @@ export class MappingController {
 		files: {
 			mapping: Express.Multer.File[];
 		},
-	): string {
+		@Query('format') format: 'yaml' | 'json' = 'yaml',
+		@Res() res: Response,
+	) {
 		const mappingFile = files.mapping?.[0];
 		if (!mappingFile) {
 			throw new BadRequestException('No mapping file uploaded');
 		}
 
 		try {
-			return JSON.stringify(
-				this.mappingService.migrate(mappingFile.buffer.toString()),
+			const migrated = this.mappingService.migrate(
+				mappingFile.buffer.toString(),
 			);
+			if (format === 'yaml') {
+				res.type('application/yaml').send(yaml.dump(migrated));
+			} else {
+				res.type('application/json').send(migrated);
+			}
 		} catch (error) {
 			if (error instanceof ValidationError) {
 				throw new BadRequestException({
