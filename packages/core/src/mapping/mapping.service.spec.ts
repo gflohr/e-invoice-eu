@@ -206,7 +206,7 @@ describe('MappingService', () => {
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		jest.restoreAllMocks();
 	});
 
 	it('should be defined', () => {
@@ -641,19 +641,40 @@ describe('MappingService', () => {
 				});
 			});
 		});
-	});
 
-	describe('migration', () => {
-		it('should migrate mapping v1 to v3', () => {
-			const mockValidateMapping = jest
-				.spyOn(service as any, 'validateMapping')
-				.mockReturnValue(mapping);
+		describe('migrate mappings to version 3.0', () => {
+			let migrated: Mapping;
 
-			const migrated = service.migrate(mapping);
-			expect(migrated).toBeDefined();
-			expect(migrated).toMatchSnapshot();
+			beforeEach(async () => {
+				const v1 = {
+					meta: {},
+					'ubl:Invoice': {
+						'cbc:ID': '=A1',
+						'cbc:IssueDate': '=Invoice.A2',
+						'cbc:InvoiceTypeCode': '="Meta Data"!B3',
+					},
+				} as Mapping;
 
-			mockValidateMapping.mockRestore();
+				jest.spyOn(service as any, 'validateMapping').mockReturnValue(v1);
+
+				migrated = service.migrate({} as Mapping);
+			});
+
+			it('should add the version 3.0', () => {
+				expect(migrated.meta.version).toBe('3.0');
+			});
+
+			it('should leave cell references untouched', () => {
+				expect(migrated['ubl:Invoice']['cbc:ID']).toBe('=A1');
+			});
+
+			it('should migrate cell references with a sheet', () => {
+				expect(migrated['ubl:Invoice']['cbc:IssueDate']).toBe('=Invoice!A2');
+			});
+
+			it('should preserve quotes', () => {
+				expect(migrated['ubl:Invoice']['cbc:InvoiceTypeCode']).toBe('="Meta Data"!B3');
+			});
 		});
 	});
 });
