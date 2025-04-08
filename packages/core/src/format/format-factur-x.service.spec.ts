@@ -517,7 +517,7 @@ describe('FormatFacturXService', () => {
 				expect.anything(),
 			);
 
-			(globalThis as any).crypto = savedCrypto
+			(globalThis as any).crypto = savedCrypto;
 		});
 
 		it('should use webcrypto.subtle where applicable', () => {
@@ -526,7 +526,7 @@ describe('FormatFacturXService', () => {
 
 			const customRequire = jest.fn().mockImplementation((module: string) => {
 				if (module === 'crypto') {
-					return {webcrypto: { subtle: 'catchme' }};
+					return { webcrypto: { subtle: 'catchme' } };
 				}
 
 				throw new Error(`Module ${module} not found`);
@@ -545,7 +545,9 @@ describe('FormatFacturXService', () => {
 			});
 
 			try {
-				expect(() => service['getCrypto'](customRequire)).toThrow('Web Crypto API is not available in this environment');
+				expect(() => service['getCrypto'](customRequire)).toThrow(
+					'Web Crypto API is not available in this environment',
+				);
 			} finally {
 				(globalThis as any).crypto = savedCrypto;
 			}
@@ -556,7 +558,9 @@ describe('FormatFacturXService', () => {
 			delete (globalThis as any).crypto;
 
 			try {
-				expect(() => service['getCrypto']()).toThrow('Web Crypto API is not available');
+				expect(() => service['getCrypto']()).toThrow(
+					'Web Crypto API is not available',
+				);
 			} finally {
 				(globalThis as any).crypto = savedCrypto;
 			}
