@@ -53,6 +53,12 @@ const mappingSchema = {
 						minLength: 1,
 					},
 				},
+				version: {
+					type: 'string',
+					default: '1.0',
+					pattern: '^(?:0|[1-9][0-9]*)(?:\.(?:0|[1-9][0-9]*))$',
+					description: 'Version of the mapping schema as a string "MAJOR.MINOR" or "MAJOR".',
+				},
 			},
 			required: ['sectionColumn'],
 		},

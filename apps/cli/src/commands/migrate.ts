@@ -1,5 +1,4 @@
-import { MappingService } from '@e-invoice-eu/core';
-import { Mapping } from '@e-invoice-eu/core';
+import { Mapping, MappingService } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
 import * as fs from 'fs/promises';
 import * as yaml from 'js-yaml';
@@ -13,17 +12,9 @@ import { safeStdoutWrite } from '../safe-stdout-write';
 const gtx = Textdomain.getInstance('e-invoice-eu-cli');
 
 const options: {
-	spreadsheet: OptSpec;
 	mapping: OptSpec;
 	output?: OptSpec;
 } = {
-	spreadsheet: {
-		group: gtx._('Input file location'),
-		alias: ['s'],
-		type: 'string',
-		demandOption: true,
-		describe: gtx._('the invoice spreadsheet file'),
-	},
 	mapping: {
 		group: gtx._('Input file location'),
 		alias: ['m'],
@@ -42,9 +33,9 @@ const options: {
 
 export type ConfigOptions = InferredOptionTypes<typeof options>;
 
-export class Transform implements Command {
+export class Migrate implements Command {
 	description(): string {
-		return gtx._('Transform spreadsheet data to JSON.');
+		return gtx._('Migrate files.');
 	}
 
 	aliases(): Array<string> {
@@ -56,7 +47,6 @@ export class Transform implements Command {
 	}
 
 	private async doRun(configOptions: ConfigOptions) {
-		const spreadsheet = await fs.readFile(configOptions.spreadsheet as string);
 		const yamlData = await fs.readFile(
 			configOptions.mapping as string,
 			'utf-8',
@@ -65,9 +55,7 @@ export class Transform implements Command {
 
 		const mappingService = new MappingService(console);
 
-		const output = JSON.stringify(
-			mappingService.transform(spreadsheet, 'UBL', mapping),
-		);
+		const output = yaml.dump(mappingService.migrate(mapping));
 
 		if (
 			typeof configOptions.output === 'undefined' ||

@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MappingService migration should migrate mapping v1 to v3 1`] = `
+{
+  "meta": {
+    "sectionColumn": {
+      "Invoice": "K",
+      "Unused": "L",
+    },
+    "version": "3.0",
+  },
+  "ubl:Invoice": {
+    "cac:InvoiceLine": {
+      "cac:AllowanceCharge": {
+        "cbc:Amount": "=SECTIONVALUE("B1", "ACLine")",
+        "cbc:Amount@currencyID": "=SECTIONVALUE("B1", "Line")",
+        "section": ":ACLine",
+      },
+      "cbc:ID": "=SECTIONVALUE("A1", "Line")",
+      "section": ":Line",
+    },
+    "cac:LegalMonetaryTotal": {
+      "cbc:LineExtensionAmount": "=SECTIONVALUE("F1", "SubTotal")",
+    },
+    "cac:OrderReference": {
+      "cbc:ID": "=A3",
+    },
+    "cac:PaymentMeans": {
+      "cbc:PaymentMeansCode": "30",
+    },
+    "cac:TaxTotal": {
+      "cbc:TaxAmount@currencyID": "EUR",
+    },
+    "cbc:CustomizationID": "=B1",
+    "cbc:DueDate": "='Invoice'.A2",
+    "cbc:ID": "1234567890",
+    "cbc:IssueDate": "=A1",
+    "cbc:Note": "'= not equals eagles",
+  },
+}
+`;
+
+exports[`MappingService v3 should parse mappings and map data should generate the correct invoice 1`] = `
+{
+  "ubl:Invoice": {
+    "cac:InvoiceLine": [
+      {
+        "cac:AllowanceCharge": [
+          {
+            "cbc:Amount": "23.04",
+            "cbc:Amount@currencyID": "EUR",
+          },
+        ],
+        "cbc:ID": "1",
+      },
+      {
+        "cac:AllowanceCharge": [],
+        "cbc:ID": "2",
+      },
+      {
+        "cac:AllowanceCharge": [
+          {
+            "cbc:Amount": "13.03",
+            "cbc:Amount@currencyID": "EUR",
+          },
+          {
+            "cbc:Amount": "42.00",
+            "cbc:Amount@currencyID": "EUR",
+          },
+        ],
+        "cbc:ID": "3",
+      },
+    ],
+    "cac:LegalMonetaryTotal": {
+      "cbc:LineExtensionAmount": "12345.67",
+    },
+    "cac:OrderReference": {
+      "cbc:ID": "0815",
+    },
+    "cac:PaymentMeans": [
+      {
+        "cbc:PaymentMeansCode": "30",
+      },
+    ],
+    "cac:TaxTotal": [
+      {},
+    ],
+    "cbc:CustomizationID": "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0",
+    "cbc:DueDate": "2024-10-28",
+    "cbc:ID": "1234567890",
+    "cbc:IssueDate": "2024-10-21",
+    "cbc:Note": "= not equals eagles",
+  },
+}
+`;

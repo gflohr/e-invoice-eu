@@ -127,6 +127,10 @@ export interface MappingMetaInformation {
 		[k: string]: string;
 	};
 	empty?: string[];
+	/**
+	 * Version of the mapping schema as a string "MAJOR.MINOR" or "MAJOR".
+	 */
+	version?: string;
 }
 /**
  * A group of business terms providing information on the invoice period. Also called delivery period. If the group is used, the invoiceing period start date and/or end date must be used.
