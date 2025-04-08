@@ -149,15 +149,22 @@ export class MappingService {
 			if (typeof mapping[property] === 'string') {
 				const matches = mapping[property].match(mappingValueRe);
 
-				if (matches && typeof matches[2] !== 'undefined') {
-					const sheetName = matches[1];
-					const sectionName = matches[2];
-					const cellName = matches[3];
+				if (matches) {
+					if (typeof matches[2] !== 'undefined') {
+						const sheetName = matches[1];
+						const sectionName = matches[2];
+						const cellName = matches[3];
 
-					const args = [cellName, sectionName, sheetName]
-						.filter(val => typeof val !== 'undefined')
-						.map(val => `"${val}"`);
-					mapping[property] = `=SECTIONVALUE(${args.join(', ')})`;
+						const args = [cellName, sectionName, sheetName]
+							.filter(val => typeof val !== 'undefined')
+							.map(val => `"${val}"`);
+						mapping[property] = `=SECTIONVALUE(${args.join(', ')})`;
+					} else if (typeof matches[1] !== 'undefined') {
+						const sheetName = matches[1];
+						const cellName = matches[3];
+
+						mapping[property] = `=${sheetName}!${cellName}`;
+					}
 				}
 			} else if (typeof mapping[property] === 'object') {
 				this.migrateObject(mapping[property]);
