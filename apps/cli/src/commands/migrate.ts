@@ -14,6 +14,7 @@ const gtx = Textdomain.getInstance('e-invoice-eu-cli');
 const options: {
 	mapping: OptSpec;
 	output?: OptSpec;
+	format?: OptSpec;
 } = {
 	mapping: {
 		group: gtx._('Input file location'),
@@ -23,11 +24,20 @@ const options: {
 		describe: gtx._('the mapping file'),
 	},
 	output: {
-		group: gtx._('Output file location'),
+		group: gtx._('Output file details'),
 		alias: ['o'],
 		type: 'string',
 		demandOption: false,
 		describe: gtx._('the output file; standard output if `-`'),
+	},
+	format: {
+		group: gtx._('Output file details'),
+		alias: ['f'],
+		type: 'string',
+		choices: ['yaml', 'json'],
+		default: 'yaml',
+		demandOption: false,
+		describe: gtx._('the output format'),
 	},
 };
 
@@ -55,7 +65,9 @@ export class Migrate implements Command {
 
 		const mappingService = new MappingService(console);
 
-		const output = yaml.dump(mappingService.migrate(mapping));
+		const output = configOptions.format === 'json' ?
+			JSON.stringify(mappingService.migrate(mapping))
+			: yaml.dump(mappingService.migrate(mapping));
 
 		if (
 			typeof configOptions.output === 'undefined' ||
