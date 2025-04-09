@@ -1,4 +1,3 @@
-import { Textdomain } from '@esgettext/runtime';
 import {
 	AFRelationship,
 	decodePDFRawStream,
@@ -11,7 +10,8 @@ import {
 	PDFRawStream,
 	PDFStream,
 	PDFString,
-} from 'pdf-lib';
+} from '@cantoo/pdf-lib';
+import { Textdomain } from '@esgettext/runtime';
 
 import { Invoice, InvoiceServiceOptions } from '../invoice';
 import { FormatCIIService, FULL_CII } from './format-cii.service';
@@ -394,6 +394,21 @@ describe('FormatFacturXService', () => {
 			expect(attachment.description).toBe('Factur-X');
 		});
 
+		it('should not modify the attachment', async () => {
+			mockOptions.format = 'Factur-X-XRechnung';
+
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
+			expect(pdfBytes).toBeInstanceOf(Uint8Array);
+
+			const pdfDoc = await PDFDocument.load(pdfBytes);
+			const attachments = extractAttachments(pdfDoc);
+
+			expect(attachments.length).toBe(1);
+			const attachment = attachments[0];
+			const xml = new TextDecoder().decode(attachment.data);
+			expect(xml).toBe('<invoice></invoice>');
+		});
+
 		it('should throw an exception if attaching the Factur-X XML fails', async () => {
 			const attachMock = jest
 				.spyOn(PDFDocument.prototype, 'attach')
@@ -517,7 +532,7 @@ describe('FormatFacturXService', () => {
 				expect.anything(),
 			);
 
-			(globalThis as any).crypto = savedCrypto
+			(globalThis as any).crypto = savedCrypto;
 		});
 
 		it('should use webcrypto.subtle where applicable', () => {
@@ -526,7 +541,7 @@ describe('FormatFacturXService', () => {
 
 			const customRequire = jest.fn().mockImplementation((module: string) => {
 				if (module === 'crypto') {
-					return {webcrypto: { subtle: 'catchme' }};
+					return { webcrypto: { subtle: 'catchme' } };
 				}
 
 				throw new Error(`Module ${module} not found`);
@@ -545,7 +560,9 @@ describe('FormatFacturXService', () => {
 			});
 
 			try {
-				expect(() => service['getCrypto'](customRequire)).toThrow('Web Crypto API is not available in this environment');
+				expect(() => service['getCrypto'](customRequire)).toThrow(
+					'Web Crypto API is not available in this environment',
+				);
 			} finally {
 				(globalThis as any).crypto = savedCrypto;
 			}
@@ -556,7 +573,9 @@ describe('FormatFacturXService', () => {
 			delete (globalThis as any).crypto;
 
 			try {
-				expect(() => service['getCrypto']()).toThrow('Web Crypto API is not available');
+				expect(() => service['getCrypto']()).toThrow(
+					'Web Crypto API is not available',
+				);
 			} finally {
 				(globalThis as any).crypto = savedCrypto;
 			}

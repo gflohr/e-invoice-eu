@@ -1,5 +1,3 @@
-import { EInvoiceMIMEType, Invoice } from '@e-invoice-eu/core';
-import { Textdomain } from '@esgettext/runtime';
 import {
 	AFRelationship,
 	PDFArray,
@@ -9,7 +7,9 @@ import {
 	PDFName,
 	PDFNumber,
 	PDFString,
-} from 'pdf-lib';
+} from '@cantoo/pdf-lib';
+import { EInvoiceMIMEType, Invoice } from '@e-invoice-eu/core';
+import { Textdomain } from '@esgettext/runtime';
 import { create } from 'xmlbuilder2';
 import { XMLBuilder } from 'xmlbuilder2/lib/interfaces';
 
