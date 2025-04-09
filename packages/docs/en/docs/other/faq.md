@@ -57,14 +57,12 @@ Amounts have to be numbers >= 0 with at most two decimal places. The following
 JSON schema should work for this:
 
 <!--qgoda-no-xgettext-->
-
 [% FILTER $Highlight "language-json" %]
 {
-"type": "number",
-"multipleOf": 0.01
+	"type": "number",
+	"multipleOf": 0.01
 }
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 This is even documented in the [JSON Schema

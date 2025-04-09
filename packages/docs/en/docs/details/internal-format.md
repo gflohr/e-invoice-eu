@@ -21,20 +21,13 @@ e-invoices in all supported output formats. Therefore, users of the software do
 not have to care about all details of other formats but can focus on one.
 
 [% title = "Required Know-How" %]
-
 <!--qgoda-no-xgettext-->
-
 [% WRAPPER components/infobox.html type='info' title=title %]
-
 <!--/qgoda-no-xgettext-->
-
 Knowledge of JSON is definitely a plus, when reading this documentation.
 XML know-how is also a plus but not really important.
-
 <!--qgoda-no-xgettext-->
-
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 ## Why UBL?
@@ -172,13 +165,13 @@ specifying the [supplier's name](https://docs.peppol.eu/poacc/billing/3.0/syntax
 
 [% FILTER $Highlight "language-markup" "line-numbers" %]
 <ubl:Invoice>
-<cac:AccountingSupplierParty>
-<cac:Party>
-<cbc:PartyName>
-Acme Ltd.
-</cbc:PartyName>
-</cac:Party>
-</cac:AccountingSupplierParty>
+	<cac:AccountingSupplierParty>
+		<cac:Party>
+			<cbc:PartyName>
+				Acme Ltd.
+			</cbc:PartyName>
+		</cac:Party>
+	</cac:AccountingSupplierParty>
 </ubl:Invoice>
 [% END %]
 
@@ -190,13 +183,13 @@ This translates into JSON like this:
 
 [% FILTER $Highlight "language-json" "line-numbers" %]
 {
-"ubl:Invoice": {
-"cac:AccountingSupplierParty": {
-"cac:Party": {
-"cbc:PartyName": "Acme Ltd."
-}
-}
-}
+	"ubl:Invoice": {
+		"cac:AccountingSupplierParty": {
+			"cac:Party": {
+				"cbc:PartyName": "Acme Ltd."
+			}
+		}
+	}
 }
 [% END %]
 
@@ -212,24 +205,22 @@ XML has no notion of lists respectively arrays. Instead, elements are simply
 repeated. Take for example invoice line items:
 
 <!--qgoda-no-xgettext-->
-
 [% FILTER $Highlight "language-markup" "line-numbers" %]
 <ubl:Invoice>
-<cac:InvoiceLine>
-<cbc:ID>1</cbc:ID>
-<cbc:AccountingCost>100:1</cbc:AccountingCost>
-</cac:InvoiceLine>
-<cac:InvoiceLine>
-<cbc:ID>2</cbc:ID>
-<cbc:AccountingCost>200:2</cbc:AccountingCost>
-</cac:InvoiceLine>
-<cac:InvoiceLine>
-<cbc:ID>3</cbc:ID>
-<cbc:AccountingCost>300:3</cbc:AccountingCost>
-</cac:InvoiceLine>
+	<cac:InvoiceLine>
+		<cbc:ID>1</cbc:ID>
+		<cbc:AccountingCost>100:1</cbc:AccountingCost>
+	</cac:InvoiceLine>
+	<cac:InvoiceLine>
+		<cbc:ID>2</cbc:ID>
+		<cbc:AccountingCost>200:2</cbc:AccountingCost>
+	</cac:InvoiceLine>
+	<cac:InvoiceLine>
+		<cbc:ID>3</cbc:ID>
+		<cbc:AccountingCost>300:3</cbc:AccountingCost>
+	</cac:InvoiceLine>
 </ubl:Invoice>
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 There are three `cac:InvoiceLine` elements. That means that they are a list.
@@ -237,28 +228,26 @@ There are three `cac:InvoiceLine` elements. That means that they are a list.
 The transformation into JSON is straightforward:
 
 <!--qgoda-no-xgettext-->
-
 [% FILTER $Highlight "language-json" "line-numbers" %]
 {
-"ubl:Invoice": {
-"cac:InvoiceLine": [
-{
-"cbc:ID": "1",
-"cbc:AccountingCost": "100:1",
-},
-{
-"cbc:ID": "2",
-"cbc:AccountingCost": "200:3",
-},
-{
-"cbc:ID": "3",
-"cbc:AccountingCost": "300:3",
-},
-]
-}
+	"ubl:Invoice": {
+		"cac:InvoiceLine": [
+			{
+				"cbc:ID": "1",
+				"cbc:AccountingCost": "100:1",
+			},
+			{
+				"cbc:ID": "2",
+				"cbc:AccountingCost": "200:3",
+			},
+			{
+				"cbc:ID": "3",
+				"cbc:AccountingCost": "300:3",
+			},
+		]
+	}
 }
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 Because `cac:InvoiceLine` is an array (it has a cardinality of `1..n`), it
@@ -266,23 +255,16 @@ is also an array in JSON. The items are simply all sub-nodes of
 `cac:InvoiceLine`.
 
 [% title = "Single-Item Lists" %]
-
 <!--qgoda-no-xgettext-->
-
 [% WRAPPER components/infobox.html type='info' title=title %]
-
 <!--/qgoda-no-xgettext-->
-
 Even if you have just one item, you must still use an array in JSON. Single
 values are not automatically coerced into arrays. This is particularly
 important for some elements that you probably do not expect to be arrays, for
 example the <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-TaxTotal/">tax
 total</a> of the invoice.
-
 <!--qgoda-no-xgettext-->
-
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 ### Attributes
@@ -290,33 +272,29 @@ total</a> of the invoice.
 Some elements have attributes:
 
 <!--qgoda-no-xgettext-->
-
 [% FILTER $Highlight "language-markup" "line-numbers" %]
 <ubl:Invoice>
-<cac:LegalMonetaryTotal>
-<cbc:PayableAmount currencyID="EUR">23.04</cbc:PayableAmount>
-</cac:LegalMonetaryTotal>
+	<cac:LegalMonetaryTotal>
+		<cbc:PayableAmount currencyID="EUR">23.04</cbc:PayableAmount>
+	</cac:LegalMonetaryTotal>
 </ubl:Invoice>
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 JSON does not have a notion of attributes. Instead you take the name of the
 element, add an `@` and the attribute name:
 
 <!--qgoda-no-xgettext-->
-
 [% FILTER $Highlight "language-json" "line-numbers" %]
 {
-"ubl:Invoice": {
-"cac:LegalMonetaryTotal": {
-"cbc:PayableAmount": "23.04"
-"cbc:PayableAmount@currencyID": "EUR"
-}
-}
+	"ubl:Invoice": {
+		"cac:LegalMonetaryTotal": {
+			"cbc:PayableAmount": "23.04"
+			"cbc:PayableAmount@currencyID": "EUR"
+		}
+	}
 }
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 ### Non-String Values
