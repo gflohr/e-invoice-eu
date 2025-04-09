@@ -31,7 +31,7 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css?1744195013" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1744195554" rel="stylesheet">
 
 
 
@@ -143,13 +143,9 @@ get the hang of it.</p>
     </div>
     <p>
 
-
-
 If you use the software to create e-invoices directly from JSON data, you can
 skip this section. Mappings are only required for
 generating e-invoices from spreadsheet data.
-
-
 
 </p>
 </div>
@@ -329,26 +325,22 @@ later.</p>
 
 
 
-
-
 <pre class="language-yaml line-numbers"><code>meta:
-sectionColumn:
-Invoice: K
-emtpy: [&#39;[:empty:]&#39;, &#39;%no-no-nothing%&#39;],
+    sectionColumn:
+        Invoice: K
+    emtpy: [&#39;[:empty:]&#39;, &#39;%no-no-nothing%&#39;],
 ubl:Invoice:
-cbc:ID: =Invoice.D7
-cbc:IssueDate: =F7
-cac:InvoiceLine:
-section: :Line
-cbc:ID: =Invoice:Line.A1
-cbc:Note: =Invoice.M3
-cac:Item:
-cbcName: =Line.B1
-cac:Price:
-cbc:PriceAmount: =Invoice:Line.F1
-cbc:PriceAmount@currencyCode: EUR</code></pre>
-
-
+    cbc:ID: =Invoice.D7
+    cbc:IssueDate: =F7
+    cac:InvoiceLine:
+        section: :Line
+        cbc:ID: =Invoice:Line.A1
+        cbc:Note: =Invoice.M3
+        cac:Item:
+            cbcName: =Line.B1
+        cac:Price:
+            cbc:PriceAmount: =Invoice:Line.F1
+            cbc:PriceAmount@currencyCode: EUR</code></pre>
 
 
 
@@ -393,12 +385,8 @@ must be a string. That means that numbers must be put into quotes, for example:<
 
 
 
-
-
 <pre class="language-yaml"><code>ubl:Invoice:
-cbc:InvoiceTypeCode: &#39;380&#39;</code></pre>
-
-
+    cbc:InvoiceTypeCode: &#39;380&#39;</code></pre>
 
 
 
@@ -418,11 +406,7 @@ single quotes:</p>
 
 
 
-
-
 <pre class="language-yaml"><code>cbc:DueDate: =&#39;Fancy.SheetName&#39;.D3</code></pre>
-
-
 
 
 
@@ -446,15 +430,11 @@ references.</p>
 
 
 
-
-
 <pre class="language-yaml"><code>ubl:Invoice:
-cac:InvoiceLine:
-section: :Line
-cbc:ID: =:Line.A1
-cbc:Note: =SomeSheet.Q23</code></pre>
-
-
+    cac:InvoiceLine:
+        section: :Line
+        cbc:ID: =:Line.A1
+        cbc:Note: =SomeSheet.Q23</code></pre>
 
 
 
@@ -593,9 +573,8 @@ from our spreadsheet application.</p>
 
 <h4><a href="#" name="formulas" id="formulas"></a>Formulas</h4>
 
-<p>Are you joking? Formulas are not supported in the mapping. But you can just
-use them in the spreadsheet because the extractor picks up the result of the
-formula, not the formula itself.</p>
+<p>In version 3, formulas will probably be supported. This feature is mainly
+useful if you use CSV file as input for the invoice data.</p>
 
 <h2><a href="#" name="surprising-arrays" id="surprising-arrays"></a>Surprising Arrays</h2>
 
@@ -646,7 +625,7 @@ code. This simplifies the spreadsheet but makes your process more error-prone.</
 			<a href="/e-invoice-eu/en/docs/">Home</a>
 			
 		</div>
-		<div class="col-5 text-right guided-tour-link">
+		<div class="col-5 text-end guided-tour-link">
 			
 			<a href="/e-invoice-eu/en/docs/details/validation/"
 				>Validation&nbsp;<i
@@ -1012,7 +991,7 @@ code. This simplifies the spreadsheet but makes your process more error-prone.</
  
 
 
-  <script src="/e-invoice-eu/assets/bundle.min.js?1744195013" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1744195554" type="text/javascript"></script>
 
 
 

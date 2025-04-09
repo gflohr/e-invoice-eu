@@ -31,7 +31,7 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css?1744195013" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1744195554" rel="stylesheet">
 
 
 
@@ -257,11 +257,7 @@
     </div>
     <p>
 
-
-
 Kenntnisse über JSON sind definitiv ein Plus beim Lesen dieser Dokumentation. XML-Know-How ist auch ein Plus, aber weniger wichtig.
-
-
 
 </p>
 </div>
@@ -406,13 +402,13 @@ often have to scroll down a little bit to get to the list of values.</p>
 
 
 <pre class="language-markup line-numbers"><code>&#60;ubl:Invoice&#62;
-&#60;cac:AccountingSupplierParty&#62;
-&#60;cac:Party&#62;
-&#60;cbc:PartyName&#62;
-Acme Ltd.
-&#60;/cbc:PartyName&#62;
-&#60;/cac:Party&#62;
-&#60;/cac:AccountingSupplierParty&#62;
+    &#60;cac:AccountingSupplierParty&#62;
+        &#60;cac:Party&#62;
+            &#60;cbc:PartyName&#62;
+                Acme Ltd.
+            &#60;/cbc:PartyName&#62;
+        &#60;/cac:Party&#62;
+    &#60;/cac:AccountingSupplierParty&#62;
 &#60;/ubl:Invoice&#62;</code></pre>
 
 
@@ -429,13 +425,13 @@ Acme Ltd.
 
 
 <pre class="language-json line-numbers"><code>{
-&#34;ubl:Invoice&#34;: {
-&#34;cac:AccountingSupplierParty&#34;: {
-&#34;cac:Party&#34;: {
-&#34;cbc:PartyName&#34;: &#34;Acme Ltd.&#34;
-}
-}
-}
+    &#34;ubl:Invoice&#34;: {
+        &#34;cac:AccountingSupplierParty&#34;: {
+            &#34;cac:Party&#34;: {
+                &#34;cbc:PartyName&#34;: &#34;Acme Ltd.&#34;
+            }
+        }
+    }
 }</code></pre>
 
 
@@ -453,24 +449,20 @@ Acme Ltd.
 
 
 
-
-
 <pre class="language-markup line-numbers"><code>&#60;ubl:Invoice&#62;
-&#60;cac:InvoiceLine&#62;
-&#60;cbc:ID&#62;1&#60;/cbc:ID&#62;
-&#60;cbc:AccountingCost&#62;100:1&#60;/cbc:AccountingCost&#62;
-&#60;/cac:InvoiceLine&#62;
-&#60;cac:InvoiceLine&#62;
-&#60;cbc:ID&#62;2&#60;/cbc:ID&#62;
-&#60;cbc:AccountingCost&#62;200:2&#60;/cbc:AccountingCost&#62;
-&#60;/cac:InvoiceLine&#62;
-&#60;cac:InvoiceLine&#62;
-&#60;cbc:ID&#62;3&#60;/cbc:ID&#62;
-&#60;cbc:AccountingCost&#62;300:3&#60;/cbc:AccountingCost&#62;
-&#60;/cac:InvoiceLine&#62;
+    &#60;cac:InvoiceLine&#62;
+        &#60;cbc:ID&#62;1&#60;/cbc:ID&#62;
+        &#60;cbc:AccountingCost&#62;100:1&#60;/cbc:AccountingCost&#62;
+    &#60;/cac:InvoiceLine&#62;
+    &#60;cac:InvoiceLine&#62;
+        &#60;cbc:ID&#62;2&#60;/cbc:ID&#62;
+        &#60;cbc:AccountingCost&#62;200:2&#60;/cbc:AccountingCost&#62;
+    &#60;/cac:InvoiceLine&#62;
+    &#60;cac:InvoiceLine&#62;
+        &#60;cbc:ID&#62;3&#60;/cbc:ID&#62;
+        &#60;cbc:AccountingCost&#62;300:3&#60;/cbc:AccountingCost&#62;
+    &#60;/cac:InvoiceLine&#62;
 &#60;/ubl:Invoice&#62;</code></pre>
-
-
 
 
 
@@ -483,28 +475,24 @@ Acme Ltd.
 
 
 
-
-
 <pre class="language-json line-numbers"><code>{
-&#34;ubl:Invoice&#34;: {
-&#34;cac:InvoiceLine&#34;: [
-{
-&#34;cbc:ID&#34;: &#34;1&#34;,
-&#34;cbc:AccountingCost&#34;: &#34;100:1&#34;,
-},
-{
-&#34;cbc:ID&#34;: &#34;2&#34;,
-&#34;cbc:AccountingCost&#34;: &#34;200:3&#34;,
-},
-{
-&#34;cbc:ID&#34;: &#34;3&#34;,
-&#34;cbc:AccountingCost&#34;: &#34;300:3&#34;,
-},
-]
-}
+    &#34;ubl:Invoice&#34;: {
+        &#34;cac:InvoiceLine&#34;: [
+            {
+                &#34;cbc:ID&#34;: &#34;1&#34;,
+                &#34;cbc:AccountingCost&#34;: &#34;100:1&#34;,
+            },
+            {
+                &#34;cbc:ID&#34;: &#34;2&#34;,
+                &#34;cbc:AccountingCost&#34;: &#34;200:3&#34;,
+            },
+            {
+                &#34;cbc:ID&#34;: &#34;3&#34;,
+                &#34;cbc:AccountingCost&#34;: &#34;300:3&#34;,
+            },
+        ]
+    }
 }</code></pre>
-
-
 
 
 
@@ -526,15 +514,11 @@ Acme Ltd.
     </div>
     <p>
 
-
-
 Even if you have just one item, you must still use an array in JSON. Single
 values are not automatically coerced into arrays. This is particularly
 important for some elements that you probably do not expect to be arrays, for
 example the <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-TaxTotal/" target="_blank">tax
 total</a> of the invoice.
-
-
 
 </p>
 </div>
@@ -552,15 +536,11 @@ total</a> of the invoice.
 
 
 
-
-
 <pre class="language-markup line-numbers"><code>&#60;ubl:Invoice&#62;
-&#60;cac:LegalMonetaryTotal&#62;
-&#60;cbc:PayableAmount currencyID=&#34;EUR&#34;&#62;23.04&#60;/cbc:PayableAmount&#62;
-&#60;/cac:LegalMonetaryTotal&#62;
+    &#60;cac:LegalMonetaryTotal&#62;
+        &#60;cbc:PayableAmount currencyID=&#34;EUR&#34;&#62;23.04&#60;/cbc:PayableAmount&#62;
+    &#60;/cac:LegalMonetaryTotal&#62;
 &#60;/ubl:Invoice&#62;</code></pre>
-
-
 
 
 
@@ -571,18 +551,14 @@ total</a> of the invoice.
 
 
 
-
-
 <pre class="language-json line-numbers"><code>{
-&#34;ubl:Invoice&#34;: {
-&#34;cac:LegalMonetaryTotal&#34;: {
-&#34;cbc:PayableAmount&#34;: &#34;23.04&#34;
-&#34;cbc:PayableAmount@currencyID&#34;: &#34;EUR&#34;
-}
-}
+    &#34;ubl:Invoice&#34;: {
+        &#34;cac:LegalMonetaryTotal&#34;: {
+            &#34;cbc:PayableAmount&#34;: &#34;23.04&#34;
+            &#34;cbc:PayableAmount@currencyID&#34;: &#34;EUR&#34;
+        }
+    }
 }</code></pre>
-
-
 
 
 
@@ -622,7 +598,7 @@ und
 			<a href="/e-invoice-eu/de/docs/">Home</a>
 			
 		</div>
-		<div class="col-5 text-right guided-tour-link">
+		<div class="col-5 text-end guided-tour-link">
 			
 			<a href="/e-invoice-eu/de/docs/details/mapping/"
 				>Mapping&nbsp;<i
@@ -988,7 +964,7 @@ und
  
 
 
-  <script src="/e-invoice-eu/assets/bundle.min.js?1744195013" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1744195554" type="text/javascript"></script>
 
 
 

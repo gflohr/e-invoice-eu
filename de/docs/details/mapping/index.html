@@ -31,7 +31,7 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css?1744195013" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1744195554" rel="stylesheet">
 
 
 
@@ -140,11 +140,7 @@ funktionieren alle. Es ist sehr empfehlenswert, diese als Ausgangspunkte für ei
     </div>
     <p>
 
-
-
 Wer die Software benutzt, um Rechnungen direkt aus JSON-Daten zu erzeugen, kann diesen Abschnitt einfach überspringen. Mappings werden nur benötigt, um E-Rechnungen aus Tabellendaten zu generieren.
-
-
 
 </p>
 </div>
@@ -305,26 +301,22 @@ Wer die Software benutzt, um Rechnungen direkt aus JSON-Daten zu erzeugen, kann 
 
 
 
-
-
 <pre class="language-yaml line-numbers"><code>meta:
-sectionColumn:
-Invoice: K
-emtpy: [&#39;[:empty:]&#39;, &#39;%no-no-nothing%&#39;],
+    sectionColumn:
+        Invoice: K
+    emtpy: [&#39;[:empty:]&#39;, &#39;%no-no-nothing%&#39;],
 ubl:Invoice:
-cbc:ID: =Invoice.D7
-cbc:IssueDate: =F7
-cac:InvoiceLine:
-section: :Line
-cbc:ID: =Invoice:Line.A1
-cbc:Note: =Invoice.M3
-cac:Item:
-cbcName: =Line.B1
-cac:Price:
-cbc:PriceAmount: =Invoice:Line.F1
-cbc:PriceAmount@currencyCode: EUR</code></pre>
-
-
+    cbc:ID: =Invoice.D7
+    cbc:IssueDate: =F7
+    cac:InvoiceLine:
+        section: :Line
+        cbc:ID: =Invoice:Line.A1
+        cbc:Note: =Invoice.M3
+        cac:Item:
+            cbcName: =Line.B1
+        cac:Price:
+            cbc:PriceAmount: =Invoice:Line.F1
+            cbc:PriceAmount@currencyCode: EUR</code></pre>
 
 
 
@@ -359,12 +351,8 @@ cbc:PriceAmount@currencyCode: EUR</code></pre>
 
 
 
-
-
 <pre class="language-yaml"><code>ubl:Invoice:
-cbc:InvoiceTypeCode: &#39;380&#39;</code></pre>
-
-
+    cbc:InvoiceTypeCode: &#39;380&#39;</code></pre>
 
 
 
@@ -379,11 +367,7 @@ cbc:InvoiceTypeCode: &#39;380&#39;</code></pre>
 
 
 
-
-
 <pre class="language-yaml"><code>cbc:DueDate: =&#39;Fancy.SheetName&#39;.D3</code></pre>
-
-
 
 
 
@@ -402,15 +386,11 @@ cbc:InvoiceTypeCode: &#39;380&#39;</code></pre>
 
 
 
-
-
 <pre class="language-yaml"><code>ubl:Invoice:
-cac:InvoiceLine:
-section: :Line
-cbc:ID: =:Line.A1
-cbc:Note: =SomeSheet.Q23</code></pre>
-
-
+    cac:InvoiceLine:
+        section: :Line
+        cbc:ID: =:Line.A1
+        cbc:Note: =SomeSheet.Q23</code></pre>
 
 
 
@@ -454,7 +434,8 @@ cbc:Note: =SomeSheet.Q23</code></pre>
 
 <h4><a href="#" name="formeln" id="formeln"></a>Formeln</h4>
 
-<p>Wie bitte? Formeln werden in Mappings nicht unterstützt. Sie können aber in der Tabelle verwendet werden, weil der Parser das Resultat der Berechnung verwendet und nicht die Formel selbst.</p>
+<p>In version 3, formulas will probably be supported. This feature is mainly
+useful if you use CSV file as input for the invoice data.</p>
 
 <h2><a href="#" name="uberraschende-arrays" id="uberraschende-arrays"></a>Überraschende Arrays</h2>
 
@@ -492,7 +473,7 @@ versuchen das etwas benutzerfreundlicher zu machen. Dazu werden Datenbereich (<e
 			<a href="/e-invoice-eu/de/docs/">Home</a>
 			
 		</div>
-		<div class="col-5 text-right guided-tour-link">
+		<div class="col-5 text-end guided-tour-link">
 			
 			<a href="/e-invoice-eu/de/docs/details/validierung/"
 				>Validierung&nbsp;<i
@@ -858,7 +839,7 @@ versuchen das etwas benutzerfreundlicher zu machen. Dazu werden Datenbereich (<e
  
 
 
-  <script src="/e-invoice-eu/assets/bundle.min.js?1744195013" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1744195554" type="text/javascript"></script>
 
 
 
