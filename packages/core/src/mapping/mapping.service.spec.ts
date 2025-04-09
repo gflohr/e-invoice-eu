@@ -652,6 +652,10 @@ describe('MappingService', () => {
 						'cbc:ID': '=A1',
 						'cbc:IssueDate': '=Invoice.A2',
 						'cbc:InvoiceTypeCode': '="Meta Data"!B3',
+						'cac:InvoiceLine': {
+							'section': ':Line',
+							'cbc:ID': '=:Line.A1',
+						},
 					},
 				} as Mapping;
 
@@ -673,6 +677,10 @@ describe('MappingService', () => {
 			});
 
 			it('should preserve quotes', () => {
+				expect(migrated['ubl:Invoice']['cbc:InvoiceTypeCode']).toBe('="Meta Data"!B3');
+			});
+
+			it('should migrate ', () => {
 				expect(migrated['ubl:Invoice']['cbc:InvoiceTypeCode']).toBe('="Meta Data"!B3');
 			});
 		});

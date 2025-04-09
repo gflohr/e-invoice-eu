@@ -38,11 +38,11 @@ It returns a list of entries that look - for example - like this:
 
 [% FILTER $Highlight "language-json" %]
 {
-"name": "Factur-X-Extended",
-"syntax": "CII"
-"mimeType": "application/pdf",
-"customizationID": "urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended",
-"profileID": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+    "name": "Factur-X-Extended",
+    "syntax": "CII"
+    "mimeType": "application/pdf",
+    "customizationID": "urn:cen.eu:en16931:2017#conformant#urn:factur-x.eu:1p0:extended",
+    "profileID": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
 }
 [% END %]
 
