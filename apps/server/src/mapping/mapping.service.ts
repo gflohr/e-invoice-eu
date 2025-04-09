@@ -1,3 +1,4 @@
+import { Mapping } from '@e-invoice-eu/core';
 import {
 	MappingService as CoreMappingService,
 	Invoice,
@@ -15,7 +16,7 @@ export class MappingService {
 	}
 
 	transform(format: string, mapping: string, dataBuffer: Buffer): Invoice {
-		const mappingData = yaml.load(mapping);
+		const mappingData = yaml.load(mapping) as Mapping;
 
 		return this.mappingService.transform(dataBuffer, format, mappingData);
 	}

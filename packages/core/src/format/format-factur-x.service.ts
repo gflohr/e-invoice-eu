@@ -15,7 +15,7 @@ import { XMLBuilder } from 'xmlbuilder2/lib/interfaces';
 
 import { FormatCIIService, FULL_CII, FXProfile } from './format-cii.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
-import { InvoiceServiceOptions } from '../invoice/invoice.service';
+import { FileInfo, InvoiceServiceOptions } from '../invoice/invoice.service';
 
 type FacturXConformanceLevel =
 	| 'MINIMUM'
@@ -120,7 +120,7 @@ export class FormatFacturXService
 
 		const pdfDoc = await PDFDocument.load(pdf, { updateMetadata: false });
 
-		this.attachFiles(pdfDoc, options);
+		await this.attachFiles(pdfDoc, options);
 
 		const xml = (await super.generate(invoice, options)) as string;
 		await this.attachFacturX(pdfDoc, options, xml);
@@ -129,16 +129,29 @@ export class FormatFacturXService
 		return await pdfDoc.save();
 	}
 
-	private attachFiles(pdfDoc: PDFDocument, options: InvoiceServiceOptions) {
+	private async attachFiles(
+		pdfDoc: PDFDocument,
+		options: InvoiceServiceOptions,
+	) {
 		for (const attachment of options.attachments || []) {
-			pdfDoc.attach(attachment.buffer, attachment.filename, {
-				mimeType: attachment.mimetype,
-				description: attachment.description ?? 'Supplementary file',
-				creationDate: new Date(),
-				modificationDate: new Date(),
-				afRelationship: AFRelationship.Supplement,
-			});
+			await this.attachFile(pdfDoc, attachment, AFRelationship.Supplement);
 		}
+	}
+
+	private async attachFile(
+		pdfDoc: PDFDocument,
+		fileInfo: FileInfo,
+		relationship: AFRelationship,
+	) {
+		const now = new Date();
+
+		await pdfDoc.attach(fileInfo.buffer, fileInfo.filename, {
+			mimeType: fileInfo.mimetype,
+			description: fileInfo.description ?? 'Supplementary file',
+			creationDate: now,
+			modificationDate: now,
+			afRelationship: relationship,
+		});
 	}
 
 	private async createPDFA(
@@ -561,13 +574,16 @@ export class FormatFacturXService
 					? 'xrechnung.xml'
 					: 'factur-x.xml';
 
-			await pdfDoc.attach(xml, filename, {
-				mimeType: 'application/xml',
-				description: 'Factur-X',
-				creationDate: new Date(),
-				modificationDate: new Date(),
-				afRelationship: AFRelationship.Alternative,
-			});
+			await this.attachFile(
+				pdfDoc,
+				{
+					filename,
+					buffer: new TextEncoder().encode(xml),
+					mimetype: 'application/xml',
+					description: 'Factur-X',
+				},
+				AFRelationship.Alternative,
+			);
 		} catch (error) {
 			console.error(`Error attaching Factur-X XML file to PDF: ${error}`);
 			throw new Error(`Error attaching Factur-X XML file to PDF: ${error}`);
