@@ -6,10 +6,8 @@ description: Mapping definitions map data from spreadsheet cells to invoice data
 ---
 
 <!--qgoda-no-xgettext-->
-
 [% USE q = Qgoda %]
 [% USE Highlight %]
-
 <!--/qgoda-no-xgettext-->
 
 ## Practical Considerations
@@ -22,21 +20,14 @@ the concepts used. This is easier than you may think at first glance, once you
 get the hang of it.
 
 [% title = "Do I Need a Mapping?" %]
-
 <!--qgoda-no-xgettext-->
-
 [% WRAPPER components/infobox.html type='info' title=title %]
-
 <!--/qgoda-no-xgettext-->
-
 If you use the software to create e-invoices directly from JSON data, you can
 skip this section. Mappings are only required for
 generating e-invoices from spreadsheet data.
-
 <!--qgoda-no-xgettext-->
-
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 <qgoda-toc/>
@@ -98,26 +89,24 @@ later.
 Let's look at an excerpt of an actual mapping:
 
 <!--qgoda-no-xgettext-->
-
 [% FILTER $Highlight "language-yaml" "line-numbers" %]
 meta:
-sectionColumn:
-Invoice: K
-emtpy: ['[:empty:]', '%no-no-nothing%'],
+	sectionColumn:
+		Invoice: K
+	emtpy: ['[:empty:]', '%no-no-nothing%'],
 ubl:Invoice:
-cbc:ID: =Invoice.D7
-cbc:IssueDate: =F7
-cac:InvoiceLine:
-section: :Line
-cbc:ID: =Invoice:Line.A1
-cbc:Note: =Invoice.M3
-cac:Item:
-cbcName: =Line.B1
-cac:Price:
-cbc:PriceAmount: =Invoice:Line.F1
-cbc:PriceAmount@currencyCode: EUR
+	cbc:ID: =Invoice.D7
+	cbc:IssueDate: =F7
+	cac:InvoiceLine:
+		section: :Line
+		cbc:ID: =Invoice:Line.A1
+		cbc:Note: =Invoice.M3
+		cac:Item:
+			cbcName: =Line.B1
+		cac:Price:
+			cbc:PriceAmount: =Invoice:Line.F1
+			cbc:PriceAmount@currencyCode: EUR
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 **Line 3**: The section column in the sheet `Invoice` is column `K`.
@@ -157,12 +146,10 @@ Everything not starting with an equals sign (`=`) is a literal value but it
 must be a string. That means that numbers must be put into quotes, for example:
 
 <!--qgoda-no-xgettext-->
-
 [% FILTER $Highlight "language-yaml" %]
 ubl:Invoice:
-cbc:InvoiceTypeCode: '380'
+	cbc:InvoiceTypeCode: '380'
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 Because of the way that YAML works, you must also quote the strings "null",
@@ -177,11 +164,9 @@ sheet name contains a colon (`:`) or dot (`.`), you must enclose it in
 single quotes:
 
 <!--qgoda-no-xgettext-->
-
 [% FILTER $Highlight "language-yaml" %]
 cbc:DueDate: ='Fancy.SheetName'.D3
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 Note that most spreadsheet applications do not allow colons in sheet names
@@ -200,15 +185,13 @@ references.
 Example:
 
 <!--qgoda-no-xgettext-->
-
 [% FILTER $Highlight "language-yaml" %]
 ubl:Invoice:
-cac:InvoiceLine:
-section: :Line
-cbc:ID: =:Line.A1
-cbc:Note: =SomeSheet.Q23
+	cac:InvoiceLine:
+		section: :Line
+		cbc:ID: =:Line.A1
+		cbc:Note: =SomeSheet.Q23
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 See the references for `cbc:ID` and `cbc:Note`. The id references a cell
@@ -275,9 +258,8 @@ from our spreadsheet application.
 
 #### Formulas
 
-Are you joking? Formulas are not supported in the mapping. But you can just
-use them in the spreadsheet because the extractor picks up the result of the
-formula, not the formula itself.
+In version 3, formulas will probably be supported. This feature is mainly
+useful if you use CSV file as input for the invoice data.
 
 ## Surprising Arrays
 
