@@ -33,31 +33,36 @@ export type PaymentDueDate = string;
  * A code specifying the functional type of the Invoice.
  * Business terms: BT-3
  */
-export type InvoiceTypeCode =
-	| '71'
-	| '80'
-	| '82'
-	| '84'
-	| '102'
-	| '218'
-	| '219'
-	| '331'
-	| '380'
-	| '382'
-	| '383'
-	| '386'
-	| '388'
-	| '393'
-	| '395'
-	| '553'
-	| '575'
-	| '623'
-	| '780'
-	| '817'
-	| '870'
-	| '875'
-	| '876'
-	| '877';
+export type InvoiceTypeCode = (
+	| (
+			| '71'
+			| '80'
+			| '82'
+			| '84'
+			| '102'
+			| '218'
+			| '219'
+			| '331'
+			| '380'
+			| '382'
+			| '383'
+			| '386'
+			| '388'
+			| '393'
+			| '395'
+			| '553'
+			| '575'
+			| '623'
+			| '780'
+			| '817'
+			| '870'
+			| '875'
+			| '876'
+			| '877'
+	  )
+	| ('81' | '83' | '381' | '384' | '396' | '532')
+) &
+	string;
 /**
  * A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or assignment note in case the invoice has been factored. The element is not repeatable, except when both the Buyer and Seller are German, in which case the element can be repeated to meet specific legal requirements.
  * Business terms: BT-22

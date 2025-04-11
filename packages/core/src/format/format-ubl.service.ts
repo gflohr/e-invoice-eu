@@ -56,18 +56,60 @@ export class FormatUBLService
 
 		invoice = sortBySchema(invoice, invoiceSchema);
 
-		const invoiceObject = {
-			Invoice: {
-				'@xmlns': 'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',
-				'@xmlns:cac':
-					'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
-				'@xmlns:cbc':
-					'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
-				...invoice['ubl:Invoice'],
-			},
-		};
+		const cnCodes = invoiceSchema['$defs']!.codeLists['UNCL1001-cn'].enum;
+		const code = invoice['ubl:Invoice']['cbc:InvoiceTypeCode'];
+		if (cnCodes.includes(code) && code !== '384') {
+			const creditNoteObject = {
+				CreditNote: {
+					'@xmlns': 'urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2',
+					'@xmlns:cac':
+						'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
+					'@xmlns:cbc':
+						'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
+					...invoice['ubl:Invoice'],
+				},
+			};
 
-		return this.renderXML(invoiceObject);
+			(invoice as any)['ubl:CreditNote'] = invoice['ubl:Invoice'];
+			delete (invoice as any)['ubl:Invoice'];
+
+			function replaceInvoiceWithCreditNote(obj: object): object {
+				// Recursively clone and transform the object
+				if (Array.isArray(obj)) {
+					return obj.map(replaceInvoiceWithCreditNote);
+				} else if (obj !== null && typeof obj === 'object') {
+					const newObj: object = {};
+					for (const [key, value] of Object.entries(obj)) {
+						let newKey = key;
+						if (
+							key.includes(':Invoice') &&
+							!key.includes(':InvoicePeriod') &&
+							!key.includes(':InvoiceDocumentReference')
+						) {
+							newKey = key.replace(':Invoice', ':CreditNote');
+						}
+						newObj[newKey] = replaceInvoiceWithCreditNote(value);
+					}
+					return newObj;
+				}
+				return obj;
+			}
+
+			return this.renderXML(replaceInvoiceWithCreditNote(creditNoteObject));
+		} else {
+			const invoiceObject = {
+				Invoice: {
+					'@xmlns': 'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',
+					'@xmlns:cac':
+						'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
+					'@xmlns:cbc':
+						'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2',
+					...invoice['ubl:Invoice'],
+				},
+			};
+
+			return this.renderXML(invoiceObject);
+		}
 	}
 
 	private async embedPDF(invoice: Invoice, options: InvoiceServiceOptions) {
