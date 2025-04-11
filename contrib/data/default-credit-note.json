@@ -3,7 +3,7 @@
 		"cbc:ID": "1234567890",
 		"cbc:IssueDate": "2024-09-24",
 		"cbc:DueDate": "2024-10-08",
-		"cbc:InvoiceTypeCode": "384",
+		"cbc:InvoiceTypeCode": "381",
 		"cbc:DocumentCurrencyCode": "EUR",
 		"cbc:BuyerReference": "dept0815",
 		"cac:InvoicePeriod": {
@@ -94,7 +94,7 @@
 			{
 				"cbc:PaymentMeansCode": "30",
 				"cbc:PaymentMeansCode@name": "Bank Transfer",
-				"cbc:PaymentID": "Corrected invoice No. 1234567890",
+				"cbc:PaymentID": "Credit note No. 1234567890",
 				"cac:PayeeFinancialAccount": {
 					"cbc:ID": "DE370800400123456789",
 					"cbc:Name": "Acme Ltd.",
