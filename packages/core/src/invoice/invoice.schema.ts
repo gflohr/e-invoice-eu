@@ -15,7 +15,7 @@ import { Invoice } from './invoice.interface';
  */
 export const invoiceSchema: JSONSchemaType<Invoice> = {
 	$schema: 'https://json-schema.org/draft/2019-09/schema',
-	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v1.4.2',
+	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v2.0.4',
 	type: 'object',
 	additionalProperties: false,
 	properties: {
@@ -55,10 +55,17 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'cbc:InvoiceTypeCode': {
 					type: 'string',
-					$ref: '#/$defs/codeLists/UNCL1001-inv',
 					title: 'Invoice type code',
 					description:
 						'A code specifying the functional type of the Invoice.\nBusiness terms: BT-3',
+					anyOf: [
+						{
+							$ref: '#/$defs/codeLists/UNCL1001-inv',
+						},
+						{
+							$ref: '#/$defs/codeLists/UNCL1001-cn',
+						},
+					],
 				},
 				'cbc:Note': {
 					type: 'string',
@@ -6033,7 +6040,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				],
 			},
 			'UNCL1001-cn': {
-				enum: ['81', '83', '381', '396', '532'],
+				enum: ['81', '83', '381', '384', '396', '532'],
 			},
 			UNCL7161: {
 				enum: [
@@ -6499,7 +6506,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 		dataTypes: {
 			Amount: {
 				type: 'string',
-				pattern: '^(0|[1-9][0-9]*)(.[0-9]{1,2})?$',
+				pattern: '^[-+]?(0|[1-9][0-9]*)(.[0-9]{1,2})?$',
 			},
 			'Binary object': {
 				type: 'string',
@@ -6512,11 +6519,11 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 			},
 			Percentage: {
 				type: 'string',
-				pattern: '^(0|[1-9][0-9]*)(.[0-9]{1,4})?$',
+				pattern: '^[-+]?(0|[1-9][0-9]*)(.[0-9]{1,4})?$',
 			},
 			Quantity: {
 				type: 'string',
-				pattern: '^(0|[1-9][0-9]*)(.[0-9]+)?$',
+				pattern: '^[-+]?(0|[1-9][0-9]*)(.[0-9]+)?$',
 			},
 		},
 	},

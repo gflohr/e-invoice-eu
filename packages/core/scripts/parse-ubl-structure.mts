@@ -48,7 +48,7 @@ const $defs = {
 	dataTypes: {
 		Amount: {
 			type: 'string',
-			pattern: '^(0|[1-9][0-9]*)(.[0-9]{1,2})?$',
+			pattern: '^[-+]?(0|[1-9][0-9]*)(.[0-9]{1,2})?$',
 		},
 		'Binary object': {
 			type: 'string',
@@ -65,11 +65,11 @@ const $defs = {
 			type: 'string',
 			// FIXME! The ZUGFeRD documentation states that a percentage must have
 			// a maximum of 4 decimal digts. Is that correct?
-			pattern: '^(0|[1-9][0-9]*)(.[0-9]{1,4})?$',
+			pattern: '^[-+]?(0|[1-9][0-9]*)(.[0-9]{1,4})?$',
 		},
 		Quantity: {
 			type: 'string',
-			pattern: '^(0|[1-9][0-9]*)(.[0-9]+)?$',
+			pattern: '^[-+]?(0|[1-9][0-9]*)(.[0-9]+)?$',
 		},
 	},
 };
@@ -108,6 +108,31 @@ function patchSchema(schema: JSONSchemaType<object>) {
 		(elem: string) =>
 			elem !== 'cbc:CustomizationID' && elem !== 'cbc:ProfileID',
 	);
+
+	// We support credit notes in the same way that CII does. You can freely
+	// choose codes from both the invoice type code list and the credit note
+	// code type list. If the invoice syntax is UBL, then the element names
+	// are patched at runtime.
+	const typeSchema = schema.properties['ubl:Invoice'].properties['cbc:InvoiceTypeCode'];
+	const invListRef = typeSchema['$ref'];
+	delete typeSchema['$ref'];
+	const cnListRef = invListRef.replace(/-inv$/, '-cn');
+	typeSchema.anyOf = [
+		{ '$ref': invListRef },
+		{ '$ref': cnListRef },
+	];
+	const cnList = cnListRef.replace(/.*\//, '');
+	const cnListArray = schema.$defs?.codeLists[cnList].enum;
+
+	// Insert the code "384" into the code list for credit notes.  This is the
+	// code for "Corrected invoice" in the invoice type code list.  It is
+	// missing in the UBL code list.
+	const index = cnListArray.findIndex(item => Number(item) > 384);
+	if (index === -1) {
+		cnListArray.push("384");
+	} else {
+		cnListArray.splice(index, 0, "384");
+	}
 }
 
 /**

@@ -6,7 +6,7 @@ ubl:Invoice:
   cbc:ID: =O12
   cbc:IssueDate: =I6
   cbc:DueDate: =I12
-  cbc:InvoiceTypeCode: "380"
+  cbc:InvoiceTypeCode: =M19
   cbc:DocumentCurrencyCode: =O11
   cbc:BuyerReference: =I11
   cac:InvoicePeriod:
