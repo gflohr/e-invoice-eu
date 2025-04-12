@@ -47,7 +47,7 @@ exports[`UBL should filenames without a dot correctly 1`] = `
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
 	<cac:AdditionalDocumentReference>
 		<cac:Attachment>
-			<cbc:EmbeddedDocumentBinaryObject mimeCode="application/pdf" filename="/path/to.files/invoice.pdf">SW52b2ljZQ==</cbc:EmbeddedDocumentBinaryObject>
+			<cbc:EmbeddedDocumentBinaryObject mimeCode="application/pdf" filename="invoice.pdf">SW52b2ljZQ==</cbc:EmbeddedDocumentBinaryObject>
 		</cac:Attachment>
 	</cac:AdditionalDocumentReference>
 </Invoice>"

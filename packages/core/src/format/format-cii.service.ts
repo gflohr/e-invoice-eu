@@ -1617,9 +1617,26 @@ export class FormatCIIService
 	}
 
 	private applySubPaths(path: string, subPaths: string[]) {
-		// Having this in its own method makes it easier to implement
-		// extra logic in the future.
-		return [path, ...subPaths].join('.');
+		for (const subPath of subPaths) {
+			// FIXME! The first two branches seem to be dead code.
+			if (subPath === '..') {
+				path = path.replace(/[[.][^[.]+$/, '');
+			} else if (subPath.startsWith('@')) {
+				const match = path.match(/^(.*?)(\[[0-9]+\])$/);
+				if (match) {
+					const basePath = match[1]; // The part before the brackets
+					const indexPart = match[2] || ''; // The brackets with the number, if they exist
+
+					path = `${basePath}${subPath}${indexPart}`;
+				} else {
+					path += subPath;
+				}
+			} else {
+				path += `.${subPath}`;
+			}
+		}
+
+		return path;
 	}
 
 	private vivifyDest(
