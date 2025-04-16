@@ -31,7 +31,7 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css?1744350155" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1744819557" rel="stylesheet">
 
 
 
@@ -281,16 +281,12 @@ and where they live inside the syntax tree.</p>
     </div>
     <p>
 
-
-
 The XML standards also specify the exact order of elements. Fortunately,
 E-Invoice-EU automatically sorts its output so that you don't have to bother
 about the order of your input data, no matter whether it comes from a
 spreadsheet via a <a href="/e-invoice-eu/en/docs/details/mapping/">Mapping</a> or
 directly from JSON in the <a
 href="/e-invoice-eu/en/docs/details/internal-format/">internal invoice format</a>.
-
-
 
 </p>
 </div>
@@ -348,14 +344,10 @@ documentation</a>.</p>
     </div>
     <p>
 
-
-
 Well, you will have no choice. E-invoice validation software quotes these
 rules in their error messages. It is very hard to understand the error
 messages without knowing what exactly the business terms mentioned in the
 rule stand for.
-
-
 
 </p>
 </div>
@@ -412,12 +404,8 @@ software for validation purposes.</p>
     </div>
     <p>
 
-
-
 The list of software and websites following is incomplete. If you want to
 add an entry, please file an [issue](https://github.com/gflohr/e-invoice-eu/issues)!
-
-
 
 </p>
 </div>
@@ -488,11 +476,7 @@ it as <code>Mustang-CLI.jar</code> in the directory <code>contrib/validators/fac
 
 
 
-
-
 <pre class="language-shell"><code>node contrib/validators/factur-x/factur-x-validate.mjs INVOICE_DOCUMENT</code></pre>
-
-
 
 
 
@@ -538,11 +522,7 @@ in the directory <code>contrib/validators/kosit</code>.</p>
 
 
 
-
-
 <pre class="language-shell"><code>java -jar contrib/validators/kosit/validationtool.jar</code></pre>
-
-
 
 
 
@@ -561,11 +541,7 @@ This should now work:</p>
 
 
 
-
-
 <pre class="language-shell"><code>ls contrib/validators/kosit/xrechnung-scenario/scenarios.xml</code></pre>
-
-
 
 
 
@@ -581,11 +557,7 @@ German XRECHNUNG format.</p>
 
 
 
-
-
 <pre class="language-shell"><code>node contrib/validators/kosit/validate.mjs invoice.pdf</code></pre>
-
-
 
 
 
@@ -605,11 +577,7 @@ more than one document at once.</p>
 
 
 
-
-
 <pre class="language-shell"><code>node contrib/validators/kosit/validate.mjs --daemon</code></pre>
-
-
 
 
 
@@ -621,8 +589,6 @@ more than one document at once.</p>
 to be validated.</p>
 
 <p>Alternatively, you can also use <code>curl</code> or <code>httpie</code>:</p>
-
-
 
 
 
@@ -654,11 +620,7 @@ to be validated.</p>
 
 
 
-
-
 <pre class="language-shell"><code>$ node contrib/validators/kosit/validate.mjs --help</code></pre>
-
-
 
 
 
@@ -1047,7 +1009,7 @@ and <code>--repository</code>.</p>
  
 
 
-  <script src="/e-invoice-eu/assets/bundle.min.js?1744350155" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1744819557" type="text/javascript"></script>
 
 
 
