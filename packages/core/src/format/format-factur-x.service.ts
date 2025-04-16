@@ -173,7 +173,7 @@ export class FormatFacturXService
 				conformanceLevel = 'MINIMUM';
 				version = '1.0';
 				break;
-			case 'factur-x-basicwl':
+			case 'factur-x-basic wl':
 				filename = 'factur-x.xml';
 				conformanceLevel = 'BASIC WL';
 				version = '1.0';

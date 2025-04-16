@@ -241,7 +241,7 @@ describe('FormatFacturXService', () => {
 		});
 
 		it('should add XMP metadata for Factur-X-Basic WL', async () => {
-			mockOptions.format = 'Factur-X-BasicWL';
+			mockOptions.format = 'Factur-X-Basic WL';
 
 			const pdfBytes = await service.generate(mockInvoice, mockOptions);
 
@@ -310,7 +310,7 @@ describe('FormatFacturXService', () => {
 		});
 
 		it("should use 'factur-x.xml' as the filename for Factur-X-BasicWL", async () => {
-			mockOptions.format = 'Factur-X-BasicWL';
+			mockOptions.format = 'Factur-X-Basic WL';
 
 			const pdfBytes = await service.generate(mockInvoice, mockOptions);
 			expect(pdfBytes).toBeInstanceOf(Uint8Array);

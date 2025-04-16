@@ -6,11 +6,9 @@ description: Validating an e-invoice ensures that it adheres to the European sta
 ---
 
 <!--qgoda-no-xgettext-->
-
 [% USE q = Qgoda %]
 [% USE Highlight %]
 [% USE CodeGroup %]
-
 <!--/qgoda-no-xgettext-->
 
 When implementing an e-invoicing solution, it is almost guaranteed that the
@@ -31,22 +29,16 @@ and where they live inside the syntax tree.
 [% title = 'Order of Invoice Fields' %]
 
 <!--qgoda-no-xgettext-->
-
 [% WRAPPER components/infobox.html type='info' title=title %]
-
 <!--/qgoda-no-xgettext-->
-
 The XML standards also specify the exact order of elements. Fortunately,
 E-Invoice-EU automatically sorts its output so that you don't have to bother
 about the order of your input data, no matter whether it comes from a
 spreadsheet via a <a href="[% q.llink(name='mapping') %]">Mapping</a> or
 directly from JSON in the <a
 href="[% q.llink(name='internal-format') %]">internal invoice format</a>.
-
 <!--qgoda-no-xgettext-->
-
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 The correct syntax is ensured by E-Invoice-EU. It validates the input data
@@ -83,22 +75,15 @@ This documentation contains an almost complete list of business terms, see
 documentation](https://docs.peppol.eu/poacc/billing/3.0/).
 
 [% title = 'Why Reading Business Rules?' %]
-
 <!--qgoda-no-xgettext-->
-
 [% WRAPPER components/infobox.html type='info' title=title %]
-
 <!--/qgoda-no-xgettext-->
-
 Well, you will have no choice. E-invoice validation software quotes these
 rules in their error messages. It is very hard to understand the error
 messages without knowing what exactly the business terms mentioned in the
 rule stand for.
-
 <!--qgoda-no-xgettext-->
-
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 ### Business Groups
@@ -134,20 +119,13 @@ You can either upload e-invoices to an online validator or use self-hosted
 software for validation purposes.
 
 [% title = 'Missing Entry>' %]
-
 <!--qgoda-no-xgettext-->
-
 [% WRAPPER components/infobox.html type='info' title=title %]
-
 <!--/qgoda-no-xgettext-->
-
 The list of software and websites following is incomplete. If you want to
 add an entry, please file an [issue](https://github.com/gflohr/e-invoice-eu/issues)!
-
 <!--qgoda-no-xgettext-->
-
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 ### Online Validators
@@ -202,11 +180,9 @@ it as `Mustang-CLI.jar` in the directory `contrib/validators/factur-x`.
 After that you can validate Factur-X/ZUGFeRD like this:
 
 <!--qgoda-no-xgettext-->
-
 [% FILTER $Highlight "language-shell" %]
 node contrib/validators/factur-x/factur-x-validate.mjs INVOICE_DOCUMENT
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 In case of an error, you will get a detailed error report which is
@@ -247,11 +223,9 @@ in the directory `contrib/validators/kosit`.
 Please try out that you can run the validator executable with this command:
 
 <!--qgoda-no-xgettext-->
-
 [% FILTER $Highlight "language-shell" %]
 java -jar contrib/validators/kosit/validationtool.jar
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 It should display a help page with usage information.
@@ -265,11 +239,9 @@ and unpack it in the directory `contrib/validators/kosit/xrechnung-scenario`.
 This should now work:
 
 <!--qgoda-no-xgettext-->
-
 [% FILTER $Highlight "language-shell" %]
 ls contrib/validators/kosit/xrechnung-scenario/scenarios.xml
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 This scenario contains schemas for UBL, CII, and various versions of the
@@ -280,11 +252,9 @@ German XRECHNUNG format.
 Now you can run the validator like this:
 
 <!--qgoda-no-xgettext-->
-
 [% FILTER $Highlight "language-shell" %]
 node contrib/validators/kosit/validate.mjs invoice.pdf
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 You will see the result of the validation on the console. Additionally, a
@@ -299,11 +269,9 @@ more than one document at once.
 Alternatively, you can start the validator as a daemon:
 
 <!--qgoda-no-xgettext-->
-
 [% FILTER $Highlight "language-shell" %]
 node contrib/validators/kosit/validate.mjs --daemon
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 The option `-D` is an alias for `--daemon`.
@@ -314,7 +282,6 @@ to be validated.
 Alternatively, you can also use `curl` or `httpie`:
 
 <!--qgoda-no-xgettext-->
-
 [% FILTER $CodeGroup %]
 [curl]
 [% FILTER $Highlight "language-shell" %]
@@ -326,17 +293,14 @@ $ curl POST -d @./invoice.xml http://localhost:8080/
 $ http POST -d @./invoice.xml http://localhost:8080/
 [% END %]
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 For complete usage information of the validator, run this command:
 
 <!--qgoda-no-xgettext-->
-
 [% FILTER $Highlight "language-shell" %]
 $ node contrib/validators/kosit/validate.mjs --help
 [% END %]
-
 <!--/qgoda-no-xgettext-->
 
 Note that the wrapper script always passes the mandatory arguments `--scenarios`

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 import { spawn } from 'child_process';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
 import { existsSync } from 'fs';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -31,7 +31,14 @@ const args = [
 	'-jar', jarPath,
 	'--scenarios', scenarios,
 	'--repository', repository,
-	scriptArgs,
+	...scriptArgs,
 ];
 
-spawn(command, args, { stdio: 'inherit' });
+const child = spawn(command, args, { stdio: 'inherit' });
+child.on('error', (error) => {
+	console.error(`Error spawning '${command}': ${error.message}`);
+	process.exit(1);
+});
+child.on('close', (code) => {
+	process.exit(code);
+});

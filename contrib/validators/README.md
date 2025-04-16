@@ -9,5 +9,5 @@ of the German [Koordinierungsstelle für IT-Standards -
 KoSIT](https://www.xoev.de/).
 
 Please see the [E-Invoice-EU documentation about e-invoice
-validation](http://localhost:3000/e-invoice-eu/en/docs/details/validation/)
+validation](http://gflohr.github.io/e-invoice-eu/en/docs/details/validation/)
 for more information.
