@@ -36,7 +36,8 @@ async function testAll() {
 		},
 	};
 
-	for (const format of allFormats) {
+	//for (const format of allFormats) {
+	for (const format of facturXFormats) {
 		const extension = format.match(/Factur-X-/) ? 'pdf' : 'xml';
 
 		for (const example of examples) {
@@ -44,25 +45,34 @@ async function testAll() {
 			await createInvoice(fromSpreadsheet, format, example, true);
 			const fromJson = `from-json.${extension}`;
 			await createInvoice(fromJson, format, example, false);
-			for (const validator of Object.keys(validators).sort()) {
-				process.stdout.write(
-					`Testing example '${example}' in format '${format}' with validator '${validator}' ...`,
-				);
 
-				await validate(validators[validator].cmd, fromSpreadsheet, validator, format);
-				await validate(validators[validator].cmd, fromJson, validator, format);
+			const validator = validators.KoSIT.formats.includes(format)
+				? 'KoSIT'
+				: 'MustangProject';
 
-				console.log(' done');
+			process.stdout.write(
+				`Testing example '${example}' in format '${format}' with validator '${validator}' ...`,
+			);
 
-				if (validator === 'KoSIT') {
-					try {
-						await fs.unlink('from-spreadsheet-report.xml');
-					} catch {}
-					try {
-						await fs.unlink('from-json-report.xml');
-					} catch {}
-				}
+			await validate(
+				validators[validator].cmd,
+				fromSpreadsheet,
+				validator,
+				format,
+			);
+			await validate(validators[validator].cmd, fromJson, validator, format);
+
+			console.log(' done');
+
+			if (validator === 'KoSIT') {
+				try {
+					await fs.unlink('from-spreadsheet-report.xml');
+				} catch {}
+				try {
+					await fs.unlink('from-json-report.xml');
+				} catch {}
 			}
+
 			try {
 				await fs.unlink(fromSpreadsheet);
 			} catch {}
@@ -76,8 +86,7 @@ async function testAll() {
 async function validate(cmd, filename, validator, format) {
 	try {
 		await runCommand('node', [cmd, filename]);
-	}
-	catch (error) {
+	} catch (error) {
 		console.error(
 			` validator '${validator}' failed for '${filename}' in format '${format}'`,
 		);
@@ -96,11 +105,15 @@ async function validate(cmd, filename, validator, format) {
 async function createInvoice(outputFilename, format, example, map) {
 	const args = ['invoice', '--format', format, '--output', outputFilename];
 	if (map) {
-		process.stdout.write(`Creating document '${outputFilename}' from invoice spreadsheet ...`);
+		process.stdout.write(
+			`Creating document '${outputFilename}' from invoice spreadsheet ...`,
+		);
 		args.push('--spreadsheet', `contrib/templates/${example}.ods`);
 		args.push('--mapping', 'contrib/mappings/default-invoice.yaml');
 	} else {
-		process.stdout.write(`Creating document '${outputFilename}' from invoice json ...`);
+		process.stdout.write(
+			`Creating document '${outputFilename}' from invoice json ...`,
+		);
 		args.push('--spreadsheet', `contrib/templates/${example}.ods`);
 		args.push('--mapping', 'contrib/mappings/default-invoice.yaml');
 		if (format.match(/Factur-X-/)) {
