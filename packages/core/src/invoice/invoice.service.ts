@@ -130,6 +130,8 @@ export class InvoiceService {
 			this.logger,
 		);
 
+		options.format = this.formatFactoryService.normalizeFormat(options.format);
+
 		return formatter.generate(invoice, options);
 	}
 }
