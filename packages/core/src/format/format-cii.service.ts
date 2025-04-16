@@ -107,7 +107,7 @@ export type Transformation =
 			src: string[];
 			dest: string[];
 			children: Transformation[];
-			fxProfileMask?: never;
+			fxProfileMask: FXProfile;
 	  }
 	| {
 			type: 'string';
@@ -136,6 +136,7 @@ const cacAdditionalItemProperty: Transformation = {
 			fxProfileMask: FX_MASK_EN16931,
 		},
 	],
+	fxProfileMask: FX_MASK_MINIMUM,
 };
 
 const cacCommodityClassification: Transformation = {
@@ -150,6 +151,7 @@ const cacCommodityClassification: Transformation = {
 			fxProfileMask: FX_MASK_EN16931,
 		},
 	],
+	fxProfileMask: FX_MASK_MINIMUM,
 };
 
 const cacItem: Transformation = {
@@ -202,6 +204,7 @@ const cacItem: Transformation = {
 			fxProfileMask: FX_MASK_EN16931,
 		},
 	],
+	fxProfileMask: FX_MASK_MINIMUM,
 };
 
 const cacOrderLineReference: Transformation = {
@@ -216,6 +219,7 @@ const cacOrderLineReference: Transformation = {
 			fxProfileMask: FX_MASK_EN16931,
 		},
 	],
+	fxProfileMask: FX_MASK_MINIMUM,
 };
 
 const cacPrice: Transformation = {
@@ -284,6 +288,7 @@ const cacPrice: Transformation = {
 			fxProfileMask: FX_MASK_BASIC,
 		},
 	],
+	fxProfileMask: FX_MASK_MINIMUM,
 };
 
 const cacInvoiceLinePeriod: Transformation[] = [
@@ -375,6 +380,7 @@ const cacInvoiceLineAllowanceCharge: Transformation = {
 			fxProfileMask: FX_MASK_BASIC,
 		},
 	],
+	fxProfileMask: FX_MASK_MINIMUM,
 };
 
 const cacDocumentReference: Transformation = {
@@ -395,6 +401,7 @@ const cacDocumentReference: Transformation = {
 			fxProfileMask: FX_MASK_EN16931,
 		},
 	],
+	fxProfileMask: FX_MASK_MINIMUM,
 };
 
 const cacInvoiceLine: Transformation = {
@@ -473,7 +480,7 @@ const cacInvoiceLine: Transformation = {
 				'ram:SpecifiedTradeSettlementLineMonetarySummation',
 				'ram:LineTotalAmount',
 			],
-			fxProfileMask: FX_MASK_BASIC,
+			fxProfileMask: FX_MASK_BASIC_WL,
 		},
 		cacDocumentReference,
 		{
@@ -483,6 +490,7 @@ const cacInvoiceLine: Transformation = {
 			fxProfileMask: FX_MASK_EN16931,
 		},
 	],
+	fxProfileMask: FX_MASK_BASIC,
 };
 
 export const cacPostalAddress: Transformation[] = [
@@ -559,6 +567,7 @@ export const cacAccountingSupplierParty: Transformation[] = [
 				fxProfileMask: FX_MASK_BASIC_WL,
 			},
 		],
+		fxProfileMask: FX_MASK_MINIMUM,
 	},
 	{
 		type: 'string',
@@ -621,6 +630,7 @@ export const cacAccountingSupplierParty: Transformation[] = [
 		src: ['cac:PostalAddress'],
 		dest: ['ram:PostalTradeAddress'],
 		children: cacPostalAddress,
+		fxProfileMask: FX_MASK_MINIMUM,
 	},
 	{
 		type: 'string',
@@ -639,6 +649,7 @@ export const cacAccountingSupplierParty: Transformation[] = [
 		src: ['cac:PartyTaxScheme'],
 		dest: ['ram:SpecifiedTaxRegistration'],
 		children: cacPartyTaxScheme,
+		fxProfileMask: FX_MASK_MINIMUM,
 	},
 ];
 
@@ -684,6 +695,7 @@ export const cacAccountingCustomerParty: Transformation[] = [
 		src: ['cac:PostalAddress'],
 		dest: ['ram:PostalTradeAddress'],
 		children: cacPostalAddress,
+		fxProfileMask: FX_MASK_MINIMUM,
 	},
 	{
 		type: 'string',
@@ -702,6 +714,7 @@ export const cacAccountingCustomerParty: Transformation[] = [
 		src: ['cac:PartyTaxScheme'],
 		dest: ['ram:SpecifiedTaxRegistration'],
 		children: cacPartyTaxScheme,
+		fxProfileMask: FX_MASK_MINIMUM,
 	},
 ];
 
@@ -987,6 +1000,7 @@ export const cacInvoicePeriod: Transformation = {
 			fxProfileMask: FX_MASK_BASIC_WL,
 		},
 	],
+	fxProfileMask: FX_MASK_MINIMUM,
 };
 
 // Document-level allowances and charges.
@@ -1054,6 +1068,7 @@ export const cacAllowanceCharge: Transformation = {
 			fxProfileMask: FX_MASK_BASIC_WL,
 		},
 	],
+	fxProfileMask: FX_MASK_MINIMUM,
 };
 
 export const cacLegalMonetaryTotal: Transformation = {
@@ -1068,7 +1083,7 @@ export const cacLegalMonetaryTotal: Transformation = {
 			type: 'string',
 			src: ['cbc:LineExtensionAmount'],
 			dest: ['ram:LineTotalAmount'],
-			fxProfileMask: FX_MASK_BASIC,
+			fxProfileMask: FX_MASK_BASIC_WL,
 		},
 		{
 			type: 'string',
@@ -1111,8 +1126,10 @@ export const cacLegalMonetaryTotal: Transformation = {
 							fxProfileMask: FX_MASK_MINIMUM,
 						},
 					],
+					fxProfileMask: FX_MASK_MINIMUM,
 				},
 			],
+			fxProfileMask: FX_MASK_MINIMUM,
 		},
 		{
 			type: 'string',
@@ -1139,6 +1156,7 @@ export const cacLegalMonetaryTotal: Transformation = {
 			fxProfileMask: FX_MASK_MINIMUM,
 		},
 	],
+	fxProfileMask: FX_MASK_MINIMUM,
 };
 
 export const ublInvoice: Transformation = {
@@ -1222,12 +1240,14 @@ export const ublInvoice: Transformation = {
 					src: ['cac:AccountingSupplierParty', 'cac:Party'],
 					dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:SellerTradeParty'],
 					children: cacAccountingSupplierParty,
+					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				{
 					type: 'object',
 					src: ['cac:AccountingCustomerParty', 'cac:Party'],
 					dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:BuyerTradeParty'],
 					children: cacAccountingCustomerParty,
+					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				{
 					type: 'string',
@@ -1267,6 +1287,7 @@ export const ublInvoice: Transformation = {
 						'ram:AdditionalReferencedDocument',
 					],
 					children: cacAdditionalDocumentReference,
+					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				{
 					type: 'string',
@@ -1283,6 +1304,7 @@ export const ublInvoice: Transformation = {
 					src: [],
 					dest: ['ram:ApplicableHeaderTradeDelivery'],
 					children: [],
+					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				// FIXME! This is an array for CII.
 				{
@@ -1319,6 +1341,7 @@ export const ublInvoice: Transformation = {
 						'ram:PostalTradeAddress',
 					],
 					children: deliveryAddress,
+					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				{
 					type: 'string',
@@ -1373,6 +1396,7 @@ export const ublInvoice: Transformation = {
 					src: ['cac:PayeeParty'],
 					dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:PayeeTradeParty'],
 					children: cacPayeeParty,
+					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				{
 					type: 'array',
@@ -1382,6 +1406,7 @@ export const ublInvoice: Transformation = {
 						'ram:SpecifiedTradeSettlementPaymentMeans',
 					],
 					children: cacPaymentMeans,
+					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				{
 					type: 'array',
@@ -1396,8 +1421,10 @@ export const ublInvoice: Transformation = {
 								'ram:ApplicableTradeTax',
 							],
 							children: cacTaxSubtotal,
+							fxProfileMask: FX_MASK_MINIMUM,
 						},
 					],
+					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				cacInvoicePeriod,
 				cacAllowanceCharge,
@@ -1472,6 +1499,7 @@ export const ublInvoice: Transformation = {
 							fxProfileMask: FX_MASK_BASIC_WL,
 						},
 					],
+					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				{
 					type: 'string',
@@ -1480,8 +1508,10 @@ export const ublInvoice: Transformation = {
 					fxProfileMask: FX_MASK_BASIC_WL,
 				},
 			],
+			fxProfileMask: FX_MASK_MINIMUM,
 		},
 	],
+	fxProfileMask: FX_MASK_MINIMUM,
 };
 
 export class FormatCIIService
@@ -1540,6 +1570,10 @@ export class FormatCIIService
 		transformations: Transformation[],
 	) {
 		for (const transformation of transformations) {
+			if (!(this.fxProfile & transformation.fxProfileMask)) {
+				continue;
+			}
+
 			const lastSrcKey = transformation.src[transformation.src.length - 1];
 			let src: any;
 			let childSrcPath: string;
@@ -1603,13 +1637,11 @@ export class FormatCIIService
 					}
 					break;
 				case 'string':
-					if (this.fxProfile & transformation.fxProfileMask) {
-						this.vivifyDest(
-							dest,
-							childDestPath,
-							this.renderValue(src, transformation),
-						);
-					}
+					this.vivifyDest(
+						dest,
+						childDestPath,
+						this.renderValue(src, transformation),
+					);
 
 					break;
 			}
