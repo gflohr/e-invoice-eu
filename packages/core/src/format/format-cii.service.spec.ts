@@ -85,4 +85,25 @@ describe('CII', () => {
 		const xml = await service.generate(invoice, options);
 		expect(xml).toMatchSnapshot();
 	});
+
+	describe('regressions', () => {
+		it('should fix #146 (missing TaxTotalAmount)', async () => {
+			const invoice: Invoice = {
+				'ubl:Invoice': {
+					'cac:TaxTotal': [
+						{
+							'cbc:TaxAmount': '20.00',
+							'cbc:TaxAmount@currencyID': 'BGN',
+						},
+					],
+					'cac:LegalMonetaryTotal': {
+						'cbc:LineExtensionAmount': '100.00',
+					},
+				},
+			} as unknown as Invoice;
+			const options = {} as InvoiceServiceOptions;
+			const xml = await service.generate(invoice, options);
+			expect(xml).toMatchSnapshot();
+		});
+	});
 });
