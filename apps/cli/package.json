@@ -49,6 +49,8 @@
 		"lint:fix-dry-run": "eslint --fix './src/**/*.ts'",
 		"lint:staged": "lint-staged",
 		"pretest": "node ./write-package.mjs >src/package.ts",
+		"pretest:watch": "node ./write-package.mjs >src/package.ts",
+		"pretest:cov": "node ./write-package.mjs >src/package.ts",
 		"test": "jest",
 		"test:watch": "jest --watch",
 		"test:cov": "jest --coverage",
