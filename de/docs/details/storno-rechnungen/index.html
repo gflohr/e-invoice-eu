@@ -6,10 +6,10 @@
  <link
 	rel="alternate"
 	hreflang="en"
-	href="/e-invoice-eu/en/docs/basics/general-mode-of-operation/"
+	href="/e-invoice-eu/en/docs/details/credit-notes/"
 />  
-<meta name="description" content="Die Software bildet Daten aus einer Tabellenkalkulation auf JSON ab, aus der die E-Rechnung generiert wird. Die Rechnung kann aber auch direkt aus JSON erzeugt werden." />
-<title>Generelle Funktionsweise</title>
+<meta name="description" content="Credit notes and corrected invoices are reversed invoices with a different document type code. Otherwise, there is nothing special about them." />
+<title>Credit Notes</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link
 	rel="shortcut icon"
@@ -17,11 +17,11 @@
 	type="image/png"
 />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
-<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/grundlagen/funktionsweise/" />
-<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/grundlagen/funktionsweise/" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/details/storno-rechnungen/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/details/storno-rechnungen/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="Generelle Funktionsweise" />
-<meta property="og:description" content="Die Software bildet Daten aus einer Tabellenkalkulation auf JSON ab, aus der die E-Rechnung generiert wird. Die Rechnung kann aber auch direkt aus JSON erzeugt werden." />
+<meta property="og:title" content="Credit Notes" />
+<meta property="og:description" content="Credit notes and corrected invoices are reversed invoices with a different document type code. Otherwise, there is nothing special about them." />
 
 
 	<meta
@@ -33,8 +33,6 @@
 
   <link href="/e-invoice-eu/assets/bundle.min.css?1744907542" rel="stylesheet">
 
-
-  <link href="/e-invoice-eu/site/css/modal-image-popup.css?1744907506" rel="stylesheet">
 
 
   <meta name="generator" content="Qgoda vv0.11.0 (https://www.qgoda.net/)" />
@@ -110,9 +108,9 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>Generelle Funktionsweise</h1>
+					<h1>Credit Notes</h1>
 					
-					<div class="description">Die Software bildet Daten aus einer Tabellenkalkulation auf JSON ab, aus der die E-Rechnung generiert wird. Die Rechnung kann aber auch direkt aus JSON erzeugt werden.</div>
+					<div class="description">Credit notes and corrected invoices are reversed invoices with a different document type code. Otherwise, there is nothing special about them.</div>
 				</div>
 				<qgoda-content> 
 
@@ -122,33 +120,96 @@
 
 
 
+<p>Sometimes invoices have to be corrected or invalidated altogether. The
+documents that have to be issued for that purpose are called credit notes,
+invoice corrections or corrected invoices.</p>
 
+<h2><a href="#" name="document-type-code" id="document-type-code"></a>Document Type Code</h2>
 
-<div class="img"><img src="/e-invoice-eu/images/basics/general-mode-of-operation/flow-chart.webp" alt="Flowchart der generellen Funktionsweise von E-Invoice-EU" sizes="(max-width: 575px) calc(100vw - 30px), (max-width: 767px) 510px (max-width: 991px) 396px (max-width: 1199px) 528px (max-width: 1399px) 627px 726px" srcset="/e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-160w.webp 160w, /e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-320w.webp 320w, /e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-640w.webp 640w, /e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-1280w.webp 1280w, /e-invoice-eu//images/basics/general-mode-of-operation/flow-chart-1920w.webp 1920w"></img></div>
-
-
-<p>Die Software wurde unter der Annahme erstellt, dass viele kleine Firmen ihre Rechnungen mit Hilfe einer Tabellenkalkulation wie <a href="https://www.libreoffice.org/" target="_blank">LibreOffice</a> erstellen. Das bedeutet, dass die Rechnungsdaten schon in strukturierter Form vorliegen.</p>
-
-<p>Damit müssen lediglich noch die Eingabedaten aus der Tabellenkalkulation auf das Ausgabe-XML der elektronischen Rechnung abgebildet werden. Weil mehrere XML-Ausgabe-Formate unterstützt werden, ist es sinnvoll, die Eingabedaten zunächst auf ein allgemeines <a href="/e-invoice-eu/de/docs/details/internes-format/">internes Format</a> abzubilden, und daraus dann das gewünschte Ausgabeformat zu generieren.</p>
-
-<p>Das gewählte interne Format ist größtenteils äquivalent zu <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/" target="_blank">Peppol UBL</a>. Das hat Vorteile:</p>
+<p>As far as E-Invoice-EU is concerned, there is nothing special about such
+invoices. They simply have a different <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-InvoiceTypeCode/" target="_blank">invoice type
+code</a>:</p>
 
 <ul>
-<li>The documentation is browsable and relatively easy to understand.</li>
-<li>It is generated from data (see <a href="https://github.com/OpenPEPPOL/peppol-bis-invoice-3" target="_blank">https://github.com/OpenPEPPOL/peppol-bis-invoice-3</a>) that also allows generating <a href="https://json-schema.org/" target="_blank">JSON schema</a> definitions.</li>
-<li>From these JSON schema definitions, it is possible to generate large parts of the code of E-Invoice-EU.</li>
+<li>381 for credit notes</li>
+<li>384 for corrected invoices</li>
 </ul>
 
 
-<p>Im Ergebnis ist es einfach, die Implementierung synchron mit den aktuellen Standards von Peppol zu halten.</p>
+<p>For practical purposes, these two are synonyms (although accountants will maybe
+disagree on that). The UBL standard prefers 381, for CII the preferred code
+is 384.</p>
+
+<h2><a href="#" name="reverse-quantities-discount-charge-rates-and-amounts-of-money" id="reverse-quantities-discount-charge-rates-and-amounts-of-money"></a>Reverse Quantities, Discount/Charge Rates, and Amounts of Money</h2>
+
+<p>If you use a negative quantity for the line items, all amounts of money that
+are calculated from that will become negative. For allowances and charges,
+you have to either use a negative percentage (for example "-3 %" instead of
+"3 %") or if you have specified them as an absolute value, you have to negate
+that value.</p>
+
+<p>The resulting invoice should look like the original invoice with all quantities
+and amounts of money multiplied by -1.</p>
+
+<h2><a href="#" name="ubl-creditnote" id="ubl-creditnote"></a>UBL CreditNote</h2>
+
+<p>The standard CII only supports invoices.</p>
+
+<p>Unlike CII, UBL supports two distinct document types
+<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/tree/" target="_blank"><code>ubl:Invoice</code></a>
+and
+<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-creditnote/tree/" target="_blank"><code>ubl:CreditNote</code></a>.
+The schema for the latter is alomost identical to <code>Invoice</code> with these
+exceptions:</p>
+
+<ul>
+<li>The root element is <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-creditnote/tree/" target="_blank"><code>ubl:CreditNote</code></a>, not <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/tree/" target="_blank"><code>ubl:Invoice</code></a>.</li>
+<li>The code lists for the document type code differ.</li>
+<li>Most element name that begin with <code>cac:Invoice</code> or <code>cbc:Invoice</code> begin with <code>cac:CreditNote</code> resp. <code>cbc:CreditNote</code> instead.</li>
+</ul>
+
+
+<p>As a user of E-Invoice-EU, you do not have to care about that. The software
+translates the element names automatically depending on the document type.</p>
+
+
+
+
+
+
+<div class="alert alert-info" role="alert">
+    <div>
+        <strong>
+            <i class="bi-info-circle"></i>
+            <span class="title">Element Names</span>
+        </strong>
+    </div>
+    <p>
+
+Even if the UBL output generated by E-Invoice-EU is a <code>CreditNote</code>
+and not an <code>Invoice</code>, the element names in the input should not
+change. You still have to use <code>Invoice</code> everywhere, whether
+the input data comes from a <a href="/e-invoice-eu/de/docs/details/mapping/">Mapping</a> or from data in the
+<a href="/e-invoice-eu/de/docs/details/internes-format/">Internes Format</a>. If there is demand for it, this may
+change in the future and you can optionally use the `CreditNote` namespace
+instead.
+
+</p>
+</div>
+
+
+
+
+
+
  
 				 
 <div class="guided-tour container">
 	<div class="row">
 		<div class="col-5 text-left guided-tour-link">
 			
-			<a href="/e-invoice-eu/de/docs/"
-				><i class="bi-arrow-left-circle"></i>&nbsp;E-Invoice-EU</a>
+			<a href="/e-invoice-eu/de/docs/details/validierung/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;Validierung</a>
 			
 		</div>
 		<div class="col-2 text-center guided-tour-link">
@@ -158,8 +219,8 @@
 		</div>
 		<div class="col-5 text-end guided-tour-link">
 			
-			<a href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/"
-				>Unterstützte Formate&nbsp;<i
+			<a href="/e-invoice-eu/de/docs/anderes/bibliothek-e-invoice-eu/"
+				>E-Invoice-EU Library&nbsp;<i
 					class="bi-arrow-right-circle"
 				></i></a>
 			
@@ -179,14 +240,14 @@
 			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
 		</li>
 		<li>
-			<a href="https://github.com/gflohr/e-invoice-eu/blob/main/packages/docs/de/docs/grundlagen/funktionsweise.md?plain=1" target="_blank">
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/main/packages/docs/de/docs/details/storno-rechnungen.md?plain=1" target="_blank">
 				<i class="bi-code-slash"></i>
 				Source code of this page
 			</a>
 		</li>
 		
 		<li>
-			<a href="/e-invoice-eu/en/docs/basics/general-mode-of-operation/">
+			<a href="/e-invoice-eu/en/docs/details/credit-notes/">
 				<i class="bi-translate"></i>
 				Read this page in English
 			</a>
@@ -203,7 +264,8 @@
 		
 		<li>
 			
-			<i class="bi-arrow-right-circle"></i>&nbsp;Generelle Funktionsweise 
+			<a href="/e-invoice-eu/de/docs/grundlagen/funktionsweise/">Generelle Funktionsweise</a>
+			
 		</li>
 		
 		<li>
@@ -368,8 +430,7 @@
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/details/storno-rechnungen/">Credit Notes</a>
-			
+			<i class="bi-arrow-right-circle"></i>&nbsp;Credit Notes 
 		</li>
 		
 	</ol>
@@ -530,8 +591,6 @@
 
   <script src="/e-invoice-eu/assets/bundle.min.js?1744907542" type="text/javascript"></script>
 
-
-  <script src="/e-invoice-eu/site/js/modal-image-popup.js?1744907506" type="text/javascript"></script>
 
 
 </body>

@@ -6,10 +6,10 @@
   <link
 	rel="alternate"
 	hreflang="de"
-	href="/e-invoice-eu/de/docs/kommandozeilen-tool/installation/"
+	href="/e-invoice-eu/de/docs/details/storno-rechnungen/"
 /> 
-<meta name="description" content="The tool &lt;code&gt;e-invoice-eu&lt;/code&gt; can be used to create electronic invoices on the commandline." />
-<title>Installation</title>
+<meta name="description" content="Credit notes and corrected invoices are reversed invoices with a different document type code. Otherwise, there is nothing special about them." />
+<title>Credit Notes</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link
 	rel="shortcut icon"
@@ -17,11 +17,11 @@
 	type="image/png"
 />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
-<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/cli/installation/" />
-<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/cli/installation/" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/details/credit-notes/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/en/docs/details/credit-notes/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="Installation" />
-<meta property="og:description" content="The tool &lt;code&gt;e-invoice-eu&lt;/code&gt; can be used to create electronic invoices on the commandline." />
+<meta property="og:title" content="Credit Notes" />
+<meta property="og:description" content="Credit notes and corrected invoices are reversed invoices with a different document type code. Otherwise, there is nothing special about them." />
 
 
 	<meta
@@ -108,9 +108,9 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>Installation</h1>
+					<h1>Credit Notes</h1>
 					
-					<div class="description">The tool <code>e-invoice-eu</code> can be used to create electronic invoices on the commandline.</div>
+					<div class="description">Credit notes and corrected invoices are reversed invoices with a different document type code. Otherwise, there is nothing special about them.</div>
 				</div>
 				<qgoda-content> 
 
@@ -120,47 +120,57 @@
 
 
 
-<p>You can install the commandline tool <code>e-invoice-eu</code> like this:</p>
+<p>Sometimes invoices have to be corrected or invalidated altogether. The
+documents that have to be issued for that purpose are called credit notes,
+invoice corrections or corrected invoices.</p>
+
+<h2><a href="#" name="document-type-code" id="document-type-code"></a>Document Type Code</h2>
+
+<p>As far as E-Invoice-EU is concerned, there is nothing special about such
+invoices. They simply have a different <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-InvoiceTypeCode/" target="_blank">invoice type
+code</a>:</p>
+
+<ul>
+<li>381 for credit notes</li>
+<li>384 for corrected invoices</li>
+</ul>
 
 
+<p>For practical purposes, these two are synonyms (although accountants will maybe
+disagree on that). The UBL standard prefers 381, for CII the preferred code
+is 384.</p>
+
+<h2><a href="#" name="reverse-quantities-discount-charge-rates-and-amounts-of-money" id="reverse-quantities-discount-charge-rates-and-amounts-of-money"></a>Reverse Quantities, Discount/Charge Rates, and Amounts of Money</h2>
+
+<p>If you use a negative quantity for the line items, all amounts of money that
+are calculated from that will become negative. For allowances and charges,
+you have to either use a negative percentage (for example "-3 %" instead of
+"3 %") or if you have specified them as an absolute value, you have to negate
+that value.</p>
+
+<p>The resulting invoice should look like the original invoice with all quantities
+and amounts of money multiplied by -1.</p>
+
+<h2><a href="#" name="ubl-creditnote" id="ubl-creditnote"></a>UBL CreditNote</h2>
+
+<p>The standard CII only supports invoices.</p>
+
+<p>Unlike CII, UBL supports two distinct document types
+<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/tree/" target="_blank"><code>ubl:Invoice</code></a>
+and
+<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-creditnote/tree/" target="_blank"><code>ubl:CreditNote</code></a>.
+The schema for the latter is alomost identical to <code>Invoice</code> with these
+exceptions:</p>
+
+<ul>
+<li>The root element is <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-creditnote/tree/" target="_blank"><code>ubl:CreditNote</code></a>, not <a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/tree/" target="_blank"><code>ubl:Invoice</code></a>.</li>
+<li>The code lists for the document type code differ.</li>
+<li>Most element name that begin with <code>cac:Invoice</code> or <code>cbc:Invoice</code> begin with <code>cac:CreditNote</code> resp. <code>cbc:CreditNote</code> instead.</li>
+</ul>
 
 
-
-
-<div class="code-group"><code-group>
-    <code-tabs>
-        <input type='radio' name='group-23fec64cc3f03070047d879434bd0e0cf782bdc0' id='code-tab-6643a9677b12759e779befd0f9fefe3affb8f04a' checked>
-        <label data-title='npm' for='code-tab-6643a9677b12759e779befd0f9fefe3affb8f04a'>npm</label>
-        <input type='radio' name='group-23fec64cc3f03070047d879434bd0e0cf782bdc0' id='code-tab-ebc745803545958b4f876ea2ed94c3c2947e4c5f'>
-        <label data-title='yarn' for='code-tab-ebc745803545958b4f876ea2ed94c3c2947e4c5f'>yarn</label>
-        <input type='radio' name='group-23fec64cc3f03070047d879434bd0e0cf782bdc0' id='code-tab-dccc9b9df1eb61179bde6b298d647bc45f92a854'>
-        <label data-title='pnpm' for='code-tab-dccc9b9df1eb61179bde6b298d647bc45f92a854'>pnpm</label>
-        <input type='radio' name='group-23fec64cc3f03070047d879434bd0e0cf782bdc0' id='code-tab-84cb4e54900c1e4e1d50c1b84a351fbc6fc39eec'>
-        <label data-title='bun' for='code-tab-84cb4e54900c1e4e1d50c1b84a351fbc6fc39eec'>bun</label>
-    </code-tabs>
-    <code-blocks>
-            <code-block id='code-block-6643a9677b12759e779befd0f9fefe3affb8f04a' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>npm install -g @e-invoice-eu/cli</code></pre>
-
-</code-block>
-            <code-block id='code-block-ebc745803545958b4f876ea2ed94c3c2947e4c5f'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>yarn global add @e-invoice-eu/cli</code></pre>
-
-</code-block>
-            <code-block id='code-block-dccc9b9df1eb61179bde6b298d647bc45f92a854'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>pnpm add -g @e-invoice-eu/cli</code></pre>
-
-</code-block>
-            <code-block id='code-block-84cb4e54900c1e4e1d50c1b84a351fbc6fc39eec'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>bun add -g @e-invoice-eu/cli</code></pre>
-</code-block>
-    </code-blocks>
-</code-group></div>
-
-
-
-
-
-
-
-<p>If you lack the required permissions to install the command globally,
-you may have to prepend <code>sudo</code> to the command.</p>
+<p>As a user of E-Invoice-EU, you do not have to care about that. The software
+translates the element names automatically depending on the document type.</p>
 
 
 
@@ -171,19 +181,18 @@ you may have to prepend <code>sudo</code> to the command.</p>
     <div>
         <strong>
             <i class="bi-info-circle"></i>
-            <span class="title">Pro Tip: Use <code>nvm</code></span>
+            <span class="title">Element Names</span>
         </strong>
     </div>
     <p>
 
-
-
-You can avoid using <code>sudo</code> by using the <a href="https://github.com/nvm-sh/nvm" target="_blank">Node
-Version Manager <code>nvm</code></a>. That has the additional benefit that
-you have multiple versions of <a href="https://nodejs.org/" target="_blank">Node.js</a>
-available simultaneously.
-
-
+Even if the UBL output generated by E-Invoice-EU is a <code>CreditNote</code>
+and not an <code>Invoice</code>, the element names in the input should not
+change. You still have to use <code>Invoice</code> everywhere, whether
+the input data comes from a <a href="/e-invoice-eu/en/docs/details/mapping/">Mapping</a> or from data in the
+<a href="/e-invoice-eu/en/docs/details/internal-format/">Internal Format</a>. If there is demand for it, this may
+change in the future and you can optionally use the `CreditNote` namespace
+instead.
 
 </p>
 </div>
@@ -193,21 +202,14 @@ available simultaneously.
 
 
 
-
-<p>Test that the installation has worked:</p>
-
-<pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>e-invoice-eu --version</code></pre>
-
-
-<p>That should output version information.</p>
  
 				 
 <div class="guided-tour container">
 	<div class="row">
 		<div class="col-5 text-left guided-tour-link">
 			
-			<a href="/e-invoice-eu/en/docs/e-invoice-formats/country-specific-extensions/"
-				><i class="bi-arrow-left-circle"></i>&nbsp;Extensions</a>
+			<a href="/e-invoice-eu/en/docs/details/validation/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;Validation</a>
 			
 		</div>
 		<div class="col-2 text-center guided-tour-link">
@@ -217,8 +219,8 @@ available simultaneously.
 		</div>
 		<div class="col-5 text-end guided-tour-link">
 			
-			<a href="/e-invoice-eu/en/docs/cli/getting-help/"
-				>Getting Help&nbsp;<i
+			<a href="/e-invoice-eu/en/docs/other/e-invoice-eu-library/"
+				>E-Invoice-EU Library&nbsp;<i
 					class="bi-arrow-right-circle"
 				></i></a>
 			
@@ -238,14 +240,14 @@ available simultaneously.
 			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
 		</li>
 		<li>
-			<a href="https://github.com/gflohr/e-invoice-eu/blob/main/packages/docs/en/docs/cli/installation.md?plain=1" target="_blank">
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/main/packages/docs/en/docs/details/credit-notes.md?plain=1" target="_blank">
 				<i class="bi-code-slash"></i>
 				Source code of this page
 			</a>
 		</li>
 		 
 		<li>
-			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/installation/">
+			<a href="/e-invoice-eu/de/docs/details/storno-rechnungen/">
 				<i class="bi-translate"></i>
 				Diese Seite auf Deutsch lesen
 			</a>
@@ -330,7 +332,8 @@ available simultaneously.
 		
 		<li>
 			
-			<i class="bi-arrow-right-circle"></i>&nbsp;Installation 
+			<a href="/e-invoice-eu/en/docs/cli/installation/">Installation</a>
+			
 		</li>
 		
 		<li>
@@ -427,8 +430,7 @@ available simultaneously.
 		
 		<li>
 			
-			<a href="/e-invoice-eu/en/docs/details/credit-notes/">Credit Notes</a>
-			
+			<i class="bi-arrow-right-circle"></i>&nbsp;Credit Notes 
 		</li>
 		
 	</ol>
