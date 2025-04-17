@@ -1462,7 +1462,11 @@ export type SellerElectronicAddressIdentificationSchemeIdentifier =
 	| '9952'
 	| '9953'
 	| '9957'
-	| '9959';
+	| '9959'
+	| 'EM'
+	| 'AQ'
+	| 'AS'
+	| 'AU';
 /**
  * This element is used for both the identification of the Seller, or the unique banking reference identifier of Seller (assigned by the Seller bank.). For seller identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present
  * Business terms: BT-29, BT-90
@@ -2365,7 +2369,11 @@ export type BuyerElectronicAddressIdentificationSchemeIdentifier =
 	| '9952'
 	| '9953'
 	| '9957'
-	| '9959';
+	| '9959'
+	| 'EM'
+	| 'AQ'
+	| 'AS'
+	| 'AU';
 /**
  * An identifier of the Buyer.
  * Business terms: BT-46

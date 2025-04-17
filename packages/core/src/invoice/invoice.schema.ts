@@ -15,7 +15,7 @@ import { Invoice } from './invoice.interface';
  */
 export const invoiceSchema: JSONSchemaType<Invoice> = {
 	$schema: 'https://json-schema.org/draft/2019-09/schema',
-	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v2.0.4',
+	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v2.0.5',
 	type: 'object',
 	additionalProperties: false,
 	properties: {
@@ -5797,6 +5797,11 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					'9953',
 					'9957',
 					'9959',
+					'EM',
+					'AQ',
+					'AS',
+					'AU',
+					'EM',
 				],
 			},
 			SEPA: {
