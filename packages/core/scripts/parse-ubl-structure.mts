@@ -100,6 +100,12 @@ throw new Error(`error parsing '${rootFilename}'`);
  * Apply the necessary changes to the schema.
  */
 function patchSchema(schema: JSONSchemaType<object>) {
+	patchSchemaImpliedFields(schema);
+	patchSchemaForCreditNotes(schema);
+	patchSchemaForEAS(schema);
+}
+
+function patchSchemaImpliedFields(schema: JSONSchemaType<object>) {
 	// The customization and profile ID can be deduced from the format.  We
 	// make them therefore optional.
 	schema.properties['ubl:Invoice'].required = schema.properties[
@@ -108,7 +114,9 @@ function patchSchema(schema: JSONSchemaType<object>) {
 		(elem: string) =>
 			elem !== 'cbc:CustomizationID' && elem !== 'cbc:ProfileID',
 	);
+}
 
+function patchSchemaForCreditNotes(schema: JSONSchemaType<object>) {
 	// We support credit notes in the same way that CII does. You can freely
 	// choose codes from both the invoice type code list and the credit note
 	// code type list. If the invoice syntax is UBL, then the element names
@@ -133,6 +141,18 @@ function patchSchema(schema: JSONSchemaType<object>) {
 	} else {
 		cnListArray.splice(index, 0, "384");
 	}
+}
+
+function patchSchemaForEAS(schema: JSONSchemaType<object>) {
+	// Some codes for XRechnung are missing in the UBL code list, see
+	// https://github.com/gflohr/e-invoice-eu/issues/145.
+	schema.$defs!.codeLists.eas.enum.push(
+		'EM', // O.F.T.P. (ODETTE File Transfer Protocol)
+		'AQ', // X.400 address for mail text'
+		'AS', // AS2 exchange
+		'AU', // File Transfer Protocol
+		'EM', // Electronic mail | SMTP email
+	);
 }
 
 /**
