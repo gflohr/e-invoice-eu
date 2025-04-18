@@ -69,7 +69,7 @@ of [LibreOffice](https://www.libreoffice.org/) which is not possible in the
 browser. Instead, you have to provide a PDF version yourself, in case it is
 needed.
 
-The [E-Invoice-EU documentation](https://gflohr.github.eu/e-invoice-eu/)
+The [E-Invoice-EU documentation](https://gflohr.github.io/e-invoice-eu/)
 contains a [fully working demo of invoice generation right in your
 browser](https://gflohr.github.io/e-invoice-eu/en/docs/other/browser-example/).
 
