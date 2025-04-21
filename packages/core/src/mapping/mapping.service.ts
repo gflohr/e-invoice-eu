@@ -71,17 +71,28 @@ export class MappingService {
 	 * Transform invoice spreadsheet data to invoice data in the internal
 	 * format via a mapping.
 	 *
-	 * @param dataBuffer the spreadsheet data
+	 * @param dataBuffer the spreadsheet data either as a Uint8Array or an XLSX.WorkBook
 	 * @param format one of the supported invoice formats, see {@link FormatFactoryService.listFormatServices}
 	 * @param mapping the mapping definition
 	 * @returns the invoice data in the internal format
 	 */
-	transform(dataBuffer: Uint8Array, format: string, mapping: Mapping): Invoice {
+	transform(
+		dataBuffer: Uint8Array | XLSX.WorkBook,
+		format: string,
+		mapping: Mapping,
+	): Invoice {
 		mapping = this.validateMapping(format, mapping);
-		const workbook = XLSX.read(dataBuffer, {
-			type: 'buffer',
-			cellDates: true,
-		});
+		const isWorkbook =
+			typeof dataBuffer === 'object' &&
+			Object.prototype.hasOwnProperty.call(dataBuffer, 'SheetNames') &&
+			Object.prototype.hasOwnProperty.call(dataBuffer, 'Sheets');
+
+		const workbook = isWorkbook
+			? (dataBuffer as XLSX.WorkBook)
+			: XLSX.read(dataBuffer, {
+					type: 'buffer',
+					cellDates: true,
+				});
 
 		const invoice: { [key: string]: any } = { 'ubl:Invoice': {} };
 
