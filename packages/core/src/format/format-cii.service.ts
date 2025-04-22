@@ -1359,6 +1359,7 @@ export const ublInvoice: Transformation = {
 					type: 'string',
 					src: ['cac:DespatchDocumentReference', 'cbc:ID'],
 					dest: [
+						'ram:ApplicableHeaderTradeDelivery',
 						'ram:DespatchAdviceReferencedDocument',
 						'ram:IssuerAssignedID',
 					],
