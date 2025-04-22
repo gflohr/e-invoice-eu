@@ -1299,6 +1299,18 @@ export const ublInvoice: Transformation = {
 					],
 					fxProfileMask: FX_MASK_EXTENDED,
 				},
+				// CII requires both an ID and a name but UBL only defines the
+				// ID.
+				{
+					type: 'string',
+					src: ['cac:ProjectReference', 'cbc:ID'],
+					dest: [
+						'ram:ApplicableHeaderTradeAgreement',
+						'ram:SpecifiedProcuringProject',
+						'ram:Name',
+					],
+					fxProfileMask: FX_MASK_EXTENDED,
+				},
 				{
 					type: 'object',
 					src: [],
