@@ -1347,7 +1347,7 @@ export const ublInvoice: Transformation = {
 					type: 'string',
 					src: ['cac:DespatchDocumentReference', 'cbc:ID'],
 					dest: [
-						'ram:DespatchAdviceReferencedDocument ',
+						'ram:DespatchAdviceReferencedDocument',
 						'ram:IssuerAssignedID',
 					],
 					fxProfileMask: FX_MASK_BASIC_WL,
@@ -1356,7 +1356,7 @@ export const ublInvoice: Transformation = {
 					type: 'string',
 					src: ['cac:ReceiptDocumentReference', 'cbc:ID'],
 					dest: [
-						'ram:ReceivingAdviceReferencedDocument ',
+						'ram:ReceivingAdviceReferencedDocument',
 						'ram:IssuerAssignedID',
 					],
 					fxProfileMask: FX_MASK_BASIC_WL,
