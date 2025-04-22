@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2019-09/schema",
-	"$id": "https://www.cantanea.com/schemas/ubl-invoice-schema-v2.1.2",
+	"$id": "https://www.cantanea.com/schemas/ubl-invoice-schema-v2.1.3",
 	"type": "object",
 	"additionalProperties": false,
 	"properties": {
