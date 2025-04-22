@@ -24,6 +24,7 @@ src/schema/invoice.schema.json: scripts/parse-ubl-structure.mts package.json $(I
 src/invoice/invoice.interface.ts: scripts/json-schema-to-interface.mts src/schema/invoice.schema.json
 	$(BUN) $< src/schema/invoice.schema.json $@
 	$(NPX) eslint $@ --fix
+	$(NPX) prettier --write $@
 
 src/invoice/invoice.schema.ts: scripts/json-schema-to-typescript.mts src/schema/invoice.schema.json
 	$(BUN) $< invoice
@@ -37,6 +38,7 @@ src/schema/mapping.schema.json: scripts/transform-ubl-mapping.mts package.json s
 src/mapping/mapping.interface.ts: scripts/json-schema-to-interface.mts src/schema/mapping.schema.json
 	$(BUN) $< src/schema/mapping.schema.json $@
 	$(NPX) eslint $@ --fix
+	$(NPX) prettier --write $@
 
 src/mapping/mapping.schema.ts: scripts/json-schema-to-typescript.mts src/schema/mapping.schema.json
 	$(BUN) $< mapping
