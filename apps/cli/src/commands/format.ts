@@ -57,20 +57,10 @@ export class Format implements Command {
 
 	private info(format: string) {
 		const factoryService = new FormatFactoryService();
-		const normalized = factoryService.normalizeFormat(format);
-		const formatInfos = factoryService.listFormatServices();
+		const info = factoryService.info(format);
 
-		const info = formatInfos.filter(
-			info => info.name.toLowerCase() === normalized,
-		);
-		if (!info.length) {
-			throw new Error(
-				gtx._x("Format '{format}' is not supported!", { format }),
-			);
-		}
-
-		for (const prop in info[0]) {
-			console.log(`${prop}: ${info[0][prop]}`);
+		for (const prop in info) {
+			console.log(`${prop}: ${info[prop]}`);
 		}
 	}
 

@@ -51,7 +51,7 @@ describe('XRECHNUNG-UBL', () => {
 	});
 
 	it('should report information about a format', () => {
-		const info = service.describeFormat('Factur-X-Extended');
+		const info = service.info('Factur-X-Extended');
 		expect(info).toBeDefined();
 		expect(info.name).toBe('factur-x-extended');
 		expect(info.mimeType).toBe('application/pdf');
@@ -59,6 +59,8 @@ describe('XRECHNUNG-UBL', () => {
 	});
 
 	it('should throw an exception when requesting an unsupported format', () => {
-		expect(() => service.describeFormat('ZIRKUSFeRD-Extended')).toThrow("Format 'ZIRKUSFeRD-Extended' is not supported.");
+		expect(() => service.info('ZIRKUSFeRD-Extended')).toThrow(
+			"Format 'ZIRKUSFeRD-Extended' is not supported.",
+		);
 	});
 });

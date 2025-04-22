@@ -134,7 +134,7 @@ export class FormatFactoryService {
 	 * @param format the format to describe
 	 * @returns the format information
 	 */
-	describeFormat(format:string): FormatInfo {
+	info(format: string): FormatInfo {
 		const normalized = this.normalizeFormat(format);
 
 		const FormatServiceClass = this.formatServicesLookup[normalized];
@@ -150,7 +150,6 @@ export class FormatFactoryService {
 			mimeType: service.mimeType,
 			customizationID: service.customizationID,
 			profileID: service.profileID,
-
-		}
+		};
 	}
 }
