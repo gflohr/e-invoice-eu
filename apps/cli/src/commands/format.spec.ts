@@ -17,6 +17,7 @@ jest.mock('@e-invoice-eu/core', () => ({
 				name: 'FormatB',
 			},
 		]),
+		info: jest.fn().mockReturnValue({ name: 'FormatC' }),
 		normalizeFormat: jest.fn((format: string) => format.toLowerCase()),
 	})),
 }));
@@ -126,22 +127,11 @@ describe('Format Command', () => {
 		});
 
 		it('should display detailed information about a format', async () => {
-			const options = { info: 'FormatA' } as unknown as yargs.Arguments;
+			const options = { info: 'FormatC' } as unknown as yargs.Arguments;
 
 			await format.run(options);
 
-			expect(consoleSpy).toHaveBeenCalledWith('name: FormatA');
-		});
-
-		it('should throw an error if the format is not supported', async () => {
-			const options = { info: 'ZIRKUSFeRD' } as unknown as yargs.Arguments;
-
-			const exitCode = await format.run(options);
-
-			expect(exitCode).not.toBe(0);
-			expect(consoleErrorSpy).toHaveBeenCalledWith(
-				expect.stringContaining("Error: Format 'ZIRKUSFeRD' is not supported!"),
-			);
+			expect(consoleSpy).toHaveBeenCalledWith('name: FormatC');
 		});
 
 		it('should throw an error if neither --info nor --list is passed', async () => {
