@@ -335,6 +335,9 @@ export class MappingService {
 		}
 
 		const cell = worksheet[cellName];
+		if (typeof cell.v === 'undefined') {
+			return '';
+		}
 
 		const $ref = schema.$ref;
 
