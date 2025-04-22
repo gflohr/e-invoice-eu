@@ -84,7 +84,7 @@ export class FormatFactoryService {
 		const FormatService = this.formatServicesLookup[normalizedFormat];
 
 		if (!FormatService) {
-			throw new Error(`Format '${format}' not supported.`);
+			throw new Error(`Format '${format}' is not supported.`);
 		}
 
 		return new FormatService(logger);
@@ -114,6 +114,11 @@ export class FormatFactoryService {
 		return infos;
 	}
 
+	/**
+	 * Normalizes a format name into a lowercase, canonical name.
+	 * @param format the format name to normalize
+	 * @returns the normalized format name
+	 */
 	normalizeFormat(format: string): string {
 		format = format.toLowerCase();
 		format = format.replace(/-comfort$/, '-en16931');
@@ -121,5 +126,31 @@ export class FormatFactoryService {
 		format = format.replace(/^zugferd-/, 'factur-x-');
 
 		return format;
+	}
+
+	/**
+	 * Get information about a particular format.
+	 *
+	 * @param format the format to describe
+	 * @returns the format information
+	 */
+	describeFormat(format:string): FormatInfo {
+		const normalized = this.normalizeFormat(format);
+
+		const FormatServiceClass = this.formatServicesLookup[normalized];
+		if (!FormatServiceClass) {
+			throw new Error(`Format '${format}' is not supported.`);
+		}
+
+		const service = new FormatServiceClass();
+
+		return {
+			name: normalized,
+			syntax: service.syntax,
+			mimeType: service.mimeType,
+			customizationID: service.customizationID,
+			profileID: service.profileID,
+
+		}
 	}
 }
