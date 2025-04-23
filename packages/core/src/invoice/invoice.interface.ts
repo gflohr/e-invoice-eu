@@ -11231,7 +11231,7 @@ export interface DELIVERYORINVOICEPERIOD {
 	'cbc:DescriptionCode'?: ValueAddedTaxPointDateCode;
 }
 export interface ORDERANDSALESORDERREFERENCE {
-	'cbc:ID': PurchaseOrderReference;
+	'cbc:ID'?: PurchaseOrderReference;
 	'cbc:SalesOrderID'?: SalesOrderReference;
 }
 /**

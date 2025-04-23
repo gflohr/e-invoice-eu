@@ -35,6 +35,14 @@ export class FormatUBLService
 		if (!('cbc:ProfileID' in mapping['ubl:Invoice'])) {
 			mapping['ubl:Invoice']['cbc:ProfileID'] = this.profileID;
 		}
+
+		if (
+			mapping['ubl:Invoice']['cac:OrderReference'] &&
+			'cbc:SalesOrderID' in mapping['ubl:Invoice']['cac:OrderReference'] &&
+			!('cbc:ID' in mapping['ubl:Invoice']['cac:OrderReference'])
+		) {
+			mapping['ubl:Invoice']['cac:OrderReference']!['cbc:ID']! = 'NA';
+		}
 	}
 
 	fillInvoiceDefaults(invoice: Invoice) {
@@ -44,6 +52,14 @@ export class FormatUBLService
 
 		if (!('cbc:profileID' in invoice['ubl:Invoice'])) {
 			invoice['ubl:Invoice']['cbc:ProfileID'] = this.profileID;
+		}
+
+		if (
+			invoice['cac:OrderReference'] &&
+			'cbc:SalesOrderID' in invoice['cac:OrderReference'] &&
+			!('cbc:ID' in invoice['cac:OrderReference'])
+		) {
+			invoice['cac:OrderReference']['cbc:ID'] = 'NA';
 		}
 	}
 
