@@ -35,7 +35,7 @@ export class MappingController {
 					type: 'string',
 					format: 'binary',
 					nullable: true,
-					description: 'The spreadsheet to be transformed.'
+					description: 'The spreadsheet to be transformed.',
 				},
 				data: {
 					type: 'string',
