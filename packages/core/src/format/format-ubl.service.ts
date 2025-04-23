@@ -36,10 +36,11 @@ export class FormatUBLService
 			mapping['ubl:Invoice']['cbc:ProfileID'] = this.profileID;
 		}
 
+		const orderReference = mapping['ubl:Invoice']['cac:OrderReference'];
 		if (
-			mapping['ubl:Invoice']['cac:OrderReference'] &&
-			'cbc:SalesOrderID' in mapping['ubl:Invoice']['cac:OrderReference'] &&
-			!('cbc:ID' in mapping['ubl:Invoice']['cac:OrderReference'])
+			orderReference &&
+			'cbc:SalesOrderID' in orderReference &&
+			!('cbc:ID' in orderReference)
 		) {
 			mapping['ubl:Invoice']['cac:OrderReference']!['cbc:ID']! = 'NA';
 		}
