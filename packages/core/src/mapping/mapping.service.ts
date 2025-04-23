@@ -138,6 +138,9 @@ export class MappingService {
 		ctx: MappingContext,
 	) {
 		for (const property in mapping) {
+			if (property === 'cac:AllowanceCharge') {
+				debugger;
+			}
 			if (property === 'section') {
 				continue;
 			}
@@ -152,10 +155,17 @@ export class MappingService {
 				if ('section' in mapping[property]) {
 					target[property] = [];
 					this.transformArray(target[property], mapping[property], ctx);
+					if (target[property].length === 0) delete target[property];
 				} else {
 					target[property] = [{}];
 					ctx.schemaPath.push('items');
 					this.transformObject(target[property][0], mapping[property], ctx);
+					if (
+						target[property].length === 1 &&
+						Object.keys(target[property][0]).length === 0
+					) {
+						delete target[property];
+					}
 					ctx.schemaPath.pop();
 				}
 			} else {

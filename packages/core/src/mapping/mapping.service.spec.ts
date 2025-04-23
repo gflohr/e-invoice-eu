@@ -524,14 +524,10 @@ describe('MappingService', () => {
 				}
 			});
 
-			it('should map allowances charges of invoice line #2', () => {
+			it('should not map allowances charges of invoice line #2', () => {
 				const target =
 					invoice['ubl:Invoice']['cac:InvoiceLine'][1]['cac:AllowanceCharge'];
-				expect(target).toBeDefined();
-				if (typeof target !== 'undefined') {
-					expect(Array.isArray(target)).toBe(true);
-					expect(target.length).toBe(0);
-				}
+				expect(target).not.toBeDefined();
 			});
 
 			it('should map allowances charges of invoice line #3', () => {
