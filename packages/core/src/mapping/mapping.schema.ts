@@ -113,7 +113,6 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 							$ref: '#/$defs/valueRef',
 						},
 					},
-					required: ['cbc:ID'],
 				},
 				'cac:BillingReference': {
 					type: 'object',

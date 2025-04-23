@@ -138,7 +138,7 @@ export interface DELIVERYORINVOICEPERIOD {
 	'cbc:DescriptionCode'?: ValueRef;
 }
 export interface ORDERANDSALESORDERREFERENCE {
-	'cbc:ID': ValueRef;
+	'cbc:ID'?: ValueRef;
 	'cbc:SalesOrderID'?: ValueRef;
 }
 export interface INVOICEDOCUMENTREFERENCE {

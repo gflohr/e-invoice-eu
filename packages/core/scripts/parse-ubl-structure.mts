@@ -114,6 +114,9 @@ function patchSchemaImpliedFields(schema: JSONSchemaType<object>) {
 		(elem: string) =>
 			elem !== 'cbc:CustomizationID' && elem !== 'cbc:ProfileID',
 	);
+
+	// We can also fill in the value NA for the order reference id.
+	delete schema.properties['ubl:Invoice'].properties['cac:OrderReference'].required;
 }
 
 function patchSchemaForCreditNotes(schema: JSONSchemaType<object>) {
@@ -121,14 +124,12 @@ function patchSchemaForCreditNotes(schema: JSONSchemaType<object>) {
 	// choose codes from both the invoice type code list and the credit note
 	// code type list. If the invoice syntax is UBL, then the element names
 	// are patched at runtime.
-	const typeSchema = schema.properties['ubl:Invoice'].properties['cbc:InvoiceTypeCode'];
+	const typeSchema =
+		schema.properties['ubl:Invoice'].properties['cbc:InvoiceTypeCode'];
 	const invListRef = typeSchema['$ref'];
 	delete typeSchema['$ref'];
 	const cnListRef = invListRef.replace(/-inv$/, '-cn');
-	typeSchema.anyOf = [
-		{ '$ref': invListRef },
-		{ '$ref': cnListRef },
-	];
+	typeSchema.anyOf = [{ $ref: invListRef }, { $ref: cnListRef }];
 	const cnList = cnListRef.replace(/.*\//, '');
 	const cnListArray = schema.$defs?.codeLists[cnList].enum;
 
@@ -137,9 +138,9 @@ function patchSchemaForCreditNotes(schema: JSONSchemaType<object>) {
 	// missing in the UBL code list.
 	const index = cnListArray.findIndex(item => Number(item) > 384);
 	if (index === -1) {
-		cnListArray.push("384");
+		cnListArray.push('384');
 	} else {
-		cnListArray.splice(index, 0, "384");
+		cnListArray.splice(index, 0, '384');
 	}
 }
 

@@ -5,7 +5,7 @@
 	"description": "E-Invoice-EU documentation",
 	"main": "index.js",
 	"scripts": {
-		"format": "prettier --write *.json *.md *.yaml \"[a-z][a-z]/**/*.md\" \"_views/**/*.html\" \"_assets/**/*{css,js}\"",
+		"format": "prettier --write *.json *.yaml \"_views/**/*.html\" \"_assets/**/*{css,js}\"",
 		"build": "webpack",
 		"start": "webpack watch",
 		"server": "browser-sync start --startPath /e-invoice-eu --server _site --files _timestamp --files assets"

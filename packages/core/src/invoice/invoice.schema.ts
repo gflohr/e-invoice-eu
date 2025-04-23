@@ -151,7 +151,6 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								'An identifier of a referenced sales order, issued by the Seller. In cases where sales order reference is provided, but there\'s no purchase order reference, then set cac:OrderReference/cbc:ID to value "NA" as this element is mandatory in UBL.\nBusiness terms: BT-14',
 						},
 					},
-					required: ['cbc:ID'],
 				},
 				'cac:BillingReference': {
 					type: 'array',
