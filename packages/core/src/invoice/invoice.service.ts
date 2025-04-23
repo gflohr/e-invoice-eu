@@ -132,6 +132,8 @@ export class InvoiceService {
 
 		options.format = this.formatFactoryService.normalizeFormat(options.format);
 
+		formatter.fillInvoiceDefaults(invoice);
+
 		return formatter.generate(invoice, options);
 	}
 }
