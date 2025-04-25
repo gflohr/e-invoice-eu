@@ -31,7 +31,7 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css?1745592709" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1745595055" rel="stylesheet">
 
 
 
@@ -183,12 +183,18 @@
 	
 	<li class="toclevel-4">
 		5.1.1.1
-		<a href="#mustang-project">Mustang Project</a>
+		<a href="#e-invoice-eu-validator">E-Invoice-EU-Validator</a>
 		
 	</li>
 	
 	<li class="toclevel-4">
 		5.1.1.2
+		<a href="#mustangproject">MustangProject</a>
+		
+	</li>
+	
+	<li class="toclevel-4">
+		5.1.1.3
 		<a href="#practical-peppol">Practical Peppol</a>
 		
 	</li>
@@ -204,23 +210,41 @@
 	
 	<li class="toclevel-4">
 		5.1.2.1
-		<a href="#validator-installieren">Validator installieren</a>
+		<a href="#e-invoice-eu-validator-">E-Invoice-EU-Validator</a>
+		
+	</li>
+	
+	<li class="toclevel-4">
+		5.1.2.2
+		<a href="#mustangproject-">MustangProject</a>
+		
+	</li>
+	
+	<li class="toclevel-4">
+		5.1.2.3
+		<a href="#kosit-validator">KoSIT Validator</a>
+		 <ul class="toclevel-5">
+	
+	<li class="toclevel-5">
+		5.1.2.3.1
+		<a href="#install-validator">Install Validator</a>
+		
+	</li>
+	
+	<li class="toclevel-5">
+		5.1.2.3.2
+		<a href="#install-xrechnung-scenario">Install XRECHNUNG Scenario</a>
+		
+	</li>
+	
+	<li class="toclevel-5">
+		5.1.2.3.3
+		<a href="#run-the-validator">Run the Validator</a>
 		
 	</li>
 	
 </ul>
  
-	</li>
-	
-	<li class="toclevel-3">
-		5.1.3
-		<a href="#xrechnung-szenario-installieren">XRECHNUNG-Szenario installieren</a>
-		 <ul class="toclevel-4">
-	
-	<li class="toclevel-4">
-		5.1.3.1
-		<a href="#validator-starten">Validator starten</a>
-		
 	</li>
 	
 </ul>
@@ -408,7 +432,20 @@ check all legal requirements before you use them.</p>
 
 <h4><a href="#" name="factur-x-zugferd" id="factur-x-zugferd"></a>Factur-X/ZUGFeRD</h4>
 
-<h5><a href="#" name="mustang-project" id="mustang-project"></a>Mustang Project</h5>
+<h5><a href="#" name="e-invoice-eu-validator" id="e-invoice-eu-validator"></a>E-Invoice-EU-Validator</h5>
+
+<p>When using the MustangProject cli as a validator, you will notice that it has a
+relatively long start-up time. This is a problem of many Java applications.</p>
+
+<p>The package
+<a href="https://github.com/gflohr/e-invoice-eu-validator" target="_blank">e-invoice-eu-validator</a>
+is a thin wrapper around the <a href="#mustangproject">MustangProject</a> (see
+<a href="#mustangproject">below</a>) library that starts the validator
+as a server. This is useful for batch validation of invoices because the
+penalty of the process start-up is paid only once. The actual validation
+takes only a fraction of a second.</p>
+
+<h5><a href="#" name="mustangproject" id="mustangproject"></a>MustangProject</h5>
 
 <p><a href="https://github.com/ZUGFeRD/mustangproject" target="_blank">Mustang project</a> bietet Validierung von Rechnungen in den Formaten Factur-X/ZUGFeRD und XRechnung an. Zur Benutzung ist eine Java-Laufzeitumgebung erforderlich.</p>
 
@@ -438,11 +475,26 @@ check all legal requirements before you use them.</p>
 
 <h4><a href="#" name="ubl-cii-xrechnung" id="ubl-cii-xrechnung"></a>UBL/CII (XRechnung)</h4>
 
+<h5><a href="#" name="e-invoice-eu-validator-" id="e-invoice-eu-validator-"></a>E-Invoice-EU-Validator</h5>
+
+<p>The
+<a href="https://github.com/gflohr/e-invoice-eu-validator" target="_blank">E-Invoice-EU validator</a>
+can also validate XRechnung documents.</p>
+
+<h5><a href="#" name="mustangproject-" id="mustangproject-"></a>MustangProject</h5>
+
+<p><a href="https://github.com/ZUGFeRD/mustangproject" target="_blank">MustangProject</a> is used by
+by the
+E-Invoice-EU validator](<a href="https://github.com/gflohr/e-invoice-eu-validator" target="_blank">https://github.com/gflohr/e-invoice-eu-validator</a>)
+under the hood. You can also use it directly.</p>
+
+<h5><a href="#" name="kosit-validator" id="kosit-validator"></a>KoSIT Validator</h5>
+
 <p>Die deutsche <a href="https://www.xoev.de/" target="_blank">Koordinierungsstelle für IT-Standards -KoSIT</a> bietet einen freien, quelloffenen Validator für beliebige E-Rechnungs-Formate an.</p>
 
 <p>Benötigt wird eine Java-Laufzeitumgebung (Version 11 oder neuer) und es müssen mindestens zwei Software-Archive heruntergeladen werden, nämlich den eigentlichen Validator und ein sogenanntes Validierungs-Szenario mit den Schemata der unterstützten Formate.</p>
 
-<h5><a href="#" name="validator-installieren" id="validator-installieren"></a>Validator installieren</h5>
+<h6><a href="#" name="install-validator" id="install-validator"></a>Install Validator</h6>
 
 <p>Dzu muss die Datei <code>validator-*VERSION*-distribution.zip</code> heruntergeladen werden. Sie enthält eine Datei
 <code>validationtool-*VERSION*-standalone.jar</code>, die als <code>validationtool.jar</code>
@@ -461,7 +513,7 @@ Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
 
 <p>Es sollte eine Hilfeseite mit Informationen zur Benutzung ausgegeben werdne.</p>
 
-<h4><a href="#" name="xrechnung-szenario-installieren" id="xrechnung-szenario-installieren"></a>XRECHNUNG-Szenario installieren</h4>
+<h6><a href="#" name="install-xrechnung-scenario" id="install-xrechnung-scenario"></a>Install XRECHNUNG Scenario</h6>
 
 <p>Ein „Szenario“ für XRechnung ist unter <a href="https://github.com/itplr-kosit/validator-configuration-xrechnung/releases" target="_blank">https://github.com/itplr-kosit/validator-configuration-xrechnung/releases</a> verfügbar.</p>
 
@@ -478,7 +530,7 @@ Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
 
 <p>Dieses Szenario enthält Schemata für UBL, CII, und verschiedene Versionen des deutschen Formats XRechnung.</p>
 
-<h5><a href="#" name="validator-starten" id="validator-starten"></a>Validator starten</h5>
+<h6><a href="#" name="run-the-validator" id="run-the-validator"></a>Run the Validator</h6>
 
 <p>Der Validator kann jetzt so gestartet werden:</p>
 
@@ -936,7 +988,7 @@ Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
  
 
 
-  <script src="/e-invoice-eu/assets/bundle.min.js?1745592709" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1745595055" type="text/javascript"></script>
 
 
 
