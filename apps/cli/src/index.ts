@@ -46,6 +46,8 @@ gtx
 					},
 				),
 			)
+			.alias('V', 'version')
+			.alias('h', 'help')
 			.demandCommand(1, gtx._('Error: No command given.'))
 			.scriptName(Package.getName());
 
