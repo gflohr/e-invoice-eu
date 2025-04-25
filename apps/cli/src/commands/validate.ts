@@ -5,6 +5,7 @@ import yargs, { InferredOptionTypes } from 'yargs';
 import { Command } from '../command';
 import { coerceOptions, OptSpec } from '../optspec';
 import { Package } from '../package';
+import chalk from 'chalk';
 
 const gtx = Textdomain.getInstance('e-invoice-eu-cli');
 
@@ -74,26 +75,25 @@ export class Validate implements Command {
 				body: form,
 			});
 		} catch(error) {
-			console.error(gtx._x('{filename}: invalid. Is the validation server running at {url}? Error: {error}.', {
+			console.error(`${filename}:`, chalk.bold.red('✗ ' + gtx._x('invalid. Is the validation server running at {url}? Error: {error}.', {
 				filename,
 				url,
 				error,
-			}));
+			})));
 			return false;
 		}
 
 		if (response.status === 200) {
 			if (!configOptions.quiet) {
-				console.log(gtx._x('{filename}: valid', { filename }));
+				console.log(`${filename}:`, chalk.green('✓ ' + gtx._('valid')));
 			}
 			if (configOptions.verbose) {
 				console.log(await response.text());
 			}
 		} else {
 			if (!configOptions.quiet) {
-				console.error(gtx._x('{filename}: invalid', { filename }));
+				console.error(`${filename}:`, chalk.bold.red('✗ ' + gtx._('invalid')));
 				console.error(await response.text());
-				console.error(response);
 			}
 			return false;
 		}
