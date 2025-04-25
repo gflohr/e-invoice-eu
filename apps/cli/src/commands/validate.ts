@@ -1,4 +1,3 @@
-import { FormatFactoryService } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
 import yargs, { InferredOptionTypes } from 'yargs';
 
@@ -10,6 +9,8 @@ const gtx = Textdomain.getInstance('e-invoice-eu-cli');
 
 const options: {
 	url: OptSpec;
+	verbose: OptSpec;
+	quiet: OptSpec;
 } = {
 	url: {
 		group: gtx._('Server Location'),
@@ -18,6 +19,22 @@ const options: {
 		demandOption: false,
 		describe: gtx._('base URL of the server'),
 		default: 'http://localhost:8080',
+	},
+	verbose: {
+		group: gtx._('Mode of operation'),
+		alias: ['v'],
+		type: 'boolean',
+		conflicts: 'quiet',
+		demandOption: false,
+		describe: gtx._('output all reports'),
+	},
+	quiet: {
+		group: gtx._('Mode of operation'),
+		alias: ['q'],
+		type: 'boolean',
+		conflicts: 'verbose',
+		demandOption: false,
+		describe: gtx._('suppress output'),
 	},
 };
 
