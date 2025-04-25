@@ -11,9 +11,10 @@ import { Format } from './commands/format';
 import { Invoice } from './commands/invoice';
 import { Schema } from './commands/schema';
 import { Transform } from './commands/transform';
+import { Validate } from './commands/validate';
 import { Package } from './package';
 
-const commandNames = ['invoice', 'transform', 'format', 'schema'];
+const commandNames = ['invoice', 'transform', 'validate', 'format', 'schema'];
 
 const gtx = Textdomain.getInstance('e-einvoice-eu-cli');
 v.setGlobalConfig({ lang: Textdomain.locale });
@@ -28,6 +29,7 @@ gtx
 		const commands: { [key: string]: Command } = {
 			invoice: new Invoice(),
 			transform: new Transform(),
+			validate: new Validate(),
 			format: new Format(),
 			schema: new Schema(),
 		};
