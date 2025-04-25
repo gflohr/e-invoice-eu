@@ -1,11 +1,11 @@
 import { Textdomain } from '@esgettext/runtime';
+import chalk from 'chalk';
 import * as fs from 'fs/promises';
 import yargs, { InferredOptionTypes } from 'yargs';
 
 import { Command } from '../command';
 import { coerceOptions, OptSpec } from '../optspec';
 import { Package } from '../package';
-import chalk from 'chalk';
 
 const gtx = Textdomain.getInstance('e-invoice-eu-cli');
 
