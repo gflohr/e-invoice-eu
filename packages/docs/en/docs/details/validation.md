@@ -167,7 +167,20 @@ automated validation scenarios.
 
 #### Factur-X/ZUGFeRD
 
-##### Mustang Project
+##### E-Invoice-EU-Validator
+
+When using the MustangProject cli as a validator, you will notice that it has a
+relatively long start-up time. This is a problem of many Java applications.
+
+The package
+[e-invoice-eu-validator](https://github.com/gflohr/e-invoice-eu-validator)
+is a thin wrapper around the [MustangProject](#mustangproject) (see
+[below](#mustangproject)) library that starts the validator
+as a server. This is useful for batch validation of invoices because the
+penalty of the process start-up is paid only once. The actual validation
+takes only a fraction of a second.
+
+##### MustangProject
 
 [Mustang project](https://github.com/ZUGFeRD/mustangproject) offers validation
 of Factur-X/ZUGFeRD and XRECHNUNG documents. You need a Java Runtime
@@ -206,6 +219,21 @@ can be set up locally. You have to contact the author for details.
 
 #### UBL/CII (XRechnung)
 
+##### E-Invoice-EU-Validator
+
+The
+[E-Invoice-EU validator](https://github.com/gflohr/e-invoice-eu-validator)
+can also validate XRechnung documents.
+
+##### MustangProject
+
+[MustangProject](https://github.com/ZUGFeRD/mustangproject) is used by
+by the
+E-Invoice-EU validator](https://github.com/gflohr/e-invoice-eu-validator)
+under the hood. You can also use it directly.
+
+##### KoSIT Validator
+
 The German [Koordinierungsstelle für IT-Standards -
 KoSIT](https://www.xoev.de/) maintains a free and open source validator for
 arbitrary e-invoice formats.
@@ -214,7 +242,7 @@ You need a Java Runtime Environment (version 11 or newer) and download at
 least two pieces of software, the actual validator and a so-called
 "validation scenario" with the schemas of the supported formats.
 
-##### Install Validator
+###### Install Validator
 
 Download the file `validator-*VERSION*-distribution.zip`. It contains a file
 `validationtool-*VERSION*-standalone.jar`. Save it as `validationtool.jar`
@@ -230,7 +258,7 @@ java -jar contrib/validators/kosit/validationtool.jar
 
 It should display a help page with usage information.
 
-#### Install XRECHNUNG Scenario
+###### Install XRECHNUNG Scenario
 
 A "scenario" for XRECHNUNG is available at https://github.com/itplr-kosit/validator-configuration-xrechnung/releases.
 
@@ -247,7 +275,7 @@ ls contrib/validators/kosit/xrechnung-scenario/scenarios.xml
 This scenario contains schemas for UBL, CII, and various versions of the
 German XRECHNUNG format.
 
-##### Run the Validator
+###### Run the Validator
 
 Now you can run the validator like this:
 
