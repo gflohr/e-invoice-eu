@@ -1,4 +1,5 @@
 import { Textdomain } from '@esgettext/runtime';
+import * as fs from 'fs/promises';
 import yargs, { InferredOptionTypes } from 'yargs';
 
 import { Command } from '../command';
@@ -38,9 +39,15 @@ const options: {
 	},
 };
 
-export type ConfigOptions = InferredOptionTypes<typeof options>;
-
+export type ConfigOptions = InferredOptionTypes<typeof options> & {
+	invoice: string;
+	invoices: string[];
+};
 export class Validate implements Command {
+	synopsis(): string {
+		return '<invoice> [invoices...]';
+	}
+
 	description(): string {
 		return gtx._('Validate invoices.');
 	}
@@ -53,7 +60,95 @@ export class Validate implements Command {
 		return argv.options(options);
 	}
 
+	private async validate(url: URL, filename: string, configOptions: ConfigOptions): Promise<boolean> {
+		const mimeType = filename.match(/\.pdf$/i) ? 'application/pdf' : 'application/xml';
+		const stats = await fs.stat(filename);
+		const fileSize = stats.size;
+		const body = await fs.readFile(filename);
+		const form = new FormData();
+		const blob = new Blob([body], { type: mimeType });
+		form.append('invoice', blob, filename);
+
+		let response: Response;
+		try {
+			response = await fetch(url, {
+				method: 'POST',
+				body: form,
+			});
+		} catch(error) {
+			console.error(gtx._x('{filename}: invalid. Is the validation server running at {url}? Error: {error}.', {
+				filename,
+				url,
+				error,
+			}));
+			return false;
+		}
+
+		if (response.status === 200) {
+			if (!configOptions.quiet) {
+				console.log(gtx._x('{filename}: valid', { filename }));
+			}
+			if (configOptions.verbose) {
+				console.log(await response.text());
+			}
+		} else {
+			if (!configOptions.quiet) {
+				console.error(gtx._x('{filename}: invalid', { filename }));
+				console.error(await response.text());
+				console.error(response);
+			}
+			return false;
+		}
+
+		return true;
+	}
+
 	private async doRun(configOptions: ConfigOptions) {
+		const url = new URL(configOptions.url as string);
+		url.pathname = '/validate';
+
+		const invoices = [configOptions.invoice, ...configOptions.invoices];
+
+		let success = 0;
+		let errors = 0;
+		for (const invoice of invoices) {
+			try {
+				if (await this.validate(url, invoice, configOptions)) {
+					++success;
+				} else {
+					++errors;
+				}
+			} catch(e) {
+				if (!configOptions.quiet) {
+					console.error(e);
+				}
+				++errors;
+			}
+		}
+
+		if (!configOptions.quiet) {
+			console.log(
+				gtx._nx('One invoice is valid', '{num} invoices are valid', success, {
+					num: success.toString(),
+				}),
+			);
+			if (errors) {
+				console.log(
+					gtx._nx(
+						'One invoice is invalid',
+						'{num} invoices are invalid',
+						errors,
+						{
+							num: success.toString(),
+						},
+					),
+				);
+			}
+		}
+
+		if (errors) {
+			throw new Error(gtx._x('Validation failed!'))
+		}
 	}
 
 	public async run(argv: yargs.Arguments): Promise<number> {
@@ -67,12 +162,14 @@ export class Validate implements Command {
 			await this.doRun(configOptions);
 			return 0;
 		} catch (e) {
-			console.error(
-				gtx._x('{programName}: {error}', {
-					programName: Package.getName(),
-					error: e,
-				}),
-			);
+			if (configOptions.verbose) {
+				console.error(
+					gtx._x('{programName}: {error}', {
+						programName: Package.getName(),
+						error: e,
+					}),
+				);
+			}
 
 			return 1;
 		}
