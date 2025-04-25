@@ -62,8 +62,6 @@ export class Validate implements Command {
 
 	private async validate(url: URL, filename: string, configOptions: ConfigOptions): Promise<boolean> {
 		const mimeType = filename.match(/\.pdf$/i) ? 'application/pdf' : 'application/xml';
-		const stats = await fs.stat(filename);
-		const fileSize = stats.size;
 		const body = await fs.readFile(filename);
 		const form = new FormData();
 		const blob = new Blob([body], { type: mimeType });
