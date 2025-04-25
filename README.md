@@ -97,6 +97,14 @@ You can achieve similar results with these projects:
 - [Factur-X extension for LibreOffice](https://github.com/akretion/factur-x-libreoffice-extension)
   is a LibreOffice extension to generate Factur-X invoices from LibreOffice Calc published under the GPL licence with a [video tutorial](https://www.youtube.com/watch?v=ldD-1W8yIv0). It is maybe less flexible but easier to set up.
 
+## Validation
+
+It is strongly recommended that you validate all incoming and outgoing e-invoices.
+See [Validation](./contrib/validators) for details.
+
+A new and very simple option is offered by the sister project to this one,
+[e-invoice-eu-validator](https://github.com/gflohr/e-invoice-eu-validator).
+
 ## BUGS
 
 ### PDF/A
