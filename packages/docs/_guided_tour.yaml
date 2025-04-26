@@ -16,6 +16,7 @@ doc:
         'getting-help',
         'command-invoice',
         'command-transform',
+        'command-validate',
         'command-format',
         'command-schema',
       ]

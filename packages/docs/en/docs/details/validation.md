@@ -165,6 +165,13 @@ automated validation scenarios.
 
 ### Offline Validators
 
+By far the easiest way to validate e-invoices locally, without third-party
+services is to use the [E-Invoice-EU command line
+tool]([% q.llink(name='installation') %]) which has a command
+[`validate`]([% q.llink(name='command-validate') %]). It can validate an
+arbitrary number of invoice documents simultaneously. If you opt for that
+solution, you can skip the rest of this page.
+
 #### Factur-X/ZUGFeRD
 
 ##### E-Invoice-EU-Validator
