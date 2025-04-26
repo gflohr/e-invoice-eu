@@ -1,6 +1,5 @@
 import yargs from 'yargs';
 
-import { Format } from './format';
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';
 import { Validate } from './validate';
@@ -10,11 +9,9 @@ jest.mock('../package');
 
 describe('Validate Command', () => {
 	let validate: Validate;
-	let consoleSpy: jest.SpyInstance;
 
 	beforeEach(() => {
 		validate = new Validate();
-		consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
 		jest.clearAllMocks();
 	});
 
@@ -40,6 +37,22 @@ describe('Validate Command', () => {
 				demandOption: false,
 				describe: 'base URL of the server',
 				default: 'http://localhost:8080',
+			}),
+			quiet: expect.objectContaining({
+				group: 'Mode of Operation',
+				alias: ['q'],
+				type: 'boolean',
+				conflicts: 'verbose',
+				demandOption: false,
+				describe: 'suppress output',
+			}),
+			verbose: expect.objectContaining({
+				group: 'Mode of Operation',
+				alias: ['v'],
+				type: 'boolean',
+				conflicts: 'quiet',
+				demandOption: false,
+				describe: 'output all reports',
 			}),
 		});
 	});
@@ -73,7 +86,9 @@ describe('Validate Command', () => {
 
 		(Package.getName as jest.Mock).mockReturnValue('e-invoice-eu-cli');
 
-		const result = await validate.run({} as yargs.Arguments);
+		const result = await validate.run({
+			verbose: true,
+		} as unknown as yargs.Arguments);
 
 		expect(consoleErrorSpy).toHaveBeenCalledWith(
 			'e-invoice-eu-cli: Error: test error',

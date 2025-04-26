@@ -76,7 +76,8 @@
 			"ts"
 		],
 		"moduleNameMapper": {
-			"^@e-invoice-eu/core$": "<rootDir>/../../../packages/core/src"
+			"^@e-invoice-eu/core$": "<rootDir>/../../../packages/core/src",
+			"^chalk": "<rootDir>/../src/stubs/chalk.ts"
 		},
 		"rootDir": "src",
 		"testRegex": "\\.spec\\.ts$",

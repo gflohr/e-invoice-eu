@@ -23,7 +23,7 @@ const options: {
 		default: 'http://localhost:8080',
 	},
 	verbose: {
-		group: gtx._('Mode of operation'),
+		group: gtx._('Mode of Operation'),
 		alias: ['v'],
 		type: 'boolean',
 		conflicts: 'quiet',
@@ -31,7 +31,7 @@ const options: {
 		describe: gtx._('output all reports'),
 	},
 	quiet: {
-		group: gtx._('Mode of operation'),
+		group: gtx._('Mode of Operation'),
 		alias: ['q'],
 		type: 'boolean',
 		conflicts: 'verbose',
@@ -61,8 +61,14 @@ export class Validate implements Command {
 		return argv.options(options);
 	}
 
-	private async validate(url: URL, filename: string, configOptions: ConfigOptions): Promise<boolean> {
-		const mimeType = filename.match(/\.pdf$/i) ? 'application/pdf' : 'application/xml';
+	private async validate(
+		url: URL,
+		filename: string,
+		configOptions: ConfigOptions,
+	): Promise<boolean> {
+		const mimeType = filename.match(/\.pdf$/i)
+			? 'application/pdf'
+			: 'application/xml';
 		const body = await fs.readFile(filename);
 		const form = new FormData();
 		const blob = new Blob([body], { type: mimeType });
@@ -74,12 +80,21 @@ export class Validate implements Command {
 				method: 'POST',
 				body: form,
 			});
-		} catch(error) {
-			console.error(`${filename}:`, chalk.bold.red('✗ ' + gtx._x('invalid. Is the validation server running at {url}? Error: {error}.', {
-				filename,
-				url,
-				error,
-			})));
+		} catch (error) {
+			console.error(
+				`${filename}:`,
+				chalk.bold.red(
+					'✗ ' +
+						gtx._x(
+							'invalid. Is the validation server running at {url}? Error: {error}.',
+							{
+								filename,
+								url,
+								error,
+							},
+						),
+				),
+			);
 			return false;
 		}
 
@@ -116,7 +131,7 @@ export class Validate implements Command {
 				} else {
 					++errors;
 				}
-			} catch(e) {
+			} catch (e) {
 				if (!configOptions.quiet) {
 					console.error(e);
 				}
@@ -145,7 +160,7 @@ export class Validate implements Command {
 		}
 
 		if (errors) {
-			throw new Error(gtx._x('Validation failed!'))
+			throw new Error(gtx._x('Validation failed!'));
 		}
 	}
 
