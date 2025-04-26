@@ -76,7 +76,8 @@
 			"ts"
 		],
 		"moduleNameMapper": {
-			"^@e-invoice-eu/core$": "<rootDir>/../../../packages/core/src"
+			"^@e-invoice-eu/core$": "<rootDir>/../../../packages/core/src",
+			"^chalk": "<rootDir>/../src/stubs/chalk.ts"
 		},
 		"rootDir": "src",
 		"testRegex": "\\.spec\\.ts$",
@@ -117,6 +118,7 @@
 		"@esgettext/runtime": "^1.3.6",
 		"@valibot/i18n": "^1.0.0",
 		"ajv": "^8.17.1",
+		"chalk": "^5.4.1",
 		"js-yaml": "^4.1.0",
 		"mime-types": "^3.0.1",
 		"valibot": "^1.0.0",

@@ -138,9 +138,6 @@ export class MappingService {
 		ctx: MappingContext,
 	) {
 		for (const property in mapping) {
-			if (property === 'cac:AllowanceCharge') {
-				debugger;
-			}
 			if (property === 'section') {
 				continue;
 			}
