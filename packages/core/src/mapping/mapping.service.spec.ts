@@ -559,4 +559,38 @@ describe('MappingService', () => {
 			});
 		});
 	});
+
+	describe('regressions', () => {
+		it('should not write an empty cac:Delivery', () => {
+			const mapping = {
+				meta: {
+					Invoice: {
+						sectionColumn: 'N',
+					},
+				},
+				'ubl:Invoice': {
+					'cac:Delivery': {
+						'cbc:ActualDeliveryDate': '=M1',
+					},
+				},
+			} as unknown as Mapping;
+
+			const wb = {
+				SheetNames: ['Invoice'],
+				Sheets: {
+					Invoice: {},
+				},
+			} as XLSX.WorkBook;
+
+			const validateSpy = jest
+				.spyOn(ValidationService.prototype, 'validate')
+				.mockReturnValue(mapping);
+
+			const invoice = service.transform(wb, 'XRechnung-UBL', mapping);
+
+			expect(invoice['ubl:Invoice']['cac:Delivery']).not.toBeDefined();
+
+			validateSpy.mockRestore();
+		});
+	});
 });

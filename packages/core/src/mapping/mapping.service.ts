@@ -168,6 +168,9 @@ export class MappingService {
 			} else {
 				target[property] = {};
 				this.transformObject(target[property], mapping[property], ctx);
+				if (Object.keys(target[property]).length === 0) {
+					delete target[property];
+				}
 			}
 			ctx.schemaPath.pop();
 			ctx.schemaPath.pop();
