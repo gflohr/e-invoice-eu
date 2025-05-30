@@ -51,7 +51,7 @@ You can currently create e-invoices in these formats:
 - `ZUGFeRD-EN16931` is an alias for `Factur-X-EN16931`
 - `ZUGFeRD-Comfort` is an alias for `Factur-X-EN16931`
 - `ZUGFeRD-Extended` is an alias for `Factur-X-Extended`
-- `ZUGFeRD-XRechung` is an alias for `Factur-X-XRechnung`
+- `ZUGFeRD-XRechnung` is an alias for `Factur-X-XRechnung`
 
 Case does not matter, when you specify a format.
 
