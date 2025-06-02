@@ -533,7 +533,7 @@ export const cacPostalAddress: Transformation[] = [
 	{
 		type: 'string',
 		src: ['cbc:CountrySubentity'],
-		dest: ['ram:CountrySubdivisionName'],
+		dest: ['ram:CountrySubDivisionName'],
 		fxProfileMask: FX_MASK_BASIC_WL,
 	},
 ];
@@ -803,7 +803,7 @@ export const deliveryAddress: Transformation[] = [
 	{
 		type: 'string',
 		src: ['cbc:CountrySubentity'],
-		dest: ['ram:CountrySubdivisionName'],
+		dest: ['ram:CountrySubDivisionName'],
 		fxProfileMask: FX_MASK_BASIC_WL,
 	},
 	{
