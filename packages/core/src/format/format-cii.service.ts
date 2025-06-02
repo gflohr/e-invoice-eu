@@ -1145,7 +1145,7 @@ export const cacLegalMonetaryTotal: Transformation = {
 		},
 		{
 			type: 'string',
-			src: ['cbc:TotalPrepaidAmount'],
+			src: ['cbc:PrepaidAmount'],
 			dest: ['ram:TotalPrepaidAmount'],
 			fxProfileMask: FX_MASK_BASIC_WL,
 		},
