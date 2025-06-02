@@ -121,7 +121,7 @@
 		"typescript-eslint": "^8.29.0"
 	},
 	"dependencies": {
-		"@cantoo/pdf-lib": "^2.3.2",
+		"@cantoo/pdf-lib": "^2.4.1",
 		"@e965/xlsx": "^0.20.3",
 		"@esgettext/runtime": "^1.3.6",
 		"ajv": "^8.17.1",
