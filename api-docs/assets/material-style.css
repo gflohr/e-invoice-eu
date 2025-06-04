@@ -50,12 +50,6 @@
 
   --top-app-bar-height: 4.5rem;
   --top-app-bar-padding-vertical: .5rem;
-  --top-app-bar-table-cell-gutter: 1.5rem;
-  --top-app-bar-search-icon-width: 4rem;
-  --top-app-bar-search-padding-inset: 1.5rem;
-  --top-app-bar-search-padding-inset-mobile: 1rem;
-  --top-app-bar-search-font-size: 1.125rem;
-  --top-app-bar-search-font-size-mobile: 1rem;
   --footer-height: 3.5rem;
 
   --safe-area-inset-top: env(safe-area-inset-top);
@@ -109,12 +103,13 @@ img {
   overflow: hidden;
   box-sizing: border-box;
   padding: 1.75rem;
+  margin-bottom: 1.75rem;
   border-radius: 28px;
   background-color: var(--md-sys-color-surface);
 }
 .page-menu {
   height: fit-content;
-  padding: 0.75rem 1.75rem;
+  padding: 1.25rem 1.75rem;
   border-radius: 28px;
   background-color: var(--md-sys-color-surface);
 }
@@ -133,95 +128,30 @@ img {
   word-break: break-all;
 }
 .tsd-page-toolbar {
-  padding: var(--top-app-bar-padding-vertical) 0;
-  height: calc(var(--top-app-bar-height) - 16px);
+  padding: 1rem 0;
   background-color: var(--color-background);
   border-bottom: none;
-}
-.tsd-page-toolbar .tsd-toolbar-contents {
-  height: 56px;
-}
-.tsd-page-toolbar .table-cell {
-  height: 56px;
-  padding-left: var(--top-app-bar-table-cell-gutter);
 }
 .tsd-page-toolbar .tsd-toolbar-icon {
   padding: 20px 0;
 }
 #tsd-search {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  line-height: 56px;
+  border-radius: 38px;
+}
+#tsd-search-input {
   border-radius: 22px;
-  padding-right: var(--top-app-bar-search-icon-width);
-  box-sizing: border-box;
-  padding-left: 0;
-  margin-left: var(--top-app-bar-table-cell-gutter);
-  max-width: calc(100% - var(--top-app-bar-table-cell-gutter) - var(--top-app-bar-table-cell-gutter));
 }
-#tsd-search .field,
-#tsd-search .field label,
-#tsd-search .field #tsd-toolbar-links {
-  position: relative;
-  top: unset;
-  right: unset;
-  bottom: unset;
-  left: unset;
+#tsd-search-input:focus-visible {
+  background-color: var(--color-accent);
 }
-#tsd-search .field {
-  position: relative;
-  flex: 0 0 0;
-}
-#tsd-search .field:first-child {
-  display: flex;
-  flex-direction: row-reverse;
-  width: 100%;
-  position: absolute;
-  left: 0;
-}
-#tsd-search.has-focus .field input {
-  top: 0;
-}
-#tsd-search.has-focus .field:first-child {
-  z-index: 2;
-}
-#tsd-search .field label,
-#tsd-search .field .tsd-toolbar-icon {
-  height: 100%;
-  margin: 0 auto;
-}
-#tsd-search .field .tsd-toolbar-icon {
-  display: flex;
-  justify-content: center;
-  flex: none;
-}
-#tsd-search .field .tsd-widget.no-caption {
-  width: var(--top-app-bar-search-icon-width);
-}
-#tsd-search .field input {
-  padding: var(--top-app-bar-search-padding-inset);
-  font-size: var(--top-app-bar-search-font-size);
-  top: calc(-100% - var(--top-app-bar-padding-vertical) - var(--safe-area-inset-top));
-}
-#tsd-search .results {
-  z-index: -1;
-  top: calc(56px - 22px);
-  left: 0;
-  padding-top: 22px;
-  box-shadow: 0px 4px 2px rgba(0, 0, 0, 0.125);
-  background-color: var(--color-background-secondary);
-  border-bottom-left-radius: 22px;
-  border-bottom-right-radius: 22px;
-  overflow: hidden;
-}
-#tsd-search .results li {
+#tsd-search-results > li {
   background: none;
 }
-#tsd-search .results a {
-  padding: 1rem 0.25rem;
+#tsd-toolbar-menu-trigger,
+#tsd-search-trigger {
+  border-radius: 50%;
 }
-.col-sidebar {
+html:not(.has-menu) .col-sidebar {
   padding-top: 0;
   margin-right: 1rem;
 }
@@ -245,6 +175,9 @@ img {
 .tsd-page-navigation a:hover {
   text-decoration: none;
   background-color: var(--md-sys-color-surface-container-high);
+}
+.page-menu .tsd-accordion-summary {
+  margin-bottom: 0.5rem;
 }
 .page-menu .tsd-accordion-summary svg {
   position: absolute;
@@ -298,16 +231,6 @@ img {
 }
 
 @media (max-width: 769px) {
-  #tsd-search {
-    max-width: calc(100% - var(--top-app-bar-search-icon-width) - var(--top-app-bar-table-cell-gutter));
-  }
-  #tsd-search .field input {
-    font-size: var(--top-app-bar-search-font-size);
-    padding: var(--top-app-bar-search-padding-inset-mobile);
-  }
-  .container {
-    padding: 1rem;
-  }
   .col-sidebar {
     margin-right: 0;
   }
