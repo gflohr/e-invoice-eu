@@ -83,6 +83,7 @@
 		]
 	},
 	"devDependencies": {
+		"@babel/highlight": "^7.25.9",
 		"@esgettext/tools": "^1.3.6",
 		"@rollup/plugin-commonjs": "^28.0.3",
 		"@rollup/plugin-json": "^6.1.0",
