@@ -113,7 +113,7 @@ The Factur-X resp. ZUGFeRD standard requires PDF/A compliance for the PDF that
 the invoice is wrapped in. Please search the internet if you do not know what
 PDF/A means.
 
-This library creates PDFs solely with [`pdf-lib`](https://github.com/Hopding/pdf-lib)
+This library creates PDFs solely with [`pdf-lib`](https://github.com/cantoo-scribe/pdf-lib)
 and does some pretty complicated transformations on the PDF to achieve PDF/A
 compliance. This is not battle tested and may fail.
 
