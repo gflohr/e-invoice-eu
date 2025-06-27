@@ -299,7 +299,7 @@ msgstr "Grundlagen"
 #: ../en/docs/basics/disclaimer.md:2
 msgctxt "title"
 msgid "Disclaimer"
-msgstr "Hafuntsausschluss"
+msgstr "Haftungsausschluss"
 
 #: ../en/docs/basics/disclaimer.md:6
 msgid ""
