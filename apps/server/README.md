@@ -72,7 +72,7 @@ $ docker pull gflohr/e-invoice-eu:latest
 Run the container:
 
 ```sh
-$ docker run -it --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:1.0.0
+$ docker run -it --rm -d -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest
 ```
 
 If you want to debug issues, omit the option `-d` so that you can see the
