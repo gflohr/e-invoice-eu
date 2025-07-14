@@ -1,6 +1,6 @@
 {
 	"name": "@e-invoice-eu/cli",
-	"version": "2.1.8",
+	"version": "2.1.9",
 	"description": "Generate e-invoices (E-Rechnung in German) conforming to EN16931 (Factur-X/ZUGFeRD, UBL, CII, XRechnung aka X-Rechnung) from LibreOffice Calc/Excel data or JSON. ",
 	"keywords": [
 		"factur-x",
@@ -115,7 +115,7 @@
 		"typescript-eslint": "^8.36.0"
 	},
 	"dependencies": {
-		"@e-invoice-eu/core": "^2.1.8",
+		"@e-invoice-eu/core": "^2.1.9",
 		"@esgettext/runtime": "^1.3.6",
 		"@valibot/i18n": "^1.0.0",
 		"ajv": "^8.17.1",
