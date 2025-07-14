@@ -376,12 +376,21 @@ export class Invoice implements Command {
 			await this.doRun(configOptions);
 			return 0;
 		} catch (e) {
-			console.error(
-				gtx._x('{programName}: {error}', {
-					programName: Package.getName(),
-					error: e,
-				}),
-			);
+			if (e.ajv) {
+				console.error(
+					gtx._x('{programName}: fatal error:', {
+						programName: Package.getName(),
+					}),
+					e.errors,
+				);
+			} else {
+				console.error(
+					gtx._x('{programName}: {error}', {
+						programName: Package.getName(),
+						error: e,
+					}),
+				);
+			}
 
 			return 1;
 		}
