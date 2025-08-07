@@ -1,1 +1,2 @@
 qgoda-site/**/*.html linguist-documentation
+*.ods binary -merge -diff
