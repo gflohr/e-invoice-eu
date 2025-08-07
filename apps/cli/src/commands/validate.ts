@@ -71,7 +71,7 @@ export class Validate implements Command {
 			: 'application/xml';
 		const body = await fs.readFile(filename);
 		const form = new FormData();
-		const blob = new Blob([body], { type: mimeType });
+		const blob = new Blob([new Uint8Array(body)], { type: mimeType });
 		form.append('invoice', blob, filename);
 
 		let response: Response;
