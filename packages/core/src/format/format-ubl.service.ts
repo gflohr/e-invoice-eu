@@ -131,7 +131,7 @@ export class FormatUBLService
 	}
 
 	private async embedPDF(invoice: Invoice, options: InvoiceServiceOptions) {
-		if (typeof options.embedPDF === 'undefined') return;
+		if (!options.embedPDF) return;
 
 		const pdf = await this.getInvoicePdf(options);
 		const mimeType = 'application/pdf';
