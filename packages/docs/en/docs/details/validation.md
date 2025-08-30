@@ -103,7 +103,7 @@ documentation](https://docs.peppol.eu/poacc/billing/3.0/).
 All known validators are written in Java and they only cover a certain subset
 of different formats. The only exception is the [Practical Peppol
 validator](https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2)
-that covers a very wide range of in formats. But it is not straightforward
+that covers a very wide range of formats. But it is not straightforward
 to set up or integrate into another software.
 
 That limits the choice to online validators but that would mean that invoice
