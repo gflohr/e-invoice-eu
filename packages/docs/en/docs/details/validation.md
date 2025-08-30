@@ -320,12 +320,12 @@ Alternatively, you can also use `curl` or `httpie`:
 [% FILTER $CodeGroup %]
 [curl]
 [% FILTER $Highlight "language-shell" %]
-$ curl POST -d @./invoice.xml http://localhost:8080/
+curl POST -d @./invoice.xml http://localhost:8080/
 [% END %]
 
 [httpie]
 [% FILTER $Highlight "language-shell" %]
-$ http POST -d @./invoice.xml http://localhost:8080/
+http POST -d @./invoice.xml http://localhost:8080/
 [% END %]
 [% END %]
 <!--/qgoda-no-xgettext-->
@@ -334,7 +334,7 @@ For complete usage information of the validator, run this command:
 
 <!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-shell" %]
-$ node contrib/validators/kosit/validate.mjs --help
+node contrib/validators/kosit/validate.mjs --help
 [% END %]
 <!--/qgoda-no-xgettext-->
 
