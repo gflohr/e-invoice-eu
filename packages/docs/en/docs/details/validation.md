@@ -68,7 +68,7 @@ When reading these rules, you will often see the abbreviation _BT_. BT stands
 for _business term_ and is simply the identifier for a certain invoice field.
 For example, the issue date of an invoice is business term number 2 or short
 BT-2, see the documentation for
-(`cbc:IssueDate`)[https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-IssueDate/].
+[`cbc:IssueDate`](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-IssueDate/).
 
 This documentation contains an almost complete list of business terms, see
 [% q.lanchor(name='business-terms') %] with links to the [Peppol UBL invoice
