@@ -123,7 +123,7 @@ software for validation purposes.
 [% WRAPPER components/infobox.html type='info' title=title %]
 <!--/qgoda-no-xgettext-->
 The list of software and websites following is incomplete. If you want to
-add an entry, please file an [issue](https://github.com/gflohr/e-invoice-eu/issues)!
+add an entry, please file an <a href="https://github.com/gflohr/e-invoice-eu/issues">issue</a>!
 <!--qgoda-no-xgettext-->
 [% END %]
 <!--/qgoda-no-xgettext-->
