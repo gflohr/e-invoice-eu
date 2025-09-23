@@ -10,6 +10,9 @@ exclude:
   - /TODO
   - /LocaleData
   - /postcss.config.js
+  - /build-model-input
+  - /Docs
+  - /API-Docs
 paths:
   site: _site/e-invoice-eu
 exclude-watch:
