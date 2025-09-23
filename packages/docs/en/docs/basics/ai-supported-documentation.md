@@ -17,7 +17,7 @@ description: Ever wished you could ask questions about the e-invoice-eu document
 
 A public version of the e-invoice-eu documentation has been loaded into a
 Google NotebookLM notebook. You can interact with it directly via your browser
-at https://notebooklm.google.com/notebook/6f1e6cf3-d8f4-4ddb-8871-5efd3fd57c80.
+at https://notebooklm.google.com/notebook/f5783dde-ebe6-4610-bac1-f181fdf45f94.
 
 [% title = "Google Account" %]
 <!--qgoda-no-xgettext-->
