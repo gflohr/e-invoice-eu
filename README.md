@@ -22,8 +22,9 @@ JSON with free and open source software.
 - [Description](#description)
 - [Documentation](#documentation)
 - [Alternatives](#alternatives)
+- [Validation](#validation)
 - [BUGS](#bugs)
-  - [PDF/A](#pdfa)
+	- [PDF/A](#pdfa)
 - [Reporting Bugs](#reporting-bugs)
 - [Copyright](#copyright)
 - [Disclaimer](#disclaimer)
@@ -89,6 +90,10 @@ The blog post
 Software](https://www.guido-flohr.net/creating-electronic-invoices-with-free-and-open-source-software/)
 or the German version [Elektronische Rechnungen mit freier und quelloffener Software erzeugen](https://www.guido-flohr.net/elektronische-rechnungen-mit-freier-und-quelloffener-software-erzeugen/)
 also provides in-depth information using a gentler approach!
+
+You can also use the documentation interactively by asking questions in
+natural language. See https://gflohr.github.com/e-invoice-eu/en/docs/basics/ai-supported-documentation/
+or go directly to https://notebooklm.google.com/notebook/f5783dde-ebe6-4610-bac1-f181fdf45f94.
 
 ## Alternatives
 
