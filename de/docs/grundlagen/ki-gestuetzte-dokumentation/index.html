@@ -6,10 +6,10 @@
  <link
 	rel="alternate"
 	hreflang="en"
-	href="/e-invoice-eu/en/docs/cli/commands/schema/"
+	href="/e-invoice-eu/en/docs/basics/ai-supported-documentation/"
 />  
-<meta name="description" content="You can receive the JSON schema definitions used by E-Invoice-EU with the command &lt;code&gt;format&lt;/code&gt;." />
-<title>The Command &quot;schema&quot;</title>
+<meta name="description" content="Ever wished you could ask questions about the e-invoice-eu documentation and get instant answers? With Google NotebookLM, you can now explore the entire documentation in an interactive, AI-powered notebook." />
+<title>AI Supported Documentation</title>
 <link rel="icon" href="/e-invoice-eu/images/favicon.png" type="image/png" />
 <link
 	rel="shortcut icon"
@@ -17,11 +17,11 @@
 	type="image/png"
 />
 <link href="/e-invoice-eu/favicon.ico" type="image/x-icon" />
-<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/schema/" />
-<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/schema/" />
+<link rel="canonical" href="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/grundlagen/ki-gestuetzte-dokumentation/" />
+<meta property="og:url" content="https://gflohr.github.io/e-invoice-eu//e-invoice-eu/de/docs/grundlagen/ki-gestuetzte-dokumentation/" />
  <meta property="og:type" content="article" />
-<meta property="og:title" content="The Command &quot;schema&quot;" />
-<meta property="og:description" content="You can receive the JSON schema definitions used by E-Invoice-EU with the command &lt;code&gt;format&lt;/code&gt;." />
+<meta property="og:title" content="AI Supported Documentation" />
+<meta property="og:description" content="Ever wished you could ask questions about the e-invoice-eu documentation and get instant answers? With Google NotebookLM, you can now explore the entire documentation in an interactive, AI-powered notebook." />
 
 
 	<meta
@@ -108,9 +108,9 @@
 		<div class="row">
 			<div class="col-sm-8 content">
 				<div class="content-head">
-					<h1>The Command "schema"</h1>
+					<h1>AI Supported Documentation</h1>
 					
-					<div class="description">You can receive the JSON schema definitions used by E-Invoice-EU with the command <code>format</code>.</div>
+					<div class="description">Ever wished you could ask questions about the e-invoice-eu documentation and get instant answers? With Google NotebookLM, you can now explore the entire documentation in an interactive, AI-powered notebook.</div>
 				</div>
 				<qgoda-content> 
 
@@ -120,45 +120,62 @@
 
 
 
-<p>If you are interested in the JSON schema definitions internally used by
-E-Invoice-EU, use the command <code>schema</code>.  It has one required option <code>--id</code>
-that takes the schema id - either <code>invoice</code> or <code>mapping</code> as an argument.</p>
+<h2><a href="#" name="how-to-use-the-e-invoice-eu-notebook" id="how-to-use-the-e-invoice-eu-notebook"></a>How to Use the e-invoice-eu Notebook</h2>
 
-<h3><a href="#" name="rechnungsschema" id="rechnungsschema"></a>Rechnungsschema</h3>
+<h3><a href="#" name="access-the-notebook" id="access-the-notebook"></a>Access the Notebook</h3>
 
-<p>This prints the JSON schema for the <a href="/e-invoice-eu/de/docs/details/internes-format/">internal invoice format</a>
-on standard output:</p>
-
-
-
-
-<pre class="language-sh"><code>e-invoice-eu --schema=invoice</code></pre>
+<p>A public version of the e-invoice-eu documentation has been loaded into a
+Google NotebookLM notebook. You can interact with it directly via your browser
+at <a href="https://notebooklm.google.com/notebook/6f1e6cf3-d8f4-4ddb-8871-5efd3fd57c80" target="_blank">https://notebooklm.google.com/notebook/6f1e6cf3-d8f4-4ddb-8871-5efd3fd57c80</a>.</p>
 
 
 
 
 
-<h3><a href="#" name="mapping-schema" id="mapping-schema"></a>Mapping-Schema</h3>
 
-<p>This prints the JSON schema for <a href="/e-invoice-eu/de/docs/details/mapping/">mapping definitions</a>,
-usually given in YAML:</p>
+<div class="alert alert-warning" role="alert">
+    <div>
+        <strong>
+            <i class="bi-exclamation-triangle"></i>
+            <span class="title">Google Account</span>
+        </strong>
+    </div>
+    <p>
+
+You need a Google account, and you have to be logged into that account in order
+to use the notebook.
+
+</p>
+</div>
 
 
 
 
-<pre class="language-sh"><code>e-invoice-eu --schema=mapping</code></pre>
 
 
 
+<h3><a href="#" name="ask-questions-naturally" id="ask-questions-naturally"></a>Ask Questions Naturally</h3>
 
+<p>Type your questions in plain language. For example:</p>
+
+<ul>
+<li>"How do I create a UBL invoice?"</li>
+<li>"What is the difference between Factur-X and ZUGFeRD?"</li>
+<li>"Why should I validate electronic invoices?"</li>
+</ul>
+
+
+<h3><a href="#" name="ask-in-your-own-language" id="ask-in-your-own-language"></a>Ask in Your Own Language</h3>
+
+<p>You can use any language you like for asking questions.</p>
  
 				 
 <div class="guided-tour container">
 	<div class="row">
 		<div class="col-5 text-left guided-tour-link">
 			
-			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/format/"
-				><i class="bi-arrow-left-circle"></i>&nbsp;The Command &quot;format&quot;</a>
+			<a href="/e-invoice-eu/de/docs/grundlagen/unterstuetzte-formate/"
+				><i class="bi-arrow-left-circle"></i>&nbsp;Unterstützte Formate</a>
 			
 		</div>
 		<div class="col-2 text-center guided-tour-link">
@@ -168,8 +185,8 @@ usually given in YAML:</p>
 		</div>
 		<div class="col-5 text-end guided-tour-link">
 			
-			<a href="/e-invoice-eu/de/docs/service/deployment/"
-				>Ausrollen (Deployment)&nbsp;<i
+			<a href="/e-invoice-eu/de/docs/grundlagen/haftungsausschluss/"
+				>Hafuntsausschluss&nbsp;<i
 					class="bi-arrow-right-circle"
 				></i></a>
 			
@@ -189,14 +206,14 @@ usually given in YAML:</p>
 			<a href="https://github.com/gflohr/e-invoice-eu/stargazers" target="_blank">&nbsp;Stars on GitHub</a>
 		</li>
 		<li>
-			<a href="https://github.com/gflohr/e-invoice-eu/blob/main/packages/docs/de/docs/kommandozeilen-tool/kommandos/schema.md?plain=1" target="_blank">
+			<a href="https://github.com/gflohr/e-invoice-eu/blob/main/packages/docs/de/docs/grundlagen/ki-gestuetzte-dokumentation.md?plain=1" target="_blank">
 				<i class="bi-code-slash"></i>
 				Source code of this page
 			</a>
 		</li>
 		
 		<li>
-			<a href="/e-invoice-eu/en/docs/cli/commands/schema/">
+			<a href="/e-invoice-eu/en/docs/basics/ai-supported-documentation/">
 				<i class="bi-translate"></i>
 				Read this page in English
 			</a>
@@ -225,8 +242,7 @@ usually given in YAML:</p>
 		
 		<li>
 			
-			<a href="/e-invoice-eu/de/docs/grundlagen/ki-gestuetzte-dokumentation/">AI Supported Documentation</a>
-			
+			<i class="bi-arrow-right-circle"></i>&nbsp;AI Supported Documentation 
 		</li>
 		
 		<li>
@@ -323,7 +339,8 @@ usually given in YAML:</p>
 		
 		<li>
 			
-			<i class="bi-arrow-right-circle"></i>&nbsp;The Command &quot;schema&quot; 
+			<a href="/e-invoice-eu/de/docs/kommandozeilen-tool/kommandos/schema/">The Command &quot;schema&quot;</a>
+			
 		</li>
 		
 	</ol>
