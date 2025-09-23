@@ -37,9 +37,6 @@ require('prismjs/plugins/toolbar/prism-toolbar.css');
 require('./css/qgoda.css');
 require('./css/toc.css');
 
-require('./css/cookie-consent.css');
-require('./js/cookie-consent.js');
-
 // Custom JS.
 require('./js/code-language');
 
