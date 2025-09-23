@@ -99,17 +99,17 @@ analyzers:
 # This should be overridden in _localqgoda.yaml or in a private branch.
 private:
   legal:
-    name: configure private.legal.name in _localqgoda.yaml or _qgoda.yaml
-    street: configure private.legal.street in _localqgoda.yaml or _qgoda.yaml
-    city: configure private.legal.city in _localqgoda.yaml or _qgoda.yaml
-    id: configure private.legal.id in _localqgoda.yaml or _qgoda.yaml
-    vat-id: configure private.legal.vat-id in _localqgoda.yaml or _qgoda.yaml
-    email: configure private.legal.email in _localqgoda.yaml or _qgoda.yaml
-    phone: configure private.legal.phone in _localqgoda.yaml or _qgoda.yaml
-    manager: configure private.legal.manager in _localqgoda.yaml or _qgoda.yaml
-    responsible: configure private.legal.responsible in _localqgoda.yaml or _qgoda.yaml
-    copyright_year: configure private.legal.copyright_year in _localqgoda.yaml or _qgoda.yaml
-    copyright_uri: configure private.legal.copyright_uri in _localqgoda.yaml or _qgoda.yaml
+    name: cantanea EOOD (Guido Flohr)
+    street: ul. Vitosha 4
+    city: 2111 Petkovo
+    copyright_uri: https://www.cantanea.com/
+    copyright_year: 2024-2025
+    id: BULSTAT 202526954
+    vat-id: BG202526944
+    manager: Guido Flohr
+    email: info@cantanea.com
+    phone: +359 884 52974
+    responsible: Guido Flohr
   copyCode:
     data-prismjs-copy: 'Copy code'
     data-primsjs-copy-success: 'Copied'
