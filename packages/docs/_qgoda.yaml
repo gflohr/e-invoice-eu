@@ -10,6 +10,9 @@ exclude:
   - /TODO
   - /LocaleData
   - /postcss.config.js
+  - /build-model-input
+  - /Docs
+  - /API-Docs
 paths:
   site: _site/e-invoice-eu
 exclude-watch:
@@ -20,6 +23,7 @@ helpers:
   webpack: bun run start
   browser-sync: bun run server
 permalink: /e-invoice-eu{significant-path}
+# Do not switch that to bun! That doesn't work inside the Dockerfile.
 pre-build:
   - name: install
     run: npm install
