@@ -107,7 +107,7 @@ or the German version [Elektronische Rechnungen mit freier und quelloffener Soft
 also provides in-depth information using a gentler approach!
 
 You can also use the documentation interactively by asking questions in
-natural language. See https://gflohr.github.com/e-invoice-eu/en/docs/basics/ai-supported-documentation/
+natural language. See https://gflohr.github.io/e-invoice-eu/en/docs/basics/ai-supported-documentation/
 or go directly to https://notebooklm.google.com/notebook/f5783dde-ebe6-4610-bac1-f181fdf45f94.
 
 ## Validation
