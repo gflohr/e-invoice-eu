@@ -8,7 +8,8 @@
 [![price](https://img.shields.io/badge/price-FREE-green)](https://github.com/gflohr/qgoda/blob/main/LICENSE)
 [![coverage](https://img.shields.io/coverallsCoverage/github/gflohr/e-invoice-eu?branch=main)](https://coveralls.io/github/gflohr/e-invoice-eu?branch=main)
 [![downloads](https://img.shields.io/npm/dw/%40e-invoice-eu%2Fcore)](https://img.shields.io/npm/dw/%40e-invoice-eu%2Fcore)
-[![documentation](https://img.shields.io/badge/documentation-Qgoda🍓-ffc107)](https://www.qgoda.net/)
+[![documentation](https://img.shields.io/badge/documentation-read-green)](https://gflohr.github.io/e-invoice-eu)
+[![help](https://img.shields.io/badge/help-ask--a--question-green)](https://notebooklm.google.com/notebook/f5783dde-ebe6-4610-bac1-f181fdf45f94)
 [![stand with](https://img.shields.io/badge/stand%20with-Ukraine🇺🇦-ffc107)](https://www.standwithukraineeurope.com/en//)
 
 # E-Invoice-EU<!-- omit from toc -->
