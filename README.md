@@ -17,17 +17,31 @@ Free and open source tool chain for generating EN16931 conforming e-invoices
 (Factur-X/ZUGFeRD, UBL, CII, XRechnung) from popular spreadsheet formats or
 JSON with free and open source software.
 
+- [Why E-Invoice-EU?](#why-e-invoice-eu)
 - [Supported Formats](#supported-formats)
 - [Using the software](#using-the-software)
 - [Description](#description)
 - [Documentation](#documentation)
-- [Alternatives](#alternatives)
 - [Validation](#validation)
 - [BUGS](#bugs)
 	- [PDF/A](#pdfa)
 - [Reporting Bugs](#reporting-bugs)
 - [Copyright](#copyright)
 - [Disclaimer](#disclaimer)
+
+## Why E-Invoice-EU?
+
+Electronic invoicing in the EU is mandatory, but most available solutions are
+proprietary, commercial, closed, and costly. E-Invoice-EU takes a different approach:
+
+- ✅ **100% free & open source** – no licence fees, no vendor lock-in
+- ✅ **Standards-compliant** – EN16931, Factur-X, ZUGFeRD, UBL, CII, XRechnung
+- ✅ **Flexible integration** – use the CLI tool, the REST API, or the TypeScript/JavaScript library
+- ✅ **Modern ERP-friendly** – JSON-based input/output makes it trivial to integrate into any contemporary ERP infrastructure
+- ✅ **Proven in production** – already used by organizations ranging from freelancers to multinational enterprises
+
+Whether you need to automate a few invoices per month or integrate e-invoicing
+into a large-scale workflow: E-Invoice-EU gives you a reliable foundation.
 
 ## Supported Formats
 
@@ -94,13 +108,6 @@ also provides in-depth information using a gentler approach!
 You can also use the documentation interactively by asking questions in
 natural language. See https://gflohr.github.com/e-invoice-eu/en/docs/basics/ai-supported-documentation/
 or go directly to https://notebooklm.google.com/notebook/f5783dde-ebe6-4610-bac1-f181fdf45f94.
-
-## Alternatives
-
-You can achieve similar results with these projects:
-
-- [Factur-X extension for LibreOffice](https://github.com/akretion/factur-x-libreoffice-extension)
-  is a LibreOffice extension to generate Factur-X invoices from LibreOffice Calc published under the GPL licence with a [video tutorial](https://www.youtube.com/watch?v=ldD-1W8yIv0). It is maybe less flexible but easier to set up.
 
 ## Validation
 
