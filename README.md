@@ -18,9 +18,9 @@ Free and open source tool chain for generating EN16931 conforming e-invoices
 (Factur-X/ZUGFeRD, UBL, CII, XRechnung) from popular spreadsheet formats or
 JSON with free and open source software.
 
-- [Why E-Invoice-EU?](#why-e-invoice-eu)
-- [Supported Formats](#supported-formats)
-- [Using the software](#using-the-software)
+- [Why?](#why)
+- [How?](#how)
+- [What?](#what)
 - [Description](#description)
 - [Documentation](#documentation)
 - [Validation](#validation)
