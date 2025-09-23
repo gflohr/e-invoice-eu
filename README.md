@@ -34,10 +34,11 @@ JSON with free and open source software.
 Electronic invoicing in the EU is mandatory, but most available solutions are
 proprietary, commercial, closed, and costly. E-Invoice-EU takes a different approach:
 
-- ✅ **100% free & open source** – no license fees, no vendor lock-in  
-- ✅ **Standards-compliant** – EN16931, Factur-X, ZUGFeRD, UBL, CII, XRechnung  
-- ✅ **Flexible integration** – CLI tool, REST API, or TypeScript/JavaScript library  
-- ✅ **Proven in production** – already used by organizations ranging from freelancers to multinational enterprises  
+- ✅ **100% free & open source** – no licence fees, no vendor lock-in
+- ✅ **Standards-compliant** – EN16931, Factur-X, ZUGFeRD, UBL, CII, XRechnung
+- ✅ **Flexible integration** – use the CLI tool, the REST API, or the TypeScript/JavaScript library
+- ✅ **Modern ERP-friendly** – JSON-based input/output makes it trivial to integrate into any contemporary ERP infrastructure
+- ✅ **Proven in production** – already used by organizations ranging from freelancers to multinational enterprises
 
 Whether you need to automate a few invoices per month or integrate e-invoicing
 into a large-scale workflow: E-Invoice-EU gives you a reliable foundation.
