@@ -30,7 +30,7 @@ JSON with free and open source software.
 - [Copyright](#copyright)
 - [Disclaimer](#disclaimer)
 
-## Why E-Invoice-EU?
+## Why?
 
 Electronic invoicing in the EU is mandatory, but most available solutions are
 proprietary, commercial, closed, and costly. E-Invoice-EU takes a different approach:
@@ -44,7 +44,26 @@ proprietary, commercial, closed, and costly. E-Invoice-EU takes a different appr
 Whether you need to automate a few invoices per month or integrate e-invoicing
 into a large-scale workflow: E-Invoice-EU gives you a reliable foundation.
 
-## Supported Formats
+## How?
+
+There are several ways to use the software:
+
+- a [commandline tool `e-invoice-eu`](apps/cli/README.md)
+- a [web service with a RESTful API](apps/server/README.md)
+- a [JavaScript/TypeScript library](packages/core/README.md)
+
+The JavaScript/TypeScript library works both on the commandline and in the
+browser. The only limitation of the browser version is that it cannot generate
+PDF versions of invoices from spreadsheet data because this requires invocation
+of [LibreOffice](https://www.libreoffice.org/) which is not possible in the
+browser. Instead, you have to provide a PDF version yourself, in case it is
+needed.
+
+The [E-Invoice-EU documentation](https://gflohr.github.io/e-invoice-eu/)
+contains a [fully working demo of invoice generation right in your
+browser](https://gflohr.github.io/e-invoice-eu/en/docs/other/browser-example/).
+
+## What?
 
 You can currently create e-invoices in these formats:
 
@@ -70,25 +89,6 @@ You can currently create e-invoices in these formats:
 - `ZUGFeRD-XRechnung` is an alias for `Factur-X-XRechnung`
 
 Case does not matter, when you specify a format.
-
-## Using the software
-
-There are several ways to use the software:
-
-- a [commandline tool `e-invoice-eu`](apps/cli/README.md)
-- a [web service with a RESTful API](apps/server/README.md)
-- a [JavaScript/TypeScript library](packages/core/README.md)
-
-The JavaScript/TypeScript library works both on the commandline and in the
-browser. The only limitation of the browser version is that it cannot generate
-PDF versions of invoices from spreadsheet data because this requires invocation
-of [LibreOffice](https://www.libreoffice.org/) which is not possible in the
-browser. Instead, you have to provide a PDF version yourself, in case it is
-needed.
-
-The [E-Invoice-EU documentation](https://gflohr.github.io/e-invoice-eu/)
-contains a [fully working demo of invoice generation right in your
-browser](https://gflohr.github.io/e-invoice-eu/en/docs/other/browser-example/).
 
 ## Description
 
