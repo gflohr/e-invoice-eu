@@ -59,3 +59,9 @@ sufficient and stable. In the meantime, feel free to <a href="https://github.com
 You can navigate through the documentation with the navigation in the right
 sidebar. But you can also read it cover to cover by following the links at the
 bottom that will take you to the next page.
+
+## AI Supported Documentation
+
+If you do not like reading documentation, please see
+[% q.lanchor(name='ai-supported-documentation') %]. That document explains
+how you can ask an artificial intelligence about this software.

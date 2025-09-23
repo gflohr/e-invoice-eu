@@ -1,7 +1,13 @@
 ---
 doc:
   sections:
-    - ['basics', 'general-mode-of-operation', 'supported-formats', 'disclaimer']
+    - [
+        'basics',
+        'general-mode-of-operation',
+        'supported-formats',
+        'ai-supported-documentation',
+        'disclaimer',
+      ]
     - [
         'e-invoice-formats',
         'hybrid-vs-xml',

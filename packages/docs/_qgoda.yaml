@@ -10,6 +10,9 @@ exclude:
   - /TODO
   - /LocaleData
   - /postcss.config.js
+  - /build-model-input
+  - /Docs
+  - /API-Docs
 paths:
   site: _site/e-invoice-eu
 exclude-watch:
@@ -22,9 +25,9 @@ helpers:
 permalink: /e-invoice-eu{significant-path}
 pre-build:
   - name: install
-    run: npm install
+    run: bun install
   - name: webpack
-    run: npm run build
+    run: bun run build
 # See https://github.com/peaceiris/actions-gh-pages/issues/892!
 post-build:
   - name: disable-jekyll

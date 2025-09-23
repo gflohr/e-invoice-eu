@@ -1,0 +1,24 @@
+#! /bin/sh
+
+set -e
+
+# TypeDoc
+
+cd ../core
+bun run typedoc
+
+cd ../docs
+qgoda build
+
+# Merge HTML output into _docs.md
+find _site/e-invoice-eu/en/docs -name '*.html' -print0 | sort -z | \
+  xargs -0 pandoc --from=html --to=markdown_strict --strip-comments -o Documentation.md \
+  --metadata title="Documentation"
+
+# Merge HTML output into _docs.md
+find api-docs -name '*.html' -print0 | sort -z | \
+  xargs -0 pandoc --from=html --to=markdown_strict -o API-Documentation.md \
+  --metadata title="@e-invoice-eu/core API Documentation"
+
+echo Upload the files Documentation.md and API-Documentation.md as new sources at https://notebooklm.google.com/notebook/6f1e6cf3-d8f4-4ddb-8871-5efd3fd57c80
+
