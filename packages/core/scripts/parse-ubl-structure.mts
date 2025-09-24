@@ -34,6 +34,12 @@ type Element = {
 	BusinessTerms?: string[];
 	children?: Array<Element>;
 	cardinality?: string;
+
+	// For Docs.
+	rules?: string[];
+	example?: string;
+	default?: string;
+	fixed?: string;
 };
 
 const parser = new XMLParser({
@@ -74,6 +80,8 @@ const $defs = {
 	},
 };
 
+const outputDocs = process.argv.length === 3 && process.argv[2] === '--docs';
+
 const codeListDir = 'peppol-bis-invoice-3/structure/codelist';
 loadCodeLists(codeListDir);
 
@@ -86,15 +94,90 @@ for (const element of structure) {
 		delete element.Document;
 		const tree = buildTree(element.Element);
 		sortAttributes(tree);
-		const schema = buildSchema(tree);
-		fixupAttributes(schema);
-		patchSchema(schema);
-		console.log(JSON.stringify(schema, null, '\t'));
+		if (outputDocs) {
+			printDocs(tree);
+		} else {
+			const schema = buildSchema(tree);
+			fixupAttributes(schema);
+			patchSchema(schema);
+			console.log(JSON.stringify(schema, null, '\t'));
+		}
+
 		process.exit(0);
 	}
 }
 
 throw new Error(`error parsing '${rootFilename}'`);
+
+function printDocs(tree: Element) {
+	console.log('# PEPPOL UBL Invoice\n');
+	console.log('This document describes the structure of the internal data format.\n');
+	console.log('## Elements\n');
+	console.log('The elements are identified by their slash separated path.\n');
+
+	printElement(tree, []);
+}
+
+function printElement(element: Element, path: string[]) {
+	let term = '/' + element.Term;
+	if (path.length) {
+		term = '/' + path.join('/') + term;
+	}
+
+	const name = element.Name ? ` (**${element.Name}**)` : '';
+
+	if (element.Term.includes('@')) {
+		// Attribute of the last element.
+		const attribute = term.replace(/.*@/, '@');
+		const attrCardinality = element.cardinality?.startsWith('0') ? 'Optional' : 'Mandatory';
+
+		console.log(`#### ${attrCardinality} Attribute ${attribute} ${name}\n`);
+	} else {
+		console.log(`### ${term}${name}\n`);
+
+		if (element.cardinality) {
+			console.log(`Cardinality: ${element.cardinality}\n`);
+		}
+	}
+
+	if (element.Description) {
+		console.log(element.Description + '\n');
+	}
+
+	if (element.BusinessTerms?.length) {
+		console.log(`Business Terms: ${element.BusinessTerms.join(', ')}\n`);
+	}
+
+	if (Object.prototype.hasOwnProperty.call(element, 'example')) {
+		console.log(`Example value: ${element.example}\n`);
+	}
+
+	if (Object.prototype.hasOwnProperty.call(element, 'default')) {
+		console.log(`Default value: ${element.default}\n`);
+	}
+
+	if (Object.prototype.hasOwnProperty.call(element, 'fixed')) {
+		console.log(`Fixed value: ${element.fixed}\n`);
+	}
+
+	if (element.CodeList) {
+		console.log('#### Code Lists (allowed values)\n');
+
+		element.CodeList.forEach(cl => {
+			console.log(`* ${cl}`);
+		});
+
+		console.log('\n');
+	}
+
+	if (element.children) {
+		for (let i = 0; i < element.children.length; ++i) {
+			path.push(element.Term);
+			printElement(element.children[i], path);
+			path.pop();
+		}
+	}
+}
 
 /**
  * Apply the necessary changes to the schema.
@@ -268,19 +351,21 @@ function buildTree(element: any, parent: any = null): Element {
 				tree.Description = node.Description[0]['#text'];
 			} else if ('DataType' in node) {
 				tree.DataType = node.DataType[0]['#text'];
-			} else if (
-				'Reference' in node &&
-				':@' in node &&
-				'CODE_LIST' == node[':@']['@_type']
-			) {
-				tree.CodeList ??= [];
-				tree.CodeList.push(node.Reference[0]['#text']);
-			} else if (
-				'Reference' in node &&
-				':@' in node &&
-				'BUSINESS_TERM' == node[':@']['@_type']
-			) {
-				tree.BusinessTerms = node.Reference[0]['#text'].split(/[ \t]*,[ \t]*/);
+			} else if ('Reference' in node && ':@' in node) {
+				const refType = node[':@']['@_type'];
+				const value = node.Reference?.[0]?.['#text'];
+				if ('CODE_LIST' === refType) {
+					tree.CodeList ??= [];
+					tree.CodeList.push(value);
+				} else if ('RULE' === refType) {
+					tree.rules ??= [];
+					tree.rules.push(value);
+				} else if ('BUSINESS_TERM' === refType) {
+					tree.BusinessTerms ??= [];
+					tree.BusinessTerms.push(value.split(/[ \t]*,[ \t]*/));
+				} else {
+					console.error(`Unknown reference type ${refType}`);
+				}
 			} else if ('Attribute' in node) {
 				const attribute = buildTree(node.Attribute);
 				attribute.Term = `${tree.Term}@${attribute.Term}`;
@@ -291,6 +376,20 @@ function buildTree(element: any, parent: any = null): Element {
 					node[':@']['@_usage'] === 'Optional'
 				) {
 					attribute.cardinality = '0..1';
+				}
+			} else if ('Value' in node) {
+				const valueType = node[':@']['@_type'];
+				const value = node.Value?.[0]?.['#text'];
+
+				if (valueType === 'EXAMPLE') {
+					tree.example = value;
+				} else if (valueType === 'DEFAULT') {
+					tree.default = value;
+				} else if (valueType === 'FIXED') {
+					tree.fixed = value;
+				} else {
+					console.error(`Unknown value type ${valueType}`);
+					process.exit(1);
 				}
 			} else if ('Element' in node) {
 				tree.children ??= [];
