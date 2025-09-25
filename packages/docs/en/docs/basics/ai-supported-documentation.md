@@ -33,9 +33,18 @@ to use the notebook.
 
 Type your questions in plain language. For example:
 
-- "How do I create a UBL invoice?"
-- "What is the difference between Factur-X and ZUGFeRD?"
-- "Why should I validate electronic invoices?"
+- How do I create a UBL invoice?
+- What is the difference between Factur-X and ZUGFeRD?
+- Why should I validate electronic invoices?
+- The validator complains about "An Invoice that contains a VAT breakdown group (BG-23) with a VAT category code (BT-118) "Not subject to VAT" shall not contain other VAT breakdown groups (BG-23)."
+
+Especially the last example shows a very useful feature. The error messages
+issued by validators are often hard to understand. The AI is able to translate
+them into simpler language.
+
+You can, of course, also ask other AIs like ChatGPT or Google Gemini. The
+Google Notebook has the advantage that the context is already clear, and the
+answers are maybe more specific to that context.
 
 ### Ask in Your Own Language
 
