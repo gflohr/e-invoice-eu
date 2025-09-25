@@ -16,7 +16,7 @@
 		"@porscheofficial/cookie-consent-banner": "^4.0.3",
 		"ajv": "^8.17.1",
 		"autoprefixer": "^10.4.21",
-		"bootstrap": "~>5.0.0",
+		"bootstrap": "~>5.3.8",
 		"bootstrap-icons": "^1.13.1",
 		"browser-sync": "^3.0.4",
 		"caniuse-lite": "^1.0.30001731",
