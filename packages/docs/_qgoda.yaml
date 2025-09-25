@@ -11,8 +11,9 @@ exclude:
   - /LocaleData
   - /postcss.config.js
   - /build-model-input
-  - /Docs
-  - /API-Docs
+  - /Documentation.md
+  - /API-Documentation.md
+  - /Internal-Format-Documentation.md
 paths:
   site: _site/e-invoice-eu
 exclude-watch:
