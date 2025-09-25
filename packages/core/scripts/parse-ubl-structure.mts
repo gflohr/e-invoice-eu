@@ -42,6 +42,12 @@ type Element = {
 	fixed?: string;
 };
 
+type CodeListValue = {
+	Id: string;
+	Name?: string;
+	Description?: string;
+}
+
 const parser = new XMLParser({
 	ignoreAttributes: false,
 	preserveOrder: true,
@@ -49,6 +55,7 @@ const parser = new XMLParser({
 });
 
 const codeLists: { [key: string]: { enum: Array<string> } } = {};
+const codeListValues: { [key: string]: Array<CodeListValue> } = {};
 const $defs = {
 	codeLists,
 	dataTypes: {
@@ -164,10 +171,29 @@ function printElement(element: Element, path: string[]) {
 		console.log('#### Code Lists (allowed values)\n');
 
 		element.CodeList.forEach(cl => {
-			console.log(`* ${cl}`);
-		});
+			console.log(`* ${cl}:`);
 
-		console.log('\n');
+			const values = codeListValues[cl];
+
+			values.forEach(value => {
+				let item = value.Id;
+				if ('Name' in value || 'Description' in value) {
+					item += ' (';
+					if ('Name' in value) {
+						item += `**${value.Name}**`;
+					}
+
+					if ('Description' in value) {
+						item += `: ${value.Description}`;
+					}
+
+					item += ')';
+				}
+				console.log(`\t* ${item}`);
+			})
+
+			console.log('\n');
+		});
 	}
 
 	if (element.children) {
@@ -577,13 +603,16 @@ function loadCodeLists(dir: string) {
 function loadCodeList(parser: XMLParser, filename: string) {
 	const data = readXml(parser, filename);
 	const id = data.CodeList.Identifier;
-	let codeElements = data.CodeList.Code;
+	let codeElements: Array<CodeListValue> = data.CodeList.Code;
 	if (!Array.isArray(codeElements)) {
 		codeElements = [codeElements];
 	}
 
-	const codes = [];
+	codeListValues[id] = codeElements;
+
+	const codes: string[] = [];
 	for (const elem of codeElements) {
+
 		codes.push(elem.Id.toString());
 	}
 
