@@ -100,7 +100,7 @@ a print range defined. You can check that with the menu entry
 `Format -> Print Ranges -> Edit`. For all other sheets, all three options
 have to be set to `None`.
 
-## Can I encode "Skonto" in an Electronic Invoice
+## Can I encode "Skonto" in an Electronic Invoice?
 
 Skonto is a cash discount that is commonly given in German speaking countries.
 If the invoice is paid with a certain number of days, an automatic allowance is
