@@ -46,16 +46,38 @@ type CodeListValue = {
 	Id: string;
 	Name?: string;
 	Description?: string;
-}
+};
+
+type AssertInfo = {
+	id: string;
+	flag?: string;
+	test?: string;
+	text?: string;
+};
+
+type AssertNode = {
+	assert: {
+		'#text': string;
+	}[];
+	':@': {
+		'@id': string;
+		'@flag': string;
+	};
+};
 
 const parser = new XMLParser({
 	ignoreAttributes: false,
+	attributeNamePrefix: '@',
+	textNodeName: '#text',
+	removeNSPrefix: true,
 	preserveOrder: true,
 	alwaysCreateTextNode: false,
 });
 
 const codeLists: { [key: string]: { enum: Array<string> } } = {};
 const codeListValues: { [key: string]: Array<CodeListValue> } = {};
+const rules: Record<string, { flag: string; text: string }> = {};
+
 const $defs = {
 	codeLists,
 	dataTypes: {
@@ -92,6 +114,9 @@ const outputDocs = process.argv.length === 3 && process.argv[2] === '--docs';
 const codeListDir = 'peppol-bis-invoice-3/structure/codelist';
 loadCodeLists(codeListDir);
 
+const rulesDir = 'peppol-bis-invoice-3/rules/sch';
+loadRules(rulesDir);
+
 const rootFilename = 'peppol-bis-invoice-3/structure/syntax/ubl-invoice.xml';
 const basedir = rootFilename.substring(0, rootFilename.lastIndexOf('/'));
 const structure = readXml(parser, rootFilename)[0].Structure;
@@ -118,7 +143,9 @@ throw new Error(`error parsing '${rootFilename}'`);
 
 function printDocs(tree: Element) {
 	console.log('# PEPPOL UBL Invoice\n');
-	console.log('This document describes the structure of the internal data format.\n');
+	console.log(
+		'This document describes the structure of the internal data format.\n',
+	);
 	console.log('## Elements\n');
 	console.log('The elements are identified by their slash separated path.\n');
 
@@ -136,7 +163,9 @@ function printElement(element: Element, path: string[]) {
 	if (element.Term.includes('@')) {
 		// Attribute of the last element.
 		const attribute = term.replace(/.*@/, '@');
-		const attrCardinality = element.cardinality?.startsWith('0') ? 'Optional' : 'Mandatory';
+		const attrCardinality = element.cardinality?.startsWith('0')
+			? 'Optional'
+			: 'Mandatory';
 
 		console.log(`#### ${attrCardinality} Attribute ${attribute} ${name}\n`);
 	} else {
@@ -190,10 +219,14 @@ function printElement(element: Element, path: string[]) {
 					item += ')';
 				}
 				console.log(`\t* ${item}`);
-			})
+			});
 
 			console.log('\n');
 		});
+	}
+
+	if (element.rules) {
+		console.error(element.rules);
 	}
 
 	if (element.children) {
@@ -225,7 +258,8 @@ function patchSchemaImpliedFields(schema: JSONSchemaType<object>) {
 	);
 
 	// We can also fill in the value NA for the order reference id.
-	delete schema.properties['ubl:Invoice'].properties['cac:OrderReference'].required;
+	delete schema.properties['ubl:Invoice'].properties['cac:OrderReference']
+		.required;
 }
 
 function patchSchemaForCreditNotes(schema: JSONSchemaType<object>) {
@@ -384,12 +418,13 @@ function buildTree(element: any, parent: any = null): Element {
 					tree.CodeList ??= [];
 					tree.CodeList.push(value);
 				} else if ('RULE' === refType) {
+					console.error('has rule ...')
 					tree.rules ??= [];
 					tree.rules.push(value);
 				} else if ('BUSINESS_TERM' === refType) {
 					tree.BusinessTerms ??= [];
 					tree.BusinessTerms.push(value.split(/[ \t]*,[ \t]*/));
-				} else {
+				} else if (typeof refType !== 'undefined') {
 					console.error(`Unknown reference type ${refType}`);
 				}
 			} else if ('Attribute' in node) {
@@ -413,9 +448,8 @@ function buildTree(element: any, parent: any = null): Element {
 					tree.default = value;
 				} else if (valueType === 'FIXED') {
 					tree.fixed = value;
-				} else {
+				} else if (typeof valueType !== 'undefined') {
 					console.error(`Unknown value type ${valueType}`);
-					process.exit(1);
 				}
 			} else if ('Element' in node) {
 				tree.children ??= [];
@@ -589,7 +623,7 @@ function parseCardinality(cardinality: string | undefined): Cardinality {
 }
 
 function loadCodeLists(dir: string) {
-	const pattern = new RegExp('.+.xml$');
+	const pattern = new RegExp('.+\.xml$');
 	const filenames = fs
 		.readdirSync(dir)
 		.filter(filename => pattern.test(filename))
@@ -612,9 +646,57 @@ function loadCodeList(parser: XMLParser, filename: string) {
 
 	const codes: string[] = [];
 	for (const elem of codeElements) {
-
 		codes.push(elem.Id.toString());
 	}
 
 	$defs.codeLists[id] = { enum: codes };
+}
+
+function loadRules(dir: string) {
+	const pattern = new RegExp('.+-UBL\.sch$');
+	const filenames = fs
+		.readdirSync(dir)
+		.filter(filename => pattern.test(filename))
+		.map(filename => path.join(dir, filename));
+
+	for (const filename of filenames) {
+		loadRule(parser, filename);
+	}
+}
+
+function toArray<T>(maybeArray: T | T[] | undefined): T[] {
+	if (!maybeArray) return [];
+
+	return Array.isArray(maybeArray) ? maybeArray : [maybeArray];
+}
+
+function loadRule(parser: XMLParser, filename: string) {
+	const xml = fs.readFileSync(filename, 'utf8');
+	const document = parser.parse(xml);
+
+	document.forEach(node => {
+		if ('schema' in node) {
+			const schema = toArray(node.schema);
+			const patternNodes = schema.filter(node => 'pattern' in node);
+			patternNodes.forEach(patternNode => {
+				const ruleNodes = toArray(patternNode.pattern).filter(
+					node => 'rule' in node,
+				);
+
+				ruleNodes.forEach(ruleNode => {
+					const assertNodes = toArray(ruleNode.rule).filter(
+						node => 'assert' in node,
+					);
+
+					assertNodes.forEach((assertNode: AssertNode) => {
+						const id = assertNode[':@']['@id'];
+						rules[id] = {
+							flag: assertNode[':@']['@flag'],
+							text: assertNode.assert[0]['#text'],
+						};
+					});
+				});
+			});
+		}
+	});
 }
