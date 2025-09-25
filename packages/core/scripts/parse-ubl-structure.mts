@@ -48,30 +48,23 @@ type CodeListValue = {
 	Description?: string;
 };
 
-type AssertInfo = {
-	id: string;
-	flag?: string;
-	test?: string;
-	text?: string;
-};
-
 type AssertNode = {
 	assert: {
 		'#text': string;
 	}[];
 	':@': {
-		'@id': string;
-		'@flag': string;
+		'@_id': string;
+		'@_flag': string;
 	};
 };
 
 const parser = new XMLParser({
 	ignoreAttributes: false,
-	attributeNamePrefix: '@',
-	textNodeName: '#text',
 	removeNSPrefix: true,
 	preserveOrder: true,
 	alwaysCreateTextNode: false,
+	attributeNamePrefix: '@_',
+	textNodeName: '#text',
 });
 
 const codeLists: { [key: string]: { enum: Array<string> } } = {};
@@ -159,6 +152,7 @@ function printElement(element: Element, path: string[]) {
 	}
 
 	const name = element.Name ? ` (**${element.Name}**)` : '';
+	let headline: string;
 
 	if (element.Term.includes('@')) {
 		// Attribute of the last element.
@@ -167,9 +161,13 @@ function printElement(element: Element, path: string[]) {
 			? 'Optional'
 			: 'Mandatory';
 
+		headline = '#####';
+
 		console.log(`#### ${attrCardinality} Attribute ${attribute} ${name}\n`);
 	} else {
 		console.log(`### ${term}${name}\n`);
+
+		headline = '####';
 
 		if (element.cardinality) {
 			console.log(`Cardinality: ${element.cardinality}\n`);
@@ -197,7 +195,7 @@ function printElement(element: Element, path: string[]) {
 	}
 
 	if (element.CodeList) {
-		console.log('#### Code Lists (allowed values)\n');
+		console.log(`${headline} Code Lists (allowed values)\n`);
 
 		element.CodeList.forEach(cl => {
 			console.log(`* ${cl}:`);
@@ -226,7 +224,15 @@ function printElement(element: Element, path: string[]) {
 	}
 
 	if (element.rules) {
-		console.error(element.rules);
+		console.log(`${headline} Business Rules\n`);
+		element.rules.forEach(ruleId => {
+			if (ruleId in rules) {
+				const rule = rules[ruleId];
+				console.log(`* ${ruleId}: ${rule.flag}: ${rule.text.replace(/\s\s+/g, ' ')}`);
+			}
+		});
+
+		console.log('\n');
 	}
 
 	if (element.children) {
@@ -418,7 +424,6 @@ function buildTree(element: any, parent: any = null): Element {
 					tree.CodeList ??= [];
 					tree.CodeList.push(value);
 				} else if ('RULE' === refType) {
-					console.error('has rule ...')
 					tree.rules ??= [];
 					tree.rules.push(value);
 				} else if ('BUSINESS_TERM' === refType) {
@@ -689,9 +694,9 @@ function loadRule(parser: XMLParser, filename: string) {
 					);
 
 					assertNodes.forEach((assertNode: AssertNode) => {
-						const id = assertNode[':@']['@id'];
+						const id = assertNode[':@']['@_id'];
 						rules[id] = {
-							flag: assertNode[':@']['@flag'],
+							flag: assertNode[':@']['@_flag'],
 							text: assertNode.assert[0]['#text'],
 						};
 					});
