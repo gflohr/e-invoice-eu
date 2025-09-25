@@ -230,7 +230,9 @@ function printElement(element: Element, path: string[]) {
 		element.rules.forEach(ruleId => {
 			if (ruleId in rules) {
 				const rule = rules[ruleId];
-				console.log(`* ${ruleId}: ${rule.flag}: ${rule.text.replace(/\s\s+/g, ' ')}`);
+				console.log(
+					`* ${ruleId}: ${rule.flag}: ${rule.text.replace(/\s\s+/g, ' ')}`,
+				);
 			}
 		});
 
@@ -697,9 +699,19 @@ function loadRule(parser: XMLParser, filename: string) {
 
 					assertNodes.forEach((assertNode: AssertNode) => {
 						const id = assertNode[':@']['@_id'];
+						let text = assertNode.assert[0]['#text'];
+						const prefixes = [`[${id}]-`, `[${id}] `];
+
+						for (const prefix of prefixes) {
+							if (text.startsWith(prefix)) {
+								text = text.substring(prefix.length);
+								break;
+							}
+						}
+
 						rules[id] = {
 							flag: assertNode[':@']['@_flag'],
-							text: assertNode.assert[0]['#text'],
+							text,
 						};
 					});
 				});
