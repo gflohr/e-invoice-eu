@@ -143,6 +143,27 @@ function printDocs(tree: Element) {
 	console.log('The elements are identified by their slash separated path.\n');
 
 	printElement(tree, []);
+
+	console.log('## Code Lists\n');
+
+	for (const key of Object.keys(codeListValues).sort()) {
+		const codeList = codeListValues[key];
+
+		console.log(`### ${key}\n`);
+
+		codeList.forEach(entry => {
+			let item = entry.Id;
+			if ('Name' in entry || 'Description' in entry) {
+				item += ' (';
+				if ('Name' in entry) item += `**${entry.Name}:**`;
+				if ('Description' in entry) item += ` ${entry.Description}`;
+				item += ')';
+			}
+			console.log(`* ${item}`);
+		});
+
+		console.log('\n');
+	}
 }
 
 function printElement(element: Element, path: string[]) {
@@ -198,29 +219,10 @@ function printElement(element: Element, path: string[]) {
 		console.log(`${headline} Code Lists (allowed values)\n`);
 
 		element.CodeList.forEach(cl => {
-			console.log(`* ${cl}:`);
-
-			const values = codeListValues[cl];
-
-			values.forEach(value => {
-				let item = value.Id;
-				if ('Name' in value || 'Description' in value) {
-					item += ' (';
-					if ('Name' in value) {
-						item += `**${value.Name}**`;
-					}
-
-					if ('Description' in value) {
-						item += `: ${value.Description}`;
-					}
-
-					item += ')';
-				}
-				console.log(`\t* ${item}`);
-			});
-
-			console.log('\n');
+			console.log(`* ${cl}`);
 		});
+
+		console.log('\n');
 	}
 
 	if (element.rules) {
