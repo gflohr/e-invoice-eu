@@ -99,3 +99,37 @@ Make sure that only the sheet that contains the printable invoice data has
 a print range defined. You can check that with the menu entry
 `Format -> Print Ranges -> Edit`. For all other sheets, all three options
 have to be set to `None`.
+
+## Can I encode "Skonto" in an Electronic Invoice
+
+Skonto is a cash discount that is commonly given in German speaking countries.
+If the invoice is paid with a certain number of days, an automatic allowance is
+granted.
+
+The standard EN16931 does nt provide anything to encode this. But the German
+XRechnung standard defines a way to transmit this information. This is best
+explained by an example:
+
+```
+#SKONTO#TAGE=10#PROZENT=3.00#
+#SKONTO#TAGE=10#PROZENT=3.00#BASISBETRAG=1303.69#
+```
+
+The first token `SKONTO` is mandatory. It is followed by the number of days
+(`TAGE`) and the allowance percentage (`PROZENT`) with exactly two decimal
+digits.
+
+If the discount is applied to only a part of the grand total, that part has
+to be specified as a base amount (`BASISBETRAG`), again with two decimal
+digits.
+
+It seems to be sufficient that the field
+[`/cac:PaymentTerms/cbc:Note`](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-PaymentTerms/cbc-Note/)
+contains a line that matches this pattern so that you can mix this with
+human-readable information. Please file an issue, if this is wrong information.
+
+Other sources mention that you can specify a penalty for late payment in the
+same manner as for "Skonto" but replace the `#SKONTO#` with `#VERZUG#` (the
+German word for late payment). However, the [official Schematron rules for
+the German XRechnung](https://github.com/itplr-kosit/xrechnung-schematron/blob/3196f722f1b7298eaaff2e0c89d499e42015f67c/src/validation/schematron/common.sch#L11)
+do not suggest such a convention.
