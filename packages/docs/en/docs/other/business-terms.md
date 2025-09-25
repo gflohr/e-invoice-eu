@@ -2,7 +2,7 @@
 title: Business Terms
 name: business-terms
 section: other
-description: This table maps all EN16931 business terms their respective XML elements.
+description: This table maps all EN16931 business terms to their respective XML elements.
 styles: "<style>td { word-break: break-all; font-size: smaller; }</style>"
 ---
 <!-- This file is generated! Do not edit! -->
