@@ -34,15 +34,43 @@ type Element = {
 	BusinessTerms?: string[];
 	children?: Array<Element>;
 	cardinality?: string;
+
+	// For Docs.
+	rules?: string[];
+	example?: string;
+	default?: string;
+	fixed?: string;
+};
+
+type CodeListValue = {
+	Id: string;
+	Name?: string;
+	Description?: string;
+};
+
+type AssertNode = {
+	assert: {
+		'#text': string;
+	}[];
+	':@': {
+		'@_id': string;
+		'@_flag': string;
+	};
 };
 
 const parser = new XMLParser({
 	ignoreAttributes: false,
+	removeNSPrefix: true,
 	preserveOrder: true,
 	alwaysCreateTextNode: false,
+	attributeNamePrefix: '@_',
+	textNodeName: '#text',
 });
 
 const codeLists: { [key: string]: { enum: Array<string> } } = {};
+const codeListValues: { [key: string]: Array<CodeListValue> } = {};
+const rules: Record<string, { flag: string; text: string }> = {};
+
 const $defs = {
 	codeLists,
 	dataTypes: {
@@ -74,8 +102,13 @@ const $defs = {
 	},
 };
 
+const outputDocs = process.argv.length === 3 && process.argv[2] === '--docs';
+
 const codeListDir = 'peppol-bis-invoice-3/structure/codelist';
 loadCodeLists(codeListDir);
+
+const rulesDir = 'peppol-bis-invoice-3/rules/sch';
+loadRules(rulesDir);
 
 const rootFilename = 'peppol-bis-invoice-3/structure/syntax/ubl-invoice.xml';
 const basedir = rootFilename.substring(0, rootFilename.lastIndexOf('/'));
@@ -86,15 +119,134 @@ for (const element of structure) {
 		delete element.Document;
 		const tree = buildTree(element.Element);
 		sortAttributes(tree);
-		const schema = buildSchema(tree);
-		fixupAttributes(schema);
-		patchSchema(schema);
-		console.log(JSON.stringify(schema, null, '\t'));
+		if (outputDocs) {
+			printDocs(tree);
+		} else {
+			const schema = buildSchema(tree);
+			fixupAttributes(schema);
+			patchSchema(schema);
+			console.log(JSON.stringify(schema, null, '\t'));
+		}
+
 		process.exit(0);
 	}
 }
 
 throw new Error(`error parsing '${rootFilename}'`);
+
+function printDocs(tree: Element) {
+	console.log('# PEPPOL UBL Invoice\n');
+	console.log(
+		'This document describes the structure of the internal data format.\n',
+	);
+	console.log('## Elements\n');
+	console.log('The elements are identified by their slash separated path.\n');
+
+	printElement(tree, []);
+
+	console.log('## Code Lists\n');
+
+	for (const key of Object.keys(codeListValues).sort()) {
+		const codeList = codeListValues[key];
+
+		console.log(`### ${key}\n`);
+
+		codeList.forEach(entry => {
+			let item = entry.Id;
+			if ('Name' in entry || 'Description' in entry) {
+				item += ' (';
+				if ('Name' in entry) item += `**${entry.Name}:**`;
+				if ('Description' in entry) item += ` ${entry.Description}`;
+				item += ')';
+			}
+			console.log(`* ${item}`);
+		});
+
+		console.log('\n');
+	}
+}
+
+function printElement(element: Element, path: string[]) {
+	let term = '/' + element.Term;
+	if (path.length) {
+		term = '/' + path.join('/') + term;
+	}
+
+	const name = element.Name ? ` (**${element.Name}**)` : '';
+	let headline: string;
+
+	if (element.Term.includes('@')) {
+		// Attribute of the last element.
+		const attribute = term.replace(/.*@/, '@');
+		const attrCardinality = element.cardinality?.startsWith('0')
+			? 'Optional'
+			: 'Mandatory';
+
+		headline = '#####';
+
+		console.log(`#### ${attrCardinality} Attribute ${attribute} ${name}\n`);
+	} else {
+		console.log(`### ${term}${name}\n`);
+
+		headline = '####';
+
+		if (element.cardinality) {
+			console.log(`Cardinality: ${element.cardinality}\n`);
+		}
+	}
+
+	if (element.Description) {
+		console.log(element.Description + '\n');
+	}
+
+	if (element.BusinessTerms?.length) {
+		console.log(`Business Terms: ${element.BusinessTerms.join(', ')}\n`);
+	}
+
+	if (Object.prototype.hasOwnProperty.call(element, 'example')) {
+		console.log(`Example value: ${element.example}\n`);
+	}
+
+	if (Object.prototype.hasOwnProperty.call(element, 'default')) {
+		console.log(`Default value: ${element.default}\n`);
+	}
+
+	if (Object.prototype.hasOwnProperty.call(element, 'fixed')) {
+		console.log(`Fixed value: ${element.fixed}\n`);
+	}
+
+	if (element.CodeList) {
+		console.log(`${headline} Code Lists (allowed values)\n`);
+
+		element.CodeList.forEach(cl => {
+			console.log(`* ${cl}`);
+		});
+
+		console.log('\n');
+	}
+
+	if (element.rules) {
+		console.log(`${headline} Business Rules\n`);
+		element.rules.forEach(ruleId => {
+			if (ruleId in rules) {
+				const rule = rules[ruleId];
+				console.log(
+					`* ${ruleId}: ${rule.flag}: ${rule.text.replace(/\s\s+/g, ' ')}`,
+				);
+			}
+		});
+
+		console.log('\n');
+	}
+
+	if (element.children) {
+		for (let i = 0; i < element.children.length; ++i) {
+			path.push(element.Term);
+			printElement(element.children[i], path);
+			path.pop();
+		}
+	}
+}
 
 /**
  * Apply the necessary changes to the schema.
@@ -116,7 +268,8 @@ function patchSchemaImpliedFields(schema: JSONSchemaType<object>) {
 	);
 
 	// We can also fill in the value NA for the order reference id.
-	delete schema.properties['ubl:Invoice'].properties['cac:OrderReference'].required;
+	delete schema.properties['ubl:Invoice'].properties['cac:OrderReference']
+		.required;
 }
 
 function patchSchemaForCreditNotes(schema: JSONSchemaType<object>) {
@@ -268,19 +421,21 @@ function buildTree(element: any, parent: any = null): Element {
 				tree.Description = node.Description[0]['#text'];
 			} else if ('DataType' in node) {
 				tree.DataType = node.DataType[0]['#text'];
-			} else if (
-				'Reference' in node &&
-				':@' in node &&
-				'CODE_LIST' == node[':@']['@_type']
-			) {
-				tree.CodeList ??= [];
-				tree.CodeList.push(node.Reference[0]['#text']);
-			} else if (
-				'Reference' in node &&
-				':@' in node &&
-				'BUSINESS_TERM' == node[':@']['@_type']
-			) {
-				tree.BusinessTerms = node.Reference[0]['#text'].split(/[ \t]*,[ \t]*/);
+			} else if ('Reference' in node && ':@' in node) {
+				const refType = node[':@']['@_type'];
+				const value = node.Reference?.[0]?.['#text'];
+				if ('CODE_LIST' === refType) {
+					tree.CodeList ??= [];
+					tree.CodeList.push(value);
+				} else if ('RULE' === refType) {
+					tree.rules ??= [];
+					tree.rules.push(value);
+				} else if ('BUSINESS_TERM' === refType) {
+					tree.BusinessTerms ??= [];
+					tree.BusinessTerms.push(value.split(/[ \t]*,[ \t]*/));
+				} else if (typeof refType !== 'undefined') {
+					console.error(`Unknown reference type ${refType}`);
+				}
 			} else if ('Attribute' in node) {
 				const attribute = buildTree(node.Attribute);
 				attribute.Term = `${tree.Term}@${attribute.Term}`;
@@ -291,6 +446,19 @@ function buildTree(element: any, parent: any = null): Element {
 					node[':@']['@_usage'] === 'Optional'
 				) {
 					attribute.cardinality = '0..1';
+				}
+			} else if ('Value' in node) {
+				const valueType = node[':@']['@_type'];
+				const value = node.Value?.[0]?.['#text'];
+
+				if (valueType === 'EXAMPLE') {
+					tree.example = value;
+				} else if (valueType === 'DEFAULT') {
+					tree.default = value;
+				} else if (valueType === 'FIXED') {
+					tree.fixed = value;
+				} else if (typeof valueType !== 'undefined') {
+					console.error(`Unknown value type ${valueType}`);
 				}
 			} else if ('Element' in node) {
 				tree.children ??= [];
@@ -464,7 +632,7 @@ function parseCardinality(cardinality: string | undefined): Cardinality {
 }
 
 function loadCodeLists(dir: string) {
-	const pattern = new RegExp('.+.xml$');
+	const pattern = new RegExp('.+\.xml$');
 	const filenames = fs
 		.readdirSync(dir)
 		.filter(filename => pattern.test(filename))
@@ -478,15 +646,76 @@ function loadCodeLists(dir: string) {
 function loadCodeList(parser: XMLParser, filename: string) {
 	const data = readXml(parser, filename);
 	const id = data.CodeList.Identifier;
-	let codeElements = data.CodeList.Code;
+	let codeElements: Array<CodeListValue> = data.CodeList.Code;
 	if (!Array.isArray(codeElements)) {
 		codeElements = [codeElements];
 	}
 
-	const codes = [];
+	codeListValues[id] = codeElements;
+
+	const codes: string[] = [];
 	for (const elem of codeElements) {
 		codes.push(elem.Id.toString());
 	}
 
 	$defs.codeLists[id] = { enum: codes };
+}
+
+function loadRules(dir: string) {
+	const pattern = new RegExp('.+-UBL\.sch$');
+	const filenames = fs
+		.readdirSync(dir)
+		.filter(filename => pattern.test(filename))
+		.map(filename => path.join(dir, filename));
+
+	for (const filename of filenames) {
+		loadRule(parser, filename);
+	}
+}
+
+function toArray<T>(maybeArray: T | T[] | undefined): T[] {
+	if (!maybeArray) return [];
+
+	return Array.isArray(maybeArray) ? maybeArray : [maybeArray];
+}
+
+function loadRule(parser: XMLParser, filename: string) {
+	const xml = fs.readFileSync(filename, 'utf8');
+	const document = parser.parse(xml);
+
+	document.forEach(node => {
+		if ('schema' in node) {
+			const schema = toArray(node.schema);
+			const patternNodes = schema.filter(node => 'pattern' in node);
+			patternNodes.forEach(patternNode => {
+				const ruleNodes = toArray(patternNode.pattern).filter(
+					node => 'rule' in node,
+				);
+
+				ruleNodes.forEach(ruleNode => {
+					const assertNodes = toArray(ruleNode.rule).filter(
+						node => 'assert' in node,
+					);
+
+					assertNodes.forEach((assertNode: AssertNode) => {
+						const id = assertNode[':@']['@_id'];
+						let text = assertNode.assert[0]['#text'];
+						const prefixes = [`[${id}]-`, `[${id}] `];
+
+						for (const prefix of prefixes) {
+							if (text.startsWith(prefix)) {
+								text = text.substring(prefix.length);
+								break;
+							}
+						}
+
+						rules[id] = {
+							flag: assertNode[':@']['@_flag'],
+							text,
+						};
+					});
+				});
+			});
+		}
+	});
 }

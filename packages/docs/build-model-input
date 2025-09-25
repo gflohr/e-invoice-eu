@@ -20,5 +20,11 @@ find api-docs -name '*.html' -print0 | sort -z | \
   xargs -0 pandoc --from=html --to=markdown_strict -o API-Documentation.md \
   --metadata title="@e-invoice-eu/core API Documentation"
 
-echo Upload the files Documentation.md and API-Documentation.md as new sources at https://notebooklm.google.com/notebook/6f1e6cf3-d8f4-4ddb-8871-5efd3fd57c80
+# Convert PEPPOL documentation
+cd ../core
+bun scripts/parse-ubl-structure --docs >../docs/Internal-Format-Documentation.md
+
+echo Upload the files Documentation.md, API-Documentation.md, and
+echo Internal-Format-Documentation.md as new sources at
+echo https://notebooklm.google.com/notebook/6f1e6cf3-d8f4-4ddb-8871-5efd3fd57c80
 
