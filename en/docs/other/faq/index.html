@@ -31,7 +31,7 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css?1758807040" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1758811182" rel="stylesheet">
 
 
 
@@ -155,6 +155,12 @@
 		
 	</li>
 	
+	<li class="toclevel-1">
+		6
+		<a href="#can-i-encode-skonto-in-an-electronic-invoice">Can I encode "Skonto" in an Electronic Invoice</a>
+		
+	</li>
+	
 </ul>
 
 </div>
@@ -253,6 +259,39 @@ You can look up to which elements they belong in our
 a print range defined. You can check that with the menu entry
 <code>Format -&gt; Print Ranges -&gt; Edit</code>. For all other sheets, all three options
 have to be set to <code>None</code>.</p>
+
+<h2><a href="#" name="can-i-encode-skonto-in-an-electronic-invoice" id="can-i-encode-skonto-in-an-electronic-invoice"></a>Can I encode "Skonto" in an Electronic Invoice</h2>
+
+<p>Skonto is a cash discount that is commonly given in German speaking countries.
+If the invoice is paid with a certain number of days, an automatic allowance is
+granted.</p>
+
+<p>The standard EN16931 does nt provide anything to encode this. But the German
+XRechnung standard defines a way to transmit this information. This is best
+explained by an example:</p>
+
+<pre><code>#SKONTO#TAGE=10#PROZENT=3.00#
+#SKONTO#TAGE=10#PROZENT=3.00#BASISBETRAG=1303.69#
+</code></pre>
+
+<p>The first token <code>SKONTO</code> is mandatory. It is followed by the number of days
+(<code>TAGE</code>) and the allowance percentage (<code>PROZENT</code>) with exactly two decimal
+digits.</p>
+
+<p>If the discount is applied to only a part of the grand total, that part has
+to be specified as a base amount (<code>BASISBETRAG</code>), again with two decimal
+digits.</p>
+
+<p>It seems to be sufficient that the field
+<a href="https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-PaymentTerms/cbc-Note/" target="_blank"><code>/cac:PaymentTerms/cbc:Note</code></a>
+contains a line that matches this pattern so that you can mix this with
+human-readable information. Please file an issue, if this is wrong information.</p>
+
+<p>Other sources mention that you can specify a penalty for late payment in the
+same manner as for "Skonto" but replace the <code>#SKONTO#</code> with <code>#VERZUG#</code> (the
+German word for late payment). However, the <a href="https://github.com/itplr-kosit/xrechnung-schematron/blob/3196f722f1b7298eaaff2e0c89d499e42015f67c/src/validation/schematron/common.sch#L11" target="_blank">official Schematron rules for
+the German XRechnung</a>
+do not suggest such a convention.</p>
  
 				 
 <div class="guided-tour container">
@@ -647,7 +686,7 @@ have to be set to <code>None</code>.</p>
  
 
 
-  <script src="/e-invoice-eu/assets/bundle.min.js?1758807040" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1758811182" type="text/javascript"></script>
 
 
 
