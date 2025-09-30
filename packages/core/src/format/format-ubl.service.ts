@@ -104,7 +104,11 @@ export class FormatUBLService
 							!key.includes(':InvoicePeriod') &&
 							!key.includes(':InvoiceDocumentReference')
 						) {
-							newKey = key.replace(':Invoice', ':CreditNote');
+							if (key.includes(':InvoicedQuantity')) {
+								newKey = key.replace(':Invoice', ':Credited');
+							} else {
+								newKey = key.replace(':Invoice', ':CreditNote');
+							}
 						}
 						newObj[newKey] = replaceInvoiceWithCreditNote(value);
 					}
