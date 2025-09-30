@@ -105,7 +105,7 @@ export class FormatUBLService
 							!key.includes(':InvoiceDocumentReference')
 						) {
 							if (key.includes(':InvoicedQuantity')) {
-								newKey = key.replace(':Invoice', ':Credited');
+								newKey = key.replace(':Invoiced', ':Credited');
 							} else {
 								newKey = key.replace(':Invoice', ':CreditNote');
 							}
