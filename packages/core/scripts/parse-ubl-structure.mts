@@ -432,7 +432,7 @@ function buildTree(element: any, parent: any = null): Element {
 					tree.rules.push(value);
 				} else if ('BUSINESS_TERM' === refType) {
 					tree.BusinessTerms ??= [];
-					tree.BusinessTerms.push(value.split(/[ \t]*,[ \t]*/));
+					tree.BusinessTerms.push(...value.split(/[ \t]*,[ \t]*/));
 				} else if (typeof refType !== 'undefined') {
 					console.error(`Unknown reference type ${refType}`);
 				}

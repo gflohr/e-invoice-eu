@@ -33,7 +33,7 @@ console.log(`title: ${title}`);
 console.log(`name: ${name}`);
 console.log('section: other');
 console.log(
-	`description: This table maps all EN16931 ${lctitle}` +
+	`description: This table maps all EN16931 ${lctitle} to` +
 		' their respective XML elements.',
 );
 console.log(
