@@ -2,7 +2,7 @@
 title: Business Groups
 name: business-groups
 section: other
-description: This table maps all EN16931 business groups their respective XML elements.
+description: This table maps all EN16931 business groups to their respective XML elements.
 styles: "<style>td { word-break: break-all; font-size: smaller; }</style>"
 ---
 <!-- This file is generated! Do not edit! -->
