@@ -637,7 +637,10 @@ function loadCodeLists(dir: string) {
 		.readdirSync(dir)
 		.filter(filename => pattern.test(filename))
 		.map(filename => path.join(dir, filename));
-	const codeListParser = new XMLParser();
+	const codeListParser = new XMLParser({
+		parseTagValue: false,
+		parseAttributeValue: false,
+	});
 	for (const filename of filenames) {
 		loadCodeList(codeListParser, filename);
 	}
