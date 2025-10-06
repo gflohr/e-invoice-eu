@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-Basic 1`] = `
 "<?xpacket begin="�" id="W5M0MpCehiHzreSzNTczkc9d"?>
