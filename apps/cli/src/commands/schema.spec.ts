@@ -2,6 +2,7 @@ import { invoiceSchema } from '@e-invoice-eu/core';
 import { mappingSchema } from '@e-invoice-eu/core';
 import * as fs from 'fs/promises';
 import yargs from 'yargs';
+import type { Arguments } from 'yargs';
 
 import { Schema } from './schema';
 import { coerceOptions } from '../optspec';
@@ -62,7 +63,7 @@ describe('Schema Command', () => {
 	test('run() should return 1 if coerceOptions fails', async () => {
 		(coerceOptions as jest.Mock).mockReturnValue(false);
 
-		const result = await schema.run({} as yargs.Arguments);
+		const result = await schema.run({} as Arguments);
 
 		expect(result).toBe(1);
 	});
@@ -73,7 +74,7 @@ describe('Schema Command', () => {
 			.spyOn(schema as any, 'doRun')
 			.mockResolvedValue(undefined);
 
-		const result = await schema.run({} as yargs.Arguments);
+		const result = await schema.run({} as Arguments);
 
 		expect(doRunSpy).toHaveBeenCalled();
 		expect(result).toBe(0);
@@ -88,7 +89,7 @@ describe('Schema Command', () => {
 
 		(Package.getName as jest.Mock).mockReturnValue('e-invoice-eu-cli');
 
-		const result = await schema.run({} as yargs.Arguments);
+		const result = await schema.run({} as Arguments);
 
 		expect(consoleErrorSpy).toHaveBeenCalledWith(
 			'e-invoice-eu-cli: Error: test error',
@@ -102,7 +103,7 @@ describe('Schema Command', () => {
 		const argv = {
 			id: 'invoice',
 			output: 'output.json',
-		} as unknown as yargs.Arguments;
+		} as unknown as Arguments;
 
 		await schema.run(argv);
 
@@ -116,7 +117,7 @@ describe('Schema Command', () => {
 	it('should write to stdout when output is not specified', async () => {
 		const argv = {
 			id: 'mapping',
-		} as unknown as yargs.Arguments;
+		} as unknown as Arguments;
 
 		await schema.run(argv);
 

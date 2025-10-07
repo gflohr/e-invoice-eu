@@ -1,16 +1,16 @@
 import { Textdomain } from '@esgettext/runtime';
-import yargs from 'yargs';
+import { Arguments, Options } from 'yargs';
 
 import { Package } from './package';
 
 const gtx = Textdomain.getInstance('e-invoice-eu-cli');
 
-export interface OptSpec extends yargs.Options {
+export interface OptSpec extends Options {
 	multi?: boolean;
 }
 
 export function coerceOptions(
-	args: yargs.Arguments,
+	args: Arguments,
 	optspecs: { [optname: string]: OptSpec },
 ): boolean {
 	for (const optname in optspecs) {

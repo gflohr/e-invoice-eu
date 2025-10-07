@@ -1,7 +1,7 @@
 import { mappingSchema, invoiceSchema } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
 import * as fs from 'fs/promises';
-import yargs, { InferredOptionTypes } from 'yargs';
+import { Arguments, Argv, InferredOptionTypes } from 'yargs';
 
 import { Command } from '../command';
 import { coerceOptions, OptSpec } from '../optspec';
@@ -42,7 +42,7 @@ export class Schema implements Command {
 		return [];
 	}
 
-	build(argv: yargs.Argv): yargs.Argv<object> {
+	build(argv: Argv): Argv<object> {
 		return argv.options(options);
 	}
 
@@ -61,7 +61,7 @@ export class Schema implements Command {
 		}
 	}
 
-	public async run(argv: yargs.Arguments): Promise<number> {
+	public async run(argv: Arguments): Promise<number> {
 		const configOptions = argv as unknown as ConfigOptions;
 
 		if (!coerceOptions(argv, options)) {

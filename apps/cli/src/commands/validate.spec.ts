@@ -1,4 +1,5 @@
 import yargs from 'yargs';
+import type { Arguments } from 'yargs';
 
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';
@@ -60,7 +61,7 @@ describe('Validate Command', () => {
 	it('run() should return 1 if coerceOptions fails', async () => {
 		(coerceOptions as jest.Mock).mockReturnValue(false);
 
-		const result = await validate.run({} as yargs.Arguments);
+		const result = await validate.run({} as Arguments);
 
 		expect(result).toBe(1);
 	});
@@ -71,7 +72,7 @@ describe('Validate Command', () => {
 			.spyOn(validate as any, 'doRun')
 			.mockResolvedValue(undefined);
 
-		const result = await validate.run({} as yargs.Arguments);
+		const result = await validate.run({} as Arguments);
 
 		expect(doRunSpy).toHaveBeenCalled();
 		expect(result).toBe(0);
@@ -88,7 +89,7 @@ describe('Validate Command', () => {
 
 		const result = await validate.run({
 			verbose: true,
-		} as unknown as yargs.Arguments);
+		} as unknown as Arguments);
 
 		expect(consoleErrorSpy).toHaveBeenCalledWith(
 			'e-invoice-eu-cli: Error: test error',
