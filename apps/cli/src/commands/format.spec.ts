@@ -1,5 +1,5 @@
-import yargs from 'yargs';
 import type { Arguments } from 'yargs';
+import yargs from 'yargs';
 
 import { Format } from './format';
 import { coerceOptions } from '../optspec';

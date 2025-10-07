@@ -77,12 +77,21 @@
 		],
 		"moduleNameMapper": {
 			"^@e-invoice-eu/core$": "<rootDir>/../../../packages/core/src",
-			"^chalk": "<rootDir>/../src/stubs/chalk.ts"
+			"^chalk$": "<rootDir>/../src/stubs/chalk.ts",
+			"^yargs$": "<rootDir>/../src/stubs/yargs.ts",
+			"^yargs/helpers$": "<rootDir>/../src/stubs/yargs.ts"
 		},
 		"rootDir": "src",
 		"testRegex": "\\.spec\\.ts$",
 		"transform": {
-			"^.+\\.ts$": ["ts-jest", { "tsconfig": { "isolatedModules": true }}]
+			"^.+\\.ts$": [
+				"ts-jest",
+				{
+					"tsconfig": {
+						"isolatedModules": true
+					}
+				}
+			]
 		},
 		"coverageDirectory": "../coverage",
 		"testEnvironment": "node"
@@ -121,7 +130,7 @@
 		"js-yaml": "^4.1.0",
 		"mime-types": "^3.0.1",
 		"valibot": "^1.1.0",
-		"yargs": "^17.7.2"
+		"yargs": "^18.0.0"
 	},
 	"gitHead": "45da167e3520f872914bd124389df8326c70e020"
 }
