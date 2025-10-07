@@ -1,5 +1,6 @@
 {
 	"name": "e-invoice-eu",
+	"private": true,
 	"description": "Free and open source Node.js/TypeScript tools for generating EN16931-compliant electronic invoices (UBL, CII, Factur-X/ZUGFeRD, XRechnung) in Europe.",
 	"homepage": "https://gflohr.github.io/e-invoice-eu",
 	"keywords": [
