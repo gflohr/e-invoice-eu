@@ -1,0 +1,63 @@
+Code,Name,"EN16931 interpretation"
+71,"Request for payment",Invoice
+80,"Debit note related to goods or services",Invoice
+81,"Credit note related to goods or services","Credit Note"
+82,"Metered services invoice",Invoice
+83,"Credit note related to financial adjustments","Credit Note"
+84,"Debit note related to financial adjustments",Invoice
+102,"Tax notification",Invoice
+130,"Invoicing data sheet",Invoice
+202,"Direct payment valuation",Invoice
+203,"Provisional payment valuation",Invoice
+204,"Payment valuation",Invoice
+211,"Interim application for payment",Invoice
+218,"Final payment request based on completion of work",Invoice
+219,"Payment request for completed units",Invoice
+261,"Self billed credit note","Credit Note"
+262,"Consolidated credit note - goods and services","Credit Note"
+295,"Price variation invoice",Invoice
+296,"Credit note for price variation","Credit Note"
+308,"Delcredere credit note","Credit Note"
+325,"Proforma invoice",Invoice
+326,"Partial invoice",Invoice
+331,"Commercial invoice which includes a packing list",Invoice
+380,"Commercial invoice",Invoice
+381,"Credit note","Credit Note"
+382,"Commission note",Invoice
+383,"Debit note",Invoice
+384,"Corrected invoice",Invoice
+385,"Consolidated invoice",Invoice
+386,"Prepayment invoice",Invoice
+387,"Hire invoice",Invoice
+388,"Tax invoice",Invoice
+389,"Self-billed invoice",Invoice
+390,"Delcredere invoice",Invoice
+393,"Factored invoice",Invoice
+394,"Lease invoice",Invoice
+395,"Consignment invoice",Invoice
+396,"Factored credit note","Credit Note"
+420,"Optical Character Reading (OCR) payment credit note","Credit Note"
+456,"Debit advice",Invoice
+457,"Reversal of debit",Invoice
+458,"Reversal of credit","Credit Note"
+471,",Self-billed corrective invoice, invoice type, Corrected",Invoice
+472,",Factored Corrective Invoice, invoice type, Corrected",Invoice
+473,",Self billed Factored corrective invoice, invoice type, Corrected",Invoice
+500,",Self Prepayment invoice, invoice type, Original",Invoice
+501,",Self billed factored invoice, invoice type, Original",Invoice
+502,",Self billet factored Credit Note, Credit note type, Corrected","Credit Note"
+503,",Prepayment credit note, credit note type, Corrected","Credit Note"
+527,"Self billed debit note",Invoice
+532,"Forwarder's credit note","Credit Note"
+553,"Forwarder's invoice discrepancy report",Invoice
+575,"Insurer's invoice",Invoice
+623,"Forwarder's invoice",Invoice
+633,"Port charges documents",Invoice
+751,"Invoice information for accounting purposes",Invoice
+780,"Freight invoice",Invoice
+817,"Claim notification",Invoice
+870,"Consular invoice",Invoice
+875,"Partial construction invoice",Invoice
+876,"Partial final construction invoice",Invoice
+877,"Final construction invoice",Invoice
+935,"Customs invoice",Invoice

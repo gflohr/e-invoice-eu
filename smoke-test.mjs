@@ -10,6 +10,7 @@ const examples = [
 ];
 
 async function testAll() {
+	await runCommand('bun', ['run', 'build']);
 	const formatListResult = await runEInvoiceEU(['format', '--list']);
 	let formatListOutput = '';
 	formatListResult.output.forEach(line => {
@@ -127,7 +128,7 @@ async function createInvoice(outputFilename, format, example, map) {
 }
 
 function runEInvoiceEU(args) {
-	return runCommand('npx', ['tsx', 'apps/cli/src/index.ts', ...args]);
+	return runCommand('node', ['apps/cli/dist/index.js', ...args]);
 }
 
 function runCommand(command, args = []) {
