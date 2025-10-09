@@ -6,7 +6,7 @@ import {
 } from '@e-invoice-eu/core';
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { JSONSchemaType } from 'ajv';
+import type { JSONSchemaType } from 'ajv';
 
 @ApiTags('schema')
 @Controller('schema')

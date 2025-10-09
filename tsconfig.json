@@ -18,6 +18,7 @@
 		"noImplicitAny": false,
 		"strictBindCallApply": false,
 		"noFallthroughCasesInSwitch": false,
+		"isolatedModules": true,
 		"paths": {
 			"@e-invoice-eu/core": ["packages/core/src"],
 			"@e-invoice-eu/core/*": ["packages/core/src/*"]

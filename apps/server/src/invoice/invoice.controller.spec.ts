@@ -1,13 +1,8 @@
 import { Invoice } from '@e-invoice-eu/core';
-import {
-	INestApplication,
-	InternalServerErrorException,
-	Logger,
-} from '@nestjs/common';
+import { INestApplication, Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ErrorObject, ValidationError } from 'ajv/dist/2019';
-import { Response } from 'express';
-import * as request from 'supertest';
+import request from 'supertest';
 
 import { InvoiceController } from './invoice.controller';
 import { InvoiceService } from './invoice.service';
@@ -17,7 +12,6 @@ import { MappingService } from '../mapping/mapping.service';
 
 describe('InvoiceController', () => {
 	let app: INestApplication;
-	let controller: InvoiceController;
 	let invoiceService: InvoiceService;
 	let mappingService: MappingService;
 
@@ -38,7 +32,6 @@ describe('InvoiceController', () => {
 			],
 		}).compile();
 
-		controller = module.get<InvoiceController>(InvoiceController);
 		invoiceService = module.get<InvoiceService>(InvoiceService);
 		mappingService = module.get<MappingService>(MappingService);
 
