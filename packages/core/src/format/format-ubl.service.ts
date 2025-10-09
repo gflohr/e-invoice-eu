@@ -117,6 +117,9 @@ export class FormatUBLService
 				return obj;
 			}
 
+			// This field is not present in ubl:CreditNote.
+			delete creditNoteObject['CreditNote']['cbc:DueDate'];
+
 			return this.renderXML(replaceInvoiceWithCreditNote(creditNoteObject));
 		} else {
 			const invoiceObject = {
