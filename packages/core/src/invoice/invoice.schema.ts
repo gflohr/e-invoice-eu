@@ -15,7 +15,7 @@ import { Invoice } from './invoice.interface';
  */
 export const invoiceSchema: JSONSchemaType<Invoice> = {
 	$schema: 'https://json-schema.org/draft/2019-09/schema',
-	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v2.1.12',
+	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v2.1.14',
 	type: 'object',
 	additionalProperties: false,
 	properties: {
@@ -68,10 +68,13 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					],
 				},
 				'cbc:Note': {
-					type: 'string',
-					title: 'Invoice note',
-					description:
-						'A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or assignment note in case the invoice has been factored. The element is not repeatable, except when both the Buyer and Seller are German, in which case the element can be repeated to meet specific legal requirements.\nBusiness terms: BT-22',
+					type: 'array',
+					items: {
+						type: 'string',
+						title: 'Invoice note',
+						description:
+							'A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or assignment note in case the invoice has been factored. The element is not repeatable, except when both the Buyer and Seller are German, in which case the element can be repeated to meet specific legal requirements.\nBusiness terms: BT-22',
+					},
 				},
 				'cbc:TaxPointDate': {
 					$ref: '#/$defs/dataTypes/Date',
@@ -255,7 +258,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								title:
 									'Invoiced object identifier, Supporting document reference',
 								description:
-									'An identifier for an object on which the invoice is based, given by the Seller, or the identifier for the supporting document.\nBusiness terms: BT-18,BT-122',
+									'An identifier for an object on which the invoice is based, given by the Seller, or the identifier for the supporting document.\nBusiness terms: BT-18, BT-122',
 							},
 							'cbc:ID@schemeID': {
 								type: 'string',
@@ -386,7 +389,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 												title:
 													'Seller identifier or bank assigned creditor identifier',
 												description:
-													'This element is used for both the identification of the Seller, or the unique banking reference identifier of Seller (assigned by the Seller bank.). For seller identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present\nBusiness terms: BT-29,BT-90',
+													'This element is used for both the identification of the Seller, or the unique banking reference identifier of Seller (assigned by the Seller bank.). For seller identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present\nBusiness terms: BT-29, BT-90',
 											},
 											'cbc:ID@schemeID': {
 												type: 'string',
@@ -505,7 +508,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 												title:
 													'Seller VAT identifier, Seller tax registration identifier',
 												description:
-													"The Seller's VAT identifier (also known as Seller VAT identification number) or the local identification (defined by the Seller’s address) of the Seller for tax purposes or a reference that enables the Seller to state his registered tax status. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present\nBusiness terms: BT-31,BT-32",
+													"The Seller's VAT identifier (also known as Seller VAT identification number) or the local identification (defined by the Seller’s address) of the Seller for tax purposes or a reference that enables the Seller to state his registered tax status. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present\nBusiness terms: BT-31, BT-32",
 											},
 											'cac:TaxScheme': {
 												type: 'object',
@@ -852,7 +855,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									title:
 										'Payee identifier or bank assigned creditor identifier',
 									description:
-										'This element is used for both the identification of the Payee, or the unique banking reference identifier of Payee (assigned by the Payee bank.) For payee identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA.\nBusiness terms: BT-60,BT-90',
+										'This element is used for both the identification of the Payee, or the unique banking reference identifier of Payee (assigned by the Payee bank.) For payee identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA.\nBusiness terms: BT-60, BT-90',
 								},
 								'cbc:ID@schemeID': {
 									type: 'string',
@@ -1316,7 +1319,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						additionalProperties: false,
 						title: 'DOCUMENT LEVEL ALLOWANCES AND CHARGES',
 						description:
-							'A group of business terms providing information about allowances applicable to the Invoice as a whole. A group of business terms providing information about charges and taxes other than VAT, applicable to the Invoice as a whole.\nBusiness terms: BG-20,BG-21',
+							'A group of business terms providing information about allowances applicable to the Invoice as a whole. A group of business terms providing information about charges and taxes other than VAT, applicable to the Invoice as a whole.\nBusiness terms: BG-20, BG-21',
 						properties: {
 							'cbc:ChargeIndicator': {
 								type: 'string',
@@ -1335,25 +1338,25 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								],
 								title: 'Document level allowance or charge reason code',
 								description:
-									'The reason for the document level allowance or charge, expressed as a code. For allowances a subset of codelist UNCL5189 is to be used, and for charges codelist UNCL7161 applies. The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason\nBusiness terms: BT-98,BT-105',
+									'The reason for the document level allowance or charge, expressed as a code. For allowances a subset of codelist UNCL5189 is to be used, and for charges codelist UNCL7161 applies. The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason\nBusiness terms: BT-98, BT-105',
 							},
 							'cbc:AllowanceChargeReason': {
 								type: 'string',
 								title: 'Document level allowance or charge reason',
 								description:
-									'The reason for the document level allowance or charge, expressed as text. The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason\nBusiness terms: BT-97,BT-104',
+									'The reason for the document level allowance or charge, expressed as text. The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason\nBusiness terms: BT-97, BT-104',
 							},
 							'cbc:MultiplierFactorNumeric': {
 								$ref: '#/$defs/dataTypes/Percentage',
 								title: 'Document level allowance or charge percentage',
 								description:
-									'The percentage that may be used, in conjunction with the document level allowance base amount, to calculate the document level allowance or charge amount. To state 20%, use value 20.\nBusiness terms: BT-94,BT-101',
+									'The percentage that may be used, in conjunction with the document level allowance base amount, to calculate the document level allowance or charge amount. To state 20%, use value 20.\nBusiness terms: BT-94, BT-101',
 							},
 							'cbc:Amount': {
 								$ref: '#/$defs/dataTypes/Amount',
 								title: 'Document level allowance or charge amount',
 								description:
-									'The amount of an allowance or a charge, without VAT. Must be rounded to maximum 2 decimals\nBusiness terms: BT-92,BT-99',
+									'The amount of an allowance or a charge, without VAT. Must be rounded to maximum 2 decimals\nBusiness terms: BT-92, BT-99',
 							},
 							'cbc:Amount@currencyID': {
 								type: 'string',
@@ -1364,7 +1367,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								$ref: '#/$defs/dataTypes/Amount',
 								title: 'Document level allowance or charge base amount',
 								description:
-									'The base amount that may be used, in conjunction with the document level allowance or charge percentage, to calculate the document level allowance or charge amount. Must be rounded to maximum 2 decimals\nBusiness terms: BT-93,BT-100',
+									'The base amount that may be used, in conjunction with the document level allowance or charge percentage, to calculate the document level allowance or charge amount. Must be rounded to maximum 2 decimals\nBusiness terms: BT-93, BT-100',
 							},
 							'cbc:BaseAmount@currencyID': {
 								type: 'string',
@@ -1382,13 +1385,13 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										title:
 											'Document level allowance or charge VAT category code',
 										description:
-											'A coded identification of what VAT category applies to the document level allowance or charge.\nBusiness terms: BT-95,BT-102',
+											'A coded identification of what VAT category applies to the document level allowance or charge.\nBusiness terms: BT-95, BT-102',
 									},
 									'cbc:Percent': {
 										$ref: '#/$defs/dataTypes/Percentage',
 										title: 'Document level allowance or charge VAT rate',
 										description:
-											'The VAT rate, represented as percentage that applies to the document level allowance or charge.\nBusiness terms: BT-96,BT-103',
+											'The VAT rate, represented as percentage that applies to the document level allowance or charge.\nBusiness terms: BT-96, BT-103',
 									},
 									'cac:TaxScheme': {
 										type: 'object',
@@ -1429,7 +1432,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								title:
 									'Invoice total VAT amount, Invoice total VAT amount in accounting currency',
 								description:
-									'The total VAT amount for the Invoice or the VAT total amount expressed in the accounting currency accepted or required in the country of the Seller. Must be rounded to maximum 2 decimals\nBusiness terms: BT-110,BT-111',
+									'The total VAT amount for the Invoice or the VAT total amount expressed in the accounting currency accepted or required in the country of the Seller. Must be rounded to maximum 2 decimals\nBusiness terms: BT-110, BT-111',
 							},
 							'cbc:TaxAmount@currencyID': {
 								type: 'string',
@@ -1785,7 +1788,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									additionalProperties: false,
 									title: 'INVOICE LINE ALLOWANCES OR CHARGES',
 									description:
-										'A group of business terms providing information about allowances or charges applicable to the individual Invoice line.\nBusiness terms: BG-27,BG-28',
+										'A group of business terms providing information about allowances or charges applicable to the individual Invoice line.\nBusiness terms: BG-27, BG-28',
 									properties: {
 										'cbc:ChargeIndicator': {
 											type: 'string',
@@ -1804,25 +1807,25 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											],
 											title: 'Line level allowance or charge reason code',
 											description:
-												'The reason for the line level allowance or charge, expressed as a code.\nBusiness terms: BT-140,BT-145',
+												'The reason for the line level allowance or charge, expressed as a code.\nBusiness terms: BT-140, BT-145',
 										},
 										'cbc:AllowanceChargeReason': {
 											type: 'string',
 											title: 'Line level allowance or charge reason',
 											description:
-												'The reason for the line level allowance or charge, expressed as text.\nBusiness terms: BT-139,BT-144',
+												'The reason for the line level allowance or charge, expressed as text.\nBusiness terms: BT-139, BT-144',
 										},
 										'cbc:MultiplierFactorNumeric': {
 											$ref: '#/$defs/dataTypes/Percentage',
 											title: 'Line level allowance or charge percentage',
 											description:
-												'The percentage that may be used, in conjunction with the line level allowance base amount, to calculate the line level allowance or charge amount.\nBusiness terms: BT-138,BT-143',
+												'The percentage that may be used, in conjunction with the line level allowance base amount, to calculate the line level allowance or charge amount.\nBusiness terms: BT-138, BT-143',
 										},
 										'cbc:Amount': {
 											$ref: '#/$defs/dataTypes/Amount',
 											title: 'Line level allowance or charge amount',
 											description:
-												'The amount of an allowance or a charge, without VAT. Must be rounded to maximum 2 decimals\nBusiness terms: BT-136,BT-141',
+												'The amount of an allowance or a charge, without VAT. Must be rounded to maximum 2 decimals\nBusiness terms: BT-136, BT-141',
 										},
 										'cbc:Amount@currencyID': {
 											type: 'string',
@@ -1833,7 +1836,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											$ref: '#/$defs/dataTypes/Amount',
 											title: 'Line level allowance or charge base amount',
 											description:
-												'The base amount that may be used, in conjunction with the line level allowance or charge percentage, to calculate the line level allowance or charge amount. Must be rounded to maximum 2 decimals\nBusiness terms: BT-137,BT-142',
+												'The base amount that may be used, in conjunction with the line level allowance or charge percentage, to calculate the line level allowance or charge amount. Must be rounded to maximum 2 decimals\nBusiness terms: BT-137, BT-142',
 										},
 										'cbc:BaseAmount@currencyID': {
 											type: 'string',

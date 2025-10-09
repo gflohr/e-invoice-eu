@@ -465,7 +465,17 @@ function buildTree(element: any, parent: any = null): Element {
 				const newElement = buildTree(node.Element, tree);
 				tree.children.push(newElement);
 				if (':@' in node && '@_cardinality' in node[':@']) {
-					newElement.cardinality = node[':@']['@_cardinality'];
+					let cardinality = node[':@']['@_cardinality'];
+					if (
+						newElement.Term === 'cbc:Note' &&
+						tree.Term === 'ubl:Invoice' &&
+						cardinality === '0..1'
+					) {
+						// Top-level cbc:Note is unbounded, see
+						// https://github.com/gflohr/e-invoice-eu/issues/252.
+						cardinality = '0..n';
+					}
+					newElement.cardinality = cardinality;
 				}
 			}
 		}

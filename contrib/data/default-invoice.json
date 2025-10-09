@@ -4,6 +4,7 @@
 		"cbc:IssueDate": "2024-09-24",
 		"cbc:DueDate": "2024-10-08",
 		"cbc:InvoiceTypeCode": "380",
+		"cbc:Note": ["Payable without deductions by October 08, 2024."],
 		"cbc:DocumentCurrencyCode": "EUR",
 		"cbc:BuyerReference": "dept0815",
 		"cac:InvoicePeriod": {

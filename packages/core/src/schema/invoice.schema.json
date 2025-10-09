@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2019-09/schema",
-	"$id": "https://www.cantanea.com/schemas/ubl-invoice-schema-v2.1.12",
+	"$id": "https://www.cantanea.com/schemas/ubl-invoice-schema-v2.1.14",
 	"type": "object",
 	"additionalProperties": false,
 	"properties": {
@@ -47,9 +47,12 @@
 					]
 				},
 				"cbc:Note": {
-					"type": "string",
-					"title": "Invoice note",
-					"description": "A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or assignment note in case the invoice has been factored. The element is not repeatable, except when both the Buyer and Seller are German, in which case the element can be repeated to meet specific legal requirements.\nBusiness terms: BT-22"
+					"type": "array",
+					"items": {
+						"type": "string",
+						"title": "Invoice note",
+						"description": "A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or assignment note in case the invoice has been factored. The element is not repeatable, except when both the Buyer and Seller are German, in which case the element can be repeated to meet specific legal requirements.\nBusiness terms: BT-22"
+					}
 				},
 				"cbc:TaxPointDate": {
 					"$ref": "#/$defs/dataTypes/Date",
@@ -143,14 +146,10 @@
 										"description": "The date when the Preceding Invoice was issued.Shall be provided in case the Preceding Invoice identifier is not unique. Format = \"YYYY-MM-DD\".\nBusiness terms: BT-26"
 									}
 								},
-								"required": [
-									"cbc:ID"
-								]
+								"required": ["cbc:ID"]
 							}
 						},
-						"required": [
-							"cac:InvoiceDocumentReference"
-						]
+						"required": ["cac:InvoiceDocumentReference"]
 					}
 				},
 				"cac:DespatchDocumentReference": {
@@ -164,9 +163,7 @@
 							"description": "An identifier of a referenced despatch advice.\nBusiness terms: BT-16"
 						}
 					},
-					"required": [
-						"cbc:ID"
-					]
+					"required": ["cbc:ID"]
 				},
 				"cac:ReceiptDocumentReference": {
 					"type": "object",
@@ -179,9 +176,7 @@
 							"description": "An identifier of a referenced receiving advice.\nBusiness terms: BT-15"
 						}
 					},
-					"required": [
-						"cbc:ID"
-					]
+					"required": ["cbc:ID"]
 				},
 				"cac:OriginatorDocumentReference": {
 					"type": "object",
@@ -194,9 +189,7 @@
 							"description": "The identification of the call for tender or lot the invoice relates to.\nBusiness terms: BT-17"
 						}
 					},
-					"required": [
-						"cbc:ID"
-					]
+					"required": ["cbc:ID"]
 				},
 				"cac:ContractDocumentReference": {
 					"type": "object",
@@ -209,9 +202,7 @@
 							"description": "The identification of a contract.\nBusiness terms: BT-12"
 						}
 					},
-					"required": [
-						"cbc:ID"
-					]
+					"required": ["cbc:ID"]
 				},
 				"cac:AdditionalDocumentReference": {
 					"type": "array",
@@ -224,7 +215,7 @@
 							"cbc:ID": {
 								"type": "string",
 								"title": "Invoiced object identifier, Supporting document reference",
-								"description": "An identifier for an object on which the invoice is based, given by the Seller, or the identifier for the supporting document.\nBusiness terms: BT-18,BT-122"
+								"description": "An identifier for an object on which the invoice is based, given by the Seller, or the identifier for the supporting document.\nBusiness terms: BT-18, BT-122"
 							},
 							"cbc:ID@schemeID": {
 								"type": "string",
@@ -274,9 +265,7 @@
 												"description": "The URL (Uniform Resource Locator) that identifies where the external document is located. A means of locating the resource, including its primary access mechanism, e.g. http:// or ftp://.\nBusiness terms: BT-124"
 											}
 										},
-										"required": [
-											"cbc:URI"
-										]
+										"required": ["cbc:URI"]
 									}
 								},
 								"required": [],
@@ -294,13 +283,9 @@
 								}
 							}
 						},
-						"required": [
-							"cbc:ID"
-						],
+						"required": ["cbc:ID"],
 						"dependentRequired": {
-							"cbc:ID@schemeID": [
-								"cbc:ID"
-							]
+							"cbc:ID@schemeID": ["cbc:ID"]
 						}
 					}
 				},
@@ -315,9 +300,7 @@
 							"description": "The identification of the project the invoice refers to.\nBusiness terms: BT-11"
 						}
 					},
-					"required": [
-						"cbc:ID"
-					]
+					"required": ["cbc:ID"]
 				},
 				"cac:AccountingSupplierParty": {
 					"type": "object",
@@ -351,7 +334,7 @@
 											"cbc:ID": {
 												"type": "string",
 												"title": "Seller identifier or bank assigned creditor identifier",
-												"description": "This element is used for both the identification of the Seller, or the unique banking reference identifier of Seller (assigned by the Seller bank.). For seller identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present\nBusiness terms: BT-29,BT-90"
+												"description": "This element is used for both the identification of the Seller, or the unique banking reference identifier of Seller (assigned by the Seller bank.). For seller identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present\nBusiness terms: BT-29, BT-90"
 											},
 											"cbc:ID@schemeID": {
 												"type": "string",
@@ -367,13 +350,9 @@
 												"description": "The identification scheme identifier of the Seller identifier. For bank assigned creditor identifier (BT-90), value MUST be \"SEPA\""
 											}
 										},
-										"required": [
-											"cbc:ID"
-										],
+										"required": ["cbc:ID"],
 										"dependentRequired": {
-											"cbc:ID@schemeID": [
-												"cbc:ID"
-											]
+											"cbc:ID@schemeID": ["cbc:ID"]
 										}
 									}
 								},
@@ -388,9 +367,7 @@
 											"description": "A name by which the Seller is known, other than Seller name (also known as Business name).\nBusiness terms: BT-28"
 										}
 									},
-									"required": [
-										"cbc:Name"
-									]
+									"required": ["cbc:Name"]
 								},
 								"cac:PostalAddress": {
 									"type": "object",
@@ -434,9 +411,7 @@
 													"description": "An additional address line in an address that can be used to give further details supplementing the main line.\nBusiness terms: BT-162"
 												}
 											},
-											"required": [
-												"cbc:Line"
-											]
+											"required": ["cbc:Line"]
 										},
 										"cac:Country": {
 											"type": "object",
@@ -450,14 +425,10 @@
 													"description": "A code that identifies the country.\nBusiness terms: BT-40"
 												}
 											},
-											"required": [
-												"cbc:IdentificationCode"
-											]
+											"required": ["cbc:IdentificationCode"]
 										}
 									},
-									"required": [
-										"cac:Country"
-									]
+									"required": ["cac:Country"]
 								},
 								"cac:PartyTaxScheme": {
 									"type": "array",
@@ -469,7 +440,7 @@
 											"cbc:CompanyID": {
 												"type": "string",
 												"title": "Seller VAT identifier, Seller tax registration identifier",
-												"description": "The Seller's VAT identifier (also known as Seller VAT identification number) or the local identification (defined by the Seller’s address) of the Seller for tax purposes or a reference that enables the Seller to state his registered tax status. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present\nBusiness terms: BT-31,BT-32"
+												"description": "The Seller's VAT identifier (also known as Seller VAT identification number) or the local identification (defined by the Seller’s address) of the Seller for tax purposes or a reference that enables the Seller to state his registered tax status. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present\nBusiness terms: BT-31, BT-32"
 											},
 											"cac:TaxScheme": {
 												"type": "object",
@@ -481,15 +452,10 @@
 														"description": "Mandatory element. For Seller VAT identifier (BT-31), use value “VAT”, for the seller tax registration identifier (BT-32), use != \"VAT\""
 													}
 												},
-												"required": [
-													"cbc:ID"
-												]
+												"required": ["cbc:ID"]
 											}
 										},
-										"required": [
-											"cbc:CompanyID",
-											"cac:TaxScheme"
-										]
+										"required": ["cbc:CompanyID", "cac:TaxScheme"]
 									},
 									"maxItems": 2
 								},
@@ -520,13 +486,9 @@
 											"description": "Additional legal information relevant for the Seller.\nBusiness terms: BT-33"
 										}
 									},
-									"required": [
-										"cbc:RegistrationName"
-									],
+									"required": ["cbc:RegistrationName"],
 									"dependentRequired": {
-										"cbc:CompanyID@schemeID": [
-											"cbc:CompanyID"
-										]
+										"cbc:CompanyID@schemeID": ["cbc:CompanyID"]
 									}
 								},
 								"cac:Contact": {
@@ -559,18 +521,12 @@
 								"cac:PartyLegalEntity"
 							],
 							"dependentRequired": {
-								"cbc:EndpointID": [
-									"cbc:EndpointID@schemeID"
-								],
-								"cbc:EndpointID@schemeID": [
-									"cbc:EndpointID"
-								]
+								"cbc:EndpointID": ["cbc:EndpointID@schemeID"],
+								"cbc:EndpointID@schemeID": ["cbc:EndpointID"]
 							}
 						}
 					},
-					"required": [
-						"cac:Party"
-					]
+					"required": ["cac:Party"]
 				},
 				"cac:AccountingCustomerParty": {
 					"type": "object",
@@ -611,13 +567,9 @@
 											"description": "The identification scheme identifier of the Buyer identifier."
 										}
 									},
-									"required": [
-										"cbc:ID"
-									],
+									"required": ["cbc:ID"],
 									"dependentRequired": {
-										"cbc:ID@schemeID": [
-											"cbc:ID"
-										]
+										"cbc:ID@schemeID": ["cbc:ID"]
 									}
 								},
 								"cac:PartyName": {
@@ -631,9 +583,7 @@
 											"description": "A name by which the Buyer is known, other than Buyer name (also known as Business name).\nBusiness terms: BT-45"
 										}
 									},
-									"required": [
-										"cbc:Name"
-									]
+									"required": ["cbc:Name"]
 								},
 								"cac:PostalAddress": {
 									"type": "object",
@@ -677,9 +627,7 @@
 													"description": "An additional address line in an address that can be used to give further details supplementing the main line.\nBusiness terms: BT-163"
 												}
 											},
-											"required": [
-												"cbc:Line"
-											]
+											"required": ["cbc:Line"]
 										},
 										"cac:Country": {
 											"type": "object",
@@ -693,14 +641,10 @@
 													"description": "A code that identifies the country.\nBusiness terms: BT-55"
 												}
 											},
-											"required": [
-												"cbc:IdentificationCode"
-											]
+											"required": ["cbc:IdentificationCode"]
 										}
 									},
-									"required": [
-										"cac:Country"
-									]
+									"required": ["cac:Country"]
 								},
 								"cac:PartyTaxScheme": {
 									"type": "object",
@@ -722,15 +666,10 @@
 													"description": "Mandatory element. Use “VAT”"
 												}
 											},
-											"required": [
-												"cbc:ID"
-											]
+											"required": ["cbc:ID"]
 										}
 									},
-									"required": [
-										"cbc:CompanyID",
-										"cac:TaxScheme"
-									]
+									"required": ["cbc:CompanyID", "cac:TaxScheme"]
 								},
 								"cac:PartyLegalEntity": {
 									"type": "object",
@@ -754,13 +693,9 @@
 											"description": "The identification scheme identifier of the Buyer legal registration identifier."
 										}
 									},
-									"required": [
-										"cbc:RegistrationName"
-									],
+									"required": ["cbc:RegistrationName"],
 									"dependentRequired": {
-										"cbc:CompanyID@schemeID": [
-											"cbc:CompanyID"
-										]
+										"cbc:CompanyID@schemeID": ["cbc:CompanyID"]
 									}
 								},
 								"cac:Contact": {
@@ -793,18 +728,12 @@
 								"cac:PartyLegalEntity"
 							],
 							"dependentRequired": {
-								"cbc:EndpointID": [
-									"cbc:EndpointID@schemeID"
-								],
-								"cbc:EndpointID@schemeID": [
-									"cbc:EndpointID"
-								]
+								"cbc:EndpointID": ["cbc:EndpointID@schemeID"],
+								"cbc:EndpointID@schemeID": ["cbc:EndpointID"]
 							}
 						}
 					},
-					"required": [
-						"cac:Party"
-					]
+					"required": ["cac:Party"]
 				},
 				"cac:PayeeParty": {
 					"type": "object",
@@ -820,7 +749,7 @@
 								"cbc:ID": {
 									"type": "string",
 									"title": "Payee identifier or bank assigned creditor identifier",
-									"description": "This element is used for both the identification of the Payee, or the unique banking reference identifier of Payee (assigned by the Payee bank.) For payee identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA.\nBusiness terms: BT-60,BT-90"
+									"description": "This element is used for both the identification of the Payee, or the unique banking reference identifier of Payee (assigned by the Payee bank.) For payee identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA.\nBusiness terms: BT-60, BT-90"
 								},
 								"cbc:ID@schemeID": {
 									"type": "string",
@@ -836,13 +765,9 @@
 									"description": "The identification scheme identifier of the payee identifier. For bank assigned creditor identifier (BT-90), value MUST be \"SEPA\""
 								}
 							},
-							"required": [
-								"cbc:ID"
-							],
+							"required": ["cbc:ID"],
 							"dependentRequired": {
-								"cbc:ID@schemeID": [
-									"cbc:ID"
-								]
+								"cbc:ID@schemeID": ["cbc:ID"]
 							}
 						},
 						"cac:PartyName": {
@@ -856,9 +781,7 @@
 									"description": "The name of the Payee.\nBusiness terms: BT-59"
 								}
 							},
-							"required": [
-								"cbc:Name"
-							]
+							"required": ["cbc:Name"]
 						},
 						"cac:PartyLegalEntity": {
 							"type": "object",
@@ -877,19 +800,13 @@
 									"description": "The identification scheme identifier of the Payee legal registration identifier."
 								}
 							},
-							"required": [
-								"cbc:CompanyID"
-							],
+							"required": ["cbc:CompanyID"],
 							"dependentRequired": {
-								"cbc:CompanyID@schemeID": [
-									"cbc:CompanyID"
-								]
+								"cbc:CompanyID@schemeID": ["cbc:CompanyID"]
 							}
 						}
 					},
-					"required": [
-						"cac:PartyName"
-					]
+					"required": ["cac:PartyName"]
 				},
 				"cac:TaxRepresentativeParty": {
 					"type": "object",
@@ -908,9 +825,7 @@
 									"description": "The full name of the Seller's tax representative party.\nBusiness terms: BT-62"
 								}
 							},
-							"required": [
-								"cbc:Name"
-							]
+							"required": ["cbc:Name"]
 						},
 						"cac:PostalAddress": {
 							"type": "object",
@@ -954,9 +869,7 @@
 											"description": "An additional address line in an address that can be used to give further details supplementing the main line.\nBusiness terms: BT-164"
 										}
 									},
-									"required": [
-										"cbc:Line"
-									]
+									"required": ["cbc:Line"]
 								},
 								"cac:Country": {
 									"type": "object",
@@ -970,14 +883,10 @@
 											"description": "A code that identifies the country.\nBusiness terms: BT-69"
 										}
 									},
-									"required": [
-										"cbc:IdentificationCode"
-									]
+									"required": ["cbc:IdentificationCode"]
 								}
 							},
-							"required": [
-								"cac:Country"
-							]
+							"required": ["cac:Country"]
 						},
 						"cac:PartyTaxScheme": {
 							"type": "object",
@@ -999,15 +908,10 @@
 											"description": "Mandatory element. Use “VAT”"
 										}
 									},
-									"required": [
-										"cbc:ID"
-									]
+									"required": ["cbc:ID"]
 								}
 							},
-							"required": [
-								"cbc:CompanyID",
-								"cac:TaxScheme"
-							]
+							"required": ["cbc:CompanyID", "cac:TaxScheme"]
 						}
 					},
 					"required": [
@@ -1084,9 +988,7 @@
 													"description": "An additional address line in an address that can be used to give further details supplementing the main line.\nBusiness terms: BT-165"
 												}
 											},
-											"required": [
-												"cbc:Line"
-											]
+											"required": ["cbc:Line"]
 										},
 										"cac:Country": {
 											"type": "object",
@@ -1100,20 +1002,14 @@
 													"description": "A code that identifies the country.\nBusiness terms: BT-80"
 												}
 											},
-											"required": [
-												"cbc:IdentificationCode"
-											]
+											"required": ["cbc:IdentificationCode"]
 										}
 									},
-									"required": [
-										"cac:Country"
-									]
+									"required": ["cac:Country"]
 								}
 							},
 							"dependentRequired": {
-								"cbc:ID@schemeID": [
-									"cbc:ID"
-								]
+								"cbc:ID@schemeID": ["cbc:ID"]
 							}
 						},
 						"cac:DeliveryParty": {
@@ -1132,14 +1028,10 @@
 											"description": "The name of the party to which the goods and services are delivered.\nBusiness terms: BT-70"
 										}
 									},
-									"required": [
-										"cbc:Name"
-									]
+									"required": ["cbc:Name"]
 								}
 							},
-							"required": [
-								"cac:PartyName"
-							]
+							"required": ["cac:PartyName"]
 						}
 					}
 				},
@@ -1188,10 +1080,7 @@
 										"description": "The name of the payment card holder.\nBusiness terms: BT-88"
 									}
 								},
-								"required": [
-									"cbc:PrimaryAccountNumberID",
-									"cbc:NetworkID"
-								]
+								"required": ["cbc:PrimaryAccountNumberID", "cbc:NetworkID"]
 							},
 							"cac:PayeeFinancialAccount": {
 								"type": "object",
@@ -1220,14 +1109,10 @@
 												"description": "An identifier for the payment service provider where a payment account is located. Such as a BIC or a national clearing code where required. No identification scheme Identifier to be used.\nBusiness terms: BT-86"
 											}
 										},
-										"required": [
-											"cbc:ID"
-										]
+										"required": ["cbc:ID"]
 									}
 								},
-								"required": [
-									"cbc:ID"
-								]
+								"required": ["cbc:ID"]
 							},
 							"cac:PaymentMandate": {
 								"type": "object",
@@ -1251,20 +1136,14 @@
 												"description": "The account to be debited by the direct debit.\nBusiness terms: BT-91"
 											}
 										},
-										"required": [
-											"cbc:ID"
-										]
+										"required": ["cbc:ID"]
 									}
 								}
 							}
 						},
-						"required": [
-							"cbc:PaymentMeansCode"
-						],
+						"required": ["cbc:PaymentMeansCode"],
 						"dependentRequired": {
-							"cbc:PaymentMeansCode@name": [
-								"cbc:PaymentMeansCode"
-							]
+							"cbc:PaymentMeansCode@name": ["cbc:PaymentMeansCode"]
 						}
 					}
 				},
@@ -1279,9 +1158,7 @@
 							"description": "A textual description of the payment terms that apply to the amount due for payment (Including description of possible penalties). In case the Amount due for payment (BT-115) is positive, either the Payment due date (BT-9) or the Payment terms (BT-20) shall be present.\nBusiness terms: BT-20"
 						}
 					},
-					"required": [
-						"cbc:Note"
-					]
+					"required": ["cbc:Note"]
 				},
 				"cac:AllowanceCharge": {
 					"type": "array",
@@ -1289,7 +1166,7 @@
 						"type": "object",
 						"additionalProperties": false,
 						"title": "DOCUMENT LEVEL ALLOWANCES AND CHARGES",
-						"description": "A group of business terms providing information about allowances applicable to the Invoice as a whole. A group of business terms providing information about charges and taxes other than VAT, applicable to the Invoice as a whole.\nBusiness terms: BG-20,BG-21",
+						"description": "A group of business terms providing information about allowances applicable to the Invoice as a whole. A group of business terms providing information about charges and taxes other than VAT, applicable to the Invoice as a whole.\nBusiness terms: BG-20, BG-21",
 						"properties": {
 							"cbc:ChargeIndicator": {
 								"type": "string",
@@ -1306,22 +1183,22 @@
 									}
 								],
 								"title": "Document level allowance or charge reason code",
-								"description": "The reason for the document level allowance or charge, expressed as a code. For allowances a subset of codelist UNCL5189 is to be used, and for charges codelist UNCL7161 applies. The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason\nBusiness terms: BT-98,BT-105"
+								"description": "The reason for the document level allowance or charge, expressed as a code. For allowances a subset of codelist UNCL5189 is to be used, and for charges codelist UNCL7161 applies. The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason\nBusiness terms: BT-98, BT-105"
 							},
 							"cbc:AllowanceChargeReason": {
 								"type": "string",
 								"title": "Document level allowance or charge reason",
-								"description": "The reason for the document level allowance or charge, expressed as text. The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason\nBusiness terms: BT-97,BT-104"
+								"description": "The reason for the document level allowance or charge, expressed as text. The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason\nBusiness terms: BT-97, BT-104"
 							},
 							"cbc:MultiplierFactorNumeric": {
 								"$ref": "#/$defs/dataTypes/Percentage",
 								"title": "Document level allowance or charge percentage",
-								"description": "The percentage that may be used, in conjunction with the document level allowance base amount, to calculate the document level allowance or charge amount. To state 20%, use value 20.\nBusiness terms: BT-94,BT-101"
+								"description": "The percentage that may be used, in conjunction with the document level allowance base amount, to calculate the document level allowance or charge amount. To state 20%, use value 20.\nBusiness terms: BT-94, BT-101"
 							},
 							"cbc:Amount": {
 								"$ref": "#/$defs/dataTypes/Amount",
 								"title": "Document level allowance or charge amount",
-								"description": "The amount of an allowance or a charge, without VAT. Must be rounded to maximum 2 decimals\nBusiness terms: BT-92,BT-99"
+								"description": "The amount of an allowance or a charge, without VAT. Must be rounded to maximum 2 decimals\nBusiness terms: BT-92, BT-99"
 							},
 							"cbc:Amount@currencyID": {
 								"type": "string",
@@ -1331,7 +1208,7 @@
 							"cbc:BaseAmount": {
 								"$ref": "#/$defs/dataTypes/Amount",
 								"title": "Document level allowance or charge base amount",
-								"description": "The base amount that may be used, in conjunction with the document level allowance or charge percentage, to calculate the document level allowance or charge amount. Must be rounded to maximum 2 decimals\nBusiness terms: BT-93,BT-100"
+								"description": "The base amount that may be used, in conjunction with the document level allowance or charge percentage, to calculate the document level allowance or charge amount. Must be rounded to maximum 2 decimals\nBusiness terms: BT-93, BT-100"
 							},
 							"cbc:BaseAmount@currencyID": {
 								"type": "string",
@@ -1347,12 +1224,12 @@
 										"type": "string",
 										"$ref": "#/$defs/codeLists/UNCL5305",
 										"title": "Document level allowance or charge VAT category code",
-										"description": "A coded identification of what VAT category applies to the document level allowance or charge.\nBusiness terms: BT-95,BT-102"
+										"description": "A coded identification of what VAT category applies to the document level allowance or charge.\nBusiness terms: BT-95, BT-102"
 									},
 									"cbc:Percent": {
 										"$ref": "#/$defs/dataTypes/Percentage",
 										"title": "Document level allowance or charge VAT rate",
-										"description": "The VAT rate, represented as percentage that applies to the document level allowance or charge.\nBusiness terms: BT-96,BT-103"
+										"description": "The VAT rate, represented as percentage that applies to the document level allowance or charge.\nBusiness terms: BT-96, BT-103"
 									},
 									"cac:TaxScheme": {
 										"type": "object",
@@ -1364,15 +1241,10 @@
 												"description": "Mandatory element. Use “VAT”"
 											}
 										},
-										"required": [
-											"cbc:ID"
-										]
+										"required": ["cbc:ID"]
 									}
 								},
-								"required": [
-									"cbc:ID",
-									"cac:TaxScheme"
-								]
+								"required": ["cbc:ID", "cac:TaxScheme"]
 							}
 						},
 						"required": [
@@ -1381,18 +1253,10 @@
 							"cac:TaxCategory"
 						],
 						"dependentRequired": {
-							"cbc:Amount": [
-								"cbc:Amount@currencyID"
-							],
-							"cbc:BaseAmount": [
-								"cbc:BaseAmount@currencyID"
-							],
-							"cbc:Amount@currencyID": [
-								"cbc:Amount"
-							],
-							"cbc:BaseAmount@currencyID": [
-								"cbc:BaseAmount"
-							]
+							"cbc:Amount": ["cbc:Amount@currencyID"],
+							"cbc:BaseAmount": ["cbc:BaseAmount@currencyID"],
+							"cbc:Amount@currencyID": ["cbc:Amount"],
+							"cbc:BaseAmount@currencyID": ["cbc:BaseAmount"]
 						}
 					}
 				},
@@ -1407,7 +1271,7 @@
 							"cbc:TaxAmount": {
 								"$ref": "#/$defs/dataTypes/Amount",
 								"title": "Invoice total VAT amount, Invoice total VAT amount in accounting currency",
-								"description": "The total VAT amount for the Invoice or the VAT total amount expressed in the accounting currency accepted or required in the country of the Seller. Must be rounded to maximum 2 decimals\nBusiness terms: BT-110,BT-111"
+								"description": "The total VAT amount for the Invoice or the VAT total amount expressed in the accounting currency accepted or required in the country of the Seller. Must be rounded to maximum 2 decimals\nBusiness terms: BT-110, BT-111"
 							},
 							"cbc:TaxAmount@currencyID": {
 								"type": "string",
@@ -1478,15 +1342,10 @@
 															"description": "Mandatory element. Use “VAT”"
 														}
 													},
-													"required": [
-														"cbc:ID"
-													]
+													"required": ["cbc:ID"]
 												}
 											},
-											"required": [
-												"cbc:ID",
-												"cac:TaxScheme"
-											]
+											"required": ["cbc:ID", "cac:TaxScheme"]
 										}
 									},
 									"required": [
@@ -1495,32 +1354,18 @@
 										"cac:TaxCategory"
 									],
 									"dependentRequired": {
-										"cbc:TaxableAmount": [
-											"cbc:TaxableAmount@currencyID"
-										],
-										"cbc:TaxAmount": [
-											"cbc:TaxAmount@currencyID"
-										],
-										"cbc:TaxableAmount@currencyID": [
-											"cbc:TaxableAmount"
-										],
-										"cbc:TaxAmount@currencyID": [
-											"cbc:TaxAmount"
-										]
+										"cbc:TaxableAmount": ["cbc:TaxableAmount@currencyID"],
+										"cbc:TaxAmount": ["cbc:TaxAmount@currencyID"],
+										"cbc:TaxableAmount@currencyID": ["cbc:TaxableAmount"],
+										"cbc:TaxAmount@currencyID": ["cbc:TaxAmount"]
 									}
 								}
 							}
 						},
-						"required": [
-							"cbc:TaxAmount"
-						],
+						"required": ["cbc:TaxAmount"],
 						"dependentRequired": {
-							"cbc:TaxAmount": [
-								"cbc:TaxAmount@currencyID"
-							],
-							"cbc:TaxAmount@currencyID": [
-								"cbc:TaxAmount"
-							]
+							"cbc:TaxAmount": ["cbc:TaxAmount@currencyID"],
+							"cbc:TaxAmount@currencyID": ["cbc:TaxAmount"]
 						}
 					},
 					"minItems": 1,
@@ -1620,54 +1465,26 @@
 						"cbc:PayableAmount"
 					],
 					"dependentRequired": {
-						"cbc:LineExtensionAmount": [
-							"cbc:LineExtensionAmount@currencyID"
-						],
-						"cbc:TaxExclusiveAmount": [
-							"cbc:TaxExclusiveAmount@currencyID"
-						],
-						"cbc:TaxInclusiveAmount": [
-							"cbc:TaxInclusiveAmount@currencyID"
-						],
-						"cbc:AllowanceTotalAmount": [
-							"cbc:AllowanceTotalAmount@currencyID"
-						],
-						"cbc:ChargeTotalAmount": [
-							"cbc:ChargeTotalAmount@currencyID"
-						],
-						"cbc:PrepaidAmount": [
-							"cbc:PrepaidAmount@currencyID"
-						],
+						"cbc:LineExtensionAmount": ["cbc:LineExtensionAmount@currencyID"],
+						"cbc:TaxExclusiveAmount": ["cbc:TaxExclusiveAmount@currencyID"],
+						"cbc:TaxInclusiveAmount": ["cbc:TaxInclusiveAmount@currencyID"],
+						"cbc:AllowanceTotalAmount": ["cbc:AllowanceTotalAmount@currencyID"],
+						"cbc:ChargeTotalAmount": ["cbc:ChargeTotalAmount@currencyID"],
+						"cbc:PrepaidAmount": ["cbc:PrepaidAmount@currencyID"],
 						"cbc:PayableRoundingAmount": [
 							"cbc:PayableRoundingAmount@currencyID"
 						],
-						"cbc:PayableAmount": [
-							"cbc:PayableAmount@currencyID"
-						],
-						"cbc:LineExtensionAmount@currencyID": [
-							"cbc:LineExtensionAmount"
-						],
-						"cbc:TaxExclusiveAmount@currencyID": [
-							"cbc:TaxExclusiveAmount"
-						],
-						"cbc:TaxInclusiveAmount@currencyID": [
-							"cbc:TaxInclusiveAmount"
-						],
-						"cbc:AllowanceTotalAmount@currencyID": [
-							"cbc:AllowanceTotalAmount"
-						],
-						"cbc:ChargeTotalAmount@currencyID": [
-							"cbc:ChargeTotalAmount"
-						],
-						"cbc:PrepaidAmount@currencyID": [
-							"cbc:PrepaidAmount"
-						],
+						"cbc:PayableAmount": ["cbc:PayableAmount@currencyID"],
+						"cbc:LineExtensionAmount@currencyID": ["cbc:LineExtensionAmount"],
+						"cbc:TaxExclusiveAmount@currencyID": ["cbc:TaxExclusiveAmount"],
+						"cbc:TaxInclusiveAmount@currencyID": ["cbc:TaxInclusiveAmount"],
+						"cbc:AllowanceTotalAmount@currencyID": ["cbc:AllowanceTotalAmount"],
+						"cbc:ChargeTotalAmount@currencyID": ["cbc:ChargeTotalAmount"],
+						"cbc:PrepaidAmount@currencyID": ["cbc:PrepaidAmount"],
 						"cbc:PayableRoundingAmount@currencyID": [
 							"cbc:PayableRoundingAmount"
 						],
-						"cbc:PayableAmount@currencyID": [
-							"cbc:PayableAmount"
-						]
+						"cbc:PayableAmount@currencyID": ["cbc:PayableAmount"]
 					}
 				},
 				"cac:InvoiceLine": {
@@ -1743,9 +1560,7 @@
 										"description": "An identifier for a referenced line within a purchase order, issued by the Buyer.\nBusiness terms: BT-132"
 									}
 								},
-								"required": [
-									"cbc:LineID"
-								]
+								"required": ["cbc:LineID"]
 							},
 							"cac:DocumentReference": {
 								"type": "object",
@@ -1769,14 +1584,9 @@
 										"description": "Code \"130\" MUST be used to indicate an invoice object reference. Not used for other additional documents\nBusiness terms: BT-128"
 									}
 								},
-								"required": [
-									"cbc:ID",
-									"cbc:DocumentTypeCode"
-								],
+								"required": ["cbc:ID", "cbc:DocumentTypeCode"],
 								"dependentRequired": {
-									"cbc:ID@schemeID": [
-										"cbc:ID"
-									]
+									"cbc:ID@schemeID": ["cbc:ID"]
 								}
 							},
 							"cac:AllowanceCharge": {
@@ -1785,7 +1595,7 @@
 									"type": "object",
 									"additionalProperties": false,
 									"title": "INVOICE LINE ALLOWANCES OR CHARGES",
-									"description": "A group of business terms providing information about allowances or charges applicable to the individual Invoice line.\nBusiness terms: BG-27,BG-28",
+									"description": "A group of business terms providing information about allowances or charges applicable to the individual Invoice line.\nBusiness terms: BG-27, BG-28",
 									"properties": {
 										"cbc:ChargeIndicator": {
 											"type": "string",
@@ -1802,22 +1612,22 @@
 												}
 											],
 											"title": "Line level allowance or charge reason code",
-											"description": "The reason for the line level allowance or charge, expressed as a code.\nBusiness terms: BT-140,BT-145"
+											"description": "The reason for the line level allowance or charge, expressed as a code.\nBusiness terms: BT-140, BT-145"
 										},
 										"cbc:AllowanceChargeReason": {
 											"type": "string",
 											"title": "Line level allowance or charge reason",
-											"description": "The reason for the line level allowance or charge, expressed as text.\nBusiness terms: BT-139,BT-144"
+											"description": "The reason for the line level allowance or charge, expressed as text.\nBusiness terms: BT-139, BT-144"
 										},
 										"cbc:MultiplierFactorNumeric": {
 											"$ref": "#/$defs/dataTypes/Percentage",
 											"title": "Line level allowance or charge percentage",
-											"description": "The percentage that may be used, in conjunction with the line level allowance base amount, to calculate the line level allowance or charge amount.\nBusiness terms: BT-138,BT-143"
+											"description": "The percentage that may be used, in conjunction with the line level allowance base amount, to calculate the line level allowance or charge amount.\nBusiness terms: BT-138, BT-143"
 										},
 										"cbc:Amount": {
 											"$ref": "#/$defs/dataTypes/Amount",
 											"title": "Line level allowance or charge amount",
-											"description": "The amount of an allowance or a charge, without VAT. Must be rounded to maximum 2 decimals\nBusiness terms: BT-136,BT-141"
+											"description": "The amount of an allowance or a charge, without VAT. Must be rounded to maximum 2 decimals\nBusiness terms: BT-136, BT-141"
 										},
 										"cbc:Amount@currencyID": {
 											"type": "string",
@@ -1827,7 +1637,7 @@
 										"cbc:BaseAmount": {
 											"$ref": "#/$defs/dataTypes/Amount",
 											"title": "Line level allowance or charge base amount",
-											"description": "The base amount that may be used, in conjunction with the line level allowance or charge percentage, to calculate the line level allowance or charge amount. Must be rounded to maximum 2 decimals\nBusiness terms: BT-137,BT-142"
+											"description": "The base amount that may be used, in conjunction with the line level allowance or charge percentage, to calculate the line level allowance or charge amount. Must be rounded to maximum 2 decimals\nBusiness terms: BT-137, BT-142"
 										},
 										"cbc:BaseAmount@currencyID": {
 											"type": "string",
@@ -1835,23 +1645,12 @@
 											"description": "Mandatory attribute. Use BT-5"
 										}
 									},
-									"required": [
-										"cbc:ChargeIndicator",
-										"cbc:Amount"
-									],
+									"required": ["cbc:ChargeIndicator", "cbc:Amount"],
 									"dependentRequired": {
-										"cbc:Amount": [
-											"cbc:Amount@currencyID"
-										],
-										"cbc:BaseAmount": [
-											"cbc:BaseAmount@currencyID"
-										],
-										"cbc:Amount@currencyID": [
-											"cbc:Amount"
-										],
-										"cbc:BaseAmount@currencyID": [
-											"cbc:BaseAmount"
-										]
+										"cbc:Amount": ["cbc:Amount@currencyID"],
+										"cbc:BaseAmount": ["cbc:BaseAmount@currencyID"],
+										"cbc:Amount@currencyID": ["cbc:Amount"],
+										"cbc:BaseAmount@currencyID": ["cbc:BaseAmount"]
 									}
 								}
 							},
@@ -1882,9 +1681,7 @@
 												"description": "An identifier, assigned by the Buyer, for the item.\nBusiness terms: BT-156"
 											}
 										},
-										"required": [
-											"cbc:ID"
-										]
+										"required": ["cbc:ID"]
 									},
 									"cac:SellersItemIdentification": {
 										"type": "object",
@@ -1897,9 +1694,7 @@
 												"description": "An identifier, assigned by the Seller, for the item.\nBusiness terms: BT-155"
 											}
 										},
-										"required": [
-											"cbc:ID"
-										]
+										"required": ["cbc:ID"]
 									},
 									"cac:StandardItemIdentification": {
 										"type": "object",
@@ -1918,16 +1713,10 @@
 												"description": "The identification scheme identifier of the Item standard identifier"
 											}
 										},
-										"required": [
-											"cbc:ID"
-										],
+										"required": ["cbc:ID"],
 										"dependentRequired": {
-											"cbc:ID": [
-												"cbc:ID@schemeID"
-											],
-											"cbc:ID@schemeID": [
-												"cbc:ID"
-											]
+											"cbc:ID": ["cbc:ID@schemeID"],
+											"cbc:ID@schemeID": ["cbc:ID"]
 										}
 									},
 									"cac:OriginCountry": {
@@ -1942,9 +1731,7 @@
 												"description": "The code identifying the country from which the item originates.\nBusiness terms: BT-159"
 											}
 										},
-										"required": [
-											"cbc:IdentificationCode"
-										]
+										"required": ["cbc:IdentificationCode"]
 									},
 									"cac:CommodityClassification": {
 										"type": "array",
@@ -1970,9 +1757,7 @@
 													"description": "The identification scheme version identifier of the Item classification identifier"
 												}
 											},
-											"required": [
-												"cbc:ItemClassificationCode"
-											],
+											"required": ["cbc:ItemClassificationCode"],
 											"dependentRequired": {
 												"cbc:ItemClassificationCode": [
 													"cbc:ItemClassificationCode@listID"
@@ -2013,15 +1798,10 @@
 														"description": "Mandatory element. Use “VAT”"
 													}
 												},
-												"required": [
-													"cbc:ID"
-												]
+												"required": ["cbc:ID"]
 											}
 										},
-										"required": [
-											"cbc:ID",
-											"cac:TaxScheme"
-										]
+										"required": ["cbc:ID", "cac:TaxScheme"]
 									},
 									"cac:AdditionalItemProperty": {
 										"type": "array",
@@ -2042,17 +1822,11 @@
 													"description": "The value of the attribute or property of the item.\nBusiness terms: BT-161"
 												}
 											},
-											"required": [
-												"cbc:Name",
-												"cbc:Value"
-											]
+											"required": ["cbc:Name", "cbc:Value"]
 										}
 									}
 								},
-								"required": [
-									"cbc:Name",
-									"cac:ClassifiedTaxCategory"
-								]
+								"required": ["cbc:Name", "cac:ClassifiedTaxCategory"]
 							},
 							"cac:Price": {
 								"type": "object",
@@ -2111,39 +1885,20 @@
 												"description": "Mandatory attribute. Use BT-5"
 											}
 										},
-										"required": [
-											"cbc:ChargeIndicator",
-											"cbc:Amount"
-										],
+										"required": ["cbc:ChargeIndicator", "cbc:Amount"],
 										"dependentRequired": {
-											"cbc:Amount": [
-												"cbc:Amount@currencyID"
-											],
-											"cbc:BaseAmount": [
-												"cbc:BaseAmount@currencyID"
-											],
-											"cbc:Amount@currencyID": [
-												"cbc:Amount"
-											],
-											"cbc:BaseAmount@currencyID": [
-												"cbc:BaseAmount"
-											]
+											"cbc:Amount": ["cbc:Amount@currencyID"],
+											"cbc:BaseAmount": ["cbc:BaseAmount@currencyID"],
+											"cbc:Amount@currencyID": ["cbc:Amount"],
+											"cbc:BaseAmount@currencyID": ["cbc:BaseAmount"]
 										}
 									}
 								},
-								"required": [
-									"cbc:PriceAmount"
-								],
+								"required": ["cbc:PriceAmount"],
 								"dependentRequired": {
-									"cbc:PriceAmount": [
-										"cbc:PriceAmount@currencyID"
-									],
-									"cbc:PriceAmount@currencyID": [
-										"cbc:PriceAmount"
-									],
-									"cbc:BaseQuantity@unitCode": [
-										"cbc:BaseQuantity"
-									]
+									"cbc:PriceAmount": ["cbc:PriceAmount@currencyID"],
+									"cbc:PriceAmount@currencyID": ["cbc:PriceAmount"],
+									"cbc:BaseQuantity@unitCode": ["cbc:BaseQuantity"]
 								}
 							}
 						},
@@ -2155,18 +1910,10 @@
 							"cac:Price"
 						],
 						"dependentRequired": {
-							"cbc:InvoicedQuantity": [
-								"cbc:InvoicedQuantity@unitCode"
-							],
-							"cbc:LineExtensionAmount": [
-								"cbc:LineExtensionAmount@currencyID"
-							],
-							"cbc:InvoicedQuantity@unitCode": [
-								"cbc:InvoicedQuantity"
-							],
-							"cbc:LineExtensionAmount@currencyID": [
-								"cbc:LineExtensionAmount"
-							]
+							"cbc:InvoicedQuantity": ["cbc:InvoicedQuantity@unitCode"],
+							"cbc:LineExtensionAmount": ["cbc:LineExtensionAmount@currencyID"],
+							"cbc:InvoicedQuantity@unitCode": ["cbc:InvoicedQuantity"],
+							"cbc:LineExtensionAmount@currencyID": ["cbc:LineExtensionAmount"]
 						}
 					},
 					"minItems": 1
@@ -2185,9 +1932,7 @@
 			]
 		}
 	},
-	"required": [
-		"ubl:Invoice"
-	],
+	"required": ["ubl:Invoice"],
 	"$defs": {
 		"codeLists": {
 			"UNCL4461": {
@@ -2278,11 +2023,7 @@
 				]
 			},
 			"UNCL2005": {
-				"enum": [
-					"3",
-					"35",
-					"432"
-				]
+				"enum": ["3", "35", "432"]
 			},
 			"UNCL7143": {
 				"enum": [
@@ -5747,18 +5488,7 @@
 				]
 			},
 			"UNCL5305": {
-				"enum": [
-					"AE",
-					"E",
-					"S",
-					"Z",
-					"G",
-					"O",
-					"K",
-					"L",
-					"M",
-					"B"
-				]
+				"enum": ["AE", "E", "S", "Z", "G", "O", "K", "L", "M", "B"]
 			},
 			"eas": {
 				"enum": [
@@ -5853,9 +5583,7 @@
 				]
 			},
 			"SEPA": {
-				"enum": [
-					"SEPA"
-				]
+				"enum": ["SEPA"]
 			},
 			"ICD": {
 				"enum": [
@@ -6095,14 +5823,7 @@
 				]
 			},
 			"UNCL1001-cn": {
-				"enum": [
-					"81",
-					"83",
-					"381",
-					"384",
-					"396",
-					"532"
-				]
+				"enum": ["81", "83", "381", "384", "396", "532"]
 			},
 			"UNCL7161": {
 				"enum": [

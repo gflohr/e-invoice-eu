@@ -24,7 +24,9 @@ export interface Mapping {
 		'cbc:IssueDate': ValueRef;
 		'cbc:DueDate'?: ValueRef;
 		'cbc:InvoiceTypeCode': ValueRef;
-		'cbc:Note'?: ValueRef;
+		'cbc:Note'?: {
+			section?: SectionRef;
+		};
 		'cbc:TaxPointDate'?: ValueRef;
 		'cbc:DocumentCurrencyCode': ValueRef;
 		'cbc:TaxCurrencyCode'?: ValueRef;

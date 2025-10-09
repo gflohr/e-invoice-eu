@@ -508,7 +508,7 @@ export type TenderOrLotReference = string;
 export type ContractReference = string;
 /**
  * An identifier for an object on which the invoice is based, given by the Seller, or the identifier for the supporting document.
- * Business terms: BT-18,BT-122
+ * Business terms: BT-18, BT-122
  */
 export type InvoicedObjectIdentifierSupportingDocumentReference = string;
 /**
@@ -1469,7 +1469,7 @@ export type SellerElectronicAddressIdentificationSchemeIdentifier =
 	| 'AU';
 /**
  * This element is used for both the identification of the Seller, or the unique banking reference identifier of Seller (assigned by the Seller bank.). For seller identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present
- * Business terms: BT-29,BT-90
+ * Business terms: BT-29, BT-90
  */
 export type SellerIdentifierOrBankAssignedCreditorIdentifier = string;
 /**
@@ -2008,7 +2008,7 @@ export type SellerCountryCode =
 	| 'XI';
 /**
  * The Seller's VAT identifier (also known as Seller VAT identification number) or the local identification (defined by the Seller’s address) of the Seller for tax purposes or a reference that enables the Seller to state his registered tax status. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present
- * Business terms: BT-31,BT-32
+ * Business terms: BT-31, BT-32
  */
 export type SellerVATIdentifierSellerTaxRegistrationIdentifier = string;
 /**
@@ -3176,7 +3176,7 @@ export type BuyerContactTelephoneNumber = string;
 export type BuyerContactEmailAddress = string;
 /**
  * This element is used for both the identification of the Payee, or the unique banking reference identifier of Payee (assigned by the Payee bank.) For payee identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA.
- * Business terms: BT-60,BT-90
+ * Business terms: BT-60, BT-90
  */
 export type PayeeIdentifierOrBankAssignedCreditorIdentifier = string;
 /**
@@ -4643,7 +4643,7 @@ export type DebitedAccountIdentifier = string;
 export type PaymentTerms = string;
 /**
  * The reason for the document level allowance or charge, expressed as a code. For allowances a subset of codelist UNCL5189 is to be used, and for charges codelist UNCL7161 applies. The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason
- * Business terms: BT-98,BT-105
+ * Business terms: BT-98, BT-105
  */
 export type DocumentLevelAllowanceOrChargeReasonCode = (
 	| (
@@ -4851,27 +4851,27 @@ export type DocumentLevelAllowanceOrChargeReasonCode = (
 	string;
 /**
  * The reason for the document level allowance or charge, expressed as text. The Document level allowance reason code and the Document level allowance reason shall indicate the same allowance reason
- * Business terms: BT-97,BT-104
+ * Business terms: BT-97, BT-104
  */
 export type DocumentLevelAllowanceOrChargeReason = string;
 /**
  * The percentage that may be used, in conjunction with the document level allowance base amount, to calculate the document level allowance or charge amount. To state 20%, use value 20.
- * Business terms: BT-94,BT-101
+ * Business terms: BT-94, BT-101
  */
 export type DocumentLevelAllowanceOrChargePercentage = string;
 /**
  * The amount of an allowance or a charge, without VAT. Must be rounded to maximum 2 decimals
- * Business terms: BT-92,BT-99
+ * Business terms: BT-92, BT-99
  */
 export type DocumentLevelAllowanceOrChargeAmount = string;
 /**
  * The base amount that may be used, in conjunction with the document level allowance or charge percentage, to calculate the document level allowance or charge amount. Must be rounded to maximum 2 decimals
- * Business terms: BT-93,BT-100
+ * Business terms: BT-93, BT-100
  */
 export type DocumentLevelAllowanceOrChargeBaseAmount = string;
 /**
  * A coded identification of what VAT category applies to the document level allowance or charge.
- * Business terms: BT-95,BT-102
+ * Business terms: BT-95, BT-102
  */
 export type DocumentLevelAllowanceOrChargeVATCategoryCode =
 	| 'AE'
@@ -4886,12 +4886,12 @@ export type DocumentLevelAllowanceOrChargeVATCategoryCode =
 	| 'B';
 /**
  * The VAT rate, represented as percentage that applies to the document level allowance or charge.
- * Business terms: BT-96,BT-103
+ * Business terms: BT-96, BT-103
  */
 export type DocumentLevelAllowanceOrChargeVATRate = string;
 /**
  * The total VAT amount for the Invoice or the VAT total amount expressed in the accounting currency accepted or required in the country of the Seller. Must be rounded to maximum 2 decimals
- * Business terms: BT-110,BT-111
+ * Business terms: BT-110, BT-111
  */
 export type InvoiceTotalVATAmountInvoiceTotalVATAmountInAccountingCurrency =
 	string;
@@ -8015,7 +8015,7 @@ export type InvoiceLineObjectIdentifierIdentificationSchemeIdentifier =
 export type DocumentTypeCode1 = string;
 /**
  * The reason for the line level allowance or charge, expressed as a code.
- * Business terms: BT-140,BT-145
+ * Business terms: BT-140, BT-145
  */
 export type LineLevelAllowanceOrChargeReasonCode = (
 	| (
@@ -8223,22 +8223,22 @@ export type LineLevelAllowanceOrChargeReasonCode = (
 	string;
 /**
  * The reason for the line level allowance or charge, expressed as text.
- * Business terms: BT-139,BT-144
+ * Business terms: BT-139, BT-144
  */
 export type LineLevelAllowanceOrChargeReason = string;
 /**
  * The percentage that may be used, in conjunction with the line level allowance base amount, to calculate the line level allowance or charge amount.
- * Business terms: BT-138,BT-143
+ * Business terms: BT-138, BT-143
  */
 export type LineLevelAllowanceOrChargePercentage = string;
 /**
  * The amount of an allowance or a charge, without VAT. Must be rounded to maximum 2 decimals
- * Business terms: BT-136,BT-141
+ * Business terms: BT-136, BT-141
  */
 export type LineLevelAllowanceOrChargeAmount = string;
 /**
  * The base amount that may be used, in conjunction with the line level allowance or charge percentage, to calculate the line level allowance or charge amount. Must be rounded to maximum 2 decimals
- * Business terms: BT-137,BT-142
+ * Business terms: BT-137, BT-142
  */
 export type LineLevelAllowanceOrChargeBaseAmount = string;
 /**
@@ -11186,7 +11186,7 @@ export interface Invoice {
 		'cbc:IssueDate': InvoiceIssueDate;
 		'cbc:DueDate'?: PaymentDueDate;
 		'cbc:InvoiceTypeCode': InvoiceTypeCode;
-		'cbc:Note'?: InvoiceNote;
+		'cbc:Note'?: InvoiceNote[];
 		'cbc:TaxPointDate'?: ValueAddedTaxPointDate;
 		'cbc:DocumentCurrencyCode': InvoiceCurrencyCode;
 		'cbc:TaxCurrencyCode'?: VATAccountingCurrencyCode;
@@ -11572,7 +11572,7 @@ export interface PAYMENTTERMS {
 }
 /**
  * A group of business terms providing information about allowances applicable to the Invoice as a whole. A group of business terms providing information about charges and taxes other than VAT, applicable to the Invoice as a whole.
- * Business terms: BG-20,BG-21
+ * Business terms: BG-20, BG-21
  */
 export interface DOCUMENTLEVELALLOWANCESANDCHARGES {
 	/**
@@ -14238,7 +14238,7 @@ export interface LINEOBJECTIDENTIFIER {
 }
 /**
  * A group of business terms providing information about allowances or charges applicable to the individual Invoice line.
- * Business terms: BG-27,BG-28
+ * Business terms: BG-27, BG-28
  */
 export interface INVOICELINEALLOWANCESORCHARGES {
 	/**

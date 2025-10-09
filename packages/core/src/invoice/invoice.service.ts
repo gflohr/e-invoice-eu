@@ -75,6 +75,11 @@ export type InvoiceServiceOptions = {
 	 * Path to LibreOffice executable.
 	 */
 	libreOfficePath?: string;
+
+	/**
+	 * Shut up warnings.
+	 */
+	noWarnings?: boolean;
 };
 
 /**
@@ -119,10 +124,20 @@ export class InvoiceService {
 		input: Invoice,
 		options: InvoiceServiceOptions,
 	): Promise<string | Uint8Array> {
+		const patched = structuredClone(input);
+		if (
+			input['ubl:Invoice'] &&
+			input['ubl:Invoice']['cbc:Note'] &&
+			typeof input['ubl:Invoice']['cbc:Note'] === 'string'
+		) {
+			patched['ubl:Invoice']['cbc:Note'] = [input['ubl:Invoice']['cbc:Note']];
+			this.deprecationWarning(options);
+		}
+
 		const invoice = this.validationService.validate(
 			'invoice data',
 			this.validator,
-			input,
+			patched,
 		);
 
 		const formatter = this.formatFactoryService.createFormatService(
@@ -135,5 +150,13 @@ export class InvoiceService {
 		formatter.fillInvoiceDefaults(invoice);
 
 		return formatter.generate(invoice, options);
+	}
+
+	private deprecationWarning(options: InvoiceServiceOptions) {
+		if (!options.noWarnings) {
+			console.warn("Coercing 'ubl:Invoice->cbc:Note' from an array into an");
+			console.warn('array of strings. Please change your data resp. mapping!');
+			console.warn('The automatic coercion will be removed in version 3!');
+		}
 	}
 }
