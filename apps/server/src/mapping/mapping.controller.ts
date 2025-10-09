@@ -1,4 +1,4 @@
-import { Invoice } from '@e-invoice-eu/core';
+import type { Invoice } from '@e-invoice-eu/core';
 import {
 	BadRequestException,
 	Controller,

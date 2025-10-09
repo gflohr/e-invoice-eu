@@ -2,7 +2,7 @@ import { Invoice } from '@e-invoice-eu/core';
 import { INestApplication, Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ErrorObject, ValidationError } from 'ajv/dist/2019';
-import * as request from 'supertest';
+import request from 'supertest';
 
 import { MappingController } from './mapping.controller';
 import { MappingService } from './mapping.service';

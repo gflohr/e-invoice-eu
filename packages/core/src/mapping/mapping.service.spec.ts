@@ -10,6 +10,10 @@ import { Logger } from '../logger.interface';
 import { ValidationService } from '../validation';
 
 jest.mock('fs/promises');
+jest.mock('@e965/xlsx', () => ({
+	...jest.requireActual('@e965/xlsx'),
+	read: jest.fn(),
+}));
 
 // Used for testing `transform()`.
 const mapping = {
@@ -271,7 +275,7 @@ describe('MappingService', () => {
 				.mockReturnValue(localMapping);
 			const buf: Uint8Array = [] as unknown as Uint8Array;
 
-			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
+			(XLSX.read as jest.Mock).mockReturnValueOnce(workbook);
 
 			try {
 				service.transform(buf, 'UBL', {} as Mapping);
@@ -309,7 +313,7 @@ describe('MappingService', () => {
 				.mockReturnValue(localMapping);
 			const buf: Uint8Array = [] as unknown as Uint8Array;
 
-			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
+			(XLSX.read as jest.Mock).mockReturnValueOnce(workbook);
 
 			try {
 				service.transform(buf, 'UBL', {} as Mapping);
@@ -345,7 +349,7 @@ describe('MappingService', () => {
 				.mockReturnValue(localMapping);
 			const buf: Uint8Array = [] as unknown as Uint8Array;
 
-			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
+			(XLSX.read as jest.Mock).mockReturnValueOnce(workbook);
 
 			try {
 				service.transform(buf, 'UBL', {} as Mapping);
@@ -381,12 +385,13 @@ describe('MappingService', () => {
 			const localWorkbook = structuredClone(workbook);
 			localWorkbook.Sheets.Invoice.K28 = { t: 's', v: 'SubTotal' };
 
-			jest.spyOn(XLSX, 'read').mockReturnValueOnce(localWorkbook);
+			(XLSX.read as jest.Mock).mockReturnValueOnce(localWorkbook);
 
 			try {
 				service.transform(buf, 'UBL', {} as Mapping);
 				throw new Error('no exception thrown');
 			} catch (e) {
+				expect(e.message).not.toBe('no exception thrown');
 				expect(e).toBeDefined();
 				expect(e.validation).toBeTruthy();
 				expect(e.ajv).toBeTruthy();
@@ -423,7 +428,8 @@ describe('MappingService', () => {
 				.mockReturnValue({ 'ubl:Invoice': {} });
 
 			const buf: Uint8Array = [] as unknown as Uint8Array;
-			jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
+
+			(XLSX.read as jest.Mock).mockReturnValueOnce(workbook);
 
 			const mockFillSectionRanges = jest
 				.spyOn(service as any, 'fillSectionRanges')
@@ -460,7 +466,7 @@ describe('MappingService', () => {
 					.mockReturnValue(mapping);
 				const buf: Uint8Array = [] as unknown as Uint8Array;
 
-				jest.spyOn(XLSX, 'read').mockReturnValueOnce(workbook);
+				(XLSX.read as jest.Mock).mockReturnValueOnce(workbook);
 
 				invoice = service.transform(buf, 'UBL', {} as Mapping);
 

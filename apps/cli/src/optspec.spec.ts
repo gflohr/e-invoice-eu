@@ -1,4 +1,4 @@
-import yargs from 'yargs';
+import type { Arguments } from 'yargs';
 
 import { coerceOptions, OptSpec } from './optspec';
 
@@ -23,7 +23,7 @@ describe('coerceOptions', () => {
 			'test-option': { multi: true },
 		};
 
-		expect(coerceOptions(args as unknown as yargs.Arguments, optspecs)).toBe(
+		expect(coerceOptions(args as unknown as Arguments, optspecs)).toBe(
 			true,
 		);
 		expect(args.testOption).toEqual(['value']);
@@ -35,7 +35,7 @@ describe('coerceOptions', () => {
 			'test-option': { multi: false },
 		};
 
-		expect(coerceOptions(args as unknown as yargs.Arguments, optspecs)).toBe(
+		expect(coerceOptions(args as unknown as Arguments, optspecs)).toBe(
 			true,
 		);
 		expect(args.testOption).toBe('value');
@@ -47,7 +47,7 @@ describe('coerceOptions', () => {
 			'test-option': { multi: false },
 		};
 
-		expect(coerceOptions(args as unknown as yargs.Arguments, optspecs)).toBe(
+		expect(coerceOptions(args as unknown as Arguments, optspecs)).toBe(
 			false,
 		);
 		expect(consoleErrorSpy).toHaveBeenCalledWith(

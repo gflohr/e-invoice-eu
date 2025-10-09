@@ -1,4 +1,4 @@
-import { Invoice } from '@e-invoice-eu/core';
+import type { Invoice } from '@e-invoice-eu/core';
 import {
 	BadRequestException,
 	Body,
@@ -16,13 +16,12 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import {
 	ApiBody,
 	ApiConsumes,
-	ApiOperation,
 	ApiParam,
 	ApiResponse,
 	ApiTags,
 } from '@nestjs/swagger';
 import { ValidationError } from 'ajv/dist/2019';
-import { Response } from 'express';
+import type { Response } from 'express';
 
 import { InvoiceAttachment, InvoiceService } from './invoice.service';
 import { MappingService } from '../mapping/mapping.service';

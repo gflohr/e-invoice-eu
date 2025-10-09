@@ -5,6 +5,7 @@ import * as path from 'path';
 import * as v from 'valibot';
 import '@valibot/i18n/de';
 import yargs from 'yargs';
+import type { Arguments, Argv } from 'yargs';
 
 import { Command } from './command';
 import { Format } from './commands/format';
@@ -62,10 +63,10 @@ gtx
 				command: commandName,
 				aliases: command.aliases(),
 				describe: command.description(),
-				builder: (argv: yargs.Argv) => {
+				builder: (argv: Argv) => {
 					return command.build(argv);
 				},
-				handler: async (argv: yargs.Arguments) => {
+				handler: async (argv: Arguments) => {
 					argv._.shift();
 					exitCode = await command.run(argv);
 				},

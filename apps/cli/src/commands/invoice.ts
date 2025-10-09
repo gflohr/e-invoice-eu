@@ -14,7 +14,7 @@ import * as yaml from 'js-yaml';
 import { lookup } from 'mime-types';
 import * as os from 'os';
 import * as path from 'path';
-import yargs, { InferredOptionTypes } from 'yargs';
+import type { Arguments, Argv, InferredOptionTypes } from 'yargs';
 
 import { Command } from '../command';
 import { coerceOptions, OptSpec } from '../optspec';
@@ -209,7 +209,7 @@ export class Invoice implements Command {
 		return [];
 	}
 
-	build(argv: yargs.Argv): yargs.Argv<object> {
+	build(argv: Argv): Argv<object> {
 		return argv.options(options);
 	}
 
@@ -365,7 +365,7 @@ export class Invoice implements Command {
 		}
 	}
 
-	public async run(argv: yargs.Arguments): Promise<number> {
+	public async run(argv: Arguments): Promise<number> {
 		const configOptions = argv as unknown as ConfigOptions;
 
 		if (!coerceOptions(argv, options)) {

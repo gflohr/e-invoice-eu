@@ -1,3 +1,4 @@
+import type { Arguments } from 'yargs';
 import yargs from 'yargs';
 
 import { Format } from './format';
@@ -69,7 +70,7 @@ describe('Format Command', () => {
 	it('run() should return 1 if coerceOptions fails', async () => {
 		(coerceOptions as jest.Mock).mockReturnValue(false);
 
-		const result = await format.run({} as yargs.Arguments);
+		const result = await format.run({} as Arguments);
 
 		expect(result).toBe(1);
 	});
@@ -80,7 +81,7 @@ describe('Format Command', () => {
 			.spyOn(format as any, 'doRun')
 			.mockResolvedValue(undefined);
 
-		const result = await format.run({} as yargs.Arguments);
+		const result = await format.run({} as Arguments);
 
 		expect(doRunSpy).toHaveBeenCalled();
 		expect(result).toBe(0);
@@ -95,7 +96,7 @@ describe('Format Command', () => {
 
 		(Package.getName as jest.Mock).mockReturnValue('e-invoice-eu-cli');
 
-		const result = await format.run({} as yargs.Arguments);
+		const result = await format.run({} as Arguments);
 
 		expect(consoleErrorSpy).toHaveBeenCalledWith(
 			'e-invoice-eu-cli: Error: test error',
@@ -107,7 +108,7 @@ describe('Format Command', () => {
 
 	describe('list()', () => {
 		it('should list all supported formats', async () => {
-			const options = { list: true } as unknown as yargs.Arguments;
+			const options = { list: true } as unknown as Arguments;
 
 			await format.run(options);
 
@@ -127,7 +128,7 @@ describe('Format Command', () => {
 		});
 
 		it('should display detailed information about a format', async () => {
-			const options = { info: 'FormatC' } as unknown as yargs.Arguments;
+			const options = { info: 'FormatC' } as unknown as Arguments;
 
 			await format.run(options);
 
@@ -135,7 +136,7 @@ describe('Format Command', () => {
 		});
 
 		it('should throw an error if neither --info nor --list is passed', async () => {
-			const options = {} as unknown as yargs.Arguments;
+			const options = {} as unknown as Arguments;
 
 			const exitCode = await format.run(options);
 

@@ -1,5 +1,6 @@
 import * as fs from 'fs/promises';
 import yargs from 'yargs';
+import type { Arguments } from 'yargs';
 
 import { Transform } from './transform';
 import { coerceOptions } from '../optspec';
@@ -75,7 +76,7 @@ describe('Transform Command', () => {
 	test('run() should return 1 if coerceOptions fails', async () => {
 		(coerceOptions as jest.Mock).mockReturnValue(false);
 
-		const result = await transform.run({} as yargs.Arguments);
+		const result = await transform.run({} as Arguments);
 
 		expect(result).toBe(1);
 	});
@@ -86,7 +87,7 @@ describe('Transform Command', () => {
 			.spyOn(transform as any, 'doRun')
 			.mockResolvedValue(undefined);
 
-		const result = await transform.run({} as yargs.Arguments);
+		const result = await transform.run({} as Arguments);
 
 		expect(doRunSpy).toHaveBeenCalled();
 		expect(result).toBe(0);
@@ -101,7 +102,7 @@ describe('Transform Command', () => {
 
 		(Package.getName as jest.Mock).mockReturnValue('e-invoice-eu-cli');
 
-		const result = await transform.run({} as yargs.Arguments);
+		const result = await transform.run({} as Arguments);
 
 		expect(consoleErrorSpy).toHaveBeenCalledWith(
 			'e-invoice-eu-cli: Error: test error',
@@ -116,7 +117,7 @@ describe('Transform Command', () => {
 			data: 'data.xlsx',
 			mapping: 'mapping.json',
 			output: 'output.json',
-		} as unknown as yargs.Arguments;
+		} as unknown as Arguments;
 
 		mockedFs.readFile.mockResolvedValueOnce(Buffer.from('spreadsheet data'));
 		mockedFs.readFile.mockResolvedValueOnce('mapping data');
@@ -134,7 +135,7 @@ describe('Transform Command', () => {
 		const argv = {
 			data: 'data.xlsx',
 			mapping: 'mapping.json',
-		} as unknown as yargs.Arguments;
+		} as unknown as Arguments;
 
 		mockedFs.readFile.mockResolvedValueOnce(Buffer.from('spreadsheet data'));
 		mockedFs.readFile.mockResolvedValueOnce('mapping data');

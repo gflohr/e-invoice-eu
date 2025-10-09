@@ -25,7 +25,7 @@ JSON with free and open source software.
 - [Documentation](#documentation)
 - [Validation](#validation)
 - [BUGS](#bugs)
-	- [PDF/A](#pdfa)
+  - [PDF/A](#pdfa)
 - [Reporting Bugs](#reporting-bugs)
 - [Copyright](#copyright)
 - [Disclaimer](#disclaimer)
