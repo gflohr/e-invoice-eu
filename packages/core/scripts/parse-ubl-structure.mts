@@ -4,6 +4,7 @@
 // site docs.peppol.eu.  It converts the XML files into a JSON schema for
 // the internal invoice format of `e-invoice-eu`.
 
+import * as XLSX from '@e965/xlsx';
 import { JSONSchemaType } from 'ajv';
 import { XMLParser } from 'fast-xml-parser';
 import * as fs from 'fs';
@@ -253,7 +254,7 @@ function printElement(element: Element, path: string[]) {
  */
 function patchSchema(schema: JSONSchemaType<object>) {
 	patchSchemaImpliedFields(schema);
-	patchSchemaForCreditNotes(schema);
+	patchSchemaForDocumentTypeCodes(schema);
 	patchSchemaForEAS(schema);
 }
 
@@ -272,7 +273,7 @@ function patchSchemaImpliedFields(schema: JSONSchemaType<object>) {
 		.required;
 }
 
-function patchSchemaForCreditNotes(schema: JSONSchemaType<object>) {
+function patchSchemaForDocumentTypeCodes(schema: JSONSchemaType<object>) {
 	// We support credit notes in the same way that CII does. You can freely
 	// choose codes from both the invoice type code list and the credit note
 	// code type list. If the invoice syntax is UBL, then the element names
@@ -283,18 +284,6 @@ function patchSchemaForCreditNotes(schema: JSONSchemaType<object>) {
 	delete typeSchema['$ref'];
 	const cnListRef = invListRef.replace(/-inv$/, '-cn');
 	typeSchema.anyOf = [{ $ref: invListRef }, { $ref: cnListRef }];
-	const cnList = cnListRef.replace(/.*\//, '');
-	const cnListArray = schema.$defs?.codeLists[cnList].enum;
-
-	// Insert the code "384" into the code list for credit notes.  This is the
-	// code for "Corrected invoice" in the invoice type code list.  It is
-	// missing in the UBL code list.
-	const index = cnListArray.findIndex(item => Number(item) > 384);
-	if (index === -1) {
-		cnListArray.push('384');
-	} else {
-		cnListArray.splice(index, 0, '384');
-	}
 }
 
 function patchSchemaForEAS(schema: JSONSchemaType<object>) {
@@ -646,14 +635,69 @@ function loadCodeLists(dir: string) {
 	const filenames = fs
 		.readdirSync(dir)
 		.filter(filename => pattern.test(filename))
+		.filter(filename => !filename.match(/\/UNCL1001-(?:cn|inv)\.xml$/))
 		.map(filename => path.join(dir, filename));
 	const codeListParser = new XMLParser({
 		parseTagValue: false,
 		parseAttributeValue: false,
 	});
+
 	for (const filename of filenames) {
 		loadCodeList(codeListParser, filename);
 	}
+
+	loadUNCL1001();
+}
+
+function loadUNCL1001() {
+	const filename = path.resolve(
+		__dirname,
+		'../../../contrib/code-lists/UNTDID1001.csv',
+	);
+
+	const workbook = XLSX.read(fs.readFileSync(filename), {
+		type: 'buffer',
+		cellDates: true,
+	});
+	const rows = XLSX.utils.sheet_to_json(workbook.Sheets.Sheet1, {
+		defval: null,
+	});
+
+	codeListValues['UNCL1001-inv'] = [];
+	codeListValues['UNCL1001-cn'] = [];
+
+	type Row = {
+		Code: number;
+		Name: string;
+		'EN16931 interpretation': 'Invoice' | 'Credit Note';
+	};
+
+	for (const row of rows as Row[]) {
+		const value: CodeListValue = {
+			Id: row.Code.toString(),
+			Name: row.Name,
+		};
+
+		if (row['EN16931 interpretation'] === 'Credit Note') {
+			codeListValues['UNCL1001-cn'].push(value);
+		} else if (row['EN16931 interpretation'] === 'Invoice') {
+			codeListValues['UNCL1001-inv'].push(value);
+		} else {
+			throw new Error(`Unknown EN16931 interpretation: ${row['EN16931 interpretation']}`);
+		}
+	}
+
+	const invCodes: string[] = [];
+	for (const elem of codeListValues['UNCL1001-inv']) {
+		invCodes.push(elem.Id.toString());
+	}
+	$defs.codeLists['UNCL1001-inv'] = { enum: invCodes };
+
+	const cnCodes: string[] = [];
+	for (const elem of codeListValues['UNCL1001-cn']) {
+		cnCodes.push(elem.Id.toString());
+	}
+	$defs.codeLists['UNCL1001-cn'] = { enum: cnCodes };
 }
 
 function loadCodeList(parser: XMLParser, filename: string) {
