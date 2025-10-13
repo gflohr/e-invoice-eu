@@ -19,7 +19,7 @@
 		"bootstrap": "~>5.3.8",
 		"bootstrap-icons": "^1.13.1",
 		"browser-sync": "^3.0.4",
-		"caniuse-lite": "^1.0.30001749",
+		"caniuse-lite": "^1.0.30001750",
 		"clean-webpack-plugin": "^4.0.0",
 		"copy-webpack-plugin": "^13.0.1",
 		"css-loader": "^7.1.2",
