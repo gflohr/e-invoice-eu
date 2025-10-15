@@ -27,10 +27,14 @@ jobs:
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2
 
+      - name: Install Husky
+        run: bun install husky
+
       - name: Install dependencies
         run: bun install
 
       - name: Build
         run: bun run build
+
       - name: Run tests
         run: bun run test
