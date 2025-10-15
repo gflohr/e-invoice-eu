@@ -142,6 +142,9 @@
     "packages/docs": {
       "name": "@e-invoice-eu/docs",
       "version": "1.4.4",
+      "dependencies": {
+        "terser-webpack-plugin": "^5.3.14",
+      },
       "devDependencies": {
         "@porscheofficial/cookie-consent-banner": "^4.0.3",
         "ajv": "^8.17.1",
