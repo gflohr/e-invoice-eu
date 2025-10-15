@@ -12,7 +12,7 @@ module.exports = {
 	},
 	output: {
 		path: __dirname + '/assets',
-		filename: '[name].min.js'
+		filename: '[name].min.js',
 	},
 	optimization: {
 		minimize: false,
@@ -21,7 +21,7 @@ module.exports = {
 				parallel: true,
 				terserOptions: {},
 			}),
-			new CssMinimizerPlugin()
+			new CssMinimizerPlugin(),
 		],
 	},
 	module: {
@@ -43,19 +43,32 @@ module.exports = {
 			},
 			{
 				test: /\.(ttf|eot|svg|woff2?)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-				type: 'asset/resource'
+				type: 'asset/resource',
 			},
 			{
 				test: /\.(png|gif|svg|jpe?g)$/,
-				type: 'asset/resource'
-			}
-		]
+				type: 'asset/resource',
+			},
+		],
+	},
+	externals: {
+		jsdom: 'commonjs jsdom',
+	},
+	resolve: {
+		alias: {
+			canvas: false,
+		},
+		fallback: {
+			xmlhttprequest: false,
+			navigator: false,
+			location: false,
+		},
 	},
 	devtool: 'source-map',
 	plugins: [
 		new CleanWebpackPlugin(),
 		new MiniCssExtractPlugin({
-			filename: '[name].min.css'
+			filename: '[name].min.css',
 		}),
 		new webpack.ProvidePlugin({
 			$: 'jquery',
@@ -63,5 +76,5 @@ module.exports = {
 			'window.jQuery': 'jquery',
 			Popper: ['popper.js', 'default'],
 		}),
-	]
+	],
 };
