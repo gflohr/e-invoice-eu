@@ -29,7 +29,6 @@
 		"jquery": "^3.7.1",
 		"jsdom": "^27.0.0",
 		"mini-css-extract-plugin": "^2.9.4",
-		"popper.js": "^1.16.1",
 		"postcss-font-magician": "^4.0.0",
 		"postcss-loader": "^8.2.0",
 		"postcss-scss": "^4.0.9",

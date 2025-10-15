@@ -399,9 +399,6 @@ importers:
       mini-css-extract-plugin:
         specifier: ^2.9.4
         version: 2.9.4(webpack@5.102.1)
-      popper.js:
-        specifier: ^1.16.1
-        version: 1.16.1
       postcss-font-magician:
         specifier: ^4.0.0
         version: 4.0.0(postcss@8.5.6)
@@ -5623,10 +5620,6 @@ packages:
     resolution: {integrity: sha512-u9FubXKG/X4B9rPAs8kyzaKWXAapCDKPdGY/EKmupR8RKe6mFRNL+ZKDGwCeq+Fn7LcAi1l/QP+bx1lGqt+wjQ==}
     engines: {node: '>=18.12'}
     hasBin: true
-
-  popper.js@1.16.1:
-    resolution: {integrity: sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==}
-    deprecated: You can find the new Popper v2 at @popperjs/core, this package is dedicated to the legacy v1
 
   portscanner@2.2.0:
     resolution: {integrity: sha512-IFroCz/59Lqa2uBvzK3bKDbDDIEaAY8XJ1jFxcLWTqosrsc32//P4VuSB2vZXoHiHqOmx8B5L5hnKOxL/7FlPw==}
@@ -13283,8 +13276,6 @@ snapshots:
   pluralize@8.0.0: {}
 
   pnpm@10.18.3: {}
-
-  popper.js@1.16.1: {}
 
   portscanner@2.2.0:
     dependencies:
