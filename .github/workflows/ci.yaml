@@ -33,11 +33,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --ignore-scripts
 
-      - name: Install missing optional dependency (Linux, Node 18 and 20)
-        if: runner.os == 'Linux' && (matrix.node-version == 18 || matrix.node-version == 20)
-        run: |
-          echo "Installing missing unrs native binary for Node ${{ matrix.node-version }}..."
-          pnpm add @unrs/resolver-binding-linux-x64-gnu
-
       - name: Run tests
         run: pnpm run test
