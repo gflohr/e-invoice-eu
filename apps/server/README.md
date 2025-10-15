@@ -20,44 +20,44 @@ with a RESTful API. The service is written with [NestJS](https://nestjs.com/).
 ## Pre-requisites
 
 - NodeJS 17 or newer (currently tested with NodeJS 18, 20, and 22)
-- A package manager like bun, npm, yarn, pnpm, ...
+- A package manager like npm, yarn, pnpm, bun ...
 
 ## Installation
 
 ```bash
-$ bun install
+$ pnpm install
 ```
 
-This may warn about "husky" missing. Just run `bun install` again in order
+This may warn about "husky" missing. Just run `pnpm install` again in order
 to fix this.
 
-If you do not like `bun`, replace it with `npm`, `yarn`, `pnpm` or whatever
+If you do not like `pnpm`, replace it with `npm`, `yarn`, `bun` or whatever
 is currently hyped.
 
 ## Running the app
 
 ```bash
 # development
-$ bun run start
+$ pnpm run start
 
 # watch mode
-$ bun run start:dev
+$ pnpm run start:dev
 
 # production mode
-$ bun run start:prod
+$ pnpm run start:prod
 ```
 
 ## Test
 
 ```bash
 # unit tests
-$ bun run test
+$ pnpm run test
 
 # e2e tests
-$ bun run test:e2e
+$ pnpm run test:e2e
 
 # test coverage
-$ bun run test:cov
+$ pnpm run test:cov
 ```
 
 ## Running in a Container

@@ -1,1 +1,1 @@
-bun run test && bun run lint:staged
+pnpm run test && pnpm run lint:staged

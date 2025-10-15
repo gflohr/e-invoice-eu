@@ -7,11 +7,11 @@ ENV LIBREOFFICE=libreoffice
 RUN apk add --no-cache \
 	bash \
 	curl \
+	nodejs \
 	npm \
 	libc6-compat
 
-RUN curl -fsSL https://bun.sh/install | bash && \
-	ln -s /root/.bun/bin/bun /usr/local/bin/bun
+RUN npm install -g pnpm@10
 
 WORKDIR /app
 
@@ -22,8 +22,8 @@ RUN grep -v 'prepare.*husky' package.json >package-tmp.json
 RUN mv package-tmp.json package.json
 
 # Give the installation two tries because of various issues.
-RUN bun install || true
-RUN bun install && bun run build
+RUN pnpm install || true
+RUN pnpm install && pnpm run build
 
 # Stage 2: Runtime stage
 FROM alpine:latest
