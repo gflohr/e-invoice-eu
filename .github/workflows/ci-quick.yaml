@@ -24,14 +24,16 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Set up Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - name: Install dependencies
-        run: bun install --frozen-lockfile --ignore-scripts
+        run: pnpm install --frozen-lockfile --ignore-scripts
 
       - name: Build
-        run: bun run build
+        run: pnpm run build
 
       - name: Run tests
-        run: bun run test
+        run: pnpm run test

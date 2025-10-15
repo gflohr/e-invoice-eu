@@ -40,11 +40,10 @@
 		"clean": "lerna run clean --stream",
 		"prepare": "husky"
 	},
-	"dependencies": {},
 	"devDependencies": {
 		"@esgettext/tools": "^1.3.6",
-		"bun": "^1.2.23",
 		"husky": "^9.1.7",
-		"lerna": "^9.0.0"
+		"lerna": "^9.0.0",
+		"pnpm": "^10.18.3"
 	}
 }
