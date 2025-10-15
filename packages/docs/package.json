@@ -26,7 +26,6 @@
 		"css-minimizer-webpack-plugin": "^7.0.2",
 		"file-loader": "^6.2.0",
 		"fs-extra": "^11.3.2",
-		"jQuery": "^1.7.4",
 		"jquery": "^3.7.1",
 		"jsdom": "^27.0.0",
 		"mini-css-extract-plugin": "^2.9.4",

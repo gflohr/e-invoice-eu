@@ -390,9 +390,6 @@ importers:
       fs-extra:
         specifier: ^11.3.2
         version: 11.3.2
-      jQuery:
-        specifier: ^1.7.4
-        version: 1.7.4
       jquery:
         specifier: 3.7.1
         version: 3.7.1
@@ -4550,11 +4547,6 @@ packages:
   iterare@1.2.1:
     resolution: {integrity: sha512-RKYVTCjAnRthyJes037NX/IiqeidgN1xc3j1RjFfECFp28A1GVwK9nA+i0rJPaHqSZwygLzRnFlzUuHFoWWy+Q==}
     engines: {node: '>=6'}
-
-  jQuery@1.7.4:
-    resolution: {integrity: sha512-hf/hWBnkFhu4FzP96tBjZNPF9qTcUaOKFA8hpVJX0Cb/892JefRzoVGCe/vkmry/pOhZiK6VnQvnuV8CoHf1rA==}
-    engines: {node: '>=0.6'}
-    deprecated: This is deprecated. Please use 'jquery' (all lowercase).
 
   jackspeak@3.4.3:
     resolution: {integrity: sha512-OGlZQpz2yfahA/Rd1Y8Cd9SIEsqvXkLVoSw/cgwhnhFMDbsQFeZYoJJ7bIZBS9BcamUW96asq/npPWugM+RQBw==}
@@ -11849,8 +11841,6 @@ snapshots:
       istanbul-lib-report: 3.0.1
 
   iterare@1.2.1: {}
-
-  jQuery@1.7.4: {}
 
   jackspeak@3.4.3:
     dependencies:
