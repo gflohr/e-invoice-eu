@@ -17,9 +17,9 @@ all: \
 	../../packages/docs/en/docs/other/business-terms.md \
 	../../packages/docs/en/docs/other/business-groups.md
 
-src/schema/invoice.schema.json: scripts/parse-ubl-structure.mts package.json $(INVOICE_SCHEMA_DEPENDENCIES)
+src/schema/invoice.schema.json: scripts/parse-ubl-structure.mts scripts/check-json-schema.mts package.json $(INVOICE_SCHEMA_DEPENDENCIES)
 	$(BUN) $< >$@ || rm -f $@
-	$(NPX) ajv compile --spec=draft2019 -s $@ || rm -f $@
+	$(BUN) scripts/check-json-schema.mts $@ || rm -f $@
 
 src/invoice/invoice.interface.ts: scripts/json-schema-to-interface.mts src/schema/invoice.schema.json
 	$(BUN) $< src/schema/invoice.schema.json $@
@@ -31,9 +31,9 @@ src/invoice/invoice.schema.ts: scripts/json-schema-to-typescript.mts src/schema/
 	$(NPX) eslint $@ --fix
 	$(NPX) prettier --write $@
 
-src/schema/mapping.schema.json: scripts/transform-ubl-mapping.mts package.json src/schema/invoice.schema.json
+src/schema/mapping.schema.json: scripts/transform-ubl-mapping.mts scripts/check-json-schema.mts package.json src/schema/invoice.schema.json
 	$(BUN) $< src/schema/invoice.schema.json $@
-	$(NPX) ajv compile --spec=draft2019 -s $@ || rm -f $@
+	$(BUN) scripts/check-json-schema.mts $@ || rm -f $@
 
 src/mapping/mapping.interface.ts: scripts/json-schema-to-interface.mts src/schema/mapping.schema.json
 	$(BUN) $< src/schema/mapping.schema.json $@
