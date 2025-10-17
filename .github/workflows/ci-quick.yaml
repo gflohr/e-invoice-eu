@@ -30,7 +30,7 @@ jobs:
           version: 10
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile --ignore-scripts
+        run: pnpm install --ignore-scripts
 
       - name: Build
         run: pnpm run build
