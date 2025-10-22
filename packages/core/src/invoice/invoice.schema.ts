@@ -9,8 +9,9 @@ import { JSONSchemaType } from 'ajv';
 import { Invoice } from './invoice.interface';
 
 /**
- * This schema can be passed as an argument to the compile method of an
- * `Ajv` instance, see https://ajv.js.org/api.html#ajv-compile-schema-object-data-any-boolean-promise-any
+ * This schema can be passed as an argument to the compile method of an `Ajv`
+ * instance, see
+ * https://ajv.js.org/api.html#ajv-compile-schema-object-data-any-boolean-promise-any
  * for more information!
  */
 export const invoiceSchema: JSONSchemaType<Invoice> = {

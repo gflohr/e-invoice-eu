@@ -6,5 +6,5 @@
 	"printWidth": 80,
 	"useTabs": true,
 	"arrowParens": "avoid",
-	"plugins": ["prettier-plugin-packagejson"]
+	"plugins": ["prettier-plugin-packagejson", "prettier-plugin-jsdoc"]
 }

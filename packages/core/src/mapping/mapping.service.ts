@@ -27,8 +27,8 @@ type MappingContext = {
 };
 
 /**
- * Generate an {@link Invoice} object (data in the internal invoice format)
- * from spreadsheet data and a {@link Mapping}.
+ * Generate an {@link Invoice} object (data in the internal invoice format) from
+ * spreadsheet data and a {@link Mapping}.
  */
 export class MappingService {
 	private readonly validator: ValidateFunction<Mapping>;
@@ -38,7 +38,8 @@ export class MappingService {
 	/**
 	 * Creates a new instance of the service.
 	 *
-	 * @param logger - The logger instance used for logging messages, warnings and errors.
+	 * @param logger - The logger instance used for logging messages, warnings and
+	 *   errors.
 	 */
 	constructor(private readonly logger: Logger) {
 		this.formatFactoryService = new FormatFactoryService();
@@ -68,13 +69,15 @@ export class MappingService {
 	}
 
 	/**
-	 * Transform invoice spreadsheet data to invoice data in the internal
-	 * format via a mapping.
+	 * Transform invoice spreadsheet data to invoice data in the internal format
+	 * via a mapping.
 	 *
-	 * @param dataBuffer the spreadsheet data either as a Uint8Array or an XLSX.WorkBook
-	 * @param format one of the supported invoice formats, see {@link FormatFactoryService.listFormatServices}
-	 * @param mapping the mapping definition
-	 * @returns the invoice data in the internal format
+	 * @param dataBuffer The spreadsheet data either as a Uint8Array or an
+	 *   XLSX.WorkBook
+	 * @param format One of the supported invoice formats, see
+	 *   {@link FormatFactoryService.listFormatServices}
+	 * @param mapping The mapping definition
+	 * @returns The invoice data in the internal format
 	 */
 	transform(
 		dataBuffer: Uint8Array | XLSX.WorkBook,

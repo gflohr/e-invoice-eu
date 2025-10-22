@@ -6,85 +6,57 @@ import { FormatFactoryService } from '../format/format.factory.service';
 import { Logger } from '../logger.interface';
 import { ValidationService } from '../validation';
 
-/**
- * A container for a file used for an e-invoice.
- */
+/** A container for a file used for an e-invoice. */
 export type FileInfo = {
-	/**
-	 * The data of the file.
-	 */
+	/** The data of the file. */
 	buffer: Uint8Array;
 
-	/**
-	 * The filename.
-	 */
+	/** The filename. */
 	filename: string;
 
-	/**
-	 * The MIME type of the file.
-	 */
+	/** The MIME type of the file. */
 	mimetype: string;
 
-	/**
-	 * An optional ID.
-	 */
+	/** An optional ID. */
 	id?: string;
 
-	/**
-	 * An optional description.
-	 */
+	/** An optional description. */
 	description?: string;
 };
 
-/**
- * Invoice creation options.
- */
+/** Invoice creation options. */
 export type InvoiceServiceOptions = {
-	/**
-	 * The invoice format like `XRECHNUNG-UBL` or `Factur-X-Extended`.
-	 */
+	/** The invoice format like `XRECHNUNG-UBL` or `Factur-X-Extended`. */
 	format: string;
 
-	/**
-	 * The spreadsheet data.
-	 */
+	/** The spreadsheet data. */
 	spreadsheet?: FileInfo;
 
 	/**
-	 * A PDF version of the invoice.  For Factur-X, either `data` or `pdf`
-	 * must be present.
+	 * A PDF version of the invoice. For Factur-X, either `data` or `pdf` must be
+	 * present.
 	 */
 	pdf?: FileInfo;
 
-	/**
-	 * A language identifier like "fr-ca".
-	 */
+	/** A language identifier like "fr-ca". */
 	lang: string;
 
-	/**
-	 * An array of supplementary attachments.
-	 */
+	/** An array of supplementary attachments. */
 	attachments?: FileInfo[];
 
-	/**
-	 * Set to invoice description if invoice should be embedded.
-	 */
+	/** Set to invoice description if invoice should be embedded. */
 	embedPDF?: boolean;
 
-	/**
-	 * Path to LibreOffice executable.
-	 */
+	/** Path to LibreOffice executable. */
 	libreOfficePath?: string;
 
-	/**
-	 * Shut up warnings.
-	 */
+	/** Shut up warnings. */
 	noWarnings?: boolean;
 };
 
 /**
- * Render an e-invoice from either an {@link Invoice} object or a spreadsheet
- * and a {@link Mapping}.
+ * Render an e-invoice from either an {@link Invoice} object or a spreadsheet and
+ * a {@link Mapping}.
  */
 export class InvoiceService {
 	private readonly formatFactoryService: FormatFactoryService;
@@ -94,7 +66,8 @@ export class InvoiceService {
 	/**
 	 * Creates a new instance of the service.
 	 *
-	 * @param logger - The logger instance used for logging messages, warnings and errors.
+	 * @param logger - The logger instance used for logging messages, warnings and
+	 *   errors.
 	 */
 	constructor(private readonly logger: Logger) {
 		this.formatFactoryService = new FormatFactoryService();
@@ -109,16 +82,16 @@ export class InvoiceService {
 
 	/**
 	 * Generate an e-invoice. The input gets validated against the
-	 * {@link invoiceSchema} JSON schema, to make sure that it properly
-	 * fulfills the {@link Invoice} interface.
+	 * {@link invoiceSchema} JSON schema, to make sure that it properly fulfills
+	 * the {@link Invoice} interface.
 	 *
 	 * If the specific format is an XML format (has the MIME type
-	 * `"application/xml"`), it gets returned as a `string`. In case of a
-	 * PDF format (MIME type `"application/pdf"`), a `Uint8Array` is returned.
+	 * `"application/xml"`), it gets returned as a `string`. In case of a PDF
+	 * format (MIME type `"application/pdf"`), a `Uint8Array` is returned.
 	 *
-	 * @param input the input data
-	 * @param options modify various aspects of the invoice.
-	 * @returns the rendered invoice
+	 * @param input The input data
+	 * @param options Modify various aspects of the invoice.
+	 * @returns The rendered invoice
 	 */
 	async generate(
 		input: Invoice,

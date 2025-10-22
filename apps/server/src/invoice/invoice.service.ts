@@ -8,62 +8,42 @@ import { Injectable, Logger } from '@nestjs/common';
 import { AppConfigService } from '../app-config/app-config.service';
 
 export type InvoiceAttachment = {
-	/**
-	 * The uploaded file.
-	 */
+	/** The uploaded file. */
 	file: Express.Multer.File;
 
-	/**
-	 * An optional ID.
-	 */
+	/** An optional ID. */
 	id?: string;
 
-	/**
-	 * An optional description.
-	 */
+	/** An optional description. */
 	description?: string;
 };
 
 type InvoiceServiceOptions = {
-	/**
-	 * The invoice format like `XRECHNUNG-UBL` or `Factur-X-Extended`.
-	 */
+	/** The invoice format like `XRECHNUNG-UBL` or `Factur-X-Extended`. */
 	format: string;
 
-	/**
-	 * The spreadsheet data.
-	 */
+	/** The spreadsheet data. */
 	spreadsheet?: Express.Multer.File;
 
 	/**
-	 * A PDF version of the invoice.  For Factur-X, either `data` or `pdf`
-	 * must be present.
+	 * A PDF version of the invoice. For Factur-X, either `data` or `pdf` must be
+	 * present.
 	 */
 	pdf?: Express.Multer.File;
 
-	/**
-	 * A language identifier like "fr-ca".
-	 */
+	/** A language identifier like "fr-ca". */
 	lang: string;
 
-	/**
-	 * An array of supplementary attachments.
-	 */
+	/** An array of supplementary attachments. */
 	attachments: InvoiceAttachment[];
 
-	/**
-	 * Set to invoice description if invoice should be embedded.
-	 */
+	/** Set to invoice description if invoice should be embedded. */
 	embedPDF?: boolean;
 
-	/**
-	 * ID for an embedded PDF, defaults to the document id.
-	 */
+	/** ID for an embedded PDF, defaults to the document id. */
 	pdfID?: string;
 
-	/**
-	 * Description for the embedded PDF.
-	 */
+	/** Description for the embedded PDF. */
 	pdfDescription?: string;
 };
 

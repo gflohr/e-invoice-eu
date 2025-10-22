@@ -1,6 +1,4 @@
-/**
- * A logging service.
- */
+/** A logging service. */
 export interface Logger {
 	/**
 	 * Logs a general message.

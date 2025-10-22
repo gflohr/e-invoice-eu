@@ -13,39 +13,25 @@ import { EInvoiceFormat } from './format.e-invoice-format.interface';
 
 export type EInvoiceMIMEType = 'application/pdf' | 'application/xml';
 
-/**
- * Describe a format.
- */
+/** Describe a format. */
 export type FormatInfo = {
-	/**
-	 * The name of the format like "UBL" or "Factur-X-Extended".
-	 */
+	/** The name of the format like "UBL" or "Factur-X-Extended". */
 	name: string;
 
-	/**
-	 * The customization id of the format.
-	 */
+	/** The customization id of the format. */
 	customizationID: string;
 
-	/**
-	 * The profile id of the format.
-	 */
+	/** The profile id of the format. */
 	profileID: string;
 
-	/**
-	 * The MIME type of the format.
-	 */
+	/** The MIME type of the format. */
 	mimeType: EInvoiceMIMEType;
 
-	/**
-	 * The general syntax in the sense of EN16931.
-	 */
+	/** The general syntax in the sense of EN16931. */
 	syntax: 'UBL' | 'CII';
 };
 
-/**
- * Factory service for a an e-invoice generating service.
- */
+/** Factory service for a an e-invoice generating service. */
 export class FormatFactoryService {
 	private readonly formatServices: {
 		[key: string]: new (...args: any[]) => EInvoiceFormat;
@@ -75,8 +61,8 @@ export class FormatFactoryService {
 	/**
 	 * Create a service that is able to create a specific invoice format.
 	 *
-	 * @param format one of the supported formats, see {@link listFormatServices}
-	 * @param logger an object that implements the {@link Logger} interface
+	 * @param format One of the supported formats, see {@link listFormatServices}
+	 * @param logger An object that implements the {@link Logger} interface
 	 * @returns
 	 */
 	createFormatService(format: string, logger: Logger): EInvoiceFormat {
@@ -93,7 +79,7 @@ export class FormatFactoryService {
 	/**
 	 * List all supported invoice formats.
 	 *
-	 * @returns an array of format information objects
+	 * @returns An array of format information objects
 	 */
 	listFormatServices(): FormatInfo[] {
 		const infos: FormatInfo[] = [];
@@ -116,8 +102,9 @@ export class FormatFactoryService {
 
 	/**
 	 * Normalizes a format name into a lowercase, canonical name.
-	 * @param format the format name to normalize
-	 * @returns the normalized format name
+	 *
+	 * @param format The format name to normalize
+	 * @returns The normalized format name
 	 */
 	normalizeFormat(format: string): string {
 		format = format.toLowerCase();
@@ -131,8 +118,8 @@ export class FormatFactoryService {
 	/**
 	 * Get information about a particular format.
 	 *
-	 * @param format the format to describe
-	 * @returns the format information
+	 * @param format The format to describe
+	 * @returns The format information
 	 */
 	info(format: string): FormatInfo {
 		const normalized = this.normalizeFormat(format);
