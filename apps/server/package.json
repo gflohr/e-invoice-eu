@@ -14,16 +14,70 @@
 		"e-rechnung",
 		"e-invoice-eu"
 	],
+	"homepage": "https://gflohr.github.io/e-invoice-eu",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/gflohr/e-invoice-eu.git"
 	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"type": "commonjs",
-	"homepage": "https://gflohr.github.io/e-invoice-eu",
+	"license": "WTFPL",
 	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
+	"type": "commonjs",
+	"bin": {
+		"e-invoice-eu-server": "dist/main.js"
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "rimraf dist && nest build -p tsconfig.build.json && chmod +x dist/main.js",
+		"format": "prettier --write *.json *.md \"src/**/*.{ts,json}\" \"test/**/*.ts\"",
+		"lint": "eslint \"{scripts,src,test}/**/*.ts\"",
+		"lint:fix": "eslint \"{scripts,src,test}/**/*.ts\" --fix",
+		"lint:staged": "lint-staged",
+		"prepare": "husky",
+		"start": "nest start",
+		"start:debug": "nest start --debug --watch",
+		"start:dev": "nest start --watch",
+		"start:prod": "node dist/main",
+		"test": "jest",
+		"test:cov": "jest --coverage",
+		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+		"test:e2e": "jest --config ./test/jest-e2e.json",
+		"test:watch": "jest --watch"
+	},
+	"lint-staged": {
+		"*.{js,ts,json,scss,css,md}": [
+			"prettier --write"
+		],
+		"src/**/*.ts": [
+			"eslint"
+		]
+	},
+	"jest": {
+		"collectCoverageFrom": [
+			"**/*.(t|j)s"
+		],
+		"coverageDirectory": "../coverage",
+		"moduleFileExtensions": [
+			"js",
+			"json",
+			"ts"
+		],
+		"moduleNameMapper": {
+			"^@e-invoice-eu/core$": "<rootDir>/../../../packages/core/src"
+		},
+		"rootDir": "src",
+		"testEnvironment": "node",
+		"testRegex": ".*\\.spec\\.ts$",
+		"transform": {
+			"^.+\\.(t|j)s$": [
+				"ts-jest",
+				{
+					"tsconfig": "tsconfig.jest.json"
+				}
+			]
+		}
+	},
 	"dependencies": {
 		"@e-invoice-eu/core": "^2.1.15",
 		"@nestjs/common": "^11.1.6",
@@ -62,62 +116,8 @@
 		"tsconfig-paths": "^4.2.0",
 		"typescript": "^5.9.3"
 	},
-	"files": [
-		"dist"
-	],
-	"bin": {
-		"e-invoice-eu-server": "dist/main.js"
-	},
-	"jest": {
-		"moduleFileExtensions": [
-			"js",
-			"json",
-			"ts"
-		],
-		"moduleNameMapper": {
-			"^@e-invoice-eu/core$": "<rootDir>/../../../packages/core/src"
-		},
-		"rootDir": "src",
-		"testRegex": ".*\\.spec\\.ts$",
-		"transform": {
-			"^.+\\.(t|j)s$": [
-				"ts-jest",
-				{
-					"tsconfig": "tsconfig.jest.json"
-				}
-			]
-		},
-		"collectCoverageFrom": [
-			"**/*.(t|j)s"
-		],
-		"coverageDirectory": "../coverage",
-		"testEnvironment": "node"
-	},
-	"license": "WTFPL",
-	"lint-staged": {
-		"*.{js,ts,json,scss,css,md}": [
-			"prettier --write"
-		],
-		"src/**/*.ts": [
-			"eslint"
-		]
-	},
-	"scripts": {
-		"build": "rimraf dist && nest build -p tsconfig.build.json && chmod +x dist/main.js",
-		"format": "prettier --write *.json *.md \"src/**/*.{ts,json}\" \"test/**/*.ts\"",
-		"start": "nest start",
-		"start:dev": "nest start --watch",
-		"start:debug": "nest start --debug --watch",
-		"start:prod": "node dist/main",
-		"lint": "eslint \"{scripts,src,test}/**/*.ts\"",
-		"lint:fix": "eslint \"{scripts,src,test}/**/*.ts\" --fix",
-		"lint:staged": "lint-staged",
-		"test": "jest",
-		"test:watch": "jest --watch",
-		"test:cov": "jest --coverage",
-		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-		"test:e2e": "jest --config ./test/jest-e2e.json",
-		"prepare": "husky"
+	"publishConfig": {
+		"access": "public"
 	},
 	"gitHead": "45da167e3520f872914bd124389df8326c70e020"
 }

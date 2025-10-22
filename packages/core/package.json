@@ -14,70 +14,44 @@
 		"e-rechnung",
 		"e-invoice-eu"
 	],
-	"main": "dist/e-invoice-eu.cjs.js",
-	"module": "dist/e-invoice-eu.esm.js",
-	"typings": "dist/index.d.ts",
-	"publishConfig": {
-		"access": "public"
+	"homepage": "https://github.com/gflohr/e-invoice-eu/packages/runtime",
+	"bugs": {
+		"url": "https://github.com/gflohr/e-invoice-eu/issues"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/gflohr/e-invoice-eu.git"
 	},
-	"bugs": {
-		"url": "https://github.com/gflohr/e-invoice-eu/issues"
-	},
-	"homepage": "https://github.com/gflohr/e-invoice-eu/packages/runtime",
+	"license": "WTFPL",
+	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
+	"main": "dist/e-invoice-eu.cjs.js",
+	"module": "dist/e-invoice-eu.esm.js",
+	"typings": "dist/index.d.ts",
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"build": "rimraf dist && rollup -c",
-		"prepublishOnly": "npm run build",
 		"check:clean": "../../check-clean",
+		"esgettext": "npm-run-all esgettext:potfiles esgettext:extract esgettext:update-po esgettext:update-mo esgettext:install",
+		"esgettext:addlang": "esgettext msginit",
+		"esgettext:extract": "esgettext extract --force-po --from-code=utf-8 --directory po --files-from=po/POTFILES",
+		"esgettext:install": "esgettext install",
+		"esgettext:potfiles": "esgettext potfiles --directory=po --git --exclude=\"node_modules/**/*\" --exclude=\"test/*/**\" --exclude=\"**/*.spec.*\" \"././**/*.mjs\" \"./test/**/*.ts\" \"./src/**/*.ts\" \"./contrib/**/*.mjs\" >po/POTFILES",
+		"esgettext:update-mo": "esgettext msgfmt-all",
+		"esgettext:update-po": "esgettext msgmerge-all",
 		"format": "prettier --write *.json 'src/**/*.ts'",
-		"watch": "tsc --watch",
 		"lint": "eslint './src/**/*.ts'",
 		"lint:fix": "eslint --fix './src/**/*.ts'",
 		"lint:fix-dry-run": "eslint --fix-dry-run './src/**/*.ts'",
 		"lint:staged": "lint-staged",
-		"typedoc": "typedoc src/index.ts && node patch-image.mjs",
+		"prepublishOnly": "npm run build",
 		"test": "jest",
-		"test:watch": "jest --watch",
 		"test:cov": "jest --coverage",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-		"esgettext": "npm-run-all esgettext:potfiles esgettext:extract esgettext:update-po esgettext:update-mo esgettext:install",
-		"esgettext:potfiles": "esgettext potfiles --directory=po --git --exclude=\"node_modules/**/*\" --exclude=\"test/*/**\" --exclude=\"**/*.spec.*\" \"././**/*.mjs\" \"./test/**/*.ts\" \"./src/**/*.ts\" \"./contrib/**/*.mjs\" >po/POTFILES",
-		"esgettext:extract": "esgettext extract --force-po --from-code=utf-8 --directory po --files-from=po/POTFILES",
-		"esgettext:update-po": "esgettext msgmerge-all",
-		"esgettext:update-mo": "esgettext msgfmt-all",
-		"esgettext:install": "esgettext install",
-		"esgettext:addlang": "esgettext msginit"
-	},
-	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
-	"license": "WTFPL",
-	"files": [
-		"dist"
-	],
-	"jest": {
-		"moduleFileExtensions": [
-			"js",
-			"json",
-			"ts"
-		],
-		"rootDir": "src",
-		"testRegex": ".*\\.spec\\.ts$",
-		"transform": {
-			"^.+\\.(t|j)s$": [
-				"ts-jest",
-				{
-					"tsconfig": "tsconfig.jest.json"
-				}
-			]
-		},
-		"collectCoverageFrom": [
-			"**/*.(t|j)s",
-			"!src/**/index.ts"
-		],
-		"coverageDirectory": "../coverage",
-		"testEnvironment": "node"
+		"test:watch": "jest --watch",
+		"typedoc": "typedoc src/index.ts && node patch-image.mjs",
+		"watch": "tsc --watch"
 	},
 	"lint-staged": {
 		"*.{js,ts,json,scss,css,md}": [
@@ -86,6 +60,38 @@
 		"src/**/*.ts": [
 			"eslint"
 		]
+	},
+	"jest": {
+		"collectCoverageFrom": [
+			"**/*.(t|j)s",
+			"!src/**/index.ts"
+		],
+		"coverageDirectory": "../coverage",
+		"moduleFileExtensions": [
+			"js",
+			"json",
+			"ts"
+		],
+		"rootDir": "src",
+		"testEnvironment": "node",
+		"testRegex": ".*\\.spec\\.ts$",
+		"transform": {
+			"^.+\\.(t|j)s$": [
+				"ts-jest",
+				{
+					"tsconfig": "tsconfig.jest.json"
+				}
+			]
+		}
+	},
+	"dependencies": {
+		"@cantoo/pdf-lib": "^2.5.3",
+		"@e965/xlsx": "^0.20.3",
+		"@esgettext/runtime": "^1.3.6",
+		"ajv": "^8.17.1",
+		"jsonpath-plus": "^10.3.0",
+		"tmp-promise": "^3.0.3",
+		"xmlbuilder2": "^3.1.1"
 	},
 	"devDependencies": {
 		"@babel/highlight": "^7.25.9",
@@ -126,14 +132,8 @@
 		"typescript": "^5.9.3",
 		"typescript-eslint": "^8.46.1"
 	},
-	"dependencies": {
-		"@cantoo/pdf-lib": "^2.5.3",
-		"@e965/xlsx": "^0.20.3",
-		"@esgettext/runtime": "^1.3.6",
-		"ajv": "^8.17.1",
-		"jsonpath-plus": "^10.3.0",
-		"tmp-promise": "^3.0.3",
-		"xmlbuilder2": "^3.1.1"
+	"publishConfig": {
+		"access": "public"
 	},
 	"gitHead": "45da167e3520f872914bd124389df8326c70e020"
 }

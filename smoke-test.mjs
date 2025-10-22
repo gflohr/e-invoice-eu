@@ -38,7 +38,7 @@ async function testAll() {
 	};
 
 	for (const format of allFormats) {
-	// for (const format of facturXFormats) {
+		// for (const format of facturXFormats) {
 		const extension = format.match(/Factur-X-/) ? 'pdf' : 'xml';
 
 		for (const example of examples) {

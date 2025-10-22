@@ -3,15 +3,19 @@
 	"version": "1.4.4",
 	"private": true,
 	"description": "E-Invoice-EU documentation",
+	"license": "WTFPL",
+	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
 	"main": "index.js",
 	"scripts": {
-		"format": "prettier --write *.json *.yaml \"_views/**/*.html\" \"_assets/**/*{css,js}\"",
 		"build": "webpack",
-		"start": "webpack watch",
-		"server": "browser-sync start --startPath /e-invoice-eu --server _site --files _timestamp --files assets"
+		"format": "prettier --write *.json *.yaml \"_views/**/*.html\" \"_assets/**/*{css,js}\"",
+		"server": "browser-sync start --startPath /e-invoice-eu --server _site --files _timestamp --files assets",
+		"start": "webpack watch"
 	},
-	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
-	"license": "WTFPL",
+	"browserslist": [
+		"> 1%",
+		"last 2 versions"
+	],
 	"devDependencies": {
 		"@porscheofficial/cookie-consent-banner": "^4.0.3",
 		"ajv": "^8.17.1",
@@ -42,9 +46,5 @@
 		"url-loader": "^4.1.1",
 		"webpack": "^5.102.1",
 		"webpack-cli": "^6.0.1"
-	},
-	"browserslist": [
-		"> 1%",
-		"last 2 versions"
-	]
+	}
 }
