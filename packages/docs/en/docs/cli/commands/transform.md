@@ -20,7 +20,7 @@ Example:
 
 <!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-sh" %]
-e-invoice-eu --format=UBL \
+e-invoice-eu transform --format=UBL \
         --spreadsheet=contrib/templates/default-invoice.ods \
         --mappingcontrib/mappings/default-invoice.yaml
 [% END %]

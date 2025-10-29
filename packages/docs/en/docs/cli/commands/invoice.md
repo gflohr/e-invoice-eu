@@ -69,7 +69,7 @@ like this:
 
 <!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-sh" %]
-e-invoice-eu --format=UBL \
+e-invoice-eu invoice --format=UBL \
         --spreadsheet=contrib/templates/default-invoice.ods \
         --mapping=contrib/mappings/default-invoice.yaml
 [% END %]
@@ -90,7 +90,7 @@ example creates a Factur-X Extended invoice with three attachments:
 
 <!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-sh" %]
-e-invoice-eu --format=UBL
+e-invoice-eu invoice --format=UBL
         --lang=de \
         --spreadsheet=contrib/templates/default-invoice.ods \
         --mapping=@contrib/mappings/default-invoice.yaml \
@@ -167,7 +167,7 @@ is binary and you want to redirect it to a file or use the option `--output`.
 
 <!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-sh" %]
-e-invoice-eu --format=Factur-X-Extended \
+e-invoice-eu invoice --format=Factur-X-Extended \
  --spreadsheet=contrib/templates/default-invoice.ods \
  --mapping=@contrib/mappings/default-invoice.yaml \
  --output e-invoice.pdf
@@ -210,7 +210,7 @@ Example:
 
 <!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-sh" %]
-e-invoice-eu --forma=UBL --invoice=contrib/data/default-invoice.json
+e-invoice-eu --format=UBL --invoice=contrib/data/default-invoice.json
 [% END %]
 <!--/qgoda-no-xgettext-->
 
