@@ -31,10 +31,10 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css?1760016223" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1761810125" rel="stylesheet">
 
 
-  <link href="/e-invoice-eu/site/css/modal-image-popup.css?1760016170" rel="stylesheet">
+  <link href="/e-invoice-eu/site/css/modal-image-popup.css?1761810074" rel="stylesheet">
 
 
   <meta name="generator" content="Qgoda vv0.11.0 (https://www.qgoda.net/)" />
@@ -294,7 +294,7 @@ like this:</p>
 
 
 
-<pre class="language-sh"><code>e-invoice-eu --format=UBL \
+<pre class="language-sh"><code>e-invoice-eu invoice --format=UBL \
         --spreadsheet=contrib/templates/default-invoice.ods \
         --mapping=contrib/mappings/default-invoice.yaml</code></pre>
 
@@ -318,7 +318,7 @@ example creates a Factur-X Extended invoice with three attachments:</p>
 
 
 
-<pre class="language-sh"><code>e-invoice-eu --format=UBL
+<pre class="language-sh"><code>e-invoice-eu invoice --format=UBL
         --lang=de \
         --spreadsheet=contrib/templates/default-invoice.ods \
         --mapping=@contrib/mappings/default-invoice.yaml \
@@ -447,7 +447,7 @@ is binary and you want to redirect it to a file or use the option <code>--output
 
 
 
-<pre class="language-sh"><code>e-invoice-eu --format=Factur-X-Extended \
+<pre class="language-sh"><code>e-invoice-eu invoice --format=Factur-X-Extended \
  --spreadsheet=contrib/templates/default-invoice.ods \
  --mapping=@contrib/mappings/default-invoice.yaml \
  --output e-invoice.pdf</code></pre>
@@ -508,7 +508,7 @@ the invoice directly from JSON. All you have to do is to omit the parameter
 
 
 
-<pre class="language-sh"><code>e-invoice-eu --forma=UBL --invoice=contrib/data/default-invoice.json</code></pre>
+<pre class="language-sh"><code>e-invoice-eu --format=UBL --invoice=contrib/data/default-invoice.json</code></pre>
 
 
 
@@ -918,10 +918,10 @@ which makes no sense.</p>
  
 
 
-  <script src="/e-invoice-eu/assets/bundle.min.js?1760016223" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1761810125" type="text/javascript"></script>
 
 
-  <script src="/e-invoice-eu/site/js/modal-image-popup.js?1760016170" type="text/javascript"></script>
+  <script src="/e-invoice-eu/site/js/modal-image-popup.js?1761810074" type="text/javascript"></script>
 
 
 </body>
