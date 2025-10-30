@@ -210,7 +210,7 @@ Example:
 
 <!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-sh" %]
-e-invoice-eu --format=UBL --invoice=contrib/data/default-invoice.json
+e-invoice-eu invoice --format=UBL --invoice=contrib/data/default-invoice.json
 [% END %]
 <!--/qgoda-no-xgettext-->
 
