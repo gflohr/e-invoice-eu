@@ -20,7 +20,7 @@ on standard output:
 
 <!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-sh" %]
-e-invoice-eu --schema=invoice
+e-invoice-eu schema --id=invoice
 [% END %]
 <!--/qgoda-no-xgettext-->
 
@@ -31,6 +31,6 @@ usually given in YAML:
 
 <!--qgoda-no-xgettext-->
 [% FILTER $Highlight "language-sh" %]
-e-invoice-eu --schema=mapping
+e-invoice-eu schmea --id=mapping
 [% END %]
 <!--/qgoda-no-xgettext-->
