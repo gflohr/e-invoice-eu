@@ -1,6 +1,9 @@
 name: Deploy Docs with Qgoda
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - '**'
