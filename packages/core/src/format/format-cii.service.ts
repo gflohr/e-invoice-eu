@@ -102,21 +102,21 @@ export type SubType = 'DateTimeString';
 // rendered if the elements it depends on exist in the source.
 export type Transformation =
 	| {
-		type: 'object' | 'array';
-		subtype?: never;
-		src: string[];
-		dest: string[];
-		children: Transformation[];
-		fxProfileMask: FXProfile;
-	}
+			type: 'object' | 'array';
+			subtype?: never;
+			src: string[];
+			dest: string[];
+			children: Transformation[];
+			fxProfileMask: FXProfile;
+	  }
 	| {
-		type: 'string';
-		subtype?: SubType;
-		src: string[];
-		dest: string[];
-		children?: never;
-		fxProfileMask: FXProfile;
-	};
+			type: 'string';
+			subtype?: SubType;
+			src: string[];
+			dest: string[];
+			children?: never;
+			fxProfileMask: FXProfile;
+	  };
 
 const cacAdditionalItemProperty: Transformation = {
 	type: 'array',
