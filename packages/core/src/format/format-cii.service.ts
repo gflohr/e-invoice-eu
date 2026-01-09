@@ -119,7 +119,7 @@ export type Transformation =
 	  };
 
 const cacAdditionalItemProperty: Transformation = {
-	type: 'object',
+	type: 'array',
 	src: ['cac:AdditionalItemProperty'],
 	dest: ['ram:ApplicableProductCharacteristic'],
 	children: [
