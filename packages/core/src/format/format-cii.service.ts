@@ -102,21 +102,21 @@ export type SubType = 'DateTimeString';
 // rendered if the elements it depends on exist in the source.
 export type Transformation =
 	| {
-			type: 'object' | 'array';
-			subtype?: never;
-			src: string[];
-			dest: string[];
-			children: Transformation[];
-			fxProfileMask: FXProfile;
-	  }
+		type: 'object' | 'array';
+		subtype?: never;
+		src: string[];
+		dest: string[];
+		children: Transformation[];
+		fxProfileMask: FXProfile;
+	}
 	| {
-			type: 'string';
-			subtype?: SubType;
-			src: string[];
-			dest: string[];
-			children?: never;
-			fxProfileMask: FXProfile;
-	  };
+		type: 'string';
+		subtype?: SubType;
+		src: string[];
+		dest: string[];
+		children?: never;
+		fxProfileMask: FXProfile;
+	};
 
 const cacAdditionalItemProperty: Transformation = {
 	type: 'array',
@@ -228,52 +228,64 @@ const cacPrice: Transformation = {
 	dest: [],
 	children: [
 		{
-			type: 'string',
-			src: ['cac:AllowanceCharge', 'cbc:BaseAmount'],
-			dest: ['ram:GrossProductTradePrice', 'ram:ChargeAmount'],
-			fxProfileMask: FX_MASK_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cbc:BasisQuantity'],
-			dest: ['ram:GrossProductTradePrice', 'ram:BasisQuantity'],
-			fxProfileMask: FX_MASK_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cbc:BasisQuantity@unitCode'],
-			dest: ['ram:GrossProductTradePrice', 'ram:BasisQuantity@unitCode'],
-			fxProfileMask: FX_MASK_EN16931,
-		},
-		// FIXME! This can go into a child object!
-		{
-			type: 'string',
-			src: ['cac:AllowanceCharge', 'cbc:ChargeIndicator'],
-			dest: [
-				'ram:GrossProductTradePrice',
-				'ram:AppliedTradeAllowanceCharge',
-				'ram:ChargeIndicator',
-				'udt:Indicator',
+			type: 'object',
+			src: [],
+			dest: ['ram:SpecifiedLineTradeAgreement', 'ram:GrossPriceProductTradePrice'],
+			children: [
+				{
+					type: 'string',
+					src: ['cbc:BaseQuantity'],
+					dest: ['ram:BasisQuantity'],
+					fxProfileMask: FX_MASK_EN16931,
+				},
+				{
+					type: 'string',
+					src: ['cbc:BaseQuantity@unitCode'],
+					dest: ['ram:BasisQuantity@unitCode'],
+					fxProfileMask: FX_MASK_EN16931,
+				},
 			],
 			fxProfileMask: FX_MASK_EN16931,
 		},
 		{
-			type: 'string',
-			src: ['cac:AllowanceCharge', 'cbc:Amount'],
-			dest: [
-				'ram:GrossProductTradePrice',
-				'ram:AppliedTradeAllowanceCharge',
-				'ram:ActualAmount',
-			],
-			fxProfileMask: FX_MASK_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cac:AllowanceCharge', 'cbc:Amount@currencyID'],
-			dest: [
-				'ram:GrossProductTradePrice',
-				'ram:AppliedTradeAllowanceCharge',
-				'ram:ActualAmount@currencyID',
+			type: 'object',
+			src: ['cac:AllowanceCharge'],
+			dest: ['ram:SpecifiedLineTradeAgreement', 'ram:GrossPriceProductTradePrice'],
+			children: [
+				{
+					type: 'string',
+					src: ['cbc:BaseAmount'],
+					dest: ['ram:ChargeAmount'],
+					fxProfileMask: FX_MASK_EN16931,
+				},
+				{
+					type: 'string',
+					src: ['cbc:ChargeIndicator'],
+					dest: [
+						'ram:AppliedTradeAllowanceCharge',
+						'ram:ChargeIndicator',
+						'udt:Indicator',
+					],
+					fxProfileMask: FX_MASK_EN16931,
+				},
+				{
+					type: 'string',
+					src: ['cbc:Amount'],
+					dest: [
+						'ram:AppliedTradeAllowanceCharge',
+						'ram:ActualAmount',
+					],
+					fxProfileMask: FX_MASK_EN16931,
+				},
+				{
+					type: 'string',
+					src: ['cbc:Amount@currencyID'],
+					dest: [
+						'ram:AppliedTradeAllowanceCharge',
+						'ram:ActualAmount@currencyID',
+					],
+					fxProfileMask: FX_MASK_EN16931,
+				},
 			],
 			fxProfileMask: FX_MASK_EN16931,
 		},
