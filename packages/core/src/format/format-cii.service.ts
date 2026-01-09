@@ -110,13 +110,13 @@ export type Transformation =
 			fxProfileMask: FXProfile;
 	  }
 	| {
-		type: 'string';
-		subtype?: SubType;
-		src: string[];
-		dest: string[];
-		children?: never;
-		fxProfileMask: FXProfile;
-	};
+			type: 'string';
+			subtype?: SubType;
+			src: string[];
+			dest: string[];
+			children?: never;
+			fxProfileMask: FXProfile;
+	  };
 
 const cacAdditionalItemProperty: Transformation = {
 	type: 'array',
@@ -327,9 +327,9 @@ const cacInvoiceLinePeriod: Transformation = {
 };
 
 const cacInvoiceLineAllowanceCharge: Transformation = {
-	type: 'object',
+	type: 'array',
 	src: ['cac:AllowanceCharge'],
-	dest: ['ram:SpecifiedTradeAllowanceCharge'],
+	dest: ['ram:SpecifiedLineTradeSettlement', 'ram:SpecifiedTradeAllowanceCharge'],
 	children: [
 		{
 			type: 'string',
