@@ -1541,7 +1541,8 @@ export const ublInvoice: Transformation = {
 
 export class FormatCIIService
 	extends FormatUBLService
-	implements EInvoiceFormat {
+	implements EInvoiceFormat
+{
 	get customizationID(): string {
 		return 'urn:cen.eu:en16931:2017';
 	}
