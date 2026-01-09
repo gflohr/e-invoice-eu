@@ -110,13 +110,13 @@ export type Transformation =
 			fxProfileMask: FXProfile;
 	  }
 	| {
-			type: 'string';
-			subtype?: SubType;
-			src: string[];
-			dest: string[];
-			children?: never;
-			fxProfileMask: FXProfile;
-	  };
+		type: 'string';
+		subtype?: SubType;
+		src: string[];
+		dest: string[];
+		children?: never;
+		fxProfileMask: FXProfile;
+	};
 
 const cacAdditionalItemProperty: Transformation = {
 	type: 'array',
@@ -291,40 +291,40 @@ const cacPrice: Transformation = {
 	fxProfileMask: FX_MASK_MINIMUM,
 };
 
-const cacInvoiceLinePeriod: Transformation[] = [
-	{
-		type: 'string',
-		src: ['cbc:StartDate'],
-		dest: ['ram:StartDateTime', 'udt:DateTimeString'],
-		fxProfileMask: FX_MASK_EN16931,
-	},
-	{
-		type: 'string',
-		src: ['cbc:StartDate', 'fixed:102'],
-		dest: [
-			'ram:StartDateTime',
-			'udt:DateTimeString',
-			'udt:DateTimeString@format',
-		],
-		fxProfileMask: FX_MASK_EN16931,
-	},
-	{
-		type: 'string',
-		src: ['cbc:EndDate'],
-		dest: ['ram:EndDateTime', 'udt:DateTimeString'],
-		fxProfileMask: FX_MASK_EN16931,
-	},
-	{
-		type: 'string',
-		src: ['cbc:EndDate', 'fixed:102'],
-		dest: [
-			'ram:EndDateTime',
-			'udt:DateTimeString',
-			'udt:DateTimeString@format',
-		],
-		fxProfileMask: FX_MASK_EN16931,
-	},
-];
+const cacInvoiceLinePeriod: Transformation = {
+	type: 'object',
+	src: ['cac:InvoicePeriod'],
+	dest: ['ram:SpecifiedLineTradeSettlement', 'ram:BillingSpecifiedPeriod'],
+	children: [
+		{
+			type: 'string',
+			subtype: 'DateTimeString',
+			src: ['cbc:StartDate'],
+			dest: ['ram:StartDateTime', 'udt:DateTimeString'],
+			fxProfileMask: FX_MASK_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cbc:StartDate', 'fixed:102'],
+			dest: ['ram:StartDateTime', 'udt:DateTimeString@format',],
+			fxProfileMask: FX_MASK_EN16931,
+		},
+		{
+			type: 'string',
+			subtype: 'DateTimeString',
+			src: ['cbc:EndDate'],
+			dest: ['ram:EndDateTime', 'udt:DateTimeString'],
+			fxProfileMask: FX_MASK_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cbc:EndDate', 'fixed:102'],
+			dest: ['ram:EndDateTime', 'udt:DateTimeString@format',],
+			fxProfileMask: FX_MASK_EN16931,
+		},
+	],
+	fxProfileMask: FX_MASK_EN16931,
+};
 
 const cacInvoiceLineAllowanceCharge: Transformation = {
 	type: 'object',
@@ -470,7 +470,7 @@ const cacInvoiceLine: Transformation = {
 			],
 			fxProfileMask: FX_MASK_BASIC,
 		},
-		...cacInvoiceLinePeriod,
+		cacInvoiceLinePeriod,
 		cacInvoiceLineAllowanceCharge,
 		{
 			type: 'string',
@@ -1529,8 +1529,7 @@ export const ublInvoice: Transformation = {
 
 export class FormatCIIService
 	extends FormatUBLService
-	implements EInvoiceFormat
-{
+	implements EInvoiceFormat {
 	get customizationID(): string {
 		return 'urn:cen.eu:en16931:2017';
 	}
