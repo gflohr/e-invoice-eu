@@ -152,7 +152,33 @@ export class FormatFacturXService
 			modificationDate: now,
 			afRelationship: relationship,
 		});
-	}
+
+		const attachments = pdfDoc.getAttachments();
+		for (let i = 0; i < attachments.length; ++i) {
+			const attachment = attachments[i];
+		}
+
+/* 		// Some validators insist on having the attachment listed in the
+		// File Specification Dictionary.
+		const context = pdfDoc.context;
+		const fileSpecDict = context.obj({
+			Type: 'Filespec',
+			F: pdfDoc.context.flateStream(fileInfo.filename),
+			UF: pdfDoc.context.flateStream(fileInfo.filename),
+			Desc: fileInfo.description ?? 'Supplementary file',
+			AFRelationship: relationship,
+			EF: context.obj({ F: embeddedFileRef }),
+		});
+
+		// Manually add to the EmbeddedFiles name tree:
+		const names = pdfDoc.catalog.lookup(PDFName.of('Names'), PDFDict) ??
+					context.obj({});
+		pdfDoc.catalog.set(PDFName.of('Names'), names);
+
+		names.set(PDFName.of('EmbeddedFiles'), context.obj({
+			Names: [ fileInfo.filename, fileSpecDict ]
+		}));
+ */	}
 
 	private async createPDFA(
 		pdfDoc: PDFDocument,
