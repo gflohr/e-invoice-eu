@@ -193,7 +193,7 @@ export class InvoiceController {
 
 		if (!invoice && !mapping) {
 			throw new BadRequestException(
-				'Either an invoice or mapping file must be proviced',
+				'Either an invoice or mapping file must be provided',
 			);
 		} else if (invoice && mapping) {
 			throw new BadRequestException(
