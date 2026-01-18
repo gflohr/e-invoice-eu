@@ -37,14 +37,6 @@ export class MappingController {
 					nullable: true,
 					description: 'The spreadsheet to be transformed.',
 				},
-				data: {
-					type: 'string',
-					format: 'binary',
-					deprecated: true,
-					nullable: true,
-					description:
-						'Will be removed in 2026! An alias for "spreadsheet". Use that instead!',
-				},
 				mapping: {
 					type: 'string',
 					format: 'binary',
@@ -75,7 +67,6 @@ export class MappingController {
 	@UseInterceptors(
 		FileFieldsInterceptor([
 			{ name: 'spreadsheet', maxCount: 1 },
-			{ name: 'data', maxCount: 1 },
 			{ name: 'mapping', maxCount: 1 },
 		]),
 	)
@@ -84,17 +75,10 @@ export class MappingController {
 		@UploadedFiles()
 		files: {
 			spreadsheet?: Express.Multer.File[];
-			data?: Express.Multer.File[];
 			mapping?: Express.Multer.File[];
 		},
 	): Invoice {
-		if (files.spreadsheet && files.data) {
-			throw new BadRequestException(
-				'The parameters "spreadsheet" and data" are mutually exclusive.',
-			);
-		}
-
-		const dataFile = files.spreadsheet ? files.spreadsheet[0] : files.data?.[0];
+		const dataFile = files.spreadsheet;
 		if (!dataFile) {
 			throw new BadRequestException('No invoice file uploaded');
 		}
@@ -108,7 +92,7 @@ export class MappingController {
 			return this.mappingService.transform(
 				format,
 				mappingFile.buffer.toString(),
-				dataFile.buffer,
+				dataFile[0].buffer,
 			);
 		} catch (error) {
 			if (error instanceof ValidationError) {

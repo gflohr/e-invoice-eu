@@ -161,10 +161,4 @@ describe('InvoiceController', () => {
 			transformMock.mockRestore();
 		});
 	});
-
-	describe('Time-bomb tests', () => {
-		it('should remove the deprecated URL parameter "data" in 2026', () => {
-			expect(new Date().getFullYear()).toBeLessThan(2026);
-		});
-	});
 });
