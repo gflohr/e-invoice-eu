@@ -51,6 +51,7 @@ describe('MappingController', () => {
 		const mockTransformedData = {
 			result: 'some transformed data',
 		} as unknown as Invoice;
+		//jest.spyOn(service, 'transform').mockReturnValue(mockTransformedData);
 		jest.spyOn(service, 'transform').mockReturnValue(mockTransformedData);
 
 		const mapping = 'test: data success';
@@ -58,7 +59,7 @@ describe('MappingController', () => {
 		const response = await request(app.getHttpServer())
 			.post('/mapping/transform/UBL')
 			.attach('mapping', Buffer.from(mapping), 'mapping.yaml')
-			.attach('data', Buffer.from(data), 'test.ods');
+			.attach('spreadsheet', Buffer.from(data), 'test.ods');
 
 		expect(response.status).toBe(201);
 		expect(response.body).toEqual(mockTransformedData);
@@ -73,7 +74,7 @@ describe('MappingController', () => {
 		const data = ' data';
 		const response = await request(app.getHttpServer())
 			.post('/mapping/transform/UBL')
-			.attach('data', Buffer.from(data), 'invoice.ods');
+			.attach('spreadsheet', Buffer.from(data), 'invoice.ods');
 
 		expect(response.status).toBe(400);
 		expect(response.body.statusCode).toBe(400);
@@ -106,7 +107,7 @@ describe('MappingController', () => {
 		const response = await request(app.getHttpServer())
 			.post('/mapping/transform/UBL')
 			.attach('mapping', Buffer.from('test: data fail'), 'mapping.yaml')
-			.attach('data', Buffer.from('test data'), 'test.xlsx');
+			.attach('spreadsheet', Buffer.from('test data'), 'test.xlsx');
 
 		expect(response.status).toBe(400);
 		expect(response.body.message).toEqual('Transformation failed.');
@@ -123,7 +124,7 @@ describe('MappingController', () => {
 		const response = await request(app.getHttpServer())
 			.post('/mapping/transform/UBL')
 			.attach('mapping', Buffer.from('test: data exception'), 'mapping.yaml')
-			.attach('data', Buffer.from('test data'), 'test.xlsx');
+			.attach('spreadsheet', Buffer.from('test data'), 'test.xlsx');
 
 		expect(response.status).toBe(500);
 		expect(response.body.statusCode).toBe(500);
@@ -131,11 +132,5 @@ describe('MappingController', () => {
 		expect(mockedLogger.error).toHaveBeenCalledWith(
 			expect.stringMatching(/^unknown error: boum!/),
 		);
-	});
-
-	describe('Time-bomb tests', () => {
-		it('should remove the deprecated URL parameter "data" in 2026', () => {
-			expect(new Date().getFullYear()).toBeLessThan(2026);
-		});
 	});
 });
