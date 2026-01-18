@@ -119,7 +119,7 @@ export type Transformation =
 	  };
 
 const cacAdditionalItemProperty: Transformation = {
-	type: 'object',
+	type: 'array',
 	src: ['cac:AdditionalItemProperty'],
 	dest: ['ram:ApplicableProductCharacteristic'],
 	children: [
@@ -228,52 +228,64 @@ const cacPrice: Transformation = {
 	dest: [],
 	children: [
 		{
-			type: 'string',
-			src: ['cac:AllowanceCharge', 'cbc:BaseAmount'],
-			dest: ['ram:GrossProductTradePrice', 'ram:ChargeAmount'],
-			fxProfileMask: FX_MASK_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cbc:BasisQuantity'],
-			dest: ['ram:GrossProductTradePrice', 'ram:BasisQuantity'],
-			fxProfileMask: FX_MASK_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cbc:BasisQuantity@unitCode'],
-			dest: ['ram:GrossProductTradePrice', 'ram:BasisQuantity@unitCode'],
-			fxProfileMask: FX_MASK_EN16931,
-		},
-		// FIXME! This can go into a child object!
-		{
-			type: 'string',
-			src: ['cac:AllowanceCharge', 'cbc:ChargeIndicator'],
-			dest: [
-				'ram:GrossProductTradePrice',
-				'ram:AppliedTradeAllowanceCharge',
-				'ram:ChargeIndicator',
-				'udt:Indicator',
+			type: 'object',
+			src: [],
+			dest: ['ram:SpecifiedLineTradeAgreement', 'ram:GrossPriceProductTradePrice'],
+			children: [
+				{
+					type: 'string',
+					src: ['cbc:BaseQuantity'],
+					dest: ['ram:BasisQuantity'],
+					fxProfileMask: FX_MASK_EN16931,
+				},
+				{
+					type: 'string',
+					src: ['cbc:BaseQuantity@unitCode'],
+					dest: ['ram:BasisQuantity@unitCode'],
+					fxProfileMask: FX_MASK_EN16931,
+				},
 			],
 			fxProfileMask: FX_MASK_EN16931,
 		},
 		{
-			type: 'string',
-			src: ['cac:AllowanceCharge', 'cbc:Amount'],
-			dest: [
-				'ram:GrossProductTradePrice',
-				'ram:AppliedTradeAllowanceCharge',
-				'ram:ActualAmount',
-			],
-			fxProfileMask: FX_MASK_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cac:AllowanceCharge', 'cbc:Amount@currencyID'],
-			dest: [
-				'ram:GrossProductTradePrice',
-				'ram:AppliedTradeAllowanceCharge',
-				'ram:ActualAmount@currencyID',
+			type: 'object',
+			src: ['cac:AllowanceCharge'],
+			dest: ['ram:SpecifiedLineTradeAgreement', 'ram:GrossPriceProductTradePrice'],
+			children: [
+				{
+					type: 'string',
+					src: ['cbc:BaseAmount'],
+					dest: ['ram:ChargeAmount'],
+					fxProfileMask: FX_MASK_EN16931,
+				},
+				{
+					type: 'string',
+					src: ['cbc:ChargeIndicator'],
+					dest: [
+						'ram:AppliedTradeAllowanceCharge',
+						'ram:ChargeIndicator',
+						'udt:Indicator',
+					],
+					fxProfileMask: FX_MASK_EN16931,
+				},
+				{
+					type: 'string',
+					src: ['cbc:Amount'],
+					dest: [
+						'ram:AppliedTradeAllowanceCharge',
+						'ram:ActualAmount',
+					],
+					fxProfileMask: FX_MASK_EN16931,
+				},
+				{
+					type: 'string',
+					src: ['cbc:Amount@currencyID'],
+					dest: [
+						'ram:AppliedTradeAllowanceCharge',
+						'ram:ActualAmount@currencyID',
+					],
+					fxProfileMask: FX_MASK_EN16931,
+				},
 			],
 			fxProfileMask: FX_MASK_EN16931,
 		},
@@ -291,45 +303,45 @@ const cacPrice: Transformation = {
 	fxProfileMask: FX_MASK_MINIMUM,
 };
 
-const cacInvoiceLinePeriod: Transformation[] = [
-	{
-		type: 'string',
-		src: ['cbc:StartDate'],
-		dest: ['ram:StartDateTime', 'udt:DateTimeString'],
-		fxProfileMask: FX_MASK_EN16931,
-	},
-	{
-		type: 'string',
-		src: ['cbc:StartDate', 'fixed:102'],
-		dest: [
-			'ram:StartDateTime',
-			'udt:DateTimeString',
-			'udt:DateTimeString@format',
-		],
-		fxProfileMask: FX_MASK_EN16931,
-	},
-	{
-		type: 'string',
-		src: ['cbc:EndDate'],
-		dest: ['ram:EndDateTime', 'udt:DateTimeString'],
-		fxProfileMask: FX_MASK_EN16931,
-	},
-	{
-		type: 'string',
-		src: ['cbc:EndDate', 'fixed:102'],
-		dest: [
-			'ram:EndDateTime',
-			'udt:DateTimeString',
-			'udt:DateTimeString@format',
-		],
-		fxProfileMask: FX_MASK_EN16931,
-	},
-];
+const cacInvoiceLinePeriod: Transformation = {
+	type: 'object',
+	src: ['cac:InvoicePeriod'],
+	dest: ['ram:SpecifiedLineTradeSettlement', 'ram:BillingSpecifiedPeriod'],
+	children: [
+		{
+			type: 'string',
+			subtype: 'DateTimeString',
+			src: ['cbc:StartDate'],
+			dest: ['ram:StartDateTime', 'udt:DateTimeString'],
+			fxProfileMask: FX_MASK_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cbc:StartDate', 'fixed:102'],
+			dest: ['ram:StartDateTime', 'udt:DateTimeString@format',],
+			fxProfileMask: FX_MASK_EN16931,
+		},
+		{
+			type: 'string',
+			subtype: 'DateTimeString',
+			src: ['cbc:EndDate'],
+			dest: ['ram:EndDateTime', 'udt:DateTimeString'],
+			fxProfileMask: FX_MASK_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cbc:EndDate', 'fixed:102'],
+			dest: ['ram:EndDateTime', 'udt:DateTimeString@format',],
+			fxProfileMask: FX_MASK_EN16931,
+		},
+	],
+	fxProfileMask: FX_MASK_EN16931,
+};
 
 const cacInvoiceLineAllowanceCharge: Transformation = {
-	type: 'object',
+	type: 'array',
 	src: ['cac:AllowanceCharge'],
-	dest: ['ram:SpecifiedTradeAllowanceCharge'],
+	dest: ['ram:SpecifiedLineTradeSettlement', 'ram:SpecifiedTradeAllowanceCharge'],
 	children: [
 		{
 			type: 'string',
@@ -470,7 +482,7 @@ const cacInvoiceLine: Transformation = {
 			],
 			fxProfileMask: FX_MASK_BASIC,
 		},
-		...cacInvoiceLinePeriod,
+		cacInvoiceLinePeriod,
 		cacInvoiceLineAllowanceCharge,
 		{
 			type: 'string',
@@ -486,7 +498,11 @@ const cacInvoiceLine: Transformation = {
 		{
 			type: 'string',
 			src: ['cbc:AccountingCost'],
-			dest: ['ram:ReceivableSpecifiedTradeAccountingAccount', 'ram:ID'],
+			dest: [
+				'ram:SpecifiedLineTradeSettlement',
+				'ram:ReceivableSpecifiedTradeAccountingAccount',
+				'ram:ID',
+			],
 			fxProfileMask: FX_MASK_EN16931,
 		},
 	],
