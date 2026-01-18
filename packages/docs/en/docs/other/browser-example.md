@@ -5,6 +5,7 @@ section: other
 description: The E-Invoice-EU core library also works in the browser.
 scripts:
 - https://cdn.jsdelivr.net/npm/js-yaml@latest/dist/js-yaml.min.js
+- https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js
 - https://cdn.jsdelivr.net/npm/@e-invoice-eu/core@latest/dist/e-invoice-eu.js
 - /site/js/browser-example.js
 ---
