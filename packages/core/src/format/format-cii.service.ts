@@ -763,6 +763,30 @@ export const cacAdditionalDocumentReference: Transformation[] = [
 	},
 ];
 
+export const cacDelivery: Transformation[] = [
+	{
+		type: 'string',
+		src: ['cbc:ActualDeliveryDate'],
+		dest: [
+			'ram:ActualDeliverySupplyChainEvent',
+			'ram:OccurrenceDateTime',
+			'udt:DateTimeString',
+		],
+		subtype: 'DateTimeString',
+		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['fixed:102'],
+		dest: [
+			'ram:ActualDeliverySupplyChainEvent',
+			'ram:OccurrenceDateTime',
+			'udt:DateTimeString@format',
+		],
+		fxProfileMask: FX_MASK_MINIMUM,
+	},
+];
+
 export const deliveryAddress: Transformation[] = [
 	{
 		type: 'string',
@@ -806,30 +830,49 @@ export const deliveryAddress: Transformation[] = [
 		dest: ['ram:CountrySubDivisionName'],
 		fxProfileMask: FX_MASK_BASIC_WL,
 	},
+];
+
+export const invoicePeriod: Transformation[] = [
 	{
 		type: 'string',
-		src: ['cac:Delivery', 'cbc:ActualDeliveryDate'],
+		src: ['cbc:StartDate'],
 		dest: [
-			'ram:ActualDeliverySupplyChainEvent',
-			'ram:OccurrenceDateTime',
+			'ram:BillingSpecifiedPeriod',
+			'ram:StartDateTime',
 			'udt:DateTimeString',
+		],
+		subtype: 'DateTimeString',
+		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['fixed:102'],
+		dest: [
+			'ram:BillingSpecifiedPeriod',
+			'ram:StartDateTime',
+			'udt:DateTimeString@format',
 		],
 		fxProfileMask: FX_MASK_BASIC_WL,
 	},
 	{
 		type: 'string',
-		src: ['cac:Delivery', 'cbc:ActualDeliveryDate', 'fixed:102'],
+		src: ['cbc:EndDate'],
 		dest: [
-			'ram:ActualDeliverySupplyChainEvent',
-			'ram:OccurrenceDateTime',
-			'udt:DateTimeString@format',
+			'ram:BillingSpecifiedPeriod',
+			'ram:EndDateTime',
+			'udt:DateTimeString',
 		],
-		fxProfileMask: FX_MASK_MINIMUM,
+		subtype: 'DateTimeString',
+		fxProfileMask: FX_MASK_BASIC_WL,
 	},
 	{
 		type: 'string',
-		src: ['cac:DespatchDocumentReference', 'cbc:ID'],
-		dest: ['ram:DespatchAdviceReferencedDocument', 'ram:IssuerAssignedID'],
+		src: ['fixed:102'],
+		dest: [
+			'ram:BillingSpecifiedPeriod',
+			'ram:EndDateTime',
+			'udt:DateTimeString@format',
+		],
 		fxProfileMask: FX_MASK_BASIC_WL,
 	},
 ];
@@ -1313,9 +1356,9 @@ export const ublInvoice: Transformation = {
 				},
 				{
 					type: 'object',
-					src: [],
+					src: ['cac:Delivery'],
 					dest: ['ram:ApplicableHeaderTradeDelivery'],
-					children: [],
+					children: cacDelivery,
 					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				// FIXME! This is an array for CII.

@@ -4,7 +4,6 @@ exports[`CII regressions should fix #146 (missing TaxTotalAmount) 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
 	<rsm:SupplyChainTradeTransaction>
-		<ram:ApplicableHeaderTradeDelivery/>
 		<ram:ApplicableHeaderTradeSettlement>
 			<ram:SpecifiedTradeSettlementHeaderMonetarySummation>
 				<ram:LineTotalAmount>100.00</ram:LineTotalAmount>
@@ -43,7 +42,6 @@ exports[`CII should convert arrays 1`] = `
 				<ram:Name>Monorail Maintenance Fee </ram:Name>
 			</ram:SpecifiedTradeProduct>
 		</ram:IncludedSupplyChainTradeLineItem>
-		<ram:ApplicableHeaderTradeDelivery/>
 	</rsm:SupplyChainTradeTransaction>
 </rsm:CrossIndustryInvoice>"
 `;
@@ -59,9 +57,6 @@ exports[`CII should convert string values 1`] = `
 			<ram:ID>urn:cen.eu:en16931:2017</ram:ID>
 		</ram:GuidelineSpecifiedDocumentContextParameter>
 	</rsm:ExchangedDocumentContext>
-	<rsm:SupplyChainTradeTransaction>
-		<ram:ApplicableHeaderTradeDelivery/>
-	</rsm:SupplyChainTradeTransaction>
 </rsm:CrossIndustryInvoice>"
 `;
 
@@ -73,9 +68,6 @@ exports[`CII should encode date/time strings correctly 1`] = `
 			<udt:DateTimeString format="102">20241108</udt:DateTimeString>
 		</ram:IssueDateTime>
 	</rsm:ExchangedDocument>
-	<rsm:SupplyChainTradeTransaction>
-		<ram:ApplicableHeaderTradeDelivery/>
-	</rsm:SupplyChainTradeTransaction>
 </rsm:CrossIndustryInvoice>"
 `;
 
@@ -87,8 +79,5 @@ exports[`CII should omit missing string values 1`] = `
 			<ram:ID>urn:cen.eu:en16931:2017</ram:ID>
 		</ram:GuidelineSpecifiedDocumentContextParameter>
 	</rsm:ExchangedDocumentContext>
-	<rsm:SupplyChainTradeTransaction>
-		<ram:ApplicableHeaderTradeDelivery/>
-	</rsm:SupplyChainTradeTransaction>
 </rsm:CrossIndustryInvoice>"
 `;
