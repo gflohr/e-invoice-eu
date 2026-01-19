@@ -75,14 +75,6 @@ export class InvoiceController {
 					format: 'binary',
 					description: 'The spreadsheet to be transformed.',
 				},
-				data: {
-					type: 'string',
-					nullable: true,
-					format: 'binary',
-					description:
-						'Will be removed in 2026! An alias for "spreadsheet". Use that instead!',
-					deprecated: true,
-				},
 				pdf: {
 					type: 'string',
 					format: 'binary',
@@ -163,7 +155,6 @@ export class InvoiceController {
 			{ name: 'invoice', maxCount: 1 },
 			{ name: 'mapping', maxCount: 1 },
 			{ name: 'spreadsheet', maxCount: 1 },
-			{ name: 'data', maxCount: 1 },
 			{ name: 'pdf', maxCount: 1 },
 			{ name: 'attachment' }, // FIXME! How to set maxCount asynchronously?
 		]),
@@ -174,7 +165,6 @@ export class InvoiceController {
 		@UploadedFiles()
 		files: {
 			spreadsheet?: Express.Multer.File[];
-			data?: Express.Multer.File[];
 			invoice?: Express.Multer.File[];
 			mapping?: Express.Multer.File[];
 			pdf?: Express.Multer.File[];
@@ -191,18 +181,8 @@ export class InvoiceController {
 			pdfDescription?: string;
 		},
 	) {
-		const { data, mapping, invoice, pdf, attachment } = files;
-		let spreadsheet = files.spreadsheet;
-
-		if (spreadsheet && data) {
-			throw new BadRequestException(
-				'The parameters "spreadsheet" and data" are mutually exclusive.',
-			);
-		}
-
-		if (data) {
-			spreadsheet = data;
-		}
+		const { mapping, invoice, pdf, attachment } = files;
+		const spreadsheet = files.spreadsheet;
 
 		let attachmentIDs = body.attachmentID || [];
 		if (typeof attachmentIDs !== 'object') attachmentIDs = [attachmentIDs];
@@ -213,7 +193,7 @@ export class InvoiceController {
 
 		if (!invoice && !mapping) {
 			throw new BadRequestException(
-				'Either an invoice or mapping file must be proviced',
+				'Either an invoice or mapping file must be provided',
 			);
 		} else if (invoice && mapping) {
 			throw new BadRequestException(
