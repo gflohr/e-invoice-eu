@@ -105,5 +105,36 @@ describe('CII', () => {
 			const xml = await service.generate(invoice, options);
 			expect(xml).toMatchSnapshot();
 		});
+
+		it('should fix #310 (global ids) for IDs with an attribute', async () => {
+			const invoice: Invoice = {
+				'ubl:Invoice': {
+					'cac:Delivery': {
+						'cac:DeliveryLocation': {
+							'cbc:ID': '83745498753497',
+							'cbc:ID@schemeID': '0088',
+						},
+					},
+				},
+			} as unknown as Invoice;
+			const options = {} as InvoiceServiceOptions;
+			const xml = await service.generate(invoice, options);
+			expect(xml).toMatchSnapshot();
+		});
+
+		it('should not consider IDs w/o attribute as global (#310 global ids)', async () => {
+			const invoice: Invoice = {
+				'ubl:Invoice': {
+					'cac:Delivery': {
+						'cac:DeliveryLocation': {
+							'cbc:ID': 'around-the-corner',
+						},
+					},
+				},
+			} as unknown as Invoice;
+			const options = {} as InvoiceServiceOptions;
+			const xml = await service.generate(invoice, options);
+			expect(xml).toMatchSnapshot();
+		});
 	});
 });
