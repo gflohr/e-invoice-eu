@@ -605,7 +605,9 @@ export class FormatFacturXService
 				{
 					filename,
 					buffer: new TextEncoder().encode(xml),
-					mimetype: 'application/xml',
+					// The Factur-X/ZUGFeRD standard insists on the obsolete
+					// text/xml MIME type instead of application/xml.
+					mimetype: 'text/xml',
 					description: 'Factur-X',
 				},
 				AFRelationship.Alternative,
