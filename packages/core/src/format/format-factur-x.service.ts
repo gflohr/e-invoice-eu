@@ -16,6 +16,7 @@ import { XMLBuilder } from 'xmlbuilder2/lib/interfaces';
 import { FormatCIIService, FULL_CII, FXProfile } from './format-cii.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { FileInfo, InvoiceServiceOptions } from '../invoice/invoice.service';
+import { Package as pkg } from '../package';
 
 type FacturXConformanceLevel =
 	| 'MINIMUM'
@@ -186,7 +187,7 @@ export class FormatFacturXService
 		invoice: Invoice,
 	): Promise<void> {
 		let xmp = create();
-		const bom = '\uFEFF';
+		const bom = '\u00EF\u00BB\u00BF';
 		xmp = xmp.ins('xpacket', `begin="${bom}" id="W5M0MpCehiHzreSzNTczkc9d"`);
 
 		let conformanceLevel: FacturXConformanceLevel;
@@ -381,7 +382,7 @@ export class FormatFacturXService
 		});
 		this.addPdfAidDescription(rdf);
 		this.addPdfPurl(rdf, invoiceMeta);
-		this.addProducer(rdf);
+		this.addProducer(rdf, invoiceMeta);
 		this.addXap(rdf, invoiceMeta);
 		this.addPdfAExtension(rdf);
 		this.addFacturXStuff(rdf, invoiceMeta);
@@ -409,6 +410,13 @@ export class FormatFacturXService
 			.ele('dc:format')
 			.txt('application/pdf')
 			.up()
+			.ele('dc:title')
+			.ele('rdf:Alt')
+			.ele('rdf:li', { 'xml:lang': 'x-default' })
+			.txt(invoiceMeta.subject)
+			.up()
+			.up()
+			.up()
 			.ele('dc:date')
 			.ele('rdf:Seq')
 			.ele('rdf:li')
@@ -419,17 +427,25 @@ export class FormatFacturXService
 			.ele('dc:creator')
 			.ele('rdf:Seq')
 			.ele('rdf:li')
-			.txt(invoiceMeta.creator);
+			.txt(invoiceMeta.creator)
+			.up()
+			.up()
+			.up()
+			.ele('dc:description')
+			.ele('rdf:Alt')
+			.ele('rdf:li', { 'xml:lang': 'x-default' })
+			.txt(invoiceMeta.subject)
+			;
 	}
 
-	private addProducer(node: XMLBuilder) {
+	private addProducer(node: XMLBuilder, invoiceMeta: InvoiceMeta) {
 		node
 			.ele('rdf:Description', {
 				'xmlns:pdf': 'http://ns.adobe.com/pdf/1.3/',
 				'rdf:about': '',
 			})
 			.ele('pdf:Producer')
-			.txt('gflohr/e-invoice-eu git+https://github.com/gflohr/e-invoice-eu')
+			.txt(invoiceMeta.creator)
 			.up()
 			.ele('pdf:PDFVersion')
 			.txt('1.7');
@@ -442,7 +458,7 @@ export class FormatFacturXService
 				'rdf:about': '',
 			})
 			.ele('xmp:CreatorTool')
-			.txt(invoiceMeta.creator)
+			.txt(`${pkg.getName()} ${pkg.getVersion()} git+https://github.com/gflohr/e-invoice-eu`)
 			.up()
 			.ele('xmp:CreateDate')
 			.txt(invoiceMeta.now)

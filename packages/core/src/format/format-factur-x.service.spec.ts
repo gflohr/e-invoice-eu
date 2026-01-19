@@ -304,7 +304,7 @@ describe('FormatFacturXService', () => {
 			expect(attachments.length).toBe(1);
 			const attachment = attachments[0];
 			expect(attachment.name).toBe('factur-x.xml');
-			expect(attachment.mimeType).toBe('application/xml');
+			expect(attachment.mimeType).toBe('text/xml');
 			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
 			expect(attachment.description).toBe('Factur-X');
 		});
@@ -321,7 +321,7 @@ describe('FormatFacturXService', () => {
 			expect(attachments.length).toBe(1);
 			const attachment = attachments[0];
 			expect(attachment.name).toBe('factur-x.xml');
-			expect(attachment.mimeType).toBe('application/xml');
+			expect(attachment.mimeType).toBe('text/xml');
 			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
 			expect(attachment.description).toBe('Factur-X');
 		});
@@ -338,7 +338,7 @@ describe('FormatFacturXService', () => {
 			expect(attachments.length).toBe(1);
 			const attachment = attachments[0];
 			expect(attachment.name).toBe('factur-x.xml');
-			expect(attachment.mimeType).toBe('application/xml');
+			expect(attachment.mimeType).toBe('text/xml');
 			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
 			expect(attachment.description).toBe('Factur-X');
 		});
@@ -355,7 +355,7 @@ describe('FormatFacturXService', () => {
 			expect(attachments.length).toBe(1);
 			const attachment = attachments[0];
 			expect(attachment.name).toBe('factur-x.xml');
-			expect(attachment.mimeType).toBe('application/xml');
+			expect(attachment.mimeType).toBe('text/xml');
 			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
 			expect(attachment.description).toBe('Factur-X');
 		});
@@ -372,7 +372,7 @@ describe('FormatFacturXService', () => {
 			expect(attachments.length).toBe(1);
 			const attachment = attachments[0];
 			expect(attachment.name).toBe('factur-x.xml');
-			expect(attachment.mimeType).toBe('application/xml');
+			expect(attachment.mimeType).toBe('text/xml');
 			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
 			expect(attachment.description).toBe('Factur-X');
 		});
@@ -389,7 +389,7 @@ describe('FormatFacturXService', () => {
 			expect(attachments.length).toBe(1);
 			const attachment = attachments[0];
 			expect(attachment.name).toBe('xrechnung.xml');
-			expect(attachment.mimeType).toBe('application/xml');
+			expect(attachment.mimeType).toBe('text/xml');
 			expect(attachment.afRelationship).toBe(AFRelationship.Alternative);
 			expect(attachment.description).toBe('Factur-X');
 		});
@@ -463,7 +463,7 @@ describe('FormatFacturXService', () => {
 			);
 			expect(invoiceAttachments.length).toBe(1);
 			expect(invoiceAttachments[0].name).toBe('factur-x.xml');
-			expect(invoiceAttachments[0].mimeType).toBe('application/xml');
+			expect(invoiceAttachments[0].mimeType).toBe('text/xml');
 			expect(invoiceAttachments[0].afRelationship).toBe(
 				AFRelationship.Alternative,
 			);

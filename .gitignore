@@ -55,3 +55,4 @@ payment-terms.pdf
 time-sheet.ods
 
 *.tsbuildinfo
+src/package.ts
