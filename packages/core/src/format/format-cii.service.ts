@@ -1390,9 +1390,23 @@ export const ublInvoice: Transformation = {
 					dest: [
 						'ram:ApplicableHeaderTradeDelivery',
 						'ram:ShipToTradeParty',
-						// This is not always correct. For GLNs aka EANs, it
-						// should be ram:GlobalID with scheme=0188.
-						'ram:ID',
+						// This will be downgraded to ram:ID in the
+						// post-processing step if no schemeID attribute is
+						// present.
+						'ram:GlobalID',
+					],
+					fxProfileMask: FX_MASK_BASIC_WL,
+				},
+				{
+					type: 'string',
+					src: ['cac:Delivery', 'cac:DeliveryLocation', 'cbc:ID@schemeID'],
+					dest: [
+						'ram:ApplicableHeaderTradeDelivery',
+						'ram:ShipToTradeParty',
+						// This will be downgraded to ram:ID in the
+						// post-processing step if no schemeID attribute is
+						// present.
+						'ram:GlobalID@schemeID',
 					],
 					fxProfileMask: FX_MASK_BASIC_WL,
 				},
@@ -1639,7 +1653,23 @@ export class FormatCIIService
 		cii['rsm:CrossIndustryInvoice@xmlns:ram'] =
 			'urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100';
 
+		this.postProcess(cii);
+
 		return this.renderXML(cii);
+	}
+
+	private postProcess(cii: ObjectNode) {
+		// If the delivery location ID does not have a scheme, downgrade it from
+		// ram:GlobalID to ram:ID.
+		const shipTo =
+			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
+				'ram:ApplicableHeaderTradeDelivery'
+			]?.['ram:ShipToTradeParty'];
+
+		if (shipTo?.['ram:GlobalID'] && !shipTo['ram:GlobalID@schemeID']) {
+			shipTo['ram:ID'] = shipTo['ram:GlobalID'];
+			delete shipTo['ram:GlobalID'];
+		}
 	}
 
 	private convert(
