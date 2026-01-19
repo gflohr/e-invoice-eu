@@ -567,10 +567,24 @@ export const cacPartyTaxScheme: Transformation[] = [
 		dest: ['ram:ID'],
 		fxProfileMask: FX_MASK_MINIMUM,
 	},
-	// FIXME! It must be possible to specify FC instead!
 	{
 		type: 'string',
 		src: ['fixed:VA'],
+		dest: ['ram:ID@schemeID'],
+		fxProfileMask: FX_MASK_MINIMUM,
+	},
+];
+export const cacSupplierPartyTaxScheme: Transformation[] = [
+	{
+		type: 'string',
+		src: ['cbc:CompanyID'],
+		dest: ['ram:ID'],
+		fxProfileMask: FX_MASK_MINIMUM,
+	},
+	{
+		type: 'string',
+		// This will be mapped to one of VA or FC in the post-processing.
+		src: ['cac:TaxScheme', 'cbc:ID'],
 		dest: ['ram:ID@schemeID'],
 		fxProfileMask: FX_MASK_MINIMUM,
 	},
@@ -670,7 +684,7 @@ export const cacAccountingSupplierParty: Transformation[] = [
 		type: 'array',
 		src: ['cac:PartyTaxScheme'],
 		dest: ['ram:SpecifiedTaxRegistration'],
-		children: cacPartyTaxScheme,
+		children: cacSupplierPartyTaxScheme,
 		fxProfileMask: FX_MASK_MINIMUM,
 	},
 ];
@@ -1669,6 +1683,28 @@ export class FormatCIIService
 		if (shipTo?.['ram:GlobalID'] && !shipTo['ram:GlobalID@schemeID']) {
 			shipTo['ram:ID'] = shipTo['ram:GlobalID'];
 			delete shipTo['ram:GlobalID'];
+		}
+
+		const supplierTaxRegistration = cii['rsm:CrossIndustryInvoice']?.
+			['rsm:SupplyChainTradeTransaction']?.
+			['ram:ApplicableHeaderTradeAgreement']?.
+			['ram:SellerTradeParty']?.
+			['ram:SpecifiedTaxRegistration']?.
+			[0];
+
+		const supplierTaxIDScheme = cii['rsm:CrossIndustryInvoice']?.
+			['rsm:SupplyChainTradeTransaction']?.
+			['ram:ApplicableHeaderTradeAgreement']?.
+			['ram:SellerTradeParty']?.
+			['ram:SpecifiedTaxRegistration']?.
+			[0]?.
+			['ram:ID@schemeID'];
+		if (supplierTaxRegistration && supplierTaxIDScheme) {
+			if (supplierTaxIDScheme === 'VAT') {
+				supplierTaxRegistration['ram:ID@schemeID'] = 'VA';
+			} else {
+				supplierTaxRegistration['ram:ID@schemeID'] = 'FC';
+			}
 		}
 	}
 
