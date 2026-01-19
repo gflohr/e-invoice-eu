@@ -230,7 +230,10 @@ const cacPrice: Transformation = {
 		{
 			type: 'object',
 			src: [],
-			dest: ['ram:SpecifiedLineTradeAgreement', 'ram:GrossPriceProductTradePrice'],
+			dest: [
+				'ram:SpecifiedLineTradeAgreement',
+				'ram:GrossPriceProductTradePrice',
+			],
 			children: [
 				{
 					type: 'string',
@@ -250,7 +253,10 @@ const cacPrice: Transformation = {
 		{
 			type: 'object',
 			src: ['cac:AllowanceCharge'],
-			dest: ['ram:SpecifiedLineTradeAgreement', 'ram:GrossPriceProductTradePrice'],
+			dest: [
+				'ram:SpecifiedLineTradeAgreement',
+				'ram:GrossPriceProductTradePrice',
+			],
 			children: [
 				{
 					type: 'string',
@@ -271,10 +277,7 @@ const cacPrice: Transformation = {
 				{
 					type: 'string',
 					src: ['cbc:Amount'],
-					dest: [
-						'ram:AppliedTradeAllowanceCharge',
-						'ram:ActualAmount',
-					],
+					dest: ['ram:AppliedTradeAllowanceCharge', 'ram:ActualAmount'],
 					fxProfileMask: FX_MASK_EN16931,
 				},
 				{
@@ -318,7 +321,7 @@ const cacInvoiceLinePeriod: Transformation = {
 		{
 			type: 'string',
 			src: ['cbc:StartDate', 'fixed:102'],
-			dest: ['ram:StartDateTime', 'udt:DateTimeString@format',],
+			dest: ['ram:StartDateTime', 'udt:DateTimeString@format'],
 			fxProfileMask: FX_MASK_EN16931,
 		},
 		{
@@ -331,7 +334,7 @@ const cacInvoiceLinePeriod: Transformation = {
 		{
 			type: 'string',
 			src: ['cbc:EndDate', 'fixed:102'],
-			dest: ['ram:EndDateTime', 'udt:DateTimeString@format',],
+			dest: ['ram:EndDateTime', 'udt:DateTimeString@format'],
 			fxProfileMask: FX_MASK_EN16931,
 		},
 	],
@@ -341,7 +344,10 @@ const cacInvoiceLinePeriod: Transformation = {
 const cacInvoiceLineAllowanceCharge: Transformation = {
 	type: 'array',
 	src: ['cac:AllowanceCharge'],
-	dest: ['ram:SpecifiedLineTradeSettlement', 'ram:SpecifiedTradeAllowanceCharge'],
+	dest: [
+		'ram:SpecifiedLineTradeSettlement',
+		'ram:SpecifiedTradeAllowanceCharge',
+	],
 	children: [
 		{
 			type: 'string',
@@ -1384,7 +1390,9 @@ export const ublInvoice: Transformation = {
 					dest: [
 						'ram:ApplicableHeaderTradeDelivery',
 						'ram:ShipToTradeParty',
-						'udt:ID',
+						// This is not always correct. For GLNs aka EANs, it
+						// should be ram:GlobalID with scheme=0188.
+						'ram:ID',
 					],
 					fxProfileMask: FX_MASK_BASIC_WL,
 				},
