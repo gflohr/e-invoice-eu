@@ -159,7 +159,7 @@ export class FormatFacturXService
 			const attachment = attachments[i];
 		}
 
-/* 		// Some validators insist on having the attachment listed in the
+		/* 		// Some validators insist on having the attachment listed in the
 		// File Specification Dictionary.
 		const context = pdfDoc.context;
 		const fileSpecDict = context.obj({
@@ -179,7 +179,8 @@ export class FormatFacturXService
 		names.set(PDFName.of('EmbeddedFiles'), context.obj({
 			Names: [ fileInfo.filename, fileSpecDict ]
 		}));
- */	}
+ */
+	}
 
 	private async createPDFA(
 		pdfDoc: PDFDocument,
@@ -434,8 +435,7 @@ export class FormatFacturXService
 			.ele('dc:description')
 			.ele('rdf:Alt')
 			.ele('rdf:li', { 'xml:lang': 'x-default' })
-			.txt(invoiceMeta.subject)
-			;
+			.txt(invoiceMeta.subject);
 	}
 
 	private addProducer(node: XMLBuilder, invoiceMeta: InvoiceMeta) {
@@ -458,7 +458,9 @@ export class FormatFacturXService
 				'rdf:about': '',
 			})
 			.ele('xmp:CreatorTool')
-			.txt(`${pkg.getName()} ${pkg.getVersion()} git+https://github.com/gflohr/e-invoice-eu`)
+			.txt(
+				`${pkg.getName()} ${pkg.getVersion()} git+https://github.com/gflohr/e-invoice-eu`,
+			)
 			.up()
 			.ele('xmp:CreateDate')
 			.txt(invoiceMeta.now)
