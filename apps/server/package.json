@@ -1,6 +1,6 @@
 {
 	"name": "@e-invoice-eu/server",
-	"version": "2.1.15",
+	"version": "2.2.0",
 	"description": "REST API for generating EN16931 conforming electronic invoices",
 	"keywords": [
 		"factur-x",
@@ -25,7 +25,7 @@
 	"homepage": "https://gflohr.github.io/e-invoice-eu",
 	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
 	"dependencies": {
-		"@e-invoice-eu/core": "^2.1.15",
+		"@e-invoice-eu/core": "^2.2.0",
 		"@nestjs/common": "^11.1.12",
 		"@nestjs/config": "^4.0.2",
 		"@nestjs/core": "^11.1.12",
