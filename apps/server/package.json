@@ -1,6 +1,6 @@
 {
 	"name": "@e-invoice-eu/server",
-	"version": "2.2.0",
+	"version": "2.2.1",
 	"description": "REST API for generating EN16931 conforming electronic invoices",
 	"keywords": [
 		"factur-x",
