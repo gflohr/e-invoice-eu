@@ -118,5 +118,5 @@
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
 		"test:e2e": "jest --config ./test/jest-e2e.json"
 	},
-	"gitHead": "47783c2dae61d9b31afa0c74e4ddc807f19410c5"
+	"gitHead": "67a67ee76bd444a1bfe18057baad1a72a8152dd1"
 }
