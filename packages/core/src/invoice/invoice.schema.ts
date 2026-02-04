@@ -15,7 +15,7 @@ import { Invoice } from './invoice.interface';
  */
 export const invoiceSchema: JSONSchemaType<Invoice> = {
 	$schema: 'https://json-schema.org/draft/2019-09/schema',
-	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v2.1.15',
+	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v2.2.1',
 	type: 'object',
 	additionalProperties: false,
 	properties: {
@@ -593,11 +593,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 								},
 							},
-							required: [
-								'cbc:EndpointID',
-								'cac:PostalAddress',
-								'cac:PartyLegalEntity',
-							],
+							required: ['cac:PostalAddress', 'cac:PartyLegalEntity'],
 							dependentRequired: {
 								'cbc:EndpointID': ['cbc:EndpointID@schemeID'],
 								'cbc:EndpointID@schemeID': ['cbc:EndpointID'],
@@ -825,11 +821,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 								},
 							},
-							required: [
-								'cbc:EndpointID',
-								'cac:PostalAddress',
-								'cac:PartyLegalEntity',
-							],
+							required: ['cac:PostalAddress', 'cac:PartyLegalEntity'],
 							dependentRequired: {
 								'cbc:EndpointID': ['cbc:EndpointID@schemeID'],
 								'cbc:EndpointID@schemeID': ['cbc:EndpointID'],

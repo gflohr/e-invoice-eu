@@ -1,3 +1,5 @@
+import { JSONSchemaType } from 'ajv';
+
 import { EInvoiceMIMEType } from './format.factory.service';
 import { Invoice } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
@@ -75,4 +77,11 @@ export interface EInvoiceFormat {
 		invoice: Invoice,
 		options: InvoiceServiceOptions,
 	): Promise<string | Uint8Array>;
+
+	/**
+	 * Apply necessary patches to the invoice schema.
+	 *
+	 * @param schema - the original schema
+	 */
+	patchSchema(schema: JSONSchemaType<Invoice>);
 }

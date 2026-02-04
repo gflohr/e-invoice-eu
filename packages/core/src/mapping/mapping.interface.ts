@@ -179,7 +179,7 @@ export interface SELLER {
 	'cac:Party': PARTY;
 }
 export interface PARTY {
-	'cbc:EndpointID': ValueRef;
+	'cbc:EndpointID'?: ValueRef;
 	'cbc:EndpointID@schemeID'?: ValueRef;
 	'cac:PartyIdentification'?: {
 		section?: SectionRef;
@@ -244,7 +244,7 @@ export interface BUYER {
 	'cac:Party': PARTY1;
 }
 export interface PARTY1 {
-	'cbc:EndpointID': ValueRef;
+	'cbc:EndpointID'?: ValueRef;
 	'cbc:EndpointID@schemeID'?: ValueRef;
 	'cac:PartyIdentification'?: PARTYIDENTIFICATION;
 	'cac:PartyName'?: PARTYNAME1;

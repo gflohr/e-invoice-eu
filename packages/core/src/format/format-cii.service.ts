@@ -1,4 +1,5 @@
 import { Invoice } from '@e-invoice-eu/core';
+import { type JSONSchemaType } from 'ajv';
 import * as jsonpath from 'jsonpath-plus';
 
 import { FormatUBLService } from './format-ubl.service';
@@ -1642,6 +1643,9 @@ export class FormatCIIService
 		return FULL_CII;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	patchSchema(schema: JSONSchemaType<Invoice>) {}
+
 	async generate(
 		invoice: Invoice,
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -1685,20 +1689,17 @@ export class FormatCIIService
 			delete shipTo['ram:GlobalID'];
 		}
 
-		const supplierTaxRegistration = cii['rsm:CrossIndustryInvoice']?.
-			['rsm:SupplyChainTradeTransaction']?.
-			['ram:ApplicableHeaderTradeAgreement']?.
-			['ram:SellerTradeParty']?.
-			['ram:SpecifiedTaxRegistration']?.
-			[0];
+		const supplierTaxRegistration =
+			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
+				'ram:ApplicableHeaderTradeAgreement'
+			]?.['ram:SellerTradeParty']?.['ram:SpecifiedTaxRegistration']?.[0];
 
-		const supplierTaxIDScheme = cii['rsm:CrossIndustryInvoice']?.
-			['rsm:SupplyChainTradeTransaction']?.
-			['ram:ApplicableHeaderTradeAgreement']?.
-			['ram:SellerTradeParty']?.
-			['ram:SpecifiedTaxRegistration']?.
-			[0]?.
-			['ram:ID@schemeID'];
+		const supplierTaxIDScheme =
+			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
+				'ram:ApplicableHeaderTradeAgreement'
+			]?.['ram:SellerTradeParty']?.['ram:SpecifiedTaxRegistration']?.[0]?.[
+				'ram:ID@schemeID'
+			];
 		if (supplierTaxRegistration && supplierTaxIDScheme) {
 			if (supplierTaxIDScheme === 'VAT') {
 				supplierTaxRegistration['ram:ID@schemeID'] = 'VA';
