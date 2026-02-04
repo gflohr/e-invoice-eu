@@ -256,6 +256,7 @@ function patchSchema(schema: JSONSchemaType<object>) {
 	patchSchemaImpliedFields(schema);
 	patchSchemaForDocumentTypeCodes(schema);
 	patchSchemaForEAS(schema);
+	patchSchemaForEndpointID(schema);
 }
 
 function patchSchemaImpliedFields(schema: JSONSchemaType<object>) {
@@ -296,6 +297,20 @@ function patchSchemaForEAS(schema: JSONSchemaType<object>) {
 		'AU', // File Transfer Protocol
 		'EM', // Electronic mail | SMTP email
 	);
+}
+
+function patchSchemaForEndpointID(schema: JSONSchemaType<object>) {
+	// The endpoint ID is mandatory in UBL but optional in CII. We patch it
+	// to be optional in the schema and enforce it for UBL later, see
+	// https://github.com/gflohr/e-invoice-eu/issues/331
+	const customerParty = schema.properties['ubl:Invoice']
+		.properties['cac:AccountingCustomerParty']
+		.properties['cac:Party'];
+	customerParty.required = customerParty.required.filter(prop => prop != 'cbc:EndpointID');
+	const supplierParty = schema.properties['ubl:Invoice']
+		.properties['cac:AccountingSupplierParty']
+		.properties['cac:Party'];
+	supplierParty.required = customerParty.required.filter(prop => prop != 'cbc:EndpointID');
 }
 
 /**

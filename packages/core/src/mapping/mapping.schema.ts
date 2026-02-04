@@ -15,7 +15,7 @@ import { Mapping } from './mapping.interface';
  */
 export const mappingSchema: JSONSchemaType<Mapping> = {
 	$schema: 'https://json-schema.org/draft/2019-09/schema',
-	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v2.1.15',
+	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v2.2.1',
 	type: 'object',
 	title: 'Mapping',
 	description: 'Maps invoice data to the cells in a spreadsheet.',
@@ -426,11 +426,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 									},
 								},
 							},
-							required: [
-								'cbc:EndpointID',
-								'cac:PostalAddress',
-								'cac:PartyLegalEntity',
-							],
+							required: ['cac:PostalAddress', 'cac:PartyLegalEntity'],
 							dependentRequired: {
 								'cbc:EndpointID': ['cbc:EndpointID@schemeID'],
 								'cbc:EndpointID@schemeID': ['cbc:EndpointID'],
@@ -593,11 +589,7 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 									},
 								},
 							},
-							required: [
-								'cbc:EndpointID',
-								'cac:PostalAddress',
-								'cac:PartyLegalEntity',
-							],
+							required: ['cac:PostalAddress', 'cac:PartyLegalEntity'],
 							dependentRequired: {
 								'cbc:EndpointID': ['cbc:EndpointID@schemeID'],
 								'cbc:EndpointID@schemeID': ['cbc:EndpointID'],
