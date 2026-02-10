@@ -1507,7 +1507,7 @@ export const ublInvoice: Transformation = {
 				},
 				{
 					type: 'string',
-					src: ['cac:PaymentMeans', 'cbc:PaymentID'],
+					src: ['cac:PaymentMeans[0]', 'cbc:PaymentID'],
 					dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:PaymentReference'],
 					fxProfileMask: FX_MASK_BASIC_WL,
 				},
@@ -1598,7 +1598,7 @@ export const ublInvoice: Transformation = {
 				},
 				{
 					type: 'string',
-					src: ['cac:PaymentMeans', 'cac:PaymentMandate', 'cbc:ID'],
+					src: ['cac:PaymentMeans[0]', 'cac:PaymentMandate', 'cbc:ID'],
 					dest: [
 						'ram:ApplicableHeaderTradeSettlement',
 						'ram:SpecifiedTradePaymentTerms',
