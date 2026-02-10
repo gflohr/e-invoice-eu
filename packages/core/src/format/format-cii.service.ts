@@ -728,6 +728,32 @@ export const cacAccountingCustomerParty: Transformation[] = [
 		fxProfileMask: FX_MASK_BASIC_WL,
 	},
 	{
+		type: 'string',
+		src: ['cac:Contact', 'cbc:Name'],
+		dest: ['ram:DefinedTradeContact', 'ram:PersonName'],
+		fxProfileMask: FX_MASK_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cac:Contact', 'cbc:Telephone'],
+		dest: [
+			'ram:DefinedTradeContact',
+			'ram:TelephoneUniversalCommunication',
+			'ram:CompleteNumber',
+		],
+		fxProfileMask: FX_MASK_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cac:Contact', 'cbc:ElectronicMail'],
+		dest: [
+			'ram:DefinedTradeContact',
+			'ram:EmailURIUniversalCommunication',
+			'ram:URIID',
+		],
+		fxProfileMask: FX_MASK_EN16931,
+	},
+	{
 		type: 'object',
 		src: ['cac:PostalAddress'],
 		dest: ['ram:PostalTradeAddress'],
@@ -1481,7 +1507,7 @@ export const ublInvoice: Transformation = {
 				},
 				{
 					type: 'string',
-					src: ['cac:PaymentMeans', 'cbc:PaymentID'],
+					src: ['cac:PaymentMeans[0]', 'cbc:PaymentID'],
 					dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:PaymentReference'],
 					fxProfileMask: FX_MASK_BASIC_WL,
 				},
@@ -1572,7 +1598,7 @@ export const ublInvoice: Transformation = {
 				},
 				{
 					type: 'string',
-					src: ['cac:PaymentMeans', 'cac:PaymentMandate', 'cbc:ID'],
+					src: ['cac:PaymentMeans[0]', 'cac:PaymentMandate', 'cbc:ID'],
 					dest: [
 						'ram:ApplicableHeaderTradeSettlement',
 						'ram:SpecifiedTradePaymentTerms',
