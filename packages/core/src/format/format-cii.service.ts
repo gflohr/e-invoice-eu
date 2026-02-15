@@ -903,34 +903,25 @@ export const cacDelivery: Transformation[] = [
 			},
 			{
 				type: 'string',
-				src: [
-					'cac:DeliveryParty',
-					'cac:PartyName',
-					'cbc:Name',
-				],
-				dest: [
-					'ram:Name',
-				],
+				src: ['cac:DeliveryParty', 'cac:PartyName', 'cbc:Name'],
+				dest: ['ram:Name'],
 				fxProfileMask: FX_MASK_BASIC_WL,
 			},
 			{
 				type: 'object',
 				src: ['cac:DeliveryLocation', 'cac:Address'],
-				dest: [
-					'ram:PostalTradeAddress',
-				],
+				dest: ['ram:PostalTradeAddress'],
 				children: deliveryAddress,
+				// FIXME! This should actually be FX_EXTENDED, but changing
+				// it breaks something.
 				fxProfileMask: FX_MASK_MINIMUM,
 			},
-		]
+		],
 	},
 	{
 		type: 'string',
 		src: ['cac:DespatchDocumentReference', 'cbc:ID'],
-		dest: [
-			'ram:DespatchAdviceReferencedDocument',
-			'ram:IssuerAssignedID',
-		],
+		dest: ['ram:DespatchAdviceReferencedDocument', 'ram:IssuerAssignedID'],
 		fxProfileMask: FX_MASK_BASIC_WL,
 	},
 	{
@@ -1760,7 +1751,8 @@ export class FormatCIIService
 					parentPaths.length - 1
 				].replace(/@.+/, '');
 				const parentPath = this.applySubPaths(destPath, parentPaths);
-				const parents = jsonpath.JSONPath({ path: parentPath, json: dest });				if (Array.isArray(parents) && parents.length === 0) {
+				const parents = jsonpath.JSONPath({ path: parentPath, json: dest });
+				if (Array.isArray(parents) && parents.length === 0) {
 					continue;
 				}
 				src = lastSrcKey.substring(6);
@@ -1778,7 +1770,11 @@ export class FormatCIIService
 
 			switch (transformation.type) {
 				case 'object':
-					if (!transformation.children.length) {
+					if (
+						!transformation.children.length ||
+						('ram:ApplicableHeaderTradeDelivery' === transformation.dest[0] &&
+							this.fxProfile === FX_MINIMUM)
+					) {
 						// Special case.  Force the element to exist.
 						this.vivifyDest(dest, childDestPath, {});
 					} else {
