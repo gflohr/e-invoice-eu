@@ -41,6 +41,7 @@
 		"prepare": "husky"
 	},
 	"devDependencies": {
+		"@changesets/cli": "^2.29.8",
 		"@esgettext/tools": "^1.3.9",
 		"@eslint/eslintrc": "^3.3.3",
 		"@eslint/js": "^10.0.1",
