@@ -1760,8 +1760,7 @@ export class FormatCIIService
 					parentPaths.length - 1
 				].replace(/@.+/, '');
 				const parentPath = this.applySubPaths(destPath, parentPaths);
-				const parents = jsonpath.JSONPath({ path: parentPath, json: dest });
-				if (Array.isArray(parents) && parents.length === 0) {
+				const parents = jsonpath.JSONPath({ path: parentPath, json: dest });				if (Array.isArray(parents) && parents.length === 0) {
 					continue;
 				}
 				src = lastSrcKey.substring(6);
