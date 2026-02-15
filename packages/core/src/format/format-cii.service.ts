@@ -826,30 +826,6 @@ export const cacAdditionalDocumentReference: Transformation[] = [
 	},
 ];
 
-export const cacDelivery: Transformation[] = [
-	{
-		type: 'string',
-		src: ['cbc:ActualDeliveryDate'],
-		dest: [
-			'ram:ActualDeliverySupplyChainEvent',
-			'ram:OccurrenceDateTime',
-			'udt:DateTimeString',
-		],
-		subtype: 'DateTimeString',
-		fxProfileMask: FX_MASK_BASIC_WL,
-	},
-	{
-		type: 'string',
-		src: ['fixed:102'],
-		dest: [
-			'ram:ActualDeliverySupplyChainEvent',
-			'ram:OccurrenceDateTime',
-			'udt:DateTimeString@format',
-		],
-		fxProfileMask: FX_MASK_MINIMUM,
-	},
-];
-
 export const deliveryAddress: Transformation[] = [
 	{
 		type: 'string',
@@ -892,6 +868,91 @@ export const deliveryAddress: Transformation[] = [
 		src: ['cbc:CountrySubentity'],
 		dest: ['ram:CountrySubDivisionName'],
 		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+];
+
+export const cacDelivery: Transformation[] = [
+	// FIXME! This is an array for CII.
+	{
+		type: 'object',
+		src: [],
+		dest: ['ram:ShipToTradeParty'],
+		fxProfileMask: FX_MASK_BASIC_WL,
+		children: [
+			{
+				type: 'string',
+				src: ['cac:DeliveryLocation', 'cbc:ID'],
+				dest: [
+					// This will be downgraded to ram:ID in the
+					// post-processing step if no schemeID attribute is
+					// present.
+					'ram:GlobalID',
+				],
+				fxProfileMask: FX_MASK_BASIC_WL,
+			},
+			{
+				type: 'string',
+				src: ['cac:DeliveryLocation', 'cbc:ID@schemeID'],
+				dest: [
+					// This will be downgraded to ram:ID in the
+					// post-processing step if no schemeID attribute is
+					// present.
+					'ram:GlobalID@schemeID',
+				],
+				fxProfileMask: FX_MASK_BASIC_WL,
+			},
+			{
+				type: 'string',
+				src: [
+					'cac:DeliveryParty',
+					'cac:PartyName',
+					'cbc:Name',
+				],
+				dest: [
+					'ram:Name',
+				],
+				fxProfileMask: FX_MASK_BASIC_WL,
+			},
+			{
+				type: 'object',
+				src: ['cac:DeliveryLocation', 'cac:Address'],
+				dest: [
+					'ram:PostalTradeAddress',
+				],
+				children: deliveryAddress,
+				fxProfileMask: FX_MASK_MINIMUM,
+			},
+		]
+	},
+	{
+		type: 'string',
+		src: ['cac:DespatchDocumentReference', 'cbc:ID'],
+		dest: [
+			'ram:DespatchAdviceReferencedDocument',
+			'ram:IssuerAssignedID',
+		],
+		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cbc:ActualDeliveryDate'],
+		dest: [
+			'ram:ActualDeliverySupplyChainEvent',
+			'ram:OccurrenceDateTime',
+			'udt:DateTimeString',
+		],
+		subtype: 'DateTimeString',
+		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['fixed:102'],
+		dest: [
+			'ram:ActualDeliverySupplyChainEvent',
+			'ram:OccurrenceDateTime',
+			'udt:DateTimeString@format',
+		],
+		fxProfileMask: FX_MASK_MINIMUM,
 	},
 ];
 
@@ -1423,69 +1484,6 @@ export const ublInvoice: Transformation = {
 					dest: ['ram:ApplicableHeaderTradeDelivery'],
 					children: cacDelivery,
 					fxProfileMask: FX_MASK_MINIMUM,
-				},
-				// FIXME! This is an array for CII.
-				{
-					type: 'string',
-					src: ['cac:Delivery', 'cac:DeliveryLocation', 'cbc:ID'],
-					dest: [
-						'ram:ApplicableHeaderTradeDelivery',
-						'ram:ShipToTradeParty',
-						// This will be downgraded to ram:ID in the
-						// post-processing step if no schemeID attribute is
-						// present.
-						'ram:GlobalID',
-					],
-					fxProfileMask: FX_MASK_BASIC_WL,
-				},
-				{
-					type: 'string',
-					src: ['cac:Delivery', 'cac:DeliveryLocation', 'cbc:ID@schemeID'],
-					dest: [
-						'ram:ApplicableHeaderTradeDelivery',
-						'ram:ShipToTradeParty',
-						// This will be downgraded to ram:ID in the
-						// post-processing step if no schemeID attribute is
-						// present.
-						'ram:GlobalID@schemeID',
-					],
-					fxProfileMask: FX_MASK_BASIC_WL,
-				},
-				{
-					type: 'string',
-					src: [
-						'cac:Delivery',
-						'cac:DeliveryParty',
-						'cac:PartyName',
-						'cbc:Name',
-					],
-					dest: [
-						'ram:ApplicableHeaderTradeDelivery',
-						'ram:ShipToTradeParty',
-						'ram:Name',
-					],
-					fxProfileMask: FX_MASK_BASIC_WL,
-				},
-				{
-					type: 'object',
-					src: ['cac:Delivery', 'cac:DeliveryLocation', 'cac:Address'],
-					dest: [
-						'ram:ApplicableHeaderTradeDelivery',
-						'ram:ShipToTradeParty',
-						'ram:PostalTradeAddress',
-					],
-					children: deliveryAddress,
-					fxProfileMask: FX_MASK_MINIMUM,
-				},
-				{
-					type: 'string',
-					src: ['cac:DespatchDocumentReference', 'cbc:ID'],
-					dest: [
-						'ram:ApplicableHeaderTradeDelivery',
-						'ram:DespatchAdviceReferencedDocument',
-						'ram:IssuerAssignedID',
-					],
-					fxProfileMask: FX_MASK_BASIC_WL,
 				},
 				{
 					type: 'string',
