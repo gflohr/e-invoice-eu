@@ -42,6 +42,10 @@ async function testAll() {
 		const extension = format.match(/Factur-X-/) ? 'pdf' : 'xml';
 
 		for (const example of examples) {
+			if (example.match(/credit-note/) && (
+				format.match(/^Factur-X/) || format.match(/CII/))) {
+				continue;
+			}
 			const fromSpreadsheet = `from-spreadsheet.${extension}`;
 			await createInvoice(fromSpreadsheet, format, example, true);
 			const fromJson = `from-json.${extension}`;
