@@ -1,6 +1,6 @@
 {
 	"name": "@e-invoice-eu/docs",
-	"version": "2.3.0",
+	"version": "2.3.1",
 	"private": true,
 	"description": "E-Invoice-EU documentation",
 	"main": "index.js",
