@@ -241,7 +241,7 @@ importers:
     dependencies:
       '@cantoo/pdf-lib':
         specifier: ^2.5.3
-        version: 2.5.3
+        version: 2.6.1
       '@e965/xlsx':
         specifier: ^0.20.3
         version: 0.20.3
@@ -717,8 +717,8 @@ packages:
   '@borewit/text-codec@0.1.1':
     resolution: {integrity: sha512-5L/uBxmjaCIX5h8Z+uu+kA9BQLkc/Wl06UGR5ajNRxu+/XjonB5i8JpgFMrPj3LXTCPA0pv8yxUvbUi+QthGGA==}
 
-  '@cantoo/pdf-lib@2.5.3':
-    resolution: {integrity: sha512-SBQp8i/XdWNUhLutn5P67Pwj4X9vU046BRpfOMODJZuYVrgChtsTfgdnlW2O7x8gdXs8j7NoTaWI/b78E2oVmQ==}
+  '@cantoo/pdf-lib@2.6.1':
+    resolution: {integrity: sha512-Nr/N5kR0xEzibtXei25E8LX9ThYsAN+Wob9jGZ1MSkMzWfxSo1fQwHc/BumE11bMMKEzn7jG5nT+kGlzAaAb2Q==}
 
   '@changesets/apply-release-plan@7.0.14':
     resolution: {integrity: sha512-ddBvf9PHdy2YY0OUiEl3TV78mH9sckndJR14QAt87KLEbIov81XO0q0QAmvooBxXlqRRP8I9B7XOzZwQG7JkWA==}
@@ -8067,7 +8067,7 @@ snapshots:
 
   '@borewit/text-codec@0.1.1': {}
 
-  '@cantoo/pdf-lib@2.5.3':
+  '@cantoo/pdf-lib@2.6.1':
     dependencies:
       '@pdf-lib/standard-fonts': 1.0.0
       '@pdf-lib/upng': 1.0.1
