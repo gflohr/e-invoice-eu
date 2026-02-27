@@ -38,7 +38,8 @@
 		"check:clean": "./check-clean && lerna run --no-private --stream check:clean",
 		"prepublish": "lerna run check:clean && lerna run test --stream",
 		"clean": "lerna run clean --stream",
-		"prepare": "husky"
+		"prepare": "husky",
+		"preinstall": "npx only-allow pnpm"
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.29.8",
