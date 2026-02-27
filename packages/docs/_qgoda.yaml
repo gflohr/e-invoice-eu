@@ -29,7 +29,7 @@ pre-build:
   - name: install
     run: npm install
   - name: webpack
-    run: npn run build
+    run: npm run build
 # See https://github.com/peaceiris/actions-gh-pages/issues/892!
 post-build:
   - name: disable-jekyll
