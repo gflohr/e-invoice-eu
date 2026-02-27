@@ -48,11 +48,11 @@ export class FormatUBLService
 	}
 
 	fillInvoiceDefaults(invoice: Invoice) {
-		if (!('cbc:customizationID' in invoice['ubl:Invoice'])) {
-			invoice['ubl:Invoice']['cbc:CustomizationID'] = this.customizationID;
+		if (!('cbc:CustomizationID' in invoice['ubl:Invoice'])) {
+			invoice['ubl:Invoice']['cbc:CustomizationID'] ??= this.customizationID;
 		}
 
-		if (!('cbc:profileID' in invoice['ubl:Invoice'])) {
+		if (!('cbc:ProfileID' in invoice['ubl:Invoice'])) {
 			invoice['ubl:Invoice']['cbc:ProfileID'] = this.profileID;
 		}
 
