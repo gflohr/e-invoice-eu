@@ -21,15 +21,15 @@ exclude-watch:
   - '!/_timestamp.json'
   - '!/_guidoed_tour.yaml'
 helpers:
-  webpack: pnpm run start
-  browser-sync: pnpm run server
+  webpack: npm run start
+  browser-sync: npm run server
 permalink: /e-invoice-eu{significant-path}
-# Do not switch that to bun! That doesn't work inside the Dockerfile.
+# Do not switch that to pnpm! That doesn't work inside the Dockerfile.
 pre-build:
   - name: install
-    run: pnpm install
+    run: npm install
   - name: webpack
-    run: pnpm run build
+    run: npn run build
 # See https://github.com/peaceiris/actions-gh-pages/issues/892!
 post-build:
   - name: disable-jekyll
