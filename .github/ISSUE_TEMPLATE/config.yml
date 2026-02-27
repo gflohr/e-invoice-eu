@@ -1,9 +1,0 @@
-blank_issues_enabled: true
-
-contact_links:
-  - name: Before opening an issue
-    about: |
-      Please:
-      • report only ONE problem per issue
-      • include reproducible data or steps if possible
-      This helps resolve issues faster.
