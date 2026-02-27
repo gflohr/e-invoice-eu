@@ -40,6 +40,7 @@
 		"lint:fix-dry-run": "eslint --fix-dry-run './src/**/*.ts'",
 		"lint:staged": "lint-staged",
 		"typedoc": "typedoc src/index.ts && node patch-image.mjs",
+		"pretypedoc": "node ./write-package.mjs >src/package.ts",
 		"pretest": "node ./write-package.mjs >src/package.ts",
 		"test": "jest",
 		"pretest:watch": "node ./write-package.mjs >src/package.ts",
