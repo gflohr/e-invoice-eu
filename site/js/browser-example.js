@@ -42,7 +42,7 @@
 				invoice = JSON.parse(invoiceJSON);
 			}
 
-			if (!spreadsheet && document.getElementById('spreadsheet-file').files) {
+			if (!spreadsheet && document.getElementById('spreadsheet-file').files.length) {
 				spreadsheet = await readFile('spreadsheet-file', binary);
 			}
 
@@ -50,7 +50,7 @@
 			const options = {
 				format: document.getElementById('format').value,
 				lang: document.getElementById('lang').value,
-				pdf: await pdfFileInfo(),
+				pdf: document.getElementById('spreadsheet-file').files.length ? await pdfFileInfo() : undefined,
 				embedPDF: document.getElementById('embed-pdf').checked,
 				spreadsheet,
 				attachments,
@@ -69,11 +69,14 @@
 				console.error('Unknown invoice format:', renderedInvoice);
 			}
 		} catch (e) {
-			// Yuck! Upgrade to Bootstrap 5 so that we can make do without
-			// jQuery.
-			$('#error-message').text(e.message);
-			$('#dialog').modal('show');
-			throw e;
+			document.getElementById('error-message').textContent = e.message;
+
+			const dialog = document.getElementById('dialog');
+			if (dialog) {
+				const modal = bootstrap.Modal.getOrCreateInstance(dialog);
+				modal.show();
+				throw(e);
+			}
 		}
 	}
 
