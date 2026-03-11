@@ -113,8 +113,10 @@
 		"lint:fix": "eslint \"{scripts,src,test}/**/*.ts\" --fix",
 		"lint:staged": "lint-staged",
 		"test": "jest",
+		"test:changed": "jest --changedSince origin/main --passWithNoTests",
 		"test:watch": "jest --watch",
 		"test:cov": "jest --coverage",
+		"test:cov-changed": "jest --coverage --changedSince origin/main --passWithNoTests",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
 		"test:e2e": "jest --config ./test/jest-e2e.json"
 	},
