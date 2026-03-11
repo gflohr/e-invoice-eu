@@ -1,1 +1,1 @@
-pnpm run test:changed && pnpm run lint:staged
+pnpm run test && pnpm run lint:staged
