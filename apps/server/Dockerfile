@@ -1,8 +1,16 @@
-# Stage 1: Build
+FROM node:24-alpine AS workspace-packages
+
+WORKDIR /tmp
+
+RUN corepack enable
+
+COPY packages/core ./core
+
+RUN pnpm pack ./core
+
 FROM node:24-alpine AS builder
 
 ENV CI=true
-
 WORKDIR /app
 
 RUN corepack enable
@@ -10,14 +18,14 @@ RUN corepack enable
 RUN apk add --no-cache git
 
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
-
-COPY packages/core ./packages/core
 COPY apps/server ./apps/server
 
-RUN pnpm install --frozen-lockfile --filter @e-invoice-eu/server... --shamefully-hoist
+COPY --from=workspace-packages /tmp/core/*.tgz /tmp/core.tgz
+
+RUN pnpm add /tmp/core.tgz
+RUN pnpm install --frozen-lockfile --filter @e-invoice-eu/server...
 
 RUN pnpm --filter @e-invoice-eu/server build
-
 RUN pnpm --filter @e-invoice-eu/server deploy --legacy --prod /app/out
 
 FROM node:24-alpine
@@ -26,19 +34,19 @@ ARG WITH_LIBREOFFICE=true
 ENV NODE_ENV=production
 ENV LIBREOFFICE=libreoffice
 
+WORKDIR /app
+
 RUN if [ "$WITH_LIBREOFFICE" = "true" ]; then \
-	apk add --no-cache \
-	libreoffice \
-	openjdk8-jre \
-	ttf-freefont \
-	font-noto \
-	font-noto-cjk \
-	font-noto-emoji; \
-fi
+		apk add --no-cache \
+			libreoffice \
+			openjdk8-jre \
+			ttf-freefont \
+			font-noto \
+			font-noto-cjk \
+			font-noto-emoji; \
+	fi
 
 RUN apk update && apk upgrade
-
-WORKDIR /app
 
 COPY --from=builder /app/out .
 
