@@ -244,7 +244,7 @@ importers:
     dependencies:
       '@cantoo/pdf-lib':
         specifier: ^2.6.1
-        version: 2.6.1
+        version: 2.6.2
       '@e965/xlsx':
         specifier: ^0.20.3
         version: 0.20.3
@@ -704,8 +704,8 @@ packages:
     resolution: {integrity: sha512-ctxtJ/eA+t+6q2++vj5j7FYX3nRu311q1wfYH3xjlLOsczhlhxAg2FWNUXhpGvAw3BWo1xBcvOV6/YLc2r5FJw==}
     hasBin: true
 
-  '@cantoo/pdf-lib@2.6.1':
-    resolution: {integrity: sha512-Nr/N5kR0xEzibtXei25E8LX9ThYsAN+Wob9jGZ1MSkMzWfxSo1fQwHc/BumE11bMMKEzn7jG5nT+kGlzAaAb2Q==}
+  '@cantoo/pdf-lib@2.6.2':
+    resolution: {integrity: sha512-JT3sBlyw4CBL/ka8BkL1eTZihbE7xpAsSbnkDzVzY2VnLSkrh/4+UnVEfD+K8f6GZgtbY81VcrfCYY6Du+dykA==}
 
   '@changesets/apply-release-plan@7.1.0':
     resolution: {integrity: sha512-yq8ML3YS7koKQ/9bk1PqO0HMzApIFNwjlwCnwFEXMzNe8NpzeeYYKCmnhWJGkN8g7E51MnWaSbqRcTcdIxUgnQ==}
@@ -8133,7 +8133,7 @@ snapshots:
     dependencies:
       css-tree: 3.1.0
 
-  '@cantoo/pdf-lib@2.6.1':
+  '@cantoo/pdf-lib@2.6.2':
     dependencies:
       '@pdf-lib/standard-fonts': 1.0.0
       '@pdf-lib/upng': 1.0.1
