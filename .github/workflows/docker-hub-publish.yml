@@ -105,7 +105,7 @@ jobs:
         env:
           TRIVY_SHOW_SUPPRESSED: 'true'
         with:
-          version: '0.69.3'
+          version: latest
           image-ref: '${{ env.IMAGE_NAME }}:latest'
           format: 'table'
           exit-code: '1'
@@ -116,7 +116,7 @@ jobs:
       - name: Re-run Trivy without ignore file
         uses: aquasecurity/trivy-action@0.33.1
         with:
-          version: '0.69.3'
+          version: latest
           image-ref: '${{ env.IMAGE_NAME }}:latest'
           format: 'json'
           vuln-type: 'os,library'
