@@ -120,6 +120,7 @@ jobs:
           severity: 'CRITICAL,HIGH'
           output: trivy-report.json
           skip-setup-trivy: true
+          trivyignores: '/dev/null'
 
       - name: Check for unnecessary .trivyignore entries
         run: |
