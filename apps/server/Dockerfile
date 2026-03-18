@@ -1,22 +1,24 @@
-FROM node:24-alpine AS builder
+FROM node:24-alpine AS base
 
 ENV CI=true
 WORKDIR /app
-
 RUN corepack enable
-RUN apk add --no-cache git
+RUN apk add --no-cache git bash
 
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+
+FROM base AS builder
+
+WORKDIR /app
+
 COPY packages ./packages
 COPY apps/server ./apps/server
 
-WORKDIR /app/apps/server
-RUN pnpm add ../core
 RUN pnpm install --frozen-lockfile --filter @e-invoice-eu/server...
 RUN pnpm --filter @e-invoice-eu/server build
 RUN pnpm --filter @e-invoice-eu/server deploy --legacy --prod /app/out
 
-FROM node:24-alpine
+FROM node:24-alpine AS runtime
 
 ARG WITH_LIBREOFFICE=true
 ENV NODE_ENV=production
@@ -32,15 +34,12 @@ RUN if [ "$WITH_LIBREOFFICE" = "true" ]; then \
 		font-noto \
 		font-noto-cjk \
 		font-noto-emoji; \
-fi
+	fi
 
-RUN apk update && apk upgrade
-
-COPY --from=builder /app/out .
+COPY --from=builder /app/out ./
 
 RUN addgroup -S e-invoice-eu && adduser -S e-invoice-eu -G e-invoice-eu
 USER e-invoice-eu
 
 EXPOSE 3000
-
 ENTRYPOINT ["node", "dist/main.js"]
