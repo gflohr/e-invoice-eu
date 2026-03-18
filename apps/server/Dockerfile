@@ -35,13 +35,18 @@ FROM node:24-alpine
 ENV NODE_ENV=production
 ENV LIBREOFFICE=libreoffice
 
-RUN apk add --no-cache \
-	libreoffice \
-	openjdk8-jre \
-	ttf-freefont \
-	font-noto \
-	font-noto-cjk \
-	font-noto-emoji
+WORKDIR /app
+
+ARG WITH_LIBREOFFICE=true
+RUN if [ "$WITH_LIBREOFFICE" = "true" ]; then \
+	apk add --no-cache \
+		libreoffice \
+		openjdk8-jre \
+		ttf-freefont \
+		font-noto \
+		font-noto-cjk \
+		font-noto-emoji; \
+	fi
 
 RUN apk update && apk upgrade
 
