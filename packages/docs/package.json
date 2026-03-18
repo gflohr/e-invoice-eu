@@ -27,7 +27,7 @@
 		"file-loader": "^6.2.0",
 		"fs-extra": "^11.3.4",
 		"jquery": "^4.0.0",
-		"jsdom": "^28.1.0",
+		"jsdom": "^29.0.0",
 		"mini-css-extract-plugin": "^2.10.1",
 		"postcss-font-magician": "^4.0.0",
 		"postcss-loader": "^8.2.1",
