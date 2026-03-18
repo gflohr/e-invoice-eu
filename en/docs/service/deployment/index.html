@@ -31,7 +31,7 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css?1773843076" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1773860979" rel="stylesheet">
 
 
 
@@ -137,7 +137,22 @@
 	<li class="toclevel-1">
 		1
 		<a href="#docker-container">Docker Container</a>
+		 <ul class="toclevel-2">
+	
+	<li class="toclevel-2">
+		1.1
+		<a href="#full-image">Full Image</a>
 		
+	</li>
+	
+	<li class="toclevel-2">
+		1.2
+		<a href="#slim-image">Slim Image</a>
+		
+	</li>
+	
+</ul>
+ 
 	</li>
 	
 	<li class="toclevel-1">
@@ -217,6 +232,8 @@
 <p>By far, the easiest way to run the E-Invoice-EU service is to run the
 containerized version.</p>
 
+<h3><a href="#" name="full-image" id="full-image"></a>Full Image</h3>
+
 
 
 
@@ -235,6 +252,47 @@ docker run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest</cod
 </code-block>
             <code-block id='code-block-6006d8fa32f4689c98c499eebd8e7fa78bada019'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>nerdctl pull gflohr/e-invoice-eu:latest
 nerdctl run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest</code></pre>
+</code-block>
+    </code-blocks>
+</code-group></div>
+
+
+
+
+
+
+
+<h3><a href="#" name="slim-image" id="slim-image"></a>Slim Image</h3>
+
+<p>The "slim" image differs from the full image in that it does not bundle
+LibreOffice. The slim image is sufficient for you, if:</p>
+
+<ul>
+<li>you do not plan to create e-invoices from spreadsheet data, or</li>
+<li>you always provide a PDF version for Factur-X/ZUGFeRD, and do not need to render the spreadsheet as a PDF</li>
+</ul>
+
+
+<p>The corresponding commands are then:</p>
+
+
+
+
+
+
+<div class="code-group"><code-group>
+    <code-tabs>
+        <input type='radio' name='group-378a35f290fbeae38053add1889de3000714b8e0' id='code-tab-e73fda82e4069a38cc099c26beb649b9c7d88d72' checked>
+        <label data-title='docker' for='code-tab-e73fda82e4069a38cc099c26beb649b9c7d88d72'>docker</label>
+        <input type='radio' name='group-378a35f290fbeae38053add1889de3000714b8e0' id='code-tab-d3f13ebc04a74b47de0685ef2cb3f26c55b0c314'>
+        <label data-title='nerdctl' for='code-tab-d3f13ebc04a74b47de0685ef2cb3f26c55b0c314'>nerdctl</label>
+    </code-tabs>
+    <code-blocks>
+            <code-block id='code-block-e73fda82e4069a38cc099c26beb649b9c7d88d72' class='active'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>docker pull gflohr/e-invoice-eu:slim
+docker run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:slim</code></pre>
+</code-block>
+            <code-block id='code-block-d3f13ebc04a74b47de0685ef2cb3f26c55b0c314'><pre class="language-sh" data-primsjs-copy-success="Copied" data-prismjs-copy="Copy code"><code>nerdctl pull gflohr/e-invoice-eu:slim
+nerdctl run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:slim</code></pre>
 </code-block>
     </code-blocks>
 </code-group></div>
@@ -984,7 +1042,7 @@ in <code>$PATH</code>.</p>
  
 
 
-  <script src="/e-invoice-eu/assets/bundle.min.js?1773843076" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1773860979" type="text/javascript"></script>
 
 
 
