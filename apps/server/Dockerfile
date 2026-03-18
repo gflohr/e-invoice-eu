@@ -1,12 +1,12 @@
 FROM node:24-alpine AS workspace-packages
 
-WORKDIR /tmp
+WORKDIR /tmp/core
 
 RUN corepack enable
 
-COPY packages/core ./core
+COPY packages/core ./
 
-RUN pnpm pack ./core
+RUN pnpm pack
 
 FROM node:24-alpine AS builder
 
