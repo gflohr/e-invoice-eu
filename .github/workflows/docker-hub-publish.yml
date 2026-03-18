@@ -104,7 +104,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.29.0
         env:
-          TRIVY_SHOW_SUPPRESED: 'true'
+          TRIVY_SHOW_SUPPRESSED: 'true'
         with:
           image-ref: '${{ env.IMAGE_NAME }}:latest'
           format: 'table'
