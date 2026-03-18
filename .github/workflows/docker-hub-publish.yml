@@ -120,6 +120,7 @@ jobs:
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
           output: trivy-report.json
+          skip-setup-trivy: true
 
       - name: Check for unnecessary .trivyignore entries
         run: |
