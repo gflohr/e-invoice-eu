@@ -54,13 +54,29 @@ jobs:
           VERSION=${GITHUB_REF_NAME#v}
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
+      - name: Select platforms
+        id: platforms
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "platforms=linux/amd64" >> $GITHUB_OUTPUT
+          else
+            echo "platforms=linux/amd64,linux/arm64" >> $GITHUB_OUTPUT
+
+      - name: Select load flag
+        id: loadflag
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "load=true" >>$GITHUB_OUTPUT
+          else
+            echo "load=false" >>$GITHUB_OUTPUT
+
       # -------------------------
       # 🟢 FULL IMAGE
       # -------------------------
       - name: Build and push FULL image
         uses: docker/build-push-action@v5
         with:
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ steps.platforms.outputs.platforms }}
           context: .
           file: ./apps/server/Dockerfile
           push: ${{ startsWith(github.ref, 'refs/tags/') }}
@@ -69,7 +85,7 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          load: true
+          load: ${{ steps.loadflag.outputs.load }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -79,7 +95,7 @@ jobs:
       - name: Build and push SLIM image
         uses: docker/build-push-action@v5
         with:
-          platforms: linux/amd64,linux/arm64
+          platforms: ${{ steps.platforms.outputs.platforms }}
           context: .
           file: ./apps/server/Dockerfile
           push: ${{ startsWith(github.ref, 'refs/tags/') }}
@@ -88,7 +104,7 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}-slim
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:slim
-          load: true
+          load: ${{ steps.loadflag.outputs.load }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
