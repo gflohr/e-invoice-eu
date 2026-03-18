@@ -61,6 +61,7 @@ jobs:
             echo "platforms=linux/amd64" >> $GITHUB_OUTPUT
           else
             echo "platforms=linux/amd64,linux/arm64" >> $GITHUB_OUTPUT
+          fi
 
       - name: Select load flag
         id: loadflag
@@ -69,6 +70,7 @@ jobs:
             echo "load=true" >>$GITHUB_OUTPUT
           else
             echo "load=false" >>$GITHUB_OUTPUT
+          fi
 
       # -------------------------
       # 🟢 FULL IMAGE
