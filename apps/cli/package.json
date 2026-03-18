@@ -124,7 +124,7 @@
 		"typescript-eslint": "^8.57.0"
 	},
 	"dependencies": {
-		"@e-invoice-eu/core": "workspace:^2.3.3",
+		"@e-invoice-eu/core": "workspace:*",
 		"@esgettext/runtime": "^1.3.10",
 		"@valibot/i18n": "^1.0.0",
 		"ajv": "^8.18.0",
