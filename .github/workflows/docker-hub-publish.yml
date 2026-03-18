@@ -96,6 +96,6 @@ jobs:
           image-ref: '${{ env.IMAGE_NAME }}:latest'   # local image
           format: 'table'
           exit-code: '1'
-          ignore-unfixed: true
           vuln-type: 'os,library'
-          severity: 'CRITICAL'
+          severity: 'CRITICAL,HIGH'
+          trivyignores: './.trivyignore'
