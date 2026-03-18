@@ -23,9 +23,9 @@ RUN pnpm install --offline --frozen-lockfile \
 	 --filter @e-invoice-eu/core... \
 	--filter @e-invoice-eu/server...
 
-RUN pnpm build \
+RUN pnpm \
 	--filter @e-invoice-eu/core \
-	--filter @e-invoice-eu/server
+	--filter @e-invoice-eu/server build
 
 RUN pnpm --filter @e-invoice-eu/server deploy --legacy --prod /app/out
 
