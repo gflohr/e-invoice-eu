@@ -40,7 +40,7 @@ RUN if [ "$WITH_LIBREOFFICE" = "true" ]; then \
 		ttf-freefont \
 		font-noto \
 		font-noto-cjk \
-		font-noto-emoj; \
+		font-noto-emoji; \
 fi
 
 RUN apk update && apk upgrade
