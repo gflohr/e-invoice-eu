@@ -1,0 +1,13 @@
+# The CVEs in this file are ignored.
+
+# Date: 2026-03-18
+# Vulnerabilities in minimatch. This is part of npm and cannot be avoided.
+CVE-2026-26996
+CVE-2026-27903
+CVE-2026-27904
+
+# Date: 2026-03-18
+# Vulnerabilities in tar. This is part of npm and cannot be avoided.
+CVE-2026-26960
+CVE-2026-29786
+CVE-2026-31802
