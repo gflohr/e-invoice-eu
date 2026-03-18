@@ -28,15 +28,20 @@ RUN pnpm --filter @e-invoice-eu/server deploy --legacy --prod /app/out
 FROM node:24-alpine
 
 ENV NODE_ENV=production
+
+ARG WITH_LIBREOFFICE=true
+
 ENV LIBREOFFICE=libreoffice
 
-RUN apk add --no-cache \
-	libreoffice \
-	openjdk8-jre \
-	ttf-freefont \
-	font-noto \
-	font-noto-cjk \
-	font-noto-emoji
+RUN if [ "$WITH_LIBREOFFICE" = "true" ]; then \
+	apk add --no-cache \
+		libreoffice \
+		openjdk8-jre \
+		ttf-freefont \
+		font-noto \
+		font-noto-cjk \
+		font-noto-emoj; \
+fi
 
 RUN apk update && apk upgrade
 
