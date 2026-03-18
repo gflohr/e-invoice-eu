@@ -1,35 +1,36 @@
-# Stage 1: Build stage
-FROM alpine:latest AS builder
+# Stage 1: Build
+FROM node:24-alpine AS builder
 
-ENV NODE_ENV=production
-ENV LIBREOFFICE=libreoffice
-
-RUN apk add --no-cache \
-	bash \
-	curl \
-	nodejs \
-	npm \
-	libc6-compat
-
-RUN npm install -g pnpm@10
+ENV CI=true
 
 WORKDIR /app
 
-COPY . .
+RUN corepack enable
 
-RUN pnpm install --ignore-scripts && pnpm run build
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+COPY packages ./packages
+COPY apps ./apps
 
-# Stage 2: Runtime stage
-FROM alpine:latest
+RUN apk add --no-cache git
+
+RUN apk add --no-cache git
+
+RUN pnpm fetch --filter @e-invoice-eu/server...
+
+RUN pnpm install --offline --frozen-lockfile \
+  --filter @e-invoice-eu/server...
+
+RUN pnpm --filter @e-invoice-eu/server build
+
+RUN pnpm --filter @e-invoice-eu/server deploy --legacy --prod /app/out
+
+# Stage 2: Runtime
+FROM node:24-alpine
 
 ENV NODE_ENV=production
 ENV LIBREOFFICE=libreoffice
 
-# We need the openjdk only to suppress an ugly warning from LibreOffice.
-# Also, newer versions like openjdk21-jre-headless do not shut up the
-# warning.
 RUN apk add --no-cache \
-	nodejs \
 	libreoffice \
 	openjdk8-jre \
 	ttf-freefont \
@@ -37,16 +38,14 @@ RUN apk add --no-cache \
 	font-noto-cjk \
 	font-noto-emoji
 
+RUN apk update && apk upgrade
+
 WORKDIR /app
 
-COPY --from=builder /app/dist /app/dist
-COPY --from=builder /app/node_modules /app/node_modules
+COPY --from=builder /app/out .
 
-RUN echo "export LIBREOFFICE=\${LIBREOFFICE:-libreoffice}" >> /etc/profile.d/libreoffice.sh
-
-# Create a non-root user
+# Non-root user
 RUN addgroup -S e-invoice-eu && adduser -S e-invoice-eu -G e-invoice-eu
-
 USER e-invoice-eu
 
 EXPOSE 3000
