@@ -101,7 +101,7 @@ jobs:
       # 🔍 SECURITY SCAN (full image)
       # -------------------------
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.29.0
+        uses: aquasecurity/trivy-action@0.33.1
         env:
           TRIVY_SHOW_SUPPRESSED: 'true'
         with:
@@ -113,7 +113,7 @@ jobs:
           trivyignores: './.trivyignore'
 
       - name: Re-run Trivy without ignore file
-        uses: aquasecurity/trivy-action@0.29.0
+        uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: '${{ env.IMAGE_NAME }}:latest'
           format: 'json'
