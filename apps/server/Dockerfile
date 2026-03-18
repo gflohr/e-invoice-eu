@@ -15,10 +15,13 @@ RUN apk add --no-cache git
 
 RUN apk add --no-cache git
 
-RUN pnpm fetch --filter @e-invoice-eu/server... --filter @e-invoice-eu/core...
+RUN pnpm fetch \
+	--filter @e-invoice-eu/core... \
+	--filter @e-invoice-eu/server...
 
 RUN pnpm install --offline --frozen-lockfile \
-  --filter @e-invoice-eu/server... --filter @e-invoice-eu/core...
+	 --filter @e-invoice-eu/core... \
+	--filter @e-invoice-eu/server...
 
 RUN pnpm --filter @e-invoice-eu/server build
 
