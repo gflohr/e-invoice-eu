@@ -110,8 +110,8 @@ jobs:
           severity: 'CRITICAL,HIGH'
           trivyignores: './.trivyignore'
 
-      - name: Delete .trivyignore
-        run: rm ./.trivyignore
+      - name: Rename .trivyignore
+        run: mv ./.trivyignore ./.trivyignore.disabled
 
       - name: Re-run Trivy without ignore file
         uses: aquasecurity/trivy-action@0.33.1
@@ -127,5 +127,6 @@ jobs:
       - name: Check for unnecessary .trivyignore entries
         run: |
           set -euo pipefail
+          mv ./.trivyignore.disabled ./.trivyignore
           npx --yes trivy-ignore-check .trivyignore trivy-report.json
         continue-on-error: true
