@@ -4,12 +4,6 @@ on:
   push:
     branches: ['main']
     tags: [ 'v*.*.*' ]
-  workflow_dispatch:
-    inputs:
-      is_latest:
-        type: boolean
-        required: false
-        default: true
 
 env:
   REGISTRY: docker.io
