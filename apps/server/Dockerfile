@@ -38,7 +38,7 @@ ENV LIBREOFFICE=libreoffice
 WORKDIR /app
 
 ARG WITH_LIBREOFFICE=true
-RUN if [ "$WITH_LIBREOFFICE" = "true" ]; then \
+RUN if [ "$WITH_LIBREOFFICE" != "false" ]; then \
 	apk add --no-cache \
 		libreoffice \
 		openjdk8-jre \
