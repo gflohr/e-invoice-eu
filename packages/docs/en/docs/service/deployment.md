@@ -26,6 +26,8 @@ The E-Invoice-EU service can be used in one of several ways:
 By far, the easiest way to run the E-Invoice-EU service is to run the
 containerized version.
 
+### Full Image
+
 <!--qgoda-no-xgettext-->
 
 [% FILTER $CodeGroup %]
@@ -36,6 +38,31 @@ docker run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest
 [nerdctl]
 [% FILTER $Highlight "language-sh" %]nerdctl pull gflohr/e-invoice-eu:latest
 nerdctl run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest
+[% END %]
+[% END %]
+
+<!--/qgoda-no-xgettext-->
+
+### Slim Image
+
+The "slim" image differs from the full image in that it does not bundle
+LibreOffice. The slim image is sufficient for you, if:
+
+* you do not plan to create e-invoices from spreadsheet data, or
+* you always provide a PDF version for Factur-X/ZUGFeRD, and do not need to render the spreadsheet as a PDF
+
+The corresponding commands are then:
+
+<!--qgoda-no-xgettext-->
+
+[% FILTER $CodeGroup %]
+[docker]
+[% FILTER $Highlight "language-sh" %]docker pull gflohr/e-invoice-eu:slim
+docker run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:slim
+[% END %]
+[nerdctl]
+[% FILTER $Highlight "language-sh" %]nerdctl pull gflohr/e-invoice-eu:slim
+nerdctl run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:slim
 [% END %]
 [% END %]
 

@@ -1,58 +1,61 @@
-# Stage 1: Build stage
-FROM alpine:latest AS builder
+# Stage 1: Build
+FROM node:24-alpine AS builder
+
+ENV CI=true
+
+WORKDIR /app
+
+RUN corepack enable
+
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json tsconfig.json ./
+COPY packages ./packages
+COPY apps ./apps
+
+RUN apk add --no-cache git
+
+RUN apk add --no-cache git
+
+RUN pnpm fetch \
+	--filter @e-invoice-eu/core... \
+	--filter @e-invoice-eu/server...
+
+RUN pnpm install --offline --frozen-lockfile \
+	 --filter @e-invoice-eu/core... \
+	--filter @e-invoice-eu/server...
+
+RUN pnpm \
+	--filter @e-invoice-eu/core \
+	--filter @e-invoice-eu/server build
+
+RUN pnpm --filter @e-invoice-eu/server deploy --legacy --prod /app/out
+
+# Stage 2: Runtime
+FROM node:24-alpine
 
 ENV NODE_ENV=production
 ENV LIBREOFFICE=libreoffice
 
-RUN apk add --no-cache \
-	bash \
-	curl \
-	nodejs \
-	npm \
-	libc6-compat
+WORKDIR /app
 
-RUN npm install -g pnpm@10
+ARG WITH_LIBREOFFICE=true
+RUN if [ "$WITH_LIBREOFFICE" != "false" ]; then \
+	apk add --no-cache \
+		libreoffice \
+		openjdk8-jre \
+		ttf-freefont \
+		font-noto \
+		font-noto-cjk \
+		font-noto-emoji; \
+	fi
+
+RUN apk update && apk upgrade
 
 WORKDIR /app
 
-COPY . .
+COPY --from=builder /app/out .
 
-# Avoid "/bin/bash: line 1: husky: command not found"!
-RUN grep -v 'prepare.*husky' package.json >package-tmp.json
-RUN mv package-tmp.json package.json
-
-# Give the installation two tries because of various issues.
-RUN pnpm install || true
-RUN pnpm install && pnpm run build
-
-# Stage 2: Runtime stage
-FROM alpine:latest
-
-ENV NODE_ENV=production
-ENV LIBREOFFICE=libreoffice
-
-# We need the openjdk only to suppress an ugly warning from LibreOffice.
-# Also, newer versions like openjdk21-jre-headless do not shut up the
-# warning.
-RUN apk add --no-cache \
-	nodejs \
-	libreoffice \
-	openjdk8-jre \
-	ttf-freefont \
-	font-noto \
-	font-noto-cjk \
-	font-noto-emoji
-
-WORKDIR /app
-
-COPY --from=builder /app/dist /app/dist
-COPY --from=builder /app/node_modules /app/node_modules
-
-RUN echo "export LIBREOFFICE=\${LIBREOFFICE:-libreoffice}" >> /etc/profile.d/libreoffice.sh
-
-# Create a non-root user
+# Non-root user
 RUN addgroup -S e-invoice-eu && adduser -S e-invoice-eu -G e-invoice-eu
-
 USER e-invoice-eu
 
 EXPOSE 3000

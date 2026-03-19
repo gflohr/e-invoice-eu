@@ -16,6 +16,7 @@ import { Textdomain } from '@esgettext/runtime';
 import { Invoice, InvoiceServiceOptions } from '../invoice';
 import { FormatCIIService, FULL_CII } from './format-cii.service';
 import { FormatFacturXService } from './format-factur-x.service';
+import { Package } from '../package';
 
 const mockLogger = {
 	log: jest.fn(),
@@ -165,6 +166,10 @@ const extractAttachments = (pdfDoc: PDFDocument): Attachment[] => {
 describe('FormatFacturXService', () => {
 	let service: FormatFacturXService;
 	let mockOptions: InvoiceServiceOptions;
+
+	beforeAll(() => {
+		jest.spyOn(Package, 'getVersion').mockReturnValue('VERSION');
+	});
 
 	beforeEach(async () => {
 		service = new FormatFacturXService(mockLogger);

@@ -3,6 +3,7 @@ import {
 	ADDITIONALSUPPORTINGDOCUMENTS,
 	AttachedDocumentMimeCode,
 } from '@e-invoice-eu/core/invoice/invoice.interface';
+import { type JSONSchemaType } from 'ajv';
 
 import { FormatXMLService } from './format-xml.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
@@ -47,11 +48,11 @@ export class FormatUBLService
 	}
 
 	fillInvoiceDefaults(invoice: Invoice) {
-		if (!('cbc:customizationID' in invoice['ubl:Invoice'])) {
-			invoice['ubl:Invoice']['cbc:CustomizationID'] = this.customizationID;
+		if (!('cbc:CustomizationID' in invoice['ubl:Invoice'])) {
+			invoice['ubl:Invoice']['cbc:CustomizationID'] ??= this.customizationID;
 		}
 
-		if (!('cbc:profileID' in invoice['ubl:Invoice'])) {
+		if (!('cbc:ProfileID' in invoice['ubl:Invoice'])) {
 			invoice['ubl:Invoice']['cbc:ProfileID'] = this.profileID;
 		}
 
@@ -63,6 +64,16 @@ export class FormatUBLService
 		) {
 			orderReference['cbc:ID'] = 'NA';
 		}
+	}
+
+	patchSchema(schema: JSONSchemaType<Invoice>) {
+		/* The endpoint ID is mandatory for UBL.  */
+		schema.properties['ubl:Invoice'].properties[
+			'cac:AccountingCustomerParty'
+		].properties['cac:Party'].required.push('cbc:EndpointID');
+		schema.properties['ubl:Invoice'].properties[
+			'cac:AccountingSupplierParty'
+		].properties['cac:Party'].required.push('cbc:EndpointID');
 	}
 
 	async generate(

@@ -1,4 +1,5 @@
 import { Invoice } from '@e-invoice-eu/core';
+import { type JSONSchemaType } from 'ajv';
 import * as jsonpath from 'jsonpath-plus';
 
 import { FormatUBLService } from './format-ubl.service';
@@ -147,7 +148,13 @@ const cacCommodityClassification: Transformation = {
 		{
 			type: 'string',
 			src: ['cbc:ItemClassificationCode'],
-			dest: ['ram:ClassCode', 'ram:ListID'],
+			dest: ['ram:ClassCode'],
+			fxProfileMask: FX_MASK_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cbc:ItemClassificationCode@listID'],
+			dest: ['ram:ClassCode@listID'],
 			fxProfileMask: FX_MASK_EN16931,
 		},
 	],
@@ -232,9 +239,15 @@ const cacPrice: Transformation = {
 			src: [],
 			dest: [
 				'ram:SpecifiedLineTradeAgreement',
-				'ram:GrossPriceProductTradePrice',
+				'ram:NetPriceProductTradePrice',
 			],
 			children: [
+				{
+					type: 'string',
+					src: ['cbc:PriceAmount'],
+					dest: ['ram:ChargeAmount'],
+					fxProfileMask: FX_MASK_BASIC,
+				},
 				{
 					type: 'string',
 					src: ['cbc:BaseQuantity'],
@@ -255,7 +268,7 @@ const cacPrice: Transformation = {
 			src: ['cac:AllowanceCharge'],
 			dest: [
 				'ram:SpecifiedLineTradeAgreement',
-				'ram:GrossPriceProductTradePrice',
+				'ram:NetPriceProductTradePrice',
 			],
 			children: [
 				{
@@ -291,16 +304,6 @@ const cacPrice: Transformation = {
 				},
 			],
 			fxProfileMask: FX_MASK_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cbc:PriceAmount'],
-			dest: [
-				'ram:SpecifiedLineTradeAgreement',
-				'ram:NetPriceProductTradePrice',
-				'ram:ChargeAmount',
-			],
-			fxProfileMask: FX_MASK_BASIC,
 		},
 	],
 	fxProfileMask: FX_MASK_MINIMUM,
@@ -727,6 +730,32 @@ export const cacAccountingCustomerParty: Transformation[] = [
 		fxProfileMask: FX_MASK_BASIC_WL,
 	},
 	{
+		type: 'string',
+		src: ['cac:Contact', 'cbc:Name'],
+		dest: ['ram:DefinedTradeContact', 'ram:PersonName'],
+		fxProfileMask: FX_MASK_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cac:Contact', 'cbc:Telephone'],
+		dest: [
+			'ram:DefinedTradeContact',
+			'ram:TelephoneUniversalCommunication',
+			'ram:CompleteNumber',
+		],
+		fxProfileMask: FX_MASK_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cac:Contact', 'cbc:ElectronicMail'],
+		dest: [
+			'ram:DefinedTradeContact',
+			'ram:EmailURIUniversalCommunication',
+			'ram:URIID',
+		],
+		fxProfileMask: FX_MASK_EN16931,
+	},
+	{
 		type: 'object',
 		src: ['cac:PostalAddress'],
 		dest: ['ram:PostalTradeAddress'],
@@ -799,30 +828,6 @@ export const cacAdditionalDocumentReference: Transformation[] = [
 	},
 ];
 
-export const cacDelivery: Transformation[] = [
-	{
-		type: 'string',
-		src: ['cbc:ActualDeliveryDate'],
-		dest: [
-			'ram:ActualDeliverySupplyChainEvent',
-			'ram:OccurrenceDateTime',
-			'udt:DateTimeString',
-		],
-		subtype: 'DateTimeString',
-		fxProfileMask: FX_MASK_BASIC_WL,
-	},
-	{
-		type: 'string',
-		src: ['fixed:102'],
-		dest: [
-			'ram:ActualDeliverySupplyChainEvent',
-			'ram:OccurrenceDateTime',
-			'udt:DateTimeString@format',
-		],
-		fxProfileMask: FX_MASK_MINIMUM,
-	},
-];
-
 export const deliveryAddress: Transformation[] = [
 	{
 		type: 'string',
@@ -865,6 +870,82 @@ export const deliveryAddress: Transformation[] = [
 		src: ['cbc:CountrySubentity'],
 		dest: ['ram:CountrySubDivisionName'],
 		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+];
+
+export const cacDelivery: Transformation[] = [
+	// FIXME! This is an array for CII.
+	{
+		type: 'object',
+		src: [],
+		dest: ['ram:ShipToTradeParty'],
+		fxProfileMask: FX_MASK_BASIC_WL,
+		children: [
+			{
+				type: 'string',
+				src: ['cac:DeliveryLocation', 'cbc:ID'],
+				dest: [
+					// This will be downgraded to ram:ID in the
+					// post-processing step if no schemeID attribute is
+					// present.
+					'ram:GlobalID',
+				],
+				fxProfileMask: FX_MASK_BASIC_WL,
+			},
+			{
+				type: 'string',
+				src: ['cac:DeliveryLocation', 'cbc:ID@schemeID'],
+				dest: [
+					// This will be downgraded to ram:ID in the
+					// post-processing step if no schemeID attribute is
+					// present.
+					'ram:GlobalID@schemeID',
+				],
+				fxProfileMask: FX_MASK_BASIC_WL,
+			},
+			{
+				type: 'string',
+				src: ['cac:DeliveryParty', 'cac:PartyName', 'cbc:Name'],
+				dest: ['ram:Name'],
+				fxProfileMask: FX_MASK_BASIC_WL,
+			},
+			{
+				type: 'object',
+				src: ['cac:DeliveryLocation', 'cac:Address'],
+				dest: ['ram:PostalTradeAddress'],
+				children: deliveryAddress,
+				// FIXME! This should actually be FX_EXTENDED, but changing
+				// it breaks something.
+				fxProfileMask: FX_MASK_MINIMUM,
+			},
+		],
+	},
+	{
+		type: 'string',
+		src: ['cac:DespatchDocumentReference', 'cbc:ID'],
+		dest: ['ram:DespatchAdviceReferencedDocument', 'ram:IssuerAssignedID'],
+		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cbc:ActualDeliveryDate'],
+		dest: [
+			'ram:ActualDeliverySupplyChainEvent',
+			'ram:OccurrenceDateTime',
+			'udt:DateTimeString',
+		],
+		subtype: 'DateTimeString',
+		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['fixed:102'],
+		dest: [
+			'ram:ActualDeliverySupplyChainEvent',
+			'ram:OccurrenceDateTime',
+			'udt:DateTimeString@format',
+		],
+		fxProfileMask: FX_MASK_MINIMUM,
 	},
 ];
 
@@ -1397,69 +1478,6 @@ export const ublInvoice: Transformation = {
 					children: cacDelivery,
 					fxProfileMask: FX_MASK_MINIMUM,
 				},
-				// FIXME! This is an array for CII.
-				{
-					type: 'string',
-					src: ['cac:Delivery', 'cac:DeliveryLocation', 'cbc:ID'],
-					dest: [
-						'ram:ApplicableHeaderTradeDelivery',
-						'ram:ShipToTradeParty',
-						// This will be downgraded to ram:ID in the
-						// post-processing step if no schemeID attribute is
-						// present.
-						'ram:GlobalID',
-					],
-					fxProfileMask: FX_MASK_BASIC_WL,
-				},
-				{
-					type: 'string',
-					src: ['cac:Delivery', 'cac:DeliveryLocation', 'cbc:ID@schemeID'],
-					dest: [
-						'ram:ApplicableHeaderTradeDelivery',
-						'ram:ShipToTradeParty',
-						// This will be downgraded to ram:ID in the
-						// post-processing step if no schemeID attribute is
-						// present.
-						'ram:GlobalID@schemeID',
-					],
-					fxProfileMask: FX_MASK_BASIC_WL,
-				},
-				{
-					type: 'string',
-					src: [
-						'cac:Delivery',
-						'cac:DeliveryParty',
-						'cac:PartyName',
-						'cbc:Name',
-					],
-					dest: [
-						'ram:ApplicableHeaderTradeDelivery',
-						'ram:ShipToTradeParty',
-						'ram:Name',
-					],
-					fxProfileMask: FX_MASK_BASIC_WL,
-				},
-				{
-					type: 'object',
-					src: ['cac:Delivery', 'cac:DeliveryLocation', 'cac:Address'],
-					dest: [
-						'ram:ApplicableHeaderTradeDelivery',
-						'ram:ShipToTradeParty',
-						'ram:PostalTradeAddress',
-					],
-					children: deliveryAddress,
-					fxProfileMask: FX_MASK_MINIMUM,
-				},
-				{
-					type: 'string',
-					src: ['cac:DespatchDocumentReference', 'cbc:ID'],
-					dest: [
-						'ram:ApplicableHeaderTradeDelivery',
-						'ram:DespatchAdviceReferencedDocument',
-						'ram:IssuerAssignedID',
-					],
-					fxProfileMask: FX_MASK_BASIC_WL,
-				},
 				{
 					type: 'string',
 					src: ['cac:ReceiptDocumentReference', 'cbc:ID'],
@@ -1480,7 +1498,7 @@ export const ublInvoice: Transformation = {
 				},
 				{
 					type: 'string',
-					src: ['cac:PaymentMeans', 'cbc:PaymentID'],
+					src: ['cac:PaymentMeans[0]', 'cbc:PaymentID'],
 					dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:PaymentReference'],
 					fxProfileMask: FX_MASK_BASIC_WL,
 				},
@@ -1571,7 +1589,7 @@ export const ublInvoice: Transformation = {
 				},
 				{
 					type: 'string',
-					src: ['cac:PaymentMeans', 'cac:PaymentMandate', 'cbc:ID'],
+					src: ['cac:PaymentMeans[0]', 'cac:PaymentMandate', 'cbc:ID'],
 					dest: [
 						'ram:ApplicableHeaderTradeSettlement',
 						'ram:SpecifiedTradePaymentTerms',
@@ -1642,6 +1660,9 @@ export class FormatCIIService
 		return FULL_CII;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	patchSchema(schema: JSONSchemaType<Invoice>) {}
+
 	async generate(
 		invoice: Invoice,
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -1685,20 +1706,17 @@ export class FormatCIIService
 			delete shipTo['ram:GlobalID'];
 		}
 
-		const supplierTaxRegistration = cii['rsm:CrossIndustryInvoice']?.
-			['rsm:SupplyChainTradeTransaction']?.
-			['ram:ApplicableHeaderTradeAgreement']?.
-			['ram:SellerTradeParty']?.
-			['ram:SpecifiedTaxRegistration']?.
-			[0];
+		const supplierTaxRegistration =
+			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
+				'ram:ApplicableHeaderTradeAgreement'
+			]?.['ram:SellerTradeParty']?.['ram:SpecifiedTaxRegistration']?.[0];
 
-		const supplierTaxIDScheme = cii['rsm:CrossIndustryInvoice']?.
-			['rsm:SupplyChainTradeTransaction']?.
-			['ram:ApplicableHeaderTradeAgreement']?.
-			['ram:SellerTradeParty']?.
-			['ram:SpecifiedTaxRegistration']?.
-			[0]?.
-			['ram:ID@schemeID'];
+		const supplierTaxIDScheme =
+			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
+				'ram:ApplicableHeaderTradeAgreement'
+			]?.['ram:SellerTradeParty']?.['ram:SpecifiedTaxRegistration']?.[0]?.[
+				'ram:ID@schemeID'
+			];
 		if (supplierTaxRegistration && supplierTaxIDScheme) {
 			if (supplierTaxIDScheme === 'VAT') {
 				supplierTaxRegistration['ram:ID@schemeID'] = 'VA';
@@ -1754,7 +1772,11 @@ export class FormatCIIService
 
 			switch (transformation.type) {
 				case 'object':
-					if (!transformation.children.length) {
+					if (
+						!transformation.children.length ||
+						('ram:ApplicableHeaderTradeDelivery' === transformation.dest[0] &&
+							this.fxProfile === FX_MINIMUM)
+					) {
 						// Special case.  Force the element to exist.
 						this.vivifyDest(dest, childDestPath, {});
 					} else {

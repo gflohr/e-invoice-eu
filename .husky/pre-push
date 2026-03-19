@@ -1,1 +1,1 @@
-pnpm run test:cov
+pnpm run test:cov-changed

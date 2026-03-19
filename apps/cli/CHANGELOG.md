@@ -1,0 +1,44 @@
+# @e-invoice-eu/cli
+
+## 2.3.3
+
+### Patch Changes
+
+- upgrade dependencies and fix CVEs
+- Updated dependencies
+  - @e-invoice-eu/core@2.3.3
+
+## 2.3.2
+
+### Patch Changes
+
+- make customization id overridable
+- Updated dependencies
+  - @e-invoice-eu/core@2.3.2
+
+## 2.3.1
+
+### Patch Changes
+
+- fix CII output
+- Updated dependencies
+  - @e-invoice-eu/core@2.3.1
+
+## 2.3.1
+
+### Patch Changes
+
+- fix CII output
+- Updated dependencies
+  - @e-invoice-eu/core@2.3.1
+
+## 2.4.0
+
+### Minor Changes
+
+- fix CII output
+
+### Patch Changes
+
+- Updated dependencies
+  - @e-invoice-eu/core@2.4.0

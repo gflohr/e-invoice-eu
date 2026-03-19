@@ -1,4 +1,4 @@
-import Ajv2019, { ValidateFunction } from 'ajv/dist/2019';
+import Ajv2019 from 'ajv/dist/2019';
 
 import { Invoice } from './invoice.interface';
 import { invoiceSchema } from './invoice.schema';
@@ -88,7 +88,6 @@ export type InvoiceServiceOptions = {
  */
 export class InvoiceService {
 	private readonly formatFactoryService: FormatFactoryService;
-	private readonly validator: ValidateFunction<Invoice>;
 	private readonly validationService: ValidationService;
 
 	/**
@@ -98,12 +97,6 @@ export class InvoiceService {
 	 */
 	constructor(private readonly logger: Logger) {
 		this.formatFactoryService = new FormatFactoryService();
-		const ajv = new Ajv2019({
-			strict: true,
-			allErrors: true,
-			useDefaults: true,
-		});
-		this.validator = ajv.compile(invoiceSchema);
 		this.validationService = new ValidationService(this.logger);
 	}
 
@@ -134,18 +127,27 @@ export class InvoiceService {
 			this.deprecationWarning(options);
 		}
 
-		const invoice = this.validationService.validate(
-			'invoice data',
-			this.validator,
-			patched,
-		);
-
 		const formatter = this.formatFactoryService.createFormatService(
 			options.format,
 			this.logger,
 		);
 
 		options.format = this.formatFactoryService.normalizeFormat(options.format);
+
+		const ajv = new Ajv2019({
+			strict: true,
+			allErrors: true,
+			useDefaults: true,
+		});
+
+		const schema = structuredClone(invoiceSchema);
+		formatter.patchSchema(schema);
+		const validator = ajv.compile(schema);
+		const invoice = this.validationService.validate(
+			'invoice data',
+			validator,
+			patched,
+		);
 
 		formatter.fillInvoiceDefaults(invoice);
 

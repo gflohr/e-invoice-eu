@@ -36,7 +36,7 @@ exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-
 			<pdf:PDFVersion>1.7</pdf:PDFVersion>
 		</rdf:Description>
 		<rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" rdf:about="">
-			<xmp:CreatorTool>e-invoice-eu 2.2.0 git+https://github.com/gflohr/e-invoice-eu</xmp:CreatorTool>
+			<xmp:CreatorTool>e-invoice-eu VERSION git+https://github.com/gflohr/e-invoice-eu</xmp:CreatorTool>
 			<xmp:CreateDate>2025-04-01T12:00:00+02:00</xmp:CreateDate>
 			<xmp:ModifyDate>2025-04-01T12:00:00+02:00</xmp:ModifyDate>
 			<xmp:MetadataDate>2025-04-01T12:00:00+02:00</xmp:MetadataDate>
@@ -127,7 +127,7 @@ exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-
 			<pdf:PDFVersion>1.7</pdf:PDFVersion>
 		</rdf:Description>
 		<rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" rdf:about="">
-			<xmp:CreatorTool>e-invoice-eu 2.2.0 git+https://github.com/gflohr/e-invoice-eu</xmp:CreatorTool>
+			<xmp:CreatorTool>e-invoice-eu VERSION git+https://github.com/gflohr/e-invoice-eu</xmp:CreatorTool>
 			<xmp:CreateDate>2025-04-01T12:00:00+02:00</xmp:CreateDate>
 			<xmp:ModifyDate>2025-04-01T12:00:00+02:00</xmp:ModifyDate>
 			<xmp:MetadataDate>2025-04-01T12:00:00+02:00</xmp:MetadataDate>
@@ -218,7 +218,7 @@ exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-
 			<pdf:PDFVersion>1.7</pdf:PDFVersion>
 		</rdf:Description>
 		<rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" rdf:about="">
-			<xmp:CreatorTool>e-invoice-eu 2.2.0 git+https://github.com/gflohr/e-invoice-eu</xmp:CreatorTool>
+			<xmp:CreatorTool>e-invoice-eu VERSION git+https://github.com/gflohr/e-invoice-eu</xmp:CreatorTool>
 			<xmp:CreateDate>2025-04-01T12:00:00+02:00</xmp:CreateDate>
 			<xmp:ModifyDate>2025-04-01T12:00:00+02:00</xmp:ModifyDate>
 			<xmp:MetadataDate>2025-04-01T12:00:00+02:00</xmp:MetadataDate>
@@ -309,7 +309,7 @@ exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-
 			<pdf:PDFVersion>1.7</pdf:PDFVersion>
 		</rdf:Description>
 		<rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" rdf:about="">
-			<xmp:CreatorTool>e-invoice-eu 2.2.0 git+https://github.com/gflohr/e-invoice-eu</xmp:CreatorTool>
+			<xmp:CreatorTool>e-invoice-eu VERSION git+https://github.com/gflohr/e-invoice-eu</xmp:CreatorTool>
 			<xmp:CreateDate>2025-04-01T12:00:00+02:00</xmp:CreateDate>
 			<xmp:ModifyDate>2025-04-01T12:00:00+02:00</xmp:ModifyDate>
 			<xmp:MetadataDate>2025-04-01T12:00:00+02:00</xmp:MetadataDate>
@@ -400,7 +400,7 @@ exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-
 			<pdf:PDFVersion>1.7</pdf:PDFVersion>
 		</rdf:Description>
 		<rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" rdf:about="">
-			<xmp:CreatorTool>e-invoice-eu 2.2.0 git+https://github.com/gflohr/e-invoice-eu</xmp:CreatorTool>
+			<xmp:CreatorTool>e-invoice-eu VERSION git+https://github.com/gflohr/e-invoice-eu</xmp:CreatorTool>
 			<xmp:CreateDate>2025-04-01T12:00:00+02:00</xmp:CreateDate>
 			<xmp:ModifyDate>2025-04-01T12:00:00+02:00</xmp:ModifyDate>
 			<xmp:MetadataDate>2025-04-01T12:00:00+02:00</xmp:MetadataDate>
@@ -491,7 +491,7 @@ exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-
 			<pdf:PDFVersion>1.7</pdf:PDFVersion>
 		</rdf:Description>
 		<rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" rdf:about="">
-			<xmp:CreatorTool>e-invoice-eu 2.2.0 git+https://github.com/gflohr/e-invoice-eu</xmp:CreatorTool>
+			<xmp:CreatorTool>e-invoice-eu VERSION git+https://github.com/gflohr/e-invoice-eu</xmp:CreatorTool>
 			<xmp:CreateDate>2025-04-01T12:00:00+02:00</xmp:CreateDate>
 			<xmp:ModifyDate>2025-04-01T12:00:00+02:00</xmp:ModifyDate>
 			<xmp:MetadataDate>2025-04-01T12:00:00+02:00</xmp:MetadataDate>
@@ -582,7 +582,7 @@ exports[`FormatFacturXService XMP metadata should work in western timezones 1`] 
 			<pdf:PDFVersion>1.7</pdf:PDFVersion>
 		</rdf:Description>
 		<rdf:Description xmlns:xmp="http://ns.adobe.com/xap/1.0/" rdf:about="">
-			<xmp:CreatorTool>e-invoice-eu 2.2.0 git+https://github.com/gflohr/e-invoice-eu</xmp:CreatorTool>
+			<xmp:CreatorTool>e-invoice-eu VERSION git+https://github.com/gflohr/e-invoice-eu</xmp:CreatorTool>
 			<xmp:CreateDate>2025-04-01T12:00:00-01:00</xmp:CreateDate>
 			<xmp:ModifyDate>2025-04-01T12:00:00-01:00</xmp:ModifyDate>
 			<xmp:MetadataDate>2025-04-01T12:00:00-01:00</xmp:MetadataDate>

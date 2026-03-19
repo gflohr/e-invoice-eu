@@ -96,6 +96,15 @@ It probably makes more sense to open that URL in the browser.
 See the [documentation](http://localhost:3000/e-invoice-eu/e-invoice-eu/en/docs/service/creating-invoices/)
 for information on how to create e-invoices with the API.
 
+## Run Slim Container
+
+There is also a Docker image without LibreOffice. You can use that if:
+
+* You do not plan to create e-invoices from spreadsheet data, or
+* You always provide a PDF version for Factur-X/ZUGFeRD, and do not need to render the spreadsheet as a PDF
+
+In this case, use the image `gflohr/e-invoice-eu:slim` instead of `gflohr/e-invoice-eu:latest`. 
+
 ## Reporting Bugs
 
 Please report bugs at https://github.com/gflohr/e-invoice-eu/issues.
