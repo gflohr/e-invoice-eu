@@ -18,7 +18,7 @@
 		"autoprefixer": "^10.4.27",
 		"bootstrap": "~>5.3.8",
 		"bootstrap-icons": "^1.13.1",
-		"caniuse-lite": "^1.0.30001777",
+		"caniuse-lite": "^1.0.30001780",
 		"clean-webpack-plugin": "^4.0.0",
 		"copy-webpack-plugin": "^14.0.0",
 		"css-loader": "^7.1.4",
@@ -40,7 +40,7 @@
 		"terser-webpack-plugin": "^5.4.0",
 		"url-loader": "^4.1.1",
 		"webpack": "^5.105.4",
-		"webpack-cli": "^6.0.1"
+		"webpack-cli": "^7.0.2"
 	},
 	"browserslist": [
 		"> 1%",
