@@ -148,7 +148,13 @@ const cacCommodityClassification: Transformation = {
 		{
 			type: 'string',
 			src: ['cbc:ItemClassificationCode'],
-			dest: ['ram:ClassCode', 'ram:ListID'],
+			dest: ['ram:ClassCode'],
+			fxProfileMask: FX_MASK_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cbc:ItemClassificationCode@listID'],
+			dest: ['ram:ClassCode@listID'],
 			fxProfileMask: FX_MASK_EN16931,
 		},
 	],
