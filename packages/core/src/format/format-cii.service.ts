@@ -239,9 +239,15 @@ const cacPrice: Transformation = {
 			src: [],
 			dest: [
 				'ram:SpecifiedLineTradeAgreement',
-				'ram:GrossPriceProductTradePrice',
+				'ram:NetPriceProductTradePrice',
 			],
 			children: [
+				{
+					type: 'string',
+					src: ['cbc:PriceAmount'],
+					dest: ['ram:ChargeAmount'],
+					fxProfileMask: FX_MASK_BASIC,
+				},
 				{
 					type: 'string',
 					src: ['cbc:BaseQuantity'],
@@ -262,7 +268,7 @@ const cacPrice: Transformation = {
 			src: ['cac:AllowanceCharge'],
 			dest: [
 				'ram:SpecifiedLineTradeAgreement',
-				'ram:GrossPriceProductTradePrice',
+				'ram:NetPriceProductTradePrice',
 			],
 			children: [
 				{
@@ -298,16 +304,6 @@ const cacPrice: Transformation = {
 				},
 			],
 			fxProfileMask: FX_MASK_EN16931,
-		},
-		{
-			type: 'string',
-			src: ['cbc:PriceAmount'],
-			dest: [
-				'ram:SpecifiedLineTradeAgreement',
-				'ram:NetPriceProductTradePrice',
-				'ram:ChargeAmount',
-			],
-			fxProfileMask: FX_MASK_BASIC,
 		},
 	],
 	fxProfileMask: FX_MASK_MINIMUM,
