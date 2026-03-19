@@ -65,7 +65,7 @@ importers:
         version: 1.3.10
       '@valibot/i18n':
         specifier: ^1.0.0
-        version: 1.0.0(valibot@1.2.0(typescript@5.9.3))
+        version: 1.0.0(valibot@1.3.1(typescript@5.9.3))
       ajv:
         specifier: ^8.18.0
         version: 8.18.0
@@ -80,7 +80,7 @@ importers:
         version: 3.0.2
       valibot:
         specifier: ^1.2.0
-        version: 1.2.0(typescript@5.9.3)
+        version: 1.3.1(typescript@5.9.3)
       yargs:
         specifier: ^18.0.0
         version: 18.0.0
@@ -156,7 +156,7 @@ importers:
         version: 11.2.6(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)(reflect-metadata@0.2.2)
       '@valibot/i18n':
         specifier: ^1.0.0
-        version: 1.0.0(valibot@1.2.0(typescript@5.9.3))
+        version: 1.0.0(valibot@1.3.1(typescript@5.9.3))
       ajv:
         specifier: ^8.18.0
         version: 8.18.0
@@ -168,7 +168,7 @@ importers:
         version: 7.8.2
       valibot:
         specifier: ^1.2.0
-        version: 1.2.0(typescript@5.9.3)
+        version: 1.3.1(typescript@5.9.3)
     devDependencies:
       '@nestjs/cli':
         specifier: ^11.0.16
@@ -7627,8 +7627,8 @@ packages:
     resolution: {integrity: sha512-kiGUalWN+rgBJ/1OHZsBtU4rXZOfj/7rKQxULKlIzwzQSvMJUUNgPwJEEh7gU6xEVxC0ahoOBvN2YI8GH6FNgA==}
     engines: {node: '>=10.12.0'}
 
-  valibot@1.2.0:
-    resolution: {integrity: sha512-mm1rxUsmOxzrwnX5arGS+U4T25RdvpPjPN4yR0u9pUBov9+zGVtO84tif1eY4r6zWxVxu3KzIyknJy3rxfRZZg==}
+  valibot@1.3.1:
+    resolution: {integrity: sha512-sfdRir/QFM0JaF22hqTroPc5xy4DimuGQVKFrzF1YfGwaS1nJot3Y8VqMdLO2Lg27fMzat2yD3pY5PbAYO39Gg==}
     peerDependencies:
       typescript: '>=5'
     peerDependenciesMeta:
@@ -8489,13 +8489,13 @@ snapshots:
       '@esgettext/runtime': 1.3.10
       '@inquirer/prompts': 8.3.0(@types/node@25.5.0)
       '@npmcli/package-json': 7.0.5
-      '@valibot/i18n': 1.0.0(valibot@1.2.0(typescript@5.9.3))
+      '@valibot/i18n': 1.0.0(valibot@1.3.1(typescript@5.9.3))
       glob: 13.0.6
       iconv-lite: 0.7.2
       jsonfile: 6.2.0
       mkdirp: 3.0.1
       normalize-package-data: 8.0.0
-      valibot: 1.2.0(typescript@5.9.3)
+      valibot: 1.3.1(typescript@5.9.3)
       yargs: 18.0.0
     transitivePeerDependencies:
       - '@types/node'
@@ -10428,9 +10428,9 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
 
-  '@valibot/i18n@1.0.0(valibot@1.2.0(typescript@5.9.3))':
+  '@valibot/i18n@1.0.0(valibot@1.3.1(typescript@5.9.3))':
     dependencies:
-      valibot: 1.2.0(typescript@5.9.3)
+      valibot: 1.3.1(typescript@5.9.3)
 
   '@webassemblyjs/ast@1.14.1':
     dependencies:
@@ -15959,7 +15959,7 @@ snapshots:
       '@types/istanbul-lib-coverage': 2.0.6
       convert-source-map: 2.0.0
 
-  valibot@1.2.0(typescript@5.9.3):
+  valibot@1.3.1(typescript@5.9.3):
     optionalDependencies:
       typescript: 5.9.3
 
