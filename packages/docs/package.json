@@ -18,7 +18,6 @@
 		"autoprefixer": "^10.4.27",
 		"bootstrap": "~>5.3.8",
 		"bootstrap-icons": "^1.13.1",
-		"browser-sync": "^3.0.4",
 		"caniuse-lite": "^1.0.30001777",
 		"clean-webpack-plugin": "^4.0.0",
 		"copy-webpack-plugin": "^14.0.0",
