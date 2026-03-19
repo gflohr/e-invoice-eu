@@ -1,5 +1,13 @@
 # @e-invoice-eu/cli
 
+## 2.3.4
+
+### Patch Changes
+
+- automatic dockerhub publish and bugfixes
+- Updated dependencies
+  - @e-invoice-eu/core@2.3.4
+
 ## 2.3.3
 
 ### Patch Changes

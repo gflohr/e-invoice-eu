@@ -1,5 +1,11 @@
 # @e-invoice-eu/core
 
+## 2.3.4
+
+### Patch Changes
+
+- automatic dockerhub publish and bugfixes
+
 ## 2.3.3
 
 ### Patch Changes
