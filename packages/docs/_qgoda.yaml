@@ -22,7 +22,6 @@ exclude-watch:
   - '!/_guidoed_tour.yaml'
 helpers:
   webpack: npm run start
-  browser-sync: npm run server
 permalink: /e-invoice-eu{significant-path}
 # Do not switch that to pnpm! That doesn't work inside the Dockerfile.
 pre-build:
