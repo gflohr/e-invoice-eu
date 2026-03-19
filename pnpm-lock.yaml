@@ -141,19 +141,19 @@ importers:
         version: link:../../packages/core
       '@nestjs/common':
         specifier: ^11.1.16
-        version: 11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2)
+        version: 11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/config':
         specifier: ^4.0.3
-        version: 4.0.3(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(rxjs@7.8.2)
+        version: 4.0.3(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(rxjs@7.8.2)
       '@nestjs/core':
         specifier: ^11.1.16
-        version: 11.1.16(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.16)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+        version: 11.1.16(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.16)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/platform-express':
         specifier: ^11.1.16
-        version: 11.1.16(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)
+        version: 11.1.16(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)
       '@nestjs/swagger':
         specifier: ^11.2.6
-        version: 11.2.6(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)(reflect-metadata@0.2.2)
+        version: 11.2.6(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)(reflect-metadata@0.2.2)
       '@valibot/i18n':
         specifier: ^1.0.0
         version: 1.0.0(valibot@1.2.0(typescript@5.9.3))
@@ -178,7 +178,7 @@ importers:
         version: 11.0.9(chokidar@4.0.3)(typescript@5.9.3)
       '@nestjs/testing':
         specifier: ^11.1.16
-        version: 11.1.16(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)(@nestjs/platform-express@11.1.16)
+        version: 11.1.16(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)(@nestjs/platform-express@11.1.16)
       '@types/express':
         specifier: ^5.0.6
         version: 5.0.6
@@ -695,8 +695,8 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@borewit/text-codec@0.1.1':
-    resolution: {integrity: sha512-5L/uBxmjaCIX5h8Z+uu+kA9BQLkc/Wl06UGR5ajNRxu+/XjonB5i8JpgFMrPj3LXTCPA0pv8yxUvbUi+QthGGA==}
+  '@borewit/text-codec@0.2.2':
+    resolution: {integrity: sha512-DDaRehssg1aNrH4+2hnj1B7vnUGEjU6OIlyRdkMd0aUdIUvKXrJfXsy8LVtXAy7DRvYVluWbMspsRhz2lcW0mQ==}
 
   '@bramus/specificity@2.4.2':
     resolution: {integrity: sha512-ctxtJ/eA+t+6q2++vj5j7FYX3nRu311q1wfYH3xjlLOsczhlhxAg2FWNUXhpGvAw3BWo1xBcvOV6/YLc2r5FJw==}
@@ -1631,8 +1631,8 @@ packages:
       '@swc/core':
         optional: true
 
-  '@nestjs/common@11.1.16':
-    resolution: {integrity: sha512-JSIeW+USuMJkkcNbiOdcPkVCeI3TSnXstIVEPpp3HiaKnPRuSbUUKm9TY9o/XpIcPHWUOQItAtC5BiAwFdVITQ==}
+  '@nestjs/common@11.1.17':
+    resolution: {integrity: sha512-hLODw5Abp8OQgA+mUO4tHou4krKgDtUcM9j5Ihxncst9XeyxYBTt2bwZm4e4EQr5E352S4Fyy6V3iFx9ggxKAg==}
     peerDependencies:
       class-transformer: '>=0.4.1'
       class-validator: '>=0.13.2'
@@ -4287,8 +4287,8 @@ packages:
     peerDependencies:
       webpack: ^4.0.0 || ^5.0.0
 
-  file-type@21.3.1:
-    resolution: {integrity: sha512-SrzXX46I/zsRDjTb82eucsGg0ODq2NpGDp4HcsFKApPy8P8vACjpJRDoGGMfEzhFC0ry61ajd7f72J3603anBA==}
+  file-type@21.3.2:
+    resolution: {integrity: sha512-DLkUvGwep3poOV2wpzbHCOnSKGk1LzyXTv+aHFgN2VFl96wnp8YA9YjO2qPzg5PuL8q/SW9Pdi6WTkYOIh995w==}
     engines: {node: '>=20'}
 
   file-uri-to-path@1.0.0:
@@ -7243,8 +7243,8 @@ packages:
     resolution: {integrity: sha512-o5sSPKEkg/DIQNmH43V0/uerLrpzVedkUh8tGNvaeXpfpuwjKenlSox/2O/BTlZUtEe+JG7s5YhEz608PlAHRA==}
     engines: {node: '>=0.6'}
 
-  token-types@6.1.1:
-    resolution: {integrity: sha512-kh9LVIWH5CnL63Ipf0jhlBIy0UsrMj/NJDfpsy1SqOXlLKEVyXXYrnFxFT1yOOYVGBSApeVnjPw/sBz5BfEjAQ==}
+  token-types@6.1.2:
+    resolution: {integrity: sha512-dRXchy+C0IgK8WPC6xvCHFRIWYUbqqdEIKPaKo/AcTUNzwLTK6AH7RjdLWsEZcAN/TBdtfUw3PYEgPr5VPr6ww==}
     engines: {node: '>=14.16'}
 
   tough-cookie@6.0.1:
@@ -8070,7 +8070,7 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@borewit/text-codec@0.1.1': {}
+  '@borewit/text-codec@0.2.2': {}
 
   '@bramus/specificity@2.4.2':
     dependencies:
@@ -9121,9 +9121,9 @@ snapshots:
       - uglify-js
       - webpack-cli
 
-  '@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2)':
+  '@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2)':
     dependencies:
-      file-type: 21.3.1
+      file-type: 21.3.2
       iterare: 1.2.1
       load-esm: 1.0.3
       reflect-metadata: 0.2.2
@@ -9133,17 +9133,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@nestjs/config@4.0.3(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(rxjs@7.8.2)':
+  '@nestjs/config@4.0.3(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(rxjs@7.8.2)':
     dependencies:
-      '@nestjs/common': 11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/common': 11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2)
       dotenv: 17.2.3
       dotenv-expand: 12.0.3
       lodash: 4.17.23
       rxjs: 7.8.2
 
-  '@nestjs/core@11.1.16(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.16)(reflect-metadata@0.2.2)(rxjs@7.8.2)':
+  '@nestjs/core@11.1.16(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.16)(reflect-metadata@0.2.2)(rxjs@7.8.2)':
     dependencies:
-      '@nestjs/common': 11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/common': 11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nuxt/opencollective': 0.4.1
       fast-safe-stringify: 2.1.1
       iterare: 1.2.1
@@ -9153,17 +9153,17 @@ snapshots:
       tslib: 2.8.1
       uid: 2.0.2
     optionalDependencies:
-      '@nestjs/platform-express': 11.1.16(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)
+      '@nestjs/platform-express': 11.1.16(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)
 
-  '@nestjs/mapped-types@2.1.0(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)':
+  '@nestjs/mapped-types@2.1.0(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)':
     dependencies:
-      '@nestjs/common': 11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/common': 11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2)
       reflect-metadata: 0.2.2
 
-  '@nestjs/platform-express@11.1.16(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)':
+  '@nestjs/platform-express@11.1.16(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)':
     dependencies:
-      '@nestjs/common': 11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@nestjs/core': 11.1.16(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.16)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/common': 11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/core': 11.1.16(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.16)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       cors: 2.8.6
       express: 5.2.1
       multer: 2.1.1
@@ -9183,25 +9183,25 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  '@nestjs/swagger@11.2.6(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)(reflect-metadata@0.2.2)':
+  '@nestjs/swagger@11.2.6(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)(reflect-metadata@0.2.2)':
     dependencies:
       '@microsoft/tsdoc': 0.16.0
-      '@nestjs/common': 11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@nestjs/core': 11.1.16(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.16)(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@nestjs/mapped-types': 2.1.0(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)
+      '@nestjs/common': 11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/core': 11.1.16(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.16)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/mapped-types': 2.1.0(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)
       js-yaml: 4.1.1
       lodash: 4.17.23
       path-to-regexp: 8.3.0
       reflect-metadata: 0.2.2
       swagger-ui-dist: 5.31.0
 
-  '@nestjs/testing@11.1.16(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)(@nestjs/platform-express@11.1.16)':
+  '@nestjs/testing@11.1.16(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)(@nestjs/platform-express@11.1.16)':
     dependencies:
-      '@nestjs/common': 11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@nestjs/core': 11.1.16(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.16)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/common': 11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/core': 11.1.16(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.16)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       tslib: 2.8.1
     optionalDependencies:
-      '@nestjs/platform-express': 11.1.16(@nestjs/common@11.1.16(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)
+      '@nestjs/platform-express': 11.1.16(@nestjs/common@11.1.17(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.16)
 
   '@noble/hashes@1.8.0': {}
 
@@ -9884,7 +9884,7 @@ snapshots:
   '@tokenizer/inflate@0.4.1':
     dependencies:
       debug: 4.4.3
-      token-types: 6.1.1
+      token-types: 6.1.2
     transitivePeerDependencies:
       - supports-color
 
@@ -11986,11 +11986,11 @@ snapshots:
       schema-utils: 3.3.0
       webpack: 5.105.4(webpack-cli@6.0.1)
 
-  file-type@21.3.1:
+  file-type@21.3.2:
     dependencies:
       '@tokenizer/inflate': 0.4.1
       strtok3: 10.3.4
-      token-types: 6.1.1
+      token-types: 6.1.2
       uint8array-extras: 1.5.0
     transitivePeerDependencies:
       - supports-color
@@ -15453,9 +15453,9 @@ snapshots:
 
   toidentifier@1.0.1: {}
 
-  token-types@6.1.1:
+  token-types@6.1.2:
     dependencies:
-      '@borewit/text-codec': 0.1.1
+      '@borewit/text-codec': 0.2.2
       '@tokenizer/token': 0.3.0
       ieee754: 1.2.1
 
