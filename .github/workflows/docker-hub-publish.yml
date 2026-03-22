@@ -102,7 +102,7 @@ jobs:
       # 🔍 SECURITY SCAN (full image)
       # -------------------------
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.34.0
+        uses: aquasecurity/trivy-action@0.35.0
         env:
           TRIVY_SHOW_SUPPRESSED: 'true'
         with:
