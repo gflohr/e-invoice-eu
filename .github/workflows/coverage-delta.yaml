@@ -35,52 +35,60 @@ jobs:
       - name: Save PR coverage
         run: cp coverage-summary.json pr-coverage.json
 
-      - name: Checkout main branch
-        run: |
-          git fetch origin main
-          git checkout origin/main
-
-      - name: Install dependencies (main)
-        run: pnpm install --frozen-lockfile --ignore-scripts
-
-      - name: Run tests with coverage (main)
-        run: pnpm run test:cov
-
-      - name: Aggregate coverage (main)
-        run: node aggregate-coverage.mjs
+      - name: Download main coverage
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow: Upload Coverage to Coveralls
+          branch: main
+          name: coverage-main
+          path: .
 
       - name: Compare coverage
-        id: coverage
         run: |
           node -e "
-              const pr = require('./pr-coverage.json')
-              const main = require('./coverage-summary.json')
+const fs = require('fs')
 
-              const prPct = pr.total.lines.pct
-              const basePct = main.total.lines.pct
-              const delta = prPct - basePct
+const pr = JSON.parse(fs.readFileSync('pr-coverage.json'))
+const base = JSON.parse(fs.readFileSync('coverage-summary.json'))
 
-              console.log('PR:', prPct.toFixed(2) + '%')
-              console.log('Base:', basePct.toFixed(2) + '%')
-              console.log('Delta:', delta.toFixed(2) + '%')
+const prPct = pr.total.lines.pct
+const basePct = base.total.lines.pct
+const delta = prPct - basePct
 
-              require('fs').writeFileSync('coverage-delta.txt',
-                  `PR: ${prPct.toFixed(2)}%\nBase: ${basePct.toFixed(2)}%\nDelta: ${delta.toFixed(2)}%`
-              )
+const out = `PR:   ${prPct.toFixed(2)}%
+Base: ${basePct.toFixed(2)}%
+Delta: ${delta >= 0 ? '+' : ''}${delta.toFixed(2)}%`
 
-              console.log(`::set-output name=delta::${delta.toFixed(2)}`)
-            "
+      fs.writeFileSync('coverage-delta.txt', out)
+    "
 
-      - name: Comment on PR
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs')
-            const body = fs.readFileSync('coverage-delta.txt', 'utf-8')
+- name: Comment on PR (update existing)
+  uses: actions/github-script@v7
+  with:
+    script: |
+      const fs = require('fs')
+      const body = "📊 **Coverage Report**\n\n```\n" + fs.readFileSync('coverage-delta.txt', 'utf-8') + "\n```"
 
-            github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: "📊 **Coverage Report**\n\n```\n" + body + "\n```"
-            })
+      const { data: comments } = await github.rest.issues.listComments({
+        issue_number: context.issue.number,
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+      })
+
+      const existing = comments.find(c => c.body.includes("📊 **Coverage Report**"))
+
+      if (existing) {
+        await github.rest.issues.updateComment({
+          comment_id: existing.id,
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          body
+        })
+      } else {
+        await github.rest.issues.createComment({
+          issue_number: context.issue.number,
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          body
+        })
+      }
