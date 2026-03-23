@@ -30,6 +30,15 @@ jobs:
       - name: Test with coverage
         run: pnpm run test:cov
 
+      - name: Aggregate coverage
+        run: node aggregate-coverage.mjs
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-main
+          path: coverage-summary.json
+
       - name: Upload coverage
         uses: coverallsapp/github-action@v2
         with:
