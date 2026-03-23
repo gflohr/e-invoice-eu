@@ -40,7 +40,7 @@ jobs:
         run: cp coverage-summary.json pr-coverage.json
 
       - name: Download main coverage
-        uses: dawidd6/action-download-artifact@v3
+        uses: dawidd6/action-download-artifact@v6
         with:
           workflow: Upload Coverage to Coveralls
           branch: main
