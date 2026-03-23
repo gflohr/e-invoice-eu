@@ -153,33 +153,6 @@ export class FormatFacturXService
 			modificationDate: now,
 			afRelationship: relationship,
 		});
-
-		const attachments = pdfDoc.getAttachments();
-		for (let i = 0; i < attachments.length; ++i) {
-			const attachment = attachments[i];
-		}
-
-		/* 		// Some validators insist on having the attachment listed in the
-		// File Specification Dictionary.
-		const context = pdfDoc.context;
-		const fileSpecDict = context.obj({
-			Type: 'Filespec',
-			F: pdfDoc.context.flateStream(fileInfo.filename),
-			UF: pdfDoc.context.flateStream(fileInfo.filename),
-			Desc: fileInfo.description ?? 'Supplementary file',
-			AFRelationship: relationship,
-			EF: context.obj({ F: embeddedFileRef }),
-		});
-
-		// Manually add to the EmbeddedFiles name tree:
-		const names = pdfDoc.catalog.lookup(PDFName.of('Names'), PDFDict) ??
-					context.obj({});
-		pdfDoc.catalog.set(PDFName.of('Names'), names);
-
-		names.set(PDFName.of('EmbeddedFiles'), context.obj({
-			Names: [ fileInfo.filename, fileSpecDict ]
-		}));
- */
 	}
 
 	private async createPDFA(
@@ -188,7 +161,7 @@ export class FormatFacturXService
 		invoice: Invoice,
 	): Promise<void> {
 		let xmp = create();
-		const bom = '\u00EF\u00BB\u00BF';
+		const bom = '\uFEFF';
 		xmp = xmp.ins('xpacket', `begin="${bom}" id="W5M0MpCehiHzreSzNTczkc9d"`);
 
 		let conformanceLevel: FacturXConformanceLevel;
@@ -596,14 +569,13 @@ export class FormatFacturXService
 	}
 
 	private addMetadata(pdfDoc: PDFDocument, xmp: string) {
-		const metadataStream = pdfDoc.context.stream(xmp, {
+		const xmpBytes = new TextEncoder().encode(xmp);
+		const metadataStream = pdfDoc.context.stream(xmpBytes, {
 			Type: 'Metadata',
 			Subtype: 'XML',
-			Length: xmp.length,
+			Length: xmpBytes.length,
 		});
-
 		const metadataStreamRef = pdfDoc.context.register(metadataStream);
-
 		pdfDoc.catalog.set(PDFName.of('Metadata'), metadataStreamRef);
 	}
 
