@@ -26,7 +26,7 @@ Please report bugs at https://github.com/gflohr/e-invoice-eu/issues.
 
 ## Copyright
 
-Copyright (C) 2024-2025 Guido Flohr <guido.flohr@cantanea.com>, all
+Copyright (C) 2024-2026 Guido Flohr <guido.flohr@cantanea.com>, all
 rights reserved.
 
 This is free software available under the terms of the

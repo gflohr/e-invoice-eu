@@ -1,8 +1,8 @@
 # German translations for e-invoice-eu package
 # German translation for e-invoice-eu
-# Copyright (C) 2024 THE e-invoice-eu'S COPYRIGHT HOLDER
+# Copyright (C) 2024-2026, the e-invoice-eu translators
 # This file is distributed under the same license as the e-invoice-eu package.
-# Guido Flohr <guido.flohr@cantanea.com>, 2024.
+# Guido Flohr <guido.flohr@cantanea.com>, 2024-2026.
 #
 msgid ""
 msgstr ""
