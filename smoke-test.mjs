@@ -38,14 +38,19 @@ async function testAll() {
 	};
 
 	for (const format of allFormats) {
-	// for (const format of facturXFormats) {
+		// for (const format of facturXFormats) {
 		const extension = format.match(/Factur-X-/) ? 'pdf' : 'xml';
 
 		for (const example of examples) {
-			if (example.match(/credit-note/) && (
-				format.match(/^Factur-X/) || format.match(/CII/))) {
+			if (
+				example.match(/credit-note/) &&
+				(format.match(/^Factur-X/) || format.match(/CII/))
+			) {
 				continue;
-			} else if (example.match(/(?:corrected-invoice|credit-note)/) && format.match(/^XRECHNUNG-/)) {
+			} else if (
+				example.match(/(?:corrected-invoice|credit-note)/) &&
+				format.match(/^XRECHNUNG-/)
+			) {
 				// See https://github.com/itplr-kosit/validator-configuration-xrechnung/issues/138!
 				console.warn('FIXME! Corrected invoice in XRECHNUNG-* fails!');
 				continue;

@@ -10,7 +10,7 @@ const basePct = base.total.lines.pct;
 const delta = prPct - basePct;
 
 let icon = '⚪';
-let emoji = '🤔'
+let emoji = '🤔';
 if (delta > 0.5) {
 	icon = '🟢';
 	emoji = '🚀';
