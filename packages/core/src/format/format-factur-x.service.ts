@@ -188,7 +188,7 @@ export class FormatFacturXService
 		invoice: Invoice,
 	): Promise<void> {
 		let xmp = create();
-		const bom = '\u00EF\u00BB\u00BF';
+		const bom = '\uFEFF';
 		xmp = xmp.ins('xpacket', `begin="${bom}" id="W5M0MpCehiHzreSzNTczkc9d"`);
 
 		let conformanceLevel: FacturXConformanceLevel;
@@ -595,15 +595,14 @@ export class FormatFacturXService
 		return `${isoString}${formattedOffset}`;
 	}
 
-	private addMetadata(pdfDoc: PDFDocument, xmp: string) {
-		const metadataStream = pdfDoc.context.stream(xmp, {
+	private addMetadata(pdfDoc, xmp) {
+		const xmpBytes = new TextEncoder().encode(xmp);
+		const metadataStream = pdfDoc.context.stream(xmpBytes, {
 			Type: 'Metadata',
 			Subtype: 'XML',
-			Length: xmp.length,
+			Length: xmpBytes.length,
 		});
-
 		const metadataStreamRef = pdfDoc.context.register(metadataStream);
-
 		pdfDoc.catalog.set(PDFName.of('Metadata'), metadataStreamRef);
 	}
 
