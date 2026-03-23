@@ -3,13 +3,25 @@ import * as path from 'path';
 import yaml from 'js-yaml';
 import { globSync } from 'glob';
 
-import { fileURLToPath } from 'url'
+import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const workspaceYaml = fs.readFileSync('pnpm-workspace.yaml', 'utf-8');
+const workspaceYaml = fs.readFileSync(
+	`${__dirname}/pnpm-workspace.yaml`,
+	'utf-8',
+);
 const workspaceConfig = yaml.load(workspaceYaml);
+if (
+	!workspaceConfig ||
+	typeof workspaceConfig !== 'object' ||
+	!Array.isArray(workspaceConfig.packages)
+) {
+	throw new Error(
+		'Invalid pnpm-workspace.yaml: expected a top-level "packages" array.',
+	);
+}
 const workspaceGlobs = workspaceConfig.packages;
 
 const roots = [];
@@ -32,7 +44,8 @@ for (const root of roots) {
 	total.lines.total += lines.total;
 }
 
-const pct = total.lines.total > 0 ? (total.lines.covered / total.lines.total) * 100 : 0;
+const pct =
+	total.lines.total > 0 ? (total.lines.covered / total.lines.total) * 100 : 0;
 
 fs.writeFileSync(
 	'coverage-summary.json',
