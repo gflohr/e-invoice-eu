@@ -51,7 +51,7 @@ jobs:
         with:
           script: |
             const fs = require('fs')
-            const body = fs.readFileSync('coverage-delta.txt', 'utf-8')
+            const body = fs.readFileSync('coverage-delta.md', 'utf-8')
 
             const { data: comments } = await github.rest.issues.listComments({
               issue_number: context.issue.number,
