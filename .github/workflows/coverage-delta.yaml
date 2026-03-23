@@ -1,0 +1,86 @@
+name: Coverage Delta
+
+on:
+  pull_request:
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Run tests with coverage (PR)
+        run: pnpm run test:cov
+
+      - name: Aggregate coverage (PR)
+        run: node aggregate-coverage.mjs
+
+      - name: Save PR coverage
+        run: cp coverage-summary.json pr-coverage.json
+
+      - name: Checkout main branch
+        run: |
+          git fetch origin main
+          git checkout origin/main
+
+      - name: Install dependencies (main)
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Run tests with coverage (main)
+        run: pnpm run test:cov
+
+      - name: Aggregate coverage (main)
+        run: node aggregate-coverage.mjs
+
+      - name: Compare coverage
+        id: coverage
+        run: |
+          node -e "
+              const pr = require('./pr-coverage.json')
+              const main = require('./coverage-summary.json')
+
+              const prPct = pr.total.lines.pct
+              const basePct = main.total.lines.pct
+              const delta = prPct - basePct
+
+              console.log('PR:', prPct.toFixed(2) + '%')
+              console.log('Base:', basePct.toFixed(2) + '%')
+              console.log('Delta:', delta.toFixed(2) + '%')
+
+              require('fs').writeFileSync('coverage-delta.txt',
+                  `PR: ${prPct.toFixed(2)}%\nBase: ${basePct.toFixed(2)}%\nDelta: ${delta.toFixed(2)}%`
+              )
+
+              console.log(`::set-output name=delta::${delta.toFixed(2)}`)
+            "
+
+      - name: Comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs')
+            const body = fs.readFileSync('coverage-delta.txt', 'utf-8')
+
+            github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: "📊 **Coverage Report**\n\n```\n" + body + "\n```"
+            })
