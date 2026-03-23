@@ -59,7 +59,7 @@ jobs:
               repo: context.repo.repo,
             })
 
-            const existing = comments.find(c => c.body.includes("📊 **Coverage Report**"))
+            const existing = comments.find(c => c.body.includes("**Coverage Report**"))
 
             if (existing) {
               await github.rest.issues.updateComment({
