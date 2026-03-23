@@ -31,7 +31,7 @@ const mockInvoice = {
 		'cac:AccountingSupplierParty': {
 			'cac:Party': {
 				'cac:PartyLegalEntity': {
-					'cbc:RegistrationName': 'Acme Ltd.',
+					'cbc:RegistrationName': 'Äcme Ltd.',
 				},
 			},
 		},
