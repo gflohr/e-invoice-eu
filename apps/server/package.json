@@ -91,6 +91,11 @@
 			"**/*.(t|j)s"
 		],
 		"coverageDirectory": "../coverage",
+		"coverageReporters": [
+			"json-summary",
+			"lcov",
+			"text"
+		],
 		"testEnvironment": "node"
 	},
 	"license": "WTFPL",
