@@ -10,7 +10,7 @@
 [![downloads](https://img.shields.io/npm/dw/%40e-invoice-eu%2Fcli)](https://www.npmjs.com/package/@e-invoice-eu/cli)
 [![documentation](https://img.shields.io/badge/documentation-read-green)](https://gflohr.github.io/e-invoice-eu)
 [![help](https://img.shields.io/badge/help-ask--a--question-green)](https://notebooklm.google.com/notebook/f5783dde-ebe6-4610-bac1-f181fdf45f94)
-[![stand with](https://img.shields.io/badge/listed%20on-awesome--europe-ffcc00?logo=europeanunion&logoColor=ffcc00&labelColor=003399)](https://github.com/GeiserX/awesome-europe#readme)
+[![listed on](https://img.shields.io/badge/listed%20on-awesome--europe-ffcc00?logo=europeanunion&logoColor=ffcc00&labelColor=003399)](https://github.com/GeiserX/awesome-europe#readme)
 [![stand with](https://img.shields.io/badge/stand%20with-Ukraine🇺🇦-ffc107)](https://www.standwithukraineeurope.com/en/)
 
 # @e-invoice-eu/cli<!-- omit in toc -->
