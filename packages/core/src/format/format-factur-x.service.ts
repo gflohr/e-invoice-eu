@@ -568,7 +568,7 @@ export class FormatFacturXService
 		return `${isoString}${formattedOffset}`;
 	}
 
-	private addMetadata(pdfDoc, xmp) {
+	private addMetadata(pdfDoc: PDFDocument, xmp: string) {
 		const xmpBytes = new TextEncoder().encode(xmp);
 		const metadataStream = pdfDoc.context.stream(xmpBytes, {
 			Type: 'Metadata',
