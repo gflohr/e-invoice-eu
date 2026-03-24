@@ -35,7 +35,7 @@ You can get an overview of all available commands and global options with
 
 ## Global Options
 
-The only other global option -s `--version` respectively `-V` (case matters,
+The only other global option is `--version` respectively `-V` (case matters,
 `-v` does not work).
 
 ## Commands
@@ -183,7 +183,7 @@ e-invoice-eu transform --format=UBL \
 
 | Option                     | Type   | Description                                                      |
 | -------------------------- | ------ | ---------------------------------------------------------------- |
-| `-u, --url`                | string | URL of the validation server (default: `http://localhost:8080)`) |
+| `-u, --url`                | string | URL of the validation server (default: `http://localhost:8080`) |
 | `-v, --verbose`            |        | Also report results for valid invoices                           |
 | `-q, --quiet`              |        | suppress all output                                              |
 
@@ -230,7 +230,7 @@ One invoice invalid.
 | `-i, --info`               | string | Show detailed information about one format                       |
 | `-q, --quiet`              |        | suppress all output                                              |
 
-## Format Identifiers
+#### Format Identifiers
 
 All output formats have a canonical form. For usability reasons, a lot of
 aliases exist.
