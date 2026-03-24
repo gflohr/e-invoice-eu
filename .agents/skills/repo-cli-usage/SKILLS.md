@@ -71,7 +71,7 @@ The only other global option -s `--version` respectively `-V` (case matters,
 | `-a, --attachment`         | string | Additional attachment                                    |
 | `--attachment-id`          | string | ID of attachment (optional)                              |
 | `--attachment-description` | string | Description of attachment (optional).                    |
-| `--attachment-mimetype`    |string  | MIME type for attachment (optional)                      |
+| `--attachment-mimetype`    | string | MIME type for attachment (optional)                      |
 
 #### Usage Examples
 
