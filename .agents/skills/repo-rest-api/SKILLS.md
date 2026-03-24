@@ -135,9 +135,9 @@ The server can be configured with environment variables:
 | `embedPDF`                 | boolean | Embed PDF into XML output (ignored for Factur-X/ZUGFeRD) |
 | `pdf`                      | file    | PDF version of invoice                                   |
 | `pdfID`                    | string  | ID for embedded PDF (defaults to doc number)             |
-| `pdfDescription`.          | string  | Optional description for embedded PDF                    |
+| `pdfDescription`           | string  | Optional description for embedded PDF                    |
 | `attachment`               | string  | Additional attachment                                    |
-| `attachmentID`.            | string  | ID of attachment (optional)                              |
+| `attachmentID`             | string  | ID of attachment (optional)                              |
 | `attachmentDescription`    | string  | Description of attachment (optional).                    |
  
 Note, that there is no parameter `attachmentMIMEType` because the MIME type
