@@ -284,7 +284,7 @@ The output always follows this schema for all formats.
 * Output the `mapping` JSON schema: `e-invoice-eu schema --id=mapping`
 
 The output has all unnecessary whitespace removed. It should be piped through
-`jq` if more readabillity is required.
+`jq` if more readability is required.
 
 #### Key Takeaways for Agents
 
