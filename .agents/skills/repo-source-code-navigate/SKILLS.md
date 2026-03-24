@@ -7,7 +7,7 @@ description: Navigate the e-invoice-eu repository structure. Use when looking fo
 
 ## Monorepo Layout
 
-```
+```text
 e-invoice-eu/
 ├── assets/             # Logos and so on.
 ├── apps/               # Applications.

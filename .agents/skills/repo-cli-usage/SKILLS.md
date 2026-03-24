@@ -24,7 +24,7 @@ If you lack permissions, prepend sudo to the command.
 
 Test the installation:
 
-```
+```text
 e-invoice-eu --version
 ```
 
