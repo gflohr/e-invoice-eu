@@ -66,7 +66,7 @@ defines country-specific business rules. As a consequence, the EN16931 is
 often considered not a EU-wide standard, because every member country
 can define its own rules. This causes massive problems in practice.
 
-Business terms are specific elements of an e-invoce. For example, the invoice
+Business terms are specific elements of an e-invoice. For example, the invoice
 number is BT-1. Business rules are semantic rules referring to business terms,
 for example BR-CO-10 demands "Sum of Invoice line net amount (BT-106) = Σ
 Invoice line net amount (BT-131)". This is how CIUSs are defined by the
@@ -129,7 +129,7 @@ the invoice number should be taken from cell B12.
 
 Because some fields, such as line items, can repeat, users can define
 spreadsheet sections. Cell addresses within a section are relative to the
-section start, not the beginning of the spreadshe
+section start, not the beginning of the spreadsheet.
 
 The library translates the XMP metadata with `esgettext`. The user interface
 is not translated.
@@ -247,7 +247,7 @@ touched topics instead.
 
 ## Agent Skills
 
-This repository includes agent skills in `/skills/` following the
+This repository includes agent skills in `.agents/skills/` following the
 [Agent Skills](https://agentskills.io) open standard.
 
 **Naming:** Skills prefixed with repo- are local to this repository. Only these
