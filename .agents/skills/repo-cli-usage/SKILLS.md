@@ -87,7 +87,7 @@ The only other global option is `--version` respectively `-V` (case matters,
 
 * Generating PDF requires LibreOffice unless a PDF is provided.
 * Redirecting standard output may corrupt binary output, especially on Windows → always use --output.
-* Multiple attachments can be specified; IDs and descriptions must follow in or will be defaulted.
+* Multiple attachments can be specified; IDs and descriptions must follow in the same order or will be defaulted.
 
 #### JSON Input Only
 
