@@ -85,7 +85,7 @@ and does **NOT need TypeDoc**. Example:
 
 ```typescript
 // @__NO_SIDE_EFFECTS__
-async addMetadata(
+async getMetadata(
   data: Record<string, string>
 ): Promise<void> {
     /* ... */
