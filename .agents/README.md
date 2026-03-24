@@ -19,7 +19,7 @@ execution.
 
 Each skill follows a consistent structure:
 
-* **Purpose/General Mode of Operation**  
+* **Purpose / General Mode of Operation**  
   What the method, command or endpoint does.
 
 * **Prerequisites**  
@@ -31,7 +31,7 @@ Each skill follows a consistent structure:
 * **Usage Examples**  
   Typical and recommended usage patterns.
 
-* **Special Notes/Hints**  
+* **Special Notes / Hints**  
   Edge cases, caveats, or important constraints.
 
 * **Key Takeaways for Agents**  
