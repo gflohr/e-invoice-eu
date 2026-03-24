@@ -70,7 +70,7 @@ Add hints after the main description, before `@param`:
 
 ### Links
 
-Link to external resources when relevant using markdown format:
+Link to external resources when relevant using Markdown format:
 
 ```typescript
 /**
