@@ -193,7 +193,7 @@ e-invoice-eu transform --format=UBL \
 
 Sample output:
 
-```
+```text
 invoice-283784.xml: ✓ valid
 invoice-445937.pdf: ✓ valid
 invoice-459872.xml: ✗ invalid
