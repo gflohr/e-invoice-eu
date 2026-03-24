@@ -5,7 +5,7 @@ issue_enrichment:
       - label: bug
         instructions: Issues reporting bugs, errors, crashes, incorrect behavior, or unexpected results. This includes runtime errors, logic errors, broken functionality, regressions, and any deviation from expected or documented behavior.
       - label: cii
-        instructions: Issues related to the CII output. These issues will often be classified by users as related to Factur-X/ZUGFeRD, but when the issue has nothing to do with PDF odr PDF/A but rather mapping to CII fields from the XML namespaces ram:, rsm:, udt:, or qdt:, they are actually about CII, not Factur-X/ZUGFeRD.
+        instructions: Issues related to the CII output. These issues will often be classified by users as related to Factur-X/ZUGFeRD, but when the issue has nothing to do with PDF or PDF/A but rather mapping to CII fields from the XML namespaces ram:, rsm:, udt:, or qdt:, they are actually about CII, not Factur-X/ZUGFeRD.
       - label: cli
         instructions: Issues related to the command-line interface.
       - label: code-lists
