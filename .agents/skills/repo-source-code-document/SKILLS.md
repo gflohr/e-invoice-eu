@@ -138,7 +138,7 @@ Do not comment obvious code:
 In general, it should *always* be obvious, what the code does. And that means
 that comments are rarely helpful. Rationale:
 
-* Comments occupy space and therefore obscure sorce code.
+* Comments occupy space and therefore obscure source code.
 * Comments tend to rot. They are not automatically updated, when the code changes.
 
 ### Section Headers
@@ -226,7 +226,7 @@ Use consistently:
 
 The last rule applies to comments. For identifiers, avoid any capitalisation
 of "ZUGFeRD" but use `factur-x`, `FacturX`, or `facturX` depending on the
-applicable casing style (camelCase, PascalCase, kebap-case).
+applicable casing style (camelCase, PascalCase, kebab-case).
 
 The term "invoice" often stands for "invoice" or "credit note". Use both
 terms, wherever not mentioning "credit note" can lead to confusion.
