@@ -1,0 +1,46 @@
+issue_enrichment:
+  labeling:
+    auto_apply_labels: true
+    labeling_instructions:
+      - label: bug
+        instructions: Issues reporting bugs, errors, crashes, incorrect behavior, or unexpected results. This includes runtime errors, logic errors, broken functionality, regressions, and any deviation from expected or documented behavior.
+      - label: cii
+        instructions: Issues related to the CII output. These issues will often be classified by users as related to Factur-X/ZUGFeRD, but when the issue has nothing to do with PDF or PDF/A but rather mapping to CII fields from the XML namespaces ram:, rsm:, udt:, or qdt:, they are actually about CII, not Factur-X/ZUGFeRD.
+      - label: cli
+        instructions: Issues related to the command-line interface.
+      - label: code-lists
+        instructions: Errors in the code lists (not up-to-date, missing entries, and so on).
+      - label: credit-notes
+        instructions: Credit notes (aka corrected invoices, storno) are a hotspot for issues.
+      - label: docker
+        instructions: Issues that are related to the docker images, for example image not built/published, crashing, vulnerabilities.
+      - label: documentation
+        instructions: Documentation updates, additions, corrections, or clarifications needed. This includes missing docs, outdated information, unclear instructions, API documentation, code examples, README improvements, and any requests for better explanations or guides.
+      - label: duplicate
+        instructions: Used, when an issue is a duplicate of an open or closed issue. This can happen, users should not be criticised for it.
+      - label: en16931
+        instructions: Issues with conformance to the EN16931 e-invoice standard.
+      - label: enhancement
+        instructions: Feature requests, improvements to existing functionality, performance optimizations, refactoring suggestions, UI/UX enhancements, and any suggestions to make the project better or add new capabilities.
+      - label: factur-x
+        instructions: Use this label only for issues related to PDF, PDF/A, or Factur-X conformance levels. Do not use it for issues that are only related to the attached CII document.
+      - label: mapping
+        instructions: Issues related to mapping spreadsheet cells to invoice data, not to be confused with mappings from UBL to CII.
+      - label: pdf-a
+        instructions: Issues related to PDF/A conformance (XMP metadata, fonts, etc.).
+      - label: pdf
+        instructions: Issues related to the PDF creation that are not completely related to PDF/A conformance.
+      - label: question
+        instructions: Not an issue but rather a question to the author(s). This is okay and should not be criticised.
+      - label: security
+        instructions: Vulnerabilities in the software itself, in one of its dependencies, the docker image, or other security-relevant issues.
+      - label: server
+        instructions: Issues specific to the REST API implemented in the NestJS server.
+      - label: tests
+        instructions: Everything related to tests or testing.
+      - label: ubl
+        instructions: 'Issues related to UBL output. The XML namespaces for UBL are cac: and cbc: (and ubl: for the top-level ubl:Invoice element).'
+      - label: user-experience
+        instructions: Everything that is related to the usability and ease of interaction with the software, not just every enhancement.
+      - label: core
+        instructions: Issues with the core library that do not fall into another category like cii, ubl, mapping, code-lists, credit-notes, en16931.

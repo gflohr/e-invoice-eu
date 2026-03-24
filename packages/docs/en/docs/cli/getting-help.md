@@ -10,7 +10,7 @@ section: cli
 
 <!--/qgoda-no-xgettext-->
 
-You can an overview about all available commands and global options with the
+You can get an overview of all available commands and global options with the
 option `--help`:
 
 <!--qgoda-no-xgettext-->
