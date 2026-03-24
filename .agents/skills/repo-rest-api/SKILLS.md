@@ -202,9 +202,6 @@ curl -X POST \
 | `format`                   | string  | Supported format                                         |
 | `mapping`                  | file    | Mapping YAML/JSON for spreadsheet to JSON.               |
 | `spreadsheet`              | file    | Spreadsheet file                                         |
-| `lang`                     | string  | Language identifier (e.g., fr-fr)                        |
- 
-The parameter `lang` seems to be missing at the moment. That is probably a bug.
 
 #### Usage Examples
 
