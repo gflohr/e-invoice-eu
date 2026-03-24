@@ -74,7 +74,7 @@ example `invoice.service.ts`, `invoice.service.spec.ts`, `invoice.controller.ts`
 and so on.
 
 Test files (`*.spec.ts`) live next to the file with the class under test. There
-is not test directory.
+is no test directory.
 
 ## Commands
 
