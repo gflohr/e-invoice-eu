@@ -20,7 +20,7 @@ The general options are:
 
 ### Docker Container
 
-```
+```sh
 docker pull gflohr/e-invoice-eu:latest
 docker run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest
 ```
@@ -28,7 +28,7 @@ docker run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:latest
 The slim image does not include LibreOffice. This can be used if PDF versions
 of the invoice are never created from spreadsheets but are already available:
 
-```
+```sh
 docker pull gflohr/e-invoice-eu:slim
 docker run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:slim
 ```
@@ -37,7 +37,7 @@ docker run --rm -p 3000:3000 --name e-invoice-eu gflohr/e-invoice-eu:slim
 
 Clone the repository with one of:
 
-```
+```sh
 # HTTPS
 git clone https://github.com/gflohr/e-invoice-eu.git
 
@@ -47,7 +47,7 @@ git clone git@github.com:gflohr/e-invoice-eu.git
 
 Build and run the server:
 
-```
+```sh
 pnpm install
 pnpm run build
 cd apps/server
@@ -60,7 +60,7 @@ The server is running on http://[::1]:3000.
 
 Clone the repository with one of:
 
-```
+```sh
 # HTTPS
 git clone https://github.com/gflohr/e-invoice-eu.git
 
@@ -70,7 +70,7 @@ git clone git@github.com:gflohr/e-invoice-eu.git
 
 Run the server:
 
-```
+```sh
 pnpm install
 cd apps/server
 pnpm run start:dev
@@ -146,18 +146,18 @@ will be provided by the HTTP client.
 #### Usage Examples
 
 * Create invoice from spreadsheet + mapping:
-```
+```sh
 curl -X POST "http://localhost:3000/api/invoice/create/UBL" \
   -F "spreadsheet=@contrib/templates/default-invoice.ods" \
   -F "mapping=@contrib/mappings/default-invoice.yaml"
 ```
 * Create invoice from JSON:
-```
+```sh
 curl -X POST "http://localhost:3000/api/invoice/create/UBL" \
   -F "invoice=@contrib/data/default-invoice.json"
 ```
 * Full-fledged example
-```
+```sh
 curl -X POST \
  http://localhost:3000/api/invoice/create/UBL \
  -F lang=de \
@@ -209,7 +209,7 @@ The parameter `lang` seems to be missing at the moment. That is probably a bug.
 #### Usage Examples
 
 * Transform spreadsheet + mapping into invoice data in internal format:
-```
+```sh
 curl -X POST "http://localhost:3000/api/mapping/transform/UBL" \
   -F "spreadsheet=@contrib/templates/default-invoice.ods" \
   -F "mapping=@contrib/mappings/default-invoice.yaml"
