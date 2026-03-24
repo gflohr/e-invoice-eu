@@ -97,7 +97,7 @@ Classes, interfaces, types, and enums use PascalCase.
 
 Variables, methods, and properties use camelCase.
 
-Wherever allowed, kebap-case should be used, especially for file names.
+Wherever allowed, kebab-case should be used, especially for file names.
 
 The underscore should **NEVER** be used.
 
