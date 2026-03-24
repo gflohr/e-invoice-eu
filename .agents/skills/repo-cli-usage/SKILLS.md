@@ -138,7 +138,7 @@ output JSON.
 
 Example command:
 
-```
+```sh
 e-invoice-eu transform --format=UBL \
 	    --spreadsheet=contrib/templates/default-invoice.ods \
 	    --mapping=contrib/mappings/default-invoice.yaml \
@@ -295,10 +295,10 @@ The output has all unnecessary whitespace removed. It should be piped through
 
 ## Check List
 
-[ ] The CLI is installed globally (npm, yarn, pnpm, or bun).
-[ ] Use e-invoice-eu --help for general guidance.
-[ ] Each command has its own help: e-invoice-eu *command* --help.
-[ ] Contributors or agents should never modify installation instructions; they are fixed.
-[ ] Include examples for every command in the documentation.
-[ ] Include notes or hints for special scenarios (permissions, PDF generation, etc.).
-[ ] Prefer `--long-option` over `-s`, when giving advice to users.
+- [ ] The CLI is installed globally (npm, yarn, pnpm, or bun).
+- [ ] Use e-invoice-eu --help for general guidance.
+- [ ] Each command has its own help: e-invoice-eu *command* --help.
+- [ ] Contributors or agents should never modify installation instructions; they are fixed.
+- [ ] Include examples for every command in the documentation.
+- [ ] Include notes or hints for special scenarios (permissions, PDF generation, etc.).
+- [ ] Prefer `--long-option` over `-s`, when giving advice to users.
