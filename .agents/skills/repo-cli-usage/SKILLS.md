@@ -158,7 +158,7 @@ e-invoice-eu transform --format=UBL \
 * Advise using `jq` to improve readability of the output.
 * Format option mainly controls default customization ID; does not overwrite an existing one.
 
---- End of documentation for command `mapping`. ---
+--- End of documentation for command `transform`. ---
 
 ### The Command `validate`
 
