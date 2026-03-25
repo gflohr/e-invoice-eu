@@ -258,7 +258,7 @@ from our spreadsheet application.
 
 #### Formulas
 
-In version 3, formulas will probably be supported. This feature is mainly
+In a future version, formulas will probably be supported. This feature is mainly
 useful if you use CSV file as input for the invoice data.
 
 ## Surprising Arrays

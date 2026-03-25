@@ -158,7 +158,7 @@ export class InvoiceService {
 		if (!options.noWarnings) {
 			console.warn("Coercing 'ubl:Invoice->cbc:Note' from an array into an");
 			console.warn('array of strings. Please change your data resp. mapping!');
-			console.warn('The automatic coercion will be removed in version 3!');
+			console.warn('The automatic coercion will be removed in version 4!');
 		}
 	}
 }

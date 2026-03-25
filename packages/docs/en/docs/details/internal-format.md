@@ -54,7 +54,7 @@ Open](https://groups.oasis-open.org/home).
 OnLine)](https://peppol.org/) is an effort of the European
 Union aiming at the standardization of cross-border procurement processes.
 They have published the [Business Interoperability Specifications
-(BIS)](https://docs.peppol.eu/poacc/billing/3.0/bis/), currently version 3.0.
+(BIS)](https://docs.peppol.eu/poacc/billing/3.0/bis/), currently version 3.0.20.
 One of these specifications is that for [UBL
 Invoice](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/tree/).
 
