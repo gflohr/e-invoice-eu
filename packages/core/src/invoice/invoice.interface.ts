@@ -154,7 +154,6 @@ export type InvoiceCurrencyCode =
 	| 'COP'
 	| 'COU'
 	| 'CRC'
-	| 'CUC'
 	| 'CUP'
 	| 'CVE'
 	| 'CZK'
@@ -295,7 +294,8 @@ export type InvoiceCurrencyCode =
 	| 'ZAR'
 	| 'ZMW'
 	| 'ZWG'
-	| 'ZWL';
+	| 'XXX'
+	| 'CNH';
 /**
  * The currency used for VAT accounting and reporting purposes as accepted or required in the country of the Seller. Shall be used in combination with the Invoice total VAT amount in accounting currency (BT-111), when the VAT accounting currency code differs from the Invoice currency code.
  * Business terms: BT-6
@@ -338,7 +338,6 @@ export type VATAccountingCurrencyCode =
 	| 'COP'
 	| 'COU'
 	| 'CRC'
-	| 'CUC'
 	| 'CUP'
 	| 'CVE'
 	| 'CZK'
@@ -479,7 +478,8 @@ export type VATAccountingCurrencyCode =
 	| 'ZAR'
 	| 'ZMW'
 	| 'ZWG'
-	| 'ZWL';
+	| 'XXX'
+	| 'CNH';
 /**
  * A textual value that specifies where to book the relevant data into the Buyer's financial accounts.
  * Business terms: BT-19
@@ -1370,7 +1370,8 @@ export type SchemeIdentifier =
 	| 'XA'
 	| 'XC'
 	| 'XP'
-	| 'ZZZ';
+	| 'ZZZ'
+	| 'AXU';
 /**
  * Code "130" MUST be used to indicate an invoice object reference. Not used for other additional documents
  * Business terms: BT-18
@@ -1460,7 +1461,6 @@ export type SellerElectronicAddressIdentificationSchemeIdentifier =
 	| '0221'
 	| '0230'
 	| '0235'
-	| '9901'
 	| '9910'
 	| '9913'
 	| '9914'
@@ -1502,6 +1502,18 @@ export type SellerElectronicAddressIdentificationSchemeIdentifier =
 	| '9953'
 	| '9957'
 	| '9959'
+	| '0147'
+	| '0154'
+	| '0158'
+	| '0170'
+	| '0194'
+	| '0203'
+	| '0205'
+	| '0217'
+	| '0225'
+	| '0240'
+	| '0244'
+	| '0245'
 	| 'EM'
 	| 'AQ'
 	| 'AS'
@@ -1750,6 +1762,13 @@ export type SellerOrBankAssignedCreditorIdentifierIdentificationSchemeIdentifier
 				| '0236'
 				| '0237'
 				| '0238'
+				| '0239'
+				| '0240'
+				| '0241'
+				| '0242'
+				| '0243'
+				| '0244'
+				| '0245'
 		  )
 		| 'SEPA'
 	) &
@@ -2296,7 +2315,14 @@ export type SellerLegalRegistrationIdentifierIdentificationSchemeIdentifier =
 	| '0235'
 	| '0236'
 	| '0237'
-	| '0238';
+	| '0238'
+	| '0239'
+	| '0240'
+	| '0241'
+	| '0242'
+	| '0243'
+	| '0244'
+	| '0245';
 /**
  * Additional legal information relevant for the Seller.
  * Business terms: BT-33
@@ -2367,7 +2393,6 @@ export type BuyerElectronicAddressIdentificationSchemeIdentifier =
 	| '0221'
 	| '0230'
 	| '0235'
-	| '9901'
 	| '9910'
 	| '9913'
 	| '9914'
@@ -2409,6 +2434,18 @@ export type BuyerElectronicAddressIdentificationSchemeIdentifier =
 	| '9953'
 	| '9957'
 	| '9959'
+	| '0147'
+	| '0154'
+	| '0158'
+	| '0170'
+	| '0194'
+	| '0203'
+	| '0205'
+	| '0217'
+	| '0225'
+	| '0240'
+	| '0244'
+	| '0245'
 	| 'EM'
 	| 'AQ'
 	| 'AS'
@@ -2654,7 +2691,14 @@ export type BuyerIdentifierIdentificationSchemeIdentifier =
 	| '0235'
 	| '0236'
 	| '0237'
-	| '0238';
+	| '0238'
+	| '0239'
+	| '0240'
+	| '0241'
+	| '0242'
+	| '0243'
+	| '0244'
+	| '0245';
 /**
  * A name by which the Buyer is known, other than Buyer name (also known as Business name).
  * Business terms: BT-45
@@ -3197,7 +3241,14 @@ export type BuyerLegalRegistrationIdentifierIdentificationSchemeIdentifier =
 	| '0235'
 	| '0236'
 	| '0237'
-	| '0238';
+	| '0238'
+	| '0239'
+	| '0240'
+	| '0241'
+	| '0242'
+	| '0243'
+	| '0244'
+	| '0245';
 /**
  * A contact point for a legal entity or person.
  * Business terms: BT-56
@@ -3457,6 +3508,13 @@ export type PayeeOrBankAssignedCreditorIdentifierIdentificationSchemeIdentifier 
 				| '0236'
 				| '0237'
 				| '0238'
+				| '0239'
+				| '0240'
+				| '0241'
+				| '0242'
+				| '0243'
+				| '0244'
+				| '0245'
 		  )
 		| 'SEPA'
 	) &
@@ -3707,7 +3765,14 @@ export type PayeeLegalRegistrationIdentifierIdentificationSchemeIdentifier =
 	| '0235'
 	| '0236'
 	| '0237'
-	| '0238';
+	| '0238'
+	| '0239'
+	| '0240'
+	| '0241'
+	| '0242'
+	| '0243'
+	| '0244'
+	| '0245';
 /**
  * The full name of the Seller's tax representative party.
  * Business terms: BT-62
@@ -4250,7 +4315,14 @@ export type DeliverToLocationIdentifierIdentificationSchemeIdentifier =
 	| '0235'
 	| '0236'
 	| '0237'
-	| '0238';
+	| '0238'
+	| '0239'
+	| '0240'
+	| '0241'
+	| '0242'
+	| '0243'
+	| '0244'
+	| '0245';
 /**
  * The main address line in an address.
  * Business terms: BT-75
@@ -4629,7 +4701,8 @@ export type PaymentMeansTypeCode =
 	| '96'
 	| '97'
 	| '98'
-	| 'ZZZ';
+	| 'ZZZ'
+	| '69';
 /**
  * The means, expressed as text, for how a payment is expected to be or has been settled.
  * Business terms: BT-82
@@ -4968,7 +5041,95 @@ export type VATCategoryRate = string;
  * A coded statement of the reason for why the amount is exempted from VAT.
  * Business terms: BT-121
  */
-export type VATExemptionReasonCode = string;
+export type VATExemptionReasonCode =
+	| 'VATEX-EU-79-C'
+	| 'VATEX-EU-132'
+	| 'VATEX-EU-132-1A'
+	| 'VATEX-EU-132-1B'
+	| 'VATEX-EU-132-1C'
+	| 'VATEX-EU-132-1D'
+	| 'VATEX-EU-132-1E'
+	| 'VATEX-EU-132-1F'
+	| 'VATEX-EU-132-1G'
+	| 'VATEX-EU-132-1H'
+	| 'VATEX-EU-132-1I'
+	| 'VATEX-EU-132-1J'
+	| 'VATEX-EU-132-1K'
+	| 'VATEX-EU-132-1L'
+	| 'VATEX-EU-132-1M'
+	| 'VATEX-EU-132-1N'
+	| 'VATEX-EU-132-1O'
+	| 'VATEX-EU-132-1P'
+	| 'VATEX-EU-132-1Q'
+	| 'VATEX-EU-143'
+	| 'VATEX-EU-143-1A'
+	| 'VATEX-EU-143-1B'
+	| 'VATEX-EU-143-1C'
+	| 'VATEX-EU-143-1D'
+	| 'VATEX-EU-143-1E'
+	| 'VATEX-EU-143-1F'
+	| 'VATEX-EU-143-1FA'
+	| 'VATEX-EU-143-1G'
+	| 'VATEX-EU-143-1H'
+	| 'VATEX-EU-143-1I'
+	| 'VATEX-EU-143-1J'
+	| 'VATEX-EU-143-1K'
+	| 'VATEX-EU-143-1L'
+	| 'VATEX-EU-144'
+	| 'VATEX-EU-146-1E'
+	| 'VATEX-EU-148'
+	| 'VATEX-EU-148-A'
+	| 'VATEX-EU-148-B'
+	| 'VATEX-EU-148-C'
+	| 'VATEX-EU-148-D'
+	| 'VATEX-EU-148-E'
+	| 'VATEX-EU-148-F'
+	| 'VATEX-EU-148-G'
+	| 'VATEX-EU-151'
+	| 'VATEX-EU-151-1A'
+	| 'VATEX-EU-151-1AA'
+	| 'VATEX-EU-151-1B'
+	| 'VATEX-EU-151-1C'
+	| 'VATEX-EU-151-1D'
+	| 'VATEX-EU-151-1E'
+	| 'VATEX-EU-159'
+	| 'VATEX-EU-309'
+	| 'VATEX-EU-AE'
+	| 'VATEX-EU-D'
+	| 'VATEX-EU-F'
+	| 'VATEX-EU-G'
+	| 'VATEX-EU-I'
+	| 'VATEX-EU-IC'
+	| 'VATEX-EU-O'
+	| 'VATEX-EU-J'
+	| 'VATEX-FR-FRANCHISE'
+	| 'VATEX-FR-CNWVAT'
+	| 'VATEX-EU-153'
+	| 'VATEX-FR-CGI261-1'
+	| 'VATEX-FR-CGI261-2'
+	| 'VATEX-FR-CGI261-3'
+	| 'VATEX-FR-CGI261-4'
+	| 'VATEX-FR-CGI261-5'
+	| 'VATEX-FR-CGI261-7'
+	| 'VATEX-FR-CGI261-8'
+	| 'VATEX-FR-CGI261A'
+	| 'VATEX-FR-CGI261B'
+	| 'VATEX-FR-CGI261C-1'
+	| 'VATEX-FR-CGI261C-2'
+	| 'VATEX-FR-CGI261C-3'
+	| 'VATEX-FR-CGI261D-1'
+	| 'VATEX-FR-CGI261D-1BIS'
+	| 'VATEX-FR-CGI261D-2'
+	| 'VATEX-FR-CGI261D-3'
+	| 'VATEX-FR-CGI261D-4'
+	| 'VATEX-FR-CGI261E-1'
+	| 'VATEX-FR-CGI261E-2'
+	| 'VATEX-FR-CGI277A'
+	| 'VATEX-FR-CGI275'
+	| 'VATEX-FR-298SEXDECIESA'
+	| 'VATEX-FR-CGI295'
+	| 'VATEX-FR-AE'
+	| 'VATEX-EU-135-1';
 /**
  * A textual statement of the reason why the amount is exempted from VAT or why no VAT is being charged.
  * Business terms: BT-120
@@ -8046,7 +8207,8 @@ export type InvoiceLineObjectIdentifierIdentificationSchemeIdentifier =
 	| 'XA'
 	| 'XC'
 	| 'XP'
-	| 'ZZZ';
+	| 'ZZZ'
+	| 'AXU';
 /**
  * Code "130" MUST be used to indicate an invoice object reference. Not used for other additional documents
  * Business terms: BT-128
@@ -8541,7 +8703,14 @@ export type ItemStandardIdentifierIdentificationSchemeIdentifier =
 	| '0235'
 	| '0236'
 	| '0237'
-	| '0238';
+	| '0238'
+	| '0239'
+	| '0240'
+	| '0241'
+	| '0242'
+	| '0243'
+	| '0244'
+	| '0245';
 /**
  * The code identifying the country from which the item originates.
  * Business terms: BT-159
@@ -8990,7 +9159,8 @@ export type ItemClassificationIdentifierIdentificationSchemeIdentifier =
 	| 'VP'
 	| 'VS'
 	| 'VX'
-	| 'ZZZ';
+	| 'ZZZ'
+	| 'PPI';
 /**
  * The identification scheme version identifier of the Item classification identifier
  */
@@ -11663,7 +11833,6 @@ export interface DOCUMENTLEVELALLOWANCESANDCHARGES {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -11804,7 +11973,8 @@ export interface DOCUMENTLEVELALLOWANCESANDCHARGES {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 	'cbc:BaseAmount'?: DocumentLevelAllowanceOrChargeBaseAmount;
 	/**
 	 * Mandatory attribute. Use BT-5
@@ -11847,7 +12017,6 @@ export interface DOCUMENTLEVELALLOWANCESANDCHARGES {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -11988,7 +12157,8 @@ export interface DOCUMENTLEVELALLOWANCESANDCHARGES {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 	'cac:TaxCategory': TAXCATEGORY;
 }
 export interface TAXCATEGORY {
@@ -12048,7 +12218,6 @@ export interface TAXTOTAL {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -12189,7 +12358,8 @@ export interface TAXTOTAL {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 	'cac:TaxSubtotal'?: VATBREAKDOWN[];
 }
 /**
@@ -12239,7 +12409,6 @@ export interface VATBREAKDOWN {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -12380,7 +12549,8 @@ export interface VATBREAKDOWN {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 	'cbc:TaxAmount': VATCategoryTaxAmount;
 	/**
 	 * Mandatory attribute. Use BT-5
@@ -12423,7 +12593,6 @@ export interface VATBREAKDOWN {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -12564,7 +12733,8 @@ export interface VATBREAKDOWN {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 	'cac:TaxCategory': VATCATEGORY;
 }
 export interface VATCATEGORY {
@@ -12627,7 +12797,6 @@ export interface DOCUMENTTOTALS {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -12768,7 +12937,8 @@ export interface DOCUMENTTOTALS {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 	'cbc:TaxExclusiveAmount': InvoiceTotalAmountWithoutVAT;
 	/**
 	 * Mandatory attribute. Use BT-5
@@ -12811,7 +12981,6 @@ export interface DOCUMENTTOTALS {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -12952,7 +13121,8 @@ export interface DOCUMENTTOTALS {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 	'cbc:TaxInclusiveAmount': InvoiceTotalAmountWithVAT;
 	/**
 	 * Mandatory attribute. Use BT-5
@@ -12995,7 +13165,6 @@ export interface DOCUMENTTOTALS {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -13136,7 +13305,8 @@ export interface DOCUMENTTOTALS {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 	'cbc:AllowanceTotalAmount'?: SumOfAllowancesOnDocumentLevel;
 	/**
 	 * Mandatory attribute. Use BT-5
@@ -13179,7 +13349,6 @@ export interface DOCUMENTTOTALS {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -13320,7 +13489,8 @@ export interface DOCUMENTTOTALS {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 	'cbc:ChargeTotalAmount'?: SumOfChargesOnDocumentLevel;
 	/**
 	 * Mandatory attribute. Use BT-5
@@ -13363,7 +13533,6 @@ export interface DOCUMENTTOTALS {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -13504,7 +13673,8 @@ export interface DOCUMENTTOTALS {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 	'cbc:PrepaidAmount'?: PaidAmount;
 	/**
 	 * Mandatory attribute. Use BT-5
@@ -13547,7 +13717,6 @@ export interface DOCUMENTTOTALS {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -13688,7 +13857,8 @@ export interface DOCUMENTTOTALS {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 	'cbc:PayableRoundingAmount'?: RoundingAmount;
 	/**
 	 * Mandatory attribute. Use BT-5
@@ -13731,7 +13901,6 @@ export interface DOCUMENTTOTALS {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -13872,7 +14041,8 @@ export interface DOCUMENTTOTALS {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 	'cbc:PayableAmount': AmountDueForPayment;
 	/**
 	 * Mandatory attribute. Use BT-5
@@ -13915,7 +14085,6 @@ export interface DOCUMENTTOTALS {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -14056,7 +14225,8 @@ export interface DOCUMENTTOTALS {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 }
 /**
  * A group of business terms providing information on individual Invoice lines.
@@ -14109,7 +14279,6 @@ export interface INVOICELINE {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -14250,7 +14419,8 @@ export interface INVOICELINE {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 	'cbc:AccountingCost'?: InvoiceLineBuyerAccountingReference;
 	'cac:InvoicePeriod'?: INVOICELINEPERIOD;
 	'cac:OrderLineReference'?: ORDERLINEREFERENCE;
@@ -14329,7 +14499,6 @@ export interface INVOICELINEALLOWANCESORCHARGES {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -14470,7 +14639,8 @@ export interface INVOICELINEALLOWANCESORCHARGES {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 	'cbc:BaseAmount'?: LineLevelAllowanceOrChargeBaseAmount;
 	/**
 	 * Mandatory attribute. Use BT-5
@@ -14513,7 +14683,6 @@ export interface INVOICELINEALLOWANCESORCHARGES {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -14654,7 +14823,8 @@ export interface INVOICELINEALLOWANCESORCHARGES {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 }
 /**
  * A group of business terms providing information about the goods and services invoiced.
@@ -14759,7 +14929,6 @@ export interface PRICEDETAILS {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -14900,7 +15069,8 @@ export interface PRICEDETAILS {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 	'cbc:BaseQuantity'?: ItemPriceBaseQuantity;
 	'cbc:BaseQuantity@unitCode'?: ItemPriceBaseQuantityUnitOfMeasureCode;
 	'cac:AllowanceCharge'?: ALLOWANCE;
@@ -14952,7 +15122,6 @@ export interface ALLOWANCE {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -15093,7 +15262,8 @@ export interface ALLOWANCE {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 	'cbc:BaseAmount'?: ItemGrossPrice;
 	/**
 	 * Mandatory attribute. Use BT-5
@@ -15136,7 +15306,6 @@ export interface ALLOWANCE {
 		| 'COP'
 		| 'COU'
 		| 'CRC'
-		| 'CUC'
 		| 'CUP'
 		| 'CVE'
 		| 'CZK'
@@ -15277,5 +15446,6 @@ export interface ALLOWANCE {
 		| 'ZAR'
 		| 'ZMW'
 		| 'ZWG'
-		| 'ZWL';
+		| 'XXX'
+		| 'CNH';
 }

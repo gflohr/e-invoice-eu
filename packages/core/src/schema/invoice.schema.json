@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2019-09/schema",
-	"$id": "https://www.cantanea.com/schemas/ubl-invoice-schema-v2.2.1",
+	"$id": "https://www.cantanea.com/schemas/ubl-invoice-schema-v2.3.4",
 	"type": "object",
 	"additionalProperties": false,
 	"properties": {
@@ -1316,6 +1316,7 @@
 												},
 												"cbc:TaxExemptionReasonCode": {
 													"type": "string",
+													"$ref": "#/$defs/codeLists/vatex",
 													"title": "VAT exemption reason code",
 													"description": "A coded statement of the reason for why the amount is exempted from VAT.\nBusiness terms: BT-121"
 												},
@@ -2011,7 +2012,8 @@
 					"96",
 					"97",
 					"98",
-					"ZZZ"
+					"ZZZ",
+					"69"
 				]
 			},
 			"UNCL2005": {
@@ -2202,7 +2204,8 @@
 					"VP",
 					"VS",
 					"VX",
-					"ZZZ"
+					"ZZZ",
+					"PPI"
 				]
 			},
 			"MimeCode": {
@@ -4444,7 +4447,33 @@
 					"VATEX-EU-O",
 					"VATEX-EU-J",
 					"VATEX-FR-FRANCHISE",
-					"VATEX-FR-CNWVAT"
+					"VATEX-FR-CNWVAT",
+					"VATEX-EU-153",
+					"VATEX-FR-CGI261-1",
+					"VATEX-FR-CGI261-2",
+					"VATEX-FR-CGI261-3",
+					"VATEX-FR-CGI261-4",
+					"VATEX-FR-CGI261-5",
+					"VATEX-FR-CGI261-7",
+					"VATEX-FR-CGI261-8",
+					"VATEX-FR-CGI261A",
+					"VATEX-FR-CGI261B",
+					"VATEX-FR-CGI261C-1",
+					"VATEX-FR-CGI261C-2",
+					"VATEX-FR-CGI261C-3",
+					"VATEX-FR-CGI261D-1",
+					"VATEX-FR-CGI261D-1BIS",
+					"VATEX-FR-CGI261D-2",
+					"VATEX-FR-CGI261D-3",
+					"VATEX-FR-CGI261D-4",
+					"VATEX-FR-CGI261E-1",
+					"VATEX-FR-CGI261E-2",
+					"VATEX-FR-CGI277A",
+					"VATEX-FR-CGI275",
+					"VATEX-FR-298SEXDECIESA",
+					"VATEX-FR-CGI295",
+					"VATEX-FR-AE",
+					"VATEX-EU-135-1"
 				]
 			},
 			"UNCL1001-inv": {
@@ -4539,7 +4568,6 @@
 					"COP",
 					"COU",
 					"CRC",
-					"CUC",
 					"CUP",
 					"CVE",
 					"CZK",
@@ -4680,7 +4708,8 @@
 					"ZAR",
 					"ZMW",
 					"ZWG",
-					"ZWL"
+					"XXX",
+					"CNH"
 				]
 			},
 			"UNCL1153": {
@@ -5501,7 +5530,8 @@
 					"XA",
 					"XC",
 					"XP",
-					"ZZZ"
+					"ZZZ",
+					"AXU"
 				]
 			},
 			"UNCL5305": {
@@ -5550,7 +5580,6 @@
 					"0221",
 					"0230",
 					"0235",
-					"9901",
 					"9910",
 					"9913",
 					"9914",
@@ -5592,6 +5621,18 @@
 					"9953",
 					"9957",
 					"9959",
+					"0147",
+					"0154",
+					"0158",
+					"0170",
+					"0194",
+					"0203",
+					"0205",
+					"0217",
+					"0225",
+					"0240",
+					"0244",
+					"0245",
 					"EM",
 					"AQ",
 					"AS",
@@ -5836,7 +5877,14 @@
 					"0235",
 					"0236",
 					"0237",
-					"0238"
+					"0238",
+					"0239",
+					"0240",
+					"0241",
+					"0242",
+					"0243",
+					"0244",
+					"0245"
 				]
 			},
 			"UNCL1001-cn": {
