@@ -13,6 +13,14 @@
 		"cac:OrderReference": {
 			"cbc:ID": "A7450891"
 		},
+		"cac:BillingReference": [
+			{
+				"cac:InvoiceDocumentReference": {
+					"cbc:ID": "1234567889",
+					"cbc:IssueDate": "2024-09-12"
+				}
+			}
+		],
 		"cac:AccountingSupplierParty": {
 			"cac:Party": {
 				"cbc:EndpointID": "DE202526944",
