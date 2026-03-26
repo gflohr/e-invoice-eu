@@ -36,8 +36,8 @@ const out = `${icon} 📊 **Coverage Delta** ${emoji}
 <details>
 <summary>Click to see full coverage details</summary>
 
-New:   ${prPct.toFixed(2)} %
 Old:   ${basePct.toFixed(2)} %
+New:   ${prPct.toFixed(2)} %
 Delta: ${emoji} ${delta >= 0 ? '+' : ''}${delta.toFixed(2)} % ${icon}
 
 </details>
