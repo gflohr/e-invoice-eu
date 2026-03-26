@@ -47,6 +47,9 @@ jobs:
           name: coverage-main
           path: .
 
+      - name: Debug artifact
+        run: ls -l
+
       - name: Compare coverage
         run: node compare-coverage.mjs >coverage-delta.md
 
