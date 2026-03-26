@@ -42,13 +42,15 @@ jobs:
       - name: Download main coverage
         uses: dawidd6/action-download-artifact@v6
         with:
-          workflow: Upload Coverage to Coveralls
+          workflow: coveralls.yaml
           branch: main
           name: coverage-main
           path: .
 
       - name: Compare coverage
-        run: node compare-coverage.mjs >coverage-delta.md
+        run: |
+          set -euo pipefail
+          node compare-coverage.mjs | tee coverage-delta.md
 
       - name: Comment on PR (update existing)
         uses: actions/github-script@v7

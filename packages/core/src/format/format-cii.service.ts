@@ -246,22 +246,22 @@ const cacPrice: Transformation = {
 					type: 'string',
 					src: ['cbc:PriceAmount'],
 					dest: ['ram:ChargeAmount'],
-					fxProfileMask: FX_MASK_BASIC,
+					fxProfileMask: FX_MASK_BASIC_WL,
 				},
 				{
 					type: 'string',
 					src: ['cbc:BaseQuantity'],
 					dest: ['ram:BasisQuantity'],
-					fxProfileMask: FX_MASK_BASIC,
+					fxProfileMask: FX_MASK_BASIC_WL,
 				},
 				{
 					type: 'string',
 					src: ['cbc:BaseQuantity@unitCode'],
 					dest: ['ram:BasisQuantity@unitCode'],
-					fxProfileMask: FX_MASK_BASIC,
+					fxProfileMask: FX_MASK_BASIC_WL,
 				},
 			],
-			fxProfileMask: FX_MASK_BASIC,
+			fxProfileMask: FX_MASK_BASIC_WL,
 		},
 		{
 			type: 'object',
@@ -424,6 +424,27 @@ const cacDocumentReference: Transformation = {
 	],
 	fxProfileMask: FX_MASK_MINIMUM,
 };
+
+const cacBillingReference: Transformation[] = [
+	{
+		type: 'string',
+		src: ['cac:InvoiceDocumentReference', 'cbc:ID'],
+		dest: ['ram:IssuerAssignedID'],
+		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:InvoiceDocumentReference', 'cbc:IssueDate'],
+		dest: ['ram:FormattedIssueDateTime', 'qdt:DateTimeString'],
+		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:InvoiceDocumentReference', 'cbc:IssueDate', 'fixed:102'],
+		dest: ['ram:FormattedIssueDateTime', 'qdt:DateTimeString@format'],
+		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+];
 
 const cacInvoiceLine: Transformation = {
 	type: 'array',
@@ -1605,26 +1626,7 @@ export const ublInvoice: Transformation = {
 						'ram:ApplicableHeaderTradeSettlement',
 						'ram:InvoiceReferencedDocument',
 					],
-					children: [
-						{
-							type: 'string',
-							src: ['cbc:ID'],
-							dest: ['ram:IssuerAssignedID'],
-							fxProfileMask: FX_MASK_BASIC_WL,
-						},
-						{
-							type: 'string',
-							src: ['cbc:IssueDate'],
-							dest: ['ram:FormattedIssueDateTime', 'udt:DateTimeString'],
-							fxProfileMask: FX_MASK_BASIC_WL,
-						},
-						{
-							type: 'string',
-							src: ['cbc:IssueDate', 'fixed:102'],
-							dest: ['ram:FormattedIssueDateTime', 'udt:DateTimeString@format'],
-							fxProfileMask: FX_MASK_BASIC_WL,
-						},
-					],
+					children: cacBillingReference,
 					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				{

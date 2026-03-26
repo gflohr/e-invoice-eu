@@ -136,5 +136,27 @@ describe('CII', () => {
 			const xml = await service.generate(invoice, options);
 			expect(xml).toMatchSnapshot();
 		});
+
+		it('maps BillingReference InvoiceDocumentReference to InvoiceReferencedDocument', async () => {
+			const invoice: Invoice = {
+				'ubl:Invoice': {
+					'cac:BillingReference': [
+						{
+							'cac:InvoiceDocumentReference': {
+								'cbc:ID': 'INV-123',
+								'cbc:IssueDate': '2025-12-31',
+							},
+						},
+					],
+				},
+			} as unknown as Invoice;
+			const xml = await service.generate(invoice, {} as InvoiceServiceOptions);
+			expect(xml).toContain(
+				'<ram:IssuerAssignedID>INV-123</ram:IssuerAssignedID>',
+			);
+			expect(xml).toMatch(
+				/<qdt:DateTimeString format="102">\s*2025-12-31\s*<\/qdt:DateTimeString>/,
+			);
+		});
 	});
 });
