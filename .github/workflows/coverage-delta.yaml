@@ -48,7 +48,9 @@ jobs:
           path: .
 
       - name: Compare coverage
-        run: node compare-coverage.mjs >coverage-delta.md
+        run: |
+          set -euo pipefail
+          node compare-coverage.mjs | tee coverage-delta.md
 
       - name: Comment on PR (update existing)
         uses: actions/github-script@v7
