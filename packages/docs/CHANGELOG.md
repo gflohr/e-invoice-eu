@@ -1,5 +1,11 @@
 # @e-invoice-eu/docs
 
+## 3.0.0
+
+### Patch Changes
+
+- 0f849c6: Factur-X conformance level for price elements fixed
+
 ## 2.3.4
 
 ### Patch Changes
