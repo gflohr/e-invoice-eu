@@ -1,5 +1,16 @@
 # @e-invoice-eu/cli
 
+## 3.0.0
+
+### Patch Changes
+
+- 0f849c6: Factur-X conformance level for price elements fixed
+- Updated dependencies [0f849c6]
+- Updated dependencies [2eb5907]
+- Updated dependencies [71c08ac]
+- Updated dependencies [0831806]
+  - @e-invoice-eu/core@3.0.0
+
 ## 2.3.4
 
 ### Patch Changes

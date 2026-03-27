@@ -1,5 +1,24 @@
 # @e-invoice-eu/core
 
+## 3.0.0
+
+### Major Changes
+
+- 71c08ac: Upgraded code lists and schemas from PEPPOL-UBL to the latest release
+  v3.0.20. This update caused the type VATExemptionReasonCode to be narrowed
+  from string to a literal union.
+
+  This may break TypeScript consumers that relied on arbitrary string values.
+
+  Technically, this is a breaking change and required a major version bump from
+  2 to 3. However, it is highly unlikely, that this will break existing code.
+
+### Patch Changes
+
+- 0f849c6: Factur-X conformance level for price elements fixed
+- 2eb5907: Map referenced invoice for corrected invoices to CII.
+- 0831806: fix encoding of XMP metadata
+
 ## 2.3.4
 
 ### Patch Changes
