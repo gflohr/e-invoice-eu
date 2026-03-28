@@ -434,6 +434,7 @@ const cacBillingReference: Transformation[] = [
 	},
 	{
 		type: 'string',
+		subtype: 'DateTimeString',
 		src: ['cac:InvoiceDocumentReference', 'cbc:IssueDate'],
 		dest: ['ram:FormattedIssueDateTime', 'qdt:DateTimeString'],
 		fxProfileMask: FX_MASK_BASIC_WL,

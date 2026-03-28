@@ -171,7 +171,7 @@ describe('CII', () => {
 					'<ram:IssuerAssignedID>INV-123</ram:IssuerAssignedID>',
 				);
 				expect(xml).toMatch(
-					/<qdt:DateTimeString format="102">\s*2025-12-31\s*<\/qdt:DateTimeString>/,
+					/<qdt:DateTimeString format="102">\s*20251231\s*<\/qdt:DateTimeString>/,
 				);
 			});
 		});
