@@ -1698,6 +1698,17 @@ export class FormatCIIService
 	private postProcess(cii: ObjectNode) {
 		// If the delivery location ID does not have a scheme, downgrade it from
 		// ram:GlobalID to ram:ID.
+		const buyerParty =
+			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
+				'ram:ApplicableHeaderTradeDelivery'
+			]?.['ram:BuyerTradeParty'];
+
+		if (buyerParty?.['ram:GlobalID'] && !buyerParty['ram:GlobalID@schemeID']) {
+			buyerParty['ram:ID'] = buyerParty['ram:GlobalID'];
+			delete buyerParty['ram:GlobalID'];
+		}
+
+		// Same as above.
 		const shipTo =
 			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
 				'ram:ApplicableHeaderTradeDelivery'
