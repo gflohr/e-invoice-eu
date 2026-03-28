@@ -87,109 +87,126 @@ describe('CII', () => {
 	});
 
 	describe('regressions', () => {
-		it('should fix #146 (missing TaxTotalAmount)', async () => {
-			const invoice: Invoice = {
-				'ubl:Invoice': {
-					'cac:TaxTotal': [
-						{
-							'cbc:TaxAmount': '20.00',
-							'cbc:TaxAmount@currencyID': 'BGN',
-						},
-					],
-					'cac:LegalMonetaryTotal': {
-						'cbc:LineExtensionAmount': '100.00',
-					},
-				},
-			} as unknown as Invoice;
-			const options = {} as InvoiceServiceOptions;
-			const xml = await service.generate(invoice, options);
-			expect(xml).toMatchSnapshot();
-		});
-
-		it('should fix #310 (global ids) for IDs with an attribute', async () => {
-			const invoice: Invoice = {
-				'ubl:Invoice': {
-					'cac:Delivery': {
-						'cac:DeliveryLocation': {
-							'cbc:ID': '83745498753497',
-							'cbc:ID@schemeID': '0088',
-						},
-					},
-				},
-			} as unknown as Invoice;
-			const options = {} as InvoiceServiceOptions;
-			const xml = await service.generate(invoice, options);
-			expect(xml).toMatchSnapshot();
-		});
-
-		it('should not consider IDs w/o attribute as global (#310 global ids)', async () => {
-			const invoice: Invoice = {
-				'ubl:Invoice': {
-					'cac:Delivery': {
-						'cac:DeliveryLocation': {
-							'cbc:ID': 'around-the-corner',
-						},
-					},
-				},
-			} as unknown as Invoice;
-			const options = {} as InvoiceServiceOptions;
-			const xml = await service.generate(invoice, options);
-			expect(xml).toMatchSnapshot();
-		});
-
-		it('maps BillingReference InvoiceDocumentReference to InvoiceReferencedDocument', async () => {
-			const invoice: Invoice = {
-				'ubl:Invoice': {
-					'cac:BillingReference': [
-						{
-							'cac:InvoiceDocumentReference': {
-								'cbc:ID': 'INV-123',
-								'cbc:IssueDate': '2025-12-31',
+		describe('#146 missing TaxTotalAmount', () => {
+			it('should fix add TaxTotalAmount', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:TaxTotal': [
+							{
+								'cbc:TaxAmount': '20.00',
+								'cbc:TaxAmount@currencyID': 'BGN',
 							},
-						},
-					],
-				},
-			} as unknown as Invoice;
-			const xml = await service.generate(invoice, {} as InvoiceServiceOptions);
-			expect(xml).toContain(
-				'<ram:IssuerAssignedID>INV-123</ram:IssuerAssignedID>',
-			);
-			expect(xml).toMatch(
-				/<qdt:DateTimeString format="102">\s*2025-12-31\s*<\/qdt:DateTimeString>/,
-			);
-		});
-
-		it('should downgrade buyer GlobalID to ID without a scheme (#465)', async () => {
-			const invoice: Invoice = {
-				'ubl:Invoice': {
-					'cac:AccountingCustomerParty': {
-						'cac:Party': {
-							'cac:PartyIdentification': {
-								'cbc:ID': '42',
-							},
+						],
+						'cac:LegalMonetaryTotal': {
+							'cbc:LineExtensionAmount': '100.00',
 						},
 					},
-				},
-			} as unknown as Invoice;
-			const xml = await service.generate(invoice, {} as InvoiceServiceOptions);
-			expect(xml).toMatchSnapshot();
+				} as unknown as Invoice;
+				const options = {} as InvoiceServiceOptions;
+				const xml = await service.generate(invoice, options);
+				expect(xml).toMatchSnapshot();
+			});
 		});
 
-		it('should keep buyer GlobalID to ID with a scheme (#465)', async () => {
-			const invoice: Invoice = {
-				'ubl:Invoice': {
-					'cac:AccountingCustomerParty': {
-						'cac:Party': {
-							'cac:PartyIdentification': {
-								'cbc:ID': 'SE8765456787',
+		describe('#310 adapt delivery party mapping depending on it attribute presence', () => {
+			it('should fix #310 (global ids) for IDs with an attribute', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:Delivery': {
+							'cac:DeliveryLocation': {
+								'cbc:ID': '83745498753497',
 								'cbc:ID@schemeID': '0088',
 							},
 						},
 					},
-				},
-			} as unknown as Invoice;
-			const xml = await service.generate(invoice, {} as InvoiceServiceOptions);
-			expect(xml).toMatchSnapshot();
+				} as unknown as Invoice;
+				const options = {} as InvoiceServiceOptions;
+				const xml = await service.generate(invoice, options);
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should not consider IDs w/o attribute as global (#310 global ids)', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:Delivery': {
+							'cac:DeliveryLocation': {
+								'cbc:ID': 'around-the-corner',
+							},
+						},
+					},
+				} as unknown as Invoice;
+				const options = {} as InvoiceServiceOptions;
+				const xml = await service.generate(invoice, options);
+				expect(xml).toMatchSnapshot();
+			});
+		});
+
+		describe('#455 map billing reference', () => {
+			it('maps BillingReference InvoiceDocumentReference to InvoiceReferencedDocument', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:BillingReference': [
+							{
+								'cac:InvoiceDocumentReference': {
+									'cbc:ID': 'INV-123',
+									'cbc:IssueDate': '2025-12-31',
+								},
+							},
+						],
+					},
+				} as unknown as Invoice;
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+				expect(xml).toContain(
+					'<ram:IssuerAssignedID>INV-123</ram:IssuerAssignedID>',
+				);
+				expect(xml).toMatch(
+					/<qdt:DateTimeString format="102">\s*2025-12-31\s*<\/qdt:DateTimeString>/,
+				);
+			});
+		});
+
+		describe('#465 adapt buyer party mapping depending on it attribute presence', () => {
+			it('should downgrade buyer GlobalID to ID without a scheme', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:AccountingCustomerParty': {
+							'cac:Party': {
+								'cac:PartyIdentification': {
+									'cbc:ID': '42',
+								},
+							},
+						},
+					},
+				} as unknown as Invoice;
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should keep buyer GlobalID to ID with a scheme', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:AccountingCustomerParty': {
+							'cac:Party': {
+								'cac:PartyIdentification': {
+									'cbc:ID': 'SE8765456787',
+									'cbc:ID@schemeID': '0088',
+								},
+							},
+						},
+					},
+				} as unknown as Invoice;
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+				expect(xml).toMatchSnapshot();
+			});
 		});
 	});
 });
