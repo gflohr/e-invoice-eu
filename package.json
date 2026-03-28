@@ -37,9 +37,9 @@
 		"test:cov-changed": "pnpm -r --parallel run test:cov-changed",
 		"release": "HUSKY=0 pnpm changeset publish",
 		"prerelease": "pnpm install && pnpm run build && pnpm run test",
-		"check:clean": "./check-clean && lerna run --no-private --stream check:clean",
-		"prepublish": "lerna run check:clean && lerna run test --stream",
-		"clean": "lerna run clean --stream",
+		"check:clean": "./check-clean && pnpm run -r --parallel check:clean",
+		"prepublish": "pnpm run check:clean && pnpm run test",
+		"clean": "pnpm -r --parallel run cleanm",
 		"prepare": "husky",
 		"preinstall": "npx only-allow pnpm"
 	},
@@ -55,7 +55,6 @@
 		"globals": "^17.4.0",
 		"husky": "^9.1.7",
 		"js-yaml": "^4.1.1",
-		"lerna": "^9.0.7",
 		"pnpm": "^10.32.1",
 		"prettier": "^3.8.1"
 	},
