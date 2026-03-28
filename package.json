@@ -21,7 +21,7 @@
 		"packages/*"
 	],
 	"scripts": {
-		"build": "pnpm -r --workspace-concurrency=3 build",
+		"build": "pnpm -r --workspace-concurrency=3 run build",
 		"format": "prettier --write *.mjs *.json *.md && pnpm -r --parallel run format",
 		"start": "pnpm -r --filter=@e-invoice-eu/server run start",
 		"start:dev": "pnpm -r --filter=@e-invoice-eu/server run start:dev",
