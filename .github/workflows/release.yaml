@@ -9,6 +9,8 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
+
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
@@ -32,10 +34,14 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
+      - name: Show changeset status
+        run: npx changeset status
+
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: pnpm run release
+          #publish: pnpm run release
+          publish: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
