@@ -1715,25 +1715,14 @@ export class FormatCIIService
 		}
 
 		// Same as above.
-		const shipTo1 =
-			cii['rsm:CrossIndustryInvoice']?.['ram:ApplicableHeaderTradeAgreement']?.[
-				'ram:ShipToTradeParty'
-			];
-
-		if (shipTo1?.['ram:GlobalID'] && !shipTo1['ram:GlobalID@schemeID']) {
-			shipTo1['ram:ID'] = shipTo1['ram:GlobalID'];
-			delete shipTo1['ram:GlobalID'];
-		}
-
-		// Same as above.
-		const shipTo2 =
+		const shipTo =
 			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
 				'ram:ApplicableHeaderTradeDelivery'
 			]?.['ram:ShipToTradeParty'];
 
-		if (shipTo2?.['ram:GlobalID'] && !shipTo2['ram:GlobalID@schemeID']) {
-			shipTo2['ram:ID'] = shipTo2['ram:GlobalID'];
-			delete shipTo2['ram:GlobalID'];
+		if (shipTo?.['ram:GlobalID'] && !shipTo['ram:GlobalID@schemeID']) {
+			shipTo['ram:ID'] = shipTo['ram:GlobalID'];
+			delete shipTo['ram:GlobalID'];
 		}
 
 		const supplierTaxRegistration =
