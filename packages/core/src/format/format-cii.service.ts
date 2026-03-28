@@ -717,7 +717,13 @@ export const cacAccountingCustomerParty: Transformation[] = [
 	{
 		type: 'string',
 		src: ['cac:PartyIdentification', 'cbc:ID'],
-		dest: ['ram:ID'],
+		dest: ['ram:GlobalID'],
+		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:PartyIdentification', 'cbc:ID@schemeID'],
+		dest: ['ram:GlobalID@schemeID'],
 		fxProfileMask: FX_MASK_BASIC_WL,
 	},
 	{
@@ -1699,9 +1705,9 @@ export class FormatCIIService
 		// If the delivery location ID does not have a scheme, downgrade it from
 		// ram:GlobalID to ram:ID.
 		const buyerParty =
-			cii['rsm:CrossIndustryInvoice']?.['ram:ApplicableHeaderTradeAgreement']?.[
-				'ram:BuyerTradeParty'
-			];
+			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
+				'ram:ApplicableHeaderTradeAgreement'
+			]?.['ram:BuyerTradeParty'];
 
 		if (buyerParty?.['ram:GlobalID'] && !buyerParty['ram:GlobalID@schemeID']) {
 			buyerParty['ram:ID'] = buyerParty['ram:GlobalID'];

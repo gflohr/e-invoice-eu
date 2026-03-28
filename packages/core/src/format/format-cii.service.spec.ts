@@ -158,5 +158,38 @@ describe('CII', () => {
 				/<qdt:DateTimeString format="102">\s*2025-12-31\s*<\/qdt:DateTimeString>/,
 			);
 		});
+
+		it('should downgrade buyer GlobalID to ID without a scheme (#465)', async () => {
+			const invoice: Invoice = {
+				'ubl:Invoice': {
+					'cac:AccountingCustomerParty': {
+						'cac:Party': {
+							'cac:PartyIdentification': {
+								'cbc:ID': '42',
+							},
+						},
+					},
+				},
+			} as unknown as Invoice;
+			const xml = await service.generate(invoice, {} as InvoiceServiceOptions);
+			expect(xml).toMatchSnapshot();
+		});
+
+		it('should keep buyer GlobalID to ID with a scheme (#465)', async () => {
+			const invoice: Invoice = {
+				'ubl:Invoice': {
+					'cac:AccountingCustomerParty': {
+						'cac:Party': {
+							'cac:PartyIdentification': {
+								'cbc:ID': 'SE8765456787',
+								'cbc:ID@schemeID': '0088',
+							},
+						},
+					},
+				},
+			} as unknown as Invoice;
+			const xml = await service.generate(invoice, {} as InvoiceServiceOptions);
+			expect(xml).toMatchSnapshot();
+		});
 	});
 });
