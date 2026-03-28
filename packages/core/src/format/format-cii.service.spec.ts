@@ -122,6 +122,10 @@ describe('CII', () => {
 				} as unknown as Invoice;
 				const options = {} as InvoiceServiceOptions;
 				const xml = await service.generate(invoice, options);
+				expect(xml).toContain(
+					'<ram:GlobalID schemeID="0088">83745498753497</ram:GlobalID>',
+				);
+				expect(xml).not.toContain('<ram:ID>83745498753497</ram:ID>');
 				expect(xml).toMatchSnapshot();
 			});
 
@@ -137,6 +141,10 @@ describe('CII', () => {
 				} as unknown as Invoice;
 				const options = {} as InvoiceServiceOptions;
 				const xml = await service.generate(invoice, options);
+				expect(xml).toContain('<ram:ID>around-the-corner</ram:ID>');
+				expect(xml).not.toContain(
+					'<ram:GlobalID>around-the-corner</ram:GlobalID>',
+				);
 				expect(xml).toMatchSnapshot();
 			});
 		});
@@ -185,6 +193,8 @@ describe('CII', () => {
 					invoice,
 					{} as InvoiceServiceOptions,
 				);
+				expect(xml).toContain('<ram:ID>42</ram:ID>');
+				expect(xml).not.toContain('<ram:GlobalID>42</ram:GlobalID>');
 				expect(xml).toMatchSnapshot();
 			});
 
@@ -205,6 +215,10 @@ describe('CII', () => {
 					invoice,
 					{} as InvoiceServiceOptions,
 				);
+				expect(xml).toContain(
+					'<ram:GlobalID schemeID="0088">SE8765456787</ram:GlobalID>',
+				);
+				expect(xml).not.toContain('<ram:ID>SE8765456787</ram:ID>');
 				expect(xml).toMatchSnapshot();
 			});
 		});
