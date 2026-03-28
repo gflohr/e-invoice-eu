@@ -1699,9 +1699,9 @@ export class FormatCIIService
 		// If the delivery location ID does not have a scheme, downgrade it from
 		// ram:GlobalID to ram:ID.
 		const buyerParty =
-			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
-				'ram:ApplicableHeaderTradeDelivery'
-			]?.['ram:BuyerTradeParty'];
+			cii['rsm:CrossIndustryInvoice']?.['ram:ApplicableHeaderTradeAgreement']?.[
+				'ram:BuyerTradeParty'
+			];
 
 		if (buyerParty?.['ram:GlobalID'] && !buyerParty['ram:GlobalID@schemeID']) {
 			buyerParty['ram:ID'] = buyerParty['ram:GlobalID'];
@@ -1709,14 +1709,25 @@ export class FormatCIIService
 		}
 
 		// Same as above.
-		const shipTo =
+		const shipTo1 =
+			cii['rsm:CrossIndustryInvoice']?.['ram:ApplicableHeaderTradeAgreement']?.[
+				'ram:ShipToTradeParty'
+			];
+
+		if (shipTo1?.['ram:GlobalID'] && !shipTo1['ram:GlobalID@schemeID']) {
+			shipTo1['ram:ID'] = shipTo1['ram:GlobalID'];
+			delete shipTo1['ram:GlobalID'];
+		}
+
+		// Same as above.
+		const shipTo2 =
 			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
 				'ram:ApplicableHeaderTradeDelivery'
 			]?.['ram:ShipToTradeParty'];
 
-		if (shipTo?.['ram:GlobalID'] && !shipTo['ram:GlobalID@schemeID']) {
-			shipTo['ram:ID'] = shipTo['ram:GlobalID'];
-			delete shipTo['ram:GlobalID'];
+		if (shipTo2?.['ram:GlobalID'] && !shipTo2['ram:GlobalID@schemeID']) {
+			shipTo2['ram:ID'] = shipTo2['ram:GlobalID'];
+			delete shipTo2['ram:GlobalID'];
 		}
 
 		const supplierTaxRegistration =
