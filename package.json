@@ -27,7 +27,7 @@
 		"start:dev": "pnpm -r --filter=@e-invoice-eu/server run start:dev",
 		"start:debug": "pnpm -r --filter=@e-invoice-eu/server run start:debug",
 		"start:prod": "pnpm -r --filter=@e-invoice-eu/server run start:prod",
-		"build:typedoc": "lerna run typedoc --scope=@e-invoice-eu/core",
+		"build:typedoc": "pnpm --filter=@e-invoice-eu/core run typedoc",
 		"lint": "lerna run lint --stream",
 		"lint:fix": "lerna run lint:fix --stream",
 		"lint:staged": "lerna run --no-private lint:staged --stream",
