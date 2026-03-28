@@ -37,7 +37,7 @@
 		"test:cov-changed": "pnpm -r --parallel run test:cov-changed",
 		"release": "HUSKY=0 pnpm changeset publish",
 		"prerelease": "pnpm install && pnpm run build && pnpm run test",
-		"check:clean": "./check-clean && pnpm run -r --parallel check:clean",
+		"check:clean": "./check-clean && pnpm -r --parallel run check:clean",
 		"prepublish": "pnpm run check:clean && pnpm run test",
 		"clean": "pnpm -r --parallel run clean",
 		"prepare": "husky",
