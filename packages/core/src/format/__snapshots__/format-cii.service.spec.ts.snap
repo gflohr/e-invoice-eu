@@ -53,7 +53,7 @@ exports[`CII regressions #465 adapt buyer party mapping depending on it attribut
 </rsm:CrossIndustryInvoice>"
 `;
 
-exports[`CII regressions #465 adapt buyer party mapping depending on it attribute presence should keep buyer GlobalID to ID with a scheme 1`] = `
+exports[`CII regressions #465 adapt buyer party mapping depending on it attribute presence should keep buyer GlobalID with a scheme 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
 	<rsm:SupplyChainTradeTransaction>

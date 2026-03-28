@@ -188,7 +188,7 @@ describe('CII', () => {
 				expect(xml).toMatchSnapshot();
 			});
 
-			it('should keep buyer GlobalID to ID with a scheme', async () => {
+			it('should keep buyer GlobalID with a scheme', async () => {
 				const invoice: Invoice = {
 					'ubl:Invoice': {
 						'cac:AccountingCustomerParty': {
