@@ -61,14 +61,16 @@ vi.mock('@e-invoice-eu/core', () => {
 
 describe('Format Command', () => {
 	let format: Format;
-	const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+	let consoleSpy: ReturnType<typeof vi.spyOn>;
 
 	beforeEach(() => {
 		format = new Format();
+		consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+		(coerceOptions as Mock).mockReturnValue(true);
 	});
 
 	afterEach(() => {
-		consoleSpy.mockClear();
+		vi.restoreAllMocks();
 	});
 
 	it('description() should return a valid description', () => {
