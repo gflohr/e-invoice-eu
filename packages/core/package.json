@@ -31,7 +31,6 @@
 	"scripts": {
 		"prebuild": "node ./write-package.mjs >src/package.ts",
 		"build": "rimraf dist && rollup -c",
-		"prepublishOnly": "npm run build",
 		"check:clean": "../../check-clean",
 		"format": "prettier --write *.json 'src/**/*.ts'",
 		"watch": "tsc --watch",
