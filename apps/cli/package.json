@@ -37,7 +37,7 @@
 		"build": "rimraf ./dist && tsc --project tsconfig.build.json && chmod +x dist/index.js",
 		"prebuild": "node ./write-package.mjs >src/package.ts",
 		"check:clean": "../../check-clean",
-		"format": "prettier --write 'src/**/*.ts' *.mjs *.json",
+		"format": "prettier --write 'src/**/*.ts' *.ts *.mjs *.json",
 		"prestart": "node ./write-package.mjs >src/package.ts",
 		"start": "tsx src/index.ts",
 		"watch": "tsc --watch",
@@ -50,12 +50,12 @@
 		"pretest": "node ./write-package.mjs >src/package.ts",
 		"pretest:watch": "node ./write-package.mjs >src/package.ts",
 		"pretest:cov": "node ./write-package.mjs >src/package.ts",
-		"test": "jest",
-		"test:changed": "jest --changedSince origin/main --passWithNoTests",
-		"test:watch": "jest --watch",
-		"test:cov": "jest --coverage",
+		"test": "vitest --run",
+		"test:changed": "vitest --changedSince origin/main --passWithNoTests",
+		"test:watch": "vitest",
+		"test:cov": "vitest --coverage",
 		"test:cov-changed": "jest --coverage --changedSince origin/main --passWithNoTests",
-		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/vitest --runInBand",
 		"typedoc": "echo nothing to do",
 		"esgettext": "npm-run-all esgettext:potfiles esgettext:extract esgettext:update-po esgettext:update-mo esgettext:install",
 		"esgettext:potfiles": "esgettext potfiles --directory=po --git --exclude=\"dist/**/*\" --exclude=\"node_modules/**/*\" \"././**/*.mjs\" \"./src/**/*.ts\" >po/POTFILES",
@@ -70,37 +70,6 @@
 		"url": "https://www.guido-flohr.net/"
 	},
 	"license": "WTFPL",
-	"jest": {
-		"moduleFileExtensions": [
-			"js",
-			"json",
-			"ts"
-		],
-		"moduleNameMapper": {
-			"^@e-invoice-eu/core$": "<rootDir>/../../../packages/core/src",
-			"^chalk$": "<rootDir>/../src/stubs/chalk.ts",
-			"^yargs$": "<rootDir>/../src/stubs/yargs.ts"
-		},
-		"rootDir": "src",
-		"testRegex": "\\.spec\\.ts$",
-		"transform": {
-			"^.+\\.ts$": [
-				"ts-jest",
-				{
-					"tsconfig": {
-						"isolatedModules": true
-					}
-				}
-			]
-		},
-		"coverageDirectory": "../coverage",
-		"coverageReporters": [
-			"json-summary",
-			"lcov",
-			"text"
-		],
-		"testEnvironment": "node"
-	},
 	"lint-staged": {
 		"*.{ts,json,md}": [
 			"prettier --write"
@@ -111,21 +80,20 @@
 	},
 	"devDependencies": {
 		"@esgettext/tools": "^1.3.10",
-		"@types/jest": "^30.0.0",
 		"@types/mime-types": "^3.0.1",
 		"@types/node": "^25.5.0",
 		"@types/yargs": "^17.0.35",
+		"@vitest/coverage-v8": "^4.1.2",
 		"eslint": "^10.0.3",
 		"eslint-plugin-import": "^2.32.0",
-		"jest": "^30.3.0",
 		"lint-staged": "^16.4.0",
 		"npm-run-all": "^4.1.5",
 		"prettier": "^3.8.1",
 		"rimraf": "^6.1.3",
-		"ts-jest": "^29.4.6",
 		"tsx": "^4.21.0",
 		"typescript": "^5.9.3",
-		"typescript-eslint": "^8.57.1"
+		"typescript-eslint": "^8.57.1",
+		"vitest": "^4.1.2"
 	},
 	"dependencies": {
 		"@e-invoice-eu/core": "workspace:*",

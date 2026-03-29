@@ -1,19 +1,20 @@
 import yargs from 'yargs';
+import { vi, describe, it, beforeEach, expect, type Mock } from 'vitest';
 import type { Arguments } from 'yargs';
 
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';
 import { Validate } from './validate';
 
-jest.mock('../optspec');
-jest.mock('../package');
+vi.mock('../optspec');
+vi.mock('../package');
 
 describe('Validate Command', () => {
 	let validate: Validate;
 
 	beforeEach(() => {
 		validate = new Validate();
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	it('description() should return a valid description', () => {
@@ -26,7 +27,7 @@ describe('Validate Command', () => {
 
 	it('build() should add expected options to yargs', () => {
 		const mockArgv = yargs([]);
-		const optionsSpy = jest.spyOn(mockArgv, 'options');
+		const optionsSpy = vi.spyOn(mockArgv, 'options');
 
 		validate.build(mockArgv);
 
@@ -59,7 +60,7 @@ describe('Validate Command', () => {
 	});
 
 	it('run() should return 1 if coerceOptions fails', async () => {
-		(coerceOptions as jest.Mock).mockReturnValue(false);
+		(coerceOptions as Mock).mockReturnValue(false);
 
 		const result = await validate.run({} as Arguments);
 
@@ -67,8 +68,8 @@ describe('Validate Command', () => {
 	});
 
 	it('run() should call doRun and return 0 on success', async () => {
-		(coerceOptions as jest.Mock).mockReturnValue(true);
-		const doRunSpy = jest
+		(coerceOptions as Mock).mockReturnValue(true);
+		const doRunSpy = vi
 			.spyOn(validate as any, 'doRun')
 			.mockResolvedValue(undefined);
 
@@ -79,13 +80,15 @@ describe('Validate Command', () => {
 	});
 
 	it('run() should return 1 and log an error if doRun throws', async () => {
-		(coerceOptions as jest.Mock).mockReturnValue(true);
+		(coerceOptions as Mock).mockReturnValue(true);
 		const error = new Error('test error');
-		jest.spyOn(validate as any, 'doRun').mockRejectedValue(error);
+		vi.spyOn(validate as any, 'doRun').mockRejectedValue(error);
 
-		const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+		const consoleErrorSpy = vi
+			.spyOn(console, 'error')
+			.mockImplementation(() => {});
 
-		(Package.getName as jest.Mock).mockReturnValue('e-invoice-eu-cli');
+		(Package.getName as Mock).mockReturnValue('e-invoice-eu-cli');
 
 		const result = await validate.run({
 			verbose: true,

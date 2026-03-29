@@ -1,50 +1,61 @@
 import * as fs from 'fs/promises';
 import yargs from 'yargs';
 import type { Arguments } from 'yargs';
+import {
+	vi,
+	describe,
+	it,
+	beforeEach,
+	expect,
+	type Mocked,
+	type Mock,
+} from 'vitest';
 
 import { Transform } from './transform';
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';
 import { safeStdoutWrite } from '../safe-stdout-write';
 
-jest.mock('../optspec');
-jest.mock('../package');
+vi.mock('../optspec');
+vi.mock('../package');
 
-jest.mock('fs/promises');
-const mockedFs = fs as jest.Mocked<typeof fs>;
+vi.mock('fs/promises');
+const mockedFs = fs as Mocked<typeof fs>;
 
-jest.mock('../safe-stdout-write', () => ({
-	safeStdoutWrite: jest.fn().mockResolvedValue(undefined),
+vi.mock('../safe-stdout-write', () => ({
+	safeStdoutWrite: vi.fn().mockResolvedValue(undefined),
 }));
 
 const mockedTransformation = { transformed: 'data' };
 
-jest.mock('@e-invoice-eu/core', () => ({
-	MappingService: jest.fn().mockImplementation(() => ({
-		transform: jest.fn().mockReturnValue(mockedTransformation),
-	})),
-	FormatFactoryService: jest.fn(),
-}));
+vi.mock('@e-invoice-eu/core', () => {
+	return {
+		MappingService: class {
+			transform = vi.fn().mockReturnValue(mockedTransformation);
+		},
+		FormatFactoryService: class {},
+	};
+});
 
 describe('Transform Command', () => {
 	let transform: Transform;
 
 	beforeEach(() => {
 		transform = new Transform();
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
-	test('description() should return a valid description', () => {
+	it('description() should return a valid description', () => {
 		expect(transform.description()).toBe('Transform spreadsheet data to JSON.');
 	});
 
-	test('aliases() should return an empty array', () => {
+	it('aliases() should return an empty array', () => {
 		expect(transform.aliases()).toEqual([]);
 	});
 
-	test('build() should add expected options to yargs', () => {
+	it('build() should add expected options to yargs', () => {
 		const mockArgv = yargs([]);
-		const optionsSpy = jest.spyOn(mockArgv, 'options');
+		const optionsSpy = vi.spyOn(mockArgv, 'options');
 
 		transform.build(mockArgv);
 
@@ -73,17 +84,17 @@ describe('Transform Command', () => {
 		});
 	});
 
-	test('run() should return 1 if coerceOptions fails', async () => {
-		(coerceOptions as jest.Mock).mockReturnValue(false);
+	it('run() should return 1 if coerceOptions fails', async () => {
+		(coerceOptions as Mock).mockReturnValue(false);
 
 		const result = await transform.run({} as Arguments);
 
 		expect(result).toBe(1);
 	});
 
-	test('run() should call doRun and return 0 on success', async () => {
-		(coerceOptions as jest.Mock).mockReturnValue(true);
-		const doRunSpy = jest
+	it('run() should call doRun and return 0 on success', async () => {
+		(coerceOptions as Mock).mockReturnValue(true);
+		const doRunSpy = vi
 			.spyOn(transform as any, 'doRun')
 			.mockResolvedValue(undefined);
 
@@ -93,14 +104,16 @@ describe('Transform Command', () => {
 		expect(result).toBe(0);
 	});
 
-	test('run() should return 1 and log an error if doRun throws', async () => {
-		(coerceOptions as jest.Mock).mockReturnValue(true);
+	it('run() should return 1 and log an error if doRun throws', async () => {
+		(coerceOptions as Mock).mockReturnValue(true);
 		const error = new Error('test error');
-		jest.spyOn(transform as any, 'doRun').mockRejectedValue(error);
+		vi.spyOn(transform as any, 'doRun').mockRejectedValue(error);
 
-		const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+		const consoleErrorSpy = vi
+			.spyOn(console, 'error')
+			.mockImplementation(() => {});
 
-		(Package.getName as jest.Mock).mockReturnValue('e-invoice-eu-cli');
+		(Package.getName as Mock).mockReturnValue('e-invoice-eu-cli');
 
 		const result = await transform.run({} as Arguments);
 
