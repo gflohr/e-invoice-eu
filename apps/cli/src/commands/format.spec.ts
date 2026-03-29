@@ -13,6 +13,7 @@ import yargs from 'yargs';
 import { Format } from './format';
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';
+import { mimeType } from 'valibot';
 
 vi.mock('../optspec');
 vi.mock('../package');
@@ -21,13 +22,38 @@ vi.mock('@e-invoice-eu/core', () => {
 	return {
 		FormatFactoryService: class {
 			listFormatServices() {
-				return [{ name: 'FormatA' }, { name: 'FormatB' }];
+				return [
+					{
+						name: 'FormatA',
+						syntax: 'UBL',
+						mimeType: 'application/xml',
+						customizationID: 'urn:format:a',
+						profileID: 'urn:profile:a',
+					},
+					{
+						name: 'FormatB',
+						syntax: 'CII',
+						mimeType: 'application/pdf',
+						customizationID: 'urn:format:b',
+						profileID: 'urn:profile:b',
+					},
+				];
 			}
 			info() {
-				return { name: 'FormatC' };
+				return {
+					name: 'FormatC',
+					syntax: 'UBL',
+					mimeType: 'application/xml',
+					customizationID: 'urn:format:c',
+					profileID: 'urn:profile:c',
+				};
 			}
 			normalizeFormat(format: string) {
-				return format.toLowerCase();
+				return format
+					.toLowerCase()
+					.replace(/-comfort$/, '-en16931')
+					.replace(/-basic[-_]?wl$/, '-basic wl')
+					.replace(/^zugferd-/, 'factur-x-');
 			}
 		},
 	};
