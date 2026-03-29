@@ -13,7 +13,6 @@ import yargs from 'yargs';
 import { Format } from './format';
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';
-import { mimeType } from 'valibot';
 
 vi.mock('../optspec');
 vi.mock('../package');
