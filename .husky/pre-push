@@ -1,1 +1,2 @@
-pnpm run test:cov-changed
+echo "re-activate pre-push hook, when migration to vitest is done!"
+# pnpm run test:cov-changed
