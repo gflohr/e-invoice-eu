@@ -56,7 +56,6 @@
 		"test:cov": "vitest --coverage.enabled --run",
 		"test:cov-changed": "vitest --coverage.enabled --run --changed origin/main --passWithNoTests",
 		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/vitest --no-file-parallelism",
-		"typedoc": "echo nothing to do",
 		"esgettext": "npm-run-all esgettext:potfiles esgettext:extract esgettext:update-po esgettext:update-mo esgettext:install",
 		"esgettext:potfiles": "esgettext potfiles --directory=po --git --exclude=\"dist/**/*\" --exclude=\"node_modules/**/*\" \"././**/*.mjs\" \"./src/**/*.ts\" >po/POTFILES",
 		"esgettext:extract": "esgettext extract --directory po --files-from=po/POTFILES",
