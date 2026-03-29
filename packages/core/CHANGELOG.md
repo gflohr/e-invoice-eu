@@ -1,5 +1,14 @@
 # @e-invoice-eu/core
 
+## 3.0.1
+
+### Patch Changes
+
+- e80b0ca: Map buyer IDs correctly to CII.
+
+  If a `schemeID` attribute is present, it is considered a global ID, otherwise
+  a local ID. This is in line with the id maping of the delivery party.
+
 ## 3.0.0
 
 ### Major Changes
