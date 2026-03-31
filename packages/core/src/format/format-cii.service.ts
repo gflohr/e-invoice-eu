@@ -293,15 +293,8 @@ const cacPrice: Transformation = {
 					dest: ['ram:AppliedTradeAllowanceCharge', 'ram:ActualAmount'],
 					fxProfileMask: FX_MASK_EN16931,
 				},
-				{
-					type: 'string',
-					src: ['cbc:Amount@currencyID'],
-					dest: [
-						'ram:AppliedTradeAllowanceCharge',
-						'ram:ActualAmount@currencyID',
-					],
-					fxProfileMask: FX_MASK_EN16931,
-				},
+				// currencyID omitted: CII-DT-031 forbids @currencyID on
+				// Amount elements (except TaxTotalAmount).
 			],
 			fxProfileMask: FX_MASK_EN16931,
 		},
@@ -370,22 +363,12 @@ const cacInvoiceLineAllowanceCharge: Transformation = {
 			dest: ['ram:BasisAmount'],
 			fxProfileMask: FX_MASK_BASIC,
 		},
-		{
-			type: 'string',
-			src: ['cbc:BaseAmount@currencyID'],
-			dest: ['ram:BasisAmount@currencyID'],
-			fxProfileMask: FX_MASK_BASIC,
-		},
+		// currencyID omitted on BasisAmount and ActualAmount:
+		// CII-DT-031 forbids @currencyID on Amount elements (except TaxTotalAmount).
 		{
 			type: 'string',
 			src: ['cbc:Amount'],
 			dest: ['ram:ActualAmount'],
-			fxProfileMask: FX_MASK_BASIC,
-		},
-		{
-			type: 'string',
-			src: ['cbc:Amount@currencyID'],
-			dest: ['ram:ActualAmount@currencyID'],
 			fxProfileMask: FX_MASK_BASIC,
 		},
 		{
@@ -1515,15 +1498,9 @@ export const ublInvoice: Transformation = {
 					],
 					fxProfileMask: FX_MASK_BASIC_WL,
 				},
-				{
-					type: 'string',
-					src: ['cac:PayeeParty', 'cac:PartyIdentification', 'cbc:ID'],
-					dest: [
-						'ram:ApplicableHeaderTradeSettlement',
-						'ram:CreditorReferenceID',
-					],
-					fxProfileMask: FX_MASK_BASIC_WL,
-				},
+				// BT-60 (Payee identifier) is mapped inside cacPayeeParty
+				// as ram:PayeeTradeParty/ram:ID. The previous mapping here
+				// incorrectly placed it in ram:CreditorReferenceID (BT-90).
 				{
 					type: 'string',
 					src: ['cac:PaymentMeans[0]', 'cbc:PaymentID'],
@@ -1639,7 +1616,11 @@ export const ublInvoice: Transformation = {
 				{
 					type: 'string',
 					src: ['cbc:AccountingCost'],
-					dest: ['ram:ReceivableSpecifiedTradeAccountingAccount', 'ram:ID'],
+					dest: [
+						'ram:ApplicableHeaderTradeSettlement',
+						'ram:ReceivableSpecifiedTradeAccountingAccount',
+						'ram:ID',
+					],
 					fxProfileMask: FX_MASK_BASIC_WL,
 				},
 			],
