@@ -195,6 +195,9 @@ importers:
       '@types/multer':
         specifier: ^2.1.0
         version: 2.1.0
+      '@types/node':
+        specifier: ^25.5.0
+        version: 25.5.0
       '@types/supertest':
         specifier: ^7.2.0
         version: 7.2.0
