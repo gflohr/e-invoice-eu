@@ -199,8 +199,14 @@ export class MappingService {
 				throw new Error(`no section '${section}' in sheet '${sheetName}'`);
 			}
 		} catch (e) {
-			const message =
-				`section reference '${sectionRef}' resolves to null: ` + e.message;
+			let message: string;
+
+			if (e instanceof Error) {
+				message =
+					`section reference '${sectionRef}' resolves to null: ` + e.message;
+			} else {
+				message = `section reference '${sectionRef}' resolve to null: ` + e;
+			}
 
 			ctx.schemaPath.push('properties');
 			ctx.schemaPath.push('section');
@@ -326,7 +332,13 @@ export class MappingService {
 
 			return value;
 		} catch (x) {
-			const message = `reference '${ref}' resolves to null: ${x.message}`;
+			let message;
+
+			if (x instanceof Error) {
+				message = `reference '${ref}' resolves to null: ${x.message}`;
+			} else {
+				message = `reference '${ref}' resolves to null: ` + x;
+			}
 			throw this.makeValidationError(message, ctx);
 		}
 	}
