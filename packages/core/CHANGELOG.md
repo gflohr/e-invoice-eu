@@ -1,5 +1,13 @@
 # @e-invoice-eu/core
 
+## 3.0.2
+
+### Patch Changes
+
+- 6a4ddf6: \* ReceivableSpecifiedTradeAccountingAccount no longer placed outside ApplicableHeaderTradeSettlement
+  - Remove @currencyID on Amount elements (forbidden by CII-DT-031)
+  - Fix CII mapping for payee identifier (BT-60)
+
 ## 3.0.1
 
 ### Patch Changes
