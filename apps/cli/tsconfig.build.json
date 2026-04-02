@@ -4,6 +4,8 @@
 		"module": "NodeNext",
 		"moduleResolution": "nodenext",
 		"types": ["node"],
-		"paths": {}
+		"paths": {},
+		"rootDir": "./src",
+		"incremental": false
 	}
 }

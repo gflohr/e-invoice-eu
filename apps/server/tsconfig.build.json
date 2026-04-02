@@ -6,6 +6,8 @@
 		"paths": {},
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
-		"useDefineForClassFields": false
+		"useDefineForClassFields": false,
+		"rootDir": "./src",
+		"incremental": false
 	}
 }
