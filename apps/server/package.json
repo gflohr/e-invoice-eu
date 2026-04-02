@@ -44,6 +44,7 @@
 		"@types/express": "^5.0.6",
 		"@types/jest": "^30.0.0",
 		"@types/multer": "^2.1.0",
+		"@types/node": "^25.5.0",
 		"@types/supertest": "^7.2.0",
 		"@typescript-eslint/eslint-plugin": "^8.58.0",
 		"@typescript-eslint/parser": "^8.58.0",
