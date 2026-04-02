@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"declaration": false,
 		"outDir": "dist",
-		"types": ["Multer"]
+		"types": ["node", "express", "multer"]
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules", "dist", "test", "**/*.spec.ts"]
