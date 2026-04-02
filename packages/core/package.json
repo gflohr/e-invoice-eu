@@ -136,7 +136,7 @@
 		"tsx": "^4.21.0",
 		"typedoc": "^0.28.18",
 		"typedoc-material-theme": "^1.4.1",
-		"typescript": "^5.9.3",
+		"typescript": "^6.0.2",
 		"typescript-eslint": "^8.58.0"
 	},
 	"dependencies": {
