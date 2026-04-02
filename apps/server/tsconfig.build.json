@@ -8,6 +8,7 @@
 		"emitDecoratorMetadata": true,
 		"useDefineForClassFields": false,
 		"rootDir": "./src",
-		"incremental": false
+		"incremental": false,
+		"types": ["multer"]
 	}
 }
