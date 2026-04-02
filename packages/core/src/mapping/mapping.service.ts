@@ -205,7 +205,7 @@ export class MappingService {
 				message =
 					`section reference '${sectionRef}' resolves to null: ` + e.message;
 			} else {
-				message = `section reference '${sectionRef}' resolve to null: ` + e;
+				message = `section reference '${sectionRef}' resolves to null: ` + e;
 			}
 
 			ctx.schemaPath.push('properties');
