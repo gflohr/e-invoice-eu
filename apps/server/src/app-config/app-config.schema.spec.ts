@@ -1,5 +1,5 @@
 import * as v from 'valibot';
-
+import { describe, it, expect } from 'vitest';
 import { appConfigSchema } from './app-config.schema';
 
 describe('AppConfig Schema', () => {

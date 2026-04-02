@@ -1,6 +1,7 @@
 import { Invoice, ValidationService } from '@e-invoice-eu/core';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ErrorObject, ValidationError } from 'ajv/dist/2019';
+import { vi, describe, it, beforeEach, afterEach, expect } from 'vitest';
 
 import { InvoiceService } from './invoice.service';
 import { AppConfigService } from '../app-config/app-config.service';
@@ -28,13 +29,13 @@ describe('InvoiceService', () => {
 
 		service = module.get<InvoiceService>(InvoiceService);
 
-		jest
+		vi
 			.spyOn(AppConfigService.prototype, 'get')
 			.mockReturnValue({ libreOffice: 'libreoffice' });
 	});
 
 	afterEach(() => {
-		jest.resetAllMocks();
+		vi.resetAllMocks();
 	});
 
 	it('should be defined', () => {
@@ -42,7 +43,7 @@ describe('InvoiceService', () => {
 	});
 
 	it('should validate input data and create an invoice', async () => {
-		const validateSpy = jest
+		const validateSpy = vi
 			.spyOn(ValidationService.prototype, 'validate')
 			.mockReturnValue({ 'ubl:Invoice': {} });
 
@@ -66,7 +67,7 @@ describe('InvoiceService', () => {
 	});
 
 	it('should reject invalid input data', async () => {
-		const validateSpy = jest
+		const validateSpy = vi
 			.spyOn(ValidationService.prototype, 'validate')
 			.mockImplementationOnce(() => {
 				// FIXME: Use more specific error here!
@@ -81,7 +82,7 @@ describe('InvoiceService', () => {
 				format: 'UBL',
 				attachments: [],
 			});
-			fail('Expected generate() to throw a ValidationError.');
+			throw new Error('Expected generate() to throw a ValidationError.');
 		} catch (error) {
 			expect(error).toBeInstanceOf(ValidationError);
 			expect(error.errors).toEqual([]);

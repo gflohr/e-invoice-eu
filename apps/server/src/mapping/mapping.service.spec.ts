@@ -2,24 +2,40 @@ import {
 	MappingService as CoreMappingService,
 	Invoice,
 } from '@e-invoice-eu/core';
+import {
+	vi,
+	describe,
+	it,
+	beforeEach,
+	expect,
+	type Mocked,
+} from 'vitest';
 
 import { MappingService } from './mapping.service';
 
-jest.mock('@e-invoice-eu/core');
+let CoreMappingServiceMock: ReturnType<typeof vi.fn>;
+
+vi.mock('@e-invoice-eu/core', async importOriginal => {
+	const actual: object = await importOriginal();
+
+	CoreMappingServiceMock = vi.fn();
+
+	return {
+		...actual,
+		CoreMappingService: CoreMappingServiceMock,
+	};
+});
 
 describe('MappingService', () => {
 	let service: MappingService;
-	let coreMappingServiceMock: jest.Mocked<CoreMappingService>;
+	let coreMappingServiceMock: Mocked<CoreMappingService>;
 
 	beforeEach(() => {
 		coreMappingServiceMock = {
-			transform: jest.fn(),
-		} as unknown as jest.Mocked<CoreMappingService>;
+			transform: vi.fn(),
+		};
 
-		// Mock the CoreMappingService constructor
-		(CoreMappingService as jest.Mock).mockImplementation(
-			() => coreMappingServiceMock,
-		);
+		CoreMappingServiceMock.mockImplementation(() => coreMappingServiceMock);
 
 		service = new MappingService();
 	});

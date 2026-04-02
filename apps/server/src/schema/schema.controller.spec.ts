@@ -2,6 +2,7 @@ import { invoiceSchema, mappingSchema } from '@e-invoice-eu/core';
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
+import { describe, it, beforeEach, expect } from 'vitest';
 
 import { SchemaController } from './schema.controller';
 
