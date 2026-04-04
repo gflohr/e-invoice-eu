@@ -5,10 +5,7 @@ import * as jsonpath from 'jsonpath-plus';
 import { FormatUBLService } from './format-ubl.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
-
-// This is what we are looking at while traversing the input tree:
-export type Node = { [key: string]: Node } | Node[] | string;
-export type ObjectNode = { [key: string]: Node };
+import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 
 // Flags for Factur-X usage.
 export type FXProfile =
@@ -1665,10 +1662,9 @@ export class FormatCIIService
 
 	async generate(
 		invoice: Invoice,
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		_options: InvoiceServiceOptions,
+		options: InvoiceServiceOptions,
 	): Promise<string | Uint8Array> {
-		const cii: ObjectNode = {};
+		const cii: ExpandObject = {};
 
 		this.convert(invoice, '$', cii, '$', [ublInvoice]);
 
@@ -1690,10 +1686,14 @@ export class FormatCIIService
 
 		this.postProcess(cii);
 
+		if (options.postProcessor) {
+			await options.postProcessor(cii);
+		}
+
 		return this.renderXML(cii);
 	}
 
-	private postProcess(cii: ObjectNode) {
+	private postProcess(cii: ExpandObject) {
 		this.postProcessSellerTradeParty(cii);
 
 		// If the delivery location ID does not have a scheme, downgrade it from
@@ -1739,7 +1739,7 @@ export class FormatCIIService
 		}
 	}
 
-	private postProcessSellerTradeParty(cii: ObjectNode) {
+	private postProcessSellerTradeParty(cii: ExpandObject) {
 		const sellerParty =
 			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
 				'ram:ApplicableHeaderTradeAgreement'
@@ -1775,7 +1775,7 @@ export class FormatCIIService
 		}
 
 		// Rebuild sellerParty with ram:ID and ram:GlobalID first.
-		const orderedSellerParty: ObjectNode = {};
+		const orderedSellerParty: ExpandObject = {};
 
 		// Add local IDs first.
 		if (localIDs.length) {
@@ -1806,7 +1806,7 @@ export class FormatCIIService
 	private convert(
 		invoice: Invoice,
 		srcPath: string,
-		dest: ObjectNode,
+		dest: ExpandObject,
 		destPath: string,
 		transformations: Transformation[],
 	) {
@@ -1917,9 +1917,9 @@ export class FormatCIIService
 	}
 
 	private vivifyDest(
-		dest: ObjectNode,
+		dest: ExpandObject,
 		path: string,
-		value: string | ObjectNode,
+		value: string | ExpandObject,
 	) {
 		const indices = path.replace(/\[([0-9]+)\]/g, '.$1').split('.');
 
@@ -1939,7 +1939,7 @@ export class FormatCIIService
 				dest[key] ??= {};
 			}
 
-			dest = dest[key] as ObjectNode;
+			dest = dest[key] as ExpandObject;
 		}
 
 		dest[indices[indices.length - 1]] = value;

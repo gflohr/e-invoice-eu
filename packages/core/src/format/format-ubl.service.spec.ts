@@ -8,6 +8,7 @@ jest.mock('../utils/render-spreadsheet', () => ({
 
 import { FormatUBLService } from './format-ubl.service';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
+import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 
 describe('UBL', () => {
 	let service: FormatUBLService;
@@ -278,5 +279,58 @@ describe('UBL', () => {
 		await expect(service.generate(invoice, options)).rejects.toThrow(
 			'The attachment buffer is required!',
 		);
+	});
+
+	describe('post-processing', () => {
+		const defaultNotes = [
+			'Buy a dozen donuts at the Kwik-E-Mart and instantly become' +
+				' Homer-level happy—guaranteed to make your cat ignore you!',
+			"Order Bart's Skateboard Deluxe 3000 from the Simpson Garage" +
+				" because it's the only board that survives a launch over" +
+				" Grandpa's dentures!",
+		];
+
+		const postProcessor = async (data: ExpandObject) => {
+			const document = data['Invoice'] ?? data['CreditNote'];
+			const notes = document['cbc:Note'];
+
+			if (notes) {
+				notes.push(...defaultNotes);
+			} else {
+				document['cbc:Note'] = [...defaultNotes];
+			}
+		};
+
+		it('should append default notes to invoice notes', async () => {
+			const invoice: Invoice = {
+				'ubl:Invoice': {
+					'cbc:ID': '1234567890',
+					'cbc:InvoiceTypeCode': '380',
+					'cbc:Note': ['Please send complaints to devnull@us.com'],
+				},
+			} as unknown as Invoice;
+			const options = {
+				postProcessor,
+			} as InvoiceServiceOptions;
+
+			const xml = await service.generate(invoice, options);
+			expect(xml).toMatchSnapshot();
+		});
+
+		it('should append default notes to credit-note notes', async () => {
+			const invoice: Invoice = {
+				'ubl:Invoice': {
+					'cbc:ID': '1234567890',
+					'cbc:InvoiceTypeCode': '381',
+					'cbc:Note': ['Please send complaints to devnull@us.com'],
+				},
+			} as unknown as Invoice;
+			const options = {
+				postProcessor,
+			} as InvoiceServiceOptions;
+
+			const xml = await service.generate(invoice, options);
+			expect(xml).toMatchSnapshot();
+		});
 	});
 });

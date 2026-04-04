@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`CII post-processing should append default notes to the invoice notes 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:ExchangedDocument>
+		<ram:ID>1234567890</ram:ID>
+		<ram:IncludedNote>
+			<ram:Content>Please send complaints to devnull@us.com</ram:Content>
+		</ram:IncludedNote>
+		<ram:IncludedNote>
+			<ram:Content>Buy a dozen donuts at the Kwik-E-Mart and instantly become Homer-level happy—guaranteed to make your cat ignore you!</ram:Content>
+		</ram:IncludedNote>
+		<ram:IncludedNote>
+			<ram:Content>Order Bart's Skateboard Deluxe 3000 from the Simpson Garage because it's the only board that survives a launch over Grandpa's dentures!</ram:Content>
+		</ram:IncludedNote>
+	</rsm:ExchangedDocument>
+</rsm:CrossIndustryInvoice>"
+`;
+
 exports[`CII regressions #146 missing TaxTotalAmount should fix add TaxTotalAmount 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">

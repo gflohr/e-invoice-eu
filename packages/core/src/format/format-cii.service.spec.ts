@@ -3,6 +3,7 @@ import { Invoice } from '@e-invoice-eu/core';
 import { FormatCIIService } from './format-cii.service';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Logger } from '../logger.interface';
+import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 
 describe('CII', () => {
 	let service: FormatCIIService;
@@ -84,6 +85,68 @@ describe('CII', () => {
 		const options = {} as InvoiceServiceOptions;
 		const xml = await service.generate(invoice, options);
 		expect(xml).toMatchSnapshot();
+	});
+
+	describe('post-processing', () => {
+		const defaultNotes = [
+			'Buy a dozen donuts at the Kwik-E-Mart and instantly become' +
+				' Homer-level happy—guaranteed to make your cat ignore you!',
+			"Order Bart's Skateboard Deluxe 3000 from the Simpson Garage" +
+				" because it's the only board that survives a launch over" +
+				" Grandpa's dentures!",
+		];
+
+		const postProcessor = (data: ExpandObject) => {
+			if (
+				data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+					'ram:IncludedNote'
+				]
+			) {
+				if (
+					!Array.isArray(
+						data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+							'ram:IncludedNote'
+						],
+					)
+				) {
+					data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+						'ram:IncludedNote'
+					] = [
+						data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+							'ram:IncludedNote'
+						],
+					];
+				}
+			} else {
+				data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+					'ram:IncludedNote'
+				] = [];
+			}
+
+			const notes =
+				data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument'][
+					'ram:IncludedNote'
+				];
+
+			for (const note of defaultNotes) {
+				notes.push({ 'ram:Content': note });
+			}
+		};
+
+		it('should append default notes to the invoice notes', async () => {
+			const invoice: Invoice = {
+				'ubl:Invoice': {
+					'cbc:ID': '1234567890',
+					'cbc:Note': ['Please send complaints to devnull@us.com'],
+				},
+			} as unknown as Invoice;
+			const options = {
+				postProcessor,
+			} as InvoiceServiceOptions;
+
+			const xml = await service.generate(invoice, options);
+			expect(xml).toMatchSnapshot();
+		});
 	});
 
 	describe('regressions', () => {
