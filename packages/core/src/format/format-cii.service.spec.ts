@@ -222,5 +222,61 @@ describe('CII', () => {
 				expect(xml).toMatchSnapshot();
 			});
 		});
+
+		describe('#490 adapt seller party mappings depending on it attribute presence', () => {
+			it('should map seller ids in a context-depending manner', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:AccountingSupplierParty': {
+							'cac:Party': {
+								'cac:PartyIdentification': [
+									// Those will become global IDs.
+									{
+										'cbc:ID': '5060012349998',
+										'cbc:ID@schemeID': '0088',
+									},
+									{
+										'cbc:ID': 'abcdefxyz',
+										'cbc:ID@schemeID': '0044',
+									},
+									// And those will remain a local IDs.
+									{
+										'cbc:ID': '42',
+									},
+									{
+										'cbc:ID': 'well known',
+									},
+								],
+								// Make sure that this will come last in the
+								// XML output.
+								'cac:PartyName': {
+									'cbc:Name': 'Acme Ltd.',
+								},
+							},
+						},
+					},
+				} as unknown as Invoice;
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+				expect(xml).toContain('<ram:ID>42</ram:ID>');
+				expect(xml).not.toContain('>42</ram:GlobalID>');
+				expect(xml).toContain('<ram:ID>well known</ram:ID>');
+				expect(xml).not.toContain('>well known</ram:GlobalID>');
+				expect(xml).not.toContain('<ram:ID schemeID');
+				expect(xml).toContain(
+					'<ram:GlobalID schemeID="0088">5060012349998</ram:GlobalID>',
+				);
+				expect(xml).not.toContain('>5060012349998</ram:ID>');
+				expect(xml).toContain(
+					'<ram:GlobalID schemeID="0044">abcdefxyz</ram:GlobalID>',
+				);
+				expect(xml).not.toContain('>abcdefxyz</ram:ID>');
+				// The snapshot test ensures that all local IDs precede the
+				// global IDs.
+				expect(xml).toMatchSnapshot();
+			});
+		});
 	});
 });
