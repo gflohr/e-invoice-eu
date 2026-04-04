@@ -1687,7 +1687,7 @@ export class FormatCIIService
 		this.postProcess(cii);
 
 		if (options.postProcessor) {
-			options.postProcessor(cii);
+			await options.postProcessor(cii);
 		}
 
 		return this.renderXML(cii);

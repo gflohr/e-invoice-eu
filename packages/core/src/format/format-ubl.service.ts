@@ -133,7 +133,7 @@ export class FormatUBLService
 
 			const data = replaceInvoiceWithCreditNote(creditNoteObject);
 			if (options.postProcessor) {
-				options.postProcessor(data);
+				await options.postProcessor(data);
 			}
 			return this.renderXML(data);
 		} else {
@@ -149,7 +149,7 @@ export class FormatUBLService
 			};
 
 			if (options.postProcessor) {
-				options.postProcessor(invoiceObject);
+				await options.postProcessor(invoiceObject);
 			}
 			return this.renderXML(invoiceObject);
 		}

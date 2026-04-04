@@ -9,10 +9,10 @@ exports[`CII post-processing should append default notes to the invoice notes 1`
 			<ram:Content>Please send complaints to devnull@us.com</ram:Content>
 		</ram:IncludedNote>
 		<ram:IncludedNote>
-			<ram:Content>Buy a dozen donuts at the Kwik-E-Mart and instantly becomeHomer-level happy—guaranteed to make your cat ignore you!</ram:Content>
+			<ram:Content>Buy a dozen donuts at the Kwik-E-Mart and instantly become Homer-level happy—guaranteed to make your cat ignore you!</ram:Content>
 		</ram:IncludedNote>
 		<ram:IncludedNote>
-			<ram:Content>Order Bart's Skateboard Deluxe 3000 from the Simpson Garagebecause it's the only board that survives a launch overGrandpa's dentures!</ram:Content>
+			<ram:Content>Order Bart's Skateboard Deluxe 3000 from the Simpson Garage because it's the only board that survives a launch over Grandpa's dentures!</ram:Content>
 		</ram:IncludedNote>
 	</rsm:ExchangedDocument>
 </rsm:CrossIndustryInvoice>"

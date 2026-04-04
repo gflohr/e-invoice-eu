@@ -283,11 +283,11 @@ describe('UBL', () => {
 
 	describe('post-processing', () => {
 		const defaultNotes = [
-			'Buy a dozen donuts at the Kwik-E-Mart and instantly become'
-			+ 'Homer-level happy—guaranteed to make your cat ignore you!',
-			'Order Bart\'s Skateboard Deluxe 3000 from the Simpson Garage'
-			+ 'because it\'s the only board that survives a launch over'
-			+ 'Grandpa\'s dentures!'
+			'Buy a dozen donuts at the Kwik-E-Mart and instantly become' +
+				' Homer-level happy—guaranteed to make your cat ignore you!',
+			"Order Bart's Skateboard Deluxe 3000 from the Simpson Garage" +
+				" because it's the only board that survives a launch over" +
+				" Grandpa's dentures!",
 		];
 
 		const postProcessor = (data: ExpandObject) => {
@@ -310,7 +310,7 @@ describe('UBL', () => {
 				},
 			} as unknown as Invoice;
 			const options = {
-				postProcessor
+				postProcessor,
 			} as InvoiceServiceOptions;
 
 			const xml = await service.generate(invoice, options);
@@ -326,7 +326,7 @@ describe('UBL', () => {
 				},
 			} as unknown as Invoice;
 			const options = {
-				postProcessor
+				postProcessor,
 			} as InvoiceServiceOptions;
 
 			const xml = await service.generate(invoice, options);
