@@ -83,12 +83,79 @@ export type InvoiceServiceOptions = {
 	noWarnings?: boolean;
 
 	/**
-	 * Callback for a function to call, before the XML is rendered. This
+	 * Callback function invoked before the XML is rendered. This
 	 * allows fine-tuning the output XML, for example by adding currently
-	 * unsupported CII elements. Another possible use-case is to apply fixes
-	 * for currently open bugs.
+	 * unsupported CII elements. Another use case is applying fixes for open
+	 * bugs.
+	 *
+	 * The `data` argument is a plain JavaScript object where all nodes
+	 * are either an `Array` or another object, and all leaves are
+	 * strings. The type `ExpandObject` is defined in `xmlbuilder2`.
+	 *
+	 * UBL example:
+	 *
+	 * ```typescript
+	 * const defaultNotes = [
+	 *	'We only use organic ingredients (no GMO)!',
+	 *	'We work exclusively with regional suppliers.',
+	 * ];
+	 *
+	 * invoiceServiceOptions.postProcessor = async (data: ExpandObject) => {
+	 *	const document = data['Invoice'] ?? data['CreditNote'];
+	 *	const notes = document['cbc:Note'];
+	 *
+	 *	if (notes) {
+	 *		notes.push(...defaultNotes);
+	 *	} else {
+	 *		document['cbc:Note'] = [...defaultNotes];
+	 *	}
+	 * ```
+	 *
+	 * CII example:
+	 *
+	 * ```typescript
+	 * const defaultNotes = [
+	 *	'We only use organic ingredients (no GMO)!',
+	 *	'We work exclusively with regional suppliers.',
+	 * ];
+	 *
+	 * const postProcessor = async (data: ExpandObject) => {
+	 * 	if (
+	 * 		data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+	 * 			'ram:IncludedNote'
+	 * 		]
+	 * 	) {
+	 * 		if (
+	 * 			!Array.isArray(
+	 * 				data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+	 * 					'ram:IncludedNote'
+	 * 				],
+	 * 			)
+	 * 		) {
+	 * 			data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+	 * 				'ram:IncludedNote'
+	 * 			] = [
+	 * 				data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+	 * 					'ram:IncludedNote'
+	 * 				],
+	 * 			];
+	 * 		}
+	 * 	} else {
+	 * 		data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+	 * 			'ram:IncludedNote'
+	 * 		] = [];
+	 * 	}
+	 * 	const notes =
+	 * 		data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument'][
+	 * 			'ram:IncludedNote'
+	 * 		]; *
+	 * 	for (const note of defaultNotes) {
+	 * 		notes.push({ 'ram:Content': note });
+	 * 	}
+	 * };
+	 * ```
 	 */
-	postProcessor?: (cii: ExpandObject) => Promise<void>;
+	postProcessor?: (data: ExpandObject) => Promise<void>;
 };
 
 /**

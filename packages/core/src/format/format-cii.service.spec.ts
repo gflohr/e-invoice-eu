@@ -89,21 +89,47 @@ describe('CII', () => {
 
 	describe('post-processing', () => {
 		const defaultNotes = [
-			'Buy a dozen donuts at the Kwik-E-Mart and instantly become'
-			+ 'Homer-level happy—guaranteed to make your cat ignore you!',
-			'Order Bart\'s Skateboard Deluxe 3000 from the Simpson Garage'
-			+ 'because it\'s the only board that survives a launch over'
-			+ 'Grandpa\'s dentures!'
+			'Buy a dozen donuts at the Kwik-E-Mart and instantly become' +
+				'Homer-level happy—guaranteed to make your cat ignore you!',
+			"Order Bart's Skateboard Deluxe 3000 from the Simpson Garage" +
+				"because it's the only board that survives a launch over" +
+				"Grandpa's dentures!",
 		];
 
 		const postProcessor = (data: ExpandObject) => {
-			const notes = data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']?.
-				['ram:IncludedNote']?.['ram:Content'];
-
-			if (notes) {
-				notes.push(...defaultNotes);
+			if (
+				data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+					'ram:IncludedNote'
+				]
+			) {
+				if (
+					!Array.isArray(
+						data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+							'ram:IncludedNote'
+						],
+					)
+				) {
+					data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+						'ram:IncludedNote'
+					] = [
+						data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+							'ram:IncludedNote'
+						],
+					];
+				}
 			} else {
-				data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']['ram:Content'] = [...defaultNotes];
+				data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+					'ram:IncludedNote'
+				] = [];
+			}
+
+			const notes =
+				data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument'][
+					'ram:IncludedNote'
+				];
+
+			for (const note of defaultNotes) {
+				notes.push({ 'ram:Content': note });
 			}
 		};
 
@@ -115,7 +141,7 @@ describe('CII', () => {
 				},
 			} as unknown as Invoice;
 			const options = {
-				postProcessor
+				postProcessor,
 			} as InvoiceServiceOptions;
 
 			const xml = await service.generate(invoice, options);
