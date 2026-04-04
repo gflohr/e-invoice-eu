@@ -1,5 +1,14 @@
 # @e-invoice-eu/cli
 
+## 3.0.3
+
+### Patch Changes
+
+- Updated dependencies [375b34a]
+- Updated dependencies [109fbbf]
+- Updated dependencies [e90c3e6]
+  - @e-invoice-eu/core@3.0.3
+
 ## 3.0.2
 
 ### Patch Changes
