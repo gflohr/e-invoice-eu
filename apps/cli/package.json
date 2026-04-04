@@ -34,7 +34,7 @@
 		"e-invoice-eu": "dist/index.js"
 	},
 	"scripts": {
-		"build": "rimraf ./dist && tsc --project tsconfig.build.json && chmod +x dist/index.js",
+		"build": "rimraf ./dist && tsc --project tsconfig.build.json",
 		"prebuild": "node ./write-package.mjs >src/package.ts",
 		"check:clean": "../../check-clean",
 		"format": "prettier --write 'src/**/*.ts' *.mjs *.json",
