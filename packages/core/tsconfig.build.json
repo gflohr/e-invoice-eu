@@ -1,8 +1,8 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"module": "nodenext",
-		"moduleResolution": "nodenext",
+		"module": "esnext",
+		"moduleResolution": "bundler",
 		"typeRoots": ["node_modules/@types"],
 		"rootDir": "./src"
 	}
