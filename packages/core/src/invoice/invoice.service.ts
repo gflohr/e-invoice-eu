@@ -148,7 +148,7 @@ export type InvoiceServiceOptions = {
 	 * 	const notes =
 	 * 		data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument'][
 	 * 			'ram:IncludedNote'
-	 * 		]; *
+	 * 		];
 	 * 	for (const note of defaultNotes) {
 	 * 		notes.push({ 'ram:Content': note });
 	 * 	}
