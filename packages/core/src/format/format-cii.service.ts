@@ -598,20 +598,30 @@ export const cacSupplierPartyTaxScheme: Transformation[] = [
 	},
 ];
 
+export const cacSupplierPartyIdentification: Transformation[] = [
+	{
+		type: 'string',
+		src: ['cbc:ID'],
+		// This may be downgraded to ram:ID in the post-processing.
+		dest: ['ram:GlobalID'],
+		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cbc:ID@schemeID'],
+		dest: ['ram:GlobalID@schemeID'],
+		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+];
+
 export const cacAccountingSupplierParty: Transformation[] = [
 	{
 		type: 'array',
-		src: [],
-		dest: [],
-		children: [
-			{
-				type: 'string',
-				src: ['cac:PartyIdentification', 'cbc:ID'],
-				dest: ['ram:ID'],
-				fxProfileMask: FX_MASK_BASIC_WL,
-			},
-		],
-		fxProfileMask: FX_MASK_MINIMUM,
+		src: ['cac:PartyIdentification'],
+		// This layer gets removed in the post-processing.
+		dest: ['dummy:PartyIdentification'],
+		children: cacSupplierPartyIdentification,
+		fxProfileMask: FX_MASK_BASIC_WL,
 	},
 	{
 		type: 'string',
@@ -1684,6 +1694,8 @@ export class FormatCIIService
 	}
 
 	private postProcess(cii: ObjectNode) {
+		this.postProcessSellerTradeParty(cii);
+
 		// If the delivery location ID does not have a scheme, downgrade it from
 		// ram:GlobalID to ram:ID.
 		const buyerParty =
@@ -1725,6 +1737,70 @@ export class FormatCIIService
 				supplierTaxRegistration['ram:ID@schemeID'] = 'FC';
 			}
 		}
+	}
+
+	private postProcessSellerTradeParty(cii: ObjectNode) {
+		const sellerParty =
+			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
+				'ram:ApplicableHeaderTradeAgreement'
+			]?.['ram:SellerTradeParty'];
+
+		if (!sellerParty) return; // Can happen in tests.
+
+		type PartyIdentification = {
+			'ram:GlobalID': string;
+			'ram:GlobalID@schemeID'?: string;
+		};
+		const partyIdentifications: PartyIdentification[] =
+			sellerParty['dummy:PartyIdentification'];
+		if (!partyIdentifications) return;
+
+		delete sellerParty['dummy:PartyIdentification'];
+		const localIDs: string[] = [];
+		type GlobalID = {
+			'#': string;
+			'ram:GlobalID@schemeID': string;
+		};
+		const globalIDs: GlobalID[] = [];
+
+		for (const pi of partyIdentifications) {
+			if (pi['ram:GlobalID@schemeID']) {
+				globalIDs.push({
+					'#': pi['ram:GlobalID'],
+					'ram:GlobalID@schemeID': pi['ram:GlobalID@schemeID'],
+				});
+			} else {
+				localIDs.push(pi['ram:GlobalID']);
+			}
+		}
+
+		// Rebuild sellerParty with ram:ID and ram:GlobalID first.
+		const orderedSellerParty: ObjectNode = {};
+
+		// Add local IDs first.
+		if (localIDs.length) {
+			orderedSellerParty['ram:ID'] = localIDs;
+		}
+
+		// Add global IDs.
+		if (globalIDs.length) {
+			orderedSellerParty['ram:GlobalID'] = globalIDs.map(gid => ({
+				'#': gid['#'],
+				'@schemeID': gid['ram:GlobalID@schemeID'],
+			}));
+		}
+
+		// Copy remaining original properties in their original order.
+		for (const key of Object.keys(sellerParty)) {
+			orderedSellerParty[key] = sellerParty[key];
+		}
+
+		// Replace the sellerParty object with the ordered one
+		const parent =
+			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
+				'ram:ApplicableHeaderTradeAgreement'
+			];
+		parent['ram:SellerTradeParty'] = orderedSellerParty;
 	}
 
 	private convert(

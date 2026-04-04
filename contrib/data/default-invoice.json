@@ -18,6 +18,15 @@
 			"cac:Party": {
 				"cbc:EndpointID": "DE202526944",
 				"cbc:EndpointID@schemeID": "9930",
+				"cac:PartyIdentification": [
+					{
+						"cbc:ID": "42"
+					},
+					{
+						"cbc:ID": "5060012349998",
+						"cbc:ID@schemeID": "0088"
+					}
+				],
 				"cac:PartyName": {
 					"cbc:Name": "Acme Ltd."
 				},

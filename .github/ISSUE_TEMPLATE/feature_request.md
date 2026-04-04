@@ -5,5 +5,5 @@ title: ''
 labels: ''
 assignees: ''
 ---
-Please suggest *only one feature request* per issue! Please cite applicable
-standards if the feature request is related to a standard!
+<!-- Please suggest *only one feature request* per issue! Please cite
+     applicable standards if the feature request is related to a standard! -->
