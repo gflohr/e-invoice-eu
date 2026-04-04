@@ -290,7 +290,7 @@ describe('UBL', () => {
 				" Grandpa's dentures!",
 		];
 
-		const postProcessor = (data: ExpandObject) => {
+		const postProcessor = async (data: ExpandObject) => {
 			const document = data['Invoice'] ?? data['CreditNote'];
 			const notes = document['cbc:Note'];
 
