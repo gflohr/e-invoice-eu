@@ -1,8 +1,7 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"module": "nodenext",
-		"moduleResolution": "nodenext",
+		"module": "esnext",
 		"typeRoots": ["node_modules/@types"],
 		"rootDir": "./src"
 	}
