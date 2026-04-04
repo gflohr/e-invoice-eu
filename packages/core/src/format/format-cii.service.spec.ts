@@ -239,7 +239,7 @@ describe('CII', () => {
 										'cbc:ID': 'abcdefxyz',
 										'cbc:ID@schemeID': '0044',
 									},
-									// And those will remain a local IDs.
+									// And those will remain local IDs.
 									{
 										'cbc:ID': '42',
 									},
