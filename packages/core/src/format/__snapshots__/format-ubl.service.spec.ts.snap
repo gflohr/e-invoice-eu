@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
+exports[`UBL post-processing should append default notes to credit-note notes 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<CreditNote xmlns="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+	<cbc:ID>1234567890</cbc:ID>
+	<cbc:CreditNoteTypeCode>381</cbc:CreditNoteTypeCode>
+	<cbc:Note>Please send complaints to devnull@us.com</cbc:Note>
+	<cbc:Note>Buy a dozen donuts at the Kwik-E-Mart and instantly becomeHomer-level happy—guaranteed to make your cat ignore you!</cbc:Note>
+	<cbc:Note>Order Bart's Skateboard Deluxe 3000 from the Simpson Garagebecause it's the only board that survives a launch overGrandpa's dentures!</cbc:Note>
+</CreditNote>"
+`;
+
+exports[`UBL post-processing should append default notes to invoice notes 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+	<cbc:ID>1234567890</cbc:ID>
+	<cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+	<cbc:Note>Please send complaints to devnull@us.com</cbc:Note>
+	<cbc:Note>Buy a dozen donuts at the Kwik-E-Mart and instantly becomeHomer-level happy—guaranteed to make your cat ignore you!</cbc:Note>
+	<cbc:Note>Order Bart's Skateboard Deluxe 3000 from the Simpson Garagebecause it's the only board that survives a launch overGrandpa's dentures!</cbc:Note>
+</Invoice>"
+`;
+
 exports[`UBL should attach attachments 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">

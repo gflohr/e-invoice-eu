@@ -5,6 +5,7 @@ import { invoiceSchema } from './invoice.schema';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { Logger } from '../logger.interface';
 import { ValidationService } from '../validation';
+import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 
 /**
  * A container for a file used for an e-invoice.
@@ -80,6 +81,14 @@ export type InvoiceServiceOptions = {
 	 * Shut up warnings.
 	 */
 	noWarnings?: boolean;
+
+	/**
+	 * Callback for a function to call, before the XML is rendered. This
+	 * allows fine-tuning the output XML, for example by adding currently
+	 * unsupported CII elements. Another possible use-case is to apply fixes
+	 * for currently open bugs.
+	 */
+	postProcessor?: (cii: ExpandObject) => Promise<void>;
 };
 
 /**
