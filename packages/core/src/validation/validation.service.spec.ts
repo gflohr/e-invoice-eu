@@ -7,7 +7,7 @@ import { Logger } from '../logger.interface';
 describe('ValidationService', () => {
 	let logger: Logger;
 	let service: ValidationService;
-	let mockValidate: ValidateFunction;
+	let mockValidate: ValidateFunction & Mock;
 
 	beforeEach(async () => {
 		logger = {
@@ -17,7 +17,7 @@ describe('ValidationService', () => {
 		service = new ValidationService(logger);
 
 		// Mock the validate function
-		mockValidate = vi.fn() as unknown as ValidateFunction;
+		mockValidate = vi.fn() as unknown as ValidateFunction & Mock;
 	});
 
 	it('should be defined', () => {
@@ -28,7 +28,7 @@ describe('ValidationService', () => {
 		const validData = { name: 'John', age: 30 };
 
 		// Simulate successful validation
-		(mockValidate as unknown as Mock).mockReturnValue(true);
+		mockValidate.mockReturnValue(true);
 
 		expect(service.validate('test', mockValidate, validData)).toEqual(
 			validData,
@@ -47,7 +47,7 @@ describe('ValidationService', () => {
 				schemaPath: '.required',
 			} as unknown as ErrorObject,
 		];
-		(mockValidate as unknown as Mock).mockReturnValue(false);
+		mockValidate.mockReturnValue(false);
 		mockValidate.errors = errors;
 
 		expect(() => service.validate('test', mockValidate, invalidData)).toThrow(
