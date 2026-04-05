@@ -21,7 +21,7 @@
 		"build": "pnpm -r --workspace-concurrency=3 run build",
 		"check": "biome check",
 		"check:fix": "biome check --write",
-		"check:staged": "biome check --staged --write",
+		"check:staged": "biome check --staged --write --no-errors-on-unmatched",
 		"start": "pnpm -r --filter=@e-invoice-eu/server run start",
 		"start:dev": "pnpm -r --filter=@e-invoice-eu/server run start:dev",
 		"start:debug": "pnpm -r --filter=@e-invoice-eu/server run start:debug",
