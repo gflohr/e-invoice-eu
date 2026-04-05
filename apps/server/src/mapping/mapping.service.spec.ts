@@ -1,30 +1,15 @@
+import { vi, describe, it, beforeEach, expect, type Mocked } from 'vitest';
+
+vi.mock('@e-invoice-eu/core', () => ({
+	MappingService: vi.fn(),
+}));
+
 import {
 	MappingService as CoreMappingService,
 	Invoice,
 } from '@e-invoice-eu/core';
-import {
-	vi,
-	describe,
-	it,
-	beforeEach,
-	expect,
-	type Mocked,
-} from 'vitest';
 
 import { MappingService } from './mapping.service';
-
-let CoreMappingServiceMock: ReturnType<typeof vi.fn>;
-
-vi.mock('@e-invoice-eu/core', async importOriginal => {
-	const actual: object = await importOriginal();
-
-	CoreMappingServiceMock = vi.fn();
-
-	return {
-		...actual,
-		CoreMappingService: CoreMappingServiceMock,
-	};
-});
 
 describe('MappingService', () => {
 	let service: MappingService;
@@ -33,9 +18,11 @@ describe('MappingService', () => {
 	beforeEach(() => {
 		coreMappingServiceMock = {
 			transform: vi.fn(),
-		};
+		} as unknown as Mocked<CoreMappingService>;
 
-		CoreMappingServiceMock.mockImplementation(() => coreMappingServiceMock);
+		vi.mocked(CoreMappingService).mockImplementation(function () {
+			return coreMappingServiceMock;
+		});
 
 		service = new MappingService();
 	});
