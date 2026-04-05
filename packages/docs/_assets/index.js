@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+// biome-ignore-all lint/style/noCommonJs: migrate later to ES6
 // jQuery. :(
 const $ = require('jquery');
 window.$ = window.jQuery = $;

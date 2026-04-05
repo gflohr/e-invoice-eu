@@ -30,19 +30,19 @@ type Cardinality = {
 type XmlTextNode = { '#text': string };
 
 type XmlNode = {
-  Term?: XmlTextNode[];
-  Name?: XmlTextNode[];
-  Description?: XmlTextNode[];
-  DataType?: XmlTextNode[];
-  Reference?: XmlTextNode[];
-  Attribute?: XmlNode[];
-  Value?: XmlTextNode[];
-  Element?: XmlNode[];
-  ':@'?: {
-    '@_type'?: string;
-    '@_usage'?: string;
-    '@_cardinality'?: string;
-  };
+	Term?: XmlTextNode[];
+	Name?: XmlTextNode[];
+	Description?: XmlTextNode[];
+	DataType?: XmlTextNode[];
+	Reference?: XmlTextNode[];
+	Attribute?: XmlNode[];
+	Value?: XmlTextNode[];
+	Element?: XmlNode[];
+	':@'?: {
+		'@_type'?: string;
+		'@_usage'?: string;
+		'@_cardinality'?: string;
+	};
 };
 
 type Element = {
@@ -406,8 +406,8 @@ function fixupAttributes(node: ExpandObject) {
 	if (typeof node === 'object') {
 		for (const key in node) {
 			if (key === 'type' && node['type'] === 'object') {
-				const attributes = Object.keys(node['properties']).filter(prop =>
-					prop.includes('@'),
+				const attributes = Object.keys(node['properties']).filter(
+					prop => prop.includes('@'),
 				);
 				const required: Array<string> =
 					'required' in node ? node.required : [];
@@ -442,7 +442,10 @@ function fixupAttributes(node: ExpandObject) {
 	}
 }
 
-function buildTree(element: XmlNode[], parent: ExpandObject | null = null): Element {
+function buildTree(
+	element: XmlNode[],
+	parent: ExpandObject | null = null,
+): Element {
 	const tree: Element = {} as Element;
 
 	for (const node of element) {
@@ -531,8 +534,7 @@ function buildSchema(tree: Element): JSONSchemaType<object> {
 		$defs,
 	};
 
-	(result.properties as ExpandObject)[tree.Term] =
-		processNode(tree);
+	(result.properties as ExpandObject)[tree.Term] = processNode(tree);
 
 	if (parseCardinality(tree.cardinality).min === 1) {
 		(result.required as unknown as string[]).push(tree.Term);
@@ -588,7 +590,10 @@ function processNode(node: Element): JSONSchemaType<object> {
 			...common,
 		} as JSONSchemaType<unknown>;
 	} else {
-		schema = { type: 'string', ...common } as unknown as JSONSchemaType<unknown>;
+		schema = {
+			type: 'string',
+			...common,
+		} as unknown as JSONSchemaType<unknown>;
 	}
 
 	// If the node has children, it's an object with properties
