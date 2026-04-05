@@ -1,9 +1,10 @@
-var $ = require('jquery');
+// biome-ignore-all lint/style/noCommonJs: migrate later to ES6
+const $ = require('jquery');
 
 $(document).ready(function () {
 	if ($('body').hasClass('keyboard-navigation')) {
 		window.onkeyup = function (e) {
-			var id;
+			let id;
 
 			if (e.code === 'PageUp') {
 				id = 'nav-back';
@@ -15,7 +16,7 @@ $(document).ready(function () {
 
 			if (id !== undefined) {
 				console.log(id);
-				var anchor = document.getElementById(id);
+				const anchor = document.getElementById(id);
 				if (anchor && anchor.href && anchor.href !== window.location)
 					window.location = anchor.href;
 			}
