@@ -289,12 +289,23 @@
 		const attachment = attachments[attachmentIndex];
 
 		const details = clone.querySelector('.flex-grow-1');
-		details.innerHTML = `
-			<div>File: ${attachment.filename}</div>
-			<div>ID: ${attachment.id ?? 'n/a'}</div>
-			<div>Description: ${attachment.description ?? 'n/a'}</div>
-			<div>MIME type: ${attachment.mimetype ?? 'n/a'}</div>
-		`;
+		details.textContent = '';
+
+		const fileDiv = document.createElement('div');
+		fileDiv.textContent = 'File: ' + (attachment.filename ?? 'n/a');
+		details.appendChild(fileDiv);
+
+		const idDiv = document.createElement('div');
+		idDiv.textContent = 'ID: ' + (attachment.id ?? 'n/a');
+		details.appendChild(idDiv);
+
+		const descriptionDiv = document.createElement('div');
+		descriptionDiv.textContent = 'Description: ' + (attachment.description ?? 'n/a');
+		details.appendChild(descriptionDiv);
+
+		const mimeDiv = document.createElement('div');
+		mimeDiv.textContent = 'MIME type: ' + (attachment.mimetype ?? 'n/a');
+		details.appendChild(mimeDiv);
 
 		const container = document.getElementById('attachments-list');
 		const wrapper = document.createElement('div');
