@@ -1857,7 +1857,7 @@ export class FormatCIIService
 
 			const lastSrcKey =
 				transformation.src[transformation.src.length - 1];
-			let src: any;
+			let src: string;
 			let childSrcPath: string;
 			// Avoid writing attribute values for non-existing nodes.
 			if (

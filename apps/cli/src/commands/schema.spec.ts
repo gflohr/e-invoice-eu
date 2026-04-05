@@ -77,8 +77,12 @@ describe('Schema Command', () => {
 
 	it('run() should call doRun and return 0 on success', async () => {
 		(coerceOptions as Mock).mockReturnValue(true);
+
 		const doRunSpy = vi
-			.spyOn(schema as any, 'doRun')
+			.spyOn(
+				schema as unknown as { doRun: (typeof schema)['doRun'] },
+				'doRun',
+			)
 			.mockResolvedValue(undefined);
 
 		const result = await schema.run({} as Arguments);
@@ -90,7 +94,10 @@ describe('Schema Command', () => {
 	it('run() should return 1 and log an error if doRun throws', async () => {
 		(coerceOptions as Mock).mockReturnValue(true);
 		const error = new Error('test error');
-		vi.spyOn(schema as any, 'doRun').mockRejectedValue(error);
+		vi.spyOn(
+			schema as unknown as { doRun: (typeof schema)['doRun'] },
+			'doRun',
+		).mockRejectedValue(error);
 
 		const consoleErrorSpy = vi
 			.spyOn(console, 'error')

@@ -19,7 +19,7 @@ if (type !== 'terms' && type !== 'groups') {
 }
 
 const invoiceSchemaFilename = process.argv[3];
-const schema: JSONSchemaType<any> = JSON.parse(
+const schema: JSONSchemaType<unknown> = JSON.parse(
 	fs.readFileSync(invoiceSchemaFilename, 'utf-8'),
 );
 
@@ -72,7 +72,7 @@ for (const term of sortedTerms) {
 console.log(`<!--/qgoda-no-xgettext-->`);
 
 function recurseSchema(
-	schema: JSONSchemaType<any>,
+	schema: JSONSchemaType<unknown>,
 	path: string[],
 ): BusinessTerms {
 	const allTerms: BusinessTerms = {};
