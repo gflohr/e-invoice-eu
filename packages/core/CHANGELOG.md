@@ -1,5 +1,37 @@
 # @e-invoice-eu/core
 
+## 3.0.3
+
+### Patch Changes
+
+- 375b34a: Move module type back to esnext.
+
+  Setting `module` and `moduleResolution` to NodeNext broke the build
+  (see #489).
+
+- 109fbbf: Allow post-processing of invoice data before XML is rendered.
+
+  See the API documentation for
+  [`InvoiceServiceOptions`](https://gflohr.github.io/e-invoice-eu/api-docs/types/InvoiceServiceOptions.html#postprocessor).
+
+  It is not planned to port this feature to the command-line tool or the REST
+  API. For those interfaces, you can easily run the generated XML through some
+  XSL stylesheet.
+
+  For the hybrid formats Factur-X resp. ZUGFeRD, this will include an invocation
+  of `pdftk` or a similar tool for extracting the attachment, deleting it, and
+  adding it again.
+
+- e90c3e6: Map seller party identifications to CII.
+
+## 3.0.2
+
+### Patch Changes
+
+- 6a4ddf6: \* ReceivableSpecifiedTradeAccountingAccount no longer placed outside ApplicableHeaderTradeSettlement
+  - Remove @currencyID on Amount elements (forbidden by CII-DT-031)
+  - Fix CII mapping for payee identifier (BT-60)
+
 ## 3.0.1
 
 ### Patch Changes

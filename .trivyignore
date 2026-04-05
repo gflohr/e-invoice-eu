@@ -11,3 +11,12 @@ CVE-2026-27904
 CVE-2026-26960
 CVE-2026-29786
 CVE-2026-31802
+
+# Date: 2026-04-02
+# Vulnerability in picomatch. This is part of npm but npm is not used.
+CVE-2026-33671
+
+# Date: 2026-04-04
+# Vulnerability in libinput-libs. This seems to be a false positive.
+# The library is not present in the image.
+CVE-2026-35093

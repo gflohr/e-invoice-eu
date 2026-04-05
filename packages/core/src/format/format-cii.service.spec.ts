@@ -3,6 +3,7 @@ import { Invoice } from '@e-invoice-eu/core';
 import { FormatCIIService } from './format-cii.service';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Logger } from '../logger.interface';
+import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 
 describe('CII', () => {
 	let service: FormatCIIService;
@@ -84,6 +85,68 @@ describe('CII', () => {
 		const options = {} as InvoiceServiceOptions;
 		const xml = await service.generate(invoice, options);
 		expect(xml).toMatchSnapshot();
+	});
+
+	describe('post-processing', () => {
+		const defaultNotes = [
+			'Buy a dozen donuts at the Kwik-E-Mart and instantly become' +
+				' Homer-level happy—guaranteed to make your cat ignore you!',
+			"Order Bart's Skateboard Deluxe 3000 from the Simpson Garage" +
+				" because it's the only board that survives a launch over" +
+				" Grandpa's dentures!",
+		];
+
+		const postProcessor = (data: ExpandObject) => {
+			if (
+				data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+					'ram:IncludedNote'
+				]
+			) {
+				if (
+					!Array.isArray(
+						data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+							'ram:IncludedNote'
+						],
+					)
+				) {
+					data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+						'ram:IncludedNote'
+					] = [
+						data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+							'ram:IncludedNote'
+						],
+					];
+				}
+			} else {
+				data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
+					'ram:IncludedNote'
+				] = [];
+			}
+
+			const notes =
+				data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument'][
+					'ram:IncludedNote'
+				];
+
+			for (const note of defaultNotes) {
+				notes.push({ 'ram:Content': note });
+			}
+		};
+
+		it('should append default notes to the invoice notes', async () => {
+			const invoice: Invoice = {
+				'ubl:Invoice': {
+					'cbc:ID': '1234567890',
+					'cbc:Note': ['Please send complaints to devnull@us.com'],
+				},
+			} as unknown as Invoice;
+			const options = {
+				postProcessor,
+			} as InvoiceServiceOptions;
+
+			const xml = await service.generate(invoice, options);
+			expect(xml).toMatchSnapshot();
+		});
 	});
 
 	describe('regressions', () => {
@@ -219,6 +282,62 @@ describe('CII', () => {
 					'<ram:GlobalID schemeID="0088">SE8765456787</ram:GlobalID>',
 				);
 				expect(xml).not.toContain('<ram:ID>SE8765456787</ram:ID>');
+				expect(xml).toMatchSnapshot();
+			});
+		});
+
+		describe('#490 adapt seller party mappings depending on it attribute presence', () => {
+			it('should map seller ids in a context-depending manner', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:AccountingSupplierParty': {
+							'cac:Party': {
+								'cac:PartyIdentification': [
+									// Those will become global IDs.
+									{
+										'cbc:ID': '5060012349998',
+										'cbc:ID@schemeID': '0088',
+									},
+									{
+										'cbc:ID': 'abcdefxyz',
+										'cbc:ID@schemeID': '0044',
+									},
+									// And those will remain local IDs.
+									{
+										'cbc:ID': '42',
+									},
+									{
+										'cbc:ID': 'well known',
+									},
+								],
+								// Make sure that this will come last in the
+								// XML output.
+								'cac:PartyName': {
+									'cbc:Name': 'Acme Ltd.',
+								},
+							},
+						},
+					},
+				} as unknown as Invoice;
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+				expect(xml).toContain('<ram:ID>42</ram:ID>');
+				expect(xml).not.toContain('>42</ram:GlobalID>');
+				expect(xml).toContain('<ram:ID>well known</ram:ID>');
+				expect(xml).not.toContain('>well known</ram:GlobalID>');
+				expect(xml).not.toContain('<ram:ID schemeID');
+				expect(xml).toContain(
+					'<ram:GlobalID schemeID="0088">5060012349998</ram:GlobalID>',
+				);
+				expect(xml).not.toContain('>5060012349998</ram:ID>');
+				expect(xml).toContain(
+					'<ram:GlobalID schemeID="0044">abcdefxyz</ram:GlobalID>',
+				);
+				expect(xml).not.toContain('>abcdefxyz</ram:ID>');
+				// The snapshot test ensures that all local IDs precede the
+				// global IDs.
 				expect(xml).toMatchSnapshot();
 			});
 		});

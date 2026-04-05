@@ -20,7 +20,7 @@ RUN pnpm fetch \
 	--filter @e-invoice-eu/server...
 
 RUN pnpm install --offline --frozen-lockfile \
-	 --filter @e-invoice-eu/core... \
+	--filter @e-invoice-eu/core... \
 	--filter @e-invoice-eu/server...
 
 RUN pnpm \

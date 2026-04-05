@@ -1,5 +1,4 @@
-// FIXME! Name all the commands SubjectCommand so that we can import the
-// Invoice interface in a normal fashion.
+import { type ErrorObject } from 'ajv';
 import {
 	Invoice as CoreInvoice,
 	InvoiceService,
@@ -301,7 +300,11 @@ export class Invoice implements Command {
 			try {
 				invoiceData = JSON.parse(json) as CoreInvoice;
 			} catch (e) {
-				throw new Error(`${filename}: ${e.message}`);
+				if (e instanceof Error) {
+					throw new Error(`${filename}: ${e.message}`);
+				} else {
+					throw new Error(`${filename}: unknown error: ${e}`);
+				}
 			}
 		} else if (typeof configOptions.mapping !== 'undefined') {
 			if (typeof configOptions.spreadsheet == 'undefined') {
@@ -376,18 +379,32 @@ export class Invoice implements Command {
 			await this.doRun(configOptions);
 			return 0;
 		} catch (e) {
-			if (e.ajv) {
+			if (
+				typeof e === 'object' &&
+				e !== null &&
+				'errors' in e &&
+				Array.isArray((e as { errors?: unknown }).errors)
+			) {
+				const errors = (e as { errors: ErrorObject[] }).errors;
+
 				console.error(
 					gtx._x('{programName}: fatal error:', {
 						programName: Package.getName(),
 					}),
-					e.errors,
+					errors,
+				);
+			} else if (e instanceof Error) {
+				console.error(
+					gtx._x('{programName}: Error: {error}', {
+						programName: Package.getName(),
+						error: e.message,
+					}),
 				);
 			} else {
 				console.error(
-					gtx._x('{programName}: {error}', {
+					gtx._x('{programName}: Error: {error}', {
 						programName: Package.getName(),
-						error: e,
+						error: String(e),
 					}),
 				);
 			}

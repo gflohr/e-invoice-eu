@@ -1,6 +1,7 @@
 {
 	"extends": "./tsconfig.json",
 	"compilerOptions": {
-		"isolatedModules": true
+		"isolatedModules": true,
+		"rootDir": "./src"
 	}
 }

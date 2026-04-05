@@ -66,7 +66,11 @@ export const renderSpreadsheet = async (
 		const pdfBuffer = await fs.readFile(outputFilename);
 		return pdfBuffer;
 	} catch (error) {
-		logger.error(`Error reading output PDF: ${error.message}`);
+		if (error instanceof Error) {
+			logger.error(`Error reading output PDF: ${error.message}`);
+		} else {
+			logger.error('Error reading output PDF: ' + error);
+		}
 		throw error;
 	}
 };

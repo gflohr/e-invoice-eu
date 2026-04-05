@@ -99,7 +99,7 @@ export class FormatFacturXService
 	extends FormatCIIService
 	implements EInvoiceFormat
 {
-	private gtx: Textdomain;
+	private gtx!: Textdomain;
 
 	get mimeType(): EInvoiceMIMEType {
 		return 'application/pdf';

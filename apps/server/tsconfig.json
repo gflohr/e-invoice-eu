@@ -2,7 +2,8 @@
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
 		"declaration": false,
-		"outDir": "dist"
+		"outDir": "dist",
+		"types": ["node", "express", "multer"]
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules", "dist", "test", "**/*.spec.ts"]

@@ -10,7 +10,6 @@
 		"allowSyntheticDefaultImports": true,
 		"sourceMap": true,
 		"outDir": "./dist",
-		"baseUrl": "./",
 		"incremental": true,
 		"skipLibCheck": true,
 		"strictNullChecks": true,
@@ -19,8 +18,8 @@
 		"strictBindCallApply": false,
 		"noFallthroughCasesInSwitch": false,
 		"paths": {
-			"@e-invoice-eu/core": ["packages/core/src"],
-			"@e-invoice-eu/core/*": ["packages/core/src/*"]
+			"@e-invoice-eu/core": ["./packages/core/src"],
+			"@e-invoice-eu/core/*": ["./packages/core/src/*"]
 		}
 	}
 }
