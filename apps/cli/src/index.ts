@@ -81,11 +81,10 @@ gtx.resolve()
 	})
 	.catch((exception: Error) => {
 		console.error(
-			gtx._x('{programName}: unhandled exception: {exception}'),
-			{
+			gtx._x('{programName}: unhandled exception: {exception}', {
 				programName: Package.getName(),
 				exception,
-			},
+			}),
 		);
 
 		process.exit(2);
