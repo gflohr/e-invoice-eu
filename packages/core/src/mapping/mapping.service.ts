@@ -489,9 +489,8 @@ export class MappingService {
 			.filter(item => item !== 'properties')
 			.forEach(item => {
 				if (item === 'items') {
-					instancePath.push(
-						ctx.arrayPath[++arrayLevel][2].toString(),
-					);
+					const arrayInfo = ctx.arrayPath[++arrayLevel];
+					instancePath.push((arrayInfo?.[2] ?? 0).toString());
 				} else {
 					instancePath.push(item);
 				}

@@ -332,7 +332,7 @@ function patchSchemaForEndpointID(schema: JSONSchemaType<object>) {
 		schema.properties['ubl:Invoice'].properties[
 			'cac:AccountingSupplierParty'
 		].properties['cac:Party'];
-	supplierParty.required = customerParty.required.filter(
+	supplierParty.required = supplierParty.required.filter(
 		prop => prop != 'cbc:EndpointID',
 	);
 }

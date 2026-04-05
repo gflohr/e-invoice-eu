@@ -21,7 +21,7 @@ export class FormatXMLService {
 		});
 	}
 
-	// biome-ignore lint/suspicious/noExplicitAny: todo
+	// biome-ignore lint/suspicious/noExplicitAny: todo.
 	private cleanAttributes(data: { [key: string]: any }) {
 		for (const property in data) {
 			const [elem, attr] = property.split('@', 2);
