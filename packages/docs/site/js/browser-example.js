@@ -58,7 +58,7 @@
 			const options = {
 				format: document.getElementById('format').value,
 				lang: document.getElementById('lang').value,
-				pdf: document.getElementById('spreadsheet-file').files.length
+				pdf: document.getElementById('pdf-file').files.length
 					? await pdfFileInfo()
 					: undefined,
 				embedPDF: document.getElementById('embed-pdf').checked,
