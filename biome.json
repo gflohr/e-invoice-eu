@@ -1,34 +1,71 @@
 {
 	"$schema": "https://biomejs.dev/schemas/2.4.10/schema.json",
-	"vcs": {
-		"enabled": true,
-		"clientKind": "git",
-		"useIgnoreFile": true
-	},
-	"files": {
-		"includes": ["**", "!!**/dist"]
-	},
-	"formatter": {
-		"enabled": true,
-		"indentStyle": "tab"
-	},
+	"vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+	"files": { "includes": ["**", "!!**/dist"] },
+	"formatter": { "enabled": true, "indentStyle": "tab" },
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
-		}
+			"recommended": false,
+			"complexity": {
+				"noArguments": "error",
+				"noBannedTypes": "error",
+				"noUselessThisAlias": "error",
+				"noUselessTypeConstraint": "error"
+			},
+			"correctness": {
+				"noConstAssign": "off",
+				"noGlobalObjectCalls": "off",
+				"noInvalidBuiltinInstantiation": "off",
+				"noInvalidConstructorSuper": "off",
+				"noSetterReturn": "off",
+				"noUndeclaredVariables": "off",
+				"noUnreachable": "off",
+				"noUnreachableSuper": "off",
+				"noUnusedVariables": "error"
+			},
+			"nursery": {
+				"noDuplicateEnumValues": "error",
+				"useExplicitType": "off",
+				"useSpread": "error"
+			},
+			"style": {
+				"noCommonJs": "error",
+				"noNamespace": "error",
+				"useArrayLiterals": "error",
+				"useAsConstAssertion": "error",
+				"useConst": "error"
+			},
+			"suspicious": {
+				"noClassAssign": "off",
+				"noDuplicateClassMembers": "off",
+				"noDuplicateObjectKeys": "off",
+				"noDuplicateParameters": "off",
+				"noExplicitAny": "error",
+				"noExtraNonNullAssertion": "error",
+				"noFunctionAssign": "off",
+				"noImportAssign": "off",
+				"noMisleadingInstantiator": "error",
+				"noNonNullAssertedOptionalChain": "error",
+				"noRedeclare": "off",
+				"noTsIgnore": "error",
+				"noUnsafeDeclarationMerging": "error",
+				"noUnsafeNegation": "off",
+				"noUnusedExpressions": "off",
+				"noVar": "error",
+				"noWith": "off",
+				"useGetterReturn": "off",
+				"useNamespaceKeyword": "error"
+			}
+		},
+		"includes": ["**", "!**/.eslintrc.js", "**", "!**/.eslintrc.js"]
 	},
 	"javascript": {
-		"formatter": {
-			"quoteStyle": "double"
-		}
+		"formatter": { "quoteStyle": "double" },
+		"globals": ["exports"]
 	},
 	"assist": {
 		"enabled": true,
-		"actions": {
-			"source": {
-				"organizeImports": "on"
-			}
-		}
+		"actions": { "source": { "organizeImports": "on" } }
 	}
 }
