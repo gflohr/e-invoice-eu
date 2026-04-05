@@ -1,4 +1,4 @@
-import { vi, describe, it, beforeEach, expect, Mock } from 'vitest';
+import { vi, describe, it, beforeEach, expect, type Mock } from 'vitest';
 
 import { spawn } from 'child_process';
 import { EventEmitter } from 'events';

@@ -1,4 +1,12 @@
-import { vi, describe, it, beforeAll, beforeEach, expect, Mock } from 'vitest';
+import {
+	vi,
+	describe,
+	it,
+	beforeAll,
+	beforeEach,
+	expect,
+	type Mock,
+} from 'vitest';
 
 import * as XLSX from '@e965/xlsx';
 import { JSONSchemaType } from 'ajv';
