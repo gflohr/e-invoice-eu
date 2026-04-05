@@ -4,13 +4,12 @@ import {
 	AttachedDocumentMimeCode,
 } from '@e-invoice-eu/core/invoice/invoice.interface';
 import { type JSONSchemaType } from 'ajv';
-
-import { FormatXMLService } from './format-xml.service';
-import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { Invoice } from '../invoice/invoice.interface';
 import { invoiceSchema } from '../invoice/invoice.schema';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { sortBySchema } from '../utils/sort-by-schema';
+import { EInvoiceFormat } from './format.e-invoice-format.interface';
+import { FormatXMLService } from './format-xml.service';
 
 export class FormatUBLService
 	extends FormatXMLService
@@ -30,7 +29,8 @@ export class FormatUBLService
 
 	fillMappingDefaults(mapping: Mapping) {
 		if (!('cbc:CustomizationID' in mapping['ubl:Invoice'])) {
-			mapping['ubl:Invoice']['cbc:CustomizationID'] = this.customizationID;
+			mapping['ubl:Invoice']['cbc:CustomizationID'] =
+				this.customizationID;
 		}
 
 		if (!('cbc:ProfileID' in mapping['ubl:Invoice'])) {
@@ -49,7 +49,8 @@ export class FormatUBLService
 
 	fillInvoiceDefaults(invoice: Invoice) {
 		if (!('cbc:CustomizationID' in invoice['ubl:Invoice'])) {
-			invoice['ubl:Invoice']['cbc:CustomizationID'] ??= this.customizationID;
+			invoice['ubl:Invoice']['cbc:CustomizationID'] ??=
+				this.customizationID;
 		}
 
 		if (!('cbc:ProfileID' in invoice['ubl:Invoice'])) {
@@ -90,7 +91,8 @@ export class FormatUBLService
 		if (cnCodes.includes(code) && code !== '384') {
 			const creditNoteObject = {
 				CreditNote: {
-					'@xmlns': 'urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2',
+					'@xmlns':
+						'urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2',
 					'@xmlns:cac':
 						'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
 					'@xmlns:cbc':
@@ -99,8 +101,11 @@ export class FormatUBLService
 				},
 			};
 
-			(invoice as any)['ubl:CreditNote'] = invoice['ubl:Invoice'];
-			delete (invoice as any)['ubl:Invoice'];
+			(invoice as unknown as Record<string, unknown>)['ubl:CreditNote'] =
+				invoice['ubl:Invoice'];
+			delete (invoice as unknown as Record<string, unknown>)[
+				'ubl:Invoice'
+			];
 
 			function replaceInvoiceWithCreditNote(obj: object): object {
 				// Recursively clone and transform the object
@@ -139,7 +144,8 @@ export class FormatUBLService
 		} else {
 			const invoiceObject = {
 				Invoice: {
-					'@xmlns': 'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',
+					'@xmlns':
+						'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2',
 					'@xmlns:cac':
 						'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2',
 					'@xmlns:cbc':
@@ -183,7 +189,8 @@ export class FormatUBLService
 		const ref: ADDITIONALSUPPORTINGDOCUMENTS = {
 			'cbc:ID': options.pdf?.id ?? invoice['ubl:Invoice']['cbc:ID'],
 			'cac:Attachment': {
-				'cbc:EmbeddedDocumentBinaryObject': this.uint8ArrayToBase64(pdf),
+				'cbc:EmbeddedDocumentBinaryObject':
+					this.uint8ArrayToBase64(pdf),
 				'cbc:EmbeddedDocumentBinaryObject@filename': filename!,
 				'cbc:EmbeddedDocumentBinaryObject@mimeCode': mimeType,
 			},

@@ -1,22 +1,20 @@
-import { invoiceSchema } from '@e-invoice-eu/core';
-import { mappingSchema } from '@e-invoice-eu/core';
+import { invoiceSchema, mappingSchema } from '@e-invoice-eu/core';
 import * as fs from 'fs/promises';
 import {
-	vi,
-	describe,
-	it,
-	expect,
 	beforeEach,
-	type Mocked,
+	describe,
+	expect,
+	it,
 	type Mock,
+	type Mocked,
+	vi,
 } from 'vitest';
-import yargs from 'yargs';
 import type { Arguments } from 'yargs';
-
-import { Schema } from './schema';
+import yargs from 'yargs';
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';
 import { safeStdoutWrite } from '../safe-stdout-write';
+import { Schema } from './schema';
 
 vi.mock('../optspec');
 vi.mock('../package');
@@ -132,7 +130,9 @@ describe('Schema Command', () => {
 
 		await schema.run(argv);
 
-		expect(safeStdoutWrite).toHaveBeenCalledWith(JSON.stringify(mappingSchema));
+		expect(safeStdoutWrite).toHaveBeenCalledWith(
+			JSON.stringify(mappingSchema),
+		);
 		expect(safeStdoutWrite).toHaveBeenCalledTimes(1);
 	});
 });

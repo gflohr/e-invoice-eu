@@ -1,5 +1,5 @@
-import { FormatUBLService } from './format-ubl.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
+import { FormatUBLService } from './format-ubl.service';
 
 export class FormatXRECHNUNGUBLService
 	extends FormatUBLService

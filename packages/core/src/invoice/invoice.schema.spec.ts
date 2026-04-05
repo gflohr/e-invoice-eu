@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import { invoiceSchema } from './invoice.schema';
 
@@ -7,6 +7,8 @@ describe('schema bugs', () => {
 		expect(
 			invoiceSchema?.$defs?.codeLists.eas.enum.includes('0002'),
 		).toBeTruthy();
-		expect(invoiceSchema?.$defs?.codeLists.eas.enum.includes('2')).toBeFalsy();
+		expect(
+			invoiceSchema?.$defs?.codeLists.eas.enum.includes('2'),
+		).toBeFalsy();
 	});
 });

@@ -1,6 +1,5 @@
-import { vi, describe, it, beforeEach, expect } from 'vitest';
-
 import { Invoice, Mapping } from '@e-invoice-eu/core';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 vi.mock('../utils/render-spreadsheet', () => ({
 	renderSpreadsheet: vi.fn(
@@ -8,9 +7,9 @@ vi.mock('../utils/render-spreadsheet', () => ({
 	),
 }));
 
-import { FormatUBLService } from './format-ubl.service';
-import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
+import { InvoiceServiceOptions } from '../invoice/invoice.service';
+import { FormatUBLService } from './format-ubl.service';
 
 describe('UBL', () => {
 	let service: FormatUBLService;

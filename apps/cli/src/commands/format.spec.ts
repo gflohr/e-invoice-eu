@@ -1,18 +1,17 @@
-import type { Arguments } from 'yargs';
 import {
-	vi,
-	describe,
-	it,
-	beforeEach,
 	afterEach,
+	beforeEach,
+	describe,
 	expect,
+	it,
 	type Mock,
+	vi,
 } from 'vitest';
+import type { Arguments } from 'yargs';
 import yargs from 'yargs';
-
-import { Format } from './format';
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';
+import { Format } from './format';
 
 vi.mock('../optspec');
 vi.mock('../package');
@@ -73,7 +72,9 @@ describe('Format Command', () => {
 	});
 
 	it('description() should return a valid description', () => {
-		expect(format.description()).toBe('List and describe supported formats.');
+		expect(format.description()).toBe(
+			'List and describe supported formats.',
+		);
 	});
 
 	it('aliases() should return an empty array', () => {
@@ -161,7 +162,9 @@ describe('Format Command', () => {
 		let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
 
 		beforeEach(() => {
-			consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+			consoleErrorSpy = vi
+				.spyOn(console, 'error')
+				.mockImplementation(() => {});
 		});
 
 		afterEach(() => {

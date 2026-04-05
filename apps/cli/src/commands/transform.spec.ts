@@ -1,20 +1,19 @@
 import * as fs from 'fs/promises';
-import yargs from 'yargs';
-import type { Arguments } from 'yargs';
 import {
-	vi,
-	describe,
-	it,
 	beforeEach,
+	describe,
 	expect,
-	type Mocked,
+	it,
 	type Mock,
+	type Mocked,
+	vi,
 } from 'vitest';
-
-import { Transform } from './transform';
+import type { Arguments } from 'yargs';
+import yargs from 'yargs';
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';
 import { safeStdoutWrite } from '../safe-stdout-write';
+import { Transform } from './transform';
 
 vi.mock('../optspec');
 vi.mock('../package');
@@ -46,7 +45,9 @@ describe('Transform Command', () => {
 	});
 
 	it('description() should return a valid description', () => {
-		expect(transform.description()).toBe('Transform spreadsheet data to JSON.');
+		expect(transform.description()).toBe(
+			'Transform spreadsheet data to JSON.',
+		);
 	});
 
 	it('aliases() should return an empty array', () => {
@@ -132,7 +133,9 @@ describe('Transform Command', () => {
 			output: 'output.json',
 		} as unknown as Arguments;
 
-		mockedFs.readFile.mockResolvedValueOnce(Buffer.from('spreadsheet data'));
+		mockedFs.readFile.mockResolvedValueOnce(
+			Buffer.from('spreadsheet data'),
+		);
 		mockedFs.readFile.mockResolvedValueOnce('mapping data');
 
 		await transform.run(argv);
@@ -150,7 +153,9 @@ describe('Transform Command', () => {
 			mapping: 'mapping.json',
 		} as unknown as Arguments;
 
-		mockedFs.readFile.mockResolvedValueOnce(Buffer.from('spreadsheet data'));
+		mockedFs.readFile.mockResolvedValueOnce(
+			Buffer.from('spreadsheet data'),
+		);
 		mockedFs.readFile.mockResolvedValueOnce('mapping data');
 
 		await transform.run(argv);

@@ -102,7 +102,9 @@ export class MappingController {
 				});
 			} else {
 				if (error instanceof Error) {
-					this.logger.error(`unknown error: ${error.message}\n${error.stack}`);
+					this.logger.error(
+						`unknown error: ${error.message}\n${error.stack}`,
+					);
 				} else {
 					this.logger.error('unknown error: ', error);
 				}

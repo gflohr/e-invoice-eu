@@ -1,5 +1,4 @@
-import { MappingService } from '@e-invoice-eu/core';
-import { Mapping } from '@e-invoice-eu/core';
+import { Mapping, MappingService } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
 import * as fs from 'fs/promises';
 import * as yaml from 'js-yaml';
@@ -56,7 +55,9 @@ export class Transform implements Command {
 	}
 
 	private async doRun(configOptions: ConfigOptions) {
-		const spreadsheet = await fs.readFile(configOptions.spreadsheet as string);
+		const spreadsheet = await fs.readFile(
+			configOptions.spreadsheet as string,
+		);
 		const yamlData = await fs.readFile(
 			configOptions.mapping as string,
 			'utf-8',

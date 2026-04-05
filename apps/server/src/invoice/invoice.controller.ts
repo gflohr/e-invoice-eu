@@ -22,9 +22,8 @@ import {
 } from '@nestjs/swagger';
 import { ValidationError } from 'ajv/dist/2019';
 import type { Response } from 'express';
-
-import { InvoiceAttachment, InvoiceService } from './invoice.service';
 import { MappingService } from '../mapping/mapping.service';
+import { InvoiceAttachment, InvoiceService } from './invoice.service';
 
 @ApiTags('invoice')
 @Controller('invoice')
@@ -85,7 +84,8 @@ export class InvoiceController {
 				attachment: {
 					type: 'array',
 					nullable: true,
-					description: 'An arbitrary number of supplementary attachments.',
+					description:
+						'An arbitrary number of supplementary attachments.',
 					items: {
 						type: 'string',
 						format: 'binary',
@@ -101,10 +101,12 @@ export class InvoiceController {
 				attachmentID: {
 					type: 'array',
 					nullable: true,
-					description: 'Optional ids for each supplementary attachment',
+					description:
+						'Optional ids for each supplementary attachment',
 					items: {
 						type: 'string',
-						description: 'Description for the corresponding attachment.',
+						description:
+							'Description for the corresponding attachment.',
 					},
 				},
 				attachmentDescription: {
@@ -114,7 +116,8 @@ export class InvoiceController {
 						'Optional descriptions for each supplementary attachment.',
 					items: {
 						type: 'string',
-						description: 'Description for the corresponding attachment.',
+						description:
+							'Description for the corresponding attachment.',
 					},
 				},
 				embedPDF: {
@@ -130,7 +133,8 @@ export class InvoiceController {
 					type: 'string',
 					nullable: true,
 					description:
-						'ID of the embedded PDF, defaults to the document' + ' number.',
+						'ID of the embedded PDF, defaults to the document' +
+						' number.',
 				},
 				pdfDescription: {
 					type: 'string',
@@ -252,7 +256,9 @@ export class InvoiceController {
 				});
 			} else {
 				if (error instanceof Error) {
-					this.logger.error(`unknown error: ${error.message}\n${error.stack}`);
+					this.logger.error(
+						`unknown error: ${error.message}\n${error.stack}`,
+					);
 				} else {
 					this.logger.error('unknown error: ', error);
 				}

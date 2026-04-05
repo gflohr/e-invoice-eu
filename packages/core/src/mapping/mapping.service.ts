@@ -6,14 +6,14 @@ import Ajv2019, {
 	ValidationError,
 } from 'ajv/dist/2019';
 import * as jsonpath from 'jsonpath-plus';
-
+import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 import { FormatFactoryService } from '../format/format.factory.service';
-import { Logger } from '../logger.interface';
-import { Mapping, MappingMetaInformation } from './mapping.interface';
-import { ValidationService } from '../validation';
-import { mappingSchema } from './mapping.schema';
 import { Invoice, invoiceSchema } from '../invoice';
+import { Logger } from '../logger.interface';
+import { ValidationService } from '../validation';
+import { Mapping, MappingMetaInformation } from './mapping.interface';
 import { mappingValueRe, sectionReferenceRe } from './mapping.regex';
+import { mappingSchema } from './mapping.schema';
 
 type SectionRanges = { [key: string]: { [key: string]: number[] } };
 
@@ -94,7 +94,7 @@ export class MappingService {
 					cellDates: true,
 				});
 
-		const invoice: { [key: string]: any } = { 'ubl:Invoice': {} };
+		const invoice: ExpandObject = { 'ubl:Invoice': {} };
 
 		const ctx: MappingContext = {
 			meta: mapping.meta,
@@ -106,14 +106,18 @@ export class MappingService {
 		};
 		this.fillSectionRanges(mapping, workbook, ctx);
 
-		this.transformObject(invoice['ubl:Invoice'], mapping['ubl:Invoice'], ctx);
+		this.transformObject(
+			invoice['ubl:Invoice'],
+			mapping['ubl:Invoice'],
+			ctx,
+		);
 
 		this.cleanAttributes(invoice);
 
 		return invoice as unknown as Invoice;
 	}
 
-	private cleanAttributes(data: { [key: string]: any }) {
+	private cleanAttributes(data: ExpandObject) {
 		for (const property in data) {
 			const [elem, attr] = property.split('@', 2);
 
@@ -133,8 +137,8 @@ export class MappingService {
 	}
 
 	private transformObject(
-		target: { [key: string]: any },
-		mapping: { [key: string]: any },
+		target: ExpandObject,
+		mapping: ExpandObject,
 		ctx: MappingContext,
 	) {
 		for (const property in mapping) {
@@ -151,12 +155,20 @@ export class MappingService {
 			} else if (schema.type === 'array') {
 				if ('section' in mapping[property]) {
 					target[property] = [];
-					this.transformArray(target[property], mapping[property], ctx);
+					this.transformArray(
+						target[property],
+						mapping[property],
+						ctx,
+					);
 					if (target[property].length === 0) delete target[property];
 				} else {
 					target[property] = [{}];
 					ctx.schemaPath.push('items');
-					this.transformObject(target[property][0], mapping[property], ctx);
+					this.transformObject(
+						target[property][0],
+						mapping[property],
+						ctx,
+					);
 					if (
 						target[property].length === 1 &&
 						Object.keys(target[property][0]).length === 0
@@ -178,13 +190,13 @@ export class MappingService {
 	}
 
 	private transformArray(
-		target: Array<any>,
-		mapping: { [key: string]: any },
+		target: Array<ExpandObject>,
+		mapping: ExpandObject,
 		ctx: MappingContext,
 	) {
-		const sectionRef = mapping.section;
+		const sectionRef = mapping['section'] as string;
 
-		const matches = sectionRef.match(sectionReferenceRe);
+		const matches = sectionRef.match(sectionReferenceRe)!;
 		const sheetName =
 			typeof matches[1] === 'undefined'
 				? ctx.workbook.SheetNames[0]
@@ -196,16 +208,20 @@ export class MappingService {
 				throw new Error(`no section column for sheet '${sheetName}'`);
 			}
 			if (!(section in ctx.sectionRanges[sheetName])) {
-				throw new Error(`no section '${section}' in sheet '${sheetName}'`);
+				throw new Error(
+					`no section '${section}' in sheet '${sheetName}'`,
+				);
 			}
 		} catch (e) {
 			let message: string;
 
 			if (e instanceof Error) {
 				message =
-					`section reference '${sectionRef}' resolves to null: ` + e.message;
+					`section reference '${sectionRef}' resolves to null: ` +
+					e.message;
 			} else {
-				message = `section reference '${sectionRef}' resolves to null: ` + e;
+				message =
+					`section reference '${sectionRef}' resolves to null: ` + e;
 			}
 
 			ctx.schemaPath.push('properties');
@@ -223,7 +239,11 @@ export class MappingService {
 			ctx.rowRange[1] = upperBound;
 		}
 
-		const sectionIndices = this.computeSectionIndices(sheetName, section, ctx);
+		const sectionIndices = this.computeSectionIndices(
+			sheetName,
+			section,
+			ctx,
+		);
 		const arrayPathIndex = ctx.arrayPath.length;
 		ctx.arrayPath[arrayPathIndex] = [section, -1, -1];
 
@@ -292,7 +312,7 @@ export class MappingService {
 
 	private resolveValue(
 		ref: string,
-		schema: JSONSchemaType<any>,
+		schema: JSONSchemaType<ExpandObject>,
 		ctx: MappingContext,
 	): string {
 		const matches = ref.match(mappingValueRe) as RegExpMatchArray;
@@ -311,7 +331,9 @@ export class MappingService {
 
 		try {
 			if (typeof section !== 'undefined') {
-				const match = cellName.match(/^([A-Z]+)(\d+)$/) as RegExpMatchArray;
+				const match = cellName.match(
+					/^([A-Z]+)(\d+)$/,
+				) as RegExpMatchArray;
 				const letters = match[1];
 				const offset = this.getOffset(sheetName, section, ctx);
 				const number = offset + parseInt(match[2], 10) - 1;
@@ -325,7 +347,11 @@ export class MappingService {
 				throw new Error(`no such sheet '${sheetName}'`);
 			}
 
-			const value = this.getCellValue(worksheet, cellName, schema);
+			const value = this.getCellValue(
+				worksheet,
+				cellName,
+				schema as JSONSchemaType<unknown>,
+			);
 			if (ctx.meta.empty && ctx.meta.empty.includes(value)) {
 				return '';
 			}
@@ -350,7 +376,7 @@ export class MappingService {
 	private getCellValue(
 		worksheet: XLSX.WorkSheet,
 		cellName: string,
-		schema: JSONSchemaType<any>,
+		schema: JSONSchemaType<unknown>,
 	): string {
 		if (!(cellName in worksheet)) {
 			return '';
@@ -383,13 +409,13 @@ export class MappingService {
 		return value.toISOString().substring(0, 10);
 	}
 
-	private getSchema(path: string[]): JSONSchemaType<any> {
+	private getSchema(path: string[]): JSONSchemaType<unknown> {
 		const jsonPath = ['$', ...path].join('.');
 
 		return jsonpath.JSONPath({
 			path: jsonPath,
 			json: invoiceSchema,
-		})[0] as JSONSchemaType<any>;
+		})[0] as JSONSchemaType<unknown>;
 	}
 
 	private fillSectionRanges(
@@ -463,7 +489,9 @@ export class MappingService {
 			.filter(item => item !== 'properties')
 			.forEach(item => {
 				if (item === 'items') {
-					instancePath.push(ctx.arrayPath[++arrayLevel][2].toString());
+					instancePath.push(
+						ctx.arrayPath[++arrayLevel][2].toString(),
+					);
 				} else {
 					instancePath.push(item);
 				}

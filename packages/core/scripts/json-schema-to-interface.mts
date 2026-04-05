@@ -31,5 +31,8 @@ compile(inputSchema, 'Invoice', options).then(ts => {
  * (https://json-schema.org/) for the corresponding data type.
  */
 `;
-	fs.writeFileSync(interfaceFilename, ts.replace(/^export interface/m, typedoc + 'export interface'));
+	fs.writeFileSync(
+		interfaceFilename,
+		ts.replace(/^export interface/m, typedoc + 'export interface'),
+	);
 });

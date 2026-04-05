@@ -16,21 +16,17 @@
 		"nodejs",
 		"typescript"
 	],
-	"workspaces": [
-		"apps/*",
-		"packages/*"
-	],
+	"workspaces": ["apps/*", "packages/*"],
 	"scripts": {
 		"build": "pnpm -r --workspace-concurrency=3 run build",
-		"format": "prettier --write *.mjs *.json *.md && pnpm -r --parallel run format",
+		"check": "biome check",
+		"check:fix": "biome check --write",
+		"check:staged": "biome check --staged --write",
 		"start": "pnpm -r --filter=@e-invoice-eu/server run start",
 		"start:dev": "pnpm -r --filter=@e-invoice-eu/server run start:dev",
 		"start:debug": "pnpm -r --filter=@e-invoice-eu/server run start:debug",
 		"start:prod": "pnpm -r --filter=@e-invoice-eu/server run start:prod",
 		"build:typedoc": "pnpm --filter=@e-invoice-eu/core run typedoc",
-		"lint": "pnpm -r --parallel run lint",
-		"lint:fix": "pnpm -r --parallel run lint:fix",
-		"lint:staged": "pnpm -r --parallel run lint:staged",
 		"test": "pnpm -r --parallel run test",
 		"test:changed": "pnpm -r --parallel run test:changed",
 		"test:cov": "pnpm -r --parallel run test:cov",

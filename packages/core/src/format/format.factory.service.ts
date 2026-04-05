@@ -1,7 +1,8 @@
 import { Logger } from '../logger.interface';
+import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { FormatCIIService } from './format-cii.service';
-import { FormatFacturXBasicWLService } from './format-factur-x-basic-wl.service';
 import { FormatFacturXBasicService } from './format-factur-x-basic.service';
+import { FormatFacturXBasicWLService } from './format-factur-x-basic-wl.service';
 import { FormatFacturXEN16931Service } from './format-factur-x-en16931.service';
 import { FormatFacturXExtendedService } from './format-factur-x-extended.service';
 import { FormatFacturXMinimumService } from './format-factur-x-minimum.service';
@@ -9,7 +10,6 @@ import { FormatFacturXXRechnungService } from './format-factur-x-xrechnung.servi
 import { FormatUBLService } from './format-ubl.service';
 import { FormatXRECHNUNGCIIService } from './format-xrechnung-cii.service';
 import { FormatXRECHNUNGUBLService } from './format-xrechnung-ubl.service';
-import { EInvoiceFormat } from './format.e-invoice-format.interface';
 
 export type EInvoiceMIMEType = 'application/pdf' | 'application/xml';
 
@@ -48,7 +48,7 @@ export type FormatInfo = {
  */
 export class FormatFactoryService {
 	private readonly formatServices: {
-		[key: string]: new (...args: any[]) => EInvoiceFormat;
+		[key: string]: new (...args: unknown[]) => EInvoiceFormat;
 	} = {
 		CII: FormatCIIService,
 		'Factur-X-Basic': FormatFacturXBasicService,
@@ -62,7 +62,7 @@ export class FormatFactoryService {
 		'XRECHNUNG-UBL': FormatXRECHNUNGUBLService,
 	};
 	private readonly formatServicesLookup: {
-		[key: string]: new (...args: any[]) => EInvoiceFormat;
+		[key: string]: new (...args: unknown[]) => EInvoiceFormat;
 	} = {};
 
 	constructor() {

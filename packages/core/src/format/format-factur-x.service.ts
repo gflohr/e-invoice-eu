@@ -12,11 +12,10 @@ import { EInvoiceMIMEType, Invoice } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
 import { create } from 'xmlbuilder2';
 import { XMLBuilder } from 'xmlbuilder2/lib/interfaces';
-
-import { FormatCIIService, FULL_CII, FXProfile } from './format-cii.service';
-import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { FileInfo, InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Package as pkg } from '../package';
+import { EInvoiceFormat } from './format.e-invoice-format.interface';
+import { FormatCIIService, FULL_CII, FXProfile } from './format-cii.service';
 
 type FacturXConformanceLevel =
 	| 'MINIMUM'
@@ -135,7 +134,11 @@ export class FormatFacturXService
 		options: InvoiceServiceOptions,
 	) {
 		for (const attachment of options.attachments || []) {
-			await this.attachFile(pdfDoc, attachment, AFRelationship.Supplement);
+			await this.attachFile(
+				pdfDoc,
+				attachment,
+				AFRelationship.Supplement,
+			);
 		}
 	}
 
@@ -162,7 +165,10 @@ export class FormatFacturXService
 	): Promise<void> {
 		let xmp = create();
 		const bom = '\uFEFF';
-		xmp = xmp.ins('xpacket', `begin="${bom}" id="W5M0MpCehiHzreSzNTczkc9d"`);
+		xmp = xmp.ins(
+			'xpacket',
+			`begin="${bom}" id="W5M0MpCehiHzreSzNTczkc9d"`,
+		);
 
 		let conformanceLevel: FacturXConformanceLevel;
 		let version: string;
@@ -278,15 +284,22 @@ export class FormatFacturXService
 			if (annotations instanceof PDFArray) {
 				for (let i = 0; i < annotations.size(); ++i) {
 					const annotationRef = annotations.get(i);
-					const annotation = page.node.context.lookup(annotationRef) as PDFDict;
+					const annotation = page.node.context.lookup(
+						annotationRef,
+					) as PDFDict;
 
 					const subtype = annotation.get(PDFName.of('Subtype'));
 					if (subtype === PDFName.of('Link')) {
 						const flagsObj = annotation.get(PDFName.of('F'));
 						const flags =
-							flagsObj instanceof PDFNumber ? flagsObj.asNumber() : 0;
+							flagsObj instanceof PDFNumber
+								? flagsObj.asNumber()
+								: 0;
 
-						annotation.set(PDFName.of('F'), PDFNumber.of(flags | 4));
+						annotation.set(
+							PDFName.of('F'),
+							PDFNumber.of(flags | 4),
+						);
 					}
 				}
 			}
@@ -340,7 +353,10 @@ export class FormatFacturXService
 			.join('');
 		const permanent = PDFHexString.of(hashHex);
 		const changing = permanent;
-		pdfDoc.context.trailerInfo.ID = pdfDoc.context.obj([permanent, changing]);
+		pdfDoc.context.trailerInfo.ID = pdfDoc.context.obj([
+			permanent,
+			changing,
+		]);
 	}
 
 	private addXmpMeta(node: XMLBuilder, invoiceMeta: InvoiceMeta) {
@@ -363,11 +379,10 @@ export class FormatFacturXService
 	}
 
 	private addPdfAidDescription(node: XMLBuilder) {
-		node
-			.ele('rdf:Description', {
-				'xmlns:pdfaid': 'http://www.aiim.org/pdfa/ns/id/',
-				'rdf:about': '',
-			})
+		node.ele('rdf:Description', {
+			'xmlns:pdfaid': 'http://www.aiim.org/pdfa/ns/id/',
+			'rdf:about': '',
+		})
 			.ele('pdfaid:part')
 			.txt('3')
 			.up()
@@ -376,11 +391,10 @@ export class FormatFacturXService
 	}
 
 	private addPdfPurl(node: XMLBuilder, invoiceMeta: InvoiceMeta) {
-		node
-			.ele('rdf:Description', {
-				'xmlns:dc': 'http://purl.org/dc/elements/1.1/',
-				'rdf:about': '',
-			})
+		node.ele('rdf:Description', {
+			'xmlns:dc': 'http://purl.org/dc/elements/1.1/',
+			'rdf:about': '',
+		})
 			.ele('dc:format')
 			.txt('application/pdf')
 			.up()
@@ -412,11 +426,10 @@ export class FormatFacturXService
 	}
 
 	private addProducer(node: XMLBuilder, invoiceMeta: InvoiceMeta) {
-		node
-			.ele('rdf:Description', {
-				'xmlns:pdf': 'http://ns.adobe.com/pdf/1.3/',
-				'rdf:about': '',
-			})
+		node.ele('rdf:Description', {
+			'xmlns:pdf': 'http://ns.adobe.com/pdf/1.3/',
+			'rdf:about': '',
+		})
 			.ele('pdf:Producer')
 			.txt(invoiceMeta.creator)
 			.up()
@@ -425,11 +438,10 @@ export class FormatFacturXService
 	}
 
 	private addXap(node: XMLBuilder, invoiceMeta: InvoiceMeta) {
-		node
-			.ele('rdf:Description', {
-				'xmlns:xmp': 'http://ns.adobe.com/xap/1.0/',
-				'rdf:about': '',
-			})
+		node.ele('rdf:Description', {
+			'xmlns:xmp': 'http://ns.adobe.com/xap/1.0/',
+			'rdf:about': '',
+		})
 			.ele('xmp:CreatorTool')
 			.txt(
 				`${pkg.getName()} ${pkg.getVersion()} git+https://github.com/gflohr/e-invoice-eu`,
@@ -447,13 +459,12 @@ export class FormatFacturXService
 	}
 
 	private addPdfAExtension(node: XMLBuilder) {
-		node
-			.ele('rdf:Description', {
-				'xmlns:pdfaExtension': 'http://www.aiim.org/pdfa/ns/extension/',
-				'xmlns:pdfaSchema': 'http://www.aiim.org/pdfa/ns/schema#',
-				'xmlns:pdfaProperty': 'http://www.aiim.org/pdfa/ns/property#',
-				'rdf:about': '',
-			})
+		node.ele('rdf:Description', {
+			'xmlns:pdfaExtension': 'http://www.aiim.org/pdfa/ns/extension/',
+			'xmlns:pdfaSchema': 'http://www.aiim.org/pdfa/ns/schema#',
+			'xmlns:pdfaProperty': 'http://www.aiim.org/pdfa/ns/property#',
+			'rdf:about': '',
+		})
 			.ele('pdfaExtension:schemas')
 			.ele('rdf:Bag')
 			.ele('rdf:li', { 'rdf:parseType': 'Resource' })
@@ -529,17 +540,20 @@ export class FormatFacturXService
 			.txt('external')
 			.up()
 			.ele('pdfaProperty:description')
-			.txt(this.gtx._('The conformance level of the embedded XML document'))
+			.txt(
+				this.gtx._(
+					'The conformance level of the embedded XML document',
+				),
+			)
 			.up()
 			.up();
 	}
 
 	private addFacturXStuff(node: XMLBuilder, invoiceMeta: InvoiceMeta) {
-		node
-			.ele('rdf:Description', {
-				'xmlns:fx': 'urn:factur-x:pdfa:CrossIndustryDocument:invoice:1p0#',
-				'rdf:about': '',
-			})
+		node.ele('rdf:Description', {
+			'xmlns:fx': 'urn:factur-x:pdfa:CrossIndustryDocument:invoice:1p0#',
+			'rdf:about': '',
+		})
 			.ele('fx:DocumentType')
 			.txt('INVOICE')
 			.up()
@@ -604,11 +618,13 @@ export class FormatFacturXService
 			);
 		} catch (error) {
 			console.error(`Error attaching Factur-X XML file to PDF: ${error}`);
-			throw new Error(`Error attaching Factur-X XML file to PDF: ${error}`);
+			throw new Error(
+				`Error attaching Factur-X XML file to PDF: ${error}`,
+			);
 		}
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+	// biome-ignore lint/complexity/noBannedTypes: todo
 	private getCrypto(customRequire?: Function): SubtleCrypto {
 		if (typeof window !== 'undefined' && window.crypto?.subtle) {
 			return window.crypto.subtle;
@@ -621,7 +637,9 @@ export class FormatFacturXService
 				const { webcrypto } = customRequire('crypto');
 				return webcrypto.subtle;
 			} catch {
-				throw new Error('Web Crypto API is not available in this environment.');
+				throw new Error(
+					'Web Crypto API is not available in this environment.',
+				);
 			}
 		}
 		throw new Error('Web Crypto API is not available.');

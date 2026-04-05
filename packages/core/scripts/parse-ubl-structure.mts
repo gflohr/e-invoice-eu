@@ -303,14 +303,20 @@ function patchSchemaForEndpointID(schema: JSONSchemaType<object>) {
 	// The endpoint ID is mandatory in UBL but optional in CII. We patch it
 	// to be optional in the schema and enforce it for UBL later, see
 	// https://github.com/gflohr/e-invoice-eu/issues/331
-	const customerParty = schema.properties['ubl:Invoice']
-		.properties['cac:AccountingCustomerParty']
-		.properties['cac:Party'];
-	customerParty.required = customerParty.required.filter(prop => prop != 'cbc:EndpointID');
-	const supplierParty = schema.properties['ubl:Invoice']
-		.properties['cac:AccountingSupplierParty']
-		.properties['cac:Party'];
-	supplierParty.required = customerParty.required.filter(prop => prop != 'cbc:EndpointID');
+	const customerParty =
+		schema.properties['ubl:Invoice'].properties[
+			'cac:AccountingCustomerParty'
+		].properties['cac:Party'];
+	customerParty.required = customerParty.required.filter(
+		prop => prop != 'cbc:EndpointID',
+	);
+	const supplierParty =
+		schema.properties['ubl:Invoice'].properties[
+			'cac:AccountingSupplierParty'
+		].properties['cac:Party'];
+	supplierParty.required = customerParty.required.filter(
+		prop => prop != 'cbc:EndpointID',
+	);
 }
 
 /**
@@ -335,7 +341,10 @@ function sortAttributes(element: { [key: string]: any }) {
 						child.Term.includes('@'),
 					)
 					.reduce(
-						(acc: { [x: string]: any }, child: { Term: string | number }) => {
+						(
+							acc: { [x: string]: any },
+							child: { Term: string | number },
+						) => {
 							acc[child.Term] = child;
 							return acc;
 						},
@@ -382,7 +391,8 @@ function fixupAttributes(node: { [key: string]: any }) {
 				const attributes = Object.keys(node.properties).filter(prop =>
 					prop.includes('@'),
 				);
-				const required: Array<string> = 'required' in node ? node.required : [];
+				const required: Array<string> =
+					'required' in node ? node.required : [];
 
 				if (attributes.length) {
 					node.dependentRequired = {};
@@ -402,7 +412,9 @@ function fixupAttributes(node: { [key: string]: any }) {
 					}
 
 					if ('required' in node) {
-						node.required = required.filter(prop => !prop.includes('@'));
+						node.required = required.filter(
+							prop => !prop.includes('@'),
+						);
 					}
 				}
 			}
@@ -501,7 +513,8 @@ function buildSchema(tree: Element): JSONSchemaType<object> {
 		$defs,
 	};
 
-	(result.properties as { [key: string]: any })[tree.Term] = processNode(tree);
+	(result.properties as { [key: string]: any })[tree.Term] =
+		processNode(tree);
 
 	if (parseCardinality(tree.cardinality).min === 1) {
 		(result.required as unknown as string[]).push(tree.Term);
@@ -519,11 +532,15 @@ function processNode(node: Element): JSONSchemaType<object> {
 		common.title = (node.Name as string).replace(/[ \t\n]+/g, ' ');
 	}
 	if ('Description' in node) {
-		common.description = (node.Description as string).replace(/[ \t\n]+/g, ' ');
+		common.description = (node.Description as string).replace(
+			/[ \t\n]+/g,
+			' ',
+		);
 	}
 
 	if ('BusinessTerms' in node) {
-		common.description += '\nBusiness terms: ' + node.BusinessTerms?.join(', ');
+		common.description +=
+			'\nBusiness terms: ' + node.BusinessTerms?.join(', ');
 	}
 
 	let schema: JSONSchemaType<any>;
@@ -698,7 +715,9 @@ function loadUNCL1001() {
 		} else if (row['EN16931 interpretation'] === 'Invoice') {
 			codeListValues['UNCL1001-inv'].push(value);
 		} else {
-			throw new Error(`Unknown EN16931 interpretation: ${row['EN16931 interpretation']}`);
+			throw new Error(
+				`Unknown EN16931 interpretation: ${row['EN16931 interpretation']}`,
+			);
 		}
 	}
 

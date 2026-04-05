@@ -1,4 +1,4 @@
-import { mappingSchema, invoiceSchema } from '@e-invoice-eu/core';
+import { invoiceSchema, mappingSchema } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
 import * as fs from 'fs/promises';
 import { Arguments, Argv, InferredOptionTypes } from 'yargs';

@@ -1,6 +1,6 @@
-import { ExecutionContext, CallHandler, Logger } from '@nestjs/common';
+import { CallHandler, ExecutionContext, Logger } from '@nestjs/common';
 import { lastValueFrom, of } from 'rxjs';
-import { vi, describe, it, beforeEach, expect } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { LoggingInterceptor } from './logging.interceptor';
 

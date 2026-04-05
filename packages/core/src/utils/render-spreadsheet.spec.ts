@@ -1,10 +1,9 @@
-import { vi, describe, it, beforeEach, expect, type Mock } from 'vitest';
-
 import { spawn } from 'child_process';
 import { EventEmitter } from 'events';
 import { promises as fs } from 'fs';
 import * as path from 'path';
 import * as tmp from 'tmp-promise';
+import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest';
 
 import { renderSpreadsheet } from './render-spreadsheet';
 

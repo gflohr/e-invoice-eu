@@ -1,7 +1,7 @@
-import { Mapping } from '@e-invoice-eu/core';
 import {
 	MappingService as CoreMappingService,
 	Invoice,
+	Mapping,
 } from '@e-invoice-eu/core';
 import { Injectable, Logger } from '@nestjs/common';
 import * as yaml from 'js-yaml';

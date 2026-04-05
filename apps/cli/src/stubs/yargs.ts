@@ -1,16 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 // Minimal runtime stub for tests — returns a chainable object.
 import type { Argv } from 'yargs';
 
-function makeStub(): any {
-	const stub: any = {
-		command: (..._args: any[]) => stub,
-		option: (..._args: any[]) => stub,
-		options: (..._args: any[]) => stub,
-		help: (..._args: any[]) => stub,
-		parse: (..._args: any[]) => ({}),
-		demandOption: (..._args: any[]) => stub,
-		middleware: (..._args: any[]) => stub,
+function makeStub(): unknown {
+	const stub: Record<string, unknown> = {
+		command: (..._args: unknown[]) => stub,
+		option: (..._args: unknown[]) => stub,
+		options: (..._args: unknown[]) => stub,
+		help: (..._args: unknown[]) => stub,
+		parse: (..._args: unknown[]) => ({}),
+		demandOption: (..._args: unknown[]) => stub,
+		middleware: (..._args: unknown[]) => stub,
 	};
 	return stub;
 }

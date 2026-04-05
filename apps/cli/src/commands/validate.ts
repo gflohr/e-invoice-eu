@@ -107,7 +107,10 @@ export class Validate implements Command {
 			}
 		} else {
 			if (!configOptions.quiet) {
-				console.error(`${filename}:`, chalk.bold.red('✗ ' + gtx._('invalid')));
+				console.error(
+					`${filename}:`,
+					chalk.bold.red('✗ ' + gtx._('invalid')),
+				);
 				console.error(await response.text());
 			}
 			return false;
@@ -141,9 +144,14 @@ export class Validate implements Command {
 
 		if (!configOptions.quiet) {
 			console.log(
-				gtx._nx('One invoice is valid', '{num} invoices are valid', success, {
-					num: success.toString(),
-				}),
+				gtx._nx(
+					'One invoice is valid',
+					'{num} invoices are valid',
+					success,
+					{
+						num: success.toString(),
+					},
+				),
 			);
 			if (errors) {
 				console.log(

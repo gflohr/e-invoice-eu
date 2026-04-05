@@ -74,7 +74,12 @@ async function testAll() {
 				validator,
 				format,
 			);
-			await validate(validators[validator].cmd, fromJson, validator, format);
+			await validate(
+				validators[validator].cmd,
+				fromJson,
+				validator,
+				format,
+			);
 
 			console.log(' done');
 

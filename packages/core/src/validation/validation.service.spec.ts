@@ -1,8 +1,7 @@
 import { ErrorObject, ValidateFunction, ValidationError } from 'ajv';
-import { vi, describe, it, beforeEach, expect, type Mock } from 'vitest';
-
-import { ValidationService } from './validation.service';
+import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest';
 import { Logger } from '../logger.interface';
+import { ValidationService } from './validation.service';
 
 describe('ValidationService', () => {
 	let logger: Logger;
@@ -50,9 +49,9 @@ describe('ValidationService', () => {
 		mockValidate.mockReturnValue(false);
 		mockValidate.errors = errors;
 
-		expect(() => service.validate('test', mockValidate, invalidData)).toThrow(
-			ValidationError,
-		);
+		expect(() =>
+			service.validate('test', mockValidate, invalidData),
+		).toThrow(ValidationError);
 
 		try {
 			service.validate('test', mockValidate, invalidData);

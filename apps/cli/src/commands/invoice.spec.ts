@@ -1,10 +1,10 @@
+import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest';
 import yargs from 'yargs';
-import { vi, describe, it, beforeEach, expect, type Mock } from 'vitest';
 
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';
-import { Invoice } from './invoice';
-import { guessLibreOfficePath } from './invoice';
+import { guessLibreOfficePath, Invoice } from './invoice';
+
 vi.mock('../optspec');
 vi.mock('../package');
 
@@ -46,7 +46,8 @@ describe('Invoice Command', () => {
 				alias: ['o'],
 				type: 'string',
 				demandOption: false,
-				describe: 'write output to specified file instead of standard output',
+				describe:
+					'write output to specified file instead of standard output',
 			},
 			invoice: {
 				group: 'Input data',
@@ -54,7 +55,8 @@ describe('Invoice Command', () => {
 				type: 'string',
 				conflicts: ['mapping'],
 				demandOption: false,
-				describe: 'JSON file with invoice data, mandatory for json data input',
+				describe:
+					'JSON file with invoice data, mandatory for json data input',
 			},
 			spreadsheet: {
 				group: 'Input data',
@@ -84,7 +86,8 @@ describe('Invoice Command', () => {
 				group: 'Input data',
 				type: 'string',
 				demandOption: false,
-				describe: 'ID of the embedded PDF, defaults to the document number',
+				describe:
+					'ID of the embedded PDF, defaults to the document number',
 			},
 			'pdf-description': {
 				group: 'Input data',

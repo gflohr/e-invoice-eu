@@ -13,18 +13,18 @@ function enrichImage(img, modal) {
 
 const container = document.createElement('div');
 document.body.appendChild(container);
-container.classList.add('gfl-modal')
+container.classList.add('gfl-modal');
 
 const innerImg = document.createElement('img');
 container.appendChild(innerImg);
-innerImg.classList.add('gfl-modal-content')
+innerImg.classList.add('gfl-modal-content');
 
 const caption = document.createElement('div');
 caption.id = 'gfl-caption';
 container.appendChild(caption);
 
 const content = document.getElementsByTagName('qgoda-content')[0];
-for (var img of content.getElementsByTagName('img')) {
+for (const img of content.getElementsByTagName('img')) {
 	if (!img.classList.contains('gfl-modal-content')) {
 		if (img.naturalWidth > img.width) {
 			enrichImage(img, container);
@@ -34,11 +34,11 @@ for (var img of content.getElementsByTagName('img')) {
 	}
 }
 
-container.onclick = function() {
+container.onclick = function () {
 	container.style.display = 'none';
-}
+};
 
-innerImg.onclick = (event) => {
+innerImg.onclick = event => {
 	event.stopPropagation();
 	container.style.display = 'none';
 	window.open(innerImg.src);

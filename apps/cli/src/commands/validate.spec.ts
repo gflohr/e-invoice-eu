@@ -1,6 +1,6 @@
-import yargs from 'yargs';
-import { vi, describe, it, beforeEach, expect, type Mock } from 'vitest';
+import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest';
 import type { Arguments } from 'yargs';
+import yargs from 'yargs';
 
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';

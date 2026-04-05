@@ -46,8 +46,6 @@
 		"@types/node": "^25.5.0",
 		"@types/supertest": "^7.2.0",
 		"@vitest/coverage-v8": "^4.1.2",
-		"lint-staged": "^16.4.0",
-		"prettier": "^3.8.1",
 		"rimraf": "^6.1.3",
 		"supertest": "^7.2.2",
 		"ts-node": "^10.9.2",
@@ -55,31 +53,17 @@
 		"typescript": "^6.0.2",
 		"vitest": "^4.1.2"
 	},
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"bin": {
 		"e-invoice-eu-server": "dist/main.js"
 	},
 	"license": "WTFPL",
-	"lint-staged": {
-		"*.{js,ts,json,scss,css,md}": [
-			"prettier --write"
-		],
-		"src/**/*.ts": [
-			"eslint"
-		]
-	},
 	"scripts": {
 		"build": "rimraf dist && nest build -p tsconfig.build.json && chmod +x dist/main.js",
-		"format": "prettier --write *.json *.md \"src/**/*.{ts,json}\" \"test/**/*.ts\"",
 		"start": "nest start",
 		"start:dev": "nest start --watch",
 		"start:debug": "nest start --debug --watch",
 		"start:prod": "node dist/main",
-		"lint": "eslint \"{scripts,src,test}/**/*.ts\"",
-		"lint:fix": "eslint \"{scripts,src,test}/**/*.ts\" --fix",
-		"lint:staged": "lint-staged",
 		"test": "vitest --run",
 		"test:cov": "vitest --coverage.enabled --run",
 		"test:cov-changed": "vitest --coverage.enabled --run --changed origin/main --passWithNoTests",

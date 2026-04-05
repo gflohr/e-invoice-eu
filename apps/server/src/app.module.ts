@@ -20,7 +20,10 @@ import { LoggingInterceptor } from './utils/logging.interceptor';
 		ConfigModule.forRoot({
 			isGlobal: true,
 			validate: env => {
-				return v.parse(appConfigSchema, AppConfigService.loadConfig(env));
+				return v.parse(
+					appConfigSchema,
+					AppConfigService.loadConfig(env),
+				);
 			},
 		}),
 		FormatModule,

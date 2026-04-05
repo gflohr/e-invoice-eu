@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+// biome-ignore-all lint/style/noCommonJs: migrate later to ES6
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');

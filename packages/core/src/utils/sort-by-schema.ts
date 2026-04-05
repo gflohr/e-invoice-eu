@@ -17,13 +17,19 @@ export function sortBySchema<T>(data: T, schema: JSONSchemaType<T>): T {
 					schemaProps[key]?.type === 'object' &&
 					schemaProps[key]?.properties
 				) {
-					sorted[key] = sortObject(obj[key], schemaProps[key].properties);
+					sorted[key] = sortObject(
+						obj[key],
+						schemaProps[key].properties,
+					);
 				} else if (
 					schemaProps[key]?.type === 'array' &&
 					Array.isArray(obj[key])
 				) {
 					const itemSchema = schemaProps[key].items;
-					if (itemSchema?.type === 'object' && itemSchema?.properties) {
+					if (
+						itemSchema?.type === 'object' &&
+						itemSchema?.properties
+					) {
 						sorted[key] = obj[key].map((item: any) =>
 							sortObject(item, itemSchema.properties),
 						);

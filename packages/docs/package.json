@@ -5,7 +5,6 @@
 	"description": "E-Invoice-EU documentation",
 	"main": "index.js",
 	"scripts": {
-		"format": "prettier --write *.json *.yaml \"_views/**/*.html\" \"_assets/**/*{css,js}\"",
 		"build": "webpack",
 		"start": "webpack watch",
 		"server": "browser-sync start --startPath /e-invoice-eu --server _site --files _timestamp --files assets"
@@ -42,8 +41,5 @@
 		"webpack": "^5.105.4",
 		"webpack-cli": "^7.0.2"
 	},
-	"browserslist": [
-		"> 1%",
-		"last 2 versions"
-	]
+	"browserslist": ["> 1%", "last 2 versions"]
 }

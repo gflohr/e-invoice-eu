@@ -1,4 +1,4 @@
-import { vi, describe, it, beforeEach, expect } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { FormatFactoryService } from './format.factory.service';
 
@@ -33,7 +33,9 @@ describe('XRECHNUNG-UBL', () => {
 	});
 
 	it('should create an XRECHNUNG-UBL format service', () => {
-		expect(service.createFormatService('XRECHNUNG-UBL', logger)).toBeDefined();
+		expect(
+			service.createFormatService('XRECHNUNG-UBL', logger),
+		).toBeDefined();
 	});
 
 	it('should list all formats alphabetically', () => {

@@ -32,12 +32,7 @@
 		"prebuild": "node ./write-package.mjs >src/package.ts",
 		"build": "rimraf dist && rollup -c",
 		"check:clean": "../../check-clean",
-		"format": "prettier --write *.json 'src/**/*.ts'",
 		"watch": "tsc --watch",
-		"lint": "eslint './src/**/*.ts'",
-		"lint:fix": "eslint --fix './src/**/*.ts'",
-		"lint:fix-dry-run": "eslint --fix-dry-run './src/**/*.ts'",
-		"lint:staged": "lint-staged",
 		"typedoc": "typedoc src/index.ts && node patch-image.mjs",
 		"pretypedoc": "node ./write-package.mjs >src/package.ts",
 		"pretest": "node ./write-package.mjs >src/package.ts",
@@ -59,17 +54,7 @@
 	},
 	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
 	"license": "WTFPL",
-	"files": [
-		"dist"
-	],
-	"lint-staged": {
-		"*.{js,ts,json,scss,css,md}": [
-			"prettier --write"
-		],
-		"src/**/*.ts": [
-			"eslint"
-		]
-	},
+	"files": ["dist"],
 	"devDependencies": {
 		"@babel/highlight": "^7.25.9",
 		"@esgettext/tools": "^1.3.10",
@@ -87,7 +72,6 @@
 		"fast-xml-parser": "^5.5.9",
 		"js-yaml": "^4.1.1",
 		"json-schema-to-typescript": "^15.0.4",
-		"lint-staged": "^16.4.0",
 		"npm-run-all": "^4.1.5",
 		"rimraf": "^6.1.3",
 		"rollup": "^4.60.1",
