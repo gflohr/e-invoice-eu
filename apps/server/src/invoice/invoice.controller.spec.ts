@@ -3,6 +3,7 @@ import { INestApplication, Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ErrorObject, ValidationError } from 'ajv/dist/2019';
 import request from 'supertest';
+import { vi, describe, it, beforeEach, afterEach, expect } from 'vitest';
 
 import { InvoiceController } from './invoice.controller';
 import { InvoiceService } from './invoice.service';
@@ -16,8 +17,8 @@ describe('InvoiceController', () => {
 	let mappingService: MappingService;
 
 	const mockedLogger = {
-		error: jest.fn(),
-		warn: jest.fn(),
+		error: vi.fn(),
+		warn: vi.fn(),
 	};
 
 	beforeEach(async () => {
@@ -36,7 +37,7 @@ describe('InvoiceController', () => {
 		mappingService = module.get<MappingService>(MappingService);
 
 		app = module.createNestApplication();
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 		await app.init();
 	});
 
@@ -47,7 +48,7 @@ describe('InvoiceController', () => {
 	describe('create', () => {
 		it('should successfully create an invoice from JSON', async () => {
 			const mockXml = '<Invoice/>';
-			jest.spyOn(invoiceService, 'generate').mockResolvedValue(mockXml);
+			vi.spyOn(invoiceService, 'generate').mockResolvedValue(mockXml);
 
 			const invoice: Express.Multer.File = {
 				buffer: Buffer.from('{}'),
@@ -83,11 +84,11 @@ describe('InvoiceController', () => {
 			const mockTransformedData = {
 				result: 'some transformed data',
 			} as unknown as Invoice;
-			jest
+			vi
 				.spyOn(mappingService, 'transform')
 				.mockReturnValue(mockTransformedData);
 			const mockXml = '<Invoice/>';
-			jest.spyOn(invoiceService, 'generate').mockResolvedValue(mockXml);
+			vi.spyOn(invoiceService, 'generate').mockResolvedValue(mockXml);
 
 			const mapping = 'test: data success';
 			const spreadsheet: Express.Multer.File = {
@@ -141,7 +142,7 @@ describe('InvoiceController', () => {
 				params: { type: 'string' },
 				message: 'did not work',
 			};
-			const transformMock = jest
+			const transformMock = vi
 				.spyOn(mappingService, 'transform')
 				.mockImplementation(() => {
 					throw new ValidationError([error]);

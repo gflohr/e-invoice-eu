@@ -1,18 +1,19 @@
 import yargs from 'yargs';
+import { vi, describe, it, beforeEach, expect, type Mock } from 'vitest';
 
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';
 import { Invoice } from './invoice';
 import { guessLibreOfficePath } from './invoice';
-jest.mock('../optspec');
-jest.mock('../package');
+vi.mock('../optspec');
+vi.mock('../package');
 
 describe('Invoice Command', () => {
 	let invoice: Invoice;
 
 	beforeEach(() => {
 		invoice = new Invoice();
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
 	it('description() should return a valid description', () => {
@@ -27,7 +28,7 @@ describe('Invoice Command', () => {
 
 	it('build() should add expected options to yargs', () => {
 		const mockArgv = yargs([]);
-		const optionsSpy = jest.spyOn(mockArgv, 'options');
+		const optionsSpy = vi.spyOn(mockArgv, 'options');
 
 		invoice.build(mockArgv);
 
@@ -148,7 +149,7 @@ describe('Invoice Command', () => {
 	});
 
 	it('run() should return 1 if coerceOptions fails', async () => {
-		(coerceOptions as jest.Mock).mockReturnValue(false);
+		(coerceOptions as Mock).mockReturnValue(false);
 
 		const result = await invoice.run({} as yargs.Arguments);
 
@@ -156,8 +157,8 @@ describe('Invoice Command', () => {
 	});
 
 	it('run() should call doRun and return 0 on success', async () => {
-		(coerceOptions as jest.Mock).mockReturnValue(true);
-		const doRunSpy = jest
+		(coerceOptions as Mock).mockReturnValue(true);
+		const doRunSpy = vi
 			.spyOn(invoice as any, 'doRun')
 			.mockResolvedValue(undefined);
 
@@ -168,13 +169,15 @@ describe('Invoice Command', () => {
 	});
 
 	it('run() should return 1 and log an error if doRun throws', async () => {
-		(coerceOptions as jest.Mock).mockReturnValue(true);
+		(coerceOptions as Mock).mockReturnValue(true);
 		const error = new Error('test error');
-		jest.spyOn(invoice as any, 'doRun').mockRejectedValue(error);
+		vi.spyOn(invoice as any, 'doRun').mockRejectedValue(error);
 
-		const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+		const consoleErrorSpy = vi
+			.spyOn(console, 'error')
+			.mockImplementation(() => {});
 
-		(Package.getName as jest.Mock).mockReturnValue('e-invoice-eu-cli');
+		(Package.getName as Mock).mockReturnValue('e-invoice-eu-cli');
 
 		const result = await invoice.run({} as yargs.Arguments);
 

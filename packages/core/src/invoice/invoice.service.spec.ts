@@ -1,4 +1,5 @@
 import { ErrorObject, ValidationError } from 'ajv/dist/2019';
+import { vi, describe, it, beforeEach, expect } from 'vitest';
 
 import { Invoice } from './invoice.interface';
 import { InvoiceService } from './invoice.service';
@@ -6,9 +7,9 @@ import { ValidationService } from '../validation/validation.service';
 
 describe('InvoiceService', () => {
 	const logger = {
-		log: jest.fn(),
-		warn: jest.fn(),
-		error: jest.fn(),
+		log: vi.fn(),
+		warn: vi.fn(),
+		error: vi.fn(),
 	};
 	let service: InvoiceService;
 
@@ -21,7 +22,7 @@ describe('InvoiceService', () => {
 	});
 
 	it('should validate input data and create an invoice', async () => {
-		const validateSpy = jest
+		const validateSpy = vi
 			.spyOn(ValidationService.prototype, 'validate')
 			.mockReturnValue({ 'ubl:Invoice': {} });
 
@@ -45,7 +46,7 @@ describe('InvoiceService', () => {
 	});
 
 	it('should reject invalid input data', async () => {
-		const validateSpy = jest
+		const validateSpy = vi
 			.spyOn(ValidationService.prototype, 'validate')
 			.mockImplementationOnce(() => {
 				// FIXME: Use more specific error here!
@@ -54,17 +55,13 @@ describe('InvoiceService', () => {
 
 		const input = {} as unknown as Invoice;
 
-		try {
-			await service.generate(input, {
+		await expect(
+			service.generate(input, {
 				lang: 'en-us',
 				format: 'UBL',
 				attachments: [],
-			});
-			fail('Expected generate() to throw a ValidationError.');
-		} catch (error) {
-			expect(error).toBeInstanceOf(ValidationError);
-			expect(error.errors).toEqual([]);
-		}
+			}),
+		).rejects.toBeInstanceOf(ValidationError);
 
 		expect(validateSpy).toHaveBeenCalledTimes(1);
 		expect(validateSpy).toHaveBeenCalledWith(

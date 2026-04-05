@@ -1,36 +1,75 @@
 import type { Arguments } from 'yargs';
+import {
+	vi,
+	describe,
+	it,
+	beforeEach,
+	afterEach,
+	expect,
+	type Mock,
+} from 'vitest';
 import yargs from 'yargs';
 
 import { Format } from './format';
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';
 
-jest.mock('../optspec');
-jest.mock('../package');
+vi.mock('../optspec');
+vi.mock('../package');
 
-jest.mock('@e-invoice-eu/core', () => ({
-	FormatFactoryService: jest.fn().mockImplementation(() => ({
-		listFormatServices: jest.fn().mockReturnValue([
-			{
-				name: 'FormatA',
-			},
-			{
-				name: 'FormatB',
-			},
-		]),
-		info: jest.fn().mockReturnValue({ name: 'FormatC' }),
-		normalizeFormat: jest.fn((format: string) => format.toLowerCase()),
-	})),
-}));
+vi.mock('@e-invoice-eu/core', () => {
+	return {
+		FormatFactoryService: class {
+			listFormatServices() {
+				return [
+					{
+						name: 'FormatA',
+						syntax: 'UBL',
+						mimeType: 'application/xml',
+						customizationID: 'urn:format:a',
+						profileID: 'urn:profile:a',
+					},
+					{
+						name: 'FormatB',
+						syntax: 'CII',
+						mimeType: 'application/pdf',
+						customizationID: 'urn:format:b',
+						profileID: 'urn:profile:b',
+					},
+				];
+			}
+			info() {
+				return {
+					name: 'FormatC',
+					syntax: 'UBL',
+					mimeType: 'application/xml',
+					customizationID: 'urn:format:c',
+					profileID: 'urn:profile:c',
+				};
+			}
+			normalizeFormat(format: string) {
+				return format
+					.toLowerCase()
+					.replace(/-comfort$/, '-en16931')
+					.replace(/-basic[-_]?wl$/, '-basic wl')
+					.replace(/^zugferd-/, 'factur-x-');
+			}
+		},
+	};
+});
 
 describe('Format Command', () => {
 	let format: Format;
-	let consoleSpy: jest.SpyInstance;
+	let consoleSpy: ReturnType<typeof vi.spyOn>;
 
 	beforeEach(() => {
 		format = new Format();
-		consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
-		jest.clearAllMocks();
+		consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+		(coerceOptions as Mock).mockReturnValue(true);
+	});
+
+	afterEach(() => {
+		vi.restoreAllMocks();
 	});
 
 	it('description() should return a valid description', () => {
@@ -43,7 +82,7 @@ describe('Format Command', () => {
 
 	it('build() should add expected options to yargs', () => {
 		const mockArgv = yargs([]);
-		const optionsSpy = jest.spyOn(mockArgv, 'options');
+		const optionsSpy = vi.spyOn(mockArgv, 'options');
 
 		format.build(mockArgv);
 
@@ -68,7 +107,7 @@ describe('Format Command', () => {
 	});
 
 	it('run() should return 1 if coerceOptions fails', async () => {
-		(coerceOptions as jest.Mock).mockReturnValue(false);
+		(coerceOptions as Mock).mockReturnValue(false);
 
 		const result = await format.run({} as Arguments);
 
@@ -76,8 +115,8 @@ describe('Format Command', () => {
 	});
 
 	it('run() should call doRun and return 0 on success', async () => {
-		(coerceOptions as jest.Mock).mockReturnValue(true);
-		const doRunSpy = jest
+		(coerceOptions as Mock).mockReturnValue(true);
+		const doRunSpy = vi
 			.spyOn(format as any, 'doRun')
 			.mockResolvedValue(undefined);
 
@@ -88,13 +127,15 @@ describe('Format Command', () => {
 	});
 
 	it('run() should return 1 and log an error if doRun throws', async () => {
-		(coerceOptions as jest.Mock).mockReturnValue(true);
+		(coerceOptions as Mock).mockReturnValue(true);
 		const error = new Error('test error');
-		jest.spyOn(format as any, 'doRun').mockRejectedValue(error);
+		vi.spyOn(format as any, 'doRun').mockRejectedValue(error);
 
-		const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+		const consoleErrorSpy = vi
+			.spyOn(console, 'error')
+			.mockImplementation(() => {});
 
-		(Package.getName as jest.Mock).mockReturnValue('e-invoice-eu-cli');
+		(Package.getName as Mock).mockReturnValue('e-invoice-eu-cli');
 
 		const result = await format.run({} as Arguments);
 
@@ -117,10 +158,10 @@ describe('Format Command', () => {
 	});
 
 	describe('info()', () => {
-		let consoleErrorSpy: jest.SpyInstance;
+		let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
 
 		beforeEach(() => {
-			consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+			consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 		});
 
 		afterEach(() => {

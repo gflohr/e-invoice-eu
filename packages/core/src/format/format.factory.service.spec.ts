@@ -1,11 +1,13 @@
+import { vi, describe, it, beforeEach, expect } from 'vitest';
+
 import { FormatFactoryService } from './format.factory.service';
 
 describe('XRECHNUNG-UBL', () => {
 	let service: FormatFactoryService;
 	const logger = {
-		log: jest.fn(),
-		warn: jest.fn(),
-		error: jest.fn(),
+		log: vi.fn(),
+		warn: vi.fn(),
+		error: vi.fn(),
 	};
 
 	beforeEach(async () => {

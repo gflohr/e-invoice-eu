@@ -1,3 +1,5 @@
+import { vi, describe, it, beforeEach, expect, type Mock } from 'vitest';
+
 import { spawn } from 'child_process';
 import { EventEmitter } from 'events';
 import { promises as fs } from 'fs';
@@ -7,33 +9,37 @@ import * as tmp from 'tmp-promise';
 import { renderSpreadsheet } from './render-spreadsheet';
 
 const mockLogger = {
-	log: jest.fn(),
-	error: jest.fn(),
-	warn: jest.fn(),
+	log: vi.fn(),
+	error: vi.fn(),
+	warn: vi.fn(),
 };
 
-jest.mock('child_process', () => ({
-	spawn: jest.fn(),
+vi.mock('child_process', () => ({
+	spawn: vi.fn(),
 }));
 
-jest.mock('fs', () => ({
+vi.mock('fs', () => ({
 	promises: {
-		writeFile: jest.fn(),
-		readFile: jest.fn(),
+		writeFile: vi.fn(),
+		readFile: vi.fn(),
 	},
 }));
 
-jest.mock('tmp-promise', () => ({
-	tmpName: jest.fn(),
-	file: jest.fn(),
-	dir: jest.fn(),
+vi.mock('tmp-promise', () => ({
+	tmpName: vi.fn(),
+	file: vi.fn(),
+	dir: vi.fn(),
 }));
 
-jest.mock('path', () => ({
-	...jest.requireActual('path'),
-	parse: jest.fn(),
-	join: jest.fn(),
-}));
+vi.mock('path', async importOriginal => {
+	const actual = await importOriginal<typeof import('path')>();
+
+	return {
+		...actual,
+		parse: vi.fn(),
+		join: vi.fn(),
+	};
+});
 
 describe('renderSpreadsheet', () => {
 	const libreofficePath = '/usr/bin/libreoffice';
@@ -45,27 +51,25 @@ describe('renderSpreadsheet', () => {
 	const mockOutputFile = '/tmp/output/test.pdf';
 
 	beforeEach(() => {
-		jest.clearAllMocks();
-
-		(tmp.tmpName as jest.Mock).mockResolvedValue(mockUserDir);
-		(tmp.file as jest.Mock).mockResolvedValue({ path: mockInputFile });
-		(tmp.dir as jest.Mock).mockResolvedValue({ path: mockOutputDir });
-		(fs.writeFile as jest.Mock).mockResolvedValue(undefined);
-		(fs.readFile as jest.Mock).mockResolvedValue(Buffer.from('PDF data'));
-		(path.parse as jest.Mock).mockReturnValue({ ext: '.xlsx', name: 'test' });
-		(path.join as jest.Mock).mockReturnValue(mockOutputFile);
+		(tmp.tmpName as Mock).mockResolvedValue(mockUserDir);
+		(tmp.file as Mock).mockResolvedValue({ path: mockInputFile });
+		(tmp.dir as Mock).mockResolvedValue({ path: mockOutputDir });
+		(fs.writeFile as Mock).mockResolvedValue(undefined);
+		(fs.readFile as Mock).mockResolvedValue(Buffer.from('PDF data'));
+		(path.parse as Mock).mockReturnValue({ ext: '.xlsx', name: 'test' });
+		(path.join as Mock).mockReturnValue(mockOutputFile);
 	});
 
 	it('should convert a spreadsheet to PDF successfully', async () => {
 		const mockChildProcess = {
-			on: jest.fn((event, callback) => {
+			on: vi.fn((event, callback) => {
 				if (event === 'close') {
 					setImmediate(() => callback(0));
 				}
 			}),
 		};
 
-		(spawn as jest.Mock).mockReturnValue(mockChildProcess);
+		(spawn as Mock).mockReturnValue(mockChildProcess);
 
 		const pdfBuffer = await renderSpreadsheet(
 			filename,
@@ -90,13 +94,13 @@ describe('renderSpreadsheet', () => {
 
 	it('should throw an error if LibreOffice fails', async () => {
 		const mockChildProcess = {
-			on: jest.fn((event, callback) => {
+			on: vi.fn((event, callback) => {
 				if (event === 'close') {
 					setImmediate(() => callback(1));
 				}
 			}),
 		};
-		(spawn as jest.Mock).mockReturnValue(mockChildProcess);
+		(spawn as Mock).mockReturnValue(mockChildProcess);
 
 		await expect(
 			renderSpreadsheet(filename, buffer, libreofficePath, mockLogger),
@@ -107,16 +111,16 @@ describe('renderSpreadsheet', () => {
 	});
 
 	it('should throw an error if reading the output PDF fails', async () => {
-		(fs.readFile as jest.Mock).mockRejectedValue(new Error('File not found'));
+		(fs.readFile as Mock).mockRejectedValue(new Error('File not found'));
 
 		const mockChildProcess = {
-			on: jest.fn((event, callback) => {
+			on: vi.fn((event, callback) => {
 				if (event === 'close') {
 					setImmediate(() => callback(0));
 				}
 			}),
 		};
-		(spawn as jest.Mock).mockReturnValue(mockChildProcess);
+		(spawn as Mock).mockReturnValue(mockChildProcess);
 
 		await expect(
 			renderSpreadsheet(filename, buffer, libreofficePath, mockLogger),
@@ -128,7 +132,7 @@ describe('renderSpreadsheet', () => {
 
 	it('should reject when spawn emits an error event', async () => {
 		const mockChild = new EventEmitter();
-		(spawn as jest.Mock).mockReturnValue(mockChild);
+		(spawn as Mock).mockReturnValue(mockChild);
 
 		const promise = renderSpreadsheet(
 			filename,

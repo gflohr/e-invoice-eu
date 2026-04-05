@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import { describe, it, expect } from 'vitest';
 
 import { Package } from './package';
 

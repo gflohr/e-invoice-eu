@@ -1,7 +1,9 @@
+import { vi, describe, it, beforeEach, expect } from 'vitest';
+
 import { Invoice, Mapping } from '@e-invoice-eu/core';
 
-jest.mock('../utils/render-spreadsheet', () => ({
-	renderSpreadsheet: jest.fn(
+vi.mock('../utils/render-spreadsheet', () => ({
+	renderSpreadsheet: vi.fn(
 		async () => new Uint8Array([73, 110, 118, 111, 105, 99, 101]),
 	),
 }));
@@ -13,9 +15,9 @@ import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 describe('UBL', () => {
 	let service: FormatUBLService;
 	const mockLogger = {
-		log: jest.fn(),
-		warn: jest.fn(),
-		error: jest.fn(),
+		log: vi.fn(),
+		warn: vi.fn(),
+		error: vi.fn(),
 	};
 
 	beforeEach(async () => {

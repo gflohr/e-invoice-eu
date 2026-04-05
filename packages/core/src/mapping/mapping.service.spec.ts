@@ -1,3 +1,13 @@
+import {
+	vi,
+	describe,
+	it,
+	beforeAll,
+	beforeEach,
+	expect,
+	type Mock,
+} from 'vitest';
+
 import * as XLSX from '@e965/xlsx';
 import { JSONSchemaType } from 'ajv';
 
@@ -9,11 +19,14 @@ import { Invoice } from '../invoice';
 import { Logger } from '../logger.interface';
 import { ValidationService } from '../validation';
 
-jest.mock('fs/promises');
-jest.mock('@e965/xlsx', () => ({
-	...jest.requireActual('@e965/xlsx'),
-	read: jest.fn(),
-}));
+vi.mock('fs/promises');
+vi.mock('@e965/xlsx', async () => {
+	const actual = await vi.importActual('@e965/xlsx');
+	return {
+		...actual,
+		read: vi.fn(),
+	};
+});
 
 // Used for testing `transform()`.
 const mapping = {
@@ -161,15 +174,11 @@ const defaultMappingContext = {
 describe('MappingService', () => {
 	let service: MappingService;
 	const logger = {
-		error: jest.fn(),
+		error: vi.fn(),
 	};
 
 	beforeEach(async () => {
 		service = new MappingService(logger as unknown as Logger);
-	});
-
-	afterEach(() => {
-		jest.clearAllMocks();
 	});
 
 	it('should be defined', () => {
@@ -270,12 +279,12 @@ describe('MappingService', () => {
 		it('should throw an exception if a non-existing section is referenced', async () => {
 			const localMapping = structuredClone(mapping);
 			localMapping['ubl:Invoice']['cac:InvoiceLine']['cbc:ID'] = '=:Lines.A1';
-			const mockValidateMapping = jest
+			const mockValidateMapping = vi
 				.spyOn(service as any, 'validateMapping')
 				.mockReturnValue(localMapping);
 			const buf: Uint8Array = [] as unknown as Uint8Array;
 
-			(XLSX.read as jest.Mock).mockReturnValueOnce(workbook);
+			(XLSX.read as Mock).mockReturnValueOnce(workbook);
 
 			try {
 				service.transform(buf, 'UBL', {} as Mapping);
@@ -308,12 +317,12 @@ describe('MappingService', () => {
 			const localMapping = structuredClone(mapping);
 			localMapping['ubl:Invoice']['cac:InvoiceLine']['section'] =
 				'Infoice:Line';
-			const mockValidateMapping = jest
+			const mockValidateMapping = vi
 				.spyOn(service as any, 'validateMapping')
 				.mockReturnValue(localMapping);
 			const buf: Uint8Array = [] as unknown as Uint8Array;
 
-			(XLSX.read as jest.Mock).mockReturnValueOnce(workbook);
+			(XLSX.read as Mock).mockReturnValueOnce(workbook);
 
 			try {
 				service.transform(buf, 'UBL', {} as Mapping);
@@ -344,12 +353,12 @@ describe('MappingService', () => {
 			const localMapping = structuredClone(mapping);
 			localMapping['ubl:Invoice']['cac:InvoiceLine']['section'] =
 				'Invoice:Lime';
-			const mockValidateMapping = jest
+			const mockValidateMapping = vi
 				.spyOn(service as any, 'validateMapping')
 				.mockReturnValue(localMapping);
 			const buf: Uint8Array = [] as unknown as Uint8Array;
 
-			(XLSX.read as jest.Mock).mockReturnValueOnce(workbook);
+			(XLSX.read as Mock).mockReturnValueOnce(workbook);
 
 			try {
 				service.transform(buf, 'UBL', {} as Mapping);
@@ -377,7 +386,7 @@ describe('MappingService', () => {
 		});
 
 		it('should throw an exception if multiple unbound sections are encountered', async () => {
-			const mockValidateMapping = jest
+			const mockValidateMapping = vi
 				.spyOn(service as any, 'validateMapping')
 				.mockReturnValue(mapping);
 			const buf: Uint8Array = [] as unknown as Uint8Array;
@@ -385,7 +394,7 @@ describe('MappingService', () => {
 			const localWorkbook = structuredClone(workbook);
 			localWorkbook.Sheets.Invoice.K28 = { t: 's', v: 'SubTotal' };
 
-			(XLSX.read as jest.Mock).mockReturnValueOnce(localWorkbook);
+			(XLSX.read as Mock).mockReturnValueOnce(localWorkbook);
 
 			try {
 				service.transform(buf, 'UBL', {} as Mapping);
@@ -418,20 +427,20 @@ describe('MappingService', () => {
 		// Test the parseMapping() method.
 		it('should validate mappings and fill defaults', () => {
 			const formatter: EInvoiceFormat = {
-				fillMappingDefaults: jest.fn(),
+				fillMappingDefaults: vi.fn(),
 			} as unknown as EInvoiceFormat;
-			const formatFactorySpy = jest
+			const formatFactorySpy = vi
 				.spyOn(FormatFactoryService.prototype, 'createFormatService')
 				.mockReturnValue(formatter);
-			const validateSpy = jest
+			const validateSpy = vi
 				.spyOn(ValidationService.prototype, 'validate')
 				.mockReturnValue({ 'ubl:Invoice': {} });
 
 			const buf: Uint8Array = [] as unknown as Uint8Array;
 
-			(XLSX.read as jest.Mock).mockReturnValueOnce(workbook);
+			(XLSX.read as Mock).mockReturnValueOnce(workbook);
 
-			const mockFillSectionRanges = jest
+			const mockFillSectionRanges = vi
 				.spyOn(service as any, 'fillSectionRanges')
 				.mockImplementationOnce(() => {});
 
@@ -461,12 +470,12 @@ describe('MappingService', () => {
 			let invoice: Invoice;
 
 			beforeAll(async () => {
-				const mockValidateMapping = jest
+				const mockValidateMapping = vi
 					.spyOn(service as any, 'validateMapping')
 					.mockReturnValue(mapping);
 				const buf: Uint8Array = [] as unknown as Uint8Array;
 
-				(XLSX.read as jest.Mock).mockReturnValueOnce(workbook);
+				(XLSX.read as Mock).mockReturnValueOnce(workbook);
 
 				invoice = service.transform(buf, 'UBL', {} as Mapping);
 
@@ -588,7 +597,7 @@ describe('MappingService', () => {
 				},
 			} as XLSX.WorkBook;
 
-			const validateSpy = jest
+			const validateSpy = vi
 				.spyOn(ValidationService.prototype, 'validate')
 				.mockReturnValue(mapping);
 

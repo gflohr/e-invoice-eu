@@ -1,4 +1,5 @@
 import { JSONSchemaType } from 'ajv';
+import { describe, it, expect } from 'vitest';
 
 import { sortBySchema } from './sort-by-schema';
 

@@ -1,5 +1,6 @@
 import { ExecutionContext, CallHandler, Logger } from '@nestjs/common';
-import { of } from 'rxjs';
+import { lastValueFrom, of } from 'rxjs';
+import { vi, describe, it, beforeEach, expect } from 'vitest';
 
 import { LoggingInterceptor } from './logging.interceptor';
 
@@ -9,38 +10,37 @@ describe('LoggingInterceptor', () => {
 	let mockCallHandler: Partial<CallHandler>;
 
 	beforeEach(() => {
-		jest.spyOn(Logger.prototype, 'log').mockImplementation(() => {});
+		vi.spyOn(Logger.prototype, 'log').mockImplementation(() => {});
 
 		interceptor = new LoggingInterceptor();
 
 		mockContext = {
-			switchToHttp: jest.fn().mockReturnValue({
-				getRequest: jest.fn().mockReturnValue({
+			switchToHttp: vi.fn().mockReturnValue({
+				getRequest: vi.fn().mockReturnValue({
 					method: 'GET',
 					originalUrl: '/test-url',
 				}),
-				getResponse: jest.fn().mockReturnValue({
+				getResponse: vi.fn().mockReturnValue({
 					statusCode: 200,
 				}),
 			}),
 		};
 
 		mockCallHandler = {
-			handle: jest.fn().mockReturnValue(of('test-data')), // mock observable
+			handle: vi.fn().mockReturnValue(of('test-data')),
 		};
 	});
 
-	it('should log the method, URL, status code, and duration', done => {
-		interceptor
-			.intercept(
+	it('should log the method, URL, status code, and duration', async () => {
+		await lastValueFrom(
+			interceptor.intercept(
 				mockContext as ExecutionContext,
 				mockCallHandler as CallHandler,
-			)
-			.subscribe(() => {
-				expect(Logger.prototype.log).toHaveBeenCalledWith(
-					expect.stringContaining('GET /test-url 200 -'),
-				);
-				done();
-			});
+			),
+		);
+
+		expect(Logger.prototype.log).toHaveBeenCalledWith(
+			expect.stringContaining('GET /test-url 200 -'),
+		);
 	});
 });

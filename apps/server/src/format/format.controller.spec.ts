@@ -1,6 +1,7 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
+import { vi, describe, it, beforeEach, afterAll, expect } from 'vitest';
 
 import { FormatController } from './format.controller';
 import { FormatFactoryService } from './format.factory.service';
@@ -16,7 +17,7 @@ describe('FormatController', () => {
 				{
 					provide: FormatFactoryService,
 					useValue: {
-						listFormatServices: jest.fn(),
+						listFormatServices: vi.fn(),
 					},
 				},
 			],
@@ -53,7 +54,7 @@ describe('FormatController', () => {
 				},
 			];
 
-			jest
+			vi
 				.spyOn(formatFactoryService as any, 'listFormatServices')
 				.mockResolvedValue(expectedFormats);
 

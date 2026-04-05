@@ -1,6 +1,15 @@
 import { invoiceSchema } from '@e-invoice-eu/core';
 import { mappingSchema } from '@e-invoice-eu/core';
 import * as fs from 'fs/promises';
+import {
+	vi,
+	describe,
+	it,
+	expect,
+	beforeEach,
+	type Mocked,
+	type Mock,
+} from 'vitest';
 import yargs from 'yargs';
 import type { Arguments } from 'yargs';
 
@@ -9,14 +18,14 @@ import { coerceOptions } from '../optspec';
 import { Package } from '../package';
 import { safeStdoutWrite } from '../safe-stdout-write';
 
-jest.mock('../optspec');
-jest.mock('../package');
+vi.mock('../optspec');
+vi.mock('../package');
 
-jest.mock('fs/promises');
-const mockedFs = fs as jest.Mocked<typeof fs>;
+vi.mock('fs/promises');
+const mockedFs = fs as Mocked<typeof fs>;
 
-jest.mock('../safe-stdout-write', () => ({
-	safeStdoutWrite: jest.fn().mockResolvedValue(undefined),
+vi.mock('../safe-stdout-write', () => ({
+	safeStdoutWrite: vi.fn().mockResolvedValue(undefined),
 }));
 
 describe('Schema Command', () => {
@@ -24,20 +33,20 @@ describe('Schema Command', () => {
 
 	beforeEach(() => {
 		schema = new Schema();
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 
-	test('description() should return a valid description', () => {
+	it('description() should return a valid description', () => {
 		expect(schema.description()).toBe('Output JSON schema.');
 	});
 
-	test('aliases() should return an empty array', () => {
+	it('aliases() should return an empty array', () => {
 		expect(schema.aliases()).toEqual([]);
 	});
 
-	test('build() should add expected options to yargs', () => {
+	it('build() should add expected options to yargs', () => {
 		const mockArgv = yargs([]);
-		const optionsSpy = jest.spyOn(mockArgv, 'options');
+		const optionsSpy = vi.spyOn(mockArgv, 'options');
 
 		schema.build(mockArgv);
 
@@ -60,17 +69,17 @@ describe('Schema Command', () => {
 		});
 	});
 
-	test('run() should return 1 if coerceOptions fails', async () => {
-		(coerceOptions as jest.Mock).mockReturnValue(false);
+	it('run() should return 1 if coerceOptions fails', async () => {
+		(coerceOptions as Mock).mockReturnValue(false);
 
 		const result = await schema.run({} as Arguments);
 
 		expect(result).toBe(1);
 	});
 
-	test('run() should call doRun and return 0 on success', async () => {
-		(coerceOptions as jest.Mock).mockReturnValue(true);
-		const doRunSpy = jest
+	it('run() should call doRun and return 0 on success', async () => {
+		(coerceOptions as Mock).mockReturnValue(true);
+		const doRunSpy = vi
 			.spyOn(schema as any, 'doRun')
 			.mockResolvedValue(undefined);
 
@@ -80,14 +89,16 @@ describe('Schema Command', () => {
 		expect(result).toBe(0);
 	});
 
-	test('run() should return 1 and log an error if doRun throws', async () => {
-		(coerceOptions as jest.Mock).mockReturnValue(true);
+	it('run() should return 1 and log an error if doRun throws', async () => {
+		(coerceOptions as Mock).mockReturnValue(true);
 		const error = new Error('test error');
-		jest.spyOn(schema as any, 'doRun').mockRejectedValue(error);
+		vi.spyOn(schema as any, 'doRun').mockRejectedValue(error);
 
-		const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+		const consoleErrorSpy = vi
+			.spyOn(console, 'error')
+			.mockImplementation(() => {});
 
-		(Package.getName as jest.Mock).mockReturnValue('e-invoice-eu-cli');
+		(Package.getName as Mock).mockReturnValue('e-invoice-eu-cli');
 
 		const result = await schema.run({} as Arguments);
 
