@@ -16,6 +16,7 @@ import { Logger } from '../logger.interface';
 import { ValidationService } from '../validation';
 import { Mapping, MappingMetaInformation } from './mapping.interface';
 import { MappingService } from './mapping.service';
+import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 
 vi.mock('fs/promises');
 vi.mock('@e965/xlsx', async () => {
@@ -192,7 +193,7 @@ describe('MappingService', () => {
 			try {
 				service['resolveValue'](
 					'=Inwoice.A1',
-					{} as JSONSchemaType<any>,
+					{} as JSONSchemaType<ExpandObject>,
 					{
 						...defaultMappingContext,
 						schemaPath: [
@@ -234,7 +235,7 @@ describe('MappingService', () => {
 			} as XLSX.WorkBook;
 			const value = service['resolveValue'](
 				'=ET742',
-				{} as JSONSchemaType<any>,
+				{} as JSONSchemaType<ExpandObject>,
 				{
 					...defaultMappingContext,
 					schemaPath: [
@@ -267,7 +268,7 @@ describe('MappingService', () => {
 			} as XLSX.WorkBook;
 			const empty = service['resolveValue'](
 				'=A1',
-				{} as JSONSchemaType<any>,
+				{} as JSONSchemaType<ExpandObject>,
 				{
 					...defaultMappingContext,
 					meta: {
@@ -287,7 +288,7 @@ describe('MappingService', () => {
 
 			const notEmpty = service['resolveValue'](
 				'=A2',
-				{} as JSONSchemaType<any>,
+				{} as JSONSchemaType<ExpandObject>,
 				{
 					...defaultMappingContext,
 					schemaPath: [
@@ -307,7 +308,7 @@ describe('MappingService', () => {
 			localMapping['ubl:Invoice']['cac:InvoiceLine']['cbc:ID'] =
 				'=:Lines.A1';
 			const mockValidateMapping = vi
-				.spyOn(service as any, 'validateMapping')
+				.spyOn(service as unknown as { validateMapping: typeof service['validateMapping'] }, 'validateMapping')
 				.mockReturnValue(localMapping);
 			const buf: Uint8Array = [] as unknown as Uint8Array;
 
@@ -345,7 +346,7 @@ describe('MappingService', () => {
 			localMapping['ubl:Invoice']['cac:InvoiceLine']['section'] =
 				'Infoice:Line';
 			const mockValidateMapping = vi
-				.spyOn(service as any, 'validateMapping')
+				.spyOn(service as unknown as { validateMapping: typeof service['validateMapping'] }, 'validateMapping')
 				.mockReturnValue(localMapping);
 			const buf: Uint8Array = [] as unknown as Uint8Array;
 
@@ -383,7 +384,7 @@ describe('MappingService', () => {
 			localMapping['ubl:Invoice']['cac:InvoiceLine']['section'] =
 				'Invoice:Lime';
 			const mockValidateMapping = vi
-				.spyOn(service as any, 'validateMapping')
+				.spyOn(service as unknown as { validateMapping: typeof service['validateMapping'] }, 'validateMapping')
 				.mockReturnValue(localMapping);
 			const buf: Uint8Array = [] as unknown as Uint8Array;
 
@@ -418,7 +419,7 @@ describe('MappingService', () => {
 
 		it('should throw an exception if multiple unbound sections are encountered', async () => {
 			const mockValidateMapping = vi
-				.spyOn(service as any, 'validateMapping')
+				.spyOn(service as unknown as { validateMapping: typeof service['validateMapping'] }, 'validateMapping')
 				.mockReturnValue(mapping);
 			const buf: Uint8Array = [] as unknown as Uint8Array;
 
@@ -472,7 +473,7 @@ describe('MappingService', () => {
 			(XLSX.read as Mock).mockReturnValueOnce(workbook);
 
 			const mockFillSectionRanges = vi
-				.spyOn(service as any, 'fillSectionRanges')
+				.spyOn(service as unknown as { fillSectionRanges: typeof service['fillSectionRanges'] }, 'fillSectionRanges')
 				.mockImplementationOnce(() => {});
 
 			const invoice = service.transform(buf, 'ZIRKUSFeRD', {} as Mapping);
@@ -502,7 +503,7 @@ describe('MappingService', () => {
 
 			beforeAll(async () => {
 				const mockValidateMapping = vi
-					.spyOn(service as any, 'validateMapping')
+					.spyOn(service as unknown as { validateMapping: typeof service['validateMapping'] }, 'validateMapping')
 					.mockReturnValue(mapping);
 				const buf: Uint8Array = [] as unknown as Uint8Array;
 

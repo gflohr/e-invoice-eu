@@ -1,4 +1,5 @@
 import { JSONSchemaType } from 'ajv';
+import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 
 export function sortBySchema<T>(data: T, schema: JSONSchemaType<T>): T {
 	if (typeof data !== 'object' || data === null) {
@@ -9,8 +10,11 @@ export function sortBySchema<T>(data: T, schema: JSONSchemaType<T>): T {
 		throw new Error('Schema must be a valid JSON schema.');
 	}
 
-	const sortObject = (obj: any, schemaProps: Record<string, any>): any => {
-		const sorted: any = {};
+	const sortObject = (
+		obj: ExpandObject,
+		schemaProps: ExpandObject,
+	): ExpandObject => {
+		const sorted: ExpandObject = {};
 		for (const key of Object.keys(schemaProps)) {
 			if (key in obj) {
 				if (
@@ -30,7 +34,7 @@ export function sortBySchema<T>(data: T, schema: JSONSchemaType<T>): T {
 						itemSchema?.type === 'object' &&
 						itemSchema?.properties
 					) {
-						sorted[key] = obj[key].map((item: any) =>
+						sorted[key] = obj[key].map((item: ExpandObject) =>
 							sortObject(item, itemSchema.properties),
 						);
 					} else {
@@ -44,5 +48,5 @@ export function sortBySchema<T>(data: T, schema: JSONSchemaType<T>): T {
 		return sorted;
 	};
 
-	return sortObject(data, schema.properties || {});
+	return sortObject(data, schema.properties || {}) as T;
 }
