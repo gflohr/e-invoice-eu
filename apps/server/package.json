@@ -86,11 +86,10 @@
 		"lint:fix": "eslint \"{scripts,src,test}/**/*.ts\" --fix",
 		"lint:staged": "lint-staged",
 		"test": "vitest --run",
-		"test:cov": "jest --coverage.enabled --run",
+		"test:cov": "vitest --coverage.enabled --run",
 		"test:cov-changed": "vitest --coverage.enabled --run --changed origin/main --passWithNoTests",
 		"test:watch": "vitest",
-		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/vitest --no-file-parallelism",
-		"test:e2e": "jest --config ./test/jest-e2e.json"
+		"test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/vitest --no-file-parallelism"
 	},
 	"gitHead": "67a67ee76bd444a1bfe18057baad1a72a8152dd1"
 }
