@@ -27,7 +27,7 @@ describe('LoggingInterceptor', () => {
 		};
 
 		mockCallHandler = {
-			handle: vi.fn().mockReturnValue(of('test-data')), // mock observable
+			handle: vi.fn().mockReturnValue(of('test-data')),
 		};
 	});
 
