@@ -300,7 +300,8 @@
 		details.appendChild(idDiv);
 
 		const descriptionDiv = document.createElement('div');
-		descriptionDiv.textContent = 'Description: ' + (attachment.description ?? 'n/a');
+		descriptionDiv.textContent =
+			'Description: ' + (attachment.description ?? 'n/a');
 		details.appendChild(descriptionDiv);
 
 		const mimeDiv = document.createElement('div');
