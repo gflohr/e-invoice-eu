@@ -48,7 +48,7 @@ export type FormatInfo = {
  */
 export class FormatFactoryService {
 	private readonly formatServices: {
-		[key: string]: new (...args: unknown[]) => EInvoiceFormat;
+		[key: string]: new (logger: Logger) => EInvoiceFormat;
 	} = {
 		CII: FormatCIIService,
 		'Factur-X-Basic': FormatFacturXBasicService,
@@ -62,7 +62,7 @@ export class FormatFactoryService {
 		'XRECHNUNG-UBL': FormatXRECHNUNGUBLService,
 	};
 	private readonly formatServicesLookup: {
-		[key: string]: new (...args: unknown[]) => EInvoiceFormat;
+		[key: string]: new (logger: Logger) => EInvoiceFormat;
 	} = {};
 
 	constructor() {
@@ -101,7 +101,7 @@ export class FormatFactoryService {
 		for (const format in this.formatServices) {
 			const FormatService = this.formatServices[format];
 
-			const service = new FormatService();
+			const service = new FormatService(undefined as unknown as Logger);
 			infos.push({
 				name: format,
 				syntax: service.syntax,
@@ -142,7 +142,7 @@ export class FormatFactoryService {
 			throw new Error(`Format '${format}' is not supported.`);
 		}
 
-		const service = new FormatServiceClass();
+		const service = new FormatServiceClass(undefined as unknown as Logger);
 
 		return {
 			name: normalized,
