@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-Basic 1`] = `
+exports[`FormatFacturXService > XMP metadata > should add XMP metadata for Factur-X-Basic 1`] = `
 "<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/">
 	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -91,7 +91,7 @@ exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-
 <?xpacket end="w"?>"
 `;
 
-exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-Basic WL 1`] = `
+exports[`FormatFacturXService > XMP metadata > should add XMP metadata for Factur-X-Basic WL 1`] = `
 "<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/">
 	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -182,7 +182,7 @@ exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-
 <?xpacket end="w"?>"
 `;
 
-exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-EN16931 1`] = `
+exports[`FormatFacturXService > XMP metadata > should add XMP metadata for Factur-X-EN16931 1`] = `
 "<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/">
 	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -273,7 +273,7 @@ exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-
 <?xpacket end="w"?>"
 `;
 
-exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-Extended 1`] = `
+exports[`FormatFacturXService > XMP metadata > should add XMP metadata for Factur-X-Extended 1`] = `
 "<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/">
 	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -364,7 +364,7 @@ exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-
 <?xpacket end="w"?>"
 `;
 
-exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-Minimum 1`] = `
+exports[`FormatFacturXService > XMP metadata > should add XMP metadata for Factur-X-Minimum 1`] = `
 "<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/">
 	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -455,7 +455,7 @@ exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-
 <?xpacket end="w"?>"
 `;
 
-exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-XRechnung 1`] = `
+exports[`FormatFacturXService > XMP metadata > should add XMP metadata for Factur-X-XRechnung 1`] = `
 "<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/">
 	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -546,7 +546,7 @@ exports[`FormatFacturXService XMP metadata should add XMP metadata for Factur-X-
 <?xpacket end="w"?>"
 `;
 
-exports[`FormatFacturXService XMP metadata should work in western timezones 1`] = `
+exports[`FormatFacturXService > XMP metadata > should work in western timezones 1`] = `
 "<?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
 <x:xmpmeta xmlns:x="adobe:ns:meta/">
 	<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">

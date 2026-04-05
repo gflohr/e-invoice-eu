@@ -1,3 +1,5 @@
+import { describe, it, beforeEach, expect } from 'vitest';
+
 import { Invoice } from '@e-invoice-eu/core';
 
 import { FormatCIIService } from './format-cii.service';

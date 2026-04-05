@@ -1,4 +1,14 @@
 import {
+	vi,
+	describe,
+	it,
+	beforeAll,
+	beforeEach,
+	afterAll,
+	expect,
+} from 'vitest';
+
+import {
 	AFRelationship,
 	decodePDFRawStream,
 	PDFArray,
@@ -19,9 +29,9 @@ import { FormatFacturXService } from './format-factur-x.service';
 import { Package } from '../package';
 
 const mockLogger = {
-	log: jest.fn(),
-	warn: jest.fn(),
-	error: jest.fn(),
+	log: vi.fn(),
+	warn: vi.fn(),
+	error: vi.fn(),
 };
 
 const mockInvoice = {
@@ -167,16 +177,16 @@ describe('FormatFacturXService', () => {
 	let service: FormatFacturXService;
 	let mockOptions: InvoiceServiceOptions;
 
-	beforeAll(() => {
-		jest.spyOn(Package, 'getVersion').mockReturnValue('VERSION');
+	beforeEach(() => {
+		vi.spyOn(Package, 'getVersion').mockReturnValue('VERSION');
 	});
 
 	beforeEach(async () => {
 		service = new FormatFacturXService(mockLogger);
 
-		jest
-			.spyOn(FormatCIIService.prototype, 'generate')
-			.mockResolvedValue('<invoice></invoice>');
+		vi.spyOn(FormatCIIService.prototype, 'generate').mockResolvedValue(
+			'<invoice></invoice>',
+		);
 
 		const pdfDoc = await createTestPDF();
 
@@ -224,7 +234,7 @@ describe('FormatFacturXService', () => {
 		let originalGetTimezoneOffset: () => number;
 
 		beforeAll(() => {
-			jest.useFakeTimers().setSystemTime(new Date('2025-04-01T12:00:00Z'));
+			vi.useFakeTimers().setSystemTime(new Date('2025-04-01T12:00:00Z'));
 
 			// useFakeTimers() does not honour the TZ environment variable.
 			// We have to monkey patch getTimezoneOffset() instead.
@@ -234,7 +244,7 @@ describe('FormatFacturXService', () => {
 
 		afterAll(() => {
 			Date.prototype.getTimezoneOffset = originalGetTimezoneOffset;
-			jest.useRealTimers();
+			vi.useRealTimers();
 		});
 
 		it('should add XMP metadata for Factur-X-Minimum', async () => {
@@ -415,10 +425,10 @@ describe('FormatFacturXService', () => {
 		});
 
 		it('should throw an exception if attaching the Factur-X XML fails', async () => {
-			const attachMock = jest
+			const attachMock = vi
 				.spyOn(PDFDocument.prototype, 'attach')
 				.mockRejectedValue('no string attached');
-			const consoleMock = jest
+			const consoleMock = vi
 				.spyOn(globalThis.console, 'error')
 				.mockImplementation(() => {});
 
@@ -505,7 +515,7 @@ describe('FormatFacturXService', () => {
 	describe('crypto API', () => {
 		it('should return window.crypto.subtle when running in browser', async () => {
 			const subtleMock = {
-				digest: jest.fn(),
+				digest: vi.fn(),
 			} as unknown as SubtleCrypto;
 			(globalThis as any).window = {
 				crypto: { subtle: subtleMock },
@@ -523,11 +533,10 @@ describe('FormatFacturXService', () => {
 
 		it('should return globalThis.crypto.subtle in Node with webcrypto', async () => {
 			const subtleMock = {
-				digest: jest.fn(),
+				digest: vi.fn(),
 			} as unknown as SubtleCrypto;
 
-			const savedCrypto = (globalThis as any).crypto;
-			(globalThis as any).crypto = { subtle: subtleMock };
+			vi.spyOn(globalThis.crypto, 'subtle', 'get').mockReturnValue(subtleMock);
 
 			await service.generate(mockInvoice, mockOptions);
 
@@ -536,15 +545,13 @@ describe('FormatFacturXService', () => {
 				'SHA-512',
 				expect.anything(),
 			);
-
-			(globalThis as any).crypto = savedCrypto;
 		});
 
 		it('should use webcrypto.subtle where applicable', () => {
 			const savedCrypto = (globalThis as any).crypto;
 			delete (globalThis as any).crypto;
 
-			const customRequire = jest.fn().mockImplementation((module: string) => {
+			const customRequire = vi.fn().mockImplementation((module: string) => {
 				if (module === 'crypto') {
 					return { webcrypto: { subtle: 'catchme' } };
 				}
@@ -560,7 +567,7 @@ describe('FormatFacturXService', () => {
 			const savedCrypto = (globalThis as any).crypto;
 			delete (globalThis as any).crypto;
 
-			const customRequire = jest.fn().mockImplementation((module: string) => {
+			const customRequire = vi.fn().mockImplementation((module: string) => {
 				throw new Error(`Module ${module} not found`);
 			});
 

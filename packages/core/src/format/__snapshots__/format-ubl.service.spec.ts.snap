@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`UBL post-processing should append default notes to credit-note notes 1`] = `
+exports[`UBL > post-processing > should append default notes to credit-note notes 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <CreditNote xmlns="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
 	<cbc:ID>1234567890</cbc:ID>
@@ -11,7 +11,7 @@ exports[`UBL post-processing should append default notes to credit-note notes 1`
 </CreditNote>"
 `;
 
-exports[`UBL post-processing should append default notes to invoice notes 1`] = `
+exports[`UBL > post-processing > should append default notes to invoice notes 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
 	<cbc:ID>1234567890</cbc:ID>
@@ -22,7 +22,7 @@ exports[`UBL post-processing should append default notes to invoice notes 1`] = 
 </Invoice>"
 `;
 
-exports[`UBL should attach attachments 1`] = `
+exports[`UBL > should attach attachments 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
 	<cac:AdditionalDocumentReference>
@@ -41,7 +41,7 @@ exports[`UBL should attach attachments 1`] = `
 </Invoice>"
 `;
 
-exports[`UBL should embed a PDF 1`] = `
+exports[`UBL > should embed a PDF 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
 	<cac:AdditionalDocumentReference>
@@ -52,7 +52,7 @@ exports[`UBL should embed a PDF 1`] = `
 </Invoice>"
 `;
 
-exports[`UBL should embed a PDF passed as an argument 1`] = `
+exports[`UBL > should embed a PDF passed as an argument 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
 	<cac:AdditionalDocumentReference>
@@ -64,7 +64,7 @@ exports[`UBL should embed a PDF passed as an argument 1`] = `
 </Invoice>"
 `;
 
-exports[`UBL should filenames without a dot correctly 1`] = `
+exports[`UBL > should filenames without a dot correctly 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
 	<cac:AdditionalDocumentReference>
@@ -75,7 +75,7 @@ exports[`UBL should filenames without a dot correctly 1`] = `
 </Invoice>"
 `;
 
-exports[`UBL should generate XML 1`] = `
+exports[`UBL > should generate XML 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"/>"
 `;

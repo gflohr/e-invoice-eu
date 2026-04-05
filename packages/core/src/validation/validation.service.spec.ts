@@ -1,4 +1,5 @@
 import { ErrorObject, ValidateFunction, ValidationError } from 'ajv';
+import { vi, describe, it, beforeEach, expect, type Mock } from 'vitest';
 
 import { ValidationService } from './validation.service';
 import { Logger } from '../logger.interface';
@@ -10,13 +11,13 @@ describe('ValidationService', () => {
 
 	beforeEach(async () => {
 		logger = {
-			error: jest.fn(),
+			error: vi.fn(),
 		} as unknown as Logger;
 
 		service = new ValidationService(logger);
 
 		// Mock the validate function
-		mockValidate = jest.fn() as unknown as ValidateFunction;
+		mockValidate = vi.fn() as unknown as ValidateFunction;
 	});
 
 	it('should be defined', () => {
@@ -27,7 +28,7 @@ describe('ValidationService', () => {
 		const validData = { name: 'John', age: 30 };
 
 		// Simulate successful validation
-		(mockValidate as unknown as jest.Mock).mockReturnValue(true);
+		(mockValidate as unknown as Mock).mockReturnValue(true);
 
 		expect(service.validate('test', mockValidate, validData)).toEqual(
 			validData,
@@ -46,7 +47,7 @@ describe('ValidationService', () => {
 				schemaPath: '.required',
 			} as unknown as ErrorObject,
 		];
-		(mockValidate as unknown as jest.Mock).mockReturnValue(false);
+		(mockValidate as unknown as Mock).mockReturnValue(false);
 		mockValidate.errors = errors;
 
 		expect(() => service.validate('test', mockValidate, invalidData)).toThrow(
