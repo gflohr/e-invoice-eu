@@ -2120,7 +2120,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									'A group of business terms providing information about the price applied for the goods and services invoiced on the Invoice line.\nBusiness terms: BG-29',
 								properties: {
 									'cbc:PriceAmount': {
-										$ref: '#/$defs/dataTypes/Amount',
+										$ref: '#/$defs/dataTypes/UnitPriceAmount',
 										title: 'Item net price',
 										description:
 											'The price of an item, exclusive of VAT, after subtracting item price discount. The Item net price has to be equal with the Item gross price less the Item price discount, if they are both provided. Item price can not be negative.\nBusiness terms: BT-146',
@@ -2155,7 +2155,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 													'Mandatory element. Value must be “false”',
 											},
 											'cbc:Amount': {
-												$ref: '#/$defs/dataTypes/Amount',
+												$ref: '#/$defs/dataTypes/UnitPriceAmount',
 												title: 'Item price discount',
 												description:
 													'The total discount subtracted from the Item gross price to calculate the Item net price.\nBusiness terms: BT-147',
@@ -2167,7 +2167,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 													'Mandatory attribute. Use BT-5',
 											},
 											'cbc:BaseAmount': {
-												$ref: '#/$defs/dataTypes/Amount',
+												$ref: '#/$defs/dataTypes/UnitPriceAmount',
 												title: 'Item gross price',
 												description:
 													'The unit price, exclusive of VAT, before subtracting Item price discount, can not be negative\nBusiness terms: BT-148',
@@ -6695,6 +6695,10 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 			Amount: {
 				type: 'string',
 				pattern: '^[-+]?(0|[1-9][0-9]*)(.[0-9]{1,2})?$',
+			},
+			UnitPriceAmount: {
+				type: 'string',
+				pattern: '^[-+]?(0|[1-9][0-9]*)(.[0-9]+)?$',
 			},
 			'Binary object': {
 				type: 'string',
