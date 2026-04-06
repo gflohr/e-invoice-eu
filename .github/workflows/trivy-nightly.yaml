@@ -19,6 +19,12 @@ jobs:
       security-events: write
 
     steps:
+      - name: Download .trivyignore
+        run: |
+          curl -sSfL \
+            https://raw.githubusercontent.com/${{ github.repository }}/main/.trivyignore \
+            -o .trivyignore
+
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # 0.35.0
         with:
@@ -27,6 +33,7 @@ jobs:
           output: trivy-results.sarif
           severity: CRITICAL,HIGH
           ignore-unfixed: false
+          trivyignores: ./.trivyignore
 
       - name: Upload SARIF to GitHub Security
         uses: github/codeql-action/upload-sarif@v4
