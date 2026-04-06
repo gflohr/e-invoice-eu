@@ -47,7 +47,7 @@ type XmlNode = {
 
 type Element = {
 	Term: string;
-	Name?: string | string[];
+	Name?: string;
 	Description?: string;
 	DataType?: string;
 	CodeList?: string[];
