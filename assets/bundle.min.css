@@ -15482,9 +15482,9 @@ url(1295669cd4e305c97f2c.woff?e34853135f9e39acf64315236852cd5a) format("woff");
 	--warning-opaque: rgba(63, 123, 202, 0.6);
 	--alert-warning: #713c0d;
 	--link-color: var(--primary);
-	--link-decoration: 'none';
+	--link-decoration: "none";
 	--link-hover-color: var(--primary);
-	--link-hover-decoration: 'underline';
+	--link-hover-decoration: "underline";
 }
 
 a {
@@ -16017,7 +16017,7 @@ html {
 }
 
 body {
-	font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+	font-family: "Open Sans", Arial, Helvetica, sans-serif;
 	font-size: 19px;
 	font-style: normal;
 	font-weight: 400;
@@ -16109,7 +16109,7 @@ h4 {
 }
 
 .content-head .description {
-	font-family: 'Times New Roman', serif;
+	font-family: "Times New Roman", serif;
 	font-size: 24px;
 	font-style: italic;
 	font-weight: normal;
@@ -16132,7 +16132,7 @@ h4 {
 
 @media (max-width: 767px) {
 	.qgoda-brand::after {
-		content: '';
+		content: "";
 		display: table;
 		clear: both;
 	}
@@ -16263,12 +16263,12 @@ td.code {
 	font-weight: bold;
 }
 
-pre[class*='language-'] {
+pre[class*="language-"] {
 	margin-top: 1.5rem;
 	margin-bottom: 1.5rem;
 }
 
-pre[class*='language-'] > code {
+pre[class*="language-"] > code {
 	padding-top: 0.5rem;
 	padding-bottom: 0.5rem;
 }
@@ -16343,7 +16343,7 @@ table tr:nth-child(2n) {
 }
 
 code {
-	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
 	padding-left: 0.2rem;
 	padding-right: 0.2rem;
 	color: #444;
@@ -16394,7 +16394,7 @@ blockquote {
 	background-color: white !important;
 }
 
-button.copy-to-clipboard-button[data-copy-state='copy-success'] {
+button.copy-to-clipboard-button[data-copy-state="copy-success"] {
 	background-image: var(--qgoda-icon-copied) !important;
 	background-color: white !important;
 	border: 1px solid #e2e2e3 !important;
