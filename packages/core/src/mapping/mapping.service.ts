@@ -196,7 +196,14 @@ export class MappingService {
 	) {
 		const sectionRef = mapping['section'] as string;
 
-		const matches = sectionRef.match(sectionReferenceRe)!;
+		const matches = sectionRef.match(sectionReferenceRe);
+		if (!matches) {
+			throw this.makeValidationError(
+				`invalid section reference '${sectionRef}'`,
+				ctx,
+			);
+		}
+
 		const sheetName =
 			typeof matches[1] === 'undefined'
 				? ctx.workbook.SheetNames[0]
