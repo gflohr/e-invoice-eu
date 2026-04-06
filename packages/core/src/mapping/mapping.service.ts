@@ -338,9 +338,7 @@ export class MappingService {
 
 		try {
 			if (typeof section !== 'undefined') {
-				const match = cellName.match(
-					/^([A-Z]+)(\d+)$/,
-				);
+				const match = cellName.match(/^([A-Z]+)(\d+)$/);
 				if (!match) {
 					throw new Error(`Invalid cell name '${cellName}'!`);
 				}
