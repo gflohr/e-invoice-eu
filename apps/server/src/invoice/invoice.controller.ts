@@ -106,7 +106,7 @@ export class InvoiceController {
 					items: {
 						type: 'string',
 						description:
-							'Description for the corresponding attachment.',
+							'ID of the corresponding attachment.',
 					},
 				},
 				attachmentDescription: {

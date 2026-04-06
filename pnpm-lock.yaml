@@ -46,9 +46,6 @@ importers:
       pnpm:
         specifier: ^10.33.0
         version: 10.33.0
-      prettier:
-        specifier: ^3.8.1
-        version: 3.8.1
 
   apps/cli:
     dependencies:
