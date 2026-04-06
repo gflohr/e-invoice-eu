@@ -137,7 +137,7 @@
 			};
 
 			reader.onerror = e =>
-				reject(`Error reading spreadsheet file: ${e}`);
+				reject(`Error reading file '${inputId}': ${e}`);
 
 			if (binary) {
 				reader.readAsArrayBuffer(element.files[0]);
