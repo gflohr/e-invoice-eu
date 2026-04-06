@@ -1,11 +1,10 @@
 import { Invoice } from '@e-invoice-eu/core';
 import { type JSONSchemaType } from 'ajv';
 import * as jsonpath from 'jsonpath-plus';
-
-import { FormatUBLService } from './format-ubl.service';
-import { EInvoiceFormat } from './format.e-invoice-format.interface';
-import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
+import { InvoiceServiceOptions } from '../invoice/invoice.service';
+import { EInvoiceFormat } from './format.e-invoice-format.interface';
+import { FormatUBLService } from './format-ubl.service';
 
 // Flags for Factur-X usage.
 export type FXProfile =
@@ -287,7 +286,10 @@ const cacPrice: Transformation = {
 				{
 					type: 'string',
 					src: ['cbc:Amount'],
-					dest: ['ram:AppliedTradeAllowanceCharge', 'ram:ActualAmount'],
+					dest: [
+						'ram:AppliedTradeAllowanceCharge',
+						'ram:ActualAmount',
+					],
 					fxProfileMask: FX_MASK_EN16931,
 				},
 				// currencyID omitted: CII-DT-031 forbids @currencyID on
@@ -460,12 +462,20 @@ const cacInvoiceLine: Transformation = {
 		{
 			type: 'string',
 			src: ['cbc:InvoicedQuantity@unitCode'],
-			dest: ['ram:SpecifiedLineTradeDelivery', 'ram:BilledQuantity@unitCode'],
+			dest: [
+				'ram:SpecifiedLineTradeDelivery',
+				'ram:BilledQuantity@unitCode',
+			],
 			fxProfileMask: FX_MASK_BASIC,
 		},
 		{
 			type: 'string',
-			src: ['cac:Item', 'cac:ClassifiedTaxCategory', 'cac:TaxScheme', 'cbc:ID'],
+			src: [
+				'cac:Item',
+				'cac:ClassifiedTaxCategory',
+				'cac:TaxScheme',
+				'cbc:ID',
+			],
 			dest: [
 				'ram:SpecifiedLineTradeSettlement',
 				'ram:ApplicableTradeTax',
@@ -1062,7 +1072,10 @@ const cacPaymentMeans: Transformation[] = [
 	{
 		type: 'string',
 		src: ['cac:CardAccount', 'cbc:HolderName'],
-		dest: ['ram:ApplicableTradeSettlementFinancialCard', 'ram:CardHolderName'],
+		dest: [
+			'ram:ApplicableTradeSettlementFinancialCard',
+			'ram:CardHolderName',
+		],
 		fxProfileMask: FX_MASK_EN16931,
 	},
 	{
@@ -1410,20 +1423,29 @@ export const ublInvoice: Transformation = {
 				{
 					type: 'string',
 					src: ['cbc:BuyerReference'],
-					dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:BuyerReference'],
+					dest: [
+						'ram:ApplicableHeaderTradeAgreement',
+						'ram:BuyerReference',
+					],
 					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				{
 					type: 'object',
 					src: ['cac:AccountingSupplierParty', 'cac:Party'],
-					dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:SellerTradeParty'],
+					dest: [
+						'ram:ApplicableHeaderTradeAgreement',
+						'ram:SellerTradeParty',
+					],
 					children: cacAccountingSupplierParty,
 					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				{
 					type: 'object',
 					src: ['cac:AccountingCustomerParty', 'cac:Party'],
-					dest: ['ram:ApplicableHeaderTradeAgreement', 'ram:BuyerTradeParty'],
+					dest: [
+						'ram:ApplicableHeaderTradeAgreement',
+						'ram:BuyerTradeParty',
+					],
 					children: cacAccountingCustomerParty,
 					fxProfileMask: FX_MASK_MINIMUM,
 				},
@@ -1511,13 +1533,19 @@ export const ublInvoice: Transformation = {
 				{
 					type: 'string',
 					src: ['cac:PaymentMeans[0]', 'cbc:PaymentID'],
-					dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:PaymentReference'],
+					dest: [
+						'ram:ApplicableHeaderTradeSettlement',
+						'ram:PaymentReference',
+					],
 					fxProfileMask: FX_MASK_BASIC_WL,
 				},
 				{
 					type: 'string',
 					src: ['cbc:TaxCurrencyCode'],
-					dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:TaxCurrencyCode'],
+					dest: [
+						'ram:ApplicableHeaderTradeSettlement',
+						'ram:TaxCurrencyCode',
+					],
 					fxProfileMask: FX_MASK_BASIC_WL,
 				},
 				{
@@ -1532,7 +1560,10 @@ export const ublInvoice: Transformation = {
 				{
 					type: 'object',
 					src: ['cac:PayeeParty'],
-					dest: ['ram:ApplicableHeaderTradeSettlement', 'ram:PayeeTradeParty'],
+					dest: [
+						'ram:ApplicableHeaderTradeSettlement',
+						'ram:PayeeTradeParty',
+					],
 					children: cacPayeeParty,
 					fxProfileMask: FX_MASK_MINIMUM,
 				},
@@ -1601,7 +1632,11 @@ export const ublInvoice: Transformation = {
 				},
 				{
 					type: 'string',
-					src: ['cac:PaymentMeans[0]', 'cac:PaymentMandate', 'cbc:ID'],
+					src: [
+						'cac:PaymentMeans[0]',
+						'cac:PaymentMandate',
+						'cbc:ID',
+					],
 					dest: [
 						'ram:ApplicableHeaderTradeSettlement',
 						'ram:SpecifiedTradePaymentTerms',
@@ -1699,20 +1734,23 @@ export class FormatCIIService
 		// If the delivery location ID does not have a scheme, downgrade it from
 		// ram:GlobalID to ram:ID.
 		const buyerParty =
-			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
-				'ram:ApplicableHeaderTradeAgreement'
-			]?.['ram:BuyerTradeParty'];
+			cii['rsm:CrossIndustryInvoice']?.[
+				'rsm:SupplyChainTradeTransaction'
+			]?.['ram:ApplicableHeaderTradeAgreement']?.['ram:BuyerTradeParty'];
 
-		if (buyerParty?.['ram:GlobalID'] && !buyerParty['ram:GlobalID@schemeID']) {
+		if (
+			buyerParty?.['ram:GlobalID'] &&
+			!buyerParty['ram:GlobalID@schemeID']
+		) {
 			buyerParty['ram:ID'] = buyerParty['ram:GlobalID'];
 			delete buyerParty['ram:GlobalID'];
 		}
 
 		// Same as above.
 		const shipTo =
-			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
-				'ram:ApplicableHeaderTradeDelivery'
-			]?.['ram:ShipToTradeParty'];
+			cii['rsm:CrossIndustryInvoice']?.[
+				'rsm:SupplyChainTradeTransaction'
+			]?.['ram:ApplicableHeaderTradeDelivery']?.['ram:ShipToTradeParty'];
 
 		if (shipTo?.['ram:GlobalID'] && !shipTo['ram:GlobalID@schemeID']) {
 			shipTo['ram:ID'] = shipTo['ram:GlobalID'];
@@ -1720,16 +1758,18 @@ export class FormatCIIService
 		}
 
 		const supplierTaxRegistration =
-			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
-				'ram:ApplicableHeaderTradeAgreement'
-			]?.['ram:SellerTradeParty']?.['ram:SpecifiedTaxRegistration']?.[0];
+			cii['rsm:CrossIndustryInvoice']?.[
+				'rsm:SupplyChainTradeTransaction'
+			]?.['ram:ApplicableHeaderTradeAgreement']?.[
+				'ram:SellerTradeParty'
+			]?.['ram:SpecifiedTaxRegistration']?.[0];
 
 		const supplierTaxIDScheme =
-			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
-				'ram:ApplicableHeaderTradeAgreement'
-			]?.['ram:SellerTradeParty']?.['ram:SpecifiedTaxRegistration']?.[0]?.[
-				'ram:ID@schemeID'
-			];
+			cii['rsm:CrossIndustryInvoice']?.[
+				'rsm:SupplyChainTradeTransaction'
+			]?.['ram:ApplicableHeaderTradeAgreement']?.[
+				'ram:SellerTradeParty'
+			]?.['ram:SpecifiedTaxRegistration']?.[0]?.['ram:ID@schemeID'];
 		if (supplierTaxRegistration && supplierTaxIDScheme) {
 			if (supplierTaxIDScheme === 'VAT') {
 				supplierTaxRegistration['ram:ID@schemeID'] = 'VA';
@@ -1741,9 +1781,9 @@ export class FormatCIIService
 
 	private postProcessSellerTradeParty(cii: ExpandObject) {
 		const sellerParty =
-			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
-				'ram:ApplicableHeaderTradeAgreement'
-			]?.['ram:SellerTradeParty'];
+			cii['rsm:CrossIndustryInvoice']?.[
+				'rsm:SupplyChainTradeTransaction'
+			]?.['ram:ApplicableHeaderTradeAgreement']?.['ram:SellerTradeParty'];
 
 		if (!sellerParty) return; // Can happen in tests.
 
@@ -1797,9 +1837,9 @@ export class FormatCIIService
 
 		// Replace the sellerParty object with the ordered one
 		const parent =
-			cii['rsm:CrossIndustryInvoice']?.['rsm:SupplyChainTradeTransaction']?.[
-				'ram:ApplicableHeaderTradeAgreement'
-			];
+			cii['rsm:CrossIndustryInvoice']?.[
+				'rsm:SupplyChainTradeTransaction'
+			]?.['ram:ApplicableHeaderTradeAgreement'];
 		parent['ram:SellerTradeParty'] = orderedSellerParty;
 	}
 
@@ -1815,22 +1855,28 @@ export class FormatCIIService
 				continue;
 			}
 
-			const lastSrcKey = transformation.src[transformation.src.length - 1];
-			let src: any;
+			const lastSrcKey =
+				transformation.src[transformation.src.length - 1];
+			let src: string;
 			let childSrcPath: string;
 			// Avoid writing attribute values for non-existing nodes.
 			if (
 				transformation.src.length &&
 				lastSrcKey.startsWith('fixed:') &&
 				transformation.dest.length &&
-				transformation.dest[transformation.dest.length - 1].includes('@')
+				transformation.dest[transformation.dest.length - 1].includes(
+					'@',
+				)
 			) {
 				const parentPaths = [...transformation.dest];
 				parentPaths[parentPaths.length - 1] = parentPaths[
 					parentPaths.length - 1
 				].replace(/@.+/, '');
 				const parentPath = this.applySubPaths(destPath, parentPaths);
-				const parents = jsonpath.JSONPath({ path: parentPath, json: dest });
+				const parents = jsonpath.JSONPath({
+					path: parentPath,
+					json: dest,
+				});
 				if (Array.isArray(parents) && parents.length === 0) {
 					continue;
 				}
@@ -1838,20 +1884,27 @@ export class FormatCIIService
 				childSrcPath = srcPath;
 			} else {
 				childSrcPath = this.applySubPaths(srcPath, transformation.src);
-				const srcs = jsonpath.JSONPath({ path: childSrcPath, json: invoice });
+				const srcs = jsonpath.JSONPath({
+					path: childSrcPath,
+					json: invoice,
+				});
 				if (Array.isArray(srcs) && srcs.length === 0) {
 					continue;
 				}
 				src = srcs[0];
 			}
 
-			const childDestPath = this.applySubPaths(destPath, transformation.dest);
+			const childDestPath = this.applySubPaths(
+				destPath,
+				transformation.dest,
+			);
 
 			switch (transformation.type) {
 				case 'object':
 					if (
 						!transformation.children.length ||
-						('ram:ApplicableHeaderTradeDelivery' === transformation.dest[0] &&
+						('ram:ApplicableHeaderTradeDelivery' ===
+							transformation.dest[0] &&
 							this.fxProfile === FX_MINIMUM)
 					) {
 						// Special case.  Force the element to exist.

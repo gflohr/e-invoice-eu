@@ -1,9 +1,9 @@
 #! /usr/bin/env node
 
 import * as fs from 'fs';
-import * as path from 'path';
-import yaml from 'js-yaml';
 import { globSync } from 'glob';
+import yaml from 'js-yaml';
+import * as path from 'path';
 
 import { fileURLToPath } from 'url';
 
@@ -32,7 +32,7 @@ for (let pattern of workspaceGlobs) {
 	roots.push(...globSync(pattern));
 }
 
-let total = {
+const total = {
 	lines: { covered: 0, total: 0 },
 };
 

@@ -416,7 +416,9 @@
 													"description": "A code that identifies the country.\nBusiness terms: BT-40"
 												}
 											},
-											"required": ["cbc:IdentificationCode"]
+											"required": [
+												"cbc:IdentificationCode"
+											]
 										}
 									},
 									"required": ["cac:Country"]
@@ -446,7 +448,10 @@
 												"required": ["cbc:ID"]
 											}
 										},
-										"required": ["cbc:CompanyID", "cac:TaxScheme"]
+										"required": [
+											"cbc:CompanyID",
+											"cac:TaxScheme"
+										]
 									},
 									"maxItems": 2
 								},
@@ -479,7 +484,9 @@
 									},
 									"required": ["cbc:RegistrationName"],
 									"dependentRequired": {
-										"cbc:CompanyID@schemeID": ["cbc:CompanyID"]
+										"cbc:CompanyID@schemeID": [
+											"cbc:CompanyID"
+										]
 									}
 								},
 								"cac:Contact": {
@@ -632,7 +639,9 @@
 													"description": "A code that identifies the country.\nBusiness terms: BT-55"
 												}
 											},
-											"required": ["cbc:IdentificationCode"]
+											"required": [
+												"cbc:IdentificationCode"
+											]
 										}
 									},
 									"required": ["cac:Country"]
@@ -660,7 +669,10 @@
 											"required": ["cbc:ID"]
 										}
 									},
-									"required": ["cbc:CompanyID", "cac:TaxScheme"]
+									"required": [
+										"cbc:CompanyID",
+										"cac:TaxScheme"
+									]
 								},
 								"cac:PartyLegalEntity": {
 									"type": "object",
@@ -686,7 +698,9 @@
 									},
 									"required": ["cbc:RegistrationName"],
 									"dependentRequired": {
-										"cbc:CompanyID@schemeID": ["cbc:CompanyID"]
+										"cbc:CompanyID@schemeID": [
+											"cbc:CompanyID"
+										]
 									}
 								},
 								"cac:Contact": {
@@ -993,7 +1007,9 @@
 													"description": "A code that identifies the country.\nBusiness terms: BT-80"
 												}
 											},
-											"required": ["cbc:IdentificationCode"]
+											"required": [
+												"cbc:IdentificationCode"
+											]
 										}
 									},
 									"required": ["cac:Country"]
@@ -1071,7 +1087,10 @@
 										"description": "The name of the payment card holder.\nBusiness terms: BT-88"
 									}
 								},
-								"required": ["cbc:PrimaryAccountNumberID", "cbc:NetworkID"]
+								"required": [
+									"cbc:PrimaryAccountNumberID",
+									"cbc:NetworkID"
+								]
 							},
 							"cac:PayeeFinancialAccount": {
 								"type": "object",
@@ -1134,7 +1153,9 @@
 						},
 						"required": ["cbc:PaymentMeansCode"],
 						"dependentRequired": {
-							"cbc:PaymentMeansCode@name": ["cbc:PaymentMeansCode"]
+							"cbc:PaymentMeansCode@name": [
+								"cbc:PaymentMeansCode"
+							]
 						}
 					}
 				},
@@ -1336,7 +1357,10 @@
 													"required": ["cbc:ID"]
 												}
 											},
-											"required": ["cbc:ID", "cac:TaxScheme"]
+											"required": [
+												"cbc:ID",
+												"cac:TaxScheme"
+											]
 										}
 									},
 									"required": [
@@ -1345,10 +1369,18 @@
 										"cac:TaxCategory"
 									],
 									"dependentRequired": {
-										"cbc:TaxableAmount": ["cbc:TaxableAmount@currencyID"],
-										"cbc:TaxAmount": ["cbc:TaxAmount@currencyID"],
-										"cbc:TaxableAmount@currencyID": ["cbc:TaxableAmount"],
-										"cbc:TaxAmount@currencyID": ["cbc:TaxAmount"]
+										"cbc:TaxableAmount": [
+											"cbc:TaxableAmount@currencyID"
+										],
+										"cbc:TaxAmount": [
+											"cbc:TaxAmount@currencyID"
+										],
+										"cbc:TaxableAmount@currencyID": [
+											"cbc:TaxableAmount"
+										],
+										"cbc:TaxAmount@currencyID": [
+											"cbc:TaxAmount"
+										]
 									}
 								}
 							}
@@ -1456,21 +1488,41 @@
 						"cbc:PayableAmount"
 					],
 					"dependentRequired": {
-						"cbc:LineExtensionAmount": ["cbc:LineExtensionAmount@currencyID"],
-						"cbc:TaxExclusiveAmount": ["cbc:TaxExclusiveAmount@currencyID"],
-						"cbc:TaxInclusiveAmount": ["cbc:TaxInclusiveAmount@currencyID"],
-						"cbc:AllowanceTotalAmount": ["cbc:AllowanceTotalAmount@currencyID"],
-						"cbc:ChargeTotalAmount": ["cbc:ChargeTotalAmount@currencyID"],
+						"cbc:LineExtensionAmount": [
+							"cbc:LineExtensionAmount@currencyID"
+						],
+						"cbc:TaxExclusiveAmount": [
+							"cbc:TaxExclusiveAmount@currencyID"
+						],
+						"cbc:TaxInclusiveAmount": [
+							"cbc:TaxInclusiveAmount@currencyID"
+						],
+						"cbc:AllowanceTotalAmount": [
+							"cbc:AllowanceTotalAmount@currencyID"
+						],
+						"cbc:ChargeTotalAmount": [
+							"cbc:ChargeTotalAmount@currencyID"
+						],
 						"cbc:PrepaidAmount": ["cbc:PrepaidAmount@currencyID"],
 						"cbc:PayableRoundingAmount": [
 							"cbc:PayableRoundingAmount@currencyID"
 						],
 						"cbc:PayableAmount": ["cbc:PayableAmount@currencyID"],
-						"cbc:LineExtensionAmount@currencyID": ["cbc:LineExtensionAmount"],
-						"cbc:TaxExclusiveAmount@currencyID": ["cbc:TaxExclusiveAmount"],
-						"cbc:TaxInclusiveAmount@currencyID": ["cbc:TaxInclusiveAmount"],
-						"cbc:AllowanceTotalAmount@currencyID": ["cbc:AllowanceTotalAmount"],
-						"cbc:ChargeTotalAmount@currencyID": ["cbc:ChargeTotalAmount"],
+						"cbc:LineExtensionAmount@currencyID": [
+							"cbc:LineExtensionAmount"
+						],
+						"cbc:TaxExclusiveAmount@currencyID": [
+							"cbc:TaxExclusiveAmount"
+						],
+						"cbc:TaxInclusiveAmount@currencyID": [
+							"cbc:TaxInclusiveAmount"
+						],
+						"cbc:AllowanceTotalAmount@currencyID": [
+							"cbc:AllowanceTotalAmount"
+						],
+						"cbc:ChargeTotalAmount@currencyID": [
+							"cbc:ChargeTotalAmount"
+						],
 						"cbc:PrepaidAmount@currencyID": ["cbc:PrepaidAmount"],
 						"cbc:PayableRoundingAmount@currencyID": [
 							"cbc:PayableRoundingAmount"
@@ -1636,12 +1688,19 @@
 											"description": "Mandatory attribute. Use BT-5"
 										}
 									},
-									"required": ["cbc:ChargeIndicator", "cbc:Amount"],
+									"required": [
+										"cbc:ChargeIndicator",
+										"cbc:Amount"
+									],
 									"dependentRequired": {
 										"cbc:Amount": ["cbc:Amount@currencyID"],
-										"cbc:BaseAmount": ["cbc:BaseAmount@currencyID"],
+										"cbc:BaseAmount": [
+											"cbc:BaseAmount@currencyID"
+										],
 										"cbc:Amount@currencyID": ["cbc:Amount"],
-										"cbc:BaseAmount@currencyID": ["cbc:BaseAmount"]
+										"cbc:BaseAmount@currencyID": [
+											"cbc:BaseAmount"
+										]
 									}
 								}
 							},
@@ -1748,7 +1807,9 @@
 													"description": "The identification scheme version identifier of the Item classification identifier"
 												}
 											},
-											"required": ["cbc:ItemClassificationCode"],
+											"required": [
+												"cbc:ItemClassificationCode"
+											],
 											"dependentRequired": {
 												"cbc:ItemClassificationCode": [
 													"cbc:ItemClassificationCode@listID"
@@ -1813,11 +1874,17 @@
 													"description": "The value of the attribute or property of the item.\nBusiness terms: BT-161"
 												}
 											},
-											"required": ["cbc:Name", "cbc:Value"]
+											"required": [
+												"cbc:Name",
+												"cbc:Value"
+											]
 										}
 									}
 								},
-								"required": ["cbc:Name", "cac:ClassifiedTaxCategory"]
+								"required": [
+									"cbc:Name",
+									"cac:ClassifiedTaxCategory"
+								]
 							},
 							"cac:Price": {
 								"type": "object",
@@ -1876,20 +1943,37 @@
 												"description": "Mandatory attribute. Use BT-5"
 											}
 										},
-										"required": ["cbc:ChargeIndicator", "cbc:Amount"],
+										"required": [
+											"cbc:ChargeIndicator",
+											"cbc:Amount"
+										],
 										"dependentRequired": {
-											"cbc:Amount": ["cbc:Amount@currencyID"],
-											"cbc:BaseAmount": ["cbc:BaseAmount@currencyID"],
-											"cbc:Amount@currencyID": ["cbc:Amount"],
-											"cbc:BaseAmount@currencyID": ["cbc:BaseAmount"]
+											"cbc:Amount": [
+												"cbc:Amount@currencyID"
+											],
+											"cbc:BaseAmount": [
+												"cbc:BaseAmount@currencyID"
+											],
+											"cbc:Amount@currencyID": [
+												"cbc:Amount"
+											],
+											"cbc:BaseAmount@currencyID": [
+												"cbc:BaseAmount"
+											]
 										}
 									}
 								},
 								"required": ["cbc:PriceAmount"],
 								"dependentRequired": {
-									"cbc:PriceAmount": ["cbc:PriceAmount@currencyID"],
-									"cbc:PriceAmount@currencyID": ["cbc:PriceAmount"],
-									"cbc:BaseQuantity@unitCode": ["cbc:BaseQuantity"]
+									"cbc:PriceAmount": [
+										"cbc:PriceAmount@currencyID"
+									],
+									"cbc:PriceAmount@currencyID": [
+										"cbc:PriceAmount"
+									],
+									"cbc:BaseQuantity@unitCode": [
+										"cbc:BaseQuantity"
+									]
 								}
 							}
 						},
@@ -1901,10 +1985,18 @@
 							"cac:Price"
 						],
 						"dependentRequired": {
-							"cbc:InvoicedQuantity": ["cbc:InvoicedQuantity@unitCode"],
-							"cbc:LineExtensionAmount": ["cbc:LineExtensionAmount@currencyID"],
-							"cbc:InvoicedQuantity@unitCode": ["cbc:InvoicedQuantity"],
-							"cbc:LineExtensionAmount@currencyID": ["cbc:LineExtensionAmount"]
+							"cbc:InvoicedQuantity": [
+								"cbc:InvoicedQuantity@unitCode"
+							],
+							"cbc:LineExtensionAmount": [
+								"cbc:LineExtensionAmount@currencyID"
+							],
+							"cbc:InvoicedQuantity@unitCode": [
+								"cbc:InvoicedQuantity"
+							],
+							"cbc:LineExtensionAmount@currencyID": [
+								"cbc:LineExtensionAmount"
+							]
 						}
 					},
 					"minItems": 1

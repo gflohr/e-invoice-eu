@@ -28,7 +28,8 @@
 
 			if (invoiceInput === 'spreadsheet') {
 				const formatSelect = document.getElementById('format');
-				const formatOption = formatSelect.options[formatSelect.selectedIndex];
+				const formatOption =
+					formatSelect.options[formatSelect.selectedIndex];
 				const format = formatOption.value;
 
 				const mappingYAML = await readFile('mapping-file');
@@ -36,35 +37,55 @@
 				spreadsheet = await readFile('spreadsheet-file', true);
 
 				const mappingService = new eInvoiceEU.MappingService(console);
-				invoice = mappingService.transform(spreadsheet, format, mapping);
+				invoice = mappingService.transform(
+					spreadsheet,
+					format,
+					mapping,
+				);
 			} else {
 				const invoiceJSON = await readFile('invoice-file');
 				invoice = JSON.parse(invoiceJSON);
 			}
 
-			if (!spreadsheet && document.getElementById('spreadsheet-file').files.length) {
-				spreadsheet = await readFile('spreadsheet-file', binary);
+			if (
+				!spreadsheet &&
+				document.getElementById('spreadsheet-file').files.length
+			) {
+				spreadsheet = await readFile('spreadsheet-file', true);
 			}
 
 			await addAttachment();
 			const options = {
 				format: document.getElementById('format').value,
 				lang: document.getElementById('lang').value,
-				pdf: document.getElementById('spreadsheet-file').files.length ? await pdfFileInfo() : undefined,
+				pdf: document.getElementById('pdf-file').files.length
+					? await pdfFileInfo()
+					: undefined,
 				embedPDF: document.getElementById('embed-pdf').checked,
 				spreadsheet,
 				attachments,
 			};
 
 			const invoiceService = new eInvoiceEU.InvoiceService(console);
-			const renderedInvoice = await invoiceService.generate(invoice, options);
+			const renderedInvoice = await invoiceService.generate(
+				invoice,
+				options,
+			);
 			if (typeof renderedInvoice === 'string') {
-				downloadInvoice(renderedInvoice, 'invoice.xml', 'application/xml');
+				downloadInvoice(
+					renderedInvoice,
+					'invoice.xml',
+					'application/xml',
+				);
 			} else if (
 				renderedInvoice instanceof Uint8Array ||
 				renderedInvoice instanceof ArrayBuffer
 			) {
-				downloadInvoice(renderedInvoice, 'invoice.pdf', 'application/pdf');
+				downloadInvoice(
+					renderedInvoice,
+					'invoice.pdf',
+					'application/pdf',
+				);
 			} else {
 				console.error('Unknown invoice format:', renderedInvoice);
 			}
@@ -75,7 +96,7 @@
 			if (dialog) {
 				const modal = bootstrap.Modal.getOrCreateInstance(dialog);
 				modal.show();
-				throw(e);
+				throw e;
 			}
 		}
 	}
@@ -115,7 +136,8 @@
 				resolve(e.target.result);
 			};
 
-			reader.onerror = e => reject(`Error reading spreadsheet file: ${e}`);
+			reader.onerror = e =>
+				reject(`Error reading file '${inputId}': ${e}`);
 
 			if (binary) {
 				reader.readAsArrayBuffer(element.files[0]);
@@ -135,27 +157,34 @@
 		).value;
 		const needMapping = invoiceInput === 'spreadsheet';
 		if (needMapping) {
-			document.getElementById('mapping-file-upload').style.display = 'block';
+			document.getElementById('mapping-file-upload').style.display =
+				'block';
 			document.getElementById('mapping-file').required = true;
 			document.getElementById('spreadsheet-file-upload').style.display =
 				'block';
 			document.getElementById('spreadsheet-file').required = true;
-			document.getElementById('invoice-file-upload').style.display = 'none';
+			document.getElementById('invoice-file-upload').style.display =
+				'none';
 			document.getElementById('invoice-file').required = false;
 		} else {
-			document.getElementById('mapping-file-upload').style.display = 'none';
+			document.getElementById('mapping-file-upload').style.display =
+				'none';
 			document.getElementById('mapping-file').required = false;
-			document.getElementById('spreadsheet-file-upload').style.display = 'none';
+			document.getElementById('spreadsheet-file-upload').style.display =
+				'none';
 			document.getElementById('spreadsheet-file').required = false;
-			document.getElementById('invoice-file-upload').style.display = 'block';
+			document.getElementById('invoice-file-upload').style.display =
+				'block';
 			document.getElementById('invoice-file').required = true;
 		}
 
 		const showEmbedPDF = mimeType !== 'application/pdf';
 		if (showEmbedPDF) {
-			document.getElementById('embed-pdf-checkbox').style.display = 'block';
+			document.getElementById('embed-pdf-checkbox').style.display =
+				'block';
 		} else {
-			document.getElementById('embed-pdf-checkbox').style.display = 'none';
+			document.getElementById('embed-pdf-checkbox').style.display =
+				'none';
 		}
 
 		const embedPDF = document.getElementById('embed-pdf').checked;
@@ -231,12 +260,16 @@
 	}
 
 	function addUploadLabelHandlers() {
-		document.querySelectorAll('.custom-file-input').forEach(function (input) {
-			input.addEventListener('change', function () {
-				this.nextElementSibling.textContent =
-					this.files.length > 0 ? this.files[0].name : 'No file selected.';
+		document
+			.querySelectorAll('.custom-file-input')
+			.forEach(function (input) {
+				input.addEventListener('change', function () {
+					this.nextElementSibling.textContent =
+						this.files.length > 0
+							? this.files[0].name
+							: 'No file selected.';
+				});
 			});
-		});
 	}
 
 	async function onAttachmentAdded(event) {
@@ -256,12 +289,24 @@
 		const attachment = attachments[attachmentIndex];
 
 		const details = clone.querySelector('.flex-grow-1');
-		details.innerHTML = `
-			<div>File: ${attachment.filename}</div>
-			<div>ID: ${attachment.id ?? 'n/a'}</div>
-			<div>Description: ${attachment.description ?? 'n/a'}</div>
-			<div>MIME type: ${attachment.mimetype ?? 'n/a'}</div>
-		`;
+		details.textContent = '';
+
+		const fileDiv = document.createElement('div');
+		fileDiv.textContent = 'File: ' + (attachment.filename ?? 'n/a');
+		details.appendChild(fileDiv);
+
+		const idDiv = document.createElement('div');
+		idDiv.textContent = 'ID: ' + (attachment.id ?? 'n/a');
+		details.appendChild(idDiv);
+
+		const descriptionDiv = document.createElement('div');
+		descriptionDiv.textContent =
+			'Description: ' + (attachment.description ?? 'n/a');
+		details.appendChild(descriptionDiv);
+
+		const mimeDiv = document.createElement('div');
+		mimeDiv.textContent = 'MIME type: ' + (attachment.mimetype ?? 'n/a');
+		details.appendChild(mimeDiv);
 
 		const container = document.getElementById('attachments-list');
 		const wrapper = document.createElement('div');
@@ -291,7 +336,9 @@
 
 		const fileName = fileInput.files[0].name;
 		const attachmentId = document.getElementById('attachment-id').value;
-		const description = document.getElementById('attachment-description').value;
+		const description = document.getElementById(
+			'attachment-description',
+		).value;
 		const mimeType = document.getElementById('attachment-mime-type').value;
 
 		attachments.push({

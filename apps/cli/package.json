@@ -27,9 +27,7 @@
 		"url": "https://github.com/gflohr/e-invoice-eu/issues"
 	},
 	"homepage": "https://github.com/gflohr/e-invoice-eu",
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"bin": {
 		"e-invoice-eu": "dist/index.js"
 	},
@@ -37,16 +35,11 @@
 		"build": "rimraf ./dist && tsc --project tsconfig.build.json",
 		"prebuild": "node ./write-package.mjs >src/package.ts",
 		"check:clean": "../../check-clean",
-		"format": "prettier --write 'src/**/*.ts' *.ts *.mjs *.json",
 		"prestart": "node ./write-package.mjs >src/package.ts",
 		"start": "tsx src/index.ts",
 		"watch": "tsc --watch",
 		"prewatch": "node ./write-package.mjs >src/package.ts",
 		"clean": "rimraf ./dist",
-		"lint": "eslint './src/**/*.ts'",
-		"lint:fix": "eslint --fix './src/**/*.ts'",
-		"lint:fix-dry-run": "eslint --fix './src/**/*.ts'",
-		"lint:staged": "lint-staged",
 		"pretest": "node ./write-package.mjs >src/package.ts",
 		"pretest:watch": "node ./write-package.mjs >src/package.ts",
 		"pretest:cov": "node ./write-package.mjs >src/package.ts",
@@ -69,29 +62,16 @@
 		"url": "https://www.guido-flohr.net/"
 	},
 	"license": "WTFPL",
-	"lint-staged": {
-		"*.{ts,json,md}": [
-			"prettier --write"
-		],
-		"src/**/*.ts": [
-			"eslint"
-		]
-	},
 	"devDependencies": {
 		"@esgettext/tools": "^1.3.10",
 		"@types/mime-types": "^3.0.1",
 		"@types/node": "^25.5.0",
 		"@types/yargs": "^17.0.35",
 		"@vitest/coverage-v8": "^4.1.2",
-		"eslint": "^10.1.0",
-		"eslint-plugin-import": "^2.32.0",
-		"lint-staged": "^16.4.0",
 		"npm-run-all": "^4.1.5",
-		"prettier": "^3.8.1",
 		"rimraf": "^6.1.3",
 		"tsx": "^4.21.0",
 		"typescript": "^6.0.2",
-		"typescript-eslint": "^8.58.0",
 		"vitest": "^4.1.2"
 	},
 	"dependencies": {

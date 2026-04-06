@@ -255,8 +255,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						properties: {
 							'cbc:ID': {
 								type: 'string',
-								title:
-									'Invoiced object identifier, Supporting document reference',
+								title: 'Invoiced object identifier, Supporting document reference',
 								description:
 									'An identifier for an object on which the invoice is based, given by the Seller, or the identifier for the supporting document.\nBusiness terms: BT-18, BT-122',
 							},
@@ -290,17 +289,21 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										description:
 											'An attached document embedded as binary object (Base64) or sent together with the invoice.\nBusiness terms: BT-125',
 									},
-									'cbc:EmbeddedDocumentBinaryObject@mimeCode': {
-										type: 'string',
-										$ref: '#/$defs/codeLists/MimeCode',
-										title: 'Attached document Mime code',
-										description: 'The mime code of the attached document.',
-									},
-									'cbc:EmbeddedDocumentBinaryObject@filename': {
-										type: 'string',
-										title: 'Attached document Filename',
-										description: 'The file name of the attached document',
-									},
+									'cbc:EmbeddedDocumentBinaryObject@mimeCode':
+										{
+											type: 'string',
+											$ref: '#/$defs/codeLists/MimeCode',
+											title: 'Attached document Mime code',
+											description:
+												'The mime code of the attached document.',
+										},
+									'cbc:EmbeddedDocumentBinaryObject@filename':
+										{
+											type: 'string',
+											title: 'Attached document Filename',
+											description:
+												'The file name of the attached document',
+										},
 									'cac:ExternalReference': {
 										type: 'object',
 										additionalProperties: false,
@@ -322,12 +325,10 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										'cbc:EmbeddedDocumentBinaryObject@mimeCode',
 										'cbc:EmbeddedDocumentBinaryObject@filename',
 									],
-									'cbc:EmbeddedDocumentBinaryObject@mimeCode': [
-										'cbc:EmbeddedDocumentBinaryObject',
-									],
-									'cbc:EmbeddedDocumentBinaryObject@filename': [
-										'cbc:EmbeddedDocumentBinaryObject',
-									],
+									'cbc:EmbeddedDocumentBinaryObject@mimeCode':
+										['cbc:EmbeddedDocumentBinaryObject'],
+									'cbc:EmbeddedDocumentBinaryObject@filename':
+										['cbc:EmbeddedDocumentBinaryObject'],
 								},
 							},
 						},
@@ -372,8 +373,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								'cbc:EndpointID@schemeID': {
 									type: 'string',
 									$ref: '#/$defs/codeLists/eas',
-									title:
-										'Seller electronic address identification scheme identifier',
+									title: 'Seller electronic address identification scheme identifier',
 									description:
 										'The identification scheme identifier of the Seller electronic address',
 								},
@@ -386,8 +386,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										properties: {
 											'cbc:ID': {
 												type: 'string',
-												title:
-													'Seller identifier or bank assigned creditor identifier',
+												title: 'Seller identifier or bank assigned creditor identifier',
 												description:
 													'This element is used for both the identification of the Seller, or the unique banking reference identifier of Seller (assigned by the Seller bank.). For seller identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present\nBusiness terms: BT-29, BT-90',
 											},
@@ -401,8 +400,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 														$ref: '#/$defs/codeLists/SEPA',
 													},
 												],
-												title:
-													'Seller or bank assigned creditor identifier identification scheme identifier',
+												title: 'Seller or bank assigned creditor identifier identification scheme identifier',
 												description:
 													'The identification scheme identifier of the Seller identifier. For bank assigned creditor identifier (BT-90), value MUST be "SEPA"',
 											},
@@ -491,7 +489,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 														'A code that identifies the country.\nBusiness terms: BT-40',
 												},
 											},
-											required: ['cbc:IdentificationCode'],
+											required: [
+												'cbc:IdentificationCode',
+											],
 										},
 									},
 									required: ['cac:Country'],
@@ -505,8 +505,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										properties: {
 											'cbc:CompanyID': {
 												type: 'string',
-												title:
-													'Seller VAT identifier, Seller tax registration identifier',
+												title: 'Seller VAT identifier, Seller tax registration identifier',
 												description:
 													"The Seller's VAT identifier (also known as Seller VAT identification number) or the local identification (defined by the Seller’s address) of the Seller for tax purposes or a reference that enables the Seller to state his registered tax status. In order for the buyer to automatically identify a supplier, the Seller identifier (BT-29), the Seller legal registration identifier (BT-30) and/or the Seller VAT identifier (BT-31) shall be present\nBusiness terms: BT-31, BT-32",
 											},
@@ -524,7 +523,10 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 												required: ['cbc:ID'],
 											},
 										},
-										required: ['cbc:CompanyID', 'cac:TaxScheme'],
+										required: [
+											'cbc:CompanyID',
+											'cac:TaxScheme',
+										],
 									},
 									maxItems: 2,
 								},
@@ -548,8 +550,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										'cbc:CompanyID@schemeID': {
 											type: 'string',
 											$ref: '#/$defs/codeLists/ICD',
-											title:
-												'Seller legal registration identifier identification scheme identifier',
+											title: 'Seller legal registration identifier identification scheme identifier',
 											description:
 												'The identification scheme identifier of the Seller legal registration identifier.',
 										},
@@ -562,7 +563,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 									required: ['cbc:RegistrationName'],
 									dependentRequired: {
-										'cbc:CompanyID@schemeID': ['cbc:CompanyID'],
+										'cbc:CompanyID@schemeID': [
+											'cbc:CompanyID',
+										],
 									},
 								},
 								'cac:Contact': {
@@ -593,7 +596,10 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 								},
 							},
-							required: ['cac:PostalAddress', 'cac:PartyLegalEntity'],
+							required: [
+								'cac:PostalAddress',
+								'cac:PartyLegalEntity',
+							],
 							dependentRequired: {
 								'cbc:EndpointID': ['cbc:EndpointID@schemeID'],
 								'cbc:EndpointID@schemeID': ['cbc:EndpointID'],
@@ -623,8 +629,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								'cbc:EndpointID@schemeID': {
 									type: 'string',
 									$ref: '#/$defs/codeLists/eas',
-									title:
-										'Buyer electronic address identification scheme identifier',
+									title: 'Buyer electronic address identification scheme identifier',
 									description:
 										'The identification scheme identifier of the Buyer electronic address.',
 								},
@@ -642,8 +647,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										'cbc:ID@schemeID': {
 											type: 'string',
 											$ref: '#/$defs/codeLists/ICD',
-											title:
-												'Buyer identifier identification scheme identifier',
+											title: 'Buyer identifier identification scheme identifier',
 											description:
 												'The identification scheme identifier of the Buyer identifier.',
 										},
@@ -731,7 +735,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 														'A code that identifies the country.\nBusiness terms: BT-55',
 												},
 											},
-											required: ['cbc:IdentificationCode'],
+											required: [
+												'cbc:IdentificationCode',
+											],
 										},
 									},
 									required: ['cac:Country'],
@@ -754,13 +760,17 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											properties: {
 												'cbc:ID': {
 													type: 'string',
-													description: 'Mandatory element. Use “VAT”',
+													description:
+														'Mandatory element. Use “VAT”',
 												},
 											},
 											required: ['cbc:ID'],
 										},
 									},
-									required: ['cbc:CompanyID', 'cac:TaxScheme'],
+									required: [
+										'cbc:CompanyID',
+										'cac:TaxScheme',
+									],
 								},
 								'cac:PartyLegalEntity': {
 									type: 'object',
@@ -782,15 +792,16 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										'cbc:CompanyID@schemeID': {
 											type: 'string',
 											$ref: '#/$defs/codeLists/ICD',
-											title:
-												'Buyer legal registration identifier identification scheme identifier',
+											title: 'Buyer legal registration identifier identification scheme identifier',
 											description:
 												'The identification scheme identifier of the Buyer legal registration identifier.',
 										},
 									},
 									required: ['cbc:RegistrationName'],
 									dependentRequired: {
-										'cbc:CompanyID@schemeID': ['cbc:CompanyID'],
+										'cbc:CompanyID@schemeID': [
+											'cbc:CompanyID',
+										],
 									},
 								},
 								'cac:Contact': {
@@ -821,7 +832,10 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									},
 								},
 							},
-							required: ['cac:PostalAddress', 'cac:PartyLegalEntity'],
+							required: [
+								'cac:PostalAddress',
+								'cac:PartyLegalEntity',
+							],
 							dependentRequired: {
 								'cbc:EndpointID': ['cbc:EndpointID@schemeID'],
 								'cbc:EndpointID@schemeID': ['cbc:EndpointID'],
@@ -844,8 +858,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							properties: {
 								'cbc:ID': {
 									type: 'string',
-									title:
-										'Payee identifier or bank assigned creditor identifier',
+									title: 'Payee identifier or bank assigned creditor identifier',
 									description:
 										'This element is used for both the identification of the Payee, or the unique banking reference identifier of Payee (assigned by the Payee bank.) For payee identification use ICD code list, for SEPA bank assigned creditor reference, use SEPA.\nBusiness terms: BT-60, BT-90',
 								},
@@ -859,8 +872,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											$ref: '#/$defs/codeLists/SEPA',
 										},
 									],
-									title:
-										'Payee or bank assigned creditor identifier identification scheme identifier',
+									title: 'Payee or bank assigned creditor identifier identification scheme identifier',
 									description:
 										'The identification scheme identifier of the payee identifier. For bank assigned creditor identifier (BT-90), value MUST be "SEPA"',
 								},
@@ -878,7 +890,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								'cbc:Name': {
 									type: 'string',
 									title: 'Payee name',
-									description: 'The name of the Payee.\nBusiness terms: BT-59',
+									description:
+										'The name of the Payee.\nBusiness terms: BT-59',
 								},
 							},
 							required: ['cbc:Name'],
@@ -897,8 +910,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								'cbc:CompanyID@schemeID': {
 									type: 'string',
 									$ref: '#/$defs/codeLists/ICD',
-									title:
-										'Payee legal registration identifier identification scheme identifier',
+									title: 'Payee legal registration identifier identification scheme identifier',
 									description:
 										'The identification scheme identifier of the Payee legal registration identifier.',
 								},
@@ -1019,7 +1031,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									properties: {
 										'cbc:ID': {
 											type: 'string',
-											description: 'Mandatory element. Use “VAT”',
+											description:
+												'Mandatory element. Use “VAT”',
 										},
 									},
 									required: ['cbc:ID'],
@@ -1060,8 +1073,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								'cbc:ID@schemeID': {
 									type: 'string',
 									$ref: '#/$defs/codeLists/ICD',
-									title:
-										'Deliver to location identifier identification scheme identifier',
+									title: 'Deliver to location identifier identification scheme identifier',
 									description:
 										'The identification scheme identifier of the Deliver to location identifier.',
 								},
@@ -1129,7 +1141,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 														'A code that identifies the country.\nBusiness terms: BT-80',
 												},
 											},
-											required: ['cbc:IdentificationCode'],
+											required: [
+												'cbc:IdentificationCode',
+											],
 										},
 									},
 									required: ['cac:Country'],
@@ -1216,7 +1230,10 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											'The name of the payment card holder.\nBusiness terms: BT-88',
 									},
 								},
-								required: ['cbc:PrimaryAccountNumberID', 'cbc:NetworkID'],
+								required: [
+									'cbc:PrimaryAccountNumberID',
+									'cbc:NetworkID',
+								],
 							},
 							'cac:PayeeFinancialAccount': {
 								type: 'object',
@@ -1286,7 +1303,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						},
 						required: ['cbc:PaymentMeansCode'],
 						dependentRequired: {
-							'cbc:PaymentMeansCode@name': ['cbc:PaymentMeansCode'],
+							'cbc:PaymentMeansCode@name': [
+								'cbc:PaymentMeansCode',
+							],
 						},
 					},
 				},
@@ -1374,8 +1393,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									'cbc:ID': {
 										type: 'string',
 										$ref: '#/$defs/codeLists/UNCL5305',
-										title:
-											'Document level allowance or charge VAT category code',
+										title: 'Document level allowance or charge VAT category code',
 										description:
 											'A coded identification of what VAT category applies to the document level allowance or charge.\nBusiness terms: BT-95, BT-102',
 									},
@@ -1392,7 +1410,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										properties: {
 											'cbc:ID': {
 												type: 'string',
-												description: 'Mandatory element. Use “VAT”',
+												description:
+													'Mandatory element. Use “VAT”',
 											},
 										},
 										required: ['cbc:ID'],
@@ -1401,7 +1420,11 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 								required: ['cbc:ID', 'cac:TaxScheme'],
 							},
 						},
-						required: ['cbc:ChargeIndicator', 'cbc:Amount', 'cac:TaxCategory'],
+						required: [
+							'cbc:ChargeIndicator',
+							'cbc:Amount',
+							'cac:TaxCategory',
+						],
 						dependentRequired: {
 							'cbc:Amount': ['cbc:Amount@currencyID'],
 							'cbc:BaseAmount': ['cbc:BaseAmount@currencyID'],
@@ -1421,15 +1444,15 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						properties: {
 							'cbc:TaxAmount': {
 								$ref: '#/$defs/dataTypes/Amount',
-								title:
-									'Invoice total VAT amount, Invoice total VAT amount in accounting currency',
+								title: 'Invoice total VAT amount, Invoice total VAT amount in accounting currency',
 								description:
 									'The total VAT amount for the Invoice or the VAT total amount expressed in the accounting currency accepted or required in the country of the Seller. Must be rounded to maximum 2 decimals\nBusiness terms: BT-110, BT-111',
 							},
 							'cbc:TaxAmount@currencyID': {
 								type: 'string',
 								$ref: '#/$defs/codeLists/ISO4217',
-								description: 'Mandatory attribute. Use BT-5 or BT-6.',
+								description:
+									'Mandatory attribute. Use BT-5 or BT-6.',
 							},
 							'cac:TaxSubtotal': {
 								type: 'array',
@@ -1449,7 +1472,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										'cbc:TaxableAmount@currencyID': {
 											type: 'string',
 											$ref: '#/$defs/codeLists/ISO4217',
-											description: 'Mandatory attribute. Use BT-5',
+											description:
+												'Mandatory attribute. Use BT-5',
 										},
 										'cbc:TaxAmount': {
 											$ref: '#/$defs/dataTypes/Amount',
@@ -1460,7 +1484,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										'cbc:TaxAmount@currencyID': {
 											type: 'string',
 											$ref: '#/$defs/codeLists/ISO4217',
-											description: 'Mandatory attribute. Use BT-5',
+											description:
+												'Mandatory attribute. Use BT-5',
 										},
 										'cac:TaxCategory': {
 											type: 'object',
@@ -1500,13 +1525,17 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 													properties: {
 														'cbc:ID': {
 															type: 'string',
-															description: 'Mandatory element. Use “VAT”',
+															description:
+																'Mandatory element. Use “VAT”',
 														},
 													},
 													required: ['cbc:ID'],
 												},
 											},
-											required: ['cbc:ID', 'cac:TaxScheme'],
+											required: [
+												'cbc:ID',
+												'cac:TaxScheme',
+											],
 										},
 									},
 									required: [
@@ -1515,10 +1544,18 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										'cac:TaxCategory',
 									],
 									dependentRequired: {
-										'cbc:TaxableAmount': ['cbc:TaxableAmount@currencyID'],
-										'cbc:TaxAmount': ['cbc:TaxAmount@currencyID'],
-										'cbc:TaxableAmount@currencyID': ['cbc:TaxableAmount'],
-										'cbc:TaxAmount@currencyID': ['cbc:TaxAmount'],
+										'cbc:TaxableAmount': [
+											'cbc:TaxableAmount@currencyID',
+										],
+										'cbc:TaxAmount': [
+											'cbc:TaxAmount@currencyID',
+										],
+										'cbc:TaxableAmount@currencyID': [
+											'cbc:TaxableAmount',
+										],
+										'cbc:TaxAmount@currencyID': [
+											'cbc:TaxAmount',
+										],
 									},
 								},
 							},
@@ -1635,21 +1672,41 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 						'cbc:PayableAmount',
 					],
 					dependentRequired: {
-						'cbc:LineExtensionAmount': ['cbc:LineExtensionAmount@currencyID'],
-						'cbc:TaxExclusiveAmount': ['cbc:TaxExclusiveAmount@currencyID'],
-						'cbc:TaxInclusiveAmount': ['cbc:TaxInclusiveAmount@currencyID'],
-						'cbc:AllowanceTotalAmount': ['cbc:AllowanceTotalAmount@currencyID'],
-						'cbc:ChargeTotalAmount': ['cbc:ChargeTotalAmount@currencyID'],
+						'cbc:LineExtensionAmount': [
+							'cbc:LineExtensionAmount@currencyID',
+						],
+						'cbc:TaxExclusiveAmount': [
+							'cbc:TaxExclusiveAmount@currencyID',
+						],
+						'cbc:TaxInclusiveAmount': [
+							'cbc:TaxInclusiveAmount@currencyID',
+						],
+						'cbc:AllowanceTotalAmount': [
+							'cbc:AllowanceTotalAmount@currencyID',
+						],
+						'cbc:ChargeTotalAmount': [
+							'cbc:ChargeTotalAmount@currencyID',
+						],
 						'cbc:PrepaidAmount': ['cbc:PrepaidAmount@currencyID'],
 						'cbc:PayableRoundingAmount': [
 							'cbc:PayableRoundingAmount@currencyID',
 						],
 						'cbc:PayableAmount': ['cbc:PayableAmount@currencyID'],
-						'cbc:LineExtensionAmount@currencyID': ['cbc:LineExtensionAmount'],
-						'cbc:TaxExclusiveAmount@currencyID': ['cbc:TaxExclusiveAmount'],
-						'cbc:TaxInclusiveAmount@currencyID': ['cbc:TaxInclusiveAmount'],
-						'cbc:AllowanceTotalAmount@currencyID': ['cbc:AllowanceTotalAmount'],
-						'cbc:ChargeTotalAmount@currencyID': ['cbc:ChargeTotalAmount'],
+						'cbc:LineExtensionAmount@currencyID': [
+							'cbc:LineExtensionAmount',
+						],
+						'cbc:TaxExclusiveAmount@currencyID': [
+							'cbc:TaxExclusiveAmount',
+						],
+						'cbc:TaxInclusiveAmount@currencyID': [
+							'cbc:TaxInclusiveAmount',
+						],
+						'cbc:AllowanceTotalAmount@currencyID': [
+							'cbc:AllowanceTotalAmount',
+						],
+						'cbc:ChargeTotalAmount@currencyID': [
+							'cbc:ChargeTotalAmount',
+						],
 						'cbc:PrepaidAmount@currencyID': ['cbc:PrepaidAmount'],
 						'cbc:PayableRoundingAmount@currencyID': [
 							'cbc:PayableRoundingAmount',
@@ -1757,8 +1814,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									'cbc:ID@schemeID': {
 										type: 'string',
 										$ref: '#/$defs/codeLists/UNCL1153',
-										title:
-											'Invoice line object identifier identification scheme identifier',
+										title: 'Invoice line object identifier identification scheme identifier',
 										description:
 											'The identification scheme identifier of the Invoice line object identifier.',
 									},
@@ -1823,7 +1879,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										'cbc:Amount@currencyID': {
 											type: 'string',
 											$ref: '#/$defs/codeLists/ISO4217',
-											description: 'Mandatory attribute. Use BT-5',
+											description:
+												'Mandatory attribute. Use BT-5',
 										},
 										'cbc:BaseAmount': {
 											$ref: '#/$defs/dataTypes/Amount',
@@ -1834,15 +1891,23 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										'cbc:BaseAmount@currencyID': {
 											type: 'string',
 											$ref: '#/$defs/codeLists/ISO4217',
-											description: 'Mandatory attribute. Use BT-5',
+											description:
+												'Mandatory attribute. Use BT-5',
 										},
 									},
-									required: ['cbc:ChargeIndicator', 'cbc:Amount'],
+									required: [
+										'cbc:ChargeIndicator',
+										'cbc:Amount',
+									],
 									dependentRequired: {
 										'cbc:Amount': ['cbc:Amount@currencyID'],
-										'cbc:BaseAmount': ['cbc:BaseAmount@currencyID'],
+										'cbc:BaseAmount': [
+											'cbc:BaseAmount@currencyID',
+										],
 										'cbc:Amount@currencyID': ['cbc:Amount'],
-										'cbc:BaseAmount@currencyID': ['cbc:BaseAmount'],
+										'cbc:BaseAmount@currencyID': [
+											'cbc:BaseAmount',
+										],
 									},
 								},
 							},
@@ -1862,7 +1927,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									'cbc:Name': {
 										type: 'string',
 										title: 'Item name',
-										description: 'A name for an item.\nBusiness terms: BT-153',
+										description:
+											'A name for an item.\nBusiness terms: BT-153',
 									},
 									'cac:BuyersItemIdentification': {
 										type: 'object',
@@ -1906,8 +1972,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											'cbc:ID@schemeID': {
 												type: 'string',
 												$ref: '#/$defs/codeLists/ICD',
-												title:
-													'Item standard identifier identification scheme identifier',
+												title: 'Item standard identifier identification scheme identifier',
 												description:
 													'The identification scheme identifier of the Item standard identifier',
 											},
@@ -1946,33 +2011,37 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 													description:
 														'A code for classifying the item by its type or nature.\nBusiness terms: BT-158',
 												},
-												'cbc:ItemClassificationCode@listID': {
-													type: 'string',
-													$ref: '#/$defs/codeLists/UNCL7143',
-													title:
-														'Item classification identifier identification scheme identifier',
-													description:
-														'The identification scheme identifier of the Item classification identifier',
-												},
-												'cbc:ItemClassificationCode@listVersionID': {
-													type: 'string',
-													title:
-														'Item classification identifier version identification scheme identifier',
-													description:
-														'The identification scheme version identifier of the Item classification identifier',
-												},
+												'cbc:ItemClassificationCode@listID':
+													{
+														type: 'string',
+														$ref: '#/$defs/codeLists/UNCL7143',
+														title: 'Item classification identifier identification scheme identifier',
+														description:
+															'The identification scheme identifier of the Item classification identifier',
+													},
+												'cbc:ItemClassificationCode@listVersionID':
+													{
+														type: 'string',
+														title: 'Item classification identifier version identification scheme identifier',
+														description:
+															'The identification scheme version identifier of the Item classification identifier',
+													},
 											},
-											required: ['cbc:ItemClassificationCode'],
+											required: [
+												'cbc:ItemClassificationCode',
+											],
 											dependentRequired: {
 												'cbc:ItemClassificationCode': [
 													'cbc:ItemClassificationCode@listID',
 												],
-												'cbc:ItemClassificationCode@listID': [
-													'cbc:ItemClassificationCode',
-												],
-												'cbc:ItemClassificationCode@listVersionID': [
-													'cbc:ItemClassificationCode',
-												],
+												'cbc:ItemClassificationCode@listID':
+													[
+														'cbc:ItemClassificationCode',
+													],
+												'cbc:ItemClassificationCode@listVersionID':
+													[
+														'cbc:ItemClassificationCode',
+													],
 											},
 										},
 									},
@@ -2003,7 +2072,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 												properties: {
 													'cbc:ID': {
 														type: 'string',
-														description: 'Mandatory element. Use “VAT”',
+														description:
+															'Mandatory element. Use “VAT”',
 													},
 												},
 												required: ['cbc:ID'],
@@ -2037,7 +2107,10 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										},
 									},
 								},
-								required: ['cbc:Name', 'cac:ClassifiedTaxCategory'],
+								required: [
+									'cbc:Name',
+									'cac:ClassifiedTaxCategory',
+								],
 							},
 							'cac:Price': {
 								type: 'object',
@@ -2055,7 +2128,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 									'cbc:PriceAmount@currencyID': {
 										type: 'string',
 										$ref: '#/$defs/codeLists/ISO4217',
-										description: 'Mandatory attribute. Use BT-5',
+										description:
+											'Mandatory attribute. Use BT-5',
 									},
 									'cbc:BaseQuantity': {
 										$ref: '#/$defs/dataTypes/Quantity',
@@ -2077,7 +2151,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 										properties: {
 											'cbc:ChargeIndicator': {
 												type: 'string',
-												description: 'Mandatory element. Value must be “false”',
+												description:
+													'Mandatory element. Value must be “false”',
 											},
 											'cbc:Amount': {
 												$ref: '#/$defs/dataTypes/Amount',
@@ -2088,7 +2163,8 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											'cbc:Amount@currencyID': {
 												type: 'string',
 												$ref: '#/$defs/codeLists/ISO4217',
-												description: 'Mandatory attribute. Use BT-5',
+												description:
+													'Mandatory attribute. Use BT-5',
 											},
 											'cbc:BaseAmount': {
 												$ref: '#/$defs/dataTypes/Amount',
@@ -2099,23 +2175,41 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 											'cbc:BaseAmount@currencyID': {
 												type: 'string',
 												$ref: '#/$defs/codeLists/ISO4217',
-												description: 'Mandatory attribute. Use BT-5',
+												description:
+													'Mandatory attribute. Use BT-5',
 											},
 										},
-										required: ['cbc:ChargeIndicator', 'cbc:Amount'],
+										required: [
+											'cbc:ChargeIndicator',
+											'cbc:Amount',
+										],
 										dependentRequired: {
-											'cbc:Amount': ['cbc:Amount@currencyID'],
-											'cbc:BaseAmount': ['cbc:BaseAmount@currencyID'],
-											'cbc:Amount@currencyID': ['cbc:Amount'],
-											'cbc:BaseAmount@currencyID': ['cbc:BaseAmount'],
+											'cbc:Amount': [
+												'cbc:Amount@currencyID',
+											],
+											'cbc:BaseAmount': [
+												'cbc:BaseAmount@currencyID',
+											],
+											'cbc:Amount@currencyID': [
+												'cbc:Amount',
+											],
+											'cbc:BaseAmount@currencyID': [
+												'cbc:BaseAmount',
+											],
 										},
 									},
 								},
 								required: ['cbc:PriceAmount'],
 								dependentRequired: {
-									'cbc:PriceAmount': ['cbc:PriceAmount@currencyID'],
-									'cbc:PriceAmount@currencyID': ['cbc:PriceAmount'],
-									'cbc:BaseQuantity@unitCode': ['cbc:BaseQuantity'],
+									'cbc:PriceAmount': [
+										'cbc:PriceAmount@currencyID',
+									],
+									'cbc:PriceAmount@currencyID': [
+										'cbc:PriceAmount',
+									],
+									'cbc:BaseQuantity@unitCode': [
+										'cbc:BaseQuantity',
+									],
 								},
 							},
 						},
@@ -2127,10 +2221,18 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 							'cac:Price',
 						],
 						dependentRequired: {
-							'cbc:InvoicedQuantity': ['cbc:InvoicedQuantity@unitCode'],
-							'cbc:LineExtensionAmount': ['cbc:LineExtensionAmount@currencyID'],
-							'cbc:InvoicedQuantity@unitCode': ['cbc:InvoicedQuantity'],
-							'cbc:LineExtensionAmount@currencyID': ['cbc:LineExtensionAmount'],
+							'cbc:InvoicedQuantity': [
+								'cbc:InvoicedQuantity@unitCode',
+							],
+							'cbc:LineExtensionAmount': [
+								'cbc:LineExtensionAmount@currencyID',
+							],
+							'cbc:InvoicedQuantity@unitCode': [
+								'cbc:InvoicedQuantity',
+							],
+							'cbc:LineExtensionAmount@currencyID': [
+								'cbc:LineExtensionAmount',
+							],
 						},
 					},
 					minItems: 1,

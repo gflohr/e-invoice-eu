@@ -1,6 +1,6 @@
+import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { FX_EXTENDED, FXProfile } from './format-cii.service';
 import { FormatFacturXService } from './format-factur-x.service';
-import { EInvoiceFormat } from './format.e-invoice-format.interface';
 
 export class FormatFacturXExtendedService
 	extends FormatFacturXService

@@ -16,7 +16,8 @@ if (process.argv.length !== 3) {
 
 const inputFile = process.argv[2];
 
-const jarPath = process.env.MUSTANG_CLI_JAR ?? join(__dirname, 'Mustang-CLI.jar');
+const jarPath =
+	process.env.MUSTANG_CLI_JAR ?? join(__dirname, 'Mustang-CLI.jar');
 
 if (!existsSync(jarPath)) {
 	console.error(`${progName}: ${jarPath}: File does not exist.`);
@@ -24,7 +25,15 @@ if (!existsSync(jarPath)) {
 }
 
 const command = process.env.JAVA ?? 'java';
-const args = ['-jar', jarPath, '--action', 'validate', '--no-notices', '--source', inputFile];
+const args = [
+	'-jar',
+	jarPath,
+	'--action',
+	'validate',
+	'--no-notices',
+	'--source',
+	inputFile,
+];
 
 // Execute the command
 execFile(command, args, (error, stdout, stderr) => {

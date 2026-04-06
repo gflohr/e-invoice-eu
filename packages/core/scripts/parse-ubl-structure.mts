@@ -9,6 +9,7 @@ import { JSONSchemaType } from 'ajv';
 import { XMLParser } from 'fast-xml-parser';
 import * as fs from 'fs';
 import * as path from 'path';
+import { ExpandObject } from 'xmlbuilder2/lib/interfaces.js';
 
 // Data types:
 // - Amount: number >= zero, max. 2 decimal digits.
@@ -26,6 +27,24 @@ type Cardinality = {
 	max: number;
 };
 
+type XmlTextNode = { '#text': string };
+
+type XmlNode = {
+	Term?: XmlTextNode[];
+	Name?: XmlTextNode[];
+	Description?: XmlTextNode[];
+	DataType?: XmlTextNode[];
+	Reference?: XmlTextNode[];
+	Attribute?: XmlNode[];
+	Value?: XmlTextNode[];
+	Element?: XmlNode[];
+	':@'?: {
+		'@_type'?: string;
+		'@_usage'?: string;
+		'@_cardinality'?: string;
+	};
+};
+
 type Element = {
 	Term: string;
 	Name?: string;
@@ -35,7 +54,6 @@ type Element = {
 	BusinessTerms?: string[];
 	children?: Array<Element>;
 	cardinality?: string;
-
 	// For Docs.
 	rules?: string[];
 	example?: string;
@@ -168,18 +186,18 @@ function printDocs(tree: Element) {
 }
 
 function printElement(element: Element, path: string[]) {
-	let term = '/' + element.Term;
+	let term = '/' + element['Term'];
 	if (path.length) {
 		term = '/' + path.join('/') + term;
 	}
 
-	const name = element.Name ? ` (**${element.Name}**)` : '';
+	const name = element['Name'] ? ` (**${element['Name']}**)` : '';
 	let headline: string;
 
-	if (element.Term.includes('@')) {
+	if (element['Term'].includes('@')) {
 		// Attribute of the last element.
 		const attribute = term.replace(/.*@/, '@');
-		const attrCardinality = element.cardinality?.startsWith('0')
+		const attrCardinality = element['cardinality']?.startsWith('0')
 			? 'Optional'
 			: 'Mandatory';
 
@@ -191,44 +209,44 @@ function printElement(element: Element, path: string[]) {
 
 		headline = '####';
 
-		if (element.cardinality) {
-			console.log(`Cardinality: ${element.cardinality}\n`);
+		if (element['cardinality']) {
+			console.log(`Cardinality: ${element['cardinality']}\n`);
 		}
 	}
 
-	if (element.Description) {
-		console.log(element.Description + '\n');
+	if (element['Description']) {
+		console.log(element['Description'] + '\n');
 	}
 
-	if (element.BusinessTerms?.length) {
-		console.log(`Business Terms: ${element.BusinessTerms.join(', ')}\n`);
+	if (element['BusinessTerms']?.length) {
+		console.log(`Business Terms: ${element['BusinessTerms'].join(', ')}\n`);
 	}
 
 	if (Object.prototype.hasOwnProperty.call(element, 'example')) {
-		console.log(`Example value: ${element.example}\n`);
+		console.log(`Example value: ${element['example']}\n`);
 	}
 
 	if (Object.prototype.hasOwnProperty.call(element, 'default')) {
-		console.log(`Default value: ${element.default}\n`);
+		console.log(`Default value: ${element['default']}\n`);
 	}
 
 	if (Object.prototype.hasOwnProperty.call(element, 'fixed')) {
-		console.log(`Fixed value: ${element.fixed}\n`);
+		console.log(`Fixed value: ${element['fixed']}\n`);
 	}
 
-	if (element.CodeList) {
+	if (element['CodeList']) {
 		console.log(`${headline} Code Lists (allowed values)\n`);
 
-		element.CodeList.forEach(cl => {
+		element['CodeList'].forEach(cl => {
 			console.log(`* ${cl}`);
 		});
 
 		console.log('\n');
 	}
 
-	if (element.rules) {
+	if (element['rules']) {
 		console.log(`${headline} Business Rules\n`);
-		element.rules.forEach(ruleId => {
+		element['rules'].forEach(ruleId => {
 			if (ruleId in rules) {
 				const rule = rules[ruleId];
 				console.log(
@@ -240,10 +258,10 @@ function printElement(element: Element, path: string[]) {
 		console.log('\n');
 	}
 
-	if (element.children) {
-		for (let i = 0; i < element.children.length; ++i) {
-			path.push(element.Term);
-			printElement(element.children[i], path);
+	if (element['children']) {
+		for (let i = 0; i < element['children'].length; ++i) {
+			path.push(element['Term']);
+			printElement(element['children'][i], path);
 			path.pop();
 		}
 	}
@@ -303,14 +321,20 @@ function patchSchemaForEndpointID(schema: JSONSchemaType<object>) {
 	// The endpoint ID is mandatory in UBL but optional in CII. We patch it
 	// to be optional in the schema and enforce it for UBL later, see
 	// https://github.com/gflohr/e-invoice-eu/issues/331
-	const customerParty = schema.properties['ubl:Invoice']
-		.properties['cac:AccountingCustomerParty']
-		.properties['cac:Party'];
-	customerParty.required = customerParty.required.filter(prop => prop != 'cbc:EndpointID');
-	const supplierParty = schema.properties['ubl:Invoice']
-		.properties['cac:AccountingSupplierParty']
-		.properties['cac:Party'];
-	supplierParty.required = customerParty.required.filter(prop => prop != 'cbc:EndpointID');
+	const customerParty =
+		schema.properties['ubl:Invoice'].properties[
+			'cac:AccountingCustomerParty'
+		].properties['cac:Party'];
+	customerParty.required = customerParty.required.filter(
+		prop => prop != 'cbc:EndpointID',
+	);
+	const supplierParty =
+		schema.properties['ubl:Invoice'].properties[
+			'cac:AccountingSupplierParty'
+		].properties['cac:Party'];
+	supplierParty.required = supplierParty.required.filter(
+		prop => prop != 'cbc:EndpointID',
+	);
 }
 
 /**
@@ -322,27 +346,30 @@ function patchSchemaForEndpointID(schema: JSONSchemaType<object>) {
  *
  * @param element the nested data structure
  */
-function sortAttributes(element: { [key: string]: any }) {
+function sortAttributes(element: ExpandObject) {
 	if (typeof element === 'object') {
 		for (const key in element) {
 			sortAttributes(element[key]);
 
 			if (key === 'children') {
-				const sorted = [];
+				const sorted: ExpandObject[] = [];
 
-				const attributes = element.children
+				const attributes = element['children']
 					.filter((child: { Term: string | string[] }) =>
 						child.Term.includes('@'),
 					)
 					.reduce(
-						(acc: { [x: string]: any }, child: { Term: string | number }) => {
+						(
+							acc: ExpandObject,
+							child: { Term: string | number },
+						) => {
 							acc[child.Term] = child;
 							return acc;
 						},
-						{} as { [key: string]: any },
+						{} as ExpandObject,
 					);
 
-				for (const child of element.children) {
+				for (const child of element['children']) {
 					if (child.Term.includes('@')) {
 						continue;
 					}
@@ -355,7 +382,7 @@ function sortAttributes(element: { [key: string]: any }) {
 					}
 				}
 
-				element.children = sorted;
+				element['children'] = sorted;
 			}
 		}
 	}
@@ -375,34 +402,37 @@ function sortAttributes(element: { [key: string]: any }) {
  *
  * @param schema the schema to fix
  */
-function fixupAttributes(node: { [key: string]: any }) {
+function fixupAttributes(node: ExpandObject) {
 	if (typeof node === 'object') {
 		for (const key in node) {
-			if (key === 'type' && node.type === 'object') {
-				const attributes = Object.keys(node.properties).filter(prop =>
-					prop.includes('@'),
+			if (key === 'type' && node['type'] === 'object') {
+				const attributes = Object.keys(node['properties']).filter(
+					prop => prop.includes('@'),
 				);
-				const required: Array<string> = 'required' in node ? node.required : [];
+				const required: Array<string> =
+					'required' in node ? node.required : [];
 
 				if (attributes.length) {
-					node.dependentRequired = {};
+					node['dependentRequired'] = {};
 					const mandatoryAttributes = required.filter(prop =>
 						prop.includes('@'),
 					);
 
 					for (const attribute of mandatoryAttributes) {
 						const elem = attribute.split('@')[0];
-						node.dependentRequired[elem] ??= [];
-						node.dependentRequired[elem].push(attribute);
+						node['dependentRequired'][elem] ??= [];
+						node['dependentRequired'][elem].push(attribute);
 					}
 
 					for (const attribute of attributes) {
 						const elem = attribute.split('@')[0];
-						node.dependentRequired[attribute] = [elem];
+						node['dependentRequired'][attribute] = [elem];
 					}
 
 					if ('required' in node) {
-						node.required = required.filter(prop => !prop.includes('@'));
+						node.required = required.filter(
+							prop => !prop.includes('@'),
+						);
 					}
 				}
 			}
@@ -412,22 +442,25 @@ function fixupAttributes(node: { [key: string]: any }) {
 	}
 }
 
-function buildTree(element: any, parent: any = null): Element {
+function buildTree(
+	element: XmlNode[],
+	parent: ExpandObject | null = null,
+): Element {
 	const tree: Element = {} as Element;
 
 	for (const node of element) {
 		if (typeof node === 'object') {
 			if ('Term' in node) {
-				tree.Term = node.Term[0]['#text'];
+				tree.Term = node.Term![0]['#text'];
 			} else if ('Name' in node) {
-				tree.Name = node.Name[0]['#text'];
+				tree.Name = node.Name![0]['#text'];
 			} else if ('Description' in node) {
-				tree.Description = node.Description[0]['#text'];
+				tree.Description = node.Description![0]['#text'];
 			} else if ('DataType' in node) {
-				tree.DataType = node.DataType[0]['#text'];
+				tree.DataType = node.DataType![0]['#text'];
 			} else if ('Reference' in node && ':@' in node) {
-				const refType = node[':@']['@_type'];
-				const value = node.Reference?.[0]?.['#text'];
+				const refType = node[':@']!['@_type'];
+				const value = node.Reference?.[0]?.['#text'] as string;
 				if ('CODE_LIST' === refType) {
 					tree.CodeList ??= [];
 					tree.CodeList.push(value);
@@ -441,18 +474,18 @@ function buildTree(element: any, parent: any = null): Element {
 					console.error(`Unknown reference type ${refType}`);
 				}
 			} else if ('Attribute' in node) {
-				const attribute = buildTree(node.Attribute);
+				const attribute = buildTree(node.Attribute!);
 				attribute.Term = `${tree.Term}@${attribute.Term}`;
-				parent.children.push(attribute);
+				parent!['children'].push(attribute);
 				if (
 					':@' in node &&
-					'@_usage' in node[':@'] &&
+					'@_usage' in node[':@']! &&
 					node[':@']['@_usage'] === 'Optional'
 				) {
 					attribute.cardinality = '0..1';
 				}
 			} else if ('Value' in node) {
-				const valueType = node[':@']['@_type'];
+				const valueType = node[':@']!['@_type'];
 				const value = node.Value?.[0]?.['#text'];
 
 				if (valueType === 'EXAMPLE') {
@@ -466,9 +499,9 @@ function buildTree(element: any, parent: any = null): Element {
 				}
 			} else if ('Element' in node) {
 				tree.children ??= [];
-				const newElement = buildTree(node.Element, tree);
+				const newElement = buildTree(node.Element as XmlNode[], tree);
 				tree.children.push(newElement);
-				if (':@' in node && '@_cardinality' in node[':@']) {
+				if (':@' in node && '@_cardinality' in node[':@']!) {
 					let cardinality = node[':@']['@_cardinality'];
 					if (
 						newElement.Term === 'cbc:Note' &&
@@ -501,7 +534,7 @@ function buildSchema(tree: Element): JSONSchemaType<object> {
 		$defs,
 	};
 
-	(result.properties as { [key: string]: any })[tree.Term] = processNode(tree);
+	(result.properties as ExpandObject)[tree.Term] = processNode(tree);
 
 	if (parseCardinality(tree.cardinality).min === 1) {
 		(result.required as unknown as string[]).push(tree.Term);
@@ -519,14 +552,18 @@ function processNode(node: Element): JSONSchemaType<object> {
 		common.title = (node.Name as string).replace(/[ \t\n]+/g, ' ');
 	}
 	if ('Description' in node) {
-		common.description = (node.Description as string).replace(/[ \t\n]+/g, ' ');
+		common.description = (node.Description as string).replace(
+			/[ \t\n]+/g,
+			' ',
+		);
 	}
 
 	if ('BusinessTerms' in node) {
-		common.description += '\nBusiness terms: ' + node.BusinessTerms?.join(', ');
+		common.description +=
+			'\nBusiness terms: ' + node.BusinessTerms?.join(', ');
 	}
 
-	let schema: JSONSchemaType<any>;
+	let schema: JSONSchemaType<unknown>;
 
 	if (node.CodeList) {
 		if (node.CodeList.length > 1) {
@@ -545,15 +582,18 @@ function processNode(node: Element): JSONSchemaType<object> {
 				type: 'string',
 				$ref: `#/$defs/codeLists/${node.CodeList[0]}`,
 				...common,
-			};
+			} as unknown as JSONSchemaType<unknown>;
 		}
 	} else if (node.DataType && node.DataType in $defs.dataTypes) {
 		schema = {
 			$ref: `#/$defs/dataTypes/${node.DataType}`,
 			...common,
-		} as JSONSchemaType<any>;
+		} as JSONSchemaType<unknown>;
 	} else {
-		schema = { type: 'string', ...common };
+		schema = {
+			type: 'string',
+			...common,
+		} as unknown as JSONSchemaType<unknown>;
 	}
 
 	// If the node has children, it's an object with properties
@@ -573,7 +613,7 @@ function processNode(node: Element): JSONSchemaType<object> {
 			additionalProperties: false,
 			...common,
 			properties,
-		} as JSONSchemaType<any>;
+		} as unknown as JSONSchemaType<unknown>;
 
 		if (required.length) {
 			schema.required = required;
@@ -586,7 +626,7 @@ function processNode(node: Element): JSONSchemaType<object> {
 		schema = {
 			type: 'array',
 			items: schema,
-		};
+		} as unknown as JSONSchemaType<unknown>;
 		if (min > 0) {
 			schema.minItems = min;
 		}
@@ -598,7 +638,7 @@ function processNode(node: Element): JSONSchemaType<object> {
 	return schema as JSONSchemaType<object>;
 }
 
-function readXml(parser: XMLParser, filename: string): any {
+function readXml(parser: XMLParser, filename: string): ExpandObject {
 	const xml = fs.readFileSync(filename);
 	const document = parser.parse(xml);
 	if (typeof document[0] === 'object' && '?xml' in document[0]) {
@@ -609,7 +649,7 @@ function readXml(parser: XMLParser, filename: string): any {
 	return data;
 }
 
-function resolveStructure(parser: XMLParser, data: any): any {
+function resolveStructure(parser: XMLParser, data: ExpandObject): ExpandObject {
 	if (typeof data === 'object') {
 		for (const key in data) {
 			const child = data[key];
@@ -698,7 +738,9 @@ function loadUNCL1001() {
 		} else if (row['EN16931 interpretation'] === 'Invoice') {
 			codeListValues['UNCL1001-inv'].push(value);
 		} else {
-			throw new Error(`Unknown EN16931 interpretation: ${row['EN16931 interpretation']}`);
+			throw new Error(
+				`Unknown EN16931 interpretation: ${row['EN16931 interpretation']}`,
+			);
 		}
 	}
 
@@ -717,8 +759,8 @@ function loadUNCL1001() {
 
 function loadCodeList(parser: XMLParser, filename: string) {
 	const data = readXml(parser, filename);
-	const id = data.CodeList.Identifier;
-	let codeElements: Array<CodeListValue> = data.CodeList.Code;
+	const id = data['CodeList'].Identifier;
+	let codeElements: Array<CodeListValue> = data['CodeList'].Code;
 	if (!Array.isArray(codeElements)) {
 		codeElements = [codeElements];
 	}

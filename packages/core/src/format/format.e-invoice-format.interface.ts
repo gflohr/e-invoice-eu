@@ -1,9 +1,8 @@
 import { JSONSchemaType } from 'ajv';
-
-import { EInvoiceMIMEType } from './format.factory.service';
 import { Invoice } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Mapping } from '../mapping/mapping.interface';
+import { EInvoiceMIMEType } from './format.factory.service';
 
 /**
  * Interface representing an e-invoice format generation service.

@@ -1,9 +1,8 @@
 import { ErrorObject, ValidationError } from 'ajv/dist/2019';
-import { vi, describe, it, beforeEach, expect } from 'vitest';
-
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { ValidationService } from '../validation/validation.service';
 import { Invoice } from './invoice.interface';
 import { InvoiceService } from './invoice.service';
-import { ValidationService } from '../validation/validation.service';
 
 describe('InvoiceService', () => {
 	const logger = {

@@ -1,23 +1,22 @@
-import {
-	vi,
-	describe,
-	it,
-	beforeAll,
-	beforeEach,
-	expect,
-	type Mock,
-} from 'vitest';
-
 import * as XLSX from '@e965/xlsx';
 import { JSONSchemaType } from 'ajv';
-
-import { MappingService } from './mapping.service';
+import {
+	beforeAll,
+	beforeEach,
+	describe,
+	expect,
+	it,
+	type Mock,
+	vi,
+} from 'vitest';
+import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 import { EInvoiceFormat } from '../format';
-import { Mapping, MappingMetaInformation } from './mapping.interface';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { Invoice } from '../invoice';
 import { Logger } from '../logger.interface';
 import { ValidationService } from '../validation';
+import { Mapping, MappingMetaInformation } from './mapping.interface';
+import { MappingService } from './mapping.service';
 
 vi.mock('fs/promises');
 vi.mock('@e965/xlsx', async () => {
@@ -192,11 +191,20 @@ describe('MappingService', () => {
 			} as XLSX.WorkBook;
 
 			try {
-				service['resolveValue']('=Inwoice.A1', {} as JSONSchemaType<any>, {
-					...defaultMappingContext,
-					schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
-					workbook: wb,
-				});
+				service['resolveValue'](
+					'=Inwoice.A1',
+					{} as JSONSchemaType<ExpandObject>,
+					{
+						...defaultMappingContext,
+						schemaPath: [
+							'properties',
+							'ubl:Invoice',
+							'properties',
+							'cbc:ID',
+						],
+						workbook: wb,
+					},
+				);
 				throw new Error('no exception thrown');
 			} catch (e) {
 				expect(e).toBeDefined();
@@ -227,10 +235,15 @@ describe('MappingService', () => {
 			} as XLSX.WorkBook;
 			const value = service['resolveValue'](
 				'=ET742',
-				{} as JSONSchemaType<any>,
+				{} as JSONSchemaType<ExpandObject>,
 				{
 					...defaultMappingContext,
-					schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
+					schemaPath: [
+						'properties',
+						'ubl:Invoice',
+						'properties',
+						'cbc:ID',
+					],
 					workbook: wb,
 				},
 			);
@@ -253,23 +266,37 @@ describe('MappingService', () => {
 				},
 				SheetNames: ['Invoice'],
 			} as XLSX.WorkBook;
-			const empty = service['resolveValue']('=A1', {} as JSONSchemaType<any>, {
-				...defaultMappingContext,
-				meta: {
-					sectionColumn: {},
-					empty: ['[:empty:]'],
+			const empty = service['resolveValue'](
+				'=A1',
+				{} as JSONSchemaType<ExpandObject>,
+				{
+					...defaultMappingContext,
+					meta: {
+						sectionColumn: {},
+						empty: ['[:empty:]'],
+					},
+					schemaPath: [
+						'properties',
+						'ubl:Invoice',
+						'properties',
+						'cbc:ID',
+					],
+					workbook: wb,
 				},
-				schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
-				workbook: wb,
-			});
+			);
 			expect(empty).toBe('');
 
 			const notEmpty = service['resolveValue'](
 				'=A2',
-				{} as JSONSchemaType<any>,
+				{} as JSONSchemaType<ExpandObject>,
 				{
 					...defaultMappingContext,
-					schemaPath: ['properties', 'ubl:Invoice', 'properties', 'cbc:ID'],
+					schemaPath: [
+						'properties',
+						'ubl:Invoice',
+						'properties',
+						'cbc:ID',
+					],
 					workbook: wb,
 				},
 			);
@@ -278,9 +305,15 @@ describe('MappingService', () => {
 
 		it('should throw an exception if a non-existing section is referenced', async () => {
 			const localMapping = structuredClone(mapping);
-			localMapping['ubl:Invoice']['cac:InvoiceLine']['cbc:ID'] = '=:Lines.A1';
+			localMapping['ubl:Invoice']['cac:InvoiceLine']['cbc:ID'] =
+				'=:Lines.A1';
 			const mockValidateMapping = vi
-				.spyOn(service as any, 'validateMapping')
+				.spyOn(
+					service as unknown as {
+						validateMapping: (typeof service)['validateMapping'];
+					},
+					'validateMapping',
+				)
 				.mockReturnValue(localMapping);
 			const buf: Uint8Array = [] as unknown as Uint8Array;
 
@@ -318,7 +351,12 @@ describe('MappingService', () => {
 			localMapping['ubl:Invoice']['cac:InvoiceLine']['section'] =
 				'Infoice:Line';
 			const mockValidateMapping = vi
-				.spyOn(service as any, 'validateMapping')
+				.spyOn(
+					service as unknown as {
+						validateMapping: (typeof service)['validateMapping'];
+					},
+					'validateMapping',
+				)
 				.mockReturnValue(localMapping);
 			const buf: Uint8Array = [] as unknown as Uint8Array;
 
@@ -335,7 +373,9 @@ describe('MappingService', () => {
 				expect(e.errors.length).toBe(1);
 
 				const error = e.errors[0];
-				expect(error.instancePath).toBe('/ubl:Invoice/cac:InvoiceLine/section');
+				expect(error.instancePath).toBe(
+					'/ubl:Invoice/cac:InvoiceLine/section',
+				);
 				expect(error.schemaPath).toBe(
 					'#/properties/ubl%3AInvoice/properties/cac%3AInvoiceLine/properties/section',
 				);
@@ -354,7 +394,12 @@ describe('MappingService', () => {
 			localMapping['ubl:Invoice']['cac:InvoiceLine']['section'] =
 				'Invoice:Lime';
 			const mockValidateMapping = vi
-				.spyOn(service as any, 'validateMapping')
+				.spyOn(
+					service as unknown as {
+						validateMapping: (typeof service)['validateMapping'];
+					},
+					'validateMapping',
+				)
 				.mockReturnValue(localMapping);
 			const buf: Uint8Array = [] as unknown as Uint8Array;
 
@@ -371,7 +416,9 @@ describe('MappingService', () => {
 				expect(e.errors.length).toBe(1);
 
 				const error = e.errors[0];
-				expect(error.instancePath).toBe('/ubl:Invoice/cac:InvoiceLine/section');
+				expect(error.instancePath).toBe(
+					'/ubl:Invoice/cac:InvoiceLine/section',
+				);
 				expect(error.schemaPath).toBe(
 					'#/properties/ubl%3AInvoice/properties/cac%3AInvoiceLine/properties/section',
 				);
@@ -387,7 +434,12 @@ describe('MappingService', () => {
 
 		it('should throw an exception if multiple unbound sections are encountered', async () => {
 			const mockValidateMapping = vi
-				.spyOn(service as any, 'validateMapping')
+				.spyOn(
+					service as unknown as {
+						validateMapping: (typeof service)['validateMapping'];
+					},
+					'validateMapping',
+				)
 				.mockReturnValue(mapping);
 			const buf: Uint8Array = [] as unknown as Uint8Array;
 
@@ -441,7 +493,12 @@ describe('MappingService', () => {
 			(XLSX.read as Mock).mockReturnValueOnce(workbook);
 
 			const mockFillSectionRanges = vi
-				.spyOn(service as any, 'fillSectionRanges')
+				.spyOn(
+					service as unknown as {
+						fillSectionRanges: (typeof service)['fillSectionRanges'];
+					},
+					'fillSectionRanges',
+				)
 				.mockImplementationOnce(() => {});
 
 			const invoice = service.transform(buf, 'ZIRKUSFeRD', {} as Mapping);
@@ -471,7 +528,12 @@ describe('MappingService', () => {
 
 			beforeAll(async () => {
 				const mockValidateMapping = vi
-					.spyOn(service as any, 'validateMapping')
+					.spyOn(
+						service as unknown as {
+							validateMapping: (typeof service)['validateMapping'];
+						},
+						'validateMapping',
+					)
 					.mockReturnValue(mapping);
 				const buf: Uint8Array = [] as unknown as Uint8Array;
 
@@ -493,16 +555,22 @@ describe('MappingService', () => {
 			});
 
 			it('should map a literal date', () => {
-				expect(invoice['ubl:Invoice']['cbc:IssueDate']).toBe('2024-10-21');
+				expect(invoice['ubl:Invoice']['cbc:IssueDate']).toBe(
+					'2024-10-21',
+				);
 			});
 
 			it('should map a date', () => {
-				expect(invoice['ubl:Invoice']['cbc:DueDate']).toBe('2024-10-28');
+				expect(invoice['ubl:Invoice']['cbc:DueDate']).toBe(
+					'2024-10-28',
+				);
 			});
 
 			it('should map a string value', () => {
 				const wanted = workbook.Sheets.Invoice.B1.v;
-				expect(invoice['ubl:Invoice']['cbc:CustomizationID']).toBe(wanted);
+				expect(invoice['ubl:Invoice']['cbc:CustomizationID']).toBe(
+					wanted,
+				);
 			});
 
 			it('should map a quoted literal value', () => {
@@ -512,9 +580,9 @@ describe('MappingService', () => {
 
 			it('should map a nested object property', () => {
 				const wanted = '0815';
-				expect(invoice['ubl:Invoice']['cac:OrderReference']?.['cbc:ID']).toBe(
-					wanted,
-				);
+				expect(
+					invoice['ubl:Invoice']['cac:OrderReference']?.['cbc:ID'],
+				).toBe(wanted);
 			});
 
 			it('should map an array of invoice lines', () => {
@@ -529,7 +597,9 @@ describe('MappingService', () => {
 
 			it('should map allowances charges of invoice line #1', () => {
 				const target =
-					invoice['ubl:Invoice']['cac:InvoiceLine'][0]['cac:AllowanceCharge'];
+					invoice['ubl:Invoice']['cac:InvoiceLine'][0][
+						'cac:AllowanceCharge'
+					];
 				expect(target).toBeDefined();
 				if (typeof target !== 'undefined') {
 					expect(Array.isArray(target)).toBe(true);
@@ -541,13 +611,17 @@ describe('MappingService', () => {
 
 			it('should not map allowances charges of invoice line #2', () => {
 				const target =
-					invoice['ubl:Invoice']['cac:InvoiceLine'][1]['cac:AllowanceCharge'];
+					invoice['ubl:Invoice']['cac:InvoiceLine'][1][
+						'cac:AllowanceCharge'
+					];
 				expect(target).not.toBeDefined();
 			});
 
 			it('should map allowances charges of invoice line #3', () => {
 				const target =
-					invoice['ubl:Invoice']['cac:InvoiceLine'][2]['cac:AllowanceCharge'];
+					invoice['ubl:Invoice']['cac:InvoiceLine'][2][
+						'cac:AllowanceCharge'
+					];
 				expect(target).toBeDefined();
 				if (typeof target !== 'undefined') {
 					expect(Array.isArray(target)).toBe(true);

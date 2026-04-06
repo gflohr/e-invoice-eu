@@ -1,6 +1,6 @@
-import yargs from 'yargs';
-import { vi, describe, it, beforeEach, expect, type Mock } from 'vitest';
+import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest';
 import type { Arguments } from 'yargs';
+import yargs from 'yargs';
 
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';
@@ -70,7 +70,10 @@ describe('Validate Command', () => {
 	it('run() should call doRun and return 0 on success', async () => {
 		(coerceOptions as Mock).mockReturnValue(true);
 		const doRunSpy = vi
-			.spyOn(validate as any, 'doRun')
+			.spyOn(
+				validate as unknown as { doRun: () => Promise<void> },
+				'doRun',
+			)
 			.mockResolvedValue(undefined);
 
 		const result = await validate.run({} as Arguments);
@@ -82,7 +85,10 @@ describe('Validate Command', () => {
 	it('run() should return 1 and log an error if doRun throws', async () => {
 		(coerceOptions as Mock).mockReturnValue(true);
 		const error = new Error('test error');
-		vi.spyOn(validate as any, 'doRun').mockRejectedValue(error);
+		vi.spyOn(
+			validate as unknown as { doRun: () => Promise<void> },
+			'doRun',
+		).mockRejectedValue(error);
 
 		const consoleErrorSpy = vi
 			.spyOn(console, 'error')

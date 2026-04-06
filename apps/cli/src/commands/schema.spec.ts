@@ -1,22 +1,20 @@
-import { invoiceSchema } from '@e-invoice-eu/core';
-import { mappingSchema } from '@e-invoice-eu/core';
+import { invoiceSchema, mappingSchema } from '@e-invoice-eu/core';
 import * as fs from 'fs/promises';
 import {
-	vi,
-	describe,
-	it,
-	expect,
 	beforeEach,
-	type Mocked,
+	describe,
+	expect,
+	it,
 	type Mock,
+	type Mocked,
+	vi,
 } from 'vitest';
-import yargs from 'yargs';
 import type { Arguments } from 'yargs';
-
-import { Schema } from './schema';
+import yargs from 'yargs';
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';
 import { safeStdoutWrite } from '../safe-stdout-write';
+import { Schema } from './schema';
 
 vi.mock('../optspec');
 vi.mock('../package');
@@ -79,8 +77,12 @@ describe('Schema Command', () => {
 
 	it('run() should call doRun and return 0 on success', async () => {
 		(coerceOptions as Mock).mockReturnValue(true);
+
 		const doRunSpy = vi
-			.spyOn(schema as any, 'doRun')
+			.spyOn(
+				schema as unknown as { doRun: (typeof schema)['doRun'] },
+				'doRun',
+			)
 			.mockResolvedValue(undefined);
 
 		const result = await schema.run({} as Arguments);
@@ -92,7 +94,10 @@ describe('Schema Command', () => {
 	it('run() should return 1 and log an error if doRun throws', async () => {
 		(coerceOptions as Mock).mockReturnValue(true);
 		const error = new Error('test error');
-		vi.spyOn(schema as any, 'doRun').mockRejectedValue(error);
+		vi.spyOn(
+			schema as unknown as { doRun: (typeof schema)['doRun'] },
+			'doRun',
+		).mockRejectedValue(error);
 
 		const consoleErrorSpy = vi
 			.spyOn(console, 'error')
@@ -132,7 +137,9 @@ describe('Schema Command', () => {
 
 		await schema.run(argv);
 
-		expect(safeStdoutWrite).toHaveBeenCalledWith(JSON.stringify(mappingSchema));
+		expect(safeStdoutWrite).toHaveBeenCalledWith(
+			JSON.stringify(mappingSchema),
+		);
 		expect(safeStdoutWrite).toHaveBeenCalledTimes(1);
 	});
 });

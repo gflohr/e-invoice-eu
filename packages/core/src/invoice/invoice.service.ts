@@ -1,11 +1,10 @@
 import Ajv2019 from 'ajv/dist/2019';
-
-import { Invoice } from './invoice.interface';
-import { invoiceSchema } from './invoice.schema';
+import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { Logger } from '../logger.interface';
 import { ValidationService } from '../validation';
-import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
+import { Invoice } from './invoice.interface';
+import { invoiceSchema } from './invoice.schema';
 
 /**
  * A container for a file used for an e-invoice.
@@ -199,7 +198,9 @@ export class InvoiceService {
 			input['ubl:Invoice']['cbc:Note'] &&
 			typeof input['ubl:Invoice']['cbc:Note'] === 'string'
 		) {
-			patched['ubl:Invoice']['cbc:Note'] = [input['ubl:Invoice']['cbc:Note']];
+			patched['ubl:Invoice']['cbc:Note'] = [
+				input['ubl:Invoice']['cbc:Note'],
+			];
 			this.deprecationWarning(options);
 		}
 
@@ -208,7 +209,9 @@ export class InvoiceService {
 			this.logger,
 		);
 
-		options.format = this.formatFactoryService.normalizeFormat(options.format);
+		options.format = this.formatFactoryService.normalizeFormat(
+			options.format,
+		);
 
 		const ajv = new Ajv2019({
 			strict: true,
@@ -232,9 +235,15 @@ export class InvoiceService {
 
 	private deprecationWarning(options: InvoiceServiceOptions) {
 		if (!options.noWarnings) {
-			console.warn("Coercing 'ubl:Invoice->cbc:Note' from an array into an");
-			console.warn('array of strings. Please change your data resp. mapping!');
-			console.warn('The automatic coercion will be removed in version 4!');
+			console.warn(
+				"Coercing 'ubl:Invoice->cbc:Note' from an array into an",
+			);
+			console.warn(
+				'array of strings. Please change your data resp. mapping!',
+			);
+			console.warn(
+				'The automatic coercion will be removed in version 4!',
+			);
 		}
 	}
 }

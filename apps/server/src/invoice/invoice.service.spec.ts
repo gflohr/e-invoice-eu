@@ -1,11 +1,10 @@
 import { Invoice, ValidationService } from '@e-invoice-eu/core';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ErrorObject, ValidationError } from 'ajv/dist/2019';
-import { vi, describe, it, beforeEach, afterEach, expect } from 'vitest';
-
-import { InvoiceService } from './invoice.service';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { AppConfigService } from '../app-config/app-config.service';
 import { FormatFactoryService } from '../format/format.factory.service';
+import { InvoiceService } from './invoice.service';
 
 describe('InvoiceService', () => {
 	let service: InvoiceService;
@@ -29,9 +28,9 @@ describe('InvoiceService', () => {
 
 		service = module.get<InvoiceService>(InvoiceService);
 
-		vi
-			.spyOn(AppConfigService.prototype, 'get')
-			.mockReturnValue({ libreOffice: 'libreoffice' });
+		vi.spyOn(AppConfigService.prototype, 'get').mockReturnValue({
+			libreOffice: 'libreoffice',
+		});
 	});
 
 	afterEach(() => {

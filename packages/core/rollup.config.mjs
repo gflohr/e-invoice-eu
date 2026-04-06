@@ -25,7 +25,9 @@ export default [
 			// Replace the import for the PDF creation.
 			replace({
 				values: {
-					'../utils/render-spreadsheet': JSON.stringify('../utils/render-spreadsheet.browser'),
+					'../utils/render-spreadsheet': JSON.stringify(
+						'../utils/render-spreadsheet.browser',
+					),
 				},
 				delimiters: ["'", "'"],
 				preventAssignment: true,
@@ -53,7 +55,9 @@ export default [
 			// Replace the import for the PDF creation.
 			replace({
 				values: {
-					'../utils/render-spreadsheet': JSON.stringify('../utils/render-spreadsheet.browser'),
+					'../utils/render-spreadsheet': JSON.stringify(
+						'../utils/render-spreadsheet.browser',
+					),
 				},
 				delimiters: ["'", "'"],
 				preventAssignment: true,

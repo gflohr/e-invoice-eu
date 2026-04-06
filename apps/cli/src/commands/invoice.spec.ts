@@ -1,10 +1,10 @@
+import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest';
 import yargs from 'yargs';
-import { vi, describe, it, beforeEach, expect, type Mock } from 'vitest';
 
 import { coerceOptions } from '../optspec';
 import { Package } from '../package';
-import { Invoice } from './invoice';
-import { guessLibreOfficePath } from './invoice';
+import { guessLibreOfficePath, Invoice } from './invoice';
+
 vi.mock('../optspec');
 vi.mock('../package');
 
@@ -46,7 +46,8 @@ describe('Invoice Command', () => {
 				alias: ['o'],
 				type: 'string',
 				demandOption: false,
-				describe: 'write output to specified file instead of standard output',
+				describe:
+					'write output to specified file instead of standard output',
 			},
 			invoice: {
 				group: 'Input data',
@@ -54,7 +55,8 @@ describe('Invoice Command', () => {
 				type: 'string',
 				conflicts: ['mapping'],
 				demandOption: false,
-				describe: 'JSON file with invoice data, mandatory for json data input',
+				describe:
+					'JSON file with invoice data, mandatory for json data input',
 			},
 			spreadsheet: {
 				group: 'Input data',
@@ -84,7 +86,8 @@ describe('Invoice Command', () => {
 				group: 'Input data',
 				type: 'string',
 				demandOption: false,
-				describe: 'ID of the embedded PDF, defaults to the document number',
+				describe:
+					'ID of the embedded PDF, defaults to the document number',
 			},
 			'pdf-description': {
 				group: 'Input data',
@@ -159,7 +162,10 @@ describe('Invoice Command', () => {
 	it('run() should call doRun and return 0 on success', async () => {
 		(coerceOptions as Mock).mockReturnValue(true);
 		const doRunSpy = vi
-			.spyOn(invoice as any, 'doRun')
+			.spyOn(
+				invoice as unknown as { doRun: () => Promise<void> },
+				'doRun',
+			)
 			.mockResolvedValue(undefined);
 
 		const result = await invoice.run({} as yargs.Arguments);
@@ -171,7 +177,7 @@ describe('Invoice Command', () => {
 	it('run() should return 1 and log an error if doRun throws', async () => {
 		(coerceOptions as Mock).mockReturnValue(true);
 		const error = new Error('test error');
-		vi.spyOn(invoice as any, 'doRun').mockRejectedValue(error);
+		vi.spyOn(invoice, 'doRun' as keyof Invoice).mockRejectedValue(error);
 
 		const consoleErrorSpy = vi
 			.spyOn(console, 'error')

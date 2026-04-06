@@ -1,4 +1,4 @@
-import { vi, describe, it, beforeEach, expect, type Mocked } from 'vitest';
+import { beforeEach, describe, expect, it, type Mocked, vi } from 'vitest';
 
 vi.mock('@e-invoice-eu/core', () => ({
 	MappingService: vi.fn(),

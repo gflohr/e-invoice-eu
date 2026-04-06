@@ -1,5 +1,5 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Arguments } from 'yargs';
-import { vi, describe, beforeEach, afterEach, it, expect } from 'vitest';
 import { coerceOptions, OptSpec } from './optspec';
 
 vi.mock('./package', () => ({
@@ -10,7 +10,9 @@ describe('coerceOptions', () => {
 	let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
 
 	beforeEach(() => {
-		consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+		consoleErrorSpy = vi
+			.spyOn(console, 'error')
+			.mockImplementation(() => {});
 	});
 
 	afterEach(() => {

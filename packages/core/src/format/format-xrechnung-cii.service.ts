@@ -1,5 +1,5 @@
-import { FormatCIIService } from './format-cii.service';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
+import { FormatCIIService } from './format-cii.service';
 
 export class FormatXRECHNUNGCIIService
 	extends FormatCIIService

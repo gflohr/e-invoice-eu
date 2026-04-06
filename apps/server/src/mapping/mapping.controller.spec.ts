@@ -3,11 +3,10 @@ import { INestApplication, Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ErrorObject, ValidationError } from 'ajv/dist/2019';
 import request from 'supertest';
-import { vi, describe, it, beforeEach, afterEach, expect } from 'vitest';
-
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { FormatFactoryService } from '../format/format.factory.service';
 import { MappingController } from './mapping.controller';
 import { MappingService } from './mapping.service';
-import { FormatFactoryService } from '../format/format.factory.service';
 
 describe('MappingController', () => {
 	let app: INestApplication;
@@ -124,7 +123,11 @@ describe('MappingController', () => {
 
 		const response = await request(app.getHttpServer())
 			.post('/mapping/transform/UBL')
-			.attach('mapping', Buffer.from('test: data exception'), 'mapping.yaml')
+			.attach(
+				'mapping',
+				Buffer.from('test: data exception'),
+				'mapping.yaml',
+			)
 			.attach('spreadsheet', Buffer.from('test data'), 'test.xlsx');
 
 		expect(response.status).toBe(500);

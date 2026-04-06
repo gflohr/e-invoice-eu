@@ -10,10 +10,10 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 [*.html]
-tab_size = 2
+tab_size = 4
 
 [*.yaml]
-indent_style = spaces
+indent_style = space
 indent_size = 2
 
 [*.md]

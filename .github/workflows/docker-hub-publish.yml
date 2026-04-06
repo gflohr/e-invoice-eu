@@ -133,4 +133,3 @@ jobs:
           set -euo pipefail
           mv ./.trivyignore.disabled ./.trivyignore
           npx --yes trivy-ignore-check .trivyignore trivy-report.json
-        continue-on-error: true

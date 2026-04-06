@@ -1,9 +1,8 @@
 import { Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { describe, it, beforeEach, expect} from 'vitest';
-
-import { FormatFactoryService } from './format.factory.service';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { AppConfigService } from '../app-config/app-config.service';
+import { FormatFactoryService } from './format.factory.service';
 
 describe('XRECHNUNG-UBL', () => {
 	let service: FormatFactoryService;
@@ -47,7 +46,10 @@ describe('XRECHNUNG-UBL', () => {
 
 	it('should create an XRECHNUNG-UBL format service', () => {
 		expect(
-			service.createFormatService('XRECHNUNG-UBL', {} as unknown as Logger),
+			service.createFormatService(
+				'XRECHNUNG-UBL',
+				{} as unknown as Logger,
+			),
 		).toBeDefined();
 	});
 

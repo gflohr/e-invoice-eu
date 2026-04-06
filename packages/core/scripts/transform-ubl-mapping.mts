@@ -24,7 +24,7 @@ const invoiceSchemaYaml = fs.readFileSync(invoiceSchemaFilename, 'utf-8');
 const invoiceSchema = yaml.load(invoiceSchemaYaml, {
 	filename: invoiceSchemaFilename,
 }) as JSONSchemaType<Invoice>;
-transformSchema(invoiceSchema as JSONSchemaType<any>);
+transformSchema(invoiceSchema as JSONSchemaType<unknown>);
 
 const mappingSchema = {
 	$schema: 'https://json-schema.org/draft/2019-09/schema',
@@ -76,14 +76,14 @@ fs.writeFileSync(
 	JSON.stringify(mappingSchema, null, '\t'),
 );
 
-function transformSchema(schema: JSONSchemaType<any>): void {
+function transformSchema(schema: JSONSchemaType<unknown>): void {
 	// Transform properties if they exist
 	if (schema.properties) {
 		for (const [key, value] of Object.entries(schema.properties)) {
 			// Recursively transform nested schemas
-			transformSchema(value as JSONSchemaType<any>);
+			transformSchema(value as JSONSchemaType<unknown>);
 
-			const valueObject = value as Record<string, any>;
+			const valueObject = value as Record<string, unknown>;
 
 			// Update type and references
 			if (valueObject.type === 'string' || valueObject.$ref) {
@@ -101,17 +101,23 @@ function transformSchema(schema: JSONSchemaType<any>): void {
 				} as JSONSchemaType<object>;
 
 				if (valueObject.items) {
-					transformSchema(valueObject.items);
+					transformSchema(
+						valueObject.items as JSONSchemaType<unknown>,
+					);
 					newObject.properties = {
 						section: { $ref: '#/$defs/sectionRef' },
-						...valueObject.items.properties,
+						...valueObject.items['properties'],
 					};
-					newObject.required = [] as unknown as JSONSchemaType<object>;
-					if (valueObject.items.required) {
-						newObject.required.push(...valueObject.items.required);
+					newObject.required =
+						[] as unknown as JSONSchemaType<object>;
+					if (valueObject.items['required']) {
+						newObject.required.push(
+							...valueObject.items['required'],
+						);
 					}
-					if (valueObject.items.dependentRequired) {
-						newObject.dependentRequired = valueObject.items.dependentRequired;
+					if (valueObject.items['dependentRequired']) {
+						newObject.dependentRequired =
+							valueObject.items['dependentRequired'];
 					}
 					delete valueObject.items;
 				}

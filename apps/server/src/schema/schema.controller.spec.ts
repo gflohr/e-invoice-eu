@@ -2,7 +2,7 @@ import { invoiceSchema, mappingSchema } from '@e-invoice-eu/core';
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
-import { describe, it, beforeEach, expect } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import { SchemaController } from './schema.controller';
 
@@ -25,14 +25,18 @@ describe('SchemaController', () => {
 	});
 
 	it('should return the mapping schema', async () => {
-		const response = await request(app.getHttpServer()).get('/schema/mapping');
+		const response = await request(app.getHttpServer()).get(
+			'/schema/mapping',
+		);
 
 		expect(response.status).toBe(200);
 		expect(response.body).toEqual(mappingSchema);
 	});
 
 	it('should return the invoice schema', async () => {
-		const response = await request(app.getHttpServer()).get('/schema/invoice');
+		const response = await request(app.getHttpServer()).get(
+			'/schema/invoice',
+		);
 
 		expect(response.status).toBe(200);
 		expect(response.body).toEqual(invoiceSchema);

@@ -19,7 +19,7 @@ if (type !== 'terms' && type !== 'groups') {
 }
 
 const invoiceSchemaFilename = process.argv[3];
-const schema: JSONSchemaType<any> = JSON.parse(
+const schema: JSONSchemaType<unknown> = JSON.parse(
 	fs.readFileSync(invoiceSchemaFilename, 'utf-8'),
 );
 
@@ -58,7 +58,9 @@ const sortedTerms = Object.keys(businessTerms).sort((a, b) => {
 for (const term of sortedTerms) {
 	const usage: string[] = [];
 	for (const path of businessTerms[term]) {
-		const hyph = path.replace(/:/g, '-').replace('ubl-Invoice', 'ubl-invoice');
+		const hyph = path
+			.replace(/:/g, '-')
+			.replace('ubl-Invoice', 'ubl-invoice');
 		const link = `https://docs.peppol.eu/poacc/billing/3.0/syntax${hyph}/`;
 		const breakablePath = path.replace(/\//g, '&hairsp;/');
 		usage.push(`[${breakablePath}](${link})`);
@@ -70,7 +72,7 @@ for (const term of sortedTerms) {
 console.log(`<!--/qgoda-no-xgettext-->`);
 
 function recurseSchema(
-	schema: JSONSchemaType<any>,
+	schema: JSONSchemaType<unknown>,
 	path: string[],
 ): BusinessTerms {
 	const allTerms: BusinessTerms = {};
@@ -93,13 +95,17 @@ function recurseSchema(
 						: schema[key].description;
 
 				if (description && description.match(re)) {
-					const terms = (re.exec(description) as RegExpExecArray)[1].split(
-						', ',
-					);
+					const terms = (
+						re.exec(description) as RegExpExecArray
+					)[1].split(', ');
 
 					const typeRe =
-						type === 'terms' ? new RegExp(/^BT-/) : new RegExp(/^BG-/);
-					for (const term of terms.filter(term => term.match(typeRe))) {
+						type === 'terms'
+							? new RegExp(/^BT-/)
+							: new RegExp(/^BG-/);
+					for (const term of terms.filter(term =>
+						term.match(typeRe),
+					)) {
 						allTerms[term] ??= [];
 						allTerms[term].push('/' + newPath.join('/'));
 					}

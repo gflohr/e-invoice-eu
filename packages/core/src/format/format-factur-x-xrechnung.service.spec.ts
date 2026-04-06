@@ -1,4 +1,4 @@
-import { describe, it, beforeEach, expect } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import { Logger } from '../logger.interface';
 import { FULL_CII } from './format-cii.service';

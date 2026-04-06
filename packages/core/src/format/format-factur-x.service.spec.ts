@@ -1,14 +1,4 @@
 import {
-	vi,
-	describe,
-	it,
-	beforeAll,
-	beforeEach,
-	afterAll,
-	expect,
-} from 'vitest';
-
-import {
 	AFRelationship,
 	decodePDFRawStream,
 	PDFArray,
@@ -22,11 +12,20 @@ import {
 	PDFString,
 } from '@cantoo/pdf-lib';
 import { Textdomain } from '@esgettext/runtime';
+import {
+	afterAll,
+	beforeAll,
+	beforeEach,
+	describe,
+	expect,
+	it,
+	vi,
+} from 'vitest';
 
 import { Invoice, InvoiceServiceOptions } from '../invoice';
+import { Package } from '../package';
 import { FormatCIIService, FULL_CII } from './format-cii.service';
 import { FormatFacturXService } from './format-factur-x.service';
-import { Package } from '../package';
 
 const mockLogger = {
 	log: vi.fn(),
@@ -88,7 +87,9 @@ async function createTestPDF(): Promise<PDFDocument> {
 
 	const linkAnnotationRef = pdfDoc.context.register(linkAnnotation);
 
-	let annotations = page.node.get(PDFName.of('Annots')) as PDFArray | undefined;
+	let annotations = page.node.get(PDFName.of('Annots')) as
+		| PDFArray
+		| undefined;
 	if (!annotations) {
 		annotations = pdfDoc.context.obj([]) as PDFArray;
 		page.node.set(PDFName.of('Annots'), annotations);
@@ -212,9 +213,9 @@ describe('FormatFacturXService', () => {
 
 		it('should throw an exception for unknown formats', async () => {
 			mockOptions.format = 'ZirkusFErD-Extended';
-			await expect(service.generate(mockInvoice, mockOptions)).rejects.toThrow(
-				"unknown Factur-X format 'ZirkusFErD-Extended'",
-			);
+			await expect(
+				service.generate(mockInvoice, mockOptions),
+			).rejects.toThrow("unknown Factur-X format 'ZirkusFErD-Extended'");
 		});
 	});
 
@@ -224,7 +225,8 @@ describe('FormatFacturXService', () => {
 
 			const locale = mockOptions.lang.replace(
 				/^([a-z]{2})-([a-z]{2})$/i,
-				(_, lang, country) => `${lang.toLowerCase()}-${country.toUpperCase()}`,
+				(_, lang, country) =>
+					`${lang.toLowerCase()}-${country.toUpperCase()}`,
 			);
 			expect(Textdomain.locale).toBe(locale);
 		});
@@ -495,7 +497,9 @@ describe('FormatFacturXService', () => {
 			expect(hoursheetAttachments[0].afRelationship).toBe(
 				AFRelationship.Supplement,
 			);
-			expect(hoursheetAttachments[0].description).toBe('Supplementary file');
+			expect(hoursheetAttachments[0].description).toBe(
+				'Supplementary file',
+			);
 
 			const catalogueAttachments = attachments.filter(
 				a => a.name === 'catalogue.pdf',
@@ -517,7 +521,7 @@ describe('FormatFacturXService', () => {
 			const subtleMock = {
 				digest: vi.fn(),
 			} as unknown as SubtleCrypto;
-			(globalThis as any).window = {
+			(globalThis as unknown as Record<string, unknown>).window = {
 				crypto: { subtle: subtleMock },
 			};
 
@@ -528,7 +532,7 @@ describe('FormatFacturXService', () => {
 				expect.anything(),
 			);
 
-			delete (globalThis as any).window;
+			delete (globalThis as unknown as Record<string, unknown>).window;
 		});
 
 		it('should return globalThis.crypto.subtle in Node with webcrypto', async () => {
@@ -536,7 +540,9 @@ describe('FormatFacturXService', () => {
 				digest: vi.fn(),
 			} as unknown as SubtleCrypto;
 
-			vi.spyOn(globalThis.crypto, 'subtle', 'get').mockReturnValue(subtleMock);
+			vi.spyOn(globalThis.crypto, 'subtle', 'get').mockReturnValue(
+				subtleMock,
+			);
 
 			await service.generate(mockInvoice, mockOptions);
 
@@ -548,48 +554,61 @@ describe('FormatFacturXService', () => {
 		});
 
 		it('should use webcrypto.subtle where applicable', () => {
-			const savedCrypto = (globalThis as any).crypto;
-			delete (globalThis as any).crypto;
+			const savedCrypto = (
+				globalThis as unknown as Record<string, unknown>
+			).crypto;
+			delete (globalThis as unknown as Record<string, unknown>).crypto;
 
-			const customRequire = vi.fn().mockImplementation((module: string) => {
-				if (module === 'crypto') {
-					return { webcrypto: { subtle: 'catchme' } };
-				}
+			const customRequire = vi
+				.fn()
+				.mockImplementation((module: string) => {
+					if (module === 'crypto') {
+						return { webcrypto: { subtle: 'catchme' } };
+					}
 
-				throw new Error(`Module ${module} not found`);
-			});
+					throw new Error(`Module ${module} not found`);
+				});
 
 			expect(service['getCrypto'](customRequire)).toBe('catchme');
-			(globalThis as any).crypto = savedCrypto;
+			(globalThis as unknown as Record<string, unknown>).crypto =
+				savedCrypto;
 		});
 
 		it('should throw if webcrypto.subtle is not available in an environment', () => {
-			const savedCrypto = (globalThis as any).crypto;
-			delete (globalThis as any).crypto;
+			const savedCrypto = (
+				globalThis as unknown as Record<string, unknown>
+			).crypto;
+			delete (globalThis as unknown as Record<string, unknown>).crypto;
 
-			const customRequire = vi.fn().mockImplementation((module: string) => {
-				throw new Error(`Module ${module} not found`);
-			});
+			const customRequire = vi
+				.fn()
+				.mockImplementation((module: string) => {
+					throw new Error(`Module ${module} not found`);
+				});
 
 			try {
 				expect(() => service['getCrypto'](customRequire)).toThrow(
 					'Web Crypto API is not available in this environment',
 				);
 			} finally {
-				(globalThis as any).crypto = savedCrypto;
+				(globalThis as unknown as Record<string, unknown>).crypto =
+					savedCrypto;
 			}
 		});
 
 		it('should throw if no crypto API is available', () => {
-			const savedCrypto = (globalThis as any).crypto;
-			delete (globalThis as any).crypto;
+			const savedCrypto = (
+				globalThis as unknown as Record<string, unknown>
+			).crypto;
+			delete (globalThis as unknown as Record<string, unknown>).crypto;
 
 			try {
 				expect(() => service['getCrypto']()).toThrow(
 					'Web Crypto API is not available',
 				);
 			} finally {
-				(globalThis as any).crypto = savedCrypto;
+				(globalThis as unknown as Record<string, unknown>).crypto =
+					savedCrypto;
 			}
 		});
 	});

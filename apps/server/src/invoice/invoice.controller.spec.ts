@@ -3,13 +3,12 @@ import { INestApplication, Logger } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ErrorObject, ValidationError } from 'ajv/dist/2019';
 import request from 'supertest';
-import { vi, describe, it, beforeEach, afterEach, expect } from 'vitest';
-
-import { InvoiceController } from './invoice.controller';
-import { InvoiceService } from './invoice.service';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { AppConfigService } from '../app-config/app-config.service';
 import { FormatFactoryService } from '../format/format.factory.service';
 import { MappingService } from '../mapping/mapping.service';
+import { InvoiceController } from './invoice.controller';
+import { InvoiceService } from './invoice.service';
 
 describe('InvoiceController', () => {
 	let app: INestApplication;
@@ -84,9 +83,9 @@ describe('InvoiceController', () => {
 			const mockTransformedData = {
 				result: 'some transformed data',
 			} as unknown as Invoice;
-			vi
-				.spyOn(mappingService, 'transform')
-				.mockReturnValue(mockTransformedData);
+			vi.spyOn(mappingService, 'transform').mockReturnValue(
+				mockTransformedData,
+			);
 			const mockXml = '<Invoice/>';
 			vi.spyOn(invoiceService, 'generate').mockResolvedValue(mockXml);
 
@@ -150,7 +149,11 @@ describe('InvoiceController', () => {
 
 			const response = await request(app.getHttpServer())
 				.post('/invoice/create/UBL')
-				.attach('mapping', Buffer.from('test: data fail'), 'mapping.yaml')
+				.attach(
+					'mapping',
+					Buffer.from('test: data fail'),
+					'mapping.yaml',
+				)
 				.attach('spreadsheet', Buffer.from('test data'), 'invoice.ods');
 
 			expect(response.status).toBe(400);

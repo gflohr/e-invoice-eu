@@ -1,11 +1,9 @@
-import { describe, it, beforeEach, expect } from 'vitest';
-
 import { Invoice } from '@e-invoice-eu/core';
-
-import { FormatCIIService } from './format-cii.service';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Logger } from '../logger.interface';
-import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
+import { FormatCIIService } from './format-cii.service';
 
 describe('CII', () => {
 	let service: FormatCIIService;
@@ -61,7 +59,8 @@ describe('CII', () => {
 					{
 						'cbc:ID': '2',
 						'cac:Item': {
-							'cbc:Name': 'Do-It-Yourself Nuclear Power Plant Kit',
+							'cbc:Name':
+								'Do-It-Yourself Nuclear Power Plant Kit',
 						},
 					},
 					{
@@ -106,17 +105,17 @@ describe('CII', () => {
 			) {
 				if (
 					!Array.isArray(
-						data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
-							'ram:IncludedNote'
-						],
+						data['rsm:CrossIndustryInvoice'][
+							'rsm:ExchangedDocument'
+						]!['ram:IncludedNote'],
 					)
 				) {
 					data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
 						'ram:IncludedNote'
 					] = [
-						data['rsm:CrossIndustryInvoice']['rsm:ExchangedDocument']![
-							'ram:IncludedNote'
-						],
+						data['rsm:CrossIndustryInvoice'][
+							'rsm:ExchangedDocument'
+						]!['ram:IncludedNote'],
 					];
 				}
 			} else {

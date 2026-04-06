@@ -14,7 +14,8 @@ if (process.argv.length < 3) {
 	process.exit(1);
 }
 
-const jarPath = process.env.VALIDATIONTOOL_JAR ?? join(__dirname, 'validationtool.jar');
+const jarPath =
+	process.env.VALIDATIONTOOL_JAR ?? join(__dirname, 'validationtool.jar');
 
 if (!existsSync(jarPath)) {
 	console.error(`${progName}: ${jarPath}: File does not exist.`);
@@ -28,17 +29,20 @@ const command = process.env.JAVA ?? 'java';
 const [, , ...scriptArgs] = process.argv;
 
 const args = [
-	'-jar', jarPath,
-	'--scenarios', scenarios,
-	'--repository', repository,
+	'-jar',
+	jarPath,
+	'--scenarios',
+	scenarios,
+	'--repository',
+	repository,
 	...scriptArgs,
 ];
 
 const child = spawn(command, args, { stdio: 'inherit' });
-child.on('error', (error) => {
+child.on('error', error => {
 	console.error(`Error spawning '${command}': ${error.message}`);
 	process.exit(1);
 });
-child.on('close', (code) => {
+child.on('close', code => {
 	process.exit(code);
 });

@@ -1,10 +1,10 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
-import { vi, describe, it, beforeEach, afterAll, expect } from 'vitest';
+import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { FormatController } from './format.controller';
-import { FormatFactoryService } from './format.factory.service';
+import { FormatFactoryService, FormatInfo } from './format.factory.service';
 
 describe('FormatController', () => {
 	let app: INestApplication;
@@ -37,7 +37,7 @@ describe('FormatController', () => {
 
 	describe('GET /format/list', () => {
 		it('should list all supported formats', async () => {
-			const expectedFormats = [
+			const expectedFormats: FormatInfo[] = [
 				{
 					name: 'YouBeEl',
 					customizationID: 'urn.you.be.el',
@@ -54,16 +54,19 @@ describe('FormatController', () => {
 				},
 			];
 
-			vi
-				.spyOn(formatFactoryService as any, 'listFormatServices')
-				.mockResolvedValue(expectedFormats);
+			vi.spyOn(
+				formatFactoryService,
+				'listFormatServices',
+			).mockResolvedValue(expectedFormats);
 
 			const response = await request(app.getHttpServer())
 				.get('/format/list')
 				.expect(200);
 
 			expect(response.body).toEqual(expectedFormats);
-			expect(formatFactoryService.listFormatServices).toHaveBeenCalledTimes(1);
+			expect(
+				formatFactoryService.listFormatServices,
+			).toHaveBeenCalledTimes(1);
 		});
 	});
 

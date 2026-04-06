@@ -1,12 +1,12 @@
-import { type ErrorObject } from 'ajv';
 import {
 	Invoice as CoreInvoice,
 	InvoiceService,
 	InvoiceServiceOptions,
+	Mapping,
 	MappingService,
 } from '@e-invoice-eu/core';
-import { Mapping } from '@e-invoice-eu/core';
 import { Textdomain } from '@esgettext/runtime';
+import { type ErrorObject } from 'ajv';
 import { accessSync, statSync } from 'fs';
 import * as fs from 'fs/promises';
 import * as yaml from 'js-yaml';
@@ -133,7 +133,9 @@ const options: {
 		group: gtx._('Input data'),
 		type: 'string',
 		demandOption: false,
-		describe: gtx._('ID of the embedded PDF, defaults to the document number'),
+		describe: gtx._(
+			'ID of the embedded PDF, defaults to the document number',
+		),
 	},
 	'pdf-description': {
 		group: gtx._('Input data'),
@@ -235,7 +237,9 @@ export class Invoice implements Command {
 			typeof configOptions.mapping === 'undefined'
 		) {
 			throw new Error(
-				gtx._("One of the options '--invoice' or '--mapping' is mandatory."),
+				gtx._(
+					"One of the options '--invoice' or '--mapping' is mandatory.",
+				),
 			);
 		} else if (
 			typeof configOptions.mapping !== 'undefined' &&
@@ -260,9 +264,12 @@ export class Invoice implements Command {
 
 			if (!mimetype) {
 				throw new Error(
-					gtx._x("cannot guess MIME type of attachment '{filename}'!", {
-						filename,
-					}),
+					gtx._x(
+						"cannot guess MIME type of attachment '{filename}'!",
+						{
+							filename,
+						},
+					),
 				);
 			}
 
@@ -357,7 +364,11 @@ export class Invoice implements Command {
 			if (typeof configOptions.output === 'undefined') {
 				safeStdoutWrite(document);
 			} else {
-				await fs.writeFile(configOptions.output as string, document, 'utf-8');
+				await fs.writeFile(
+					configOptions.output as string,
+					document,
+					'utf-8',
+				);
 			}
 		} else {
 			if (typeof configOptions.output === 'undefined') {

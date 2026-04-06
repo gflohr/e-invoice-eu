@@ -1,5 +1,5 @@
-import fs from 'fs';
 import Ajv from 'ajv/dist/2019';
+import fs from 'fs';
 
 const args = process.argv.slice(2);
 

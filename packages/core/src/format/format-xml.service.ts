@@ -2,8 +2,8 @@ import { create } from 'xmlbuilder2';
 
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Logger } from '../logger.interface';
-import { EInvoiceMIMEType } from './format.factory.service';
 import { renderSpreadsheet } from '../utils/render-spreadsheet';
+import { EInvoiceMIMEType } from './format.factory.service';
 
 export class FormatXMLService {
 	constructor(private readonly logger: Logger) {}
@@ -21,6 +21,7 @@ export class FormatXMLService {
 		});
 	}
 
+	// biome-ignore lint/suspicious/noExplicitAny: todo.
 	private cleanAttributes(data: { [key: string]: any }) {
 		for (const property in data) {
 			const [elem, attr] = property.split('@', 2);
@@ -58,7 +59,9 @@ export class FormatXMLService {
 
 		const libreoffice = options.libreOfficePath;
 		if (typeof libreoffice === 'undefined') {
-			throw new Error('LibreOffice path is required for conversion to PDF!');
+			throw new Error(
+				'LibreOffice path is required for conversion to PDF!',
+			);
 		}
 
 		if (!options.spreadsheet.buffer) {

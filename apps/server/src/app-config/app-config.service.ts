@@ -9,17 +9,19 @@ export class AppConfigService extends ConfigService<AppConfig> {
 		return super.get(key, { infer: true })!;
 	}
 
-	public static loadConfig(env: Record<string, any>): AppConfig {
+	public static loadConfig(env: Record<string, string>): AppConfig {
 		return {
 			server: {
 				port: parseInt(env.PORT ?? '3000', 10) || 3000,
 			},
 			programs: {
-				libreOffice: env.LIBRE_OFFICE ?? env.LIBREOFFICE ?? 'libreoffice',
+				libreOffice:
+					env.LIBRE_OFFICE ?? env.LIBREOFFICE ?? 'libreoffice',
 			},
 			uploads: {
 				maxAttachments: parseInt(env.MAX_ATTACHMENTS ?? '5', 10) || 5,
-				maxSizeMb: (parseInt(env.MAX_SIZE_MB ?? '10') || 10) * 1024 * 1024,
+				maxSizeMb:
+					(parseInt(env.MAX_SIZE_MB ?? '10') || 10) * 1024 * 1024,
 			},
 		};
 	}
