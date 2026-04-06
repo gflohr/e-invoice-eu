@@ -51,7 +51,7 @@
 				!spreadsheet &&
 				document.getElementById('spreadsheet-file').files.length
 			) {
-				spreadsheet = await readFile('spreadsheet-file', binary);
+				spreadsheet = await readFile('spreadsheet-file', true);
 			}
 
 			await addAttachment();

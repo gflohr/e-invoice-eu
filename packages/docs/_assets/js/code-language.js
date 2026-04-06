@@ -1,4 +1,4 @@
-// biome-ignore-all lint/style/noCommonJs: migrate later to ES6
+// biome-ignore-all lint/style/noCommonJs: migrate later to ES6.
 const $ = require('jquery');
 
 $(document).ready(function () {
