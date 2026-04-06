@@ -340,7 +340,10 @@ export class MappingService {
 			if (typeof section !== 'undefined') {
 				const match = cellName.match(
 					/^([A-Z]+)(\d+)$/,
-				) as RegExpMatchArray;
+				);
+				if (!match) {
+					throw new Error(`Invalid cell name '${cellName}'!`);
+				}
 				const letters = match[1];
 				const offset = this.getOffset(sheetName, section, ctx);
 				const number = offset + parseInt(match[2], 10) - 1;
