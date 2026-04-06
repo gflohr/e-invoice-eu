@@ -105,8 +105,7 @@ export class InvoiceController {
 						'Optional ids for each supplementary attachment',
 					items: {
 						type: 'string',
-						description:
-							'ID of the corresponding attachment.',
+						description: 'ID of the corresponding attachment.',
 					},
 				},
 				attachmentDescription: {
