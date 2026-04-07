@@ -118,9 +118,8 @@ const $defs = {
 		},
 		Percentage: {
 			type: 'string',
-			// FIXME! The ZUGFeRD documentation states that a percentage must have
-			// a maximum of 4 decimal digts. Is that correct?
-			pattern: '^[-+]?(0|[1-9][0-9]*)(\\.[0-9]{1,4})?$',
+			// EN 16931 §6.5.5: unlimited decimal places for percentages.
+			pattern: '^[-+]?(0|[1-9][0-9]*)(\\.[0-9]+)?$',
 		},
 		Quantity: {
 			type: 'string',
