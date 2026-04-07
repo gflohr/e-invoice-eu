@@ -813,6 +813,7 @@ function loadRules(dir: string) {
 	const pattern = new RegExp('.+-UBL\.sch$');
 	const filenames = fs
 		.readdirSync(dir)
+		.sort()
 		.filter(filename => pattern.test(filename))
 		.map(filename => path.join(dir, filename));
 
