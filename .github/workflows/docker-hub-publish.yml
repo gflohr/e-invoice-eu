@@ -51,7 +51,7 @@ jobs:
             echo "platforms=linux/amd64" >> $GITHUB_OUTPUT
           fi
 
-      # Extract version (strip leading "v")
+      # Extract version (strip leading "@e-invoice-eu/server@")
       - name: Extract version
         id: version
         run: |
