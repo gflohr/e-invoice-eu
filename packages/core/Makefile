@@ -2,7 +2,6 @@ default: all
 
 NPX = npx
 BUN = bun
-BIOME = $(NPX) biome
 
 INVOICE_SCHEMA_DEPENDENCIES = \
 	peppol-bis-invoice-3/structure/syntax/ubl-invoice.xml \
