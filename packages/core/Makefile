@@ -2,6 +2,7 @@ default: all
 
 NPX = npx
 BUN = bun
+BIOME = $(NPX) biome
 
 INVOICE_SCHEMA_DEPENDENCIES = \
 	peppol-bis-invoice-3/structure/syntax/ubl-invoice.xml \
@@ -23,13 +24,11 @@ src/schema/invoice.schema.json: scripts/parse-ubl-structure.mts scripts/check-js
 
 src/invoice/invoice.interface.ts: scripts/json-schema-to-interface.mts src/schema/invoice.schema.json
 	$(BUN) $< src/schema/invoice.schema.json $@
-	$(NPX) eslint $@ --fix
-	$(NPX) prettier --write $@
+	$(NPX) biome check --write $@
 
 src/invoice/invoice.schema.ts: scripts/json-schema-to-typescript.mts src/schema/invoice.schema.json
 	$(BUN) $< invoice
-	$(NPX) eslint $@ --fix
-	$(NPX) prettier --write $@
+	$(NPX) biome check --write $@
 
 src/schema/mapping.schema.json: scripts/transform-ubl-mapping.mts scripts/check-json-schema.mts package.json src/schema/invoice.schema.json
 	$(BUN) $< src/schema/invoice.schema.json $@
@@ -37,13 +36,11 @@ src/schema/mapping.schema.json: scripts/transform-ubl-mapping.mts scripts/check-
 
 src/mapping/mapping.interface.ts: scripts/json-schema-to-interface.mts src/schema/mapping.schema.json
 	$(BUN) $< src/schema/mapping.schema.json $@
-	$(NPX) eslint $@ --fix
-	$(NPX) prettier --write $@
+	$(NPX) biome check --write $@
 
 src/mapping/mapping.schema.ts: scripts/json-schema-to-typescript.mts src/schema/mapping.schema.json
 	$(BUN) $< mapping
-	$(NPX) eslint $@ --fix
-	$(NPX) prettier --write $@
+	$(NPX) biome check --write $@
 
 ../../packages/docs/en/docs/other/business-terms.md: scripts/extract-business-terms.mts src/schema/invoice.schema.json
 	$(BUN) $< terms src/schema/invoice.schema.json >$@ || rm -f $@
