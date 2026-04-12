@@ -28,7 +28,14 @@ jobs:
       - name: Extract PR number
         id: pr
         run: |
-          echo "PR_NUMBER=$(jq -r '.pull_requests[0].number' <<< '${{ toJson(github.event.workflow_run) }}')" >> $GITHUB_ENV
+          PR_NUMBER=$(jq -r '.pull_requests[0].number // empty' <<< "$WORKFLOW_RUN")
+          if [ -z "$PR_NUMBER" ] || [ "$PR_NUMBER" = "null" ]; then
+            echo "::error::Could not extract PR number from workflow_run event"
+            exit 1
+          fi
+          echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
+        env:
+          WORKFLOW_RUN: ${{ toJson(github.event.workflow_run) }}
 
       - name: Comment on PR (update existing)
         uses: actions/github-script@v9
@@ -44,7 +51,7 @@ jobs:
               repo: context.repo.repo,
             })
 
-            const existing = comments.find(c => c.body.includes("**Coverage Delta**"))
+            const existing = comments.find(c => c.body?.includes("**Coverage Delta**"))
 
             if (existing) {
               await github.rest.issues.updateComment({
