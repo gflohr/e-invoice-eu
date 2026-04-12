@@ -1,6 +1,6 @@
 {
 	"name": "@e-invoice-eu/cli",
-	"version": "3.0.3",
+	"version": "3.1.0",
 	"description": "Generate e-invoices (E-Rechnung in German) conforming to EN16931 (Factur-X/ZUGFeRD, UBL, CII, XRechnung aka X-Rechnung) from LibreOffice Calc/Excel data or JSON. ",
 	"keywords": [
 		"factur-x",
@@ -27,7 +27,9 @@
 		"url": "https://github.com/gflohr/e-invoice-eu/issues"
 	},
 	"homepage": "https://github.com/gflohr/e-invoice-eu",
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"bin": {
 		"e-invoice-eu": "dist/index.js"
 	},

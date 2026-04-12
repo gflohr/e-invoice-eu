@@ -1,6 +1,6 @@
 {
 	"name": "@e-invoice-eu/server",
-	"version": "3.0.3",
+	"version": "3.1.0",
 	"description": "REST API for generating EN16931 conforming electronic invoices",
 	"keywords": [
 		"factur-x",
@@ -53,7 +53,9 @@
 		"typescript": "^6.0.2",
 		"vitest": "^4.1.4"
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"bin": {
 		"e-invoice-eu-server": "dist/main.js"
 	},
