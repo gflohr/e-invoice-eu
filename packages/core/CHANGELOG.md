@@ -1,5 +1,11 @@
 # @e-invoice-eu/core
 
+## 3.1.0
+
+### Minor Changes
+
+- f88cd94: Add UnitPriceAmount type for BT-146, BT-147, BT-148
+
 ## 3.0.3
 
 ### Patch Changes

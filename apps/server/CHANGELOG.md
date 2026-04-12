@@ -1,5 +1,12 @@
 # @e-invoice-eu/server
 
+## 3.1.0
+
+### Patch Changes
+
+- Updated dependencies [f88cd94]
+  - @e-invoice-eu/core@3.1.0
+
 ## 3.0.3
 
 ### Patch Changes
