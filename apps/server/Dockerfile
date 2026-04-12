@@ -48,7 +48,11 @@ RUN if [ "$WITH_LIBREOFFICE" != "false" ]; then \
 		font-noto-emoji; \
 	fi
 
-RUN apk update && apk upgrade
+# Upgrade all packages to latest.
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/latest-stable/main" > /etc/apk/repositories \
+  && echo "https://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories \
+  && apk update \
+  && apk upgrade --no-cache
 
 WORKDIR /app
 
