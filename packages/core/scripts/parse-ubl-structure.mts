@@ -12,7 +12,9 @@ import * as path from 'path';
 import { ExpandObject } from 'xmlbuilder2/lib/interfaces.js';
 
 // Data types:
-// - Amount: number >= zero, max. 2 decimal digits.
+// - Amount: number >= zero, max. 2 decimal digits (EN 16931 §6.5.2).
+// - UnitPriceAmount: like Amount but unlimited decimal digits (EN 16931 §6.5.3).
+//   Applied to BT-146, BT-147, BT-148 via patchSchemaForUnitPriceAmount().
 // - Binary object: Base64 string
 // - Code
 // - Date
@@ -95,7 +97,13 @@ const $defs = {
 	dataTypes: {
 		Amount: {
 			type: 'string',
-			pattern: '^[-+]?(0|[1-9][0-9]*)(.[0-9]{1,2})?$',
+			pattern: '^[-+]?(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$',
+		},
+		// EN 16931 §6.5.3: Unit price amounts allow unlimited decimal places,
+		// unlike regular amounts (§6.5.2, max 2 decimals).
+		UnitPriceAmount: {
+			type: 'string',
+			pattern: '^[-+]?(0|[1-9][0-9]*)(\\.[0-9]+)?$',
 		},
 		'Binary object': {
 			type: 'string',
@@ -110,13 +118,12 @@ const $defs = {
 		},
 		Percentage: {
 			type: 'string',
-			// FIXME! The ZUGFeRD documentation states that a percentage must have
-			// a maximum of 4 decimal digts. Is that correct?
-			pattern: '^[-+]?(0|[1-9][0-9]*)(.[0-9]{1,4})?$',
+			// EN 16931 §6.5.5: unlimited decimal places for percentages.
+			pattern: '^[-+]?(0|[1-9][0-9]*)(\\.[0-9]+)?$',
 		},
 		Quantity: {
 			type: 'string',
-			pattern: '^[-+]?(0|[1-9][0-9]*)(.[0-9]+)?$',
+			pattern: '^[-+]?(0|[1-9][0-9]*)(\\.[0-9]+)?$',
 		},
 	},
 };
@@ -275,6 +282,7 @@ function patchSchema(schema: JSONSchemaType<object>) {
 	patchSchemaForDocumentTypeCodes(schema);
 	patchSchemaForEAS(schema);
 	patchSchemaForEndpointID(schema);
+	patchSchemaForUnitPriceAmount(schema);
 }
 
 function patchSchemaImpliedFields(schema: JSONSchemaType<object>) {
@@ -335,6 +343,31 @@ function patchSchemaForEndpointID(schema: JSONSchemaType<object>) {
 	supplierParty.required = supplierParty.required.filter(
 		prop => prop != 'cbc:EndpointID',
 	);
+}
+
+function patchSchemaForUnitPriceAmount(schema: JSONSchemaType<object>) {
+	// EN 16931 §6.5.3 defines a UnitPriceAmount type with unlimited decimal
+	// places for item prices (BT-146, BT-147, BT-148). The PEPPOL BIS source
+	// XML uses the generic "Amount" type for these fields, which is limited
+	// to 2 decimal places (§6.5.2). The schematron rules (BR-DEC-*) only
+	// enforce 2-decimal precision on totals and tax amounts, not on unit
+	// prices — confirming the standard's intent.
+	const priceProps =
+		schema.properties['ubl:Invoice'].properties['cac:InvoiceLine'].items
+			.properties['cac:Price'].properties;
+
+	// BT-146: Item net price
+	priceProps['cbc:PriceAmount'].$ref =
+		'#/$defs/dataTypes/UnitPriceAmount';
+
+	// BT-147 and BT-148 live inside Price/AllowanceCharge
+	const acProps = priceProps['cac:AllowanceCharge'].properties;
+
+	// BT-147: Item price discount
+	acProps['cbc:Amount'].$ref = '#/$defs/dataTypes/UnitPriceAmount';
+
+	// BT-148: Item gross price
+	acProps['cbc:BaseAmount'].$ref = '#/$defs/dataTypes/UnitPriceAmount';
 }
 
 /**
@@ -689,6 +722,7 @@ function loadCodeLists(dir: string) {
 	const pattern = new RegExp('.+\.xml$');
 	const filenames = fs
 		.readdirSync(dir)
+		.sort()
 		.filter(filename => pattern.test(filename))
 		.filter(filename => !filename.match(/\/UNCL1001-(?:cn|inv)\.xml$/))
 		.map(filename => path.join(dir, filename));
@@ -779,6 +813,7 @@ function loadRules(dir: string) {
 	const pattern = new RegExp('.+-UBL\.sch$');
 	const filenames = fs
 		.readdirSync(dir)
+		.sort()
 		.filter(filename => pattern.test(filename))
 		.map(filename => path.join(dir, filename));
 
