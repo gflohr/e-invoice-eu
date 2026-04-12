@@ -23,8 +23,9 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: coverage-delta
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
           run-id: ${{ github.event.workflow_run.id }}
-
       - name: Extract PR number
         id: pr
         run: |
