@@ -9,7 +9,6 @@ jobs:
 
     permissions:
       contents: read
-      pull-requests: write
 
     steps:
       - name: Checkout PR branch
@@ -52,33 +51,8 @@ jobs:
           set -euo pipefail
           node compare-coverage.mjs | tee coverage-delta.md
 
-      - name: Comment on PR (update existing)
-        uses: actions/github-script@v8
+      - name: Upload coverage delta
+        uses: actions/upload-artifact@v7
         with:
-          script: |
-            const fs = require('fs')
-            const body = fs.readFileSync('coverage-delta.md', 'utf-8')
-
-            const { data: comments } = await github.rest.issues.listComments({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            })
-
-            const existing = comments.find(c => c.body.includes("**Coverage Delta**"))
-
-            if (existing) {
-              await github.rest.issues.updateComment({
-                comment_id: existing.id,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body
-              })
-            } else {
-              await github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body
-              })
-            }
+          name: coverage-delta
+          path: coverage-delta.md
