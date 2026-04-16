@@ -117,7 +117,7 @@ importers:
         version: 11.1.19(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19)
       '@nestjs/swagger':
         specifier: ^11.2.7
-        version: 11.2.7(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19)(reflect-metadata@0.2.2)
+        version: 11.3.0(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19)(reflect-metadata@0.2.2)
       '@valibot/i18n':
         specifier: ^1.1.0
         version: 1.1.0(valibot@1.3.1(typescript@6.0.2))
@@ -296,7 +296,7 @@ importers:
         version: 8.18.0
       autoprefixer:
         specifier: ^10.4.27
-        version: 10.5.0(postcss@8.5.9)
+        version: 10.5.0(postcss@8.5.10)
       bootstrap:
         specifier: ~>5.3.8
         version: 5.3.8(@popperjs/core@2.11.8)
@@ -335,19 +335,19 @@ importers:
         version: 2.10.2(webpack@5.106.1)
       postcss-font-magician:
         specifier: ^4.0.0
-        version: 4.0.0(postcss@8.5.9)
+        version: 4.0.0(postcss@8.5.10)
       postcss-loader:
         specifier: ^8.2.1
-        version: 8.2.1(postcss@8.5.9)(typescript@6.0.2)(webpack@5.106.1)
+        version: 8.2.1(postcss@8.5.10)(typescript@6.0.2)(webpack@5.106.1)
       postcss-scss:
         specifier: ^4.0.9
-        version: 4.0.9(postcss@8.5.9)
+        version: 4.0.9(postcss@8.5.10)
       prismjs:
         specifier: ^1.30.0
         version: 1.30.0
       qgoda-tt2-plugin-highlight:
         specifier: github:gflohr/qgoda-tt2-plugin-highlight
-        version: git+https://git@github.com:gflohr/qgoda-tt2-plugin-highlight.git#0c4fd78b32478d3511fee7abfa8b8b3072b9b82c
+        version: https://codeload.github.com/gflohr/qgoda-tt2-plugin-highlight/tar.gz/0c4fd78b32478d3511fee7abfa8b8b3072b9b82c
       rimraf:
         specifier: ^6.1.3
         version: 6.1.3
@@ -1251,8 +1251,8 @@ packages:
     peerDependencies:
       typescript: '>=4.8.2'
 
-  '@nestjs/swagger@11.2.7':
-    resolution: {integrity: sha512-+e1KWSyZMAQeyZ8nbQSvm3fhzqdxxBNQENvpjO2dVyD7KJmLTTQyXpRb1nM5O04oFdDTUtG3SHMl4+e+zgCK2A==}
+  '@nestjs/swagger@11.3.0':
+    resolution: {integrity: sha512-SCS8fG2DL/ZF+9l5in09FwPhpBo5i1Gdo8Se3GYlJ2cn+iNTzF7u13QjHo5XI92BN8DN+Gcug+QTcmWmGvZyNw==}
     peerDependencies:
       '@fastify/static': ^8.0.0 || ^9.0.0
       '@nestjs/common': ^11.0.1
@@ -4262,8 +4262,8 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
-  qgoda-tt2-plugin-highlight@git+https://git@github.com:gflohr/qgoda-tt2-plugin-highlight.git#0c4fd78b32478d3511fee7abfa8b8b3072b9b82c:
-    resolution: {commit: 0c4fd78b32478d3511fee7abfa8b8b3072b9b82c, repo: git@github.com:gflohr/qgoda-tt2-plugin-highlight.git, type: git}
+  qgoda-tt2-plugin-highlight@https://codeload.github.com/gflohr/qgoda-tt2-plugin-highlight/tar.gz/0c4fd78b32478d3511fee7abfa8b8b3072b9b82c:
+    resolution: {tarball: https://codeload.github.com/gflohr/qgoda-tt2-plugin-highlight/tar.gz/0c4fd78b32478d3511fee7abfa8b8b3072b9b82c}
     version: 0.1.2
 
   qs@6.15.1:
@@ -4683,8 +4683,8 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  swagger-ui-dist@5.32.2:
-    resolution: {integrity: sha512-t6Ns52nS8LU2hqi0+rezMjFO1ZrCsCrnommXrU7Nfrg2va2dWahdvM6TuSwzdHpG29v6BHJyU1c/UWFhgVZzVQ==}
+  swagger-ui-dist@5.32.4:
+    resolution: {integrity: sha512-0AADFFQNJzExEN49SrD/34Nn9cxNxVLiydYl2MBwSZFPVXNkVwC/EFAjoezGGqE8oDegiDC+p47t8lKObCinMQ==}
 
   symbol-observable@4.0.0:
     resolution: {integrity: sha512-b19dMThMV4HVFynSAM1++gBHAbk2Tc/osgLIBZMKsyqh34jb2e8Os7T6ZW/Bt3pJFdBTd2JwAnAAEQV7rSNvcQ==}
@@ -6110,7 +6110,7 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  '@nestjs/swagger@11.2.7(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19)(reflect-metadata@0.2.2)':
+  '@nestjs/swagger@11.3.0(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19)(reflect-metadata@0.2.2)':
     dependencies:
       '@microsoft/tsdoc': 0.16.0
       '@nestjs/common': 11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -6120,7 +6120,7 @@ snapshots:
       lodash: 4.18.1
       path-to-regexp: 8.4.2
       reflect-metadata: 0.2.2
-      swagger-ui-dist: 5.32.2
+      swagger-ui-dist: 5.32.4
 
   '@nestjs/testing@11.1.19(@nestjs/common@11.1.19(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.19)(@nestjs/platform-express@11.1.19)':
     dependencies:
@@ -6963,13 +6963,13 @@ snapshots:
 
   asynckit@0.4.0: {}
 
-  autoprefixer@10.5.0(postcss@8.5.9):
+  autoprefixer@10.5.0(postcss@8.5.10):
     dependencies:
       browserslist: 4.28.2
       caniuse-lite: 1.0.30001788
       fraction.js: 5.3.4
       picocolors: 1.1.1
-      postcss: 8.5.9
+      postcss: 8.5.10
       postcss-value-parser: 4.2.0
 
   available-typed-arrays@1.0.7:
@@ -7968,9 +7968,9 @@ snapshots:
       pify: 2.3.0
       pinkie-promise: 2.0.1
 
-  google-fonts-complete@2.2.3(postcss@8.5.9):
+  google-fonts-complete@2.2.3(postcss@8.5.10):
     dependencies:
-      postcss: 8.5.9
+      postcss: 8.5.10
 
   gopd@1.2.0: {}
 
@@ -8850,17 +8850,17 @@ snapshots:
     dependencies:
       postcss: 8.5.9
 
-  postcss-font-magician@4.0.0(postcss@8.5.9):
+  postcss-font-magician@4.0.0(postcss@8.5.10):
     dependencies:
       directory-fonts-complete: 1.2.0
-      google-fonts-complete: 2.2.3(postcss@8.5.9)
-      postcss: 8.5.9
+      google-fonts-complete: 2.2.3(postcss@8.5.10)
+      postcss: 8.5.10
 
-  postcss-loader@8.2.1(postcss@8.5.9)(typescript@6.0.2)(webpack@5.106.1):
+  postcss-loader@8.2.1(postcss@8.5.10)(typescript@6.0.2)(webpack@5.106.1):
     dependencies:
       cosmiconfig: 9.0.1(typescript@6.0.2)
       jiti: 2.6.1
-      postcss: 8.5.9
+      postcss: 8.5.10
       semver: 7.7.4
     optionalDependencies:
       webpack: 5.106.1(webpack-cli@7.0.2)
@@ -8989,9 +8989,9 @@ snapshots:
       postcss: 8.5.9
       postcss-value-parser: 4.2.0
 
-  postcss-scss@4.0.9(postcss@8.5.9):
+  postcss-scss@4.0.9(postcss@8.5.10):
     dependencies:
-      postcss: 8.5.9
+      postcss: 8.5.10
 
   postcss-selector-parser@7.1.1:
     dependencies:
@@ -9040,7 +9040,7 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  qgoda-tt2-plugin-highlight@git+https://git@github.com:gflohr/qgoda-tt2-plugin-highlight.git#0c4fd78b32478d3511fee7abfa8b8b3072b9b82c: {}
+  qgoda-tt2-plugin-highlight@https://codeload.github.com/gflohr/qgoda-tt2-plugin-highlight/tar.gz/0c4fd78b32478d3511fee7abfa8b8b3072b9b82c: {}
 
   qs@6.15.1:
     dependencies:
@@ -9560,7 +9560,7 @@ snapshots:
       picocolors: 1.1.1
       sax: 1.6.0
 
-  swagger-ui-dist@5.32.2:
+  swagger-ui-dist@5.32.4:
     dependencies:
       '@scarf/scarf': 1.4.0
 
