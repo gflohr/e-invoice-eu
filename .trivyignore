@@ -1,15 +1,5 @@
 # The CVEs in this file are ignored.
 
-# Date: 2026-03-18
-# Vulnerabilities in minimatch. This is part of npm and cannot be avoided.
-CVE-2026-27903
-CVE-2026-27904
-
-# Date: 2026-03-18
-# Vulnerabilities in tar. This is part of npm and cannot be avoided.
-CVE-2026-29786
-CVE-2026-31802
-
 # Date: 2026-04-02
 # Vulnerability in picomatch. This is part of npm but npm is not used.
 CVE-2026-33671
