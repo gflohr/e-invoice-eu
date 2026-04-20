@@ -34,7 +34,7 @@ pnpm build                      # Build for publishing (all packages)
 ## Other Rules
 
 - **Source code is the single source of truth.** All documentation must match `{apps,packages}/*/src/`.
-- **Lint and format after modifying code.** Run `pnpm check` so that CI passes.
+- **Lint and format after modifying code.** Run `pnpm run check` resp. `pnpm run check:fix` so that the source code meets the project styleguides.
 - **Use the GitHub CLI for GitHub-related tasks.** Prefer `gh` for pull requests, issues, checks, and other GitHub operations.
 
 ## Background
