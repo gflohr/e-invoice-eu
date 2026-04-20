@@ -22,7 +22,7 @@
 		"access": "public"
 	},
 	"type": "commonjs",
-	"homepage": "https://gflohr.github.io/e-invoice-eu",
+	"homepage": "https://github.com/gflohr/e-invoice-eu/tree/main/apps/server#readme",
 	"author": "Guido Flohr <guido.flohr@cantanea.com> (http://www.guido.flohr.net/)",
 	"dependencies": {
 		"@e-invoice-eu/core": "workspace:*",

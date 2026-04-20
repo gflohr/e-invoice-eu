@@ -27,7 +27,7 @@
 	"bugs": {
 		"url": "https://github.com/gflohr/e-invoice-eu/issues"
 	},
-	"homepage": "https://github.com/gflohr/e-invoice-eu/packages/core",
+	"homepage": "https://github.com/gflohr/e-invoice-eu/tree/main/packages/core#readme",
 	"scripts": {
 		"prebuild": "node ./write-package.mjs >src/package.ts",
 		"build": "rimraf dist && rollup -c",
