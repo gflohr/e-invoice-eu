@@ -35,7 +35,7 @@ importers:
         version: 4.1.1
       pnpm:
         specifier: ^10.33.0
-        version: 10.33.0
+        version: 10.33.1
 
   apps/cli:
     dependencies:
@@ -3994,8 +3994,8 @@ packages:
     resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
     engines: {node: '>=4'}
 
-  pnpm@10.33.0:
-    resolution: {integrity: sha512-EFaLtKavtYyes2MNqQzJUWQXq+vT+rvmc58K55VyjaFJHp21pUTHatjrdXD1xLs9bGN7LLQb/c20f6gjyGSTGQ==}
+  pnpm@10.33.1:
+    resolution: {integrity: sha512-Bbo8HV0cGPaN8GRw10BV5i1B/BEKDGYNsbLfsnhTJ/BM8PaDRdRgm8Ugief6A0PDFZOy+VlOLF1dpCYjCsyYIA==}
     engines: {node: '>=18.12'}
     hasBin: true
 
@@ -8803,7 +8803,7 @@ snapshots:
 
   pluralize@8.0.0: {}
 
-  pnpm@10.33.0: {}
+  pnpm@10.33.1: {}
 
   possible-typed-array-names@1.1.0: {}
 
