@@ -1,5 +1,12 @@
 # @e-invoice-eu/core
 
+## 3.1.1
+
+### Patch Changes
+
+- d8809ce: Fix homepage URLs.
+- cc349ba: Make Base64 padding optional.
+
 ## 3.1.0
 
 ### Minor Changes
