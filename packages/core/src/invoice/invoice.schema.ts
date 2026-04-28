@@ -14,7 +14,7 @@ import { Invoice } from './invoice.interface';
  */
 export const invoiceSchema: JSONSchemaType<Invoice> = {
 	$schema: 'https://json-schema.org/draft/2019-09/schema',
-	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v3.0.3',
+	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v3.1.0',
 	type: 'object',
 	additionalProperties: false,
 	properties: {
@@ -6702,7 +6702,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 			'Binary object': {
 				type: 'string',
 				pattern:
-					'^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)$',
+					'^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$',
 			},
 			Date: {
 				type: 'string',
