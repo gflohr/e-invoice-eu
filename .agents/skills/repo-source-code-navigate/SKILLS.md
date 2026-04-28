@@ -79,18 +79,11 @@ is no test directory.
 ## Commands
 
 ```bash
-## Commands
-
-```bash
 pnpm install                    # Install dependencies
 pnpm test                       # Run Jest tests (all packages)
 pnpm check                      # Biome check (all packages)
 pnpm check:fix                  # Biome check and fix fixable issues (all packages)
 pnpm build                      # Build for publishing (all packages)
-```
-
-They work and do the same thing from the root of the repository for all
-workspaces or from a workspace directory.
 ```
 
 They work and do the same thing from the root of the repository for all
