@@ -17,9 +17,9 @@ formats (Excel, LibreOffice Calc, ...) or JSON.
 
 ```bash
 pnpm install                    # Install dependencies
-pnpm test                       # Run Jest tests (all packages)
-pnpm lint                       # ESLint + tsc + deno check (all packages)
-pnpm format                     # Format code with Prettier (all packages)
+pnpm test                       # Run Vitest tests (all packages)
+pnpm check                      # Biome check (all packages)
+pnpm check:fix                  # Biome check with automatic fix (all packages)
 pnpm build                      # Build for publishing (all packages)
 ```
 
@@ -34,7 +34,7 @@ pnpm build                      # Build for publishing (all packages)
 ## Other Rules
 
 - **Source code is the single source of truth.** All documentation must match `{apps,packages}/*/src/`.
-- **Lint and format after modifying code.** Run `pnpm lint` and `pnpm format` so CI passes.
+- **Lint and format after modifying code.** Run `pnpm run check` resp. `pnpm run check:fix` so that the source code meets the project styleguides.
 - **Use the GitHub CLI for GitHub-related tasks.** Prefer `gh` for pull requests, issues, checks, and other GitHub operations.
 
 ## Background
@@ -183,7 +183,8 @@ Qgoda is written in Perl and based on Template Toolkit. The source files
 are Markdown files that can be enriched by Template Toolkit directives.
 
 The entire documentation is also fed into a Google NotebookLM, so that users
-can chat with an AI bot about the software.
+can chat with an AI bot about the software. There should be a GitHub action
+that automatically updates the NotebookLM.
 
 The NestJS server has the usual `/api` endpoint for OpenAPI/Swagger
 documentation.

@@ -81,8 +81,8 @@ is no test directory.
 ```bash
 pnpm install                    # Install dependencies
 pnpm test                       # Run Jest tests (all packages)
-pnpm lint                       # ESLint + tsc + deno check (all packages)
-pnpm format                     # Format code with Prettier (all packages)
+pnpm check                      # Biome check (all packages)
+pnpm check:fix                  # Biome check and fix fixable issues (all packages)
 pnpm build                      # Build for publishing (all packages)
 ```
 
@@ -92,10 +92,9 @@ workspaces or from a workspace directory.
 ## Key Principles
 
 1. **Modularity** - Small, focused functions
-2. **Zero dependencies** - Core library has no runtime deps
-3. **Maximum test coverage** - Required for library
-4. **Tree-shakable** - Use `// @__NO_SIDE_EFFECTS__` annotation (not yet implemented)
-5. **Type-safe** - Full TypeScript with strict mode
+2. **Maximum test coverage** - Required for library
+3. **Tree-shakable** - Use `// @__NO_SIDE_EFFECTS__` annotation (not yet implemented)
+4. **Type-safe** - Full TypeScript with strict mode
 
 ## Do's and Don'ts
 
