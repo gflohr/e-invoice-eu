@@ -24,14 +24,33 @@ If you lack permissions, prepend sudo to the command.
 
 Test the installation:
 
-```text
+```sh
 e-invoice-eu --version
 ```
+
+## On-the-fly Usage
+
+It is also possible to use the tool without installation. This is achieved
+with the help of `npx` (or `pnpx`, `bunx`):
+
+```sh
+npx @e-invoice-eu/cli --help
+```
+
+This will use a locally present `e-invoice-eu` or install it somewhere in the
+user's home directory.
 
 ## Obtaining Help
 
 You can get an overview of all available commands and global options with
 `e-invoice-eu --help` or `e-invoice-eu -h`.
+
+You can get help for a specific comment with `e-invoice-eu COMMAND --help`
+or `e-invoice-eu COMMAND -h`. Example:
+
+```sh
+e-invoice-eu mapping --help
+```
 
 ## Global Options
 
@@ -183,7 +202,7 @@ e-invoice-eu transform --format=UBL \
 
 | Option                     | Type   | Description                                                      |
 | -------------------------- | ------ | ---------------------------------------------------------------- |
-| `-u, --url`                | string | URL of the validation server (default: `http://localhost:8080`) |
+| `-u, --url`                | string | URL of the validation server (default: `http://localhost:8080`)  |
 | `-v, --verbose`            |        | Also report results for valid invoices                           |
 | `-q, --quiet`              |        | suppress all output                                              |
 

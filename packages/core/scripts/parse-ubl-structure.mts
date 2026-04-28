@@ -110,7 +110,7 @@ const $defs = {
 			// This is maybe too restrictive because it does not allow whitespace
 			// but this should be okay for our purposes.
 			pattern:
-				'^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)$',
+				'^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$',
 		},
 		Date: {
 			type: 'string',
