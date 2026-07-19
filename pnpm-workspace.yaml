@@ -1,5 +1,10 @@
 packages:
   - "packages/*"
   - "apps/*"
+allowBuilds:
+  '@parcel/watcher': false
+  '@scarf/scarf': false
+  bun: false
+  esbuild: false
+  inotify: false
 linkWorkspacePackages: true
-

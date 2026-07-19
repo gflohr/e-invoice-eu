@@ -46,6 +46,7 @@ gtx.resolve()
 					},
 				),
 			)
+			.version(Package.getVersion())
 			.alias('V', 'version')
 			.alias('h', 'help')
 			.demandCommand(1, gtx._('Error: No command given.'))
