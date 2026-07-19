@@ -1,5 +1,11 @@
 # @e-invoice-eu/docs
 
+## 3.1.1
+
+### Patch Changes
+
+- cc349ba: Make Base64 padding optional.
+
 ## 3.1.0
 
 ## 3.0.3
