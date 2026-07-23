@@ -342,5 +342,91 @@ describe('CII', () => {
 				expect(xml).toMatchSnapshot();
 			});
 		});
+
+		describe('#567 fix element order', () => {
+			it('should use the right order for schemeless supplier party IDs', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:AccountingSupplierParty': {
+							'cac:Party': {
+								'cac:PartyIdentification': [
+									{
+										'cbc:ID': '42',
+									},
+								],
+								// Make sure that this will come last in the
+								// XML output.
+								'cac:PartyName': {
+									'cbc:Name': 'Acme Ltd.',
+								},
+							},
+						},
+					},
+				} as unknown as Invoice;
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+				expect(xml).toContain('<ram:ID>42</ram:ID>');
+				expect(xml).not.toContain('<ram:GlobalID>42</ram:GlobalID>');
+				// The snapshot test ensures that all local IDs precede the
+				// global IDs.
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should use the right order for schemeless customer party IDs', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:AccountingCustomerParty': {
+							'cac:Party': {
+								'cac:PartyIdentification': {
+									'cbc:ID': '42',
+								},
+								// Make sure that this will come last in the
+								// XML output.
+								'cac:PartyName': {
+									'cbc:Name': 'Acme Ltd.',
+								},
+							},
+						},
+					},
+				} as unknown as Invoice;
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+				expect(xml).toContain('<ram:ID>42</ram:ID>');
+				expect(xml).not.toContain('<ram:GlobalID>42</ram:GlobalID>');
+				// The snapshot test ensures that all local IDs precede the
+				// global IDs.
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should use the right order for schemeless delivery location ID', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:Delivery': {
+							'cac:DeliveryLocation': {
+								'cbc:ID': '42',
+								'cac:Address': {
+									'cac:Country': {
+										'cbc:IdentificationCode': 'BG',
+									},
+								},
+							},
+						},
+					},
+				} as unknown as Invoice;
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+				expect(xml).toContain('<ram:ID>42</ram:ID>');
+				expect(xml).not.toContain('<ram:GlobalID>42</ram:GlobalID>');
+				// The snapshot test ensures that all local IDs precede the
+				// global IDs.
+				expect(xml).toMatchSnapshot();
+			});
+		});
 	});
 });
