@@ -1,5 +1,1 @@
 # The CVEs in this file are ignored.
-
-# Date: 2026-04-02
-# Vulnerability in picomatch. This is part of npm but npm is not used.
-CVE-2026-33671
