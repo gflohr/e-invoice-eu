@@ -27,9 +27,7 @@
 		"url": "https://github.com/gflohr/e-invoice-eu/issues"
 	},
 	"homepage": "https://github.com/gflohr/e-invoice-eu/tree/main/apps/cli#readme",
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"bin": {
 		"e-invoice-eu": "dist/index.js"
 	},
