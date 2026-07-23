@@ -638,7 +638,7 @@ export const cacAccountingSupplierParty: Transformation[] = [
 	},
 	{
 		type: 'string',
-		src: ['cac:PartyLegalEntity', 'cbc:LegalForm'],
+		src: ['cac:PartyLegalEntity', 'cbc:CompanyLegalForm'],
 		dest: ['ram:Description'],
 		fxProfileMask: FX_MASK_EN16931,
 	},
@@ -735,7 +735,7 @@ export const cacAccountingCustomerParty: Transformation[] = [
 	},
 	{
 		type: 'string',
-		src: ['cac:PartyLegalEntity', 'cbc:LegalForm'],
+		src: ['cac:PartyLegalEntity', 'cbc:CompanyLegalForm'],
 		dest: ['ram:Description'],
 		fxProfileMask: FX_MASK_EN16931,
 	},
