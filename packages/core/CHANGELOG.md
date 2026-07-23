@@ -1,5 +1,12 @@
 # @e-invoice-eu/core
 
+## 3.1.2
+
+### Patch Changes
+
+- e77faa0: Use cbc:CompanyLegalForm instead of cbc:LegalForm (see #566).
+- e08d51c: Preserve correct ID, when downgrading ram:GlobalID to ram:ID (#567).
+
 ## 3.1.1
 
 ### Patch Changes
