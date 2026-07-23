@@ -54,8 +54,10 @@ RUN echo "https://dl-cdn.alpinelinux.org/alpine/latest-stable/main" > /etc/apk/r
   && echo "https://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories \
   && apk update \
   && apk upgrade --no-cache \
-  && rm -rf /usr/local/lib/node_modules/npm \
-  && rm -rf /usr/local/lib/node_modules/corepack
+  && rm -r /usr/local/lib/node_modules/npm \
+  	/usr/local/bin/npm \
+  	/usr/local/lib/node_modules/corepack \
+	/usr/local/bin/corepack
 
 WORKDIR /app
 
