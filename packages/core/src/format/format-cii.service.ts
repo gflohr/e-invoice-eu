@@ -3,6 +3,7 @@ import { type JSONSchemaType } from 'ajv';
 import * as jsonpath from 'jsonpath-plus';
 import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
+import { renameKey } from '../utils/rename-key';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { FormatUBLService } from './format-ubl.service';
 
@@ -1742,8 +1743,7 @@ export class FormatCIIService
 			buyerParty?.['ram:GlobalID'] &&
 			!buyerParty['ram:GlobalID@schemeID']
 		) {
-			buyerParty['ram:ID'] = buyerParty['ram:GlobalID'];
-			delete buyerParty['ram:GlobalID'];
+			renameKey(buyerParty, 'ram:GlobalID', 'ram:ID');
 		}
 
 		// Same as above.
@@ -1753,8 +1753,7 @@ export class FormatCIIService
 			]?.['ram:ApplicableHeaderTradeDelivery']?.['ram:ShipToTradeParty'];
 
 		if (shipTo?.['ram:GlobalID'] && !shipTo['ram:GlobalID@schemeID']) {
-			shipTo['ram:ID'] = shipTo['ram:GlobalID'];
-			delete shipTo['ram:GlobalID'];
+			renameKey(shipTo, 'ram:GlobalID', 'ram:ID');
 		}
 
 		const supplierTaxRegistration =
