@@ -1,5 +1,19 @@
 # @e-invoice-eu/server
 
+## 3.1.2
+
+### Patch Changes
+
+- 04795d0: Uninstall npm and corepack in docker image.
+
+  This reduces the attack surface and avoids false positives from Trivy.
+
+- e77faa0: Use cbc:CompanyLegalForm instead of cbc:LegalForm (see #566).
+- e08d51c: Preserve correct ID, when downgrading ram:GlobalID to ram:ID (#567).
+- Updated dependencies [e77faa0]
+- Updated dependencies [e08d51c]
+  - @e-invoice-eu/core@3.1.2
+
 ## 3.1.1
 
 ### Patch Changes
