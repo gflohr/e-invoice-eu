@@ -48,11 +48,14 @@ RUN if [ "$WITH_LIBREOFFICE" != "false" ]; then \
 		font-noto-emoji; \
 	fi
 
-# Upgrade all packages to latest.
+# Upgrade all packages to latest. Also, uninstall npm and corepack. They only
+# drag in security issues.
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/latest-stable/main" > /etc/apk/repositories \
   && echo "https://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories \
   && apk update \
-  && apk upgrade --no-cache
+  && apk upgrade --no-cache \
+  && rm -rf /usr/local/lib/node_modules/npm \
+  && rm -rf /usr/local/lib/node_modules/corepack
 
 WORKDIR /app
 
