@@ -978,51 +978,6 @@ export const cacDelivery: Transformation[] = [
 	},
 ];
 
-export const invoicePeriod: Transformation[] = [
-	{
-		type: 'string',
-		src: ['cbc:StartDate'],
-		dest: [
-			'ram:BillingSpecifiedPeriod',
-			'ram:StartDateTime',
-			'udt:DateTimeString',
-		],
-		subtype: 'DateTimeString',
-		fxProfileMask: FX_MASK_BASIC_WL,
-	},
-	{
-		type: 'string',
-		src: ['fixed:102'],
-		dest: [
-			'ram:BillingSpecifiedPeriod',
-			'ram:StartDateTime',
-			'udt:DateTimeString@format',
-		],
-		fxProfileMask: FX_MASK_BASIC_WL,
-	},
-	{
-		type: 'string',
-		src: ['cbc:EndDate'],
-		dest: [
-			'ram:BillingSpecifiedPeriod',
-			'ram:EndDateTime',
-			'udt:DateTimeString',
-		],
-		subtype: 'DateTimeString',
-		fxProfileMask: FX_MASK_BASIC_WL,
-	},
-	{
-		type: 'string',
-		src: ['fixed:102'],
-		dest: [
-			'ram:BillingSpecifiedPeriod',
-			'ram:EndDateTime',
-			'udt:DateTimeString@format',
-		],
-		fxProfileMask: FX_MASK_BASIC_WL,
-	},
-];
-
 const cacPayeeParty: Transformation[] = [
 	{
 		// FIXME! This is an array for certain CII variants.
@@ -1934,6 +1889,9 @@ export class FormatCIIService
 						const arrayDestPath = transformation.dest.length
 							? `${childDestPath}[${i}]`
 							: childDestPath;
+if (arraySrcPath === '$.ubl:Invoice.cac:TaxTotal[0].cac:TaxSubtotal[0]') {
+	console.log('hit');
+}
 						this.convert(
 							invoice,
 							arraySrcPath,
@@ -1957,9 +1915,8 @@ export class FormatCIIService
 
 	private applySubPaths(path: string, subPaths: string[]) {
 		for (const subPath of subPaths) {
-			// FIXME! The first two branches seem to be dead code.
 			if (subPath === '..') {
-				path = path.replace(/[[.][^[.]+$/, '');
+				path = path.replace(/\.[^.]+$/, '');
 			} else if (subPath.startsWith('@')) {
 				const match = path.match(/^(.*?)(\[[0-9]+\])$/);
 				if (match) {

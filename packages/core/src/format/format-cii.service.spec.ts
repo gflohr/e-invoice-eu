@@ -433,7 +433,7 @@ describe('CII', () => {
 							},
 						},
 					},
-				} as unknown as Invoice;
+				} as Invoice;
 				const xml = await service.generate(
 					invoice,
 					{} as InvoiceServiceOptions,
@@ -442,6 +442,39 @@ describe('CII', () => {
 				expect(xml).not.toContain('<ram:GlobalID>42</ram:GlobalID>');
 				// The snapshot test ensures that all local IDs precede the
 				// global IDs.
+				expect(xml).toMatchSnapshot();
+			});
+		});
+
+		describe('#569 CII DueDateTypeCode (BT-8) never emitted from cac:InvoicePeriod/cbc:DescriptionCode', () => {
+			it('should emit the due date type code', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:InvoicePeriod': {
+							'cbc:DescriptionCode': '432',
+						},
+						'cac:TaxTotal': [
+							{
+								'cac:TaxSubtotal': [
+									{
+										'cac:TaxCategory': {
+											'cbc:ID': 'S',
+											'cbc:Percent': '20',
+											'cac:TaxScheme': {
+												'cbc:ID': 'VAT',
+											},
+										},
+									},
+								],
+							},
+						],
+					},
+				} as Invoice;
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+				expect(xml).toContain('<ram:DueDateTypeCode>432</ram:DueDateTypeCode>');
 				expect(xml).toMatchSnapshot();
 			});
 		});

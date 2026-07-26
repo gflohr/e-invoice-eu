@@ -163,6 +163,22 @@ exports[`CII > regressions > #567 fix element order > should use the right order
 </rsm:CrossIndustryInvoice>"
 `;
 
+exports[`CII > regressions > #569 CII DueDateTypeCode (BT-8) never emitted from cac:InvoicePeriod/cbc:DescriptionCode > should emit the due date type code 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeSettlement>
+			<ram:ApplicableTradeTax>
+				<ram:TypeCode>VAT</ram:TypeCode>
+				<ram:CategoryCode>S</ram:CategoryCode>
+				<ram:DueDateTypeCode>432</ram:DueDateTypeCode>
+				<ram:RateApplicablePercent>20</ram:RateApplicablePercent>
+			</ram:ApplicableTradeTax>
+		</ram:ApplicableHeaderTradeSettlement>
+	</rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>"
+`;
+
 exports[`CII > should convert arrays 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
