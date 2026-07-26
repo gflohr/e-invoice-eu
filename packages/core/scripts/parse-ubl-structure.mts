@@ -682,7 +682,7 @@ function processNode(node: Element): JSONSchemaType<object> {
 function insertBT21(properties: Record<string, JSONSchemaType<object>>): void {
 	properties['x-cii:SubjectCode'] = {
 		type: 'string',
-		$ref: '#/$defs/codeLists/UNTDID4451',
+		$ref: '#/$defs/codeLists/UNCL4451',
 		title: 'Invoice note qualification code',
 		description: 'The qualification of the invoice note (BT-21)',
 	} as JSONSchemaType<object>;
@@ -753,7 +753,7 @@ function loadCodeLists(dir: string) {
 	}
 
 	loadUNCL1001();
-	loadUNTDID4451();
+	loadUNCL4451();
 }
 
 function loadUNCL1001() {
@@ -809,7 +809,7 @@ function loadUNCL1001() {
 	$defs.codeLists['UNCL1001-cn'] = { enum: cnCodes };
 }
 
-function loadUNTDID4451() {
+function loadUNCL4451() {
 	const filename = path.resolve(
 		import.meta.dirname,
 		'../../../contrib/code-lists/UNTDID4451.csv',
@@ -823,7 +823,7 @@ function loadUNTDID4451() {
 		defval: null,
 	});
 
-	codeListValues['UNTDID4451'] = [];
+	codeListValues['UNCL4451'] = [];
 
 	type Row = {
 		Code: string;
@@ -837,11 +837,11 @@ function loadUNTDID4451() {
 			Name: row['Code Name'],
 		};
 
-		codeListValues['UNTDID4451'].push(value);
+		codeListValues['UNCL4451'].push(value);
 		codes.push(row.Code);
 	}
 
-	$defs.codeLists['UNTDID4451'] = { enum: codes };
+	$defs.codeLists['UNCL4451'] = { enum: codes };
 }
 
 function loadCodeList(parser: XMLParser, filename: string) {

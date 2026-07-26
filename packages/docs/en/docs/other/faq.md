@@ -138,7 +138,7 @@ do not suggest such a convention.
 
 For `cac:Invoice -> cac:InvoicePeriod -> cbc:DescriptionCode`, UBL uses the
 values 3, 35, or 432. But CII uses 5, 29, or 72 instead. The reason is that
-the two standards use different code lists. UBL uses UNCL2005, but CII uses
+the two standards use different code lists. UBL uses UNCL 2005, but CII uses
 UNCL 2475.
 
 With E-Invoice-EU, you can use either set of values. The software automatically
