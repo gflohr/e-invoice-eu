@@ -3604,7 +3604,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				],
 			},
 			UNCL2005: {
-				enum: ['3', '35', '432'],
+				enum: ['3', '35', '432', '5', '29', '72'],
 			},
 			UNCL4461: {
 				enum: [

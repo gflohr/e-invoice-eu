@@ -7,6 +7,17 @@ exports[`UBL > Extensions for CII > should suppress BT-21 for UBL 1`] = `
 </Invoice>"
 `;
 
+exports[`UBL > Regressions > #569 CII DueDateTypeCode (BT-8) never emitted from cac:InvoicePeriod/cbc:DescriptionCode > should auto-convert the date time code 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+	<cbc:CustomizationID>urn:cen.eu:en16931:2017</cbc:CustomizationID>
+	<cbc:ProfileID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</cbc:ProfileID>
+	<cac:InvoicePeriod>
+		<cbc:DescriptionCode>432</cbc:DescriptionCode>
+	</cac:InvoicePeriod>
+</Invoice>"
+`;
+
 exports[`UBL > post-processing > should append default notes to credit-note notes 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <CreditNote xmlns="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">

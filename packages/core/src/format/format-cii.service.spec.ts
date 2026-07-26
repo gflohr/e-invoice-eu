@@ -474,7 +474,9 @@ describe('CII', () => {
 					invoice,
 					{} as InvoiceServiceOptions,
 				);
-				expect(xml).toContain('<ram:DueDateTypeCode>432</ram:DueDateTypeCode>');
+				expect(xml).toContain(
+					'<ram:DueDateTypeCode>432</ram:DueDateTypeCode>',
+				);
 				expect(xml).toMatchSnapshot();
 			});
 		});

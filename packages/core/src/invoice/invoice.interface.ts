@@ -910,7 +910,7 @@ export type InvoicingPeriodEndDate = string;
  * The code of the date when the VAT becomes accountable for the Seller and for the Buyer.
  * Business terms: BT-8
  */
-export type ValueAddedTaxPointDateCode = '3' | '35' | '432';
+export type ValueAddedTaxPointDateCode = '3' | '35' | '432' | '5' | '29' | '72';
 /**
  * An identifier of a referenced purchase order, issued by the Buyer. An invoice must have buyer reference (BT-10) or purchase order reference. In cases where sales order reference is provided, but there's no purchase order reference, then use value "NA" as this element is mandatory in UBL.
  * Business terms: BT-13

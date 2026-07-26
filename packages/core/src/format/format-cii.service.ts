@@ -2,6 +2,7 @@ import { Invoice } from '@e-invoice-eu/core';
 import { type JSONSchemaType } from 'ajv';
 import * as jsonpath from 'jsonpath-plus';
 import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
+import { ValueAddedTaxPointDateCode } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { renameKey } from '../utils/rename-key';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
@@ -1658,8 +1659,34 @@ export class FormatCIIService
 		return FULL_CII;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	patchSchema(schema: JSONSchemaType<Invoice>) {}
+	public patchSchema(_schema: JSONSchemaType<Invoice>) {}
+
+	public patchInvoice(invoice: Invoice) {
+		// CII and UBL use different codes for the due date description code.
+		// We allow both versions, and silently convert to the correct value
+		// for the selected format.
+		const eventTimeCodeMapping: Record<
+			ValueAddedTaxPointDateCode,
+			ValueAddedTaxPointDateCode
+		> = {
+			'3': '5',
+			'5': '5',
+			'29': '29',
+			'35': '29',
+			'72': '72',
+			'432': '72',
+		};
+
+		const code =
+			invoice['ubl:Invoice']['cac:InvoicePeriod']?.[
+				'cbc:DescriptionCode'
+			];
+		if (typeof code !== 'undefined') {
+			invoice['ubl:Invoice']['cac:InvoicePeriod']![
+				'cbc:DescriptionCode'
+			] = eventTimeCodeMapping[code] ?? code;
+		}
+	}
 
 	async generate(
 		invoice: Invoice,
@@ -1889,9 +1916,6 @@ export class FormatCIIService
 						const arrayDestPath = transformation.dest.length
 							? `${childDestPath}[${i}]`
 							: childDestPath;
-if (arraySrcPath === '$.ubl:Invoice.cac:TaxTotal[0].cac:TaxSubtotal[0]') {
-	console.log('hit');
-}
 						this.convert(
 							invoice,
 							arraySrcPath,

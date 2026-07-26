@@ -134,6 +134,7 @@ const outputDocs = process.argv.length === 3 && process.argv[2] === '--docs';
 
 const codeListDir = 'peppol-bis-invoice-3/structure/codelist';
 loadCodeLists(codeListDir);
+patchCodeLists();
 
 const rulesDir = 'peppol-bis-invoice-3/rules/sch';
 loadRules(rulesDir);
@@ -919,4 +920,23 @@ function loadRule(parser: XMLParser, filename: string) {
 			});
 		}
 	});
+}
+
+function patchCodeLists() {
+	// UBL and CII use different code lists.
+	codeLists['UNCL2005'].enum.push('5', '29', '72');
+	codeListValues['UNCL2005'].push(
+		{
+			Id: '5',
+			Name: 'Invoice document issue date time (CII)',
+		},
+		{
+			Id: '29',
+			Name: 'Delivery date/time actual (CII)',
+		},
+		{
+			Id: '72',
+			Name: 'Paid to date (CII)',
+		},
+	);
 }
