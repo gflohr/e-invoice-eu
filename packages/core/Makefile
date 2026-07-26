@@ -5,7 +5,8 @@ TSX = $(PNPX) tsx
 
 INVOICE_SCHEMA_DEPENDENCIES = \
 	peppol-bis-invoice-3/structure/syntax/ubl-invoice.xml \
-	peppol-bis-invoice-3/structure/codelist/*.xml
+	peppol-bis-invoice-3/structure/codelist/*.xml \
+	../../contrib/code-lists/*.csv
 
 all: \
 	src/schema/invoice.schema.json \
