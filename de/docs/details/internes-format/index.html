@@ -31,7 +31,7 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css?1785069579" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1785070322" rel="stylesheet">
 
 
 
@@ -216,18 +216,33 @@
 	
 	<li class="toclevel-1">
 		6
+		<a href="#cii-extensions">CII Extensions</a>
+		 <ul class="toclevel-2">
+	
+	<li class="toclevel-2">
+		6.1
+		<a href="#invoice-note-subject-code-bt-21">Invoice Note Subject Code (BT-21)</a>
+		
+	</li>
+	
+</ul>
+ 
+	</li>
+	
+	<li class="toclevel-1">
+		7
 		<a href="#validierung">Validierung</a>
 		
 	</li>
 	
 	<li class="toclevel-1">
-		7
+		8
 		<a href="#json-schema">JSON-Schema</a>
 		
 	</li>
 	
 	<li class="toclevel-1">
-		8
+		9
 		<a href="#unterschiede-zu-peppol-ubl">Unterschiede zu Peppol UBL</a>
 		
 	</li>
@@ -571,6 +586,26 @@ total</a> of the invoice.
 
 <p>Please note that strings <em>must</em> be used for all values, even if they are
 numbers. Check the above examples for that.</p>
+
+<h2><a href="#" name="cii-extensions" id="cii-extensions"></a>CII Extensions</h2>
+
+<p>CII allows considerably more fields than UBL. Most of these fields are not
+part of EN16931 and therefore rarely used in the context of electronic
+invoices in the EU.</p>
+
+<p>Such extra fields can always be injected programmatically via a
+<a href="https://gflohr.github.io/e-invoice-eu/api-docs/types/InvoiceServiceOptions.html#postprocessor" target="_blank">post-processor</a>.</p>
+
+<p>Selected fields can also be injected by using the pseudo namespace 'x-cii',
+see below.</p>
+
+<h3><a href="#" name="invoice-note-subject-code-bt-21" id="invoice-note-subject-code-bt-21"></a>Invoice Note Subject Code (BT-21)</h3>
+
+<p>You can inject an invoice note subject code (BT-21) by using the special
+field <code>ubl:Invoice -&gt; x-cii:SubjectCode</code>. The value must come from the code
+list UNTDID 4451.</p>
+
+<p>For UBL formats, no element is rendered for BT-21.</p>
 
 <h2><a href="#" name="validierung" id="validierung"></a>Validierung</h2>
 
@@ -985,7 +1020,7 @@ und
  
 
 
-  <script src="/e-invoice-eu/assets/bundle.min.js?1785069579" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1785070322" type="text/javascript"></script>
 
 
 
