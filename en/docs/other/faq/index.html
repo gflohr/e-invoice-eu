@@ -31,7 +31,7 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css?1785070322" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1785078077" rel="stylesheet">
 
 
 
@@ -157,6 +157,12 @@
 	<li class="toclevel-1">
 		6
 		<a href="#can-i-encode-skonto-in-an-electronic-invoice">Can I encode "Skonto" in an Electronic Invoice?</a>
+		
+	</li>
+	
+	<li class="toclevel-1">
+		7
+		<a href="#which-event-time-codes-do-i-have-to-use-for-bt-8">Which Event Time Codes Do I Have to Use for BT-8?</a>
 		
 	</li>
 	
@@ -291,6 +297,16 @@ same manner as for "Skonto" but replace the <code>#SKONTO#</code> with <code>#VE
 German word for late payment). However, the <a href="https://github.com/itplr-kosit/xrechnung-schematron/blob/3196f722f1b7298eaaff2e0c89d499e42015f67c/src/validation/schematron/common.sch#L11" target="_blank">official Schematron rules for
 the German XRechnung</a>
 do not suggest such a convention.</p>
+
+<h2><a href="#" name="which-event-time-codes-do-i-have-to-use-for-bt-8" id="which-event-time-codes-do-i-have-to-use-for-bt-8"></a>Which Event Time Codes Do I Have to Use for BT-8?</h2>
+
+<p>For <code>cac:Invoice -&gt; cac:InvoicePeriod -&gt; cbc:DescriptionCode</code>, UBL uses the
+values 3, 35, or 432. But CII uses 5, 29, or 72 instead. The reason is that
+the two standards use different code lists. UBL uses UNCL 2005, but CII uses
+UNCL 2475.</p>
+
+<p>With E-Invoice-EU, you can use either set of values. The software automatically
+translates them according to the selected format.</p>
  
 				 
 <div class="guided-tour container">
@@ -685,7 +701,7 @@ do not suggest such a convention.</p>
  
 
 
-  <script src="/e-invoice-eu/assets/bundle.min.js?1785070322" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1785078077" type="text/javascript"></script>
 
 
 
