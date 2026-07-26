@@ -5,7 +5,8 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  fast-uri@>=3.0.0 <=3.1.3: ^3.1.4
+  brace-expansion@<=5.0.7: ^5.0.8
+  js-yaml@>=5.0.0 <=5.2.1: ^5.2.2
 
 importers:
 
@@ -23,7 +24,7 @@ importers:
         version: 2.31.1(@types/node@26.1.1)
       '@esgettext/tools':
         specifier: ^1.3.10
-        version: 1.3.10(@types/node@26.1.1)(typescript@6.0.3)
+        version: 1.3.10(@types/node@26.1.1)(supports-color@8.1.1)(typescript@6.0.3)
       glob:
         specifier: ^13.0.6
         version: 13.0.6
@@ -72,7 +73,7 @@ importers:
     devDependencies:
       '@esgettext/tools':
         specifier: ^1.3.10
-        version: 1.3.10(@types/node@26.1.1)(typescript@6.0.3)
+        version: 1.3.10(@types/node@26.1.1)(supports-color@8.1.1)(typescript@6.0.3)
       '@types/mime-types':
         specifier: ^3.0.1
         version: 3.0.1
@@ -108,19 +109,19 @@ importers:
         version: link:../../packages/core
       '@nestjs/common':
         specifier: ^11.1.28
-        version: 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
+        version: 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1)
       '@nestjs/config':
         specifier: ^4.0.4
-        version: 4.0.4(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(rxjs@7.8.2)
+        version: 4.0.4(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(rxjs@7.8.2)
       '@nestjs/core':
         specifier: ^11.1.28
-        version: 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+        version: 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/platform-express':
         specifier: ^11.1.28
-        version: 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)
+        version: 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@11.1.28)(supports-color@8.1.1)
       '@nestjs/swagger':
         specifier: ^11.4.6
-        version: 11.4.6(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)
+        version: 11.4.6(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)
       '@valibot/i18n':
         specifier: ^1.2.0
         version: 1.2.0(valibot@1.4.2(typescript@6.0.3))
@@ -139,13 +140,13 @@ importers:
     devDependencies:
       '@nestjs/cli':
         specifier: ^11.0.24
-        version: 11.0.24(@types/node@26.1.1)(esbuild@0.28.1)(prettier@3.9.5)
+        version: 11.0.24(@types/node@26.1.1)(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(prettier@3.9.5)(webpack-cli@7.2.1)
       '@nestjs/schematics':
         specifier: ^11.1.0
         version: 11.1.0(chokidar@4.0.3)(prettier@3.9.5)(typescript@6.0.3)
       '@nestjs/testing':
         specifier: ^11.1.28
-        version: 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(@nestjs/platform-express@11.1.28)
+        version: 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@11.1.28)(@nestjs/platform-express@11.1.28)
       '@types/express':
         specifier: ^5.0.6
         version: 5.0.6
@@ -166,7 +167,7 @@ importers:
         version: 6.1.3
       supertest:
         specifier: ^7.2.2
-        version: 7.2.2
+        version: 7.2.2(supports-color@8.1.1)
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@26.1.1)(typescript@6.0.3)
@@ -212,7 +213,7 @@ importers:
         version: 7.25.9
       '@esgettext/tools':
         specifier: ^1.3.10
-        version: 1.3.10(@types/node@26.1.1)(typescript@6.0.3)
+        version: 1.3.10(@types/node@26.1.1)(supports-color@8.1.1)(typescript@6.0.3)
       '@rollup/plugin-commonjs':
         specifier: ^29.0.3
         version: 29.0.3(rollup@4.62.2)
@@ -320,7 +321,7 @@ importers:
         version: 7.1.4(webpack@5.109.0)
       css-minimizer-webpack-plugin:
         specifier: ^8.0.0
-        version: 8.0.0(webpack@5.109.0)
+        version: 8.0.0(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(webpack@5.109.0)
       file-loader:
         specifier: ^6.2.0
         version: 6.2.0(webpack@5.109.0)
@@ -365,13 +366,13 @@ importers:
         version: 4.0.0(webpack@5.109.0)
       terser-webpack-plugin:
         specifier: ^5.6.1
-        version: 5.6.1(postcss@8.5.19)(webpack@5.109.0)
+        version: 5.6.1(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack@5.109.0)
       url-loader:
         specifier: ^4.1.1
         version: 4.1.1(file-loader@6.2.0(webpack@5.109.0))(webpack@5.109.0)
       webpack:
         specifier: ^5.109.0
-        version: 5.109.0(postcss@8.5.19)(webpack-cli@7.2.1)
+        version: 5.109.0(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
       webpack-cli:
         specifier: ^7.2.1
         version: 7.2.1(js-yaml@5.2.2)(json5@2.2.3)(webpack@5.109.0)
@@ -2274,9 +2275,6 @@ packages:
   b3b@0.0.1:
     resolution: {integrity: sha512-wWUK79hNEsHN1PTHwHsGYpTNupgaovM39g6374uoIL1gfVSwK2q9flM1DFyvSEYkELRWf5aMGSf7bkGGNSl0Jw==}
 
-  balanced-match@1.0.2:
-    resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
-
   balanced-match@4.0.4:
     resolution: {integrity: sha512-BLrgEcRTwX2o6gGxGOCNyMvGSp35YofuYzw9h1IMTRmKqttAZZVU67bdb9Pr2vUHA8+j3i2tJfjO6C6+4myGTA==}
     engines: {node: 18 || 20 || >=22}
@@ -2320,12 +2318,9 @@ packages:
     peerDependencies:
       '@popperjs/core': ^2.11.8
 
-  brace-expansion@1.1.16:
-    resolution: {integrity: sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==}
-
-  brace-expansion@5.0.7:
-    resolution: {integrity: sha512-7oFy703dxfY3/NLxC1fh2SUCQ0H9rmAY+5EpDVfXjUTTs+HEwR2nYaqLv+GWcTsumwxPfiz6CzCNkwXwBUwqCA==}
-    engines: {node: 18 || 20 || >=22}
+  brace-expansion@5.0.8:
+    resolution: {integrity: sha512-JZyDyq3D4AUifKTPOB7DELf6XsB3WdPuNxCtob1vFXPsSXhdAiHBWJ/tJ8HAc9aH84BK+5JFZLNkJKx3G9kzQg==}
+    engines: {node: 20 || >=22}
 
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
@@ -2494,9 +2489,6 @@ packages:
 
   component-emitter@1.3.1:
     resolution: {integrity: sha512-T0+barUSQRTUQASh8bx02dl+DhF54GtIDY13Y3m9oWTklKbb3Wv974meRpeZ3lp1JpLVECWWNHC4vaG2XHXouQ==}
-
-  concat-map@0.0.1:
-    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
   concat-stream@2.0.0:
     resolution: {integrity: sha512-MWufYdFw53ccGjCA+Ol7XJYpAlW6/prSMzuPOTRnJGcGzuhLn4Scrz7qf6o8bROZ514ltazcIFJZevcfbo0x7A==}
@@ -3313,10 +3305,6 @@ packages:
 
   js-yaml@4.3.0:
     resolution: {integrity: sha512-1td788aAnnZ5qs7V2QIRl1owjtYpbKt749Y3xauqQgwIIGF/xXWz1wMTEBx5O3LK3lXLVuqXPdPxj2BoFHaW9Q==}
-    hasBin: true
-
-  js-yaml@5.2.1:
-    resolution: {integrity: sha512-zfLtNfQqxVqq3uaTqSkh4x4hZw3KHobGUA0fJUj4wawW8bsQLTVqpHdXSIzidh7o+4lEW36tANuAGdaFx6Zgnw==}
     hasBin: true
 
   js-yaml@5.2.2:
@@ -4883,7 +4871,7 @@ packages:
     engines: {node: '>=20.9.0'}
     hasBin: true
     peerDependencies:
-      js-yaml: ^4.0.0 || ^5.0.0
+      js-yaml: ^5.2.2
       json5: ^2.2.3
       toml: ^3.0.0 || ^4.0.0
       webpack: ^5.101.0
@@ -5144,7 +5132,7 @@ snapshots:
       '@babel/parser': 7.29.7
       '@babel/types': 7.29.7
 
-  '@babel/traverse@7.29.7':
+  '@babel/traverse@7.29.7(supports-color@8.1.1)':
     dependencies:
       '@babel/code-frame': 7.29.7
       '@babel/generator': 7.29.7
@@ -5152,7 +5140,7 @@ snapshots:
       '@babel/parser': 7.29.7
       '@babel/template': 7.29.7
       '@babel/types': 7.29.7
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -5492,10 +5480,10 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@esgettext/tools@1.3.10(@types/node@26.1.1)(typescript@6.0.3)':
+  '@esgettext/tools@1.3.10(@types/node@26.1.1)(supports-color@8.1.1)(typescript@6.0.3)':
     dependencies:
       '@babel/parser': 7.29.7
-      '@babel/traverse': 7.29.7
+      '@babel/traverse': 7.29.7(supports-color@8.1.1)
       '@esgettext/runtime': 1.3.10
       '@inquirer/prompts': 8.5.2(@types/node@26.1.1)
       '@npmcli/package-json': 7.0.5
@@ -5867,7 +5855,7 @@ snapshots:
       '@tybys/wasm-util': 0.10.3
     optional: true
 
-  '@nestjs/cli@11.0.24(@types/node@26.1.1)(esbuild@0.28.1)(prettier@3.9.5)':
+  '@nestjs/cli@11.0.24(@types/node@26.1.1)(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(prettier@3.9.5)(webpack-cli@7.2.1)':
     dependencies:
       '@angular-devkit/core': 19.2.27(chokidar@4.0.3)
       '@angular-devkit/schematics': 19.2.27(chokidar@4.0.3)
@@ -5878,14 +5866,14 @@ snapshots:
       chokidar: 4.0.3
       cli-table3: 0.6.5
       commander: 4.1.1
-      fork-ts-checker-webpack-plugin: 9.1.0(typescript@5.9.3)(webpack@5.106.2(esbuild@0.28.1))
+      fork-ts-checker-webpack-plugin: 9.1.0(typescript@5.9.3)(webpack@5.106.2)
       glob: 13.0.6
       node-emoji: 1.11.0
       ora: 5.4.1
       tsconfig-paths: 4.2.0
       tsconfig-paths-webpack-plugin: 4.2.0
       typescript: 5.9.3
-      webpack: 5.106.2(esbuild@0.28.1)
+      webpack: 5.106.2(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
       webpack-node-externals: 3.0.0
     transitivePeerDependencies:
       - '@minify-html/node'
@@ -5903,9 +5891,9 @@ snapshots:
       - uglify-js
       - webpack-cli
 
-  '@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)':
+  '@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1)':
     dependencies:
-      file-type: 21.3.4
+      file-type: 21.3.4(supports-color@8.1.1)
       iterare: 1.2.1
       load-esm: 1.0.3
       reflect-metadata: 0.2.2
@@ -5915,17 +5903,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@nestjs/config@4.0.4(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(rxjs@7.8.2)':
+  '@nestjs/config@4.0.4(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(rxjs@7.8.2)':
     dependencies:
-      '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1)
       dotenv: 17.4.1
       dotenv-expand: 12.0.3
       lodash: 4.18.1
       rxjs: 7.8.2
 
-  '@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)':
+  '@nestjs/core@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)':
     dependencies:
-      '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1)
       fast-safe-stringify: 2.1.1
       iterare: 1.2.1
       path-to-regexp: 8.4.2
@@ -5934,19 +5922,19 @@ snapshots:
       tslib: 2.8.1
       uid: 2.0.2
     optionalDependencies:
-      '@nestjs/platform-express': 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)
+      '@nestjs/platform-express': 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@11.1.28)(supports-color@8.1.1)
 
-  '@nestjs/mapped-types@2.1.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)':
+  '@nestjs/mapped-types@2.1.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(reflect-metadata@0.2.2)':
     dependencies:
-      '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1)
       reflect-metadata: 0.2.2
 
-  '@nestjs/platform-express@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)':
+  '@nestjs/platform-express@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@11.1.28)(supports-color@8.1.1)':
     dependencies:
-      '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@nestjs/core': 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1)
+      '@nestjs/core': 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       cors: 2.8.6
-      express: 5.2.1
+      express: 5.2.1(supports-color@8.1.1)
       multer: 2.2.0
       path-to-regexp: 8.4.2
       tslib: 2.8.1
@@ -5979,25 +5967,25 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  '@nestjs/swagger@11.4.6(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)':
+  '@nestjs/swagger@11.4.6(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@11.1.28)(reflect-metadata@0.2.2)':
     dependencies:
       '@microsoft/tsdoc': 0.16.0
-      '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@nestjs/core': 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@nestjs/mapped-types': 2.1.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)
-      js-yaml: 5.2.1
+      '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1)
+      '@nestjs/core': 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/mapped-types': 2.1.1(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(reflect-metadata@0.2.2)
+      js-yaml: 5.2.2
       lodash: 4.18.1
       path-to-regexp: 8.4.2
       reflect-metadata: 0.2.2
       swagger-ui-dist: 5.32.8
 
-  '@nestjs/testing@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)(@nestjs/platform-express@11.1.28)':
+  '@nestjs/testing@11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@11.1.28)(@nestjs/platform-express@11.1.28)':
     dependencies:
-      '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@nestjs/core': 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      '@nestjs/common': 11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1)
+      '@nestjs/core': 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/platform-express@11.1.28)(reflect-metadata@0.2.2)(rxjs@7.8.2)
       tslib: 2.8.1
     optionalDependencies:
-      '@nestjs/platform-express': 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.28)
+      '@nestjs/platform-express': 11.1.28(@nestjs/common@11.1.28(reflect-metadata@0.2.2)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@11.1.28)(supports-color@8.1.1)
 
   '@noble/hashes@1.8.0': {}
 
@@ -6441,9 +6429,9 @@ snapshots:
       '@rollup/rollup-win32-arm64-msvc': 4.34.9
       '@rollup/rollup-win32-x64-msvc': 4.34.9
 
-  '@tokenizer/inflate@0.4.1':
+  '@tokenizer/inflate@0.4.1(supports-color@8.1.1)':
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
       token-types: 6.1.2
     transitivePeerDependencies:
       - supports-color
@@ -6847,8 +6835,6 @@ snapshots:
 
   b3b@0.0.1: {}
 
-  balanced-match@1.0.2: {}
-
   balanced-match@4.0.4: {}
 
   base64-js@1.5.1: {}
@@ -6875,11 +6861,11 @@ snapshots:
       inherits: 2.0.4
       readable-stream: 3.6.2
 
-  body-parser@2.3.0:
+  body-parser@2.3.0(supports-color@8.1.1):
     dependencies:
       bytes: 3.1.2
       content-type: 2.0.0
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
       http-errors: 2.0.1
       iconv-lite: 0.7.3
       on-finished: 2.4.1
@@ -6897,12 +6883,7 @@ snapshots:
     dependencies:
       '@popperjs/core': 2.11.8
 
-  brace-expansion@1.1.16:
-    dependencies:
-      balanced-match: 1.0.2
-      concat-map: 0.0.1
-
-  brace-expansion@5.0.7:
+  brace-expansion@5.0.8:
     dependencies:
       balanced-match: 4.0.4
 
@@ -7007,7 +6988,7 @@ snapshots:
   clean-webpack-plugin@4.0.0(webpack@5.109.0):
     dependencies:
       del: 4.1.1
-      webpack: 5.109.0(postcss@8.5.19)(webpack-cli@7.2.1)
+      webpack: 5.109.0(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
 
   cli-cursor@3.1.0:
     dependencies:
@@ -7080,8 +7061,6 @@ snapshots:
 
   component-emitter@1.3.1: {}
 
-  concat-map@0.0.1: {}
-
   concat-stream@2.0.0:
     dependencies:
       buffer-from: 1.1.2
@@ -7110,7 +7089,7 @@ snapshots:
       schema-utils: 4.3.3
       serialize-javascript: 7.0.7
       tinyglobby: 0.2.17
-      webpack: 5.109.0(postcss@8.5.19)(webpack-cli@7.2.1)
+      webpack: 5.109.0(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
 
   cors@2.8.6:
     dependencies:
@@ -7160,9 +7139,9 @@ snapshots:
       postcss-value-parser: 4.2.0
       semver: 7.8.5
     optionalDependencies:
-      webpack: 5.109.0(postcss@8.5.19)(webpack-cli@7.2.1)
+      webpack: 5.109.0(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
 
-  css-minimizer-webpack-plugin@8.0.0(webpack@5.109.0):
+  css-minimizer-webpack-plugin@8.0.0(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(webpack@5.109.0):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       cssnano: 7.1.9(postcss@8.5.19)
@@ -7170,7 +7149,11 @@ snapshots:
       postcss: 8.5.19
       schema-utils: 4.3.3
       serialize-javascript: 7.0.7
-      webpack: 5.109.0(postcss@8.5.19)(webpack-cli@7.2.1)
+      webpack: 5.109.0(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
+    optionalDependencies:
+      csso: 5.0.5
+      esbuild: 0.28.1
+      lightningcss: 1.32.0
 
   css-select@5.2.2:
     dependencies:
@@ -7249,9 +7232,11 @@ snapshots:
     transitivePeerDependencies:
       - '@noble/hashes'
 
-  debug@4.4.3:
+  debug@4.4.3(supports-color@8.1.1):
     dependencies:
       ms: 2.1.3
+    optionalDependencies:
+      supports-color: 8.1.1
 
   decimal.js@10.6.0: {}
 
@@ -7448,20 +7433,20 @@ snapshots:
 
   expect-type@1.4.0: {}
 
-  express@5.2.1:
+  express@5.2.1(supports-color@8.1.1):
     dependencies:
       accepts: 2.0.0
-      body-parser: 2.3.0
+      body-parser: 2.3.0(supports-color@8.1.1)
       content-disposition: 1.1.0
       content-type: 1.0.5
       cookie: 0.7.2
       cookie-signature: 1.2.2
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
       depd: 2.0.0
       encodeurl: 2.0.0
       escape-html: 1.0.3
       etag: 1.8.1
-      finalhandler: 2.1.1
+      finalhandler: 2.1.1(supports-color@8.1.1)
       fresh: 2.0.0
       http-errors: 2.0.1
       merge-descriptors: 2.0.0
@@ -7472,9 +7457,9 @@ snapshots:
       proxy-addr: 2.0.7
       qs: 6.15.3
       range-parser: 1.3.0
-      router: 2.2.0
-      send: 1.2.1
-      serve-static: 2.2.1
+      router: 2.2.0(supports-color@8.1.1)
+      send: 1.2.1(supports-color@8.1.1)
+      serve-static: 2.2.1(supports-color@8.1.1)
       statuses: 2.0.2
       type-is: 2.1.0
       vary: 1.1.2
@@ -7535,11 +7520,11 @@ snapshots:
     dependencies:
       loader-utils: 2.0.4
       schema-utils: 3.3.0
-      webpack: 5.109.0(postcss@8.5.19)(webpack-cli@7.2.1)
+      webpack: 5.109.0(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
 
-  file-type@21.3.4:
+  file-type@21.3.4(supports-color@8.1.1):
     dependencies:
-      '@tokenizer/inflate': 0.4.1
+      '@tokenizer/inflate': 0.4.1(supports-color@8.1.1)
       strtok3: 10.3.5
       token-types: 6.1.2
       uint8array-extras: 1.5.0
@@ -7552,9 +7537,9 @@ snapshots:
     dependencies:
       to-regex-range: 5.0.1
 
-  finalhandler@2.1.1:
+  finalhandler@2.1.1(supports-color@8.1.1):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
       encodeurl: 2.0.0
       escape-html: 1.0.3
       on-finished: 2.4.1
@@ -7570,7 +7555,7 @@ snapshots:
 
   flat@5.0.2: {}
 
-  fork-ts-checker-webpack-plugin@9.1.0(typescript@5.9.3)(webpack@5.106.2(esbuild@0.28.1)):
+  fork-ts-checker-webpack-plugin@9.1.0(typescript@5.9.3)(webpack@5.106.2):
     dependencies:
       '@babel/code-frame': 7.29.7
       chalk: 4.1.2
@@ -7585,7 +7570,7 @@ snapshots:
       semver: 7.8.5
       tapable: 2.3.3
       typescript: 5.9.3
-      webpack: 5.106.2(esbuild@0.28.1)
+      webpack: 5.106.2(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
 
   form-data@4.0.6:
     dependencies:
@@ -7927,10 +7912,6 @@ snapshots:
     dependencies:
       argparse: 2.0.1
 
-  js-yaml@5.2.1:
-    dependencies:
-      argparse: 2.0.1
-
   js-yaml@5.2.2:
     dependencies:
       argparse: 2.0.1
@@ -8177,26 +8158,30 @@ snapshots:
     dependencies:
       schema-utils: 4.3.3
       tapable: 2.3.3
-      webpack: 5.109.0(postcss@8.5.19)(webpack-cli@7.2.1)
+      webpack: 5.109.0(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
 
   minimatch@10.2.5:
     dependencies:
-      brace-expansion: 5.0.7
+      brace-expansion: 5.0.8
 
   minimatch@3.1.5:
     dependencies:
-      brace-expansion: 1.1.16
+      brace-expansion: 5.0.8
 
   minimist@1.2.8: {}
 
-  minimizer-webpack-plugin@5.6.1(postcss@8.5.19)(webpack@5.109.0):
+  minimizer-webpack-plugin@5.6.1(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack@5.109.0):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
       schema-utils: 4.3.3
       terser: 5.49.0
-      webpack: 5.109.0(postcss@8.5.19)(webpack-cli@7.2.1)
+      webpack: 5.109.0(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
     optionalDependencies:
+      cssnano: 7.1.9(postcss@8.5.19)
+      csso: 5.0.5
+      esbuild: 0.28.1
+      lightningcss: 1.32.0
       postcss: 8.5.19
 
   minipass@7.1.3: {}
@@ -8460,7 +8445,7 @@ snapshots:
       postcss: 8.5.19
       semver: 7.8.5
     optionalDependencies:
-      webpack: 5.109.0(postcss@8.5.19)(webpack-cli@7.2.1)
+      webpack: 5.109.0(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
     transitivePeerDependencies:
       - typescript
 
@@ -8771,9 +8756,9 @@ snapshots:
       '@rollup/rollup-win32-x64-msvc': 4.62.2
       fsevents: 2.3.3
 
-  router@2.2.0:
+  router@2.2.0(supports-color@8.1.1):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
       depd: 2.0.0
       is-promise: 4.0.0
       parseurl: 1.3.3
@@ -8800,7 +8785,7 @@ snapshots:
   sass-loader@17.0.0(sass@1.102.0)(webpack@5.109.0):
     optionalDependencies:
       sass: 1.102.0
-      webpack: 5.109.0(postcss@8.5.19)(webpack-cli@7.2.1)
+      webpack: 5.109.0(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
 
   sass@1.102.0:
     dependencies:
@@ -8831,9 +8816,9 @@ snapshots:
 
   semver@7.8.5: {}
 
-  send@1.2.1:
+  send@1.2.1(supports-color@8.1.1):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
       encodeurl: 2.0.0
       escape-html: 1.0.3
       etag: 1.8.1
@@ -8849,12 +8834,12 @@ snapshots:
 
   serialize-javascript@7.0.7: {}
 
-  serve-static@2.2.1:
+  serve-static@2.2.1(supports-color@8.1.1):
     dependencies:
       encodeurl: 2.0.0
       escape-html: 1.0.3
       parseurl: 1.3.3
-      send: 1.2.1
+      send: 1.2.1(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -9000,7 +8985,7 @@ snapshots:
 
   style-loader@4.0.0(webpack@5.109.0):
     dependencies:
-      webpack: 5.109.0(postcss@8.5.19)(webpack-cli@7.2.1)
+      webpack: 5.109.0(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
 
   stylehacks@7.0.11(postcss@8.5.19):
     dependencies:
@@ -9008,11 +8993,11 @@ snapshots:
       postcss: 8.5.19
       postcss-selector-parser: 7.1.4
 
-  superagent@10.3.0:
+  superagent@10.3.0(supports-color@8.1.1):
     dependencies:
       component-emitter: 1.3.1
       cookiejar: 2.1.4
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
       fast-safe-stringify: 2.1.1
       form-data: 4.0.6
       formidable: 3.5.4
@@ -9022,11 +9007,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  supertest@7.2.2:
+  supertest@7.2.2(supports-color@8.1.1):
     dependencies:
       cookie-signature: 1.2.2
       methods: 1.1.2
-      superagent: 10.3.0
+      superagent: 10.3.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -9066,24 +9051,32 @@ snapshots:
 
   term-size@2.2.1: {}
 
-  terser-webpack-plugin@5.6.1(esbuild@0.28.1)(webpack@5.106.2(esbuild@0.28.1)):
+  terser-webpack-plugin@5.6.1(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack@5.106.2):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
       schema-utils: 4.3.3
       terser: 5.49.0
-      webpack: 5.106.2(esbuild@0.28.1)
+      webpack: 5.106.2(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
     optionalDependencies:
+      cssnano: 7.1.9(postcss@8.5.19)
+      csso: 5.0.5
       esbuild: 0.28.1
+      lightningcss: 1.32.0
+      postcss: 8.5.19
 
-  terser-webpack-plugin@5.6.1(postcss@8.5.19)(webpack@5.109.0):
+  terser-webpack-plugin@5.6.1(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack@5.109.0):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
       schema-utils: 4.3.3
       terser: 5.49.0
-      webpack: 5.109.0(postcss@8.5.19)(webpack-cli@7.2.1)
+      webpack: 5.109.0(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
     optionalDependencies:
+      cssnano: 7.1.9(postcss@8.5.19)
+      csso: 5.0.5
+      esbuild: 0.28.1
+      lightningcss: 1.32.0
       postcss: 8.5.19
 
   terser@5.49.0:
@@ -9239,7 +9232,7 @@ snapshots:
       loader-utils: 2.0.4
       mime-types: 2.1.35
       schema-utils: 3.3.0
-      webpack: 5.109.0(postcss@8.5.19)(webpack-cli@7.2.1)
+      webpack: 5.109.0(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
     optionalDependencies:
       file-loader: 6.2.0(webpack@5.109.0)
 
@@ -9320,6 +9313,22 @@ snapshots:
 
   webidl-conversions@8.0.1: {}
 
+  webpack-cli@7.2.1(js-yaml@5.2.2)(json5@2.2.3)(webpack@5.106.2):
+    dependencies:
+      '@discoveryjs/json-ext': 1.1.0
+      commander: 14.0.3
+      cross-spawn: 7.0.6
+      envinfo: 7.21.0
+      import-local: 3.2.0
+      interpret: 3.1.1
+      rechoir: 0.8.0
+      webpack: 5.106.2(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
+      webpack-merge: 6.0.1
+    optionalDependencies:
+      js-yaml: 5.2.2
+      json5: 2.2.3
+    optional: true
+
   webpack-cli@7.2.1(js-yaml@5.2.2)(json5@2.2.3)(webpack@5.109.0):
     dependencies:
       '@discoveryjs/json-ext': 1.1.0
@@ -9329,7 +9338,7 @@ snapshots:
       import-local: 3.2.0
       interpret: 3.1.1
       rechoir: 0.8.0
-      webpack: 5.109.0(postcss@8.5.19)(webpack-cli@7.2.1)
+      webpack: 5.109.0(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1)
       webpack-merge: 6.0.1
     optionalDependencies:
       js-yaml: 5.2.2
@@ -9345,7 +9354,7 @@ snapshots:
 
   webpack-sources@3.5.1: {}
 
-  webpack@5.106.2(esbuild@0.28.1):
+  webpack@5.106.2(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.9
@@ -9368,9 +9377,11 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.3
-      terser-webpack-plugin: 5.6.1(esbuild@0.28.1)(webpack@5.106.2(esbuild@0.28.1))
+      terser-webpack-plugin: 5.6.1(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack@5.106.2)
       watchpack: 2.5.2
       webpack-sources: 3.5.1
+    optionalDependencies:
+      webpack-cli: 7.2.1(js-yaml@5.2.2)(json5@2.2.3)(webpack@5.106.2)
     transitivePeerDependencies:
       - '@minify-html/node'
       - '@swc/core'
@@ -9385,7 +9396,7 @@ snapshots:
       - postcss
       - uglify-js
 
-  webpack@5.109.0(postcss@8.5.19)(webpack-cli@7.2.1):
+  webpack@5.109.0(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack-cli@7.2.1):
     dependencies:
       '@types/estree': 1.0.9
       '@types/json-schema': 7.0.15
@@ -9401,7 +9412,7 @@ snapshots:
       events: 3.3.0
       graceful-fs: 4.2.11
       mime-db: 1.54.0
-      minimizer-webpack-plugin: 5.6.1(postcss@8.5.19)(webpack@5.109.0)
+      minimizer-webpack-plugin: 5.6.1(cssnano@7.1.9(postcss@8.5.19))(csso@5.0.5)(esbuild@0.28.1)(lightningcss@1.32.0)(postcss@8.5.19)(webpack@5.109.0)
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.3
