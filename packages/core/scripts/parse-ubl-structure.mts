@@ -79,7 +79,7 @@ type AssertNode = {
 	};
 };
 
-let cbcNoteSeen = false;
+let cbcNoteSeen: boolean;
 
 const parser = new XMLParser({
 	ignoreAttributes: false,
@@ -556,6 +556,8 @@ function buildTree(
 }
 
 function buildSchema(tree: Element): JSONSchemaType<object> {
+	cbcNoteSeen = false;
+
 	const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
 
 	const result = {
