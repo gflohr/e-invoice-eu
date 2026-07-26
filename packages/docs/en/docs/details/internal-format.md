@@ -302,6 +302,26 @@ element, add an `@` and the attribute name:
 Please note that strings _must_ be used for all values, even if they are
 numbers. Check the above examples for that.
 
+## CII Extensions
+
+CII allows considerably more fields than CII. Most of these fields are not
+part of EN16931 and therefore rarely used in the context of electronic
+invoices in the EU.
+
+Such extra fields can always be injected programatically via a
+[post processor](https://gflohr.github.io/e-invoice-eu/api-docs/types/InvoiceServiceOptions.html#postprocessor).
+
+Selected fields can be also injected by using the pseudo namespace 'x-cii',
+see below.
+
+### Invoice Note Subject Code (BT-21)
+
+You can inject an invoice type subject code (BT-21) by using the special
+field `ubl:Invoice -> x-cbc:SubjectCode`. The value must come from the code
+list UNTDID 4451.
+
+For UBL formats, no element is rendered for BT-21.
+
 ## Validation
 
 Don't worry if you forget about the exact details. The service bails out with
