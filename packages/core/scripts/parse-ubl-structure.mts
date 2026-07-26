@@ -79,6 +79,8 @@ type AssertNode = {
 	};
 };
 
+let cbcNoteSeen: boolean;
+
 const parser = new XMLParser({
 	ignoreAttributes: false,
 	removeNSPrefix: true,
@@ -554,6 +556,8 @@ function buildTree(
 }
 
 function buildSchema(tree: Element): JSONSchemaType<object> {
+	cbcNoteSeen = false;
+
 	const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
 
 	const result = {
@@ -638,6 +642,10 @@ function processNode(node: Element): JSONSchemaType<object> {
 			if (parseCardinality(child.cardinality).min === 1) {
 				required.push(child.Term);
 			}
+			if (child.Term === 'cbc:Note' && !cbcNoteSeen) {
+				cbcNoteSeen = true;
+				insertBT21(properties);
+			}
 		});
 
 		schema = {
@@ -668,6 +676,15 @@ function processNode(node: Element): JSONSchemaType<object> {
 	}
 
 	return schema as JSONSchemaType<object>;
+}
+
+function insertBT21(properties: Record<string, JSONSchemaType<object>>): void {
+	properties['x-cii:SubjectCode'] = {
+		type: 'string',
+		$ref: '#/$defs/codeLists/UNTDID4451',
+		title: 'Invoice note qualification code',
+		description: 'The qualification of the invoice note (BT-21)',
+	} as JSONSchemaType<object>;
 }
 
 function readXml(parser: XMLParser, filename: string): ExpandObject {
@@ -735,11 +752,12 @@ function loadCodeLists(dir: string) {
 	}
 
 	loadUNCL1001();
+	loadUNTDID4451();
 }
 
 function loadUNCL1001() {
 	const filename = path.resolve(
-		__dirname,
+		import.meta.dirname,
 		'../../../contrib/code-lists/UNTDID1001.csv',
 	);
 
@@ -788,6 +806,41 @@ function loadUNCL1001() {
 		cnCodes.push(elem.Id.toString());
 	}
 	$defs.codeLists['UNCL1001-cn'] = { enum: cnCodes };
+}
+
+function loadUNTDID4451() {
+	const filename = path.resolve(
+		import.meta.dirname,
+		'../../../contrib/code-lists/UNTDID4451.csv',
+	);
+
+	const workbook = XLSX.read(fs.readFileSync(filename), {
+		type: 'buffer',
+		cellDates: true,
+	});
+	const rows = XLSX.utils.sheet_to_json(workbook.Sheets.Sheet1, {
+		defval: null,
+	});
+
+	codeListValues['UNTDID4451'] = [];
+
+	type Row = {
+		Code: string;
+		'Code Name': string;
+	};
+
+	const codes: string[] = [];
+	for (const row of rows as Row[]) {
+		const value: CodeListValue = {
+			Id: row.Code,
+			Name: row['Code Name'],
+		};
+
+		codeListValues['UNTDID4451'].push(value);
+		codes.push(row.Code);
+	}
+
+	$defs.codeLists['UNTDID4451'] = { enum: codes };
 }
 
 function loadCodeList(parser: XMLParser, filename: string) {

@@ -88,6 +88,23 @@ describe('CII', () => {
 		expect(xml).toMatchSnapshot();
 	});
 
+	describe('Extensions for CII', () => {
+		it('should render BT-21 for CII', async () => {
+			const invoice: Invoice = {
+				'ubl:Invoice': {
+					'cbc:Note': ['Please send complaints to devnull@us.com'],
+					'x-cii:SubjectCode': 'AAB',
+				},
+			} as unknown as Invoice;
+
+			const xml = await service.generate(invoice, {
+				format: 'CII',
+				lang: 'en',
+			});
+			expect(xml).toMatchSnapshot();
+		});
+	});
+
 	describe('post-processing', () => {
 		const defaultNotes = [
 			'Buy a dozen donuts at the Kwik-E-Mart and instantly become' +

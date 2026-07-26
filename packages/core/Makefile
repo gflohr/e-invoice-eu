@@ -1,11 +1,12 @@
 default: all
 
-NPX = npx
-BUN = bun
+PNPX = pnpm exec
+TSX = $(PNPX) tsx
 
 INVOICE_SCHEMA_DEPENDENCIES = \
 	peppol-bis-invoice-3/structure/syntax/ubl-invoice.xml \
-	peppol-bis-invoice-3/structure/codelist/*.xml
+	peppol-bis-invoice-3/structure/codelist/*.xml \
+	../../contrib/code-lists/*.csv
 
 all: \
 	src/schema/invoice.schema.json \
@@ -18,34 +19,34 @@ all: \
 	../../packages/docs/en/docs/other/business-groups.md
 
 src/schema/invoice.schema.json: scripts/parse-ubl-structure.mts scripts/check-json-schema.mts package.json $(INVOICE_SCHEMA_DEPENDENCIES)
-	$(BUN) $< >$@ || rm -f $@
-	$(BUN) scripts/check-json-schema.mts $@ || rm -f $@
+	$(TSX) $< >$@ || rm -f $@
+	$(TSX) scripts/check-json-schema.mts $@ || rm -f $@
 
 src/invoice/invoice.interface.ts: scripts/json-schema-to-interface.mts src/schema/invoice.schema.json
-	$(BUN) $< src/schema/invoice.schema.json $@
-	$(NPX) biome check --write $@
+	$(TSX) $< src/schema/invoice.schema.json $@
+	$(PNPX) biome check --write $@
 
 src/invoice/invoice.schema.ts: scripts/json-schema-to-typescript.mts src/schema/invoice.schema.json
-	$(BUN) $< invoice
-	$(NPX) biome check --write $@
+	$(TSX) $< invoice
+	$(PNPX) biome check --write $@
 
 src/schema/mapping.schema.json: scripts/transform-ubl-mapping.mts scripts/check-json-schema.mts package.json src/schema/invoice.schema.json
-	$(BUN) $< src/schema/invoice.schema.json $@
-	$(BUN) scripts/check-json-schema.mts $@ || rm -f $@
+	$(TSX) $< src/schema/invoice.schema.json $@
+	$(TSX) scripts/check-json-schema.mts $@ || rm -f $@
 
 src/mapping/mapping.interface.ts: scripts/json-schema-to-interface.mts src/schema/mapping.schema.json
-	$(BUN) $< src/schema/mapping.schema.json $@
-	$(NPX) biome check --write $@
+	$(TSX) $< src/schema/mapping.schema.json $@
+	$(PNPX) biome check --write $@
 
 src/mapping/mapping.schema.ts: scripts/json-schema-to-typescript.mts src/schema/mapping.schema.json
-	$(BUN) $< mapping
-	$(NPX) biome check --write $@
+	$(TSX) $< mapping
+	$(PNPX) biome check --write $@
 
 ../../packages/docs/en/docs/other/business-terms.md: scripts/extract-business-terms.mts src/schema/invoice.schema.json
-	$(BUN) $< terms src/schema/invoice.schema.json >$@ || rm -f $@
+	$(TSX) $< terms src/schema/invoice.schema.json >$@ || rm -f $@
 
 ../../packages/docs/en/docs/other/business-groups.md: scripts/extract-business-terms.mts src/schema/invoice.schema.json
-	$(BUN) $< groups src/schema/invoice.schema.json >$@ || rm -f $@
+	$(TSX) $< groups src/schema/invoice.schema.json >$@ || rm -f $@
 
 .PHONY: clean
 
