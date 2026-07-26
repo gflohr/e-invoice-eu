@@ -311,7 +311,7 @@ invoices in the EU.
 Such extra fields can always be injected programmatically via a
 [post-processor](https://gflohr.github.io/e-invoice-eu/api-docs/types/InvoiceServiceOptions.html#postprocessor).
 
-Selected fields can be also injected by using the pseudo namespace 'x-cii',
+Selected fields can also be injected by using the pseudo namespace 'x-cii',
 see below.
 
 ### Invoice Note Subject Code (BT-21)
