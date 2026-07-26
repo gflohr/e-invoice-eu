@@ -292,7 +292,7 @@ describe('UBL', () => {
 			} as unknown as Invoice;
 
 			const xml = await service.generate(invoice, {
-				format: 'CII',
+				format: 'UBL',
 				lang: 'en',
 			});
 			expect(xml).toMatchSnapshot();
