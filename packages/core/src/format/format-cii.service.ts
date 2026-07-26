@@ -2,6 +2,7 @@ import { Invoice } from '@e-invoice-eu/core';
 import { type JSONSchemaType } from 'ajv';
 import * as jsonpath from 'jsonpath-plus';
 import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
+import { ValueAddedTaxPointDateCode } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { renameKey } from '../utils/rename-key';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
@@ -978,51 +979,6 @@ export const cacDelivery: Transformation[] = [
 	},
 ];
 
-export const invoicePeriod: Transformation[] = [
-	{
-		type: 'string',
-		src: ['cbc:StartDate'],
-		dest: [
-			'ram:BillingSpecifiedPeriod',
-			'ram:StartDateTime',
-			'udt:DateTimeString',
-		],
-		subtype: 'DateTimeString',
-		fxProfileMask: FX_MASK_BASIC_WL,
-	},
-	{
-		type: 'string',
-		src: ['fixed:102'],
-		dest: [
-			'ram:BillingSpecifiedPeriod',
-			'ram:StartDateTime',
-			'udt:DateTimeString@format',
-		],
-		fxProfileMask: FX_MASK_BASIC_WL,
-	},
-	{
-		type: 'string',
-		src: ['cbc:EndDate'],
-		dest: [
-			'ram:BillingSpecifiedPeriod',
-			'ram:EndDateTime',
-			'udt:DateTimeString',
-		],
-		subtype: 'DateTimeString',
-		fxProfileMask: FX_MASK_BASIC_WL,
-	},
-	{
-		type: 'string',
-		src: ['fixed:102'],
-		dest: [
-			'ram:BillingSpecifiedPeriod',
-			'ram:EndDateTime',
-			'udt:DateTimeString@format',
-		],
-		fxProfileMask: FX_MASK_BASIC_WL,
-	},
-];
-
 const cacPayeeParty: Transformation[] = [
 	{
 		// FIXME! This is an array for certain CII variants.
@@ -1703,8 +1659,34 @@ export class FormatCIIService
 		return FULL_CII;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	patchSchema(schema: JSONSchemaType<Invoice>) {}
+	public patchSchema(_schema: JSONSchemaType<Invoice>) {}
+
+	public patchInvoice(invoice: Invoice) {
+		// CII and UBL use different codes for the due date description code.
+		// We allow both versions, and silently convert to the correct value
+		// for the selected format.
+		const eventTimeCodeMapping: Record<
+			ValueAddedTaxPointDateCode,
+			ValueAddedTaxPointDateCode
+		> = {
+			'3': '5',
+			'5': '5',
+			'29': '29',
+			'35': '29',
+			'72': '72',
+			'432': '72',
+		};
+
+		const code =
+			invoice['ubl:Invoice']['cac:InvoicePeriod']?.[
+				'cbc:DescriptionCode'
+			];
+		if (typeof code !== 'undefined') {
+			invoice['ubl:Invoice']['cac:InvoicePeriod']![
+				'cbc:DescriptionCode'
+			] = eventTimeCodeMapping[code] ?? code;
+		}
+	}
 
 	async generate(
 		invoice: Invoice,
@@ -1957,9 +1939,8 @@ export class FormatCIIService
 
 	private applySubPaths(path: string, subPaths: string[]) {
 		for (const subPath of subPaths) {
-			// FIXME! The first two branches seem to be dead code.
 			if (subPath === '..') {
-				path = path.replace(/[[.][^[.]+$/, '');
+				path = path.replace(/\.[^.]+$/, '');
 			} else if (subPath.startsWith('@')) {
 				const match = path.match(/^(.*?)(\[[0-9]+\])$/);
 				if (match) {

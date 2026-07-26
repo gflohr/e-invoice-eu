@@ -61,6 +61,13 @@ export interface EInvoiceFormat {
 	fillInvoiceDefaults(invoice: Invoice): void;
 
 	/**
+	 * Perform format-specific patches.
+	 *
+	 * @param invoice - The invoice to be updated.
+	 */
+	patchInvoice(invoice: Invoice): void;
+
+	/**
 	 * Generates an invoice in the specified format.
 	 *
 	 * This function converts the given invoice data into a serialized format

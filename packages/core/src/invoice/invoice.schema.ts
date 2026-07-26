@@ -77,7 +77,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'x-cii:SubjectCode': {
 					type: 'string',
-					$ref: '#/$defs/codeLists/UNTDID4451',
+					$ref: '#/$defs/codeLists/UNCL4451',
 					title: 'Invoice note qualification code',
 					description:
 						'The qualification of the invoice note (BT-21)',
@@ -3604,7 +3604,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				],
 			},
 			UNCL2005: {
-				enum: ['3', '35', '432'],
+				enum: ['3', '35', '432', '5', '29', '72'],
 			},
 			UNCL4461: {
 				enum: [
@@ -6696,7 +6696,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					'0245',
 				],
 			},
-			UNTDID4451: {
+			UNCL4451: {
 				enum: [
 					'AAA',
 					'AAB',

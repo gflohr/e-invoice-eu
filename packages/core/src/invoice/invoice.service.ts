@@ -228,6 +228,7 @@ export class InvoiceService {
 			patched,
 		);
 
+		formatter.patchInvoice(invoice);
 		formatter.fillInvoiceDefaults(invoice);
 
 		return formatter.generate(invoice, options);

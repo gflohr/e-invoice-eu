@@ -71,4 +71,77 @@ describe('InvoiceService', () => {
 
 		validateSpy.mockRestore();
 	});
+
+	describe('Regressions', () => {
+		describe('#569 CII DueDateTypeCode (BT-8) never emitted from cac:InvoicePeriod/cbc:DescriptionCode', () => {
+			const mockLogger = {
+				log: vi.fn(),
+				warn: vi.fn(),
+				error: vi.fn(),
+			};
+
+			it('should auto-convert the date time code to UBL', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:InvoicePeriod': {
+							'cbc:DescriptionCode': '72',
+						},
+					},
+				} as Invoice;
+				const invoiceService = new InvoiceService(mockLogger);
+				vi.spyOn(
+					ValidationService.prototype,
+					'validate',
+				).mockReturnValue(invoice);
+
+				const xml = await invoiceService.generate(invoice, {
+					format: 'UBL',
+					lang: 'en',
+				});
+				expect(xml).toContain(
+					'<cbc:DescriptionCode>432</cbc:DescriptionCode>',
+				);
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should auto-convert the date time code to CII', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:InvoicePeriod': {
+							'cbc:DescriptionCode': '432',
+						},
+						'cac:TaxTotal': [
+							{
+								'cac:TaxSubtotal': [
+									{
+										'cac:TaxCategory': {
+											'cbc:ID': 'S',
+											'cbc:Percent': '20',
+											'cac:TaxScheme': {
+												'cbc:ID': 'VAT',
+											},
+										},
+									},
+								],
+							},
+						],
+					},
+				} as Invoice;
+				const invoiceService = new InvoiceService(mockLogger);
+				vi.spyOn(
+					ValidationService.prototype,
+					'validate',
+				).mockReturnValue(invoice);
+
+				const xml = await invoiceService.generate(invoice, {
+					format: 'CII',
+					lang: 'en',
+				});
+				expect(xml).toContain(
+					'<ram:DueDateTypeCode>72</ram:DueDateTypeCode>',
+				);
+				expect(xml).toMatchSnapshot();
+			});
+		});
+	});
 });

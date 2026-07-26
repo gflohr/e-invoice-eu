@@ -133,3 +133,13 @@ same manner as for "Skonto" but replace the `#SKONTO#` with `#VERZUG#` (the
 German word for late payment). However, the [official Schematron rules for
 the German XRechnung](https://github.com/itplr-kosit/xrechnung-schematron/blob/3196f722f1b7298eaaff2e0c89d499e42015f67c/src/validation/schematron/common.sch#L11)
 do not suggest such a convention.
+
+## Which Event Time Codes Do I Have to Use for BT-8?
+
+For `cac:Invoice -> cac:InvoicePeriod -> cbc:DescriptionCode`, UBL uses the
+values 3, 35, or 432. But CII uses 5, 29, or 72 instead. The reason is that
+the two standards use different code lists. UBL uses UNCL 2005, but CII uses
+UNCL 2475.
+
+With E-Invoice-EU, you can use either set of values. The software automatically
+translates them according to the selected format.

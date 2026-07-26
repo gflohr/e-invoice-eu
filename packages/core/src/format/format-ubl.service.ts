@@ -2,6 +2,7 @@ import { Mapping } from '@e-invoice-eu/core';
 import {
 	ADDITIONALSUPPORTINGDOCUMENTS,
 	AttachedDocumentMimeCode,
+	ValueAddedTaxPointDateCode,
 } from '@e-invoice-eu/core/invoice/invoice.interface';
 import { type JSONSchemaType } from 'ajv';
 import { Invoice } from '../invoice/invoice.interface';
@@ -75,6 +76,33 @@ export class FormatUBLService
 		schema.properties['ubl:Invoice'].properties[
 			'cac:AccountingSupplierParty'
 		].properties['cac:Party'].required.push('cbc:EndpointID');
+	}
+
+	public patchInvoice(invoice: Invoice) {
+		// CII and UBL use different codes for the due date description code.
+		// We allow both versions, and silently convert to the correct value
+		// for the selected format.
+		const eventTimeCodeMapping: Record<
+			ValueAddedTaxPointDateCode,
+			ValueAddedTaxPointDateCode
+		> = {
+			'3': '3',
+			'5': '3',
+			'29': '35',
+			'35': '35',
+			'72': '432',
+			'432': '432',
+		};
+
+		const code =
+			invoice['ubl:Invoice']['cac:InvoicePeriod']?.[
+				'cbc:DescriptionCode'
+			];
+		if (typeof code !== 'undefined') {
+			invoice['ubl:Invoice']['cac:InvoicePeriod']![
+				'cbc:DescriptionCode'
+			] = eventTimeCodeMapping[code] ?? code;
+		}
 	}
 
 	async generate(
