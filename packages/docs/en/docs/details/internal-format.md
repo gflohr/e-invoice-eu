@@ -304,12 +304,12 @@ numbers. Check the above examples for that.
 
 ## CII Extensions
 
-CII allows considerably more fields than CII. Most of these fields are not
+CII allows considerably more fields than UBL. Most of these fields are not
 part of EN16931 and therefore rarely used in the context of electronic
 invoices in the EU.
 
-Such extra fields can always be injected programatically via a
-[post processor](https://gflohr.github.io/e-invoice-eu/api-docs/types/InvoiceServiceOptions.html#postprocessor).
+Such extra fields can always be injected programmatically via a
+[post-processor](https://gflohr.github.io/e-invoice-eu/api-docs/types/InvoiceServiceOptions.html#postprocessor).
 
 Selected fields can be also injected by using the pseudo namespace 'x-cii',
 see below.
@@ -317,7 +317,7 @@ see below.
 ### Invoice Note Subject Code (BT-21)
 
 You can inject an invoice type subject code (BT-21) by using the special
-field `ubl:Invoice -> x-cbc:SubjectCode`. The value must come from the code
+field `ubl:Invoice -> x-cii:SubjectCode`. The value must come from the code
 list UNTDID 4451.
 
 For UBL formats, no element is rendered for BT-21.
