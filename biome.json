@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.4.10/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.5.5/schema.json",
 	"vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
 	"files": { "includes": ["**", "!!**/dist"] },
 	"formatter": {
@@ -17,7 +17,7 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": false,
+			"preset": "none",
 			"complexity": {
 				"noArguments": "error",
 				"noBannedTypes": "error",
@@ -36,9 +36,7 @@
 				"noUnusedVariables": "error"
 			},
 			"nursery": {
-				"noDuplicateEnumValues": "error",
-				"useExplicitType": "off",
-				"useSpread": "error"
+				"useExplicitType": "off"
 			},
 			"style": {
 				"noCommonJs": "error",
@@ -50,6 +48,7 @@
 			"suspicious": {
 				"noClassAssign": "off",
 				"noDuplicateClassMembers": "off",
+				"noDuplicateEnumValues": "error",
 				"noDuplicateObjectKeys": "off",
 				"noDuplicateParameters": "off",
 				"noExplicitAny": "error",
