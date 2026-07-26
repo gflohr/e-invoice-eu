@@ -13,4 +13,4 @@ https://ec.europa.eu/digital-building-blocks/sites/download/attachments/46710897
 
 The original spreadsheet comes from the Factur-X/ZUGFeRD documentation.
 
-The list is used for BT-21, which is explicitely not supported by PEPPOL UBL.
+The list is used for BT-21, which is explicitly not supported by PEPPOL UBL.
