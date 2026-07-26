@@ -14,7 +14,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
         # Version 24 has been tested in the push workflow
-        node-version: [20, 22]
+        node-version: [22]
 
     steps:
       - name: Checkout code
@@ -28,7 +28,7 @@ jobs:
       - name: Set up pnpm
         uses: pnpm/action-setup@v5
         with:
-          version: 10
+          version: 11
 
       - name: Install dependencies
         run: pnpm install --ignore-scripts
