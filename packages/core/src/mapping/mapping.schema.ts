@@ -74,6 +74,9 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 					},
 					required: [],
 				},
+				'x-cii:SubjectCode': {
+					$ref: '#/$defs/valueRef',
+				},
 				'cbc:TaxPointDate': {
 					$ref: '#/$defs/valueRef',
 				},

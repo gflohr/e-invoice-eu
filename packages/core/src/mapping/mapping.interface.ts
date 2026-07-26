@@ -28,6 +28,7 @@ export interface Mapping {
 		'cbc:Note'?: {
 			section?: SectionRef;
 		};
+		'x-cii:SubjectCode'?: ValueRef;
 		'cbc:TaxPointDate'?: ValueRef;
 		'cbc:DocumentCurrencyCode': ValueRef;
 		'cbc:TaxCurrencyCode'?: ValueRef;

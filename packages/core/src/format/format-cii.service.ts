@@ -1416,6 +1416,16 @@ export const ublInvoice: Transformation = {
 			fxProfileMask: FX_MASK_BASIC_WL,
 		},
 		{
+			type: 'string',
+			src: ['x-cii:SubjectCode'],
+			dest: [
+				'rsm:ExchangedDocument',
+				'ram:IncludedNote',
+				'ram:SubjectCode',
+			],
+			fxProfileMask: FX_MASK_BASIC_WL,
+		},
+		{
 			type: 'object',
 			src: [],
 			dest: ['rsm:SupplyChainTradeTransaction'],

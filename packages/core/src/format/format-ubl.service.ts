@@ -85,6 +85,7 @@ export class FormatUBLService
 		this.embedAttachments(invoice, options);
 
 		invoice = sortBySchema(invoice, invoiceSchema);
+		this.pruneCII(invoice);
 
 		const cnCodes = invoiceSchema['$defs']!.codeLists['UNCL1001-cn'].enum;
 		const code = invoice['ubl:Invoice']['cbc:InvoiceTypeCode'];
@@ -159,6 +160,12 @@ export class FormatUBLService
 			}
 			return this.renderXML(invoiceObject);
 		}
+	}
+
+	private pruneCII(invoice: Invoice) {
+		// If we add more elements, it's maybe better to just filter out all
+		// fields with the pseudo namespace x-cii.
+		delete invoice['ubl:Invoice']['x-cii:SubjectCode'];
 	}
 
 	private async embedPDF(invoice: Invoice, options: InvoiceServiceOptions) {
