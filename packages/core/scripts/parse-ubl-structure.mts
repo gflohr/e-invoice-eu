@@ -739,7 +739,7 @@ function loadCodeLists(dir: string) {
 
 function loadUNCL1001() {
 	const filename = path.resolve(
-		__dirname,
+		import.meta.dirname,
 		'../../../contrib/code-lists/UNTDID1001.csv',
 	);
 
