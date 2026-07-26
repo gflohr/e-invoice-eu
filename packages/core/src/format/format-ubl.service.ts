@@ -163,7 +163,7 @@ export class FormatUBLService
 	}
 
 	private pruneCII(invoice: Invoice) {
-		// If we add more elements, it's maybe better to just filter out all
+		// If we add more elements, it is maybe better to just filter out all
 		// fields with the pseudo namespace x-cii.
 		delete invoice['ubl:Invoice']['x-cii:SubjectCode'];
 	}
