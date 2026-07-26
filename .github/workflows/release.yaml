@@ -35,8 +35,11 @@ jobs:
       - name: Install Dependencies
         run: pnpm install
 
-      - name: Show changeset status
-        run: npx changeset status
+      - name: Build
+        run: pnpm run build
+
+      - name: Test
+        run: pnpm run test
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
