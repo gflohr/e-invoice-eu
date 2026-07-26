@@ -316,7 +316,7 @@ see below.
 
 ### Invoice Note Subject Code (BT-21)
 
-You can inject an invoice type subject code (BT-21) by using the special
+You can inject an invoice note subject code (BT-21) by using the special
 field `ubl:Invoice -> x-cii:SubjectCode`. The value must come from the code
 list UNTDID 4451.
 
