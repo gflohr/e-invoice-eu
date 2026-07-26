@@ -1,5 +1,26 @@
 # @e-invoice-eu/cli
 
+## 3.2.0
+
+### Patch Changes
+
+- e77faa0: Use cbc:CompanyLegalForm instead of cbc:LegalForm (see #566).
+- 5f24875: Upgrade all dependencies to latest.
+
+  Exception: TypeScript is not upgrade to version 7, because neither NestJS nor
+  Rollup support TypeScript 7 for the time being. But since TypeScript is a
+  devDependency, this does not affect any users of the software.
+
+- e08d51c: Preserve correct ID, when downgrading ram:GlobalID to ram:ID (#567).
+- afdc2fd: Report the correct cli version when installed locally.
+- Updated dependencies [938ab61]
+- Updated dependencies [e77faa0]
+- Updated dependencies [1566b64]
+- Updated dependencies [5f24875]
+- Updated dependencies [e08d51c]
+- Updated dependencies [1566b64]
+  - @e-invoice-eu/core@3.2.0
+
 ## 3.1.1
 
 ### Patch Changes

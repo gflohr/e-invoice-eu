@@ -1,5 +1,29 @@
 # @e-invoice-eu/server
 
+## 3.2.0
+
+### Patch Changes
+
+- 04795d0: Uninstall npm and corepack in docker image.
+
+  This reduces the attack surface and avoids false positives from Trivy.
+
+- e77faa0: Use cbc:CompanyLegalForm instead of cbc:LegalForm (see #566).
+- 5f24875: Upgrade all dependencies to latest.
+
+  Exception: TypeScript is not upgrade to version 7, because neither NestJS nor
+  Rollup support TypeScript 7 for the time being. But since TypeScript is a
+  devDependency, this does not affect any users of the software.
+
+- e08d51c: Preserve correct ID, when downgrading ram:GlobalID to ram:ID (#567).
+- Updated dependencies [938ab61]
+- Updated dependencies [e77faa0]
+- Updated dependencies [1566b64]
+- Updated dependencies [5f24875]
+- Updated dependencies [e08d51c]
+- Updated dependencies [1566b64]
+  - @e-invoice-eu/core@3.2.0
+
 ## 3.1.1
 
 ### Patch Changes
