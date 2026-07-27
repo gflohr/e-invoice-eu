@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:24-alpine AS builder
+FROM node:26-alpine AS builder
 
 ENV CI=true
 
@@ -30,7 +30,7 @@ RUN pnpm \
 RUN pnpm --filter @e-invoice-eu/server deploy --legacy --prod /app/out
 
 # Stage 2: Runtime
-FROM node:24-alpine
+FROM node:26-alpine
 
 ENV NODE_ENV=production
 ENV LIBREOFFICE=libreoffice
