@@ -480,5 +480,58 @@ describe('CII', () => {
 				expect(xml).toMatchSnapshot();
 			});
 		});
+
+		describe('Conditional Mapping of Supplier ID (#593)', () => {
+			it('should map an unqualified payee party ID as a local ID', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:PayeeParty': {
+							'cac:PartyIdentification': {
+								'cbc:ID': 'xyz',
+							},
+							'cac:PartyName': {
+								'cbc:Name': 'Get-Cash Ltd.',
+							},
+						}
+					}
+				} as unknown as Invoice;
+
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+
+				expect(xml).toContain(`
+			<ram:PayeeTradeParty>
+				<ram:ID>xyz</ram:ID>
+				<ram:Name>Get-Cash Ltd.</ram:Name>
+			</ram:PayeeTradeParty>`,
+				);
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should map a qualified payee party non-SEPA ID as a global ID', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:PayeeParty': {
+							'cac:PartyIdentification': {
+								'cbc:ID': 'BG123456789',
+								'cbc:ID@schemeID': '9926',
+							}
+						}
+					}
+				} as unknown as Invoice;
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+				expect(xml).toContain(`
+			<ram:PayeeTradeParty>
+				<ram:GlobalID schemeID="9926">BG123456789</ram:GlobalID>
+			</ram:PayeeTradeParty>`,
+				);
+				expect(xml).toMatchSnapshot();
+			});
+		});
 	});
 });

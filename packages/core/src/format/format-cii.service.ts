@@ -981,10 +981,15 @@ export const cacDelivery: Transformation[] = [
 
 const cacPayeeParty: Transformation[] = [
 	{
-		// FIXME! This is an array for certain CII variants.
 		type: 'string',
 		src: ['cac:PartyIdentification', 'cbc:ID'],
-		dest: ['ram:ID'],
+		dest: ['ram:GlobalID'],
+		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:PartyIdentification', 'cbc:ID@schemeID'],
+		dest: ['ram:GlobalID@schemeID'],
 		fxProfileMask: FX_MASK_BASIC_WL,
 	},
 	{
@@ -1723,6 +1728,7 @@ export class FormatCIIService
 
 	private postProcess(cii: ExpandObject) {
 		this.postProcessSellerTradeParty(cii);
+		this.postProcessPayeeParty(cii);
 
 		// If the delivery location ID does not have a scheme, downgrade it from
 		// ram:GlobalID to ram:ID.
@@ -1832,6 +1838,22 @@ export class FormatCIIService
 				'rsm:SupplyChainTradeTransaction'
 			]?.['ram:ApplicableHeaderTradeAgreement'];
 		parent['ram:SellerTradeParty'] = orderedSellerParty;
+	}
+
+	private postProcessPayeeParty(cii: ExpandObject) {
+		const payeeParty =
+			cii['rsm:CrossIndustryInvoice']?.[
+				'rsm:SupplyChainTradeTransaction'
+			]?.['ram:ApplicableHeaderTradeSettlement']?.['ram:PayeeTradeParty'];
+
+		if (!payeeParty) return;
+
+		if (
+			payeeParty?.['ram:GlobalID'] &&
+			!payeeParty['ram:GlobalID@schemeID']
+		) {
+			renameKey(payeeParty, 'ram:GlobalID', 'ram:ID');
+		}
 	}
 
 	private convert(
