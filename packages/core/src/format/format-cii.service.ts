@@ -7,6 +7,7 @@ import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { renameKey } from '../utils/rename-key';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { FormatUBLService } from './format-ubl.service';
+import { prependKey } from '../utils/prepend-key';
 
 // Flags for Factur-X usage.
 export type FXProfile =
@@ -1841,19 +1842,43 @@ export class FormatCIIService
 	}
 
 	private postProcessPayeeParty(cii: ExpandObject) {
-		const payeeParty =
+		const tradeSettlement =
 			cii['rsm:CrossIndustryInvoice']?.[
 				'rsm:SupplyChainTradeTransaction'
-			]?.['ram:ApplicableHeaderTradeSettlement']?.['ram:PayeeTradeParty'];
+			]?.['ram:ApplicableHeaderTradeSettlement'];
+		if (!tradeSettlement) return;
+
+		const payeeParty = tradeSettlement['ram:PayeeTradeParty'];
 
 		if (!payeeParty) return;
 
 		if (
-			payeeParty?.['ram:GlobalID'] &&
-			!payeeParty['ram:GlobalID@schemeID']
+			payeeParty?.['ram:GlobalID']
 		) {
-			renameKey(payeeParty, 'ram:GlobalID', 'ram:ID');
+			if (payeeParty['ram:GlobalID@schemeID']) {
+				if ('SEPA' === payeeParty['ram:GlobalID@schemeID']) {
+					// See #593 and #479!
+					this.insertCreditorReferenceID(cii, payeeParty['ram:GlobalID']);
+					delete payeeParty['ram:GlobalID'];
+					delete payeeParty['ram:GlobalID@schemeID'];
+					if (!Object.keys(payeeParty).length) {
+						delete tradeSettlement['ram:PayeeTradeParty'];
+					}
+				}
+			} else {
+				// Downgrade to locale ID.
+				renameKey(payeeParty, 'ram:GlobalID', 'ram:ID');
+			}
 		}
+	}
+
+	private insertCreditorReferenceID(cii: ExpandObject, id: string) {
+		// This is guaranteed to exist.
+		const parent =
+			cii['rsm:CrossIndustryInvoice']![
+				'rsm:SupplyChainTradeTransaction'
+			]!['ram:ApplicableHeaderTradeSettlement']!;
+		prependKey(parent, 'ram:CreditorReferenceID', id);
 	}
 
 	private convert(

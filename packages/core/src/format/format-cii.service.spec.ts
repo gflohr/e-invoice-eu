@@ -530,6 +530,29 @@ describe('CII', () => {
 			</ram:PayeeTradeParty>`);
 				expect(xml).toMatchSnapshot();
 			});
+
+			it('should map a qualified payee party SEPA ID as a creditor reference ID', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:PayeeParty': {
+							'cac:PartyIdentification': {
+								'cbc:ID': 'BG12345678901234567890',
+								'cbc:ID@schemeID': 'SEPA',
+							},
+						},
+					},
+				} as Invoice;
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+				expect(xml).not.toContain('<ram:PayeeTradeParty>');
+				expect(xml).toContain(`
+		<ram:ApplicableHeaderTradeSettlement>
+			<ram:CreditorReferenceID>BG12345678901234567890</ram:CreditorReferenceID>
+		</ram:ApplicableHeaderTradeSettlement>`);
+				expect(xml).toMatchSnapshot();
+			});
 		});
 	});
 });
