@@ -492,8 +492,8 @@ describe('CII', () => {
 							'cac:PartyName': {
 								'cbc:Name': 'Get-Cash Ltd.',
 							},
-						}
-					}
+						},
+					},
 				} as unknown as Invoice;
 
 				const xml = await service.generate(
@@ -505,8 +505,7 @@ describe('CII', () => {
 			<ram:PayeeTradeParty>
 				<ram:ID>xyz</ram:ID>
 				<ram:Name>Get-Cash Ltd.</ram:Name>
-			</ram:PayeeTradeParty>`,
-				);
+			</ram:PayeeTradeParty>`);
 				expect(xml).toMatchSnapshot();
 			});
 
@@ -517,9 +516,9 @@ describe('CII', () => {
 							'cac:PartyIdentification': {
 								'cbc:ID': 'BG123456789',
 								'cbc:ID@schemeID': '9926',
-							}
-						}
-					}
+							},
+						},
+					},
 				} as unknown as Invoice;
 				const xml = await service.generate(
 					invoice,
@@ -528,8 +527,7 @@ describe('CII', () => {
 				expect(xml).toContain(`
 			<ram:PayeeTradeParty>
 				<ram:GlobalID schemeID="9926">BG123456789</ram:GlobalID>
-			</ram:PayeeTradeParty>`,
-				);
+			</ram:PayeeTradeParty>`);
 				expect(xml).toMatchSnapshot();
 			});
 		});
