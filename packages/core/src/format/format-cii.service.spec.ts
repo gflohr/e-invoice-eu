@@ -167,7 +167,7 @@ describe('CII', () => {
 		});
 	});
 
-	describe('regressions', () => {
+	describe('Regressions', () => {
 		describe('#146 missing TaxTotalAmount', () => {
 			it('should fix add TaxTotalAmount', async () => {
 				const invoice: Invoice = {

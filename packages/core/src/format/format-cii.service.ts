@@ -4,10 +4,10 @@ import * as jsonpath from 'jsonpath-plus';
 import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 import { ValueAddedTaxPointDateCode } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
+import { prependKey } from '../utils/prepend-key';
 import { renameKey } from '../utils/rename-key';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { FormatUBLService } from './format-ubl.service';
-import { prependKey } from '../utils/prepend-key';
 
 // Flags for Factur-X usage.
 export type FXProfile =
@@ -1852,13 +1852,14 @@ export class FormatCIIService
 
 		if (!payeeParty) return;
 
-		if (
-			payeeParty?.['ram:GlobalID']
-		) {
+		if (payeeParty?.['ram:GlobalID']) {
 			if (payeeParty['ram:GlobalID@schemeID']) {
 				if ('SEPA' === payeeParty['ram:GlobalID@schemeID']) {
 					// See #593 and #479!
-					this.insertCreditorReferenceID(cii, payeeParty['ram:GlobalID']);
+					this.insertCreditorReferenceID(
+						cii,
+						payeeParty['ram:GlobalID'],
+					);
 					delete payeeParty['ram:GlobalID'];
 					delete payeeParty['ram:GlobalID@schemeID'];
 					if (!Object.keys(payeeParty).length) {
