@@ -9,6 +9,7 @@ import { prunePath } from '../utils/prune-path';
 import { renameKey } from '../utils/rename-key';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { FormatUBLService } from './format-ubl.service';
+import { vivifyPath } from '../utils/vivify-path';
 
 // Flags for Factur-X usage.
 export type FXProfile =
@@ -1893,7 +1894,7 @@ export class FormatCIIService
 	}
 
 	private insertCreditorReferenceID(cii: ExpandObject, id: string) {
-		this.vivifyDest(
+		vivifyPath(
 			cii,
 			'$.rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement',
 			{},
@@ -1970,7 +1971,7 @@ export class FormatCIIService
 							this.fxProfile === FX_MINIMUM)
 					) {
 						// Special case.  Force the element to exist.
-						this.vivifyDest(dest, childDestPath, {});
+						vivifyPath(dest, childDestPath, {});
 					} else {
 						this.convert(
 							invoice,
@@ -1997,7 +1998,7 @@ export class FormatCIIService
 					}
 					break;
 				case 'string':
-					this.vivifyDest(
+					vivifyPath(
 						dest,
 						childDestPath,
 						this.renderValue(src, transformation),
@@ -2028,36 +2029,6 @@ export class FormatCIIService
 		}
 
 		return path;
-	}
-
-	// FIXME! This can become a generic utility function.
-	private vivifyDest(
-		dest: ExpandObject,
-		path: string,
-		value: string | ExpandObject,
-	) {
-		const indices = path.replace(/\[([0-9]+)\]/g, '.$1').split('.');
-
-		if (indices[0] === '$') {
-			indices.shift();
-		}
-
-		for (let i = 0; i < indices.length - 1; ++i) {
-			const key = indices[i];
-			const nextIndex = indices[i + 1];
-
-			const isNextArrayIndex = nextIndex.match(/^[0-9]+$/);
-
-			if (isNextArrayIndex) {
-				dest[key] ??= [];
-			} else {
-				dest[key] ??= {};
-			}
-
-			dest = dest[key] as ExpandObject;
-		}
-
-		dest[indices[indices.length - 1]] ??= value;
 	}
 
 	private renderValue(value: string, transformation: Transformation): string {
