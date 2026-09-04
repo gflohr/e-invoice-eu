@@ -29,6 +29,8 @@ export function prependKey(
 	obj[firstKey] = firstValue;
 
 	for (const [key, value] of entries) {
-		obj[key as keyof typeof obj] = value;
+		if (key !== firstKey) {
+			obj[key as keyof typeof obj] = value;
+		}
 	}
 }
