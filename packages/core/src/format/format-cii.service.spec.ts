@@ -304,7 +304,7 @@ describe('CII', () => {
 			});
 		});
 
-		describe('#490 adapt seller party mappings depending on it attribute presence', () => {
+		describe('#490 adapt seller party mappings depending on schemeID attribute presence', () => {
 			it('should map seller ids in a context-depending manner', async () => {
 				const invoice: Invoice = {
 					'ubl:Invoice': {
@@ -481,7 +481,7 @@ describe('CII', () => {
 			});
 		});
 
-		describe('Conditional Mapping of Supplier ID (#593)', () => {
+		describe('Conditional Mapping of Payee/Supplier ID (#593)', () => {
 			it('should map an unqualified payee party ID as a local ID', async () => {
 				const invoice: Invoice = {
 					'ubl:Invoice': {
@@ -547,6 +547,35 @@ describe('CII', () => {
 					{} as InvoiceServiceOptions,
 				);
 				expect(xml).not.toContain('<ram:PayeeTradeParty>');
+				expect(xml).toContain(`
+		<ram:ApplicableHeaderTradeSettlement>
+			<ram:CreditorReferenceID>BG12345678901234567890</ram:CreditorReferenceID>
+		</ram:ApplicableHeaderTradeSettlement>`);
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should map a qualified supplier party SEPA ID as a creditor reference ID', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:AccountingSupplierParty': {
+							'cac:Party': {
+								'cac:PartyIdentification': [
+									{
+										'cbc:ID': 'BG12345678901234567890',
+										'cbc:ID@schemeID': 'SEPA',
+									},
+								],
+							},
+						},
+					},
+				} as Invoice;
+
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+
+				expect(xml).not.toContain('<ram:SellerTradeParty>');
 				expect(xml).toContain(`
 		<ram:ApplicableHeaderTradeSettlement>
 			<ram:CreditorReferenceID>BG12345678901234567890</ram:CreditorReferenceID>

@@ -78,7 +78,7 @@ exports[`CII > Regressions > #465 adapt buyer party mapping depending on it attr
 </rsm:CrossIndustryInvoice>"
 `;
 
-exports[`CII > Regressions > #490 adapt seller party mappings depending on it attribute presence > should map seller ids in a context-depending manner 1`] = `
+exports[`CII > Regressions > #490 adapt seller party mappings depending on schemeID attribute presence > should map seller ids in a context-depending manner 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
 	<rsm:SupplyChainTradeTransaction>
@@ -161,7 +161,7 @@ exports[`CII > Regressions > #569 CII DueDateTypeCode (BT-8) never emitted from 
 </rsm:CrossIndustryInvoice>"
 `;
 
-exports[`CII > Regressions > Conditional Mapping of Supplier ID (#593) > should map a qualified payee party SEPA ID as a creditor reference ID 1`] = `
+exports[`CII > Regressions > Conditional Mapping of Payee/Supplier ID (#593) > should map a qualified payee party SEPA ID as a creditor reference ID 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
 	<rsm:SupplyChainTradeTransaction>
@@ -172,7 +172,7 @@ exports[`CII > Regressions > Conditional Mapping of Supplier ID (#593) > should 
 </rsm:CrossIndustryInvoice>"
 `;
 
-exports[`CII > Regressions > Conditional Mapping of Supplier ID (#593) > should map a qualified payee party non-SEPA ID as a global ID 1`] = `
+exports[`CII > Regressions > Conditional Mapping of Payee/Supplier ID (#593) > should map a qualified payee party non-SEPA ID as a global ID 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
 	<rsm:SupplyChainTradeTransaction>
@@ -185,7 +185,18 @@ exports[`CII > Regressions > Conditional Mapping of Supplier ID (#593) > should 
 </rsm:CrossIndustryInvoice>"
 `;
 
-exports[`CII > Regressions > Conditional Mapping of Supplier ID (#593) > should map an unqualified payee party ID as a local ID 1`] = `
+exports[`CII > Regressions > Conditional Mapping of Payee/Supplier ID (#593) > should map a qualified supplier party SEPA ID as a creditor reference ID 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeSettlement>
+			<ram:CreditorReferenceID>BG12345678901234567890</ram:CreditorReferenceID>
+		</ram:ApplicableHeaderTradeSettlement>
+	</rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>"
+`;
+
+exports[`CII > Regressions > Conditional Mapping of Payee/Supplier ID (#593) > should map an unqualified payee party ID as a local ID 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
 	<rsm:SupplyChainTradeTransaction>
