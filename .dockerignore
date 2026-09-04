@@ -5,6 +5,7 @@ Dockerfile
 .gitmodules
 .husky
 .nvmrc
+.rollup.cache
 .prettierrc
 .vscode
 contrib

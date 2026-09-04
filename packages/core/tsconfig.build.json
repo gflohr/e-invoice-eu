@@ -5,7 +5,6 @@
 		"moduleResolution": "bundler",
 		"typeRoots": ["node_modules/@types"],
 		"rootDir": "./src",
-		"preserveValueImports": true,
 		"isolatedModules": true
 	}
 }
