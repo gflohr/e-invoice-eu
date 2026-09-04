@@ -11,14 +11,14 @@ describe('Recursive object clean-up', () => {
 							level2: {
 								leaf: {},
 							},
-						}
+						},
 					],
 				},
 				other: 'exists',
 			},
 		};
 		prunePath(obj, '$.level0.level1.array1[0].level2.leaf');
-		expect(obj).toStrictEqual({level0: { other: 'exists' }});
+		expect(obj).toStrictEqual({ level0: { other: 'exists' } });
 	});
 
 	it('should clean-up recursively and stop at the root without crashing', () => {
@@ -30,7 +30,7 @@ describe('Recursive object clean-up', () => {
 							level2: {
 								leaf: {},
 							},
-						}
+						},
 					],
 				},
 			},

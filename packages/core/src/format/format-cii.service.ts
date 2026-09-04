@@ -5,10 +5,10 @@ import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 import { ValueAddedTaxPointDateCode } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { prependKey } from '../utils/prepend-key';
+import { prunePath } from '../utils/prune-path';
 import { renameKey } from '../utils/rename-key';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { FormatUBLService } from './format-ubl.service';
-import { prunePath } from '../utils/prune-path';
 
 // Flags for Factur-X usage.
 export type FXProfile =
@@ -1808,7 +1808,7 @@ export class FormatCIIService
 				if (pi['ram:GlobalID@schemeID'] === 'SEPA') {
 					if (typeof sepa === 'undefined') {
 						sepa = pi['ram:GlobalID'];
-					} // Silently discard other SEPA ids.
+					} // Silently overwrite previous SEPA ids.
 				} else {
 					globalIDs.push({
 						'#': pi['ram:GlobalID'],
@@ -1849,7 +1849,10 @@ export class FormatCIIService
 		if (globalIDs.length || localIDs.length) {
 			parent['ram:SellerTradeParty'] = orderedSellerParty;
 		} else {
-			prunePath(cii, '$.rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:SellerTradeParty');
+			prunePath(
+				cii,
+				'$.rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:SellerTradeParty',
+			);
 		}
 
 		if (typeof sepa !== 'undefined') {
@@ -2054,7 +2057,7 @@ export class FormatCIIService
 			dest = dest[key] as ExpandObject;
 		}
 
-		dest[indices[indices.length - 1]] = value;
+		dest[indices[indices.length - 1]] ??= value;
 	}
 
 	private renderValue(value: string, transformation: Transformation): string {
