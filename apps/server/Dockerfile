@@ -1,17 +1,15 @@
 # Stage 1: Build
-FROM node:24-alpine AS builder
+FROM node:26-alpine AS builder
 
 ENV CI=true
 
 WORKDIR /app
 
-RUN corepack enable
+RUN npm install -g pnpm
 
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json tsconfig.json ./
 COPY packages ./packages
 COPY apps ./apps
-
-RUN apk add --no-cache git
 
 RUN apk add --no-cache git
 
@@ -30,7 +28,7 @@ RUN pnpm \
 RUN pnpm --filter @e-invoice-eu/server deploy --legacy --prod /app/out
 
 # Stage 2: Runtime
-FROM node:24-alpine
+FROM node:26-alpine
 
 ENV NODE_ENV=production
 ENV LIBREOFFICE=libreoffice
@@ -48,16 +46,14 @@ RUN if [ "$WITH_LIBREOFFICE" != "false" ]; then \
 		font-noto-emoji; \
 	fi
 
-# Upgrade all packages to latest. Also, uninstall npm and corepack. They only
+# Upgrade all packages to latest. Also, uninstall npm. They only
 # drag in security issues.
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/latest-stable/main" > /etc/apk/repositories \
-  && echo "https://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories \
-  && apk update \
-  && apk upgrade --no-cache \
-  && rm -r /usr/local/lib/node_modules/npm \
-  	/usr/local/bin/npm \
-  	/usr/local/lib/node_modules/corepack \
-	/usr/local/bin/corepack
+	&& echo "https://dl-cdn.alpinelinux.org/alpine/latest-stable/community" >> /etc/apk/repositories \
+	&& apk update \
+	&& apk upgrade --no-cache \
+	&& rm -r /usr/local/lib/node_modules/npm \
+	/usr/local/bin/npm
 
 WORKDIR /app
 

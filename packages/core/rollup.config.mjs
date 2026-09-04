@@ -38,7 +38,13 @@ export default [
 			commonjs(),
 			typescript({
 				exclude: 'src/**/*.spec.ts',
-				tsconfig: 'tsconfig.build.json',
+				tsconfig: false,
+				compilerOptions: {
+					target: 'ES2023',
+					module: 'esnext',
+					lib: ['ES2023', 'DOM'],
+					importHelpers: true,
+				},
 			}),
 			terser(),
 		],
@@ -68,7 +74,13 @@ export default [
 			commonjs(),
 			typescript({
 				exclude: 'src/**/*.spec.ts',
-				tsconfig: 'tsconfig.build.json',
+				tsconfig: false,
+				compilerOptions: {
+					target: 'ES2023',
+					module: 'esnext',
+					lib: ['ES2023', 'DOM'],
+					importHelpers: true,
+				},
 			}),
 		],
 	},
