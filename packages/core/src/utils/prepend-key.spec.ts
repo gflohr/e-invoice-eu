@@ -21,7 +21,7 @@ describe('Object key prepending in-place', () => {
 		});
 	});
 
-	it('should discarding an existing entry for the key', () => {
+	it('should discard an existing entry for the key', () => {
 		const obj = {
 			parent: {
 				foo: {},
