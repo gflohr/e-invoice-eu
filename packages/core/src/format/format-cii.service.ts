@@ -7,9 +7,9 @@ import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { prependKey } from '../utils/prepend-key';
 import { prunePath } from '../utils/prune-path';
 import { renameKey } from '../utils/rename-key';
+import { vivifyPath } from '../utils/vivify-path';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { FormatUBLService } from './format-ubl.service';
-import { vivifyPath } from '../utils/vivify-path';
 
 // Flags for Factur-X usage.
 export type FXProfile =
