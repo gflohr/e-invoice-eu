@@ -39,7 +39,10 @@ export default [
 			commonjs(),
 			typescript({
 				exclude: 'src/**/*.spec.ts',
-				tsconfig: path.resolve(import.meta.dirname, 'tsconfig.build.json'),
+				tsconfig: path.resolve(
+					import.meta.dirname,
+					'tsconfig.build.json',
+				),
 			}),
 			terser(),
 		],
@@ -69,7 +72,10 @@ export default [
 			commonjs(),
 			typescript({
 				exclude: 'src/**/*.spec.ts',
-				tsconfig: path.resolve(import.meta.dirname, 'tsconfig.build.json'),
+				tsconfig: path.resolve(
+					import.meta.dirname,
+					'tsconfig.build.json',
+				),
 			}),
 		],
 	},
@@ -80,7 +86,10 @@ export default [
 			json(),
 			typescript({
 				exclude: 'src/**/*.spec.ts',
-				tsconfig: path.resolve(import.meta.dirname, 'tsconfig.build.json'),
+				tsconfig: path.resolve(
+					import.meta.dirname,
+					'tsconfig.build.json',
+				),
 			}),
 		],
 		output: [
