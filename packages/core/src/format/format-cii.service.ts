@@ -4,7 +4,10 @@ import * as jsonpath from 'jsonpath-plus';
 import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 import { ValueAddedTaxPointDateCode } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
+import { prependKey } from '../utils/prepend-key';
+import { prunePath } from '../utils/prune-path';
 import { renameKey } from '../utils/rename-key';
+import { vivifyPath } from '../utils/vivify-path';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
 import { FormatUBLService } from './format-ubl.service';
 
@@ -981,10 +984,15 @@ export const cacDelivery: Transformation[] = [
 
 const cacPayeeParty: Transformation[] = [
 	{
-		// FIXME! This is an array for certain CII variants.
 		type: 'string',
 		src: ['cac:PartyIdentification', 'cbc:ID'],
-		dest: ['ram:ID'],
+		dest: ['ram:GlobalID'],
+		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+	{
+		type: 'string',
+		src: ['cac:PartyIdentification', 'cbc:ID@schemeID'],
+		dest: ['ram:GlobalID@schemeID'],
 		fxProfileMask: FX_MASK_BASIC_WL,
 	},
 	{
@@ -1723,6 +1731,7 @@ export class FormatCIIService
 
 	private postProcess(cii: ExpandObject) {
 		this.postProcessSellerTradeParty(cii);
+		this.postProcessPayeeParty(cii);
 
 		// If the delivery location ID does not have a scheme, downgrade it from
 		// ram:GlobalID to ram:ID.
@@ -1793,13 +1802,20 @@ export class FormatCIIService
 			'ram:GlobalID@schemeID': string;
 		};
 		const globalIDs: GlobalID[] = [];
+		let sepa: string | undefined = undefined;
 
 		for (const pi of partyIdentifications) {
 			if (pi['ram:GlobalID@schemeID']) {
-				globalIDs.push({
-					'#': pi['ram:GlobalID'],
-					'ram:GlobalID@schemeID': pi['ram:GlobalID@schemeID'],
-				});
+				if (pi['ram:GlobalID@schemeID'] === 'SEPA') {
+					if (typeof sepa === 'undefined') {
+						sepa = pi['ram:GlobalID'];
+					} // Silently overwrite previous SEPA ids.
+				} else {
+					globalIDs.push({
+						'#': pi['ram:GlobalID'],
+						'ram:GlobalID@schemeID': pi['ram:GlobalID@schemeID'],
+					});
+				}
 			} else {
 				localIDs.push(pi['ram:GlobalID']);
 			}
@@ -1813,7 +1829,7 @@ export class FormatCIIService
 			orderedSellerParty['ram:ID'] = localIDs;
 		}
 
-		// Add global IDs.
+		// Add global IDs that are *not* SEPA.
 		if (globalIDs.length) {
 			orderedSellerParty['ram:GlobalID'] = globalIDs.map(gid => ({
 				'#': gid['#'],
@@ -1826,12 +1842,68 @@ export class FormatCIIService
 			orderedSellerParty[key] = sellerParty[key];
 		}
 
-		// Replace the sellerParty object with the ordered one
+		// Replace the sellerParty object with the ordered one.
 		const parent =
 			cii['rsm:CrossIndustryInvoice']?.[
 				'rsm:SupplyChainTradeTransaction'
 			]?.['ram:ApplicableHeaderTradeAgreement'];
-		parent['ram:SellerTradeParty'] = orderedSellerParty;
+		if (globalIDs.length || localIDs.length) {
+			parent['ram:SellerTradeParty'] = orderedSellerParty;
+		} else {
+			prunePath(
+				cii,
+				'$.rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeAgreement.ram:SellerTradeParty',
+			);
+		}
+
+		if (typeof sepa !== 'undefined') {
+			this.insertCreditorReferenceID(cii, sepa);
+		}
+	}
+
+	private postProcessPayeeParty(cii: ExpandObject) {
+		const tradeSettlement =
+			cii['rsm:CrossIndustryInvoice']?.[
+				'rsm:SupplyChainTradeTransaction'
+			]?.['ram:ApplicableHeaderTradeSettlement'];
+		if (!tradeSettlement) return;
+
+		const payeeParty = tradeSettlement['ram:PayeeTradeParty'];
+
+		if (!payeeParty) return;
+
+		if (payeeParty?.['ram:GlobalID']) {
+			if (payeeParty['ram:GlobalID@schemeID']) {
+				if ('SEPA' === payeeParty['ram:GlobalID@schemeID']) {
+					// See #593 and #479!
+					this.insertCreditorReferenceID(
+						cii,
+						payeeParty['ram:GlobalID'],
+					);
+					delete payeeParty['ram:GlobalID'];
+					delete payeeParty['ram:GlobalID@schemeID'];
+					if (!Object.keys(payeeParty).length) {
+						delete tradeSettlement['ram:PayeeTradeParty'];
+					}
+				}
+			} else {
+				// Downgrade to local ID.
+				renameKey(payeeParty, 'ram:GlobalID', 'ram:ID');
+			}
+		}
+	}
+
+	private insertCreditorReferenceID(cii: ExpandObject, id: string) {
+		vivifyPath(
+			cii,
+			'$.rsm:CrossIndustryInvoice.rsm:SupplyChainTradeTransaction.ram:ApplicableHeaderTradeSettlement',
+			{},
+		);
+		const parent =
+			cii['rsm:CrossIndustryInvoice']![
+				'rsm:SupplyChainTradeTransaction'
+			]!['ram:ApplicableHeaderTradeSettlement'];
+		prependKey(parent, 'ram:CreditorReferenceID', id);
 	}
 
 	private convert(
@@ -1899,7 +1971,7 @@ export class FormatCIIService
 							this.fxProfile === FX_MINIMUM)
 					) {
 						// Special case.  Force the element to exist.
-						this.vivifyDest(dest, childDestPath, {});
+						vivifyPath(dest, childDestPath, {});
 					} else {
 						this.convert(
 							invoice,
@@ -1926,7 +1998,7 @@ export class FormatCIIService
 					}
 					break;
 				case 'string':
-					this.vivifyDest(
+					vivifyPath(
 						dest,
 						childDestPath,
 						this.renderValue(src, transformation),
@@ -1957,35 +2029,6 @@ export class FormatCIIService
 		}
 
 		return path;
-	}
-
-	private vivifyDest(
-		dest: ExpandObject,
-		path: string,
-		value: string | ExpandObject,
-	) {
-		const indices = path.replace(/\[([0-9]+)\]/g, '.$1').split('.');
-
-		if (indices[0] === '$') {
-			indices.shift();
-		}
-
-		for (let i = 0; i < indices.length - 1; ++i) {
-			const key = indices[i];
-			const nextIndex = indices[i + 1];
-
-			const isNextArrayIndex = nextIndex.match(/^[0-9]+$/);
-
-			if (isNextArrayIndex) {
-				dest[key] ??= [];
-			} else {
-				dest[key] ??= {};
-			}
-
-			dest = dest[key] as ExpandObject;
-		}
-
-		dest[indices[indices.length - 1]] = value;
 	}
 
 	private renderValue(value: string, transformation: Transformation): string {

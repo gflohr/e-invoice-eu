@@ -167,7 +167,7 @@ describe('CII', () => {
 		});
 	});
 
-	describe('regressions', () => {
+	describe('Regressions', () => {
 		describe('#146 missing TaxTotalAmount', () => {
 			it('should fix add TaxTotalAmount', async () => {
 				const invoice: Invoice = {
@@ -304,7 +304,7 @@ describe('CII', () => {
 			});
 		});
 
-		describe('#490 adapt seller party mappings depending on it attribute presence', () => {
+		describe('#490 adapt seller party mappings depending on schemeID attribute presence', () => {
 			it('should map seller ids in a context-depending manner', async () => {
 				const invoice: Invoice = {
 					'ubl:Invoice': {
@@ -477,6 +477,225 @@ describe('CII', () => {
 				expect(xml).toContain(
 					'<ram:DueDateTypeCode>432</ram:DueDateTypeCode>',
 				);
+				expect(xml).toMatchSnapshot();
+			});
+		});
+
+		describe('#593 Conditional Mapping of Payee/Supplier ID', () => {
+			it('should map an unqualified payee party ID as a local ID', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:PayeeParty': {
+							'cac:PartyIdentification': {
+								'cbc:ID': 'xyz',
+							},
+							'cac:PartyName': {
+								'cbc:Name': 'Get-Cash Ltd.',
+							},
+						},
+					},
+				} as unknown as Invoice;
+
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+
+				expect(xml).toContain(`
+			<ram:PayeeTradeParty>
+				<ram:ID>xyz</ram:ID>
+				<ram:Name>Get-Cash Ltd.</ram:Name>
+			</ram:PayeeTradeParty>`);
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should map a qualified payee party non-SEPA ID as a global ID', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:PayeeParty': {
+							'cac:PartyIdentification': {
+								'cbc:ID': 'BG123456789',
+								'cbc:ID@schemeID': '9926',
+							},
+						},
+					},
+				} as unknown as Invoice;
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+				expect(xml).toContain(`
+			<ram:PayeeTradeParty>
+				<ram:GlobalID schemeID="9926">BG123456789</ram:GlobalID>
+			</ram:PayeeTradeParty>`);
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should map a qualified payee party SEPA ID as a creditor reference ID', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:PayeeParty': {
+							'cac:PartyIdentification': {
+								'cbc:ID': 'BG12345678901234567890',
+								'cbc:ID@schemeID': 'SEPA',
+							},
+						},
+					},
+				} as Invoice;
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+				expect(xml).not.toContain('<ram:PayeeTradeParty>');
+				expect(xml).toContain(`
+		<ram:ApplicableHeaderTradeSettlement>
+			<ram:CreditorReferenceID>BG12345678901234567890</ram:CreditorReferenceID>
+		</ram:ApplicableHeaderTradeSettlement>`);
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should map a qualified supplier party SEPA ID as a creditor reference ID', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:AccountingSupplierParty': {
+							'cac:Party': {
+								'cac:PartyIdentification': [
+									{
+										'cbc:ID': 'BG12345678901234567890',
+										'cbc:ID@schemeID': 'SEPA',
+									},
+								],
+							},
+						},
+					},
+				} as Invoice;
+
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+
+				expect(xml).not.toContain('<ram:SellerTradeParty>');
+				expect(xml).toContain(`
+		<ram:ApplicableHeaderTradeSettlement>
+			<ram:CreditorReferenceID>BG12345678901234567890</ram:CreditorReferenceID>
+		</ram:ApplicableHeaderTradeSettlement>`);
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should prefer the first qualified supplier party SEPA ID as a creditor reference ID', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:AccountingSupplierParty': {
+							'cac:Party': {
+								'cac:PartyIdentification': [
+									{
+										'cbc:ID': 'BG12345678901234567890',
+										'cbc:ID@schemeID': 'SEPA',
+									},
+									{
+										'cbc:ID': 'FR12345678901234567890',
+										'cbc:ID@schemeID': 'SEPA',
+									},
+									{
+										'cbc:ID': 'DE12345678901234567890',
+										'cbc:ID@schemeID': 'SEPA',
+									},
+								],
+							},
+						},
+					},
+				} as Invoice;
+
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+
+				expect(xml).not.toContain('<ram:SellerTradeParty>');
+				expect(xml).toContain(`
+		<ram:ApplicableHeaderTradeSettlement>
+			<ram:CreditorReferenceID>BG12345678901234567890</ram:CreditorReferenceID>
+		</ram:ApplicableHeaderTradeSettlement>`);
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should preserve other supplier IDs', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:AccountingSupplierParty': {
+							'cac:Party': {
+								'cac:PartyIdentification': [
+									{
+										'cbc:ID': 'BG12345678901234567890',
+										'cbc:ID@schemeID': 'SEPA',
+									},
+									{
+										'cbc:ID': 'user@acme.com',
+										'cbc:ID@schemeID': 'EM',
+									},
+									{
+										'cbc:ID': 'well-known',
+									},
+								],
+							},
+						},
+					},
+				} as Invoice;
+
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+
+				expect(xml).toContain('<ram:SellerTradeParty>');
+				expect(xml).toContain(`
+		<ram:ApplicableHeaderTradeAgreement>
+			<ram:SellerTradeParty>
+				<ram:ID>well-known</ram:ID>
+				<ram:GlobalID schemeID="EM">user@acme.com</ram:GlobalID>
+			</ram:SellerTradeParty>
+		</ram:ApplicableHeaderTradeAgreement>`);
+				expect(xml).toContain(`
+		<ram:ApplicableHeaderTradeSettlement>
+			<ram:CreditorReferenceID>BG12345678901234567890</ram:CreditorReferenceID>
+		</ram:ApplicableHeaderTradeSettlement>`);
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should prefer the payee over the supplier party SEPA ID as a creditor reference ID', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:AccountingSupplierParty': {
+							'cac:Party': {
+								'cac:PartyIdentification': [
+									{
+										'cbc:ID': 'DE12345678901234567890',
+										'cbc:ID@schemeID': 'SEPA',
+									},
+								],
+							},
+						},
+						'cac:PayeeParty': {
+							'cac:PartyIdentification': {
+								'cbc:ID': 'BG12345678901234567890',
+								'cbc:ID@schemeID': 'SEPA',
+							},
+						},
+					},
+				} as Invoice;
+
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+
+				expect(xml).not.toContain('<ram:SellerTradeParty>');
+				expect(xml).not.toContain('<ram:PayeeTradeParty>');
+				expect(xml).toContain(`
+		<ram:ApplicableHeaderTradeSettlement>
+			<ram:CreditorReferenceID>BG12345678901234567890</ram:CreditorReferenceID>
+		</ram:ApplicableHeaderTradeSettlement>`);
 				expect(xml).toMatchSnapshot();
 			});
 		});
