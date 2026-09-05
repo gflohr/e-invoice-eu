@@ -1,5 +1,16 @@
 # @e-invoice-eu/core
 
+## 3.2.1
+
+### Patch Changes
+
+- 7c0cb64: Update Docker base image to node:26-alpine.
+- 8074c15: Upgrade all dependencies.
+  
+  Exception: TypeScript. NestJS still does not work with TypeScript 7.
+  Upgrading the TypeScript versions in the other workspaces fails, see
+  https://github.com/nestjs/nest-cli/issues/3549.
+
 ## 3.2.0
 
 ### Minor Changes
