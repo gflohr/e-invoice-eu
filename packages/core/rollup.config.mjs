@@ -1,10 +1,11 @@
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 import terser from '@rollup/plugin-terser';
 import typescript from '@rollup/plugin-typescript';
-import * as fs from 'fs';
 import nodePolyfills from 'rollup-plugin-polyfill-node';
 
 const pkg = JSON.parse(
@@ -38,7 +39,10 @@ export default [
 			commonjs(),
 			typescript({
 				exclude: 'src/**/*.spec.ts',
-				tsconfig: 'tsconfig.build.json',
+				tsconfig: path.resolve(
+					import.meta.dirname,
+					'tsconfig.build.json',
+				),
 			}),
 			terser(),
 		],
@@ -68,7 +72,10 @@ export default [
 			commonjs(),
 			typescript({
 				exclude: 'src/**/*.spec.ts',
-				tsconfig: 'tsconfig.build.json',
+				tsconfig: path.resolve(
+					import.meta.dirname,
+					'tsconfig.build.json',
+				),
 			}),
 		],
 	},
@@ -79,7 +86,10 @@ export default [
 			json(),
 			typescript({
 				exclude: 'src/**/*.spec.ts',
-				tsconfig: 'tsconfig.build.json',
+				tsconfig: path.resolve(
+					import.meta.dirname,
+					'tsconfig.build.json',
+				),
 			}),
 		],
 		output: [

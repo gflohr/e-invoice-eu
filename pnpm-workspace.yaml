@@ -9,9 +9,23 @@ allowBuilds:
   inotify: false
 linkWorkspacePackages: true
 minimumReleaseAgeExclude:
-  - js-yaml@5.2.2
-  - brace-expansion@5.0.8
-  - yargs@18.1.0
+  - postcss@8.5.23
+  - fast-uri@3.1.5 || 3.1.6
+  - brace-expansion@5.0.9
+  - js-yaml@4.3.1
+  - nanoid@3.3.18
+  - browserslist@4.28.9
+  - qs@6.15.4 || 6.16.0
+  - autoprefixer@10.5.5
 overrides:
-  brace-expansion@<=5.0.7: ^5.0.8
-  js-yaml@>=5.0.0 <=5.2.1: ^5.2.2
+  brace-expansion@>=4.0.0 <5.0.9: ^5.0.9
+  browserslist@<=4.28.6: ^4.28.7
+  fast-uri@>=3.0.0 <3.1.5: ^3.1.5
+  fast-uri@>=3.0.0 <3.1.6: ^3.1.6
+  fast-uri@>=3.1.2 <3.1.6: ^3.1.6
+  fast-uri@>=3.1.3 <3.1.6: ^3.1.6
+  js-yaml@>=4.0.0 <4.3.1: ^4.3.1
+  nanoid@<3.3.18: ^3.3.18
+  postcss@<=8.5.22: ^8.5.23
+  qs@>=2.2.5 <6.16.0: ^6.16.0
+  qs@>=6.14.2 <=6.15.3: ^6.15.4
