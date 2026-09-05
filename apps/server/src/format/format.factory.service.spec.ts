@@ -1,4 +1,5 @@
 import { Logger } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { AppConfigService } from '../app-config/app-config.service';
@@ -9,6 +10,11 @@ describe('XRECHNUNG-UBL', () => {
 
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
+			imports: [
+				ConfigModule.forRoot({
+					isGlobal: true,
+				}),
+			],
 			providers: [
 				AppConfigService,
 				{

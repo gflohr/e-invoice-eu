@@ -1,4 +1,5 @@
 import { Invoice, ValidationService } from '@e-invoice-eu/core';
+import { ConfigModule } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ErrorObject, ValidationError } from 'ajv/dist/2019';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -11,12 +12,24 @@ describe('InvoiceService', () => {
 
 	beforeEach(async () => {
 		const module: TestingModule = await Test.createTestingModule({
+			imports: [
+				ConfigModule.forRoot({
+					isGlobal: true,
+					load: [
+						() => ({ programs: { libreOffice: 'libreoffice' } }),
+					],
+				}),
+			],
 			providers: [
 				InvoiceService,
 				AppConfigService,
 				{
 					provide: 'AppConfigService',
-					useValue: {},
+					useValue: {
+						get: vi.fn().mockReturnValue({
+							libreOffice: 'libreoffice',
+						}),
+					},
 				},
 				FormatFactoryService,
 				{
@@ -84,7 +97,7 @@ describe('InvoiceService', () => {
 			throw new Error('Expected generate() to throw a ValidationError.');
 		} catch (error) {
 			expect(error).toBeInstanceOf(ValidationError);
-			expect(error.errors).toEqual([]);
+			expect((error as ValidationError).errors).toEqual([]);
 		}
 
 		expect(validateSpy).toHaveBeenCalledTimes(1);
