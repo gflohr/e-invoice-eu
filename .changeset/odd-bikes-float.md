@@ -1,6 +1,5 @@
 ---
 "@e-invoice-eu/core": minor
-"@e-invoice-eu/docs": minor
 "@e-invoice-eu/server": minor
 "@e-invoice-eu/cli": minor
 ---
