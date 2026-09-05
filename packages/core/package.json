@@ -12,7 +12,10 @@
 		"xrechnung",
 		"pdfa",
 		"e-rechnung",
-		"e-invoice-eu"
+		"e-invoice-eu",
+		"einvoice",
+		"erechnung",
+		"electronic invoice"
 	],
 	"main": "dist/e-invoice-eu.cjs.js",
 	"module": "dist/e-invoice-eu.esm.js",
