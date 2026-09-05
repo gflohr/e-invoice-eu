@@ -1,5 +1,21 @@
 # @e-invoice-eu/cli
 
+## 3.3.0
+
+### Minor Changes
+
+- 77fffdf: Map creditor reference ID correctly.
+  
+  A supplier or payee party ID with `@schemeID=SEPA` is now mapped to the CII
+  creditor reference ID (BT-90). The payee party ID has precedence over the
+  supplier party ID. If multiple conflicting supplier party `@schemeID=SEPA` are
+  specified, the first one takes precedence.
+
+### Patch Changes
+
+- Updated dependencies [77fffdf]
+  - @e-invoice-eu/core@3.3.0
+
 ## 3.2.1
 
 ### Patch Changes
