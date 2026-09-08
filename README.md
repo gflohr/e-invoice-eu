@@ -119,7 +119,7 @@ See [Validation](./contrib/validators) for details.
 A new and very simple option is offered by the sister project to this one,
 [e-invoice-eu-validator](https://github.com/gflohr/e-invoice-eu-validator).
 
-## BUGS
+## Bugs and Caveats
 
 ### PDF/A
 
@@ -129,10 +129,10 @@ PDF/A means.
 
 This library creates PDFs solely with [`pdf-lib`](https://github.com/cantoo-scribe/pdf-lib)
 and does some pretty complicated transformations on the PDF to achieve PDF/A
-compliance. This is not battle tested and may fail.
+compliance. This is not battle-tested and may fail.
 
 If you encounter a PDF that does not meet the PDF/A requirements, please
-open an issue and attach an anonymized version of the PDF. What you can do
+open an issue and attach an anonymised version of the PDF. What you can do
 in the meantime:
 
 - If you have [GhostScript](https://www.ghostscript.com/) installed, convert the PDF to PDF/A with this command: `gs -dVERBOSE -dPDFA=3 -dBATCH -dNOPAUSE -sDEVICE=pdfwrite -sOutputFile=OUTPUT_FILE.pdf PDFA_def.ps INPUT_FILE.pdf`
@@ -143,6 +143,10 @@ in the meantime:
 On Un\*x systems, `libreoffice` should be in your `$PATH`. On MacOS, you will
 find it under `/Applications/LibreOffice.app/Contents/MacOS/soffice`. On
 MS Windows, it is probably somewhere like `C:\\Program Files\\LibreOffice\\libreoffice.exe` (corrections are welcome).
+
+In order to make the PDF/A generation more stable, the
+[pdfa-lab](https://github.com/gflohr/pdfa-lab) project has been created.
+It is expected to be production-ready by the end of 2026.
 
 ## Reporting Bugs
 
