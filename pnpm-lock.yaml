@@ -194,7 +194,7 @@ importers:
     dependencies:
       '@cantoo/pdf-lib':
         specifier: ^2.9.1
-        version: 2.9.1(html-entities@2.6.0)
+        version: 2.9.2(html-entities@2.6.0)
       '@e965/xlsx':
         specifier: ^0.20.3
         version: 0.20.3
@@ -524,8 +524,8 @@ packages:
     resolution: {integrity: sha512-ctxtJ/eA+t+6q2++vj5j7FYX3nRu311q1wfYH3xjlLOsczhlhxAg2FWNUXhpGvAw3BWo1xBcvOV6/YLc2r5FJw==}
     hasBin: true
 
-  '@cantoo/pdf-lib@2.9.1':
-    resolution: {integrity: sha512-wAKXXDjp5lO0wS6d+k0FRpmWsULb95WhHKYx2fonTbv4zIfuIdCBz2nyTVVDGJpNDLl6o4w9aSTxQisBvvd60A==}
+  '@cantoo/pdf-lib@2.9.2':
+    resolution: {integrity: sha512-Oy8F4aB5Ts/eFkF6s7JdfvgTwoSU8sJZwpmLPuG1JZilTGiFGiFBR90rmJXSeKfvN2QzX/gRR8pYyf4gXP9vHg==}
     peerDependencies:
       html-entities: ^2.3.2
 
@@ -4895,7 +4895,7 @@ snapshots:
     dependencies:
       css-tree: 3.2.1
 
-  '@cantoo/pdf-lib@2.9.1(html-entities@2.6.0)':
+  '@cantoo/pdf-lib@2.9.2(html-entities@2.6.0)':
     dependencies:
       '@pdf-lib/standard-fonts': 1.0.0
       '@pdf-lib/upng': 1.0.1
