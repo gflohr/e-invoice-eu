@@ -41,7 +41,7 @@
 		"preinstall": "npx only-allow pnpm"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.5.12",
+		"@biomejs/biome": "2.5.13",
 		"@changesets/cli": "^3.0.2",
 		"@esgettext/tools": "^1.3.10",
 		"glob": "^13.0.6",
