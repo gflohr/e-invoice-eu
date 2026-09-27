@@ -17,6 +17,7 @@ minimumReleaseAgeExclude:
   - browserslist@4.28.9
   - qs@6.15.4 || 6.16.0
   - autoprefixer@10.5.5
+  - chalk@6.0.1
 overrides:
   brace-expansion@>=4.0.0 <5.0.9: ^5.0.9
   browserslist@<=4.28.6: ^4.28.7
