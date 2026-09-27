@@ -3,7 +3,7 @@ name: Docker Publish (DockerHub)
 on:
   push:
     branches: ['**']
-    tags: [ '\@e-invoice-eu/server@*' ]
+    tags: [ '@e-invoice-eu/server@*' ]
   workflow_dispatch:
 
 env:
