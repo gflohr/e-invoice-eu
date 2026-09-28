@@ -420,10 +420,12 @@ export class MappingService {
 	private getSchema(path: string[]): JSONSchemaType<unknown> {
 		const jsonPath = ['$', ...path].join('.');
 
-		return jsonpath.JSONPath({
+		const paths = jsonpath.JSONPath({
 			path: jsonPath,
 			json: invoiceSchema,
-		})[0] as JSONSchemaType<unknown>;
+		}) as string[];
+
+		return paths[0] as unknown as JSONSchemaType<unknown>;
 	}
 
 	private fillSectionRanges(
