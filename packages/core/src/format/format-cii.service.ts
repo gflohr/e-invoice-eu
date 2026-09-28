@@ -1950,7 +1950,7 @@ export class FormatCIIService
 				const srcs = jsonpath.JSONPath({
 					path: childSrcPath,
 					json: invoice,
-				});
+				}) as string[];
 				if (Array.isArray(srcs) && srcs.length === 0) {
 					continue;
 				}
