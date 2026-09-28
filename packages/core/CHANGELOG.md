@@ -1,5 +1,14 @@
 # @e-invoice-eu/core
 
+## 3.3.1
+
+### Patch Changes
+
+- a9aa0e4: escape at-sign in branch trigger
+- 3c6eefa: upgrade all dependencies to latest
+  
+  Exception: TypeScript because of NestJS.
+
 ## 3.3.0
 
 ### Minor Changes
