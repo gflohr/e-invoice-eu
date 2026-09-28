@@ -61,7 +61,7 @@
 		"e-invoice-eu-server": "dist/main.js"
 	},
 	"engines": {
-		"node": ">=20.19.0 <21.0.0 || >=22.12.0"
+		"node": ">=22.12.0"
 	},
 	"license": "WTFPL",
 	"scripts": {
