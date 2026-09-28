@@ -28,7 +28,8 @@ jobs:
       - name: Set up pnpm
         uses: pnpm/action-setup@v6
         with:
-          version: 12
+          version: 11
+          standalone: true
 
       - name: Install dependencies
         run: pnpm install --ignore-scripts
