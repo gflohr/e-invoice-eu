@@ -33,7 +33,7 @@ jobs:
       - name: Set up pnpm
         uses: pnpm/action-setup@v6
         with:
-          version: 10
+          version: 11
 
       - name: Install dependencies
         run: pnpm install
@@ -63,6 +63,11 @@ jobs:
           node-version: 24
           package-manager-cache: false
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11
+
       - name: Install dependencies
         run: pnpm install
 
@@ -89,11 +94,19 @@ jobs:
           node-version: 24
           package-manager-cache: false
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11
+
       - name: Install dependencies
         run: pnpm install
 
       - name: Build packages
         run: pnpm run build
+
+      - name: Test
+        run: pnpm run test
 
       - name: Pack packages
         id: pack
@@ -121,6 +134,11 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11
 
       - name: Publish packages
         uses: changesets/action/publish@v2
