@@ -1,5 +1,14 @@
 # @e-invoice-eu/server
 
+## 3.3.3
+
+### Patch Changes
+
+- 1892ba9: Do not upgrade alpine packages to latest.
+  
+  It may cause deadlocks in the pipeline.
+- @e-invoice-eu/core@3.3.3
+
 ## 3.3.2
 
 ### Patch Changes
