@@ -1,5 +1,13 @@
 # @e-invoice-eu/core
 
+## 3.3.2
+
+### Patch Changes
+
+- 51ececb: The problem with the Docker publishing is hopefully fixed.
+- 51ececb: All direct dependencies have been updated to latest.
+- cb9f239: upgrade changesets
+
 ## 3.3.1
 
 ### Patch Changes
