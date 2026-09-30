@@ -39,21 +39,35 @@ jobs:
         with:
           node-version: 24
 
-      # Extract version (handles both tag pushes and workflow_dispatch)
+      # Extract version (handles both tag pushes and workflow_dispatch).
       - name: Extract version
         id: version
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+          IS_TAG: ${{ startsWith(github.ref, 'refs/tags/') }}
         run: |
-          if [ "${{ startsWith(github.ref, 'refs/tags/') }}" = "true" ]; then
-            VERSION=${GITHUB_REF_NAME#@e-invoice-eu/server@}
-            echo "version=$VERSION" >> $GITHUB_OUTPUT
-            echo "is_release=true" >> $GITHUB_OUTPUT
-          elif [ -n "${{ inputs.version }}" ]; then
-            echo "version=${{ inputs.version }}" >> $GITHUB_OUTPUT
-            echo "is_release=true" >> $GITHUB_OUTPUT
+          set -euo pipefail
+
+          if [ "$IS_TAG" = "true" ]; then
+            VERSION="${GITHUB_REF_NAME#@e-invoice-eu/server@}"
+            IS_RELEASE="true"
+          elif [ -n "$INPUT_VERSION" ]; then
+            VERSION="$INPUT_VERSION"
+            IS_RELEASE="true"
           else
-            echo "version=ci" >> $GITHUB_OUTPUT
-            echo "is_release=false" >> $GITHUB_OUTPUT
+            VERSION="ci"
+            IS_RELEASE="false"
           fi
+
+          # Only validate semver structure if this is meant to be a release
+          # build. Other builds must always succeed.
+          if [ "$IS_RELEASE" = "true" ] && ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$ ]]; then
+            echo "::error::Invalid release version format: $VERSION" >&2
+            exit 1
+          fi
+
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "is_release=$IS_RELEASE" >> "$GITHUB_OUTPUT"
 
       - name: Log into DockerHub
         if: ${{ steps.version.outputs.is_release == 'true' }}
