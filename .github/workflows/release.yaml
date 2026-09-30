@@ -120,6 +120,7 @@ jobs:
     permissions:
       contents: write
       id-token: write
+      actions: write # Required for gh workflow run
     steps:
       - name: Check out repo
         uses: actions/checkout@v7
@@ -141,9 +142,30 @@ jobs:
         run: pnpm install
 
       - name: Publish packages
+        id: publish
         uses: changesets/action/publish@v2
         with:
           pack-dir-artifact-id: ${{ needs.pack.outputs.pack-dir-artifact-id }}
           create-github-releases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HUSKY: '0'
+
+      - name: Dispatch Docker Publish Workflow
+        if: steps.publish.outputs.published == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Read published packages list or extract server version
+          SERVER_VERSION=$(node -e '
+            const published = ${{ steps.publish.outputs.publishedPackages }};
+            const server = published.find(p => p.name === "@e-invoice-eu/server");
+            if (server) console.log(server.version);
+          ')
+
+          if [ -n "$SERVER_VERSION" ]; then
+            echo "Triggering Docker Publish workflow for @e-invoice-eu/server version $SERVER_VERSION"
+            gh workflow run "Docker Publish (DockerHub)" -f version="$SERVER_VERSION"
+          else
+            echo "No server package published in this release step."
+          fi
