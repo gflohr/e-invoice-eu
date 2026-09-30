@@ -155,12 +155,16 @@ jobs:
         if: steps.publish.outputs.published == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISHED_PACKAGES: ${{ steps.publish.outputs['published-packages'] }}
         run: |
-          # Read published packages list or extract server version
           SERVER_VERSION=$(node -e '
-            const published = ${{ steps.publish.outputs.publishedPackages }};
-            const server = published.find(p => p.name === "@e-invoice-eu/server");
-            if (server) console.log(server.version);
+            try {
+              const published = JSON.parse(process.env.PUBLISHED_PACKAGES || "[]");
+              const server = published.find(p => p.name === "@e-invoice-eu/server");
+              if (server) console.log(server.version);
+            } catch (e) {
+              process.exit(0);
+            }
           ')
 
           if [ -n "$SERVER_VERSION" ]; then
