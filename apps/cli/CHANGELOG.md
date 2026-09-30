@@ -1,5 +1,11 @@
 # @e-invoice-eu/cli
 
+## 3.3.3
+
+### Patch Changes
+
+- @e-invoice-eu/core@3.3.3
+
 ## 3.3.2
 
 ### Patch Changes
