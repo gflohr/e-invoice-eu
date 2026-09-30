@@ -10,6 +10,26 @@ allowBuilds:
   pnpm: true
 linkWorkspacePackages: true
 minimumReleaseAgeExclude:
-  - svgo@4.1.0
+  - '@nestjs/common@12.1.2'
+  - '@nestjs/core@12.1.2'
+  - '@nestjs/platform-express@12.1.2'
+  - '@nestjs/testing@12.1.2'
+  - '@vitest/coverage-v8@5.0.3'
+  - '@vitest/mocker@5.0.3'
+  - '@vitest/spy@5.0.3'
+  - caniuse-lite@1.0.30001814
+  - sass@1.105.1
+  - vitest@5.0.3
+  - markdown-it@14.3.1
+  - fast-uri@3.1.8
+  - brace-expansion@1.1.19 || 1.1.20 || 1.1.21 || 5.0.10 || 5.0.11 || 5.0.12
 overrides:
+  brace-expansion@<1.1.19: ^1.1.19
+  brace-expansion@<1.1.20: ^1.1.20
+  brace-expansion@<1.1.21: ^1.1.21
+  brace-expansion@>=4.0.0 <5.0.10: ^5.0.10
+  brace-expansion@>=4.0.0 <5.0.11: ^5.0.11
+  brace-expansion@>=4.0.0 <5.0.12: ^5.0.12
+  fast-uri@>=3.0.0 <3.1.8: ^3.1.8
+  markdown-it@<14.3.1: ^14.3.1
   svgo@>=4.0.0 <4.1.0: ^4.1.0
