@@ -699,5 +699,26 @@ describe('CII', () => {
 				expect(xml).toMatchSnapshot();
 			});
 		});
+
+		describe('', () => {
+			it('#626 insert an empty ram:ApplicableHeaderTradeDelivery, when required', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:InvoicePeriod': {
+							'cbc:StartDate': '2026-09-01',
+							'cbc:EndDate': '2026-09-30',
+						},
+					},
+				} as Invoice;
+
+				const xml = await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				);
+
+				expect(xml).toContain('<ram:ApplicableHeaderTradeDelivery/>');
+				expect(xml).toMatchSnapshot();
+			});
+		});
 	});
 });
