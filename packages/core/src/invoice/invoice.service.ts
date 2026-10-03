@@ -47,7 +47,7 @@ export type CustomInvoiceMetadata = {
 	producer?: string;
 	subject?: string;
 	title?: string;
-}
+};
 
 /**
  * Invoice creation options.

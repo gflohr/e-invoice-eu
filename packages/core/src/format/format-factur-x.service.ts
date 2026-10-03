@@ -231,13 +231,24 @@ export class FormatFacturXService
 			conformanceLevel,
 			version,
 			filename,
-			author: options.customMetadata?.author ?? options.customMetadata?.creator ?? invoiceCreator,
+			author:
+				options.customMetadata?.author ??
+				options.customMetadata?.creator ??
+				invoiceCreator,
 			creator: options.customMetadata?.creator ?? invoiceCreator,
 			now: this.formatDateWithOffset(now),
-			producer: options.customMetadata?.producer ?? 'e-invoice-eu - https://gflohr.github.io/e-invoice-eu',
+			producer:
+				options.customMetadata?.producer ??
+				'e-invoice-eu - https://gflohr.github.io/e-invoice-eu',
 			subject: options.customMetadata?.subject ?? invoiceSubject,
-			title: options.customMetadata?.title ?? `${invoiceCreator}: Invoice ${invoiceNumber}`,
-			keywords: options.customMetadata?.keywords ?? [this.gtx._('Invoice'), 'Factur-X', 'ZUGFeRD'],
+			title:
+				options.customMetadata?.title ??
+				`${invoiceCreator}: Invoice ${invoiceNumber}`,
+			keywords: options.customMetadata?.keywords ?? [
+				this.gtx._('Invoice'),
+				'Factur-X',
+				'ZUGFeRD',
+			],
 		};
 
 		this.addXmpMeta(xmp, invoiceMeta);
