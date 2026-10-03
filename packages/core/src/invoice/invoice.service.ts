@@ -170,11 +170,13 @@ export type InvoiceServiceOptions = {
 	postProcessor?: (data: ExpandObject) => Promise<void>;
 
 	/**
-	 * Experimental! Only Factur-X/ZUGFeRD! This will vanish as soon, as
-	 * the new XMP metadata API is implemented.
+	 * Only Factur-X/ZUGFeRD! And likely to vanish as soon, as the new XMP
+	 * metadata API is implemented.
 	 *
 	 * Custom invoice metadata. Data specified here will override the
 	 * hardcoded defaults.
+	 *
+	 * @experimental
 	 */
 	customMetadata?: CustomInvoiceMetadata;
 };
