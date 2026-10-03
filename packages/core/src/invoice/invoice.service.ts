@@ -37,6 +37,19 @@ export type FileInfo = {
 };
 
 /**
+ * Invoice meta data. The values passed here will override the hard-coded
+ * defaults.
+ */
+export type CustomInvoiceMetadata = {
+	author?: string;
+	creator?: string;
+	keywords?: string[];
+	producer?: string;
+	subject?: string;
+	title?: string;
+};
+
+/**
  * Invoice creation options.
  */
 export type InvoiceServiceOptions = {
@@ -155,6 +168,17 @@ export type InvoiceServiceOptions = {
 	 * ```
 	 */
 	postProcessor?: (data: ExpandObject) => Promise<void>;
+
+	/**
+	 * Only Factur-X/ZUGFeRD! And likely to vanish as soon, as the new XMP
+	 * metadata API is implemented.
+	 *
+	 * Custom invoice metadata. Data specified here will override the
+	 * hardcoded defaults.
+	 *
+	 * @experimental
+	 */
+	customMetadata?: CustomInvoiceMetadata;
 };
 
 /**

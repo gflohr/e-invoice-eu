@@ -295,6 +295,21 @@ describe('FormatFacturXService', () => {
 			expect(await extractXMPMetadata(pdfBytes)).toMatchSnapshot();
 		});
 
+		it('should override invoice metadata', async () => {
+			mockOptions.customMetadata = {
+				author: 'Homer Simpson',
+				creator: 'Mr. Burns Enterprises',
+				keywords: ['unpaid-tab', 'moes-tavern', 'doh'],
+				producer: 'Springfield Nuclear Power Plant',
+				subject: 'Overdue Payment for 1,000 Contaminated Donuts',
+				title: 'INVOICE #DOH-80085 - Sector 7-G Catering Services',
+			};
+
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
+
+			expect(await extractXMPMetadata(pdfBytes)).toMatchSnapshot();
+		});
+
 		it('should work in western timezones', async () => {
 			const originalGetTimezoneOffset = Date.prototype.getTimezoneOffset;
 			// This is the timezone of Greenland, not of the US! ;)
