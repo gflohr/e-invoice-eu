@@ -12,6 +12,7 @@ exports[`InvoiceService > Regressions > #569 CII DueDateTypeCode (BT-8) never em
 		</ram:GuidelineSpecifiedDocumentContextParameter>
 	</rsm:ExchangedDocumentContext>
 	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeDelivery/>
 		<ram:ApplicableHeaderTradeSettlement>
 			<ram:ApplicableTradeTax>
 				<ram:TypeCode>VAT</ram:TypeCode>
