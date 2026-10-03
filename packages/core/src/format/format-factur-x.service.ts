@@ -254,14 +254,14 @@ export class FormatFacturXService
 		this.addXmpMeta(xmp, invoiceMeta);
 		xmp = xmp.ins('xpacket', 'end="w"');
 
-		pdfDoc.setAuthor(invoiceMeta.creator);
+		pdfDoc.setAuthor(invoiceMeta.author);
 		pdfDoc.setCreationDate(now);
-		pdfDoc.setCreator(invoiceMeta.producer);
-		pdfDoc.setKeywords([this.gtx._('Invoice'), 'Factur-X', 'ZUGFeRD']);
+		pdfDoc.setCreator(invoiceMeta.creator);
+		pdfDoc.setKeywords(invoiceMeta.keywords);
 		pdfDoc.setLanguage(options.lang);
 		pdfDoc.setModificationDate(now);
 		pdfDoc.setProducer(invoiceMeta.producer);
-		pdfDoc.setSubject(invoiceSubject);
+		pdfDoc.setSubject(invoiceMeta.subject);
 		pdfDoc.setTitle(invoiceMeta.title);
 
 		await this.setTrailerInfoID(pdfDoc, invoiceMeta);
