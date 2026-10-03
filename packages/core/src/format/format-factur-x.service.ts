@@ -35,6 +35,9 @@ type InvoiceMeta = {
 	creator: string;
 	producer: string;
 	subject: string;
+	author: string;
+	keywords: string[];
+	title: string;
 };
 
 const colourProfile = `
@@ -224,14 +227,17 @@ export class FormatFacturXService
 				invoiceCreator,
 			},
 		);
-		const invoiceMeta = {
+		const invoiceMeta: InvoiceMeta = {
 			conformanceLevel,
 			version,
 			filename,
-			creator: invoiceCreator,
+			author: options.customMetadata?.author ?? options.customMetadata?.creator ?? invoiceCreator,
+			creator: options.customMetadata?.creator ?? invoiceCreator,
 			now: this.formatDateWithOffset(now),
-			producer: 'e-invoice-eu - https://gflohr.github.io/e-invoice-eu',
-			subject: invoiceSubject,
+			producer: options.customMetadata?.producer ?? 'e-invoice-eu - https://gflohr.github.io/e-invoice-eu',
+			subject: options.customMetadata?.subject ?? invoiceSubject,
+			title: options.customMetadata?.title ?? `${invoiceCreator}: Invoice ${invoiceNumber}`,
+			keywords: options.customMetadata?.keywords ?? [this.gtx._('Invoice'), 'Factur-X', 'ZUGFeRD'],
 		};
 
 		this.addXmpMeta(xmp, invoiceMeta);
@@ -245,7 +251,7 @@ export class FormatFacturXService
 		pdfDoc.setModificationDate(now);
 		pdfDoc.setProducer(invoiceMeta.producer);
 		pdfDoc.setSubject(invoiceSubject);
-		pdfDoc.setTitle(`${invoiceCreator}: Invoice ${invoiceNumber}`);
+		pdfDoc.setTitle(invoiceMeta.title);
 
 		await this.setTrailerInfoID(pdfDoc, invoiceMeta);
 		this.setOutputIntent(pdfDoc);
@@ -431,7 +437,7 @@ export class FormatFacturXService
 			'rdf:about': '',
 		})
 			.ele('pdf:Producer')
-			.txt(invoiceMeta.creator)
+			.txt(invoiceMeta.producer)
 			.up()
 			.ele('pdf:PDFVersion')
 			.txt('1.7');
