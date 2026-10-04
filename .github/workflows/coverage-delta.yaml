@@ -16,15 +16,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: 22
-
       - name: Set up pnpm
         uses: pnpm/action-setup@v6
         with:
-          version: 10
+          version: 12
+          runtime: node@24
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --ignore-scripts
