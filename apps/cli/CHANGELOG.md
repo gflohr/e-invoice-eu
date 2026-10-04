@@ -1,5 +1,17 @@
 # @e-invoice-eu/cli
 
+## 3.4.0
+
+### Patch Changes
+
+- 4dbbbfd: Upgrade all dependencies to latest.
+  
+  Exceptions: TypeScript because of NodeJS and pnpm because of pipeline
+  failures for Windows.
+- Updated dependencies [4dbbbfd]
+- Updated dependencies [368ee30]
+  - @e-invoice-eu/core@3.4.0
+
 ## 3.3.3
 
 ### Patch Changes
