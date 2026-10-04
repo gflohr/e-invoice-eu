@@ -18,15 +18,11 @@
 		"nodejs",
 		"typescript"
 	],
-	"workspaces": [
-		"apps/*",
-		"packages/*"
-	],
+	"workspaces": ["apps/*", "packages/*"],
 	"scripts": {
 		"build": "pnpm -r --workspace-concurrency=3 run build",
 		"check": "biome check",
 		"check:fix": "biome check --write",
-		"check:staged": "biome check --staged --write --no-errors-on-unmatched",
 		"start": "pnpm -r --filter=@e-invoice-eu/server run start",
 		"start:dev": "pnpm -r --filter=@e-invoice-eu/server run start:dev",
 		"start:debug": "pnpm -r --filter=@e-invoice-eu/server run start:debug",
@@ -51,6 +47,7 @@
 		"globals": "^17.13.0",
 		"husky": "^9.1.7",
 		"js-yaml": "^5.4.2",
+		"lint-staged": "^17.6.0",
 		"pnpm": "^12.9.1"
 	}
 }
