@@ -1777,6 +1777,8 @@ export class FormatCIIService
 				supplierTaxRegistration['ram:ID@schemeID'] = 'FC';
 			}
 		}
+
+		this.postProcessTradeDelivery(cii);
 	}
 
 	private postProcessSellerTradeParty(cii: ExpandObject) {
@@ -1904,6 +1906,22 @@ export class FormatCIIService
 				'rsm:SupplyChainTradeTransaction'
 			]!['ram:ApplicableHeaderTradeSettlement'];
 		prependKey(parent, 'ram:CreditorReferenceID', id);
+	}
+
+	private postProcessTradeDelivery(cii: ExpandObject) {
+		// This code is by GitHub user https://github.com/anvari182.
+		// See https://github.com/gflohr/e-invoice-eu/issues/626!
+		const root = cii['rsm:CrossIndustryInvoice'];
+		const tx = root?.['rsm:SupplyChainTradeTransaction'];
+		if (!tx || 'ram:ApplicableHeaderTradeDelivery' in tx) return;
+		const reordered = {};
+		for (const [key, value] of Object.entries(tx)) {
+			if (key === 'ram:ApplicableHeaderTradeSettlement') {
+				reordered['ram:ApplicableHeaderTradeDelivery'] = {};
+			}
+			reordered[key] = value;
+		}
+		root['rsm:SupplyChainTradeTransaction'] = reordered;
 	}
 
 	private convert(

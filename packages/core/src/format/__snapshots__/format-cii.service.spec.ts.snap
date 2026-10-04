@@ -16,6 +16,7 @@ exports[`CII > Regressions > #146 missing TaxTotalAmount > should fix add TaxTot
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
 	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeDelivery/>
 		<ram:ApplicableHeaderTradeSettlement>
 			<ram:SpecifiedTradeSettlementHeaderMonetarySummation>
 				<ram:LineTotalAmount>100.00</ram:LineTotalAmount>
@@ -149,6 +150,7 @@ exports[`CII > Regressions > #569 CII DueDateTypeCode (BT-8) never emitted from 
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
 	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeDelivery/>
 		<ram:ApplicableHeaderTradeSettlement>
 			<ram:ApplicableTradeTax>
 				<ram:TypeCode>VAT</ram:TypeCode>
@@ -165,6 +167,7 @@ exports[`CII > Regressions > #593 Conditional Mapping of Payee/Supplier ID > sho
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
 	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeDelivery/>
 		<ram:ApplicableHeaderTradeSettlement>
 			<ram:CreditorReferenceID>BG12345678901234567890</ram:CreditorReferenceID>
 		</ram:ApplicableHeaderTradeSettlement>
@@ -176,6 +179,7 @@ exports[`CII > Regressions > #593 Conditional Mapping of Payee/Supplier ID > sho
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
 	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeDelivery/>
 		<ram:ApplicableHeaderTradeSettlement>
 			<ram:PayeeTradeParty>
 				<ram:GlobalID schemeID="9926">BG123456789</ram:GlobalID>
@@ -189,6 +193,7 @@ exports[`CII > Regressions > #593 Conditional Mapping of Payee/Supplier ID > sho
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
 	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeDelivery/>
 		<ram:ApplicableHeaderTradeSettlement>
 			<ram:CreditorReferenceID>BG12345678901234567890</ram:CreditorReferenceID>
 		</ram:ApplicableHeaderTradeSettlement>
@@ -200,6 +205,7 @@ exports[`CII > Regressions > #593 Conditional Mapping of Payee/Supplier ID > sho
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
 	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeDelivery/>
 		<ram:ApplicableHeaderTradeSettlement>
 			<ram:PayeeTradeParty>
 				<ram:ID>xyz</ram:ID>
@@ -214,6 +220,7 @@ exports[`CII > Regressions > #593 Conditional Mapping of Payee/Supplier ID > sho
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
 	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeDelivery/>
 		<ram:ApplicableHeaderTradeSettlement>
 			<ram:CreditorReferenceID>BG12345678901234567890</ram:CreditorReferenceID>
 		</ram:ApplicableHeaderTradeSettlement>
@@ -225,6 +232,7 @@ exports[`CII > Regressions > #593 Conditional Mapping of Payee/Supplier ID > sho
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
 	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeDelivery/>
 		<ram:ApplicableHeaderTradeSettlement>
 			<ram:CreditorReferenceID>BG12345678901234567890</ram:CreditorReferenceID>
 		</ram:ApplicableHeaderTradeSettlement>
@@ -242,8 +250,28 @@ exports[`CII > Regressions > #593 Conditional Mapping of Payee/Supplier ID > sho
 				<ram:GlobalID schemeID="EM">user@acme.com</ram:GlobalID>
 			</ram:SellerTradeParty>
 		</ram:ApplicableHeaderTradeAgreement>
+		<ram:ApplicableHeaderTradeDelivery/>
 		<ram:ApplicableHeaderTradeSettlement>
 			<ram:CreditorReferenceID>BG12345678901234567890</ram:CreditorReferenceID>
+		</ram:ApplicableHeaderTradeSettlement>
+	</rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>"
+`;
+
+exports[`CII > Regressions > #626 insert an empty ram:ApplicableHeaderTradeDelivery, when required 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeDelivery/>
+		<ram:ApplicableHeaderTradeSettlement>
+			<ram:BillingSpecifiedPeriod>
+				<ram:StartDateTime>
+					<udt:DateTimeString format="102">20260901</udt:DateTimeString>
+				</ram:StartDateTime>
+				<ram:EndDateTime>
+					<udt:DateTimeString format="102">20260930</udt:DateTimeString>
+				</ram:EndDateTime>
+			</ram:BillingSpecifiedPeriod>
 		</ram:ApplicableHeaderTradeSettlement>
 	</rsm:SupplyChainTradeTransaction>
 </rsm:CrossIndustryInvoice>"
