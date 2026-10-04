@@ -1909,6 +1909,8 @@ export class FormatCIIService
 	}
 
 	private postProcessTradeDelivery(cii: ExpandObject) {
+		// This code is by GitHub user https://github.com/anvari182.
+		// See https://github.com/gflohr/e-invoice-eu/issues/626!
 		const root = cii['rsm:CrossIndustryInvoice'];
 		const tx = root?.['rsm:SupplyChainTradeTransaction'];
 		if (!tx || 'ram:ApplicableHeaderTradeDelivery' in tx) return;
@@ -1918,8 +1920,8 @@ export class FormatCIIService
 				reordered['ram:ApplicableHeaderTradeDelivery'] = {};
 			}
 			reordered[key] = value;
-  		}
-  		root['rsm:SupplyChainTradeTransaction'] = reordered;
+		}
+		root['rsm:SupplyChainTradeTransaction'] = reordered;
 	}
 
 	private convert(
