@@ -42,8 +42,5 @@
 		"webpack": "^5.111.1",
 		"webpack-cli": "^7.2.3"
 	},
-	"browserslist": [
-		"> 1%",
-		"last 2 versions"
-	]
+	"browserslist": ["> 1%", "last 2 versions"]
 }

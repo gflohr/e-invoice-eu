@@ -18,7 +18,10 @@
 		"nodejs",
 		"typescript"
 	],
-	"workspaces": ["apps/*", "packages/*"],
+	"workspaces": [
+		"apps/*",
+		"packages/*"
+	],
 	"scripts": {
 		"build": "pnpm -r --workspace-concurrency=3 run build",
 		"check": "biome check",
@@ -48,7 +51,7 @@
 		"globals": "^17.13.0",
 		"husky": "^9.1.7",
 		"js-yaml": "^5.4.2",
-		"pnpm": "^11.28.2"
+		"pnpm": "^12.9.1"
 	},
 	"dependencies": {
 		"dev": "^0.1.5"

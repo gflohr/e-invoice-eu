@@ -19,16 +19,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version: ${{ matrix.node-version }}
-
       - name: Set up pnpm
         uses: pnpm/action-setup@v6
         with:
-          version: 11
-          standalone: true
+          version: 12
+          runtime: node@${{ matrix.node-version }}
 
       - name: Install dependencies
         run: pnpm install --ignore-scripts
