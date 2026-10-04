@@ -1,5 +1,21 @@
 # @e-invoice-eu/core
 
+## 3.4.0
+
+### Minor Changes
+
+- 368ee30: Allow overriding invoice metadata.
+  
+  This is only implemented for the library, because it is an experimental
+  feature that will likely vanish in the next major release.
+
+### Patch Changes
+
+- 4dbbbfd: Upgrade all dependencies to latest.
+  
+  Exceptions: TypeScript because of NodeJS and pnpm because of pipeline
+  failures for Windows.
+
 ## 3.3.3
 
 No changes in this release.
