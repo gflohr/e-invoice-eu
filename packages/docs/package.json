@@ -37,9 +37,13 @@
 		"sass-loader": "^17.0.1",
 		"style-loader": "^4.0.0",
 		"terser-webpack-plugin": "^5.6.1",
+		"typescript": "6.0.3",
 		"url-loader": "^4.1.1",
 		"webpack": "^5.111.1",
 		"webpack-cli": "^7.2.3"
 	},
-	"browserslist": ["> 1%", "last 2 versions"]
+	"browserslist": [
+		"> 1%",
+		"last 2 versions"
+	]
 }

@@ -23,6 +23,21 @@ minimumReleaseAgeExclude:
   - markdown-it@14.3.1
   - fast-uri@3.1.8
   - brace-expansion@1.1.19 || 1.1.20 || 1.1.21 || 5.0.10 || 5.0.11 || 5.0.12
+  - '@pnpm/exe.android-arm64@12.9.1'
+  - '@pnpm/exe.android-x64@12.9.1'
+  - '@pnpm/exe.darwin-arm64@12.9.1'
+  - '@pnpm/exe.darwin-x64@12.9.1'
+  - '@pnpm/exe.freebsd-x64@12.9.1'
+  - '@pnpm/exe.linux-arm64-musl@12.9.1'
+  - '@pnpm/exe.linux-arm64@12.9.1'
+  - '@pnpm/exe.linux-ppc64@12.9.1'
+  - '@pnpm/exe.linux-riscv64@12.9.1'
+  - '@pnpm/exe.linux-s390x@12.9.1'
+  - '@pnpm/exe.linux-x64-musl@12.9.1'
+  - '@pnpm/exe.linux-x64@12.9.1'
+  - '@pnpm/exe.win32-arm64@12.9.1'
+  - '@pnpm/exe.win32-x64@12.9.1'
+  - pnpm@12.9.1
 overrides:
   brace-expansion@<1.1.19: ^1.1.19
   brace-expansion@<1.1.20: ^1.1.20
