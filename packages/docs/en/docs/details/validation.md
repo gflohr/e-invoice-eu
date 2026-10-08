@@ -139,6 +139,8 @@ check all legal requirements before you use them.
 The following online validators are freely available:
 
 - portinvoice: https://www.portinvoice.com/
+- NormAPI: https://normapi.de/validator (no registration; accepts PDFs with
+  embedded invoice XML and standalone XML)
 - ZUGFeRD Community (requires registration): https://www.zugferd-community.net/en/login
 - FNFE Service Validator (requires registration): https://services.fnfe-mpe.org/
 - Ecosio: https://ecosio.com/en/peppol-and-xml-document-validator/ (only XML)
@@ -153,6 +155,7 @@ automated validation scenarios.
 #### UBL/CII
 
 - portinvoice: https://www.portinvoice.com
+- NormAPI: https://normapi.de/validator (XRechnung UBL/CII; no registration)
 - EPO Consulting Validator: https://www.epoconsulting.com/erechnung-sap/xrechnung-validator
 - Invoice Portal XRechnung https://invoice-portal.de/en/peppol-bis-xrechnung-validator/
 - Ecosio: https://ecosio.com/de/peppol-und-xml-dokumente-online-validieren/
