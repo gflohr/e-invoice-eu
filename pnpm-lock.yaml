@@ -203,7 +203,7 @@ importers:
         version: 8.20.0
       jsonpath-plus:
         specifier: ^11.1.1
-        version: 11.1.1
+        version: 11.2.0
       tmp-promise:
         specifier: ^3.0.3
         version: 3.0.3
@@ -3237,8 +3237,8 @@ packages:
   jsonfile@6.2.1:
     resolution: {integrity: sha512-zwOTdL3rFQ/lRdBnntKVOX6k5cKJwEc1HdilT71BWEu7J41gXIB2MRp+vxduPSwZJPWBxEzv4yH1wYLJGUHX4Q==}
 
-  jsonpath-plus@11.1.1:
-    resolution: {integrity: sha512-G86cfMgH5mGeoOh3KLHoYgHQbRKQL4m0HFeEhTvdPq8bbLqe0M2uRTwrG5lgQNb8LoEXfM3DSUieVoWmomQoQQ==}
+  jsonpath-plus@11.2.0:
+    resolution: {integrity: sha512-sfM35kUqO1GvBqxrcPSfnai3/fHHFgH6OHP5HbMgQMPSVc5LeBXYvM1HknEpZJPCyNU9Hd3DKiFuDHh2RphTkQ==}
     engines: {node: '>=22.0.0'}
     hasBin: true
 
@@ -7459,7 +7459,7 @@ snapshots:
     optionalDependencies:
       graceful-fs: 4.2.11
 
-  jsonpath-plus@11.1.1:
+  jsonpath-plus@11.2.0:
     dependencies:
       '@jsep-plugin/assignment': 1.3.0(jsep@1.4.0)
       '@jsep-plugin/regex': 1.0.4(jsep@1.4.0)
