@@ -145,8 +145,11 @@ jobs:
           output: trivy-report.json
           skip-setup-trivy: true
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+
       - name: Check for unnecessary .trivyignore entries
         run: |
           set -euo pipefail
           mv ./.trivyignore.disabled ./.trivyignore
-          npx --yes trivy-ignore-check .trivyignore trivy-report.json
+          pnpm dlx trivy-ignore-check .trivyignore trivy-report.json

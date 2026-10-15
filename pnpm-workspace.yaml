@@ -10,41 +10,34 @@ allowBuilds:
   pnpm: true
 linkWorkspacePackages: true
 minimumReleaseAgeExclude:
-  - '@nestjs/common@12.1.2'
-  - '@nestjs/core@12.1.2'
-  - '@nestjs/platform-express@12.1.2'
-  - '@nestjs/testing@12.1.2'
-  - '@vitest/coverage-v8@5.0.3'
-  - '@vitest/mocker@5.0.3'
-  - '@vitest/spy@5.0.3'
-  - caniuse-lite@1.0.30001814
-  - sass@1.105.1
-  - vitest@5.0.3
-  - markdown-it@14.3.1
-  - fast-uri@3.1.8
-  - brace-expansion@1.1.19 || 1.1.20 || 1.1.21 || 5.0.10 || 5.0.11 || 5.0.12
-  - '@pnpm/exe.android-arm64@12.9.1'
-  - '@pnpm/exe.android-x64@12.9.1'
-  - '@pnpm/exe.darwin-arm64@12.9.1'
-  - '@pnpm/exe.darwin-x64@12.9.1'
-  - '@pnpm/exe.freebsd-x64@12.9.1'
-  - '@pnpm/exe.linux-arm64-musl@12.9.1'
-  - '@pnpm/exe.linux-arm64@12.9.1'
-  - '@pnpm/exe.linux-ppc64@12.9.1'
-  - '@pnpm/exe.linux-riscv64@12.9.1'
-  - '@pnpm/exe.linux-s390x@12.9.1'
-  - '@pnpm/exe.linux-x64-musl@12.9.1'
-  - '@pnpm/exe.linux-x64@12.9.1'
-  - '@pnpm/exe.win32-arm64@12.9.1'
-  - '@pnpm/exe.win32-x64@12.9.1'
-  - pnpm@12.9.1
+  - '@rollup/rollup-android-arm-eabi@4.64.7'
+  - '@rollup/rollup-android-arm64@4.64.7'
+  - '@rollup/rollup-darwin-arm64@4.64.7'
+  - '@rollup/rollup-darwin-x64@4.64.7'
+  - '@rollup/rollup-freebsd-arm64@4.64.7'
+  - '@rollup/rollup-freebsd-x64@4.64.7'
+  - '@rollup/rollup-linux-arm-gnueabihf@4.64.7'
+  - '@rollup/rollup-linux-arm-musleabihf@4.64.7'
+  - '@rollup/rollup-linux-arm64-gnu@4.64.7'
+  - '@rollup/rollup-linux-arm64-musl@4.64.7'
+  - '@rollup/rollup-linux-loong64-gnu@4.64.7'
+  - '@rollup/rollup-linux-loong64-musl@4.64.7'
+  - '@rollup/rollup-linux-ppc64-gnu@4.64.7'
+  - '@rollup/rollup-linux-ppc64-musl@4.64.7'
+  - '@rollup/rollup-linux-riscv64-gnu@4.64.7'
+  - '@rollup/rollup-linux-riscv64-musl@4.64.7'
+  - '@rollup/rollup-linux-s390x-gnu@4.64.7'
+  - '@rollup/rollup-linux-x64-gnu@4.64.7'
+  - '@rollup/rollup-linux-x64-musl@4.64.7'
+  - '@rollup/rollup-openbsd-x64@4.64.7'
+  - '@rollup/rollup-openharmony-arm64@4.64.7'
+  - '@rollup/rollup-win32-arm64-msvc@4.64.7'
+  - '@rollup/rollup-win32-ia32-msvc@4.64.7'
+  - '@rollup/rollup-win32-x64-gnu@4.64.7'
+  - '@rollup/rollup-win32-x64-msvc@4.64.7'
+  - rollup@4.64.7
 overrides:
-  brace-expansion@<1.1.19: ^1.1.19
-  brace-expansion@<1.1.20: ^1.1.20
-  brace-expansion@<1.1.21: ^1.1.21
-  brace-expansion@>=4.0.0 <5.0.10: ^5.0.10
-  brace-expansion@>=4.0.0 <5.0.11: ^5.0.11
-  brace-expansion@>=4.0.0 <5.0.12: ^5.0.12
-  fast-uri@>=3.0.0 <3.1.8: ^3.1.8
-  markdown-it@<14.3.1: ^14.3.1
-  svgo@>=4.0.0 <4.1.0: ^4.1.0
+  postcss-selector-parser@<7.1.6: ^7.1.6
+  proxy-addr@>=1.1.0 <2.0.8: ^2.0.8
+  shell-quote@>=1.8.4 <1.11.0: ^1.11.0
+  source-map-js@>=1.0.0 <1.2.2: ^1.2.2
