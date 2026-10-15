@@ -1,5 +1,16 @@
 # @e-invoice-eu/server
 
+## 3.4.1
+
+### Patch Changes
+
+- 5077836: Upgrade all dependencies to latest.
+  
+  Exception: TypeScript. TypeScript 7 is still incomptabile with NestJS.
+- Updated dependencies [443dfaa]
+- Updated dependencies [5077836]
+  - @e-invoice-eu/core@3.4.1
+
 ## 3.4.0
 
 ### Patch Changes

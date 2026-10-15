@@ -1,5 +1,16 @@
 # @e-invoice-eu/core
 
+## 3.4.1
+
+### Patch Changes
+
+- 443dfaa: Fix PDF/A output intent.
+  
+  Add number of components in the embedded colour profile.
+- 5077836: Upgrade all dependencies to latest.
+  
+  Exception: TypeScript. TypeScript 7 is still incomptabile with NestJS.
+
 ## 3.4.0
 
 ### Minor Changes
