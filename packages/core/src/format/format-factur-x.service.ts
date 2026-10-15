@@ -323,10 +323,29 @@ export class FormatFacturXService
 		}
 	}
 
+	private getIccComponentCount(profile: Uint8Array): number {
+		if (profile.length < 20) return 3; // Fallback default
+
+		// Bytes 16–19 represent the color space signature in the ICC header
+		const colorSpace = String.fromCharCode(...profile.slice(16, 20)).trim();
+
+		switch (colorSpace) {
+			case 'RGB':
+				return 3;
+			case 'CMYK':
+				return 4;
+			case 'GRAY':
+				return 1;
+			default:
+				return 3;
+		}
+	}
+
 	private setOutputIntent(pdfDoc: PDFDocument) {
 		const profile = this.base64ToUint8Array(colourProfile);
 		const profileStream = pdfDoc.context.stream(profile, {
 			Length: profile.length,
+			N: this.getIccComponentCount(profile),
 		});
 		const profileStreamRef = pdfDoc.context.register(profileStream);
 
