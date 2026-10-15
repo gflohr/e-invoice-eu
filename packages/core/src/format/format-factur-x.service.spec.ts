@@ -627,4 +627,36 @@ describe('FormatFacturXService', () => {
 			}
 		});
 	});
+
+	describe('PDF/A compliance', () => {
+		it('should set OutputIntent with N = 3 for sRGB profile', async () => {
+			const pdfBytes = await service.generate(mockInvoice, mockOptions);
+			const pdfDoc = await PDFDocument.load(pdfBytes);
+
+			const outputIntents = pdfDoc.catalog.lookup(
+				PDFName.of('OutputIntents'),
+				PDFArray,
+			);
+			expect(outputIntents).toBeDefined();
+			expect(outputIntents.size()).toBeGreaterThan(0);
+
+			const outputIntent = outputIntents.lookup(0, PDFDict);
+			expect(outputIntent).toBeDefined();
+			expect(outputIntent.lookup(PDFName.of('Type'))).toEqual(
+				PDFName.of('OutputIntent'),
+			);
+			expect(outputIntent.lookup(PDFName.of('S'))).toEqual(
+				PDFName.of('GTS_PDFA1'),
+			);
+
+			const profileStream = outputIntent.lookup(
+				PDFName.of('DestOutputProfile'),
+				PDFStream,
+			);
+			expect(profileStream).toBeDefined();
+
+			const nValue = profileStream.dict.lookup(PDFName.of('N'));
+			expect(nValue).toEqual(PDFNumber.of(3));
+		});
+	});
 });
