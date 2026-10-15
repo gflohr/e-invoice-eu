@@ -13367,7 +13367,7 @@ textarea.form-control-lg {
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/bootstrap-icons/font/bootstrap-icons.css ***!
   \*******************************************************************************************************************************************************************************/
 /*!
- * Bootstrap Icons v1.13.1 (https://icons.getbootstrap.com/)
+ * Bootstrap Icons v1.13.2 (https://icons.getbootstrap.com/)
  * Copyright 2019-2024 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/icons/blob/main/LICENSE)
  */
@@ -13375,8 +13375,8 @@ textarea.form-control-lg {
 @font-face {
   font-display: block;
   font-family: "bootstrap-icons";
-  src: url(92ea18a81d737146ff04.woff2?e34853135f9e39acf64315236852cd5a) format("woff2"),
-url(1295669cd4e305c97f2c.woff?e34853135f9e39acf64315236852cd5a) format("woff");
+  src: url(78be1a7fd85891ea64a5.woff2?e34853135f9e39acf64315236852cd5a) format("woff2"),
+url(7f1b72aed11d638e7d5a.woff?e34853135f9e39acf64315236852cd5a) format("woff");
 }
 
 .bi::before,
