@@ -47,7 +47,14 @@
 		"globals": "^17.13.0",
 		"husky": "^9.1.7",
 		"js-yaml": "^5.4.3",
-		"lint-staged": "^17.6.0",
-		"pnpm": "^12.11.2"
-	}
+		"lint-staged": "^17.6.0"
+	},
+	"devEngines": {
+		"packageManager": {
+			"name": "pnpm",
+			"version": "12.11.2",
+			"onFail": "download"
+		}
+	},
+	"packageManager": "pnpm@12.11.2"
 }
