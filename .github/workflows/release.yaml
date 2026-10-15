@@ -85,8 +85,6 @@ jobs:
           persist-credentials: false
       - name: Set up pnpm
         uses: pnpm/action-setup@v6
-        with:
-          runtime: node@24
 
       - name: Install dependencies
         run: pnpm install

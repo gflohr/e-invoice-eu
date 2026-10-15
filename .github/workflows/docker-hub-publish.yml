@@ -147,8 +147,6 @@ jobs:
 
       - name: Set up pnpm
         uses: pnpm/action-setup@v6
-        with:
-          runtime: node@24
 
       - name: Check for unnecessary .trivyignore entries
         run: |
