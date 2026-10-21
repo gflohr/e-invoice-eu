@@ -740,7 +740,6 @@ describe('CII', () => {
 					invoice,
 					{} as InvoiceServiceOptions,
 				)) as string;
-				console.log(xml);
 
 				const countNoteStart = (xml.match(/<ram:IncludedNote>/g) || [])
 					.length;
