@@ -67,22 +67,39 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					],
 				},
 				'cbc:Note': {
-					type: 'array',
-					items: {
-						type: 'string',
-						title: 'Invoice note',
-						description:
-							'A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or assignment note in case the invoice has been factored. The element is not repeatable, except when both the Buyer and Seller are German, in which case the element can be repeated to meet specific legal requirements.\nBusiness terms: BT-22',
-					},
+					anyOf: [
+						{
+							type: 'array',
+							items: {
+								type: 'string',
+								title: 'Invoice note',
+								description:
+									'A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or assignment note in case the invoice has been factored. The element is not repeatable, except when both the Buyer and Seller are German, in which case the element can be repeated to meet specific legal requirements.\nBusiness terms: BT-22',
+							},
+						},
+						{
+							type: 'string',
+							title: 'Invoice note',
+							description:
+								'A textual note that gives unstructured information that is relevant to the Invoice as a whole.Such as the reason for any correction or assignment note in case the invoice has been factored. The element is not repeatable, except when both the Buyer and Seller are German, in which case the element can be repeated to meet specific legal requirements.\nBusiness terms: BT-22',
+						},
+					],
 				},
 				'x-cii:SubjectCode': {
-					type: 'array',
-					items: {
-						$ref: '#/$defs/codeLists/UNCL4451',
-					},
-					title: 'Invoice note qualification code',
-					description:
-						'The qualification of the invoice note (BT-21)',
+					anyOf: [
+						{
+							type: 'array',
+							items: {
+								$ref: '#/$defs/codeLists/UNCL4451',
+							},
+							title: 'Invoice note qualification code',
+							description:
+								'The qualification of the invoice note (BT-21)',
+						},
+						{
+							$ref: '#/$defs/codeLists/UNCL4451',
+						},
+					],
 				},
 				'cbc:TaxPointDate': {
 					$ref: '#/$defs/dataTypes/Date',

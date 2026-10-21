@@ -27,7 +27,6 @@ styles: "<style>td { word-break: break-all; font-size: smaller; }</style>"
 | BT-18 | [&hairsp;/ubl:Invoice&hairsp;/cac:AdditionalDocumentReference&hairsp;/cbc:ID](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AdditionalDocumentReference/cbc-ID/)<br />[&hairsp;/ubl:Invoice&hairsp;/cac:AdditionalDocumentReference&hairsp;/cbc:DocumentTypeCode](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-AdditionalDocumentReference/cbc-DocumentTypeCode/) |
 | BT-19 | [&hairsp;/ubl:Invoice&hairsp;/cbc:AccountingCost](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-AccountingCost/) |
 | BT-20 | [&hairsp;/ubl:Invoice&hairsp;/cac:PaymentTerms&hairsp;/cbc:Note](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-PaymentTerms/cbc-Note/) |
-| BT-22 | [&hairsp;/ubl:Invoice&hairsp;/cbc:Note](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-Note/) |
 | BT-23 | [&hairsp;/ubl:Invoice&hairsp;/cbc:ProfileID](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-ProfileID/) |
 | BT-24 | [&hairsp;/ubl:Invoice&hairsp;/cbc:CustomizationID](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cbc-CustomizationID/) |
 | BT-25 | [&hairsp;/ubl:Invoice&hairsp;/cac:BillingReference&hairsp;/cac:InvoiceDocumentReference&hairsp;/cbc:ID](https://docs.peppol.eu/poacc/billing/3.0/syntax/ubl-invoice/cac-BillingReference/cac-InvoiceDocumentReference/cbc-ID/) |

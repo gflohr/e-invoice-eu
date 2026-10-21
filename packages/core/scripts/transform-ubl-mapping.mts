@@ -79,13 +79,20 @@ fs.writeFileSync(
 function transformSchema(schema: JSONSchemaType<unknown>): void {
 	// Transform properties if they exist
 	if (schema.properties) {
-		for (const [key, value] of Object.entries(schema.properties)) {
-			// Recursively transform nested schemas
+		for (let [key, value] of Object.entries(schema.properties)) {
+			// Recursively transform nested schemas.
+			const maybeMulti = value as Record<string, Array<{ type: string }>>;
+			if (maybeMulti.anyOf?.[0].type === 'array') {
+				// This is for top-level cbc:Note and x-cii:SubjectCode.  They
+				// can be an array or single string, but for mappings, this
+				// does not make sense, and we use only arrays.
+				schema.properties[key] = value = maybeMulti.anyOf[0];
+			}
 			transformSchema(value as JSONSchemaType<unknown>);
 
 			const valueObject = value as Record<string, unknown>;
 
-			// Update type and references
+			// Update type and references.
 			if (valueObject.type === 'string' || valueObject.$ref) {
 				const defaultValue = schema.properties[key].default;
 				schema.properties[key] = { $ref: '#/$defs/valueRef' };

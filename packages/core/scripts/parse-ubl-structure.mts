@@ -286,6 +286,7 @@ function patchSchema(schema: JSONSchemaType<object>) {
 	patchSchemaForEAS(schema);
 	patchSchemaForEndpointID(schema);
 	patchSchemaForUnitPriceAmount(schema);
+	patchSchemaForNotes(schema);
 }
 
 function patchSchemaImpliedFields(schema: JSONSchemaType<object>) {
@@ -370,6 +371,21 @@ function patchSchemaForUnitPriceAmount(schema: JSONSchemaType<object>) {
 
 	// BT-148: Item gross price
 	acProps['cbc:BaseAmount'].$ref = '#/$defs/dataTypes/UnitPriceAmount';
+}
+
+function patchSchemaForNotes(schema: JSONSchemaType<object>) {
+	const noteSchema = structuredClone(
+		schema.properties['ubl:Invoice'].properties['cbc:Note'],
+	);
+	schema.properties['ubl:Invoice'].properties['cbc:Note'] = {
+		anyOf: [noteSchema, noteSchema.items],
+	};
+	const subjectCodeSchema = structuredClone(
+		schema.properties['ubl:Invoice'].properties['x-cii:SubjectCode'],
+	);
+	schema.properties['ubl:Invoice'].properties['x-cii:SubjectCode'] = {
+		anyOf: [subjectCodeSchema, subjectCodeSchema.items],
+	};
 }
 
 /**
