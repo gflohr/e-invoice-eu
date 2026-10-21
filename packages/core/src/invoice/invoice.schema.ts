@@ -77,7 +77,9 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 				},
 				'x-cii:SubjectCode': {
 					type: 'array',
-					$ref: '#/$defs/codeLists/UNCL4451',
+					items: {
+						$ref: '#/$defs/codeLists/UNCL4451',
+					},
 					title: 'Invoice note qualification code',
 					description:
 						'The qualification of the invoice note (BT-21)',
