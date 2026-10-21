@@ -143,6 +143,7 @@ The following online validators are freely available:
 - FNFE Service Validator (requires registration): https://services.fnfe-mpe.org/
 - Ecosio: https://ecosio.com/en/peppol-and-xml-document-validator/ (only XML)
 - Practical Peppol Validator: https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2 (only XML)
+- Peppol Validator: https://peppolvalidator.com/
 
 The Ecosio validator uses the Practical Peppol validator under the hood. You
 have extract the XML embedded into the PDF for using these validators.
@@ -157,6 +158,7 @@ automated validation scenarios.
 - Invoice Portal XRechnung https://invoice-portal.de/en/peppol-bis-xrechnung-validator/
 - Ecosio: https://ecosio.com/de/peppol-und-xml-dokumente-online-validieren/
 - Practical Peppol Validator: https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2
+- Peppol Validator: https://peppolvalidator.com/
 
 The Ecosio validator uses the Practical Peppol validator under the hood.
 
