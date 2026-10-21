@@ -314,6 +314,12 @@ Such extra fields can always be injected programmatically via a
 Selected fields can also be injected by using the pseudo namespace 'x-cii',
 see below.
 
+### Invoice Notes
+
+In UBL, an invoice can only have one note, whereas CII allows multiple notes.
+You can therefore use multiple top-level `cbc:Note` elements. Extra notes
+are discarded for UBL.
+
 ### Invoice Note Subject Code (BT-21)
 
 You can inject an invoice note subject code (BT-21) by using the special
@@ -321,6 +327,10 @@ field `ubl:Invoice -> x-cii:SubjectCode`. The value must come from the code
 list UNCL 4451.
 
 For UBL formats, no element is rendered for BT-21.
+
+If you have multiple notes, use an array for the subject codes. For notes that
+do not have a subject code, pass an empty string. If no note has a subject
+code, you can safely omit the subject codes.
 
 ## Validation
 

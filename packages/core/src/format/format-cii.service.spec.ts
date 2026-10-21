@@ -93,7 +93,7 @@ describe('CII', () => {
 			const invoice: Invoice = {
 				'ubl:Invoice': {
 					'cbc:Note': ['Please send complaints to devnull@us.com'],
-					'x-cii:SubjectCode': 'AAB',
+					'x-cii:SubjectCode': ['AAB'],
 				},
 			} as unknown as Invoice;
 
@@ -700,7 +700,7 @@ describe('CII', () => {
 			});
 		});
 
-		describe('', () => {
+		describe('#626', () => {
 			it('#626 insert an empty ram:ApplicableHeaderTradeDelivery, when required', async () => {
 				const invoice: Invoice = {
 					'ubl:Invoice': {
@@ -717,6 +717,50 @@ describe('CII', () => {
 				);
 
 				expect(xml).toContain('<ram:ApplicableHeaderTradeDelivery/>');
+				expect(xml).toMatchSnapshot();
+			});
+		});
+
+		describe('#647 Multiple notes', () => {
+			it('should wrap every note into a content node', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cbc:Note': [
+							'Sector 7-G console replacement surcharge applied. It was like that when I got here.',
+							'Payment due net 30 days or we release the hounds.',
+							'Consulting fee: Taught plant manager to pronounce "Nucular".',
+							'Monorail consulting fee. True, genuine, bona fide, 6-car monorail!',
+							'I will not submit fake invoice notes for unit tests.',
+						],
+						'x-cii:SubjectCode': ['AAB', '', 'AAC'],
+					},
+				} as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				const countNoteStart = (xml.match(/<ram:IncludedNote>/g) || [])
+					.length;
+				expect(countNoteStart).toBe(5);
+				const countNoteEnd = (xml.match(/<\/ram:IncludedNote>/g) || [])
+					.length;
+				expect(countNoteEnd).toBe(5);
+				const countContentStart = (xml.match(/<ram:Content>/g) || [])
+					.length;
+				expect(countContentStart).toBe(5);
+				const countContentEnd = (xml.match(/<\/ram:Content>/g) || [])
+					.length;
+				expect(countContentEnd).toBe(5);
+				const countSubjectCodeStart = (
+					xml.match(/<ram:SubjectCode>/g) || []
+				).length;
+				expect(countSubjectCodeStart).toBe(2);
+				const countSubjectCodeEnd = (
+					xml.match(/<\/ram:SubjectCode>/g) || []
+				).length;
+				expect(countSubjectCodeEnd).toBe(2);
 				expect(xml).toMatchSnapshot();
 			});
 		});

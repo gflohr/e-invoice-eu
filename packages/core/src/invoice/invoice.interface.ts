@@ -111,7 +111,7 @@ export type InvoiceNote = string;
 /**
  * The qualification of the invoice note (BT-21)
  */
-export type InvoiceNoteQualificationCode =
+export type InvoiceNoteQualificationCode = (
 	| 'AAA'
 	| 'AAB'
 	| 'AAC'
@@ -512,7 +512,8 @@ export type InvoiceNoteQualificationCode =
 	| 'TRR'
 	| 'TXD'
 	| 'WHI'
-	| 'ZZZ';
+	| 'ZZZ'
+)[];
 /**
  * The date when the VAT becomes accountable for the Seller and for the Buyer in so far as that date can be determined and differs from the date of issue of the invoice, according to the VAT directive.This element is required if the Value added tax point date is different from the Invoice issue date.
  * Business terms: BT-7

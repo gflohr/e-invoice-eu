@@ -225,7 +225,16 @@ export class InvoiceService {
 			patched['ubl:Invoice']['cbc:Note'] = [
 				input['ubl:Invoice']['cbc:Note'],
 			];
-			this.deprecationWarning(options);
+		}
+
+		if (
+			input['ubl:Invoice'] &&
+			input['ubl:Invoice']['x-cii:SubjectCode'] &&
+			typeof input['ubl:Invoice']['x-cii:SubjectCode'] === 'string'
+		) {
+			patched['ubl:Invoice']['x-cii:SubjectCode'] = [
+				input['ubl:Invoice']['x-cii:SubjectCode'],
+			];
 		}
 
 		const formatter = this.formatFactoryService.createFormatService(
@@ -256,19 +265,5 @@ export class InvoiceService {
 		formatter.fillInvoiceDefaults(invoice);
 
 		return formatter.generate(invoice, options);
-	}
-
-	private deprecationWarning(options: InvoiceServiceOptions) {
-		if (!options.noWarnings) {
-			console.warn(
-				"Coercing 'ubl:Invoice->cbc:Note' from an array into an",
-			);
-			console.warn(
-				'array of strings. Please change your data resp. mapping!',
-			);
-			console.warn(
-				'The automatic coercion will be removed in version 4!',
-			);
-		}
 	}
 }

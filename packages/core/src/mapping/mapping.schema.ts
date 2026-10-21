@@ -14,7 +14,7 @@ import { Mapping } from './mapping.interface';
  */
 export const mappingSchema: JSONSchemaType<Mapping> = {
 	$schema: 'https://json-schema.org/draft/2019-09/schema',
-	$id: 'https://www.cantanea.com/schemas/ubl-mapping-schema-v3.1.1',
+	$id: 'https://www.cantanea.com/schemas/ubl-mapping-schema-v3.4.1',
 	type: 'object',
 	title: 'Mapping',
 	description: 'Maps invoice data to the cells in a spreadsheet.',
@@ -75,7 +75,14 @@ export const mappingSchema: JSONSchemaType<Mapping> = {
 					required: [],
 				},
 				'x-cii:SubjectCode': {
-					$ref: '#/$defs/valueRef',
+					type: 'object',
+					additionalProperties: false,
+					properties: {
+						section: {
+							$ref: '#/$defs/sectionRef',
+						},
+					},
+					required: [],
 				},
 				'cbc:TaxPointDate': {
 					$ref: '#/$defs/valueRef',
