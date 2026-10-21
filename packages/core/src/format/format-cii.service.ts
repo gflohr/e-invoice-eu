@@ -1039,7 +1039,7 @@ const cacPaymentMeans: Transformation[] = [
 		src: ['cac:CardAccount', 'cbc:HolderName'],
 		dest: [
 			'ram:ApplicableTradeSettlementFinancialCard',
-			'ram:CardHolderName',
+			'ram:CardholderName',
 		],
 		fxProfileMask: FX_MASK_EN16931,
 	},
