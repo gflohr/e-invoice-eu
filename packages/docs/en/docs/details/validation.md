@@ -136,8 +136,8 @@ check all legal requirements before you use them.
 
 | Name | Factur-X/ZUGFeRD | UBL/CII | API | Remarks |
 |------|------------------|---------|-----|-----------------------|
+| [Peppol Validator](https://peppolvalidator.com/) | ✅&nbsp;<sup>1</sup> | ✅ | ✅ | |
 | [NormAPI](https://normapi.com/en/validator) | ✅ | ✅ | ✅ | based on [KoSIT](#kosit-validator) validator |
-| [Peppol Validator](https://peppolvalidator.com/) | ✅ | ✅ | ❌ | |
 | [Practical Peppol](https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2 ) | ✅&nbsp;<sup>1</sup> | ✅ | ✅&nbsp;<sup>2</sup> | |
 | [Ecosio](https://ecosio.com/en/peppol-and-xml-document-validator/) | ✅&nbsp;<sup>1</sup> | ✅ | ❌ | based on [Practical Peppol](#practical-peppol) validator |
 | [portinvoice](https://www.portinvoice.com/) | ✅ | ✅ | ❌ | |
