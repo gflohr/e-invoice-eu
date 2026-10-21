@@ -134,36 +134,18 @@ Online validators are easy to use but you have to keep in mind that invoices
 contain personal data and may also contain business or trade secrets. Please
 check all legal requirements before you use them.
 
-#### Factur-X/ZUGFeRD
+| Name | Factur-X/ZUGFeRD | UBL/CII | API | Remarks |
+|------|------------------|---------|-----|-----------------------|
+| [NormAPI](https://normapi.com/en/validator) | ✅ | ✅ | ✅ | based on [KoSIT](#kosit-validator) validator |
+| [Peppol Validator](https://peppolvalidator.com/) | ✅ | ✅ | ❌ | |
+| [Practical Peppol](https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2 ) | ✅&nbsp;<sup>1</sup> | ✅ | ✅&nbsp;<sup>2</sup> | |
+| [Ecosio](https://ecosio.com/en/peppol-and-xml-document-validator/) | ✅&nbsp;<sup>1</sup> | ✅ | ❌ | based on [Practical Peppol](#practical-peppol) validator |
+| [portinvoice](https://www.portinvoice.com/) | ✅ | ✅ | ❌ | |
+| [ZUGFeRD Community](https://www.zugferd-community.net/en/login) | ✅ | ✅ | ❌ | Registration required |
+| [FNFE Service Validator](https://services.fnfe-mpe.org/) | ✅ | ✅ | ❌ | Registration required |
 
-The following online validators are freely available:
-
-- portinvoice: https://www.portinvoice.com/
-- ZUGFeRD Community (requires registration): https://www.zugferd-community.net/en/login
-- FNFE Service Validator (requires registration): https://services.fnfe-mpe.org/
-- Ecosio: https://ecosio.com/en/peppol-and-xml-document-validator/ (only XML)
-- Practical Peppol Validator: https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2 (only XML)
-- Peppol Validator: https://peppolvalidator.com/
-
-The Ecosio validator uses the Practical Peppol validator under the hood. You
-have extract the XML embedded into the PDF for using these validators.
-
-The Practical Peppol validator offers a SOAP interface and is suitable for
-automated validation scenarios.
-
-#### UBL/CII
-
-- portinvoice: https://www.portinvoice.com
-- EPO Consulting Validator: https://www.epoconsulting.com/erechnung-sap/xrechnung-validator
-- Invoice Portal XRechnung https://invoice-portal.de/en/peppol-bis-xrechnung-validator/
-- Ecosio: https://ecosio.com/de/peppol-und-xml-dokumente-online-validieren/
-- Practical Peppol Validator: https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2
-- Peppol Validator: https://peppolvalidator.com/
-
-The Ecosio validator uses the Practical Peppol validator under the hood.
-
-The Practical Peppol validator offers a SOAP interface and is suitable for
-automated validation scenarios.
+<sup>1</sup> Invoice XML must be extracted for upload<br />
+<sup>2</sup> SOAP (not REST)
 
 ### Offline Validators
 
