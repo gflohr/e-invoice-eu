@@ -258,6 +258,25 @@ exports[`CII > Regressions > #593 Conditional Mapping of Payee/Supplier ID > sho
 </rsm:CrossIndustryInvoice>"
 `;
 
+exports[`CII > Regressions > #626 > #626 insert an empty ram:ApplicableHeaderTradeDelivery, when required 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeDelivery/>
+		<ram:ApplicableHeaderTradeSettlement>
+			<ram:BillingSpecifiedPeriod>
+				<ram:StartDateTime>
+					<udt:DateTimeString format="102">20260901</udt:DateTimeString>
+				</ram:StartDateTime>
+				<ram:EndDateTime>
+					<udt:DateTimeString format="102">20260930</udt:DateTimeString>
+				</ram:EndDateTime>
+			</ram:BillingSpecifiedPeriod>
+		</ram:ApplicableHeaderTradeSettlement>
+	</rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>"
+`;
+
 exports[`CII > Regressions > #626 insert an empty ram:ApplicableHeaderTradeDelivery, when required 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
@@ -274,6 +293,29 @@ exports[`CII > Regressions > #626 insert an empty ram:ApplicableHeaderTradeDeliv
 			</ram:BillingSpecifiedPeriod>
 		</ram:ApplicableHeaderTradeSettlement>
 	</rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>"
+`;
+
+exports[`CII > Regressions > #647 Multiple notes > should wrap every note into a content node 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:ExchangedDocument>
+		<ram:IncludedNote>
+			<ram:Content>Sector 7-G console replacement surcharge applied. It was like that when I got here.</ram:Content>
+		</ram:IncludedNote>
+		<ram:IncludedNote>
+			<ram:Content>Payment due net 30 days or we release the hounds.</ram:Content>
+		</ram:IncludedNote>
+		<ram:IncludedNote>
+			<ram:Content>Consulting fee: Taught plant manager to pronounce "Nucular".</ram:Content>
+		</ram:IncludedNote>
+		<ram:IncludedNote>
+			<ram:Content>Monorail consulting fee. True, genuine, bona fide, 6-car monorail!</ram:Content>
+		</ram:IncludedNote>
+		<ram:IncludedNote>
+			<ram:Content>I will not submit fake invoice notes for unit tests.</ram:Content>
+		</ram:IncludedNote>
+	</rsm:ExchangedDocument>
 </rsm:CrossIndustryInvoice>"
 `;
 

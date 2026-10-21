@@ -681,7 +681,7 @@ function processNode(node: Element): JSONSchemaType<object> {
 
 function insertBT21(properties: Record<string, JSONSchemaType<object>>): void {
 	properties['x-cii:SubjectCode'] = {
-		type: 'string',
+		type: 'array',
 		$ref: '#/$defs/codeLists/UNCL4451',
 		title: 'Invoice note qualification code',
 		description: 'The qualification of the invoice note (BT-21)',

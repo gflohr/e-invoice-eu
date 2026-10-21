@@ -1779,6 +1779,7 @@ export class FormatCIIService
 		}
 
 		this.postProcessTradeDelivery(cii);
+		this.postProcessNotes(cii);
 	}
 
 	private postProcessSellerTradeParty(cii: ExpandObject) {
@@ -1922,6 +1923,33 @@ export class FormatCIIService
 			reordered[key] = value;
 		}
 		root['rsm:SupplyChainTradeTransaction'] = reordered;
+	}
+
+	private postProcessNotes(cii: ExpandObject) {
+		const exchangedDoc =
+			cii['rsm:CrossIndustryInvoice']?.['rsm:ExchangedDocument'];
+		if (!exchangedDoc) return;
+
+		const notes = exchangedDoc['ram:IncludedNote']?.['ram:Content'] ?? [];
+		const subjectCodes =
+			exchangedDoc['ram:IncludedNote']?.['ram:SubjectCode'] ?? [];
+
+		const numNotes = Math.max(notes.length, subjectCodes.length);
+		if (!numNotes) return;
+
+		exchangedDoc['ram:IncludedNote'] = [];
+		for (let i = 0; i < numNotes; ++i) {
+			const note = notes[i];
+			const subjectCode = subjectCodes[i];
+			const item = {};
+			if (typeof note !== 'undefined' && note !== '') {
+				item['ram:Content'] = note;
+			}
+			if (typeof subjectCode !== 'undefined' && subjectCode !== '') {
+				item['ram:SubjectCode'] = subjectCode;
+			}
+			exchangedDoc['ram:IncludedNote'].push(item);
+		}
 	}
 
 	private convert(

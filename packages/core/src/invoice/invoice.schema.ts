@@ -14,7 +14,7 @@ import { Invoice } from './invoice.interface';
  */
 export const invoiceSchema: JSONSchemaType<Invoice> = {
 	$schema: 'https://json-schema.org/draft/2019-09/schema',
-	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v3.1.1',
+	$id: 'https://www.cantanea.com/schemas/ubl-invoice-schema-v3.4.1',
 	type: 'object',
 	additionalProperties: false,
 	properties: {
@@ -76,7 +76,7 @@ export const invoiceSchema: JSONSchemaType<Invoice> = {
 					},
 				},
 				'x-cii:SubjectCode': {
-					type: 'string',
+					type: 'array',
 					$ref: '#/$defs/codeLists/UNCL4451',
 					title: 'Invoice note qualification code',
 					description:

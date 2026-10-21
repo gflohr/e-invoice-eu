@@ -228,6 +228,17 @@ export class InvoiceService {
 			this.deprecationWarning(options);
 		}
 
+		if (
+			input['ubl:Invoice'] &&
+			input['ubl:Invoice']['x-cii:SubjectCode'] &&
+			typeof input['ubl:Invoice']['x-cii:SubjectCode'] === 'string'
+		) {
+			patched['ubl:Invoice']['x-cii:SubjectCode'] = [
+				input['ubl:Invoice']['x-cii:SubjectCode'],
+			];
+			this.deprecationWarning(options);
+		}
+
 		const formatter = this.formatFactoryService.createFormatService(
 			options.format,
 			this.logger,
