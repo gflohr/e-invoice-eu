@@ -31,7 +31,7 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css?1792059529" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1792581862" rel="stylesheet">
 
 
 
@@ -171,22 +171,7 @@ all outgoing and also incoming invoices.</p>
 	<li class="toclevel-2">
 		4.1
 		<a href="#online-validators">Online Validators</a>
-		 <ul class="toclevel-3">
-	
-	<li class="toclevel-3">
-		4.1.1
-		<a href="#factur-x-zugferd">Factur-X/ZUGFeRD</a>
 		
-	</li>
-	
-	<li class="toclevel-3">
-		4.1.2
-		<a href="#ubl-cii">UBL/CII</a>
-		
-	</li>
-	
-</ul>
- 
 	</li>
 	
 	<li class="toclevel-2">
@@ -196,7 +181,7 @@ all outgoing and also incoming invoices.</p>
 	
 	<li class="toclevel-3">
 		4.2.1
-		<a href="#factur-x-zugferd-">Factur-X/ZUGFeRD</a>
+		<a href="#factur-x-zugferd">Factur-X/ZUGFeRD</a>
 		 <ul class="toclevel-4">
 	
 	<li class="toclevel-4">
@@ -445,40 +430,72 @@ add an entry, please file an [issue](https://github.com/gflohr/e-invoice-eu/issu
 contain personal data and may also contain business or trade secrets. Please
 check all legal requirements before you use them.</p>
 
-<h4><a href="#" name="factur-x-zugferd" id="factur-x-zugferd"></a>Factur-X/ZUGFeRD</h4>
+<table>
+<thead>
+<tr>
+<th> Name </th>
+<th> Factur-X/ZUGFeRD </th>
+<th> UBL/CII </th>
+<th> API </th>
+<th> Remarks </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <a href="https://peppolvalidator.com/" target="_blank">Peppol Validator</a> </td>
+<td> ✅&nbsp;<sup>1</sup> </td>
+<td> ✅ </td>
+<td> ✅ </td>
+<td> </td>
+</tr>
+<tr>
+<td> <a href="https://normapi.com/en/validator" target="_blank">NormAPI</a> </td>
+<td> ✅ </td>
+<td> ✅ </td>
+<td> ✅ </td>
+<td> based on <a href="#kosit-validator">KoSIT</a> validator </td>
+</tr>
+<tr>
+<td> <a href="https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2" target="_blank">Practical Peppol</a> </td>
+<td> ✅&nbsp;<sup>1</sup> </td>
+<td> ✅ </td>
+<td> ✅&nbsp;<sup>2</sup> </td>
+<td> </td>
+</tr>
+<tr>
+<td> <a href="https://ecosio.com/en/peppol-and-xml-document-validator/" target="_blank">Ecosio</a> </td>
+<td> ✅&nbsp;<sup>1</sup> </td>
+<td> ✅ </td>
+<td> ❌ </td>
+<td> based on <a href="#practical-peppol">Practical Peppol</a> validator </td>
+</tr>
+<tr>
+<td> <a href="https://www.portinvoice.com/" target="_blank">portinvoice</a> </td>
+<td> ✅ </td>
+<td> ✅ </td>
+<td> ❌ </td>
+<td> </td>
+</tr>
+<tr>
+<td> <a href="https://www.zugferd-community.net/en/login" target="_blank">ZUGFeRD Community</a> </td>
+<td> ✅ </td>
+<td> ✅ </td>
+<td> ❌ </td>
+<td> Registration required </td>
+</tr>
+<tr>
+<td> <a href="https://services.fnfe-mpe.org/" target="_blank">FNFE Service Validator</a> </td>
+<td> ✅ </td>
+<td> ✅ </td>
+<td> ❌ </td>
+<td> Registration required </td>
+</tr>
+</tbody>
+</table>
 
-<p>The following online validators are freely available:</p>
 
-<ul>
-<li>portinvoice: <a href="https://www.portinvoice.com/" target="_blank">https://www.portinvoice.com/</a></li>
-<li>ZUGFeRD Community (requires registration): <a href="https://www.zugferd-community.net/en/login" target="_blank">https://www.zugferd-community.net/en/login</a></li>
-<li>FNFE Service Validator (requires registration): <a href="https://services.fnfe-mpe.org/" target="_blank">https://services.fnfe-mpe.org/</a></li>
-<li>Ecosio: <a href="https://ecosio.com/en/peppol-and-xml-document-validator/" target="_blank">https://ecosio.com/en/peppol-and-xml-document-validator/</a> (only XML)</li>
-<li>Practical Peppol Validator: <a href="https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2" target="_blank">https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2</a> (only XML)</li>
-</ul>
-
-
-<p>The Ecosio validator uses the Practical Peppol validator under the hood. You
-have extract the XML embedded into the PDF for using these validators.</p>
-
-<p>The Practical Peppol validator offers a SOAP interface and is suitable for
-automated validation scenarios.</p>
-
-<h4><a href="#" name="ubl-cii" id="ubl-cii"></a>UBL/CII</h4>
-
-<ul>
-<li>portinvoice: <a href="https://www.portinvoice.com" target="_blank">https://www.portinvoice.com</a></li>
-<li>EPO Consulting Validator: <a href="https://www.epoconsulting.com/erechnung-sap/xrechnung-validator" target="_blank">https://www.epoconsulting.com/erechnung-sap/xrechnung-validator</a></li>
-<li>Invoice Portal XRechnung <a href="https://invoice-portal.de/en/peppol-bis-xrechnung-validator/" target="_blank">https://invoice-portal.de/en/peppol-bis-xrechnung-validator/</a></li>
-<li>Ecosio: <a href="https://ecosio.com/de/peppol-und-xml-dokumente-online-validieren/" target="_blank">https://ecosio.com/de/peppol-und-xml-dokumente-online-validieren/</a></li>
-<li>Practical Peppol Validator: <a href="https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2" target="_blank">https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2</a></li>
-</ul>
-
-
-<p>The Ecosio validator uses the Practical Peppol validator under the hood.</p>
-
-<p>The Practical Peppol validator offers a SOAP interface and is suitable for
-automated validation scenarios.</p>
+<p><sup>1</sup> Invoice XML must be extracted for upload<br />
+<sup>2</sup> SOAP (not REST)</p>
 
 <h3><a href="#" name="offline-validators" id="offline-validators"></a>Offline Validators</h3>
 
@@ -489,7 +506,7 @@ tool</a> which has a command
 arbitrary number of invoice documents simultaneously. If you opt for that
 solution, you can skip the rest of this page.</p>
 
-<h4><a href="#" name="factur-x-zugferd-" id="factur-x-zugferd-"></a>Factur-X/ZUGFeRD</h4>
+<h4><a href="#" name="factur-x-zugferd" id="factur-x-zugferd"></a>Factur-X/ZUGFeRD</h4>
 
 <h5><a href="#" name="e-invoice-eu-validator" id="e-invoice-eu-validator"></a>E-Invoice-EU-Validator</h5>
 
@@ -1085,7 +1102,7 @@ and <code>--repository</code>.</p>
  
 
 
-  <script src="/e-invoice-eu/assets/bundle.min.js?1792059529" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1792581862" type="text/javascript"></script>
 
 
 
