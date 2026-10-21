@@ -4,11 +4,11 @@ import { JSONSchemaType } from 'ajv';
 import * as fs from 'fs';
 import * as yaml from 'js-yaml';
 
-import { Invoice } from '../src/invoice/invoice.interface';
+import { Invoice } from '../src/invoice/invoice.interface.js';
 import {
 	mappingValuePattern,
 	sectionReferencePattern,
-} from '../src/mapping/mapping.regex';
+} from '../src/mapping/mapping.regex.js';
 
 if (process.argv.length !== 4) {
 	console.error(`Usage: ${process.argv[1]} INVOICE_SCHEMA MAPPING_SCHEMA`);
