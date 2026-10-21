@@ -732,6 +732,7 @@ describe('CII', () => {
 							'Monorail consulting fee. True, genuine, bona fide, 6-car monorail!',
 							'I will not submit fake invoice notes for unit tests.',
 						],
+						'x-cii:SubjectCode': ['AAB', '', 'AAC'],
 					},
 				} as Invoice;
 
@@ -739,6 +740,7 @@ describe('CII', () => {
 					invoice,
 					{} as InvoiceServiceOptions,
 				)) as string;
+				console.log(xml);
 
 				const countNoteStart = (xml.match(/<ram:IncludedNote>/g) || [])
 					.length;
@@ -752,6 +754,14 @@ describe('CII', () => {
 				const countContentEnd = (xml.match(/<\/ram:Content>/g) || [])
 					.length;
 				expect(countContentEnd).toBe(5);
+				const countSubjectCodeStart = (
+					xml.match(/<ram:SubjectCode>/g) || []
+				).length;
+				expect(countSubjectCodeStart).toBe(2);
+				const countSubjectCodeEnd = (
+					xml.match(/<\/ram:SubjectCode>/g) || []
+				).length;
+				expect(countSubjectCodeEnd).toBe(2);
 				expect(xml).toMatchSnapshot();
 			});
 		});
