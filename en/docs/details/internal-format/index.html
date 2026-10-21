@@ -31,7 +31,7 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css?1792581862" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1792583267" rel="stylesheet">
 
 
 
@@ -221,6 +221,12 @@
 	
 	<li class="toclevel-2">
 		6.1
+		<a href="#invoice-notes">Invoice Notes</a>
+		
+	</li>
+	
+	<li class="toclevel-2">
+		6.2
 		<a href="#invoice-note-subject-code-bt-21">Invoice Note Subject Code (BT-21)</a>
 		
 	</li>
@@ -637,6 +643,12 @@ invoices in the EU.</p>
 <p>Selected fields can also be injected by using the pseudo namespace 'x-cii',
 see below.</p>
 
+<h3><a href="#" name="invoice-notes" id="invoice-notes"></a>Invoice Notes</h3>
+
+<p>In UBL, an invoice can only have one note, whereas CII allows multiple notes.
+You can therefore use multiple top-level <code>cbc:Note</code> elements. Extra notes
+are discarded for UBL.</p>
+
 <h3><a href="#" name="invoice-note-subject-code-bt-21" id="invoice-note-subject-code-bt-21"></a>Invoice Note Subject Code (BT-21)</h3>
 
 <p>You can inject an invoice note subject code (BT-21) by using the special
@@ -644,6 +656,10 @@ field <code>ubl:Invoice -&gt; x-cii:SubjectCode</code>. The value must come from
 list UNCL 4451.</p>
 
 <p>For UBL formats, no element is rendered for BT-21.</p>
+
+<p>If you have multiple notes, use an array for the subject codes. For notes that
+do not have a subject code, pass an empty string. If no note has a subject
+code, you can safely omit the subject codes.</p>
 
 <h2><a href="#" name="validation" id="validation"></a>Validation</h2>
 
@@ -1065,7 +1081,7 @@ built-in default values for them.</p>
  
 
 
-  <script src="/e-invoice-eu/assets/bundle.min.js?1792581862" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1792583267" type="text/javascript"></script>
 
 
 
