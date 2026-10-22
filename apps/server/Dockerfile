@@ -5,7 +5,7 @@ ENV CI=true
 
 WORKDIR /app
 
-RUN npm install -g pnpm@11.17.0
+RUN npm install -g pnpm@12.15.0
 
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json tsconfig.json ./
 COPY packages ./packages
