@@ -4,46 +4,10 @@ packages:
 allowBuilds:
   '@parcel/watcher': false
   '@scarf/scarf': false
-  bun: false
-  esbuild: false
-  inotify: false
+  esbuild: true
   pnpm: true
 linkWorkspacePackages: true
-minimumReleaseAgeExclude:
-  - '@rollup/rollup-android-arm-eabi@4.64.7 || 4.65.0'
-  - '@rollup/rollup-android-arm64@4.64.7 || 4.65.0'
-  - '@rollup/rollup-darwin-arm64@4.64.7 || 4.65.0'
-  - '@rollup/rollup-darwin-x64@4.64.7 || 4.65.0'
-  - '@rollup/rollup-freebsd-arm64@4.64.7 || 4.65.0'
-  - '@rollup/rollup-freebsd-x64@4.64.7 || 4.65.0'
-  - '@rollup/rollup-linux-arm-gnueabihf@4.64.7 || 4.65.0'
-  - '@rollup/rollup-linux-arm-musleabihf@4.64.7 || 4.65.0'
-  - '@rollup/rollup-linux-arm64-gnu@4.64.7 || 4.65.0'
-  - '@rollup/rollup-linux-arm64-musl@4.64.7 || 4.65.0'
-  - '@rollup/rollup-linux-loong64-gnu@4.64.7 || 4.65.0'
-  - '@rollup/rollup-linux-loong64-musl@4.64.7 || 4.65.0'
-  - '@rollup/rollup-linux-ppc64-gnu@4.64.7 || 4.65.0'
-  - '@rollup/rollup-linux-ppc64-musl@4.64.7 || 4.65.0'
-  - '@rollup/rollup-linux-riscv64-gnu@4.64.7 || 4.65.0'
-  - '@rollup/rollup-linux-riscv64-musl@4.64.7 || 4.65.0'
-  - '@rollup/rollup-linux-s390x-gnu@4.64.7 || 4.65.0'
-  - '@rollup/rollup-linux-x64-gnu@4.64.7 || 4.65.0'
-  - '@rollup/rollup-linux-x64-musl@4.64.7 || 4.65.0'
-  - '@rollup/rollup-openbsd-x64@4.64.7 || 4.65.0'
-  - '@rollup/rollup-openharmony-arm64@4.64.7 || 4.65.0'
-  - '@rollup/rollup-win32-arm64-msvc@4.64.7 || 4.65.0'
-  - '@rollup/rollup-win32-ia32-msvc@4.64.7 || 4.65.0'
-  - '@rollup/rollup-win32-x64-gnu@4.64.7 || 4.65.0'
-  - '@rollup/rollup-win32-x64-msvc@4.64.7 || 4.65.0'
-  - rollup@4.64.7 || 4.65.0
-  - '@nestjs/swagger@12.0.3'
-  - '@rollup/plugin-terser@1.0.2'
-  - '@rollup/plugin-typescript@12.3.1'
-  - caniuse-lite@1.0.30001819
-  - npm-run-all2@9.0.4
-  - sass@1.106.1
 overrides:
-  postcss-selector-parser@<7.1.6: ^7.1.6
-  proxy-addr@>=1.1.0 <2.0.8: ^2.0.8
-  shell-quote@>=1.8.4 <1.11.0: ^1.11.0
-  source-map-js@>=1.0.0 <1.2.2: ^1.2.2
+  launch-editor@<=2.14.1: ^2.14.2
+  markdown-it@<14.3.3: ^14.3.3
+  vite@>=8.0.0 <=8.1.5: ^8.1.6
