@@ -1,5 +1,16 @@
 # @e-invoice-eu/core
 
+## 3.4.2
+
+### Patch Changes
+
+- 5a9f555: Relax schema for top-level note elements.
+  
+  The top-level elements `cbc:Note` and `x-cii:SubjectCode` can now either be
+  single string values or arrays of strings.
+- 831f2b9: Upgrade all dependencies to latest.
+- e7e6c90: Nest top-level cbc:Note elements in CII output correctly.
+
 ## 3.4.1
 
 ### Patch Changes
