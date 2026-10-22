@@ -1,5 +1,15 @@
 # @e-invoice-eu/server
 
+## 3.4.2
+
+### Patch Changes
+
+- 831f2b9: Upgrade all dependencies to latest.
+- Updated dependencies [5a9f555]
+- Updated dependencies [831f2b9]
+- Updated dependencies [e7e6c90]
+  - @e-invoice-eu/core@3.4.2
+
 ## 3.4.1
 
 ### Patch Changes
