@@ -1714,11 +1714,15 @@ export class FormatCIIService
 
 		// In UBL, only the invoiced object identifier (BT-18) has a document
 		// type code (130), additional supporting documents (BG-24) have none.
-		// CII identifies the latter by the code 916 (related document).
+		// CII identifies the latter by the code 916 (related document).  The
+		// scheme identifier (BT-18-1) only exists for BT-18.
 		for (const reference of invoice['ubl:Invoice'][
 			'cac:AdditionalDocumentReference'
 		] ?? []) {
 			reference['cbc:DocumentTypeCode'] ??= '916';
+			if (reference['cbc:DocumentTypeCode'] !== '130') {
+				delete reference['cbc:ID@schemeID'];
+			}
 		}
 	}
 

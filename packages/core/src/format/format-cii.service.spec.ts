@@ -252,6 +252,7 @@ describe('CII', () => {
 						objectIdentifier,
 						{
 							'cbc:ID': 'Timesheet',
+							'cbc:ID@schemeID': 'ABT',
 							'cbc:DocumentDescription': "Hours spent at Moe's",
 							'cac:Attachment': {
 								'cac:ExternalReference': {
@@ -275,6 +276,11 @@ describe('CII', () => {
 				[]
 			).length;
 			expect(count).toBe(2);
+			// The scheme identifier (BT-18-1) only exists for BT-18.
+			const schemes = (
+				(xml as string).match(/<ram:ReferenceTypeCode>/g) || []
+			).length;
+			expect(schemes).toBe(1);
 			expect(xml).toMatch(
 				new RegExp(
 					'<ram:IssuerAssignedID>TSTHMR913N0000742</ram:IssuerAssignedID>\\s*' +
