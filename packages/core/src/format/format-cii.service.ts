@@ -837,13 +837,13 @@ export const cacAdditionalDocumentReference: Transformation[] = [
 	{
 		type: 'string',
 		src: ['cac:Attachment', 'cac:ExternalReference', 'cbc:URI'],
-		dest: ['udt:URIID'],
+		dest: ['ram:URIID'],
 		fxProfileMask: FX_MASK_EN16931,
 	},
 	{
 		type: 'string',
 		src: ['cbc:DocumentTypeCode'],
-		dest: ['qdt:TypeCode'],
+		dest: ['ram:TypeCode'],
 		fxProfileMask: FX_MASK_EN16931,
 	},
 	{
@@ -868,6 +868,12 @@ export const cacAdditionalDocumentReference: Transformation[] = [
 		type: 'string',
 		src: ['cac:Attachment', 'cbc:EmbeddedDocumentBinaryObject@filename'],
 		dest: ['ram:AttachmentBinaryObject@filename'],
+		fxProfileMask: FX_MASK_EN16931,
+	},
+	{
+		type: 'string',
+		src: ['cbc:ID@schemeID'],
+		dest: ['ram:ReferenceTypeCode'],
 		fxProfileMask: FX_MASK_EN16931,
 	},
 ];
@@ -1466,7 +1472,7 @@ export const ublInvoice: Transformation = {
 					fxProfileMask: FX_MASK_BASIC_WL,
 				},
 				{
-					type: 'object',
+					type: 'array',
 					src: ['cac:AdditionalDocumentReference'],
 					dest: [
 						'ram:ApplicableHeaderTradeAgreement',
@@ -1704,6 +1710,15 @@ export class FormatCIIService
 			invoice['ubl:Invoice']['cac:InvoicePeriod']![
 				'cbc:DescriptionCode'
 			] = eventTimeCodeMapping[code] ?? code;
+		}
+
+		// In UBL, only the invoiced object identifier (BT-18) has a document
+		// type code (130), additional supporting documents (BG-24) have none.
+		// CII identifies the latter by the code 916 (related document).
+		for (const reference of invoice['ubl:Invoice'][
+			'cac:AdditionalDocumentReference'
+		] ?? []) {
+			reference['cbc:DocumentTypeCode'] ??= '916';
 		}
 	}
 

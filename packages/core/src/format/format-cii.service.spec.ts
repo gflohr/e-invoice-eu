@@ -181,6 +181,117 @@ describe('CII', () => {
 			expect(xml).not.toContain('<ram:ReferenceTypeCode>');
 			expect(xml).toMatchSnapshot();
 		});
+
+		it('should map BT-18 with a scheme into the header trade agreement', async () => {
+			const invoice: Invoice = {
+				'ubl:Invoice': {
+					'cac:ContractDocumentReference': {
+						'cbc:ID': 'Powell Motors 1991',
+					},
+					'cac:AdditionalDocumentReference': [objectIdentifier],
+					'cac:ProjectReference': {
+						'cbc:ID': 'Car for the average man',
+					},
+				},
+			} as unknown as Invoice;
+
+			const xml = await service.generate(
+				invoice,
+				{} as InvoiceServiceOptions,
+			);
+
+			expect(xml).toMatch(
+				new RegExp(
+					'</ram:ContractReferencedDocument>\\s*' +
+						'<ram:AdditionalReferencedDocument>\\s*' +
+						'<ram:IssuerAssignedID>TSTHMR913N0000742</ram:IssuerAssignedID>\\s*' +
+						'<ram:TypeCode>130</ram:TypeCode>\\s*' +
+						'<ram:ReferenceTypeCode>AKG</ram:ReferenceTypeCode>\\s*' +
+						'</ram:AdditionalReferencedDocument>\\s*' +
+						'<ram:SpecifiedProcuringProject>',
+				),
+			);
+			expect(xml).toMatchSnapshot();
+		});
+
+		it('should map BT-18 without a scheme into the header trade agreement', async () => {
+			const invoice: Invoice = {
+				'ubl:Invoice': {
+					'cac:AdditionalDocumentReference': [
+						{
+							'cbc:ID': 'TSTHMR913N0000742',
+							'cbc:DocumentTypeCode': '130',
+						},
+					],
+				},
+			} as unknown as Invoice;
+
+			const xml = await service.generate(
+				invoice,
+				{} as InvoiceServiceOptions,
+			);
+
+			expect(xml).toMatch(
+				new RegExp(
+					'<ram:ApplicableHeaderTradeAgreement>\\s*' +
+						'<ram:AdditionalReferencedDocument>\\s*' +
+						'<ram:IssuerAssignedID>TSTHMR913N0000742</ram:IssuerAssignedID>\\s*' +
+						'<ram:TypeCode>130</ram:TypeCode>\\s*' +
+						'</ram:AdditionalReferencedDocument>\\s*' +
+						'</ram:ApplicableHeaderTradeAgreement>',
+				),
+			);
+			expect(xml).not.toContain('<ram:ReferenceTypeCode>');
+			expect(xml).toMatchSnapshot();
+		});
+
+		it('should map BT-18 next to additional supporting documents', async () => {
+			const invoice: Invoice = {
+				'ubl:Invoice': {
+					'cac:AdditionalDocumentReference': [
+						objectIdentifier,
+						{
+							'cbc:ID': 'Timesheet',
+							'cbc:DocumentDescription': "Hours spent at Moe's",
+							'cac:Attachment': {
+								'cac:ExternalReference': {
+									'cbc:URI':
+										'https://example.com/timesheet.pdf',
+								},
+							},
+						},
+					],
+				},
+			} as unknown as Invoice;
+
+			service.patchInvoice(invoice);
+			const xml = await service.generate(
+				invoice,
+				{} as InvoiceServiceOptions,
+			);
+
+			const count = (
+				(xml as string).match(/<ram:AdditionalReferencedDocument>/g) ||
+				[]
+			).length;
+			expect(count).toBe(2);
+			expect(xml).toMatch(
+				new RegExp(
+					'<ram:IssuerAssignedID>TSTHMR913N0000742</ram:IssuerAssignedID>\\s*' +
+						'<ram:TypeCode>130</ram:TypeCode>\\s*' +
+						'<ram:ReferenceTypeCode>AKG</ram:ReferenceTypeCode>',
+				),
+			);
+			expect(xml).toMatch(
+				new RegExp(
+					'<ram:IssuerAssignedID>Timesheet</ram:IssuerAssignedID>\\s*' +
+						'<ram:URIID>https://example.com/timesheet.pdf</ram:URIID>\\s*' +
+						'<ram:TypeCode>916</ram:TypeCode>\\s*' +
+						"<ram:Name>Hours spent at Moe's</ram:Name>",
+				),
+			);
+			expect(xml).toMatchSnapshot();
+		});
 	});
 
 	describe('post-processing', () => {
