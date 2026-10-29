@@ -391,10 +391,15 @@ const cacInvoiceLineAllowanceCharge: Transformation = {
 	fxProfileMask: FX_MASK_MINIMUM,
 };
 
+// BT-128 (Invoice line object identifier).  In CII, it belongs in the line
+// trade settlement, after the line monetary summation.
 const cacDocumentReference: Transformation = {
 	type: 'object',
 	src: ['cac:DocumentReference'],
-	dest: ['ram:AdditionalReferencedDocument'],
+	dest: [
+		'ram:SpecifiedLineTradeSettlement',
+		'ram:AdditionalReferencedDocument',
+	],
 	children: [
 		{
 			type: 'string',
@@ -406,6 +411,12 @@ const cacDocumentReference: Transformation = {
 			type: 'string',
 			src: ['cbc:DocumentTypeCode'],
 			dest: ['ram:TypeCode'],
+			fxProfileMask: FX_MASK_EN16931,
+		},
+		{
+			type: 'string',
+			src: ['cbc:ID@schemeID'],
+			dest: ['ram:ReferenceTypeCode'],
 			fxProfileMask: FX_MASK_EN16931,
 		},
 	],

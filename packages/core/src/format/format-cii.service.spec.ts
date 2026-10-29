@@ -105,6 +105,84 @@ describe('CII', () => {
 		});
 	});
 
+	describe('Object identifiers', () => {
+		const objectIdentifier = {
+			'cbc:ID': 'TSTHMR913N0000742',
+			'cbc:ID@schemeID': 'AKG',
+			'cbc:DocumentTypeCode': '130',
+		};
+
+		const invoiceLine = (documentReference: object) => ({
+			'cbc:ID': '1',
+			'cbc:LineExtensionAmount': '82000.00',
+			'cbc:AccountingCost': '8400',
+			'cac:DocumentReference': documentReference,
+			'cac:Item': {
+				'cbc:Name': 'The Homer',
+			},
+		});
+
+		it('should map BT-128 with a scheme into the line trade settlement', async () => {
+			const invoice: Invoice = {
+				'ubl:Invoice': {
+					'cac:InvoiceLine': [invoiceLine(objectIdentifier)],
+				},
+			} as unknown as Invoice;
+
+			const xml = await service.generate(
+				invoice,
+				{} as InvoiceServiceOptions,
+			);
+
+			expect(xml).toMatch(
+				new RegExp(
+					'</ram:SpecifiedTradeSettlementLineMonetarySummation>\\s*' +
+						'<ram:AdditionalReferencedDocument>\\s*' +
+						'<ram:IssuerAssignedID>TSTHMR913N0000742</ram:IssuerAssignedID>\\s*' +
+						'<ram:TypeCode>130</ram:TypeCode>\\s*' +
+						'<ram:ReferenceTypeCode>AKG</ram:ReferenceTypeCode>\\s*' +
+						'</ram:AdditionalReferencedDocument>\\s*' +
+						'<ram:ReceivableSpecifiedTradeAccountingAccount>',
+				),
+			);
+			expect(xml).toMatch(
+				/<\/ram:SpecifiedLineTradeSettlement>\s*<\/ram:IncludedSupplyChainTradeLineItem>/,
+			);
+			expect(xml).toMatchSnapshot();
+		});
+
+		it('should map BT-128 without a scheme into the line trade settlement', async () => {
+			const invoice: Invoice = {
+				'ubl:Invoice': {
+					'cac:InvoiceLine': [
+						invoiceLine({
+							'cbc:ID': 'TSTHMR913N0000742',
+							'cbc:DocumentTypeCode': '130',
+						}),
+					],
+				},
+			} as unknown as Invoice;
+
+			const xml = await service.generate(
+				invoice,
+				{} as InvoiceServiceOptions,
+			);
+
+			expect(xml).toMatch(
+				new RegExp(
+					'</ram:SpecifiedTradeSettlementLineMonetarySummation>\\s*' +
+						'<ram:AdditionalReferencedDocument>\\s*' +
+						'<ram:IssuerAssignedID>TSTHMR913N0000742</ram:IssuerAssignedID>\\s*' +
+						'<ram:TypeCode>130</ram:TypeCode>\\s*' +
+						'</ram:AdditionalReferencedDocument>\\s*' +
+						'<ram:ReceivableSpecifiedTradeAccountingAccount>',
+				),
+			);
+			expect(xml).not.toContain('<ram:ReferenceTypeCode>');
+			expect(xml).toMatchSnapshot();
+		});
+	});
+
 	describe('post-processing', () => {
 		const defaultNotes = [
 			'Buy a dozen donuts at the Kwik-E-Mart and instantly become' +
