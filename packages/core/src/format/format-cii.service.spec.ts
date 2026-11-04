@@ -1029,6 +1029,40 @@ describe('CII', () => {
 				expect(xml).toMatchSnapshot();
 			});
 
+			it('should include basis quantity and unit code in gross price when base amount is missing', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:InvoiceLine': [
+							{
+								'cac:Price': {
+									'cbc:PriceAmount': '195',
+									'cbc:PriceAmount@currencyID': 'EUR',
+									'cbc:BaseQuantity': '1',
+									'cbc:BaseQuantity@unitCode': 'C62',
+									'cac:AllowanceCharge': {
+										'cbc:ChargeIndicator': 'false',
+										'cbc:Amount': '5',
+										'cbc:Amount@currencyID': 'EUR',
+									},
+								},
+							},
+						],
+					},
+				} as unknown as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				expect(xml).toContain(
+					'<ram:ChargeAmount>200</ram:ChargeAmount>',
+				);
+				expect(xml.replace(/\s+/g, '')).toMatch(
+					/<ram:GrossPriceProductTradePrice>.*<ram:BasisQuantityunitCode="C62">1<\/ram:BasisQuantity>.*<\/ram:GrossPriceProductTradePrice>/,
+				);
+			});
+
 			it('should include basis quantity and unit code in gross price when allowance is present', async () => {
 				const invoice: Invoice = {
 					'ubl:Invoice': {
