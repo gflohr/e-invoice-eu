@@ -1,7 +1,7 @@
 import { JSONSchemaType } from 'ajv';
 import { describe, expect, it } from 'vitest';
 
-import { sortBySchema } from './sort-by-schema';
+import { sortBySchema } from './sort-by-schema.js';
 
 type Bedroom = {
 	owner: string;

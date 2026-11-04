@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { vivifyPath } from './vivify-path';
+import { vivifyPath } from './vivify-path.js';
 
 describe('Vivify Paths', () => {
 	it('should create all missing paths', () => {

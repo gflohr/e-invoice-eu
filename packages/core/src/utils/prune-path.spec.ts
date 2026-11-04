@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { prunePath } from './prune-path';
+import { prunePath } from './prune-path.js';
 
 describe('Recursive object clean-up', () => {
 	it('should clean-up recursively', () => {

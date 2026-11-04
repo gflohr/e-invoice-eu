@@ -4,6 +4,7 @@ import * as jsonpath from 'jsonpath-plus';
 import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 import { ValueAddedTaxPointDateCode } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
+import { addCurrency } from '../utils/add-currency';
 import { prependKey } from '../utils/prepend-key';
 import { prunePath } from '../utils/prune-path';
 import { renameKey } from '../utils/rename-key';
@@ -237,39 +238,10 @@ const cacPrice: Transformation = {
 	children: [
 		{
 			type: 'object',
-			src: [],
-			dest: [
-				'ram:SpecifiedLineTradeAgreement',
-				'ram:NetPriceProductTradePrice',
-			],
-			children: [
-				{
-					type: 'string',
-					src: ['cbc:PriceAmount'],
-					dest: ['ram:ChargeAmount'],
-					fxProfileMask: FX_MASK_BASIC_WL,
-				},
-				{
-					type: 'string',
-					src: ['cbc:BaseQuantity'],
-					dest: ['ram:BasisQuantity'],
-					fxProfileMask: FX_MASK_BASIC_WL,
-				},
-				{
-					type: 'string',
-					src: ['cbc:BaseQuantity@unitCode'],
-					dest: ['ram:BasisQuantity@unitCode'],
-					fxProfileMask: FX_MASK_BASIC_WL,
-				},
-			],
-			fxProfileMask: FX_MASK_BASIC_WL,
-		},
-		{
-			type: 'object',
 			src: ['cac:AllowanceCharge'],
 			dest: [
 				'ram:SpecifiedLineTradeAgreement',
-				'ram:NetPriceProductTradePrice',
+				'ram:GrossPriceProductTradePrice',
 			],
 			children: [
 				{
@@ -301,6 +273,35 @@ const cacPrice: Transformation = {
 				// Amount elements (except TaxTotalAmount).
 			],
 			fxProfileMask: FX_MASK_EN16931,
+		},
+		{
+			type: 'object',
+			src: [],
+			dest: [
+				'ram:SpecifiedLineTradeAgreement',
+				'ram:NetPriceProductTradePrice',
+			],
+			children: [
+				{
+					type: 'string',
+					src: ['cbc:PriceAmount'],
+					dest: ['ram:ChargeAmount'],
+					fxProfileMask: FX_MASK_BASIC_WL,
+				},
+				{
+					type: 'string',
+					src: ['cbc:BaseQuantity'],
+					dest: ['ram:BasisQuantity'],
+					fxProfileMask: FX_MASK_BASIC_WL,
+				},
+				{
+					type: 'string',
+					src: ['cbc:BaseQuantity@unitCode'],
+					dest: ['ram:BasisQuantity@unitCode'],
+					fxProfileMask: FX_MASK_BASIC_WL,
+				},
+			],
+			fxProfileMask: FX_MASK_BASIC_WL,
 		},
 	],
 	fxProfileMask: FX_MASK_MINIMUM,
@@ -1810,6 +1811,7 @@ export class FormatCIIService
 
 		this.postProcessTradeDelivery(cii);
 		this.postProcessNotes(cii);
+		this.postProcessPriceAllowances(cii);
 	}
 
 	private postProcessSellerTradeParty(cii: ExpandObject) {
@@ -1979,6 +1981,70 @@ export class FormatCIIService
 				item['ram:SubjectCode'] = subjectCode;
 			}
 			exchangedDoc['ram:IncludedNote'].push(item);
+		}
+	}
+
+	private postProcessPriceAllowances(cii: ExpandObject) {
+		const lineItems =
+			cii['rsm:CrossIndustryInvoice']?.[
+				'rsm:SupplyChainTradeTransaction'
+			]?.['ram:IncludedSupplyChainTradeLineItem'];
+		if (!lineItems) return;
+
+		for (const lineItem of lineItems) {
+			const grossPrice =
+				lineItem['ram:SpecifiedLineTradeAgreement']?.[
+					'ram:GrossPriceProductTradePrice'
+				];
+			if (!grossPrice) continue;
+
+			const netPrice =
+				lineItem['ram:SpecifiedLineTradeAgreement']?.[
+					'ram:NetPriceProductTradePrice'
+				];
+			const basisQuantity = netPrice?.['ram:BasisQuantity'];
+			const basisQuantityUnitCode =
+				netPrice?.['ram:BasisQuantity@unitCode'];
+
+			const allowance = grossPrice['ram:AppliedTradeAllowanceCharge'];
+			if (!allowance) continue;
+
+			const chargeAmount = grossPrice['ram:ChargeAmount'];
+			if (chargeAmount) {
+				if (basisQuantity) {
+					delete grossPrice['ram:AppliedTradeAllowanceCharge'];
+					grossPrice['ram:BasisQuantity'] = basisQuantity;
+					if (basisQuantityUnitCode) {
+						grossPrice['ram:BasisQuantity@unitCode'] =
+							basisQuantityUnitCode;
+					}
+					grossPrice['ram:AppliedTradeAllowanceCharge'] = allowance;
+				}
+				continue;
+			}
+
+			const actualAmount = allowance['ram:ActualAmount'];
+			if (!actualAmount) continue;
+
+			const netChargeAmount = netPrice?.['ram:ChargeAmount'];
+			if (!netChargeAmount) continue;
+
+			grossPrice['ram:ChargeAmount'] = addCurrency(
+				netChargeAmount,
+				actualAmount,
+			);
+
+			if (basisQuantity) {
+				grossPrice['ram:BasisQuantity'] = basisQuantity;
+				if (basisQuantityUnitCode) {
+					grossPrice['ram:BasisQuantity@unitCode'] =
+						basisQuantityUnitCode;
+				}
+			}
+
+			// Reorder.
+			delete grossPrice['ram:AppliedTradeAllowanceCharge'];
+			grossPrice['ram:AppliedTradeAllowanceCharge'] = allowance;
 		}
 	}
 
