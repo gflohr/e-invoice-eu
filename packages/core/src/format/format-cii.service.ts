@@ -1810,6 +1810,7 @@ export class FormatCIIService
 
 		this.postProcessTradeDelivery(cii);
 		this.postProcessNotes(cii);
+		this.postProcessPriceAllowances(cii);
 	}
 
 	private postProcessSellerTradeParty(cii: ExpandObject) {
@@ -1979,6 +1980,44 @@ export class FormatCIIService
 				item['ram:SubjectCode'] = subjectCode;
 			}
 			exchangedDoc['ram:IncludedNote'].push(item);
+		}
+	}
+
+	private postProcessPriceAllowances(cii: ExpandObject) {
+		const lineItems =
+			cii['rsm:CrossIndustryInvoice']?.[
+				'rsm:SupplyChainTradeTransaction'
+			]?.['ram:IncludedSupplyChainTradeLineItem'];
+		if (!lineItems) return;
+
+		for (const lineItem of lineItems) {
+			const grossPrice =
+				lineItem['ram:SpecifiedLineTradeAgreement']?.[
+					'ram:GrossPriceProductTradePrice'
+				];
+			if (!grossPrice) continue;
+
+			const allowance = grossPrice['ram:AppliedTradeAllowanceCharge'];
+			if (!allowance) continue;
+
+			const chargeAmount = grossPrice['ram:ChargeAmount'];
+			if (chargeAmount) continue;
+
+			const actualAmount = allowance['ram:ActualAmount'];
+			if (!actualAmount) continue;
+
+			const netChargeAmount =
+				lineItem['ram:SpecifiedLineTradeAgreement']?.[
+					'ram:NetPriceProductTradePrice'
+				]?.['ram:ChargeAmount'];
+			if (!netChargeAmount) continue;
+
+			grossPrice['ram:ChargeAmount'] =
+				parseFloat(netChargeAmount) + parseFloat(actualAmount);
+
+			// Reorder.
+			delete grossPrice['ram:AppliedTradeAllowanceCharge'];
+			grossPrice['ram:AppliedTradeAllowanceCharge'] = allowance;
 		}
 	}
 

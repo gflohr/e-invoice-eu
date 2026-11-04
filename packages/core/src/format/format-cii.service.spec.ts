@@ -994,6 +994,42 @@ describe('CII', () => {
 
 				expect(xml).toMatchSnapshot();
 			});
+
+			it('should add a missing base amount', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:InvoiceLine': [
+							{
+								'cac:Price': {
+									'cbc:PriceAmount': '195',
+									'cbc:PriceAmount@currencyID': 'EUR',
+									'cac:AllowanceCharge': {
+										'cbc:ChargeIndicator': 'false',
+										'cbc:Amount': '5',
+										'cbc:Amount@currencyID': 'EUR',
+									},
+								},
+							},
+						],
+					},
+				} as unknown as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				expect(xml).toContain(
+					'<ram:ChargeAmount>195</ram:ChargeAmount>',
+				);
+				expect(xml).toContain(
+					'<ram:ChargeAmount>200</ram:ChargeAmount>',
+				);
+
+				expect(xml).toMatchSnapshot();
+
+				console.log(xml);
+			});
 		});
 	});
 });
