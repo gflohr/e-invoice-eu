@@ -1183,6 +1183,31 @@ describe('CII', () => {
 
 				expect(xml).toMatchSnapshot();
 			});
+
+			it("should not output the dummy reference 'NA'", async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:OrderReference': {
+							'cbc:SalesOrderID': '112233',
+						},
+						'cac:InvoiceLine': [
+							{
+								'cac:OrderLineReference': {
+									'cbc:LineID': '3',
+								},
+							},
+						],
+					},
+				} as unknown as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				expect(xml).not.toContain('>NA<');
+				expect(xml).toMatchSnapshot();
+			});
 		});
 	});
 });
