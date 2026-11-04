@@ -1,5 +1,14 @@
 # @e-invoice-eu/core
 
+## 3.4.3
+
+### Patch Changes
+
+- c1cec97: Write the invoice line object identifier (BT-128) into the CII line trade settlement with its scheme, and write the invoiced object identifier (BT-18) and additional supporting documents (BG-24) to CII at all.
+- 271d4ab: Write price allowances into the gross price, not the net price for CII.
+- da22f17: Add document-level buyer order reference for Factur-X MINIMUM.
+- 5d8215e: All dependencies upgraded to latest.
+
 ## 3.4.2
 
 ### Patch Changes
