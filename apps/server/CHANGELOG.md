@@ -1,5 +1,16 @@
 # @e-invoice-eu/server
 
+## 3.4.3
+
+### Patch Changes
+
+- 5d8215e: All dependencies upgraded to latest.
+- Updated dependencies [c1cec97]
+- Updated dependencies [271d4ab]
+- Updated dependencies [da22f17]
+- Updated dependencies [5d8215e]
+  - @e-invoice-eu/core@3.4.3
+
 ## 3.4.2
 
 ### Patch Changes
