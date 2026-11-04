@@ -1460,7 +1460,7 @@ export const ublInvoice: Transformation = {
 						'ram:BuyerOrderReferencedDocument',
 						'ram:IssuerAssignedID',
 					],
-					fxProfileMask: FX_MASK_EXTENDED,
+					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				{
 					type: 'string',
