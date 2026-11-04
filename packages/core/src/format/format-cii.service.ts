@@ -1998,25 +1998,49 @@ export class FormatCIIService
 				];
 			if (!grossPrice) continue;
 
+			const netPrice =
+				lineItem['ram:SpecifiedLineTradeAgreement']?.[
+					'ram:NetPriceProductTradePrice'
+				];
+			const basisQuantity = netPrice?.['ram:BasisQuantity'];
+			const basisQuantityUnitCode =
+				netPrice?.['ram:BasisQuantity@unitCode'];
+
 			const allowance = grossPrice['ram:AppliedTradeAllowanceCharge'];
 			if (!allowance) continue;
 
 			const chargeAmount = grossPrice['ram:ChargeAmount'];
-			if (chargeAmount) continue;
+			if (chargeAmount) {
+				if (basisQuantity) {
+					delete grossPrice['ram:AppliedTradeAllowanceCharge'];
+					grossPrice['ram:BasisQuantity'] = basisQuantity;
+					if (basisQuantityUnitCode) {
+						grossPrice['ram:BasisQuantity@unitCode'] =
+							basisQuantityUnitCode;
+					}
+					grossPrice['ram:AppliedTradeAllowanceCharge'] = allowance;
+				}
+				continue;
+			}
 
 			const actualAmount = allowance['ram:ActualAmount'];
 			if (!actualAmount) continue;
 
-			const netChargeAmount =
-				lineItem['ram:SpecifiedLineTradeAgreement']?.[
-					'ram:NetPriceProductTradePrice'
-				]?.['ram:ChargeAmount'];
+			const netChargeAmount = netPrice?.['ram:ChargeAmount'];
 			if (!netChargeAmount) continue;
 
 			grossPrice['ram:ChargeAmount'] = addCurrency(
 				netChargeAmount,
 				actualAmount,
 			);
+
+			if (basisQuantity) {
+				grossPrice['ram:BasisQuantity'] = basisQuantity;
+				if (basisQuantityUnitCode) {
+					grossPrice['ram:BasisQuantity@unitCode'] =
+						basisQuantityUnitCode;
+				}
+			}
 
 			// Reorder.
 			delete grossPrice['ram:AppliedTradeAllowanceCharge'];
