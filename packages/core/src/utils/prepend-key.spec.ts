@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { prependKey } from './prepend-key';
+import { prependKey } from './prepend-key.js';
 
 describe('Object key prepending in-place', () => {
 	it('should prepend the key', () => {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { renameKey } from './rename-key';
+import { renameKey } from './rename-key.js';
 
 describe('Object key renaming in-place', () => {
 	it('should keep the object order', () => {

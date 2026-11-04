@@ -4,6 +4,7 @@ import * as jsonpath from 'jsonpath-plus';
 import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 import { ValueAddedTaxPointDateCode } from '../invoice/invoice.interface';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
+import { addCurrency } from '../utils/add-currency';
 import { prependKey } from '../utils/prepend-key';
 import { prunePath } from '../utils/prune-path';
 import { renameKey } from '../utils/rename-key';
@@ -2012,8 +2013,10 @@ export class FormatCIIService
 				]?.['ram:ChargeAmount'];
 			if (!netChargeAmount) continue;
 
-			grossPrice['ram:ChargeAmount'] =
-				parseFloat(netChargeAmount) + parseFloat(actualAmount);
+			grossPrice['ram:ChargeAmount'] = addCurrency(
+				netChargeAmount,
+				actualAmount,
+			);
 
 			// Reorder.
 			delete grossPrice['ram:AppliedTradeAllowanceCharge'];

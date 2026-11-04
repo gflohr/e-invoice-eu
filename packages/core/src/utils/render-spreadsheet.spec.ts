@@ -5,7 +5,7 @@ import * as path from 'path';
 import * as tmp from 'tmp-promise';
 import { beforeEach, describe, expect, it, type Mock, vi } from 'vitest';
 
-import { renderSpreadsheet } from './render-spreadsheet';
+import { renderSpreadsheet } from './render-spreadsheet.js';
 
 const mockLogger = {
 	log: vi.fn(),
