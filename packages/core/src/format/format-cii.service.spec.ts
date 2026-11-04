@@ -959,5 +959,41 @@ describe('CII', () => {
 				expect(xml).toMatchSnapshot();
 			});
 		});
+
+		describe('#661 Price Allowances', () => {
+			it('should output the allowance in the gross price', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:InvoiceLine': [
+							{
+								'cac:Price': {
+									'cbc:PriceAmount': '195',
+									'cbc:PriceAmount@currencyID': 'EUR',
+									'cac:AllowanceCharge': {
+										'cbc:ChargeIndicator': 'false',
+										'cbc:Amount': '5',
+										'cbc:Amount@currencyID': 'EUR',
+										'cbc:BaseAmount': '200',
+										'cbc:BaseAmount@currencyID': 'EUR',
+									},
+								},
+							},
+						],
+					},
+				} as unknown as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				expect(xml).toContain('<ram:GrossPriceProductTradePrice>');
+				expect(xml.replace(/\s/g, '')).toContain(
+					'<ram:NetPriceProductTradePrice><ram:ChargeAmount>195</ram:ChargeAmount></ram:NetPriceProductTradePrice>',
+				);
+
+				expect(xml).toMatchSnapshot();
+			});
+		});
 	});
 });

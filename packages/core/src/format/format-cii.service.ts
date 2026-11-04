@@ -237,39 +237,10 @@ const cacPrice: Transformation = {
 	children: [
 		{
 			type: 'object',
-			src: [],
-			dest: [
-				'ram:SpecifiedLineTradeAgreement',
-				'ram:NetPriceProductTradePrice',
-			],
-			children: [
-				{
-					type: 'string',
-					src: ['cbc:PriceAmount'],
-					dest: ['ram:ChargeAmount'],
-					fxProfileMask: FX_MASK_BASIC_WL,
-				},
-				{
-					type: 'string',
-					src: ['cbc:BaseQuantity'],
-					dest: ['ram:BasisQuantity'],
-					fxProfileMask: FX_MASK_BASIC_WL,
-				},
-				{
-					type: 'string',
-					src: ['cbc:BaseQuantity@unitCode'],
-					dest: ['ram:BasisQuantity@unitCode'],
-					fxProfileMask: FX_MASK_BASIC_WL,
-				},
-			],
-			fxProfileMask: FX_MASK_BASIC_WL,
-		},
-		{
-			type: 'object',
 			src: ['cac:AllowanceCharge'],
 			dest: [
 				'ram:SpecifiedLineTradeAgreement',
-				'ram:NetPriceProductTradePrice',
+				'ram:GrossPriceProductTradePrice',
 			],
 			children: [
 				{
@@ -301,6 +272,35 @@ const cacPrice: Transformation = {
 				// Amount elements (except TaxTotalAmount).
 			],
 			fxProfileMask: FX_MASK_EN16931,
+		},
+		{
+			type: 'object',
+			src: [],
+			dest: [
+				'ram:SpecifiedLineTradeAgreement',
+				'ram:NetPriceProductTradePrice',
+			],
+			children: [
+				{
+					type: 'string',
+					src: ['cbc:PriceAmount'],
+					dest: ['ram:ChargeAmount'],
+					fxProfileMask: FX_MASK_BASIC_WL,
+				},
+				{
+					type: 'string',
+					src: ['cbc:BaseQuantity'],
+					dest: ['ram:BasisQuantity'],
+					fxProfileMask: FX_MASK_BASIC_WL,
+				},
+				{
+					type: 'string',
+					src: ['cbc:BaseQuantity@unitCode'],
+					dest: ['ram:BasisQuantity@unitCode'],
+					fxProfileMask: FX_MASK_BASIC_WL,
+				},
+			],
+			fxProfileMask: FX_MASK_BASIC_WL,
 		},
 	],
 	fxProfileMask: FX_MASK_MINIMUM,
