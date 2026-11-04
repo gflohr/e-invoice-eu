@@ -490,6 +490,62 @@ exports[`CII > Regressions > #661 Price Allowances > should output the allowance
 </rsm:CrossIndustryInvoice>"
 `;
 
+exports[`CII > Regressions > #671 Buyer Order Reference > should include all buyer order references for FX-EXTENDED 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:SupplyChainTradeTransaction>
+		<ram:IncludedSupplyChainTradeLineItem>
+			<ram:SpecifiedLineTradeAgreement>
+				<ram:BuyerOrderReferencedDocument>
+					<ram:LineID>3</ram:LineID>
+				</ram:BuyerOrderReferencedDocument>
+			</ram:SpecifiedLineTradeAgreement>
+		</ram:IncludedSupplyChainTradeLineItem>
+		<ram:ApplicableHeaderTradeAgreement>
+			<ram:BuyerOrderReferencedDocument>
+				<ram:IssuerAssignedID>98776</ram:IssuerAssignedID>
+			</ram:BuyerOrderReferencedDocument>
+		</ram:ApplicableHeaderTradeAgreement>
+	</rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>"
+`;
+
+exports[`CII > Regressions > #671 Buyer Order Reference > should include buyer order references for FX-MINIMUM 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:ExchangedDocument>
+		<ram:ID>blabla</ram:ID>
+	</rsm:ExchangedDocument>
+	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeAgreement>
+			<ram:BuyerOrderReferencedDocument>
+				<ram:IssuerAssignedID>98776</ram:IssuerAssignedID>
+			</ram:BuyerOrderReferencedDocument>
+		</ram:ApplicableHeaderTradeAgreement>
+	</rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>"
+`;
+
+exports[`CII > Regressions > #671 Buyer Order Reference > should not output the dummy reference 'NA' 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:SupplyChainTradeTransaction>
+		<ram:IncludedSupplyChainTradeLineItem>
+			<ram:SpecifiedLineTradeAgreement>
+				<ram:BuyerOrderReferencedDocument>
+					<ram:LineID>3</ram:LineID>
+				</ram:BuyerOrderReferencedDocument>
+			</ram:SpecifiedLineTradeAgreement>
+		</ram:IncludedSupplyChainTradeLineItem>
+		<ram:ApplicableHeaderTradeAgreement>
+			<ram:SellerOrderReferencedDocument>
+				<ram:IssuerAssignedID>112233</ram:IssuerAssignedID>
+			</ram:SellerOrderReferencedDocument>
+		</ram:ApplicableHeaderTradeAgreement>
+	</rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>"
+`;
+
 exports[`CII > post-processing > should append default notes to the invoice notes 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">

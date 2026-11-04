@@ -10,6 +10,7 @@ import { invoiceSchema } from '../invoice/invoice.schema';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { sortBySchema } from '../utils/sort-by-schema';
 import { EInvoiceFormat } from './format.e-invoice-format.interface';
+import { FormatCIIService } from './format-cii.service';
 import { FormatXMLService } from './format-xml.service';
 
 export class FormatUBLService
@@ -38,13 +39,15 @@ export class FormatUBLService
 			mapping['ubl:Invoice']['cbc:ProfileID'] = this.profileID;
 		}
 
-		const orderReference = mapping['ubl:Invoice']['cac:OrderReference'];
-		if (
-			orderReference &&
-			'cbc:SalesOrderID' in orderReference &&
-			!('cbc:ID' in orderReference)
-		) {
-			mapping['ubl:Invoice']['cac:OrderReference']!['cbc:ID']! = 'NA';
+		if (this.syntax === 'UBL') {
+			const orderReference = mapping['ubl:Invoice']['cac:OrderReference'];
+			if (
+				orderReference &&
+				'cbc:SalesOrderID' in orderReference &&
+				!('cbc:ID' in orderReference)
+			) {
+				mapping['ubl:Invoice']['cac:OrderReference']!['cbc:ID']! = 'NA';
+			}
 		}
 	}
 
@@ -58,13 +61,15 @@ export class FormatUBLService
 			invoice['ubl:Invoice']['cbc:ProfileID'] = this.profileID;
 		}
 
-		const orderReference = invoice['ubl:Invoice']['cac:OrderReference'];
-		if (
-			orderReference &&
-			'cbc:SalesOrderID' in orderReference &&
-			!('cbc:ID' in orderReference)
-		) {
-			orderReference['cbc:ID'] = 'NA';
+		if (this.syntax === 'UBL') {
+			const orderReference = invoice['ubl:Invoice']['cac:OrderReference'];
+			if (
+				orderReference &&
+				'cbc:SalesOrderID' in orderReference &&
+				!('cbc:ID' in orderReference)
+			) {
+				orderReference['cbc:ID'] = 'NA';
+			}
 		}
 	}
 

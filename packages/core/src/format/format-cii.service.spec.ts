@@ -1,9 +1,13 @@
 import { Invoice } from '@e-invoice-eu/core';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Logger } from '../logger.interface';
-import { FormatCIIService } from './format-cii.service';
+import {
+	FormatCIIService,
+	FX_EXTENDED,
+	FX_MINIMUM,
+} from './format-cii.service';
 
 describe('CII', () => {
 	let service: FormatCIIService;
@@ -1108,6 +1112,100 @@ describe('CII', () => {
 					/<ram:GrossPriceProductTradePrice>.*<ram:ChargeAmount>200<\/ram:ChargeAmount>.*<ram:BasisQuantityunitCode="C62">1<\/ram:BasisQuantity>.*<ram:AppliedTradeAllowanceCharge>.*<\/ram:GrossPriceProductTradePrice>/,
 				);
 
+				expect(xml).toMatchSnapshot();
+			});
+		});
+
+		describe('#671 Buyer Order Reference', () => {
+			it('should include all buyer order references for FX-EXTENDED', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:OrderReference': {
+							'cbc:ID': '98776',
+						},
+						'cac:InvoiceLine': [
+							{
+								'cac:OrderLineReference': {
+									'cbc:LineID': '3',
+								},
+							},
+						],
+					},
+				} as unknown as Invoice;
+
+				const spy = vi
+					.spyOn(service, 'fxProfile', 'get')
+					.mockReturnValue(FX_EXTENDED);
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+				spy.mockRestore();
+
+				expect(xml).toContain('<ram:LineID>3</ram:LineID>');
+				expect(xml).toContain(
+					'<ram:IssuerAssignedID>98776</ram:IssuerAssignedID>',
+				);
+
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should include buyer order references for FX-MINIMUM', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cbc:ID': 'blabla',
+						'cac:OrderReference': {
+							'cbc:ID': '98776',
+						},
+						'cac:InvoiceLine': [
+							{
+								'cac:OrderLineReference': {
+									'cbc:LineID': '3',
+								},
+							},
+						],
+					},
+				} as unknown as Invoice;
+
+				const spy = vi
+					.spyOn(service, 'fxProfile', 'get')
+					.mockReturnValue(FX_MINIMUM);
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+				spy.mockRestore();
+
+				expect(xml).not.toContain('<ram:LineID>3</ram:LineID>');
+				expect(xml).toContain(
+					'<ram:IssuerAssignedID>98776</ram:IssuerAssignedID>',
+				);
+
+				expect(xml).toMatchSnapshot();
+			});
+
+			it("should not output the dummy reference 'NA'", async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:OrderReference': {
+							'cbc:SalesOrderID': '112233',
+						},
+						'cac:InvoiceLine': [
+							{
+								'cac:OrderLineReference': {
+									'cbc:LineID': '3',
+								},
+							},
+						],
+					},
+				} as unknown as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				expect(xml).not.toContain('>NA<');
 				expect(xml).toMatchSnapshot();
 			});
 		});
