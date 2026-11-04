@@ -1182,7 +1182,6 @@ describe('CII', () => {
 				);
 
 				expect(xml).toMatchSnapshot();
-				console.log(xml);
 			});
 		});
 	});
