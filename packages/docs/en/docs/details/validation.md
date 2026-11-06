@@ -143,6 +143,7 @@ check all legal requirements before you use them.
 | [portinvoice](https://www.portinvoice.com/) | ✅ | ✅ | ❌ | |
 | [ZUGFeRD Community](https://www.zugferd-community.net/en/login) | ✅ | ✅ | ❌ | Registration required |
 | [FNFE Service Validator](https://services.fnfe-mpe.org/) | ✅ | ✅ | ❌ | Registration required |
+| [W System](https://wsystem.dev/ ) | ✅ | ✅ | ✅ | Paid service with free tier, API key required after 20 validations per day | 
 
 <sup>1</sup> Invoice XML must be extracted for upload<br />
 <sup>2</sup> SOAP (not REST)
