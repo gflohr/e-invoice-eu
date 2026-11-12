@@ -547,6 +547,20 @@ exports[`CII > Regressions > #671 Buyer Order Reference > should not output the 
 </rsm:CrossIndustryInvoice>"
 `;
 
+exports[`CII > Regressions > #685 Various Fields Missing > should include the project references for FX-EN16931 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeAgreement>
+			<ram:SpecifiedProcuringProject>
+				<ram:ID>PI33</ram:ID>
+				<ram:Name>PI33</ram:Name>
+			</ram:SpecifiedProcuringProject>
+		</ram:ApplicableHeaderTradeAgreement>
+	</rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>"
+`;
+
 exports[`CII > Regressions > #685 Various Fields Missing > should map BT-17 references 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">

@@ -1511,7 +1511,7 @@ export const ublInvoice: Transformation = {
 						'ram:SpecifiedProcuringProject',
 						'ram:ID',
 					],
-					fxProfileMask: FX_MASK_EXTENDED,
+					fxProfileMask: FX_MASK_EN16931,
 				},
 				// CII requires both an ID and a name but UBL only defines the
 				// ID.
@@ -1523,7 +1523,7 @@ export const ublInvoice: Transformation = {
 						'ram:SpecifiedProcuringProject',
 						'ram:Name',
 					],
-					fxProfileMask: FX_MASK_EXTENDED,
+					fxProfileMask: FX_MASK_EN16931,
 				},
 				{
 					type: 'object',

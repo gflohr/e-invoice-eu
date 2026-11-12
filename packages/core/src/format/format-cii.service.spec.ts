@@ -5,6 +5,7 @@ import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Logger } from '../logger.interface';
 import {
 	FormatCIIService,
+	FX_EN16931,
 	FX_EXTENDED,
 	FX_MINIMUM,
 } from './format-cii.service';
@@ -1284,6 +1285,30 @@ describe('CII', () => {
 				expect(xml).toContain(
 					'<ram:IssuerAssignedID>CD65432</ram:IssuerAssignedID>',
 				);
+
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should include the project references for FX-EN16931', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:ProjectReference': {
+							'cbc:ID': 'PI33',
+						},
+					},
+				} as unknown as Invoice;
+
+				const spy = vi
+					.spyOn(service, 'fxProfile', 'get')
+					.mockReturnValue(FX_EN16931);
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+				spy.mockRestore();
+
+				expect(xml).toContain('<ram:ID>PI33</ram:ID>');
+				expect(xml).toContain('<ram:Name>PI33</ram:Name>');
 
 				expect(xml).toMatchSnapshot();
 			});
