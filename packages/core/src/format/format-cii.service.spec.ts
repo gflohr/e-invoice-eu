@@ -1209,5 +1209,28 @@ describe('CII', () => {
 				expect(xml).toMatchSnapshot();
 			});
 		});
+
+		describe('#685 Various Fields Missing', () => {
+			it('should output the despatch advice reference (BT-16)', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:DespatchDocumentReference': {
+							'cbc:ID': 'desp98',
+						},
+					},
+				} as unknown as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				expect(xml).toContain(
+					'<ram:IssuerAssignedID>desp98</ram:IssuerAssignedID>',
+				);
+
+				expect(xml).toMatchSnapshot();
+			});
+		});
 	});
 });

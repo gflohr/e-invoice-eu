@@ -934,7 +934,7 @@ export const cacDelivery: Transformation[] = [
 		children: [
 			{
 				type: 'string',
-				src: ['cac:DeliveryLocation', 'cbc:ID'],
+				src: ['cac:Delivery', 'cac:DeliveryLocation', 'cbc:ID'],
 				dest: [
 					// This will be downgraded to ram:ID in the
 					// post-processing step if no schemeID attribute is
@@ -945,7 +945,11 @@ export const cacDelivery: Transformation[] = [
 			},
 			{
 				type: 'string',
-				src: ['cac:DeliveryLocation', 'cbc:ID@schemeID'],
+				src: [
+					'cac:Delivery',
+					'cac:DeliveryLocation',
+					'cbc:ID@schemeID',
+				],
 				dest: [
 					// This will be downgraded to ram:ID in the
 					// post-processing step if no schemeID attribute is
@@ -956,13 +960,18 @@ export const cacDelivery: Transformation[] = [
 			},
 			{
 				type: 'string',
-				src: ['cac:DeliveryParty', 'cac:PartyName', 'cbc:Name'],
+				src: [
+					'cac:Delivery',
+					'cac:DeliveryParty',
+					'cac:PartyName',
+					'cbc:Name',
+				],
 				dest: ['ram:Name'],
 				fxProfileMask: FX_MASK_BASIC_WL,
 			},
 			{
 				type: 'object',
-				src: ['cac:DeliveryLocation', 'cac:Address'],
+				src: ['cac:Delivery', 'cac:DeliveryLocation', 'cac:Address'],
 				dest: ['ram:PostalTradeAddress'],
 				children: deliveryAddress,
 				// FIXME! This should actually be FX_EXTENDED, but changing
@@ -973,13 +982,7 @@ export const cacDelivery: Transformation[] = [
 	},
 	{
 		type: 'string',
-		src: ['cac:DespatchDocumentReference', 'cbc:ID'],
-		dest: ['ram:DespatchAdviceReferencedDocument', 'ram:IssuerAssignedID'],
-		fxProfileMask: FX_MASK_BASIC_WL,
-	},
-	{
-		type: 'string',
-		src: ['cbc:ActualDeliveryDate'],
+		src: ['cac:Delivery', 'cbc:ActualDeliveryDate'],
 		dest: [
 			'ram:ActualDeliverySupplyChainEvent',
 			'ram:OccurrenceDateTime',
@@ -997,6 +1000,12 @@ export const cacDelivery: Transformation[] = [
 			'udt:DateTimeString@format',
 		],
 		fxProfileMask: FX_MASK_MINIMUM,
+	},
+	{
+		type: 'string',
+		src: ['cac:DespatchDocumentReference', 'cbc:ID'],
+		dest: ['ram:DespatchAdviceReferencedDocument', 'ram:IssuerAssignedID'],
+		fxProfileMask: FX_MASK_BASIC_WL,
 	},
 ];
 
@@ -1506,7 +1515,7 @@ export const ublInvoice: Transformation = {
 				},
 				{
 					type: 'object',
-					src: ['cac:Delivery'],
+					src: [],
 					dest: ['ram:ApplicableHeaderTradeDelivery'],
 					children: cacDelivery,
 					fxProfileMask: FX_MASK_MINIMUM,
