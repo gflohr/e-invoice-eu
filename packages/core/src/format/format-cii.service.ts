@@ -1005,7 +1005,7 @@ export const cacDelivery: Transformation[] = [
 		type: 'string',
 		src: ['cac:DespatchDocumentReference', 'cbc:ID'],
 		dest: ['ram:DespatchAdviceReferencedDocument', 'ram:IssuerAssignedID'],
-		fxProfileMask: FX_MASK_BASIC_WL,
+		fxProfileMask: FX_MASK_MINIMUM,
 	},
 ];
 
