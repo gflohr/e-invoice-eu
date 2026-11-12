@@ -1231,6 +1231,62 @@ describe('CII', () => {
 
 				expect(xml).toMatchSnapshot();
 			});
+
+			it('should map BT-17 references', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:OriginatorDocumentReference': {
+							'cbc:ID': 'PPID-123',
+						},
+					},
+				} as unknown as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				expect(xml).toContain(
+					'<ram:IssuerAssignedID>PPID-123</ram:IssuerAssignedID>',
+				);
+
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should merge BT-17 with BT-18 references', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:OriginatorDocumentReference': {
+							'cbc:ID': 'PPID-123',
+						},
+						'cac:AdditionalDocumentReference': [
+							{
+								'cbc:ID': 'AB23456',
+							},
+							{
+								'cbc:ID': 'CD65432',
+							},
+						],
+					},
+				} as unknown as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				expect(xml).toContain(
+					'<ram:IssuerAssignedID>PPID-123</ram:IssuerAssignedID>',
+				);
+				expect(xml).toContain(
+					'<ram:IssuerAssignedID>AB23456</ram:IssuerAssignedID>',
+				);
+				expect(xml).toContain(
+					'<ram:IssuerAssignedID>CD65432</ram:IssuerAssignedID>',
+				);
+
+				expect(xml).toMatchSnapshot();
+			});
 		});
 	});
 });

@@ -1471,6 +1471,18 @@ export const ublInvoice: Transformation = {
 					],
 					fxProfileMask: FX_MASK_MINIMUM,
 				},
+				// This single value is merged into the additional document
+				// reference.
+				{
+					type: 'object',
+					src: ['cac:OriginatorDocumentReference'],
+					dest: [
+						'ram:ApplicableHeaderTradeAgreement',
+						'x:AdditionalReferencedDocument',
+					],
+					children: cacAdditionalDocumentReference,
+					fxProfileMask: FX_MASK_MINIMUM,
+				},
 				{
 					type: 'string',
 					src: ['cac:ContractDocumentReference', 'cbc:ID'],
@@ -1821,6 +1833,7 @@ export class FormatCIIService
 		this.postProcessTradeDelivery(cii);
 		this.postProcessNotes(cii);
 		this.postProcessPriceAllowances(cii);
+		this.postProcessLotReference(cii);
 	}
 
 	private postProcessSellerTradeParty(cii: ExpandObject) {
@@ -1934,6 +1947,26 @@ export class FormatCIIService
 				// Downgrade to local ID.
 				renameKey(payeeParty, 'ram:GlobalID', 'ram:ID');
 			}
+		}
+	}
+
+	private postProcessLotReference(cii: ExpandObject) {
+		const tradeAgreement =
+			cii['rsm:CrossIndustryInvoice']?.[
+				'rsm:SupplyChainTradeTransaction'
+			]?.['ram:ApplicableHeaderTradeAgreement'];
+		if (!tradeAgreement) return;
+
+		const lotReference = tradeAgreement['x:AdditionalReferencedDocument'];
+		if (!lotReference) return;
+		delete tradeAgreement['x:AdditionalReferencedDocument'];
+
+		const additionalDocumentReference =
+			tradeAgreement['ram:AdditionalReferencedDocument'];
+		if (!additionalDocumentReference) {
+			tradeAgreement['ram:AdditionalReferencedDocument'] = [lotReference];
+		} else {
+			additionalDocumentReference.push(lotReference);
 		}
 	}
 
