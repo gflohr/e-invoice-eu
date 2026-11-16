@@ -513,15 +513,13 @@ exports[`CII > Regressions > #671 Buyer Order Reference > should include all buy
 exports[`CII > Regressions > #671 Buyer Order Reference > should include buyer order references for FX-MINIMUM 1`] = `
 "<?xml version="1.0" encoding="utf-8"?>
 <rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
-	<rsm:ExchangedDocument>
-		<ram:ID>blabla</ram:ID>
-	</rsm:ExchangedDocument>
 	<rsm:SupplyChainTradeTransaction>
 		<ram:ApplicableHeaderTradeAgreement>
 			<ram:BuyerOrderReferencedDocument>
 				<ram:IssuerAssignedID>98776</ram:IssuerAssignedID>
 			</ram:BuyerOrderReferencedDocument>
 		</ram:ApplicableHeaderTradeAgreement>
+		<ram:ApplicableHeaderTradeDelivery/>
 	</rsm:SupplyChainTradeTransaction>
 </rsm:CrossIndustryInvoice>"
 `;
@@ -541,6 +539,131 @@ exports[`CII > Regressions > #671 Buyer Order Reference > should not output the 
 			<ram:SellerOrderReferencedDocument>
 				<ram:IssuerAssignedID>112233</ram:IssuerAssignedID>
 			</ram:SellerOrderReferencedDocument>
+		</ram:ApplicableHeaderTradeAgreement>
+	</rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>"
+`;
+
+exports[`CII > Regressions > #685 Various Fields Missing > should include the project references for FX-EN16931 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeAgreement>
+			<ram:SpecifiedProcuringProject>
+				<ram:ID>PI33</ram:ID>
+				<ram:Name>PI33</ram:Name>
+			</ram:SpecifiedProcuringProject>
+		</ram:ApplicableHeaderTradeAgreement>
+	</rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>"
+`;
+
+exports[`CII > Regressions > #685 Various Fields Missing > should include the seller tax representative (BG-11) 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeAgreement>
+			<ram:SellerTaxRepresentativeTradeParty>
+				<ram:Name>Lionel Hutz, Esq.</ram:Name>
+				<ram:PostalTradeAddress>
+					<ram:PostcodeCode>12345</ram:PostcodeCode>
+					<ram:LineOne>742 Evergreen Terrace</ram:LineOne>
+					<ram:LineTwo>Suite 2B</ram:LineTwo>
+					<ram:LineThree>Behind the Kwik-E-Mart</ram:LineThree>
+					<ram:CityName>Springfield</ram:CityName>
+					<ram:CountryID>DE</ram:CountryID>
+					<ram:CountrySubDivisionName>NT</ram:CountrySubDivisionName>
+				</ram:PostalTradeAddress>
+				<ram:SpecifiedTaxRegistration>
+					<ram:ID schemeID="VA">DE123456789</ram:ID>
+				</ram:SpecifiedTaxRegistration>
+			</ram:SellerTaxRepresentativeTradeParty>
+		</ram:ApplicableHeaderTradeAgreement>
+	</rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>"
+`;
+
+exports[`CII > Regressions > #685 Various Fields Missing > should map BT-17 references 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeAgreement>
+			<ram:AdditionalReferencedDocument>
+				<ram:IssuerAssignedID>PPID-123</ram:IssuerAssignedID>
+				<ram:TypeCode>50</ram:TypeCode>
+			</ram:AdditionalReferencedDocument>
+		</ram:ApplicableHeaderTradeAgreement>
+	</rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>"
+`;
+
+exports[`CII > Regressions > #685 Various Fields Missing > should merge BT-17 with BT-18 references 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeAgreement>
+			<ram:AdditionalReferencedDocument>
+				<ram:IssuerAssignedID>AB23456</ram:IssuerAssignedID>
+			</ram:AdditionalReferencedDocument>
+			<ram:AdditionalReferencedDocument>
+				<ram:IssuerAssignedID>CD65432</ram:IssuerAssignedID>
+			</ram:AdditionalReferencedDocument>
+			<ram:AdditionalReferencedDocument>
+				<ram:IssuerAssignedID>PPID-123</ram:IssuerAssignedID>
+				<ram:TypeCode>50</ram:TypeCode>
+			</ram:AdditionalReferencedDocument>
+		</ram:ApplicableHeaderTradeAgreement>
+	</rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>"
+`;
+
+exports[`CII > Regressions > #685 Various Fields Missing > should output the despatch advice reference (BT-16) 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeDelivery>
+			<ram:DespatchAdviceReferencedDocument>
+				<ram:IssuerAssignedID>desp98</ram:IssuerAssignedID>
+			</ram:DespatchAdviceReferencedDocument>
+		</ram:ApplicableHeaderTradeDelivery>
+	</rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>"
+`;
+
+exports[`CII > Regressions > #685 Various Fields Missing > should place BT-17 after ContractReferencedDocument and before SpecifiedProcuringProject when no other additional references exist 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeAgreement>
+			<ram:ContractReferencedDocument>
+				<ram:IssuerAssignedID>CONTRACT-456</ram:IssuerAssignedID>
+			</ram:ContractReferencedDocument>
+			<ram:AdditionalReferencedDocument>
+				<ram:IssuerAssignedID>PPID-123</ram:IssuerAssignedID>
+				<ram:TypeCode>50</ram:TypeCode>
+			</ram:AdditionalReferencedDocument>
+			<ram:SpecifiedProcuringProject>
+				<ram:ID>PROJ-999</ram:ID>
+				<ram:Name>PROJ-999</ram:Name>
+			</ram:SpecifiedProcuringProject>
+		</ram:ApplicableHeaderTradeAgreement>
+	</rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>"
+`;
+
+exports[`CII > Regressions > #685 Various Fields Missing > should place BT-17 before SpecifiedProcuringProject when no other additional references exist 1`] = `
+"<?xml version="1.0" encoding="utf-8"?>
+<rsm:CrossIndustryInvoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100 ../schema/D16B%20SCRDM%20(Subset)/uncoupled%20clm/CII/uncefact/data/standard/CrossIndustryInvoice_100pD16B.xsd" xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100" xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100" xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100" xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100">
+	<rsm:SupplyChainTradeTransaction>
+		<ram:ApplicableHeaderTradeAgreement>
+			<ram:AdditionalReferencedDocument>
+				<ram:IssuerAssignedID>PPID-123</ram:IssuerAssignedID>
+				<ram:TypeCode>50</ram:TypeCode>
+			</ram:AdditionalReferencedDocument>
+			<ram:SpecifiedProcuringProject>
+				<ram:ID>PROJ-999</ram:ID>
+				<ram:Name>PROJ-999</ram:Name>
+			</ram:SpecifiedProcuringProject>
 		</ram:ApplicableHeaderTradeAgreement>
 	</rsm:SupplyChainTradeTransaction>
 </rsm:CrossIndustryInvoice>"

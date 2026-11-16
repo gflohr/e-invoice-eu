@@ -5,6 +5,7 @@ import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Logger } from '../logger.interface';
 import {
 	FormatCIIService,
+	FX_EN16931,
 	FX_EXTENDED,
 	FX_MINIMUM,
 } from './format-cii.service';
@@ -1153,7 +1154,6 @@ describe('CII', () => {
 			it('should include buyer order references for FX-MINIMUM', async () => {
 				const invoice: Invoice = {
 					'ubl:Invoice': {
-						'cbc:ID': 'blabla',
 						'cac:OrderReference': {
 							'cbc:ID': '98776',
 						},
@@ -1206,6 +1206,248 @@ describe('CII', () => {
 				)) as string;
 
 				expect(xml).not.toContain('>NA<');
+				expect(xml).toMatchSnapshot();
+			});
+		});
+
+		describe('#685 Various Fields Missing', () => {
+			it('should output the despatch advice reference (BT-16)', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:DespatchDocumentReference': {
+							'cbc:ID': 'desp98',
+						},
+					},
+				} as unknown as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				expect(xml).toContain(
+					'<ram:IssuerAssignedID>desp98</ram:IssuerAssignedID>',
+				);
+
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should map BT-17 references', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:OriginatorDocumentReference': {
+							'cbc:ID': 'PPID-123',
+						},
+					},
+				} as unknown as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				expect(xml).toContain(
+					'<ram:IssuerAssignedID>PPID-123</ram:IssuerAssignedID>',
+				);
+				expect(xml).toContain('<ram:TypeCode>50</ram:TypeCode>');
+
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should merge BT-17 with BT-18 references', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:OriginatorDocumentReference': {
+							'cbc:ID': 'PPID-123',
+						},
+						'cac:AdditionalDocumentReference': [
+							{
+								'cbc:ID': 'AB23456',
+							},
+							{
+								'cbc:ID': 'CD65432',
+							},
+						],
+					},
+				} as unknown as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				expect(xml).toContain(
+					'<ram:IssuerAssignedID>PPID-123</ram:IssuerAssignedID>',
+				);
+				expect(xml).toContain(
+					'<ram:IssuerAssignedID>AB23456</ram:IssuerAssignedID>',
+				);
+				expect(xml).toContain(
+					'<ram:IssuerAssignedID>CD65432</ram:IssuerAssignedID>',
+				);
+
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should place BT-17 before SpecifiedProcuringProject when no other additional references exist', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:OriginatorDocumentReference': {
+							'cbc:ID': 'PPID-123',
+						},
+						'cac:ProjectReference': {
+							'cbc:ID': 'PROJ-999',
+						},
+					},
+				} as unknown as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				expect(xml).toContain(
+					'<ram:IssuerAssignedID>PPID-123</ram:IssuerAssignedID>',
+				);
+				expect(xml).toContain('<ram:TypeCode>50</ram:TypeCode>');
+
+				const additionalDocIndex = xml.indexOf(
+					'<ram:AdditionalReferencedDocument>',
+				);
+				const projectIndex = xml.indexOf(
+					'<ram:SpecifiedProcuringProject>',
+				);
+
+				expect(additionalDocIndex).toBeGreaterThan(-1);
+				expect(projectIndex).toBeGreaterThan(-1);
+				expect(additionalDocIndex).toBeLessThan(projectIndex);
+
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should place BT-17 after ContractReferencedDocument and before SpecifiedProcuringProject when no other additional references exist', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:OriginatorDocumentReference': {
+							'cbc:ID': 'PPID-123',
+						},
+						'cac:ContractDocumentReference': {
+							'cbc:ID': 'CONTRACT-456',
+						},
+						'cac:ProjectReference': {
+							'cbc:ID': 'PROJ-999',
+						},
+					},
+				} as unknown as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				const contractDocIndex = xml.indexOf(
+					'<ram:ContractReferencedDocument>',
+				);
+				const additionalDocIndex = xml.indexOf(
+					'<ram:AdditionalReferencedDocument>',
+				);
+				const projectIndex = xml.indexOf(
+					'<ram:SpecifiedProcuringProject>',
+				);
+
+				expect(contractDocIndex).toBeGreaterThan(-1);
+				expect(additionalDocIndex).toBeGreaterThan(-1);
+				expect(projectIndex).toBeGreaterThan(-1);
+				expect(contractDocIndex).toBeLessThan(additionalDocIndex);
+				expect(additionalDocIndex).toBeLessThan(projectIndex);
+
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should include the project references for FX-EN16931', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:ProjectReference': {
+							'cbc:ID': 'PI33',
+						},
+					},
+				} as unknown as Invoice;
+
+				const spy = vi
+					.spyOn(service, 'fxProfile', 'get')
+					.mockReturnValue(FX_EN16931);
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+				spy.mockRestore();
+
+				expect(xml).toContain('<ram:ID>PI33</ram:ID>');
+				expect(xml).toContain('<ram:Name>PI33</ram:Name>');
+
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should include the seller tax representative (BG-11)', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:TaxRepresentativeParty': {
+							'cac:PartyName': {
+								'cbc:Name': 'Lionel Hutz, Esq.',
+							},
+							'cac:PostalAddress': {
+								'cbc:StreetName': '742 Evergreen Terrace',
+								'cbc:AdditionalStreetName': 'Suite 2B',
+								'cbc:CityName': 'Springfield',
+								'cbc:PostalZone': '12345',
+								'cbc:CountrySubentity': 'NT',
+								'cac:AddressLine': {
+									'cbc:Line': 'Behind the Kwik-E-Mart',
+								},
+								'cac:Country': {
+									'cbc:IdentificationCode': 'DE',
+								},
+							},
+							'cac:PartyTaxScheme': {
+								'cbc:CompanyID': 'DE123456789',
+								'cac:TaxScheme': {
+									'cbc:ID': 'VAT',
+								},
+							},
+						},
+					},
+				} as unknown as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				expect(xml).toContain(
+					'<ram:SellerTaxRepresentativeTradeParty>',
+				);
+				expect(xml).toContain('<ram:Name>Lionel Hutz, Esq.</ram:Name>');
+				expect(xml).toContain(
+					'<ram:PostcodeCode>12345</ram:PostcodeCode>',
+				);
+				expect(xml).toContain(
+					'<ram:LineOne>742 Evergreen Terrace</ram:LineOne>',
+				);
+				expect(xml).toContain('<ram:LineTwo>Suite 2B</ram:LineTwo>');
+				expect(xml).toContain(
+					'<ram:LineThree>Behind the Kwik-E-Mart</ram:LineThree>',
+				);
+				expect(xml).toContain(
+					'<ram:CityName>Springfield</ram:CityName>',
+				);
+				expect(xml).toContain('<ram:CountryID>DE</ram:CountryID>');
+				expect(xml).toContain(
+					'<ram:CountrySubDivisionName>NT</ram:CountrySubDivisionName>',
+				);
+				expect(xml).toContain(
+					'<ram:ID schemeID="VA">DE123456789</ram:ID>',
+				);
+
 				expect(xml).toMatchSnapshot();
 			});
 		});

@@ -159,6 +159,12 @@ const cacCommodityClassification: Transformation = {
 			dest: ['ram:ClassCode@listID'],
 			fxProfileMask: FX_MASK_EN16931,
 		},
+		{
+			type: 'string',
+			src: ['cbc:ItemClassificationCode@listVersionID'],
+			dest: ['ram:ClassCode@listVersionID'],
+			fxProfileMask: FX_MASK_EN16931,
+		},
 	],
 	fxProfileMask: FX_MASK_MINIMUM,
 };
@@ -606,6 +612,7 @@ export const cacPartyTaxScheme: Transformation[] = [
 		fxProfileMask: FX_MASK_MINIMUM,
 	},
 ];
+
 export const cacSupplierPartyTaxScheme: Transformation[] = [
 	{
 		type: 'string',
@@ -727,6 +734,29 @@ export const cacAccountingSupplierParty: Transformation[] = [
 		src: ['cac:PartyTaxScheme'],
 		dest: ['ram:SpecifiedTaxRegistration'],
 		children: cacSupplierPartyTaxScheme,
+		fxProfileMask: FX_MASK_MINIMUM,
+	},
+];
+
+export const cacTaxRepresentativeParty: Transformation[] = [
+	{
+		type: 'string',
+		src: ['cac:PartyName', 'cbc:Name'],
+		dest: ['ram:Name'],
+		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+	{
+		type: 'object',
+		src: ['cac:PostalAddress'],
+		dest: ['ram:PostalTradeAddress'],
+		children: cacPostalAddress,
+		fxProfileMask: FX_MASK_MINIMUM,
+	},
+	{
+		type: 'object',
+		src: ['cac:PartyTaxScheme'],
+		dest: ['ram:SpecifiedTaxRegistration'],
+		children: cacPartyTaxScheme,
 		fxProfileMask: FX_MASK_MINIMUM,
 	},
 ];
@@ -934,7 +964,7 @@ export const cacDelivery: Transformation[] = [
 		children: [
 			{
 				type: 'string',
-				src: ['cac:DeliveryLocation', 'cbc:ID'],
+				src: ['cac:Delivery', 'cac:DeliveryLocation', 'cbc:ID'],
 				dest: [
 					// This will be downgraded to ram:ID in the
 					// post-processing step if no schemeID attribute is
@@ -945,7 +975,11 @@ export const cacDelivery: Transformation[] = [
 			},
 			{
 				type: 'string',
-				src: ['cac:DeliveryLocation', 'cbc:ID@schemeID'],
+				src: [
+					'cac:Delivery',
+					'cac:DeliveryLocation',
+					'cbc:ID@schemeID',
+				],
 				dest: [
 					// This will be downgraded to ram:ID in the
 					// post-processing step if no schemeID attribute is
@@ -956,13 +990,18 @@ export const cacDelivery: Transformation[] = [
 			},
 			{
 				type: 'string',
-				src: ['cac:DeliveryParty', 'cac:PartyName', 'cbc:Name'],
+				src: [
+					'cac:Delivery',
+					'cac:DeliveryParty',
+					'cac:PartyName',
+					'cbc:Name',
+				],
 				dest: ['ram:Name'],
 				fxProfileMask: FX_MASK_BASIC_WL,
 			},
 			{
 				type: 'object',
-				src: ['cac:DeliveryLocation', 'cac:Address'],
+				src: ['cac:Delivery', 'cac:DeliveryLocation', 'cac:Address'],
 				dest: ['ram:PostalTradeAddress'],
 				children: deliveryAddress,
 				// FIXME! This should actually be FX_EXTENDED, but changing
@@ -973,13 +1012,7 @@ export const cacDelivery: Transformation[] = [
 	},
 	{
 		type: 'string',
-		src: ['cac:DespatchDocumentReference', 'cbc:ID'],
-		dest: ['ram:DespatchAdviceReferencedDocument', 'ram:IssuerAssignedID'],
-		fxProfileMask: FX_MASK_BASIC_WL,
-	},
-	{
-		type: 'string',
-		src: ['cbc:ActualDeliveryDate'],
+		src: ['cac:Delivery', 'cbc:ActualDeliveryDate'],
 		dest: [
 			'ram:ActualDeliverySupplyChainEvent',
 			'ram:OccurrenceDateTime',
@@ -996,6 +1029,12 @@ export const cacDelivery: Transformation[] = [
 			'ram:OccurrenceDateTime',
 			'udt:DateTimeString@format',
 		],
+		fxProfileMask: FX_MASK_MINIMUM,
+	},
+	{
+		type: 'string',
+		src: ['cac:DespatchDocumentReference', 'cbc:ID'],
+		dest: ['ram:DespatchAdviceReferencedDocument', 'ram:IssuerAssignedID'],
 		fxProfileMask: FX_MASK_MINIMUM,
 	},
 ];
@@ -1443,6 +1482,16 @@ export const ublInvoice: Transformation = {
 					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				{
+					type: 'object',
+					src: ['cac:TaxRepresentativeParty'],
+					dest: [
+						'ram:ApplicableHeaderTradeAgreement',
+						'ram:SellerTaxRepresentativeTradeParty',
+					],
+					children: cacTaxRepresentativeParty,
+					fxProfileMask: FX_MASK_BASIC_WL,
+				},
+				{
 					type: 'string',
 					src: ['cac:OrderReference', 'cbc:SalesOrderID'],
 					dest: [
@@ -1460,6 +1509,18 @@ export const ublInvoice: Transformation = {
 						'ram:BuyerOrderReferencedDocument',
 						'ram:IssuerAssignedID',
 					],
+					fxProfileMask: FX_MASK_MINIMUM,
+				},
+				// This single value is merged into the additional document
+				// reference.
+				{
+					type: 'object',
+					src: ['cac:OriginatorDocumentReference'],
+					dest: [
+						'ram:ApplicableHeaderTradeAgreement',
+						'x:AdditionalReferencedDocument',
+					],
+					children: cacAdditionalDocumentReference,
 					fxProfileMask: FX_MASK_MINIMUM,
 				},
 				{
@@ -1490,7 +1551,7 @@ export const ublInvoice: Transformation = {
 						'ram:SpecifiedProcuringProject',
 						'ram:ID',
 					],
-					fxProfileMask: FX_MASK_EXTENDED,
+					fxProfileMask: FX_MASK_EN16931,
 				},
 				// CII requires both an ID and a name but UBL only defines the
 				// ID.
@@ -1502,11 +1563,11 @@ export const ublInvoice: Transformation = {
 						'ram:SpecifiedProcuringProject',
 						'ram:Name',
 					],
-					fxProfileMask: FX_MASK_EXTENDED,
+					fxProfileMask: FX_MASK_EN16931,
 				},
 				{
 					type: 'object',
-					src: ['cac:Delivery'],
+					src: [],
 					dest: ['ram:ApplicableHeaderTradeDelivery'],
 					children: cacDelivery,
 					fxProfileMask: FX_MASK_MINIMUM,
@@ -1812,6 +1873,7 @@ export class FormatCIIService
 		this.postProcessTradeDelivery(cii);
 		this.postProcessNotes(cii);
 		this.postProcessPriceAllowances(cii);
+		this.postProcessLotReference(cii);
 	}
 
 	private postProcessSellerTradeParty(cii: ExpandObject) {
@@ -1925,6 +1987,76 @@ export class FormatCIIService
 				// Downgrade to local ID.
 				renameKey(payeeParty, 'ram:GlobalID', 'ram:ID');
 			}
+		}
+	}
+
+	private postProcessLotReference(cii: ExpandObject) {
+		const tradeAgreement =
+			cii['rsm:CrossIndustryInvoice']?.[
+				'rsm:SupplyChainTradeTransaction'
+			]?.['ram:ApplicableHeaderTradeAgreement'];
+		if (!tradeAgreement) return;
+
+		const lotReference = tradeAgreement['x:AdditionalReferencedDocument'];
+		if (!lotReference) return;
+
+		// BT-17 requires ram:TypeCode = '50' in CII.
+		// Rebuild keys to ensure 'ram:TypeCode' appears in valid D16B sequence
+		// (after IssuerAssignedID/URIID and before
+		// Name/AttachmentBinaryObject/ReferenceTypeCode).
+		const normalizedLotReference: ExpandObject = {};
+		if (lotReference['ram:IssuerAssignedID'] !== undefined) {
+			normalizedLotReference['ram:IssuerAssignedID'] =
+				lotReference['ram:IssuerAssignedID'];
+		}
+		if (lotReference['ram:URIID'] !== undefined) {
+			normalizedLotReference['ram:URIID'] = lotReference['ram:URIID'];
+		}
+		normalizedLotReference['ram:TypeCode'] = '50';
+		for (const [key, value] of Object.entries(lotReference)) {
+			if (!(key in normalizedLotReference)) {
+				normalizedLotReference[key] = value;
+			}
+		}
+
+		if (tradeAgreement['ram:AdditionalReferencedDocument']) {
+			delete tradeAgreement['x:AdditionalReferencedDocument'];
+			tradeAgreement['ram:AdditionalReferencedDocument'].push(
+				normalizedLotReference,
+			);
+			return;
+		}
+
+		const entries = Object.entries(tradeAgreement).filter(
+			([key]) => key !== 'x:AdditionalReferencedDocument',
+		);
+		for (const key of Object.keys(tradeAgreement)) {
+			delete tradeAgreement[key];
+		}
+
+		let inserted = false;
+		for (const [key, value] of entries) {
+			if (!inserted && key === 'ram:SpecifiedProcuringProject') {
+				tradeAgreement['ram:AdditionalReferencedDocument'] = [
+					normalizedLotReference,
+				];
+				inserted = true;
+			}
+
+			tradeAgreement[key] = value;
+
+			if (!inserted && key === 'ram:ContractReferencedDocument') {
+				tradeAgreement['ram:AdditionalReferencedDocument'] = [
+					normalizedLotReference,
+				];
+				inserted = true;
+			}
+		}
+
+		if (!inserted) {
+			tradeAgreement['ram:AdditionalReferencedDocument'] = [
+				normalizedLotReference,
+			];
 		}
 	}
 
@@ -2093,7 +2225,7 @@ export class FormatCIIService
 					path: childSrcPath,
 					json: invoice,
 				}) as string[];
-				if (Array.isArray(srcs) && srcs.length === 0) {
+				if (srcs.length === 0) {
 					continue;
 				}
 				src = srcs[0];
