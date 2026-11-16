@@ -159,6 +159,12 @@ const cacCommodityClassification: Transformation = {
 			dest: ['ram:ClassCode@listID'],
 			fxProfileMask: FX_MASK_EN16931,
 		},
+		{
+			type: 'string',
+			src: ['cbc:ItemClassificationCode@listVersionID'],
+			dest: ['ram:ClassCode@listVersionID'],
+			fxProfileMask: FX_MASK_EN16931,
+		},
 	],
 	fxProfileMask: FX_MASK_MINIMUM,
 };
