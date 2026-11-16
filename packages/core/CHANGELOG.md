@@ -1,5 +1,18 @@
 # @e-invoice-eu/core
 
+## 3.4.4
+
+### Patch Changes
+
+- 5ca6ad6: Output originator doc reference (BT-17) for CII and merge it with additional document references (BT-18).
+- 844411e: Transform ItemClassificationCode@listVersionID to CII.
+- 179ab33: Upgrade all dependencies to latest.
+  
+  Exceptions TypeScript (because of NestJS) and minimatch (because of TypeDoc).
+- 5ca6ad6: Output document level despatch advice reference (BT-16) for CII.
+- 5ca6ad6: Lower Factur-X/ZUGFeRD conformance level for project reference (BT-11) to EN16931.
+- d52687b: Transform seller tax representative party.
+
 ## 3.4.3
 
 ### Patch Changes

@@ -1,5 +1,25 @@
 # @e-invoice-eu/server
 
+## 3.4.4
+
+### Patch Changes
+
+- a16a552: Install only LibreOffice Calc and Writer.
+  
+  This assumes that other document types are never used as the basis for
+  invoices. Therefore, the change is considered okay for a patch version
+  bump only.
+- 179ab33: Upgrade all dependencies to latest.
+  
+  Exceptions TypeScript (because of NestJS) and minimatch (because of TypeDoc).
+- Updated dependencies [5ca6ad6]
+- Updated dependencies [844411e]
+- Updated dependencies [179ab33]
+- Updated dependencies [5ca6ad6]
+- Updated dependencies [5ca6ad6]
+- Updated dependencies [d52687b]
+  - @e-invoice-eu/core@3.4.4
+
 ## 3.4.3
 
 ### Patch Changes
