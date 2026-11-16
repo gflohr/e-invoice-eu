@@ -1999,14 +1999,31 @@ export class FormatCIIService
 
 		const lotReference = tradeAgreement['x:AdditionalReferencedDocument'];
 		if (!lotReference) return;
-		delete tradeAgreement['x:AdditionalReferencedDocument'];
 
-		const additionalDocumentReference =
-			tradeAgreement['ram:AdditionalReferencedDocument'];
-		if (!additionalDocumentReference) {
-			tradeAgreement['ram:AdditionalReferencedDocument'] = [lotReference];
-		} else {
-			additionalDocumentReference.push(lotReference);
+		if (tradeAgreement['ram:AdditionalReferencedDocument']) {
+			delete tradeAgreement['x:AdditionalReferencedDocument'];
+			tradeAgreement['ram:AdditionalReferencedDocument'].push(
+				lotReference,
+			);
+			return;
+		}
+
+		// Rebuild keys in-place so 'ram:AdditionalReferencedDocument' occupies
+		// the exact schema position of 'x:AdditionalReferencedDocument'
+		// (before SpecifiedProcuringProject).
+		const entries = Object.entries(tradeAgreement);
+		for (const key of Object.keys(tradeAgreement)) {
+			delete tradeAgreement[key];
+		}
+
+		for (const [key, value] of entries) {
+			if (key === 'x:AdditionalReferencedDocument') {
+				tradeAgreement['ram:AdditionalReferencedDocument'] = [
+					lotReference,
+				];
+			} else {
+				tradeAgreement[key] = value;
+			}
 		}
 	}
 

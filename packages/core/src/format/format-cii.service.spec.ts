@@ -1288,6 +1288,37 @@ describe('CII', () => {
 				expect(xml).toMatchSnapshot();
 			});
 
+			it('should place BT-17 before SpecifiedProcuringProject when no other additional references exist', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:OriginatorDocumentReference': {
+							'cbc:ID': 'PPID-123',
+						},
+						'cac:ProjectReference': {
+							'cbc:ID': 'PROJ-999',
+						},
+					},
+				} as unknown as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				const additionalDocIndex = xml.indexOf(
+					'<ram:AdditionalReferencedDocument>',
+				);
+				const projectIndex = xml.indexOf(
+					'<ram:SpecifiedProcuringProject>',
+				);
+
+				expect(additionalDocIndex).toBeGreaterThan(-1);
+				expect(projectIndex).toBeGreaterThan(-1);
+				expect(additionalDocIndex).toBeLessThan(projectIndex);
+
+				expect(xml).toMatchSnapshot();
+			});
+
 			it('should include the project references for FX-EN16931', async () => {
 				const invoice: Invoice = {
 					'ubl:Invoice': {
