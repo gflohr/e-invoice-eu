@@ -1467,16 +1467,6 @@ export const ublInvoice: Transformation = {
 				},
 				{
 					type: 'object',
-					src: ['cac:TaxRepresentativeParty'],
-					dest: [
-						'ram:ApplicableHeaderTradeAgreement',
-						'ram:SellerTaxRepresentativeTradeParty',
-					],
-					children: cacTaxRepresentativeParty,
-					fxProfileMask: FX_MASK_BASIC_WL,
-				},
-				{
-					type: 'object',
 					src: ['cac:AccountingCustomerParty', 'cac:Party'],
 					dest: [
 						'ram:ApplicableHeaderTradeAgreement',
@@ -1484,6 +1474,16 @@ export const ublInvoice: Transformation = {
 					],
 					children: cacAccountingCustomerParty,
 					fxProfileMask: FX_MASK_MINIMUM,
+				},
+				{
+					type: 'object',
+					src: ['cac:TaxRepresentativeParty'],
+					dest: [
+						'ram:ApplicableHeaderTradeAgreement',
+						'ram:SellerTaxRepresentativeTradeParty',
+					],
+					children: cacTaxRepresentativeParty,
+					fxProfileMask: FX_MASK_BASIC_WL,
 				},
 				{
 					type: 'string',
