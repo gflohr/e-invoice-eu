@@ -141,6 +141,7 @@ check all legal requirements before you use them.
 | [Practical Peppol](https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2 ) | ✅&nbsp;<sup>1</sup> | ✅ | ✅&nbsp;<sup>2</sup> | |
 | [Ecosio](https://ecosio.com/en/peppol-and-xml-document-validator/) | ✅&nbsp;<sup>1</sup> | ✅ | ❌ | based on [Practical Peppol](#practical-peppol) validator |
 | [portinvoice](https://www.portinvoice.com/) | ✅ | ✅ | ❌ | |
+| [xmlvalid](https://xmlvalid.com/validate) | ✅ | ✅ | ✅ | runs in the browser, invoice not uploaded; also CLI and GitHub Action |
 | [ZUGFeRD Community](https://www.zugferd-community.net/en/login) | ✅ | ✅ | ❌ | Registration required |
 | [FNFE Service Validator](https://services.fnfe-mpe.org/) | ✅ | ✅ | ❌ | Registration required |
 | [W System](https://wsystem.dev/ ) | ✅ | ✅ | ✅ | Paid service with free tier, API key required after 20 validations per day | 
