@@ -1,5 +1,6 @@
 import { create } from 'xmlbuilder2';
 
+import { ExpandObject } from 'xmlbuilder2/lib/interfaces';
 import { InvoiceServiceOptions } from '../invoice/invoice.service';
 import { Logger } from '../logger.interface';
 import { renderSpreadsheet } from '../utils/render-spreadsheet';
@@ -21,8 +22,7 @@ export class FormatXMLService {
 		});
 	}
 
-	// biome-ignore lint/suspicious/noExplicitAny: todo.
-	private cleanAttributes(data: { [key: string]: any }) {
+	private cleanAttributes(data: { [key: string]: ExpandObject }) {
 		for (const property in data) {
 			const [elem, attr] = property.split('@', 2);
 
@@ -32,12 +32,13 @@ export class FormatXMLService {
 						'#': data[elem],
 					};
 				}
+				data[elem] ??= {};
 				data[elem][`@${attr}`] = data[property];
 				delete data[property];
 			}
 
 			if (typeof data[property] === 'object') {
-				this.cleanAttributes(data[property]);
+				this.cleanAttributes(data[property] as { [key: string]: ExpandObject });
 			}
 		}
 	}
