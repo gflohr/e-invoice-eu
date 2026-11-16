@@ -31,7 +31,7 @@
 
 	
 
-  <link href="/e-invoice-eu/assets/bundle.min.css?1794844941" rel="stylesheet">
+  <link href="/e-invoice-eu/assets/bundle.min.css?1794846268" rel="stylesheet">
 
 
 
@@ -172,7 +172,7 @@
 	
 	<li class="toclevel-2">
 		5.1
-		<a href="#offline-validatoren">Offline-Validatoren</a>
+		<a href="#offline-validators">Offline Validators</a>
 		 <ul class="toclevel-3">
 	
 	<li class="toclevel-3">
@@ -442,6 +442,20 @@ check all legal requirements before you use them.</p>
 <td> </td>
 </tr>
 <tr>
+<td> <a href="https://xmlvalid.com/validate" target="_blank">xmlvalid</a> </td>
+<td> ✅ </td>
+<td> ✅ </td>
+<td> ✅ </td>
+<td> runs in the browser, invoice not uploaded<sup>3</sup>; also CLI and GitHub Action </td>
+</tr>
+<tr>
+<td> <a href="https://xsdhub.com/" target="_blank">XSDHub</a> </td>
+<td> ✅ </td>
+<td> ✅ </td>
+<td> ✅ </td>
+<td> XML extracted from the PDF in the browser; per-rule explanation pages </td>
+</tr>
+<tr>
 <td> <a href="https://www.zugferd-community.net/en/login" target="_blank">ZUGFeRD Community</a> </td>
 <td> ✅ </td>
 <td> ✅ </td>
@@ -467,9 +481,10 @@ check all legal requirements before you use them.</p>
 
 
 <p><sup>1</sup> Invoice XML must be extracted for upload<br />
-<sup>2</sup> SOAP (not REST)</p>
+<sup>2</sup> SOAP (not REST)
+<sup>3</sup> The optional PDF/A check, CLI, and GitHub Action send the PDF to xmlvalid’s server API.</p>
 
-<h3><a href="#" name="offline-validatoren" id="offline-validatoren"></a>Offline-Validatoren</h3>
+<h3><a href="#" name="offline-validators" id="offline-validators"></a>Offline Validators</h3>
 
 <p>By far the easiest way to validate e-invoices locally, without third-party
 services is to use the <a href="/e-invoice-eu/de/docs/kommandozeilen-tool/installation/">E-Invoice-EU command line
@@ -1048,7 +1063,7 @@ Verzeichnis <code>contrib/validators/kosit</code> gespeichert werden muss.</p>
  
 
 
-  <script src="/e-invoice-eu/assets/bundle.min.js?1794844941" type="text/javascript"></script>
+  <script src="/e-invoice-eu/assets/bundle.min.js?1794846268" type="text/javascript"></script>
 
 
 
