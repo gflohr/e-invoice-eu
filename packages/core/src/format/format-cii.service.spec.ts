@@ -1154,7 +1154,6 @@ describe('CII', () => {
 			it('should include buyer order references for FX-MINIMUM', async () => {
 				const invoice: Invoice = {
 					'ubl:Invoice': {
-						'cbc:ID': 'blabla',
 						'cac:OrderReference': {
 							'cbc:ID': '98776',
 						},
@@ -1309,6 +1308,69 @@ describe('CII', () => {
 
 				expect(xml).toContain('<ram:ID>PI33</ram:ID>');
 				expect(xml).toContain('<ram:Name>PI33</ram:Name>');
+
+				expect(xml).toMatchSnapshot();
+			});
+
+			it('should include the seller tax representative (BG-11)', async () => {
+				const invoice: Invoice = {
+					'ubl:Invoice': {
+						'cac:TaxRepresentativeParty': {
+							'cac:PartyName': {
+								'cbc:Name': 'Lionel Hutz, Esq.',
+							},
+							'cac:PostalAddress': {
+								'cbc:StreetName': '742 Evergreen Terrace',
+								'cbc:AdditionalStreetName': 'Suite 2B',
+								'cbc:CityName': 'Springfield',
+								'cbc:PostalZone': '12345',
+								'cbc:CountrySubentity': 'NT',
+								'cac:AddressLine': {
+									'cbc:Line': 'Behind the Kwik-E-Mart',
+								},
+								'cac:Country': {
+									'cbc:IdentificationCode': 'DE',
+								},
+							},
+							'cac:PartyTaxScheme': {
+								'cbc:CompanyID': 'DE123456789',
+								'cac:TaxScheme': {
+									'cbc:ID': 'VAT',
+								},
+							},
+						},
+					},
+				} as unknown as Invoice;
+
+				const xml = (await service.generate(
+					invoice,
+					{} as InvoiceServiceOptions,
+				)) as string;
+
+				expect(xml).toContain(
+					'<ram:SellerTaxRepresentativeTradeParty>',
+				);
+				expect(xml).toContain('<ram:Name>Lionel Hutz, Esq.</ram:Name>');
+				expect(xml).toContain(
+					'<ram:PostcodeCode>12345</ram:PostcodeCode>',
+				);
+				expect(xml).toContain(
+					'<ram:LineOne>742 Evergreen Terrace</ram:LineOne>',
+				);
+				expect(xml).toContain('<ram:LineTwo>Suite 2B</ram:LineTwo>');
+				expect(xml).toContain(
+					'<ram:LineThree>Behind the Kwik-E-Mart</ram:LineThree>',
+				);
+				expect(xml).toContain(
+					'<ram:CityName>Springfield</ram:CityName>',
+				);
+				expect(xml).toContain('<ram:CountryID>DE</ram:CountryID>');
+				expect(xml).toContain(
+					'<ram:CountrySubDivisionName>NT</ram:CountrySubDivisionName>',
+				);
+				expect(xml).toContain(
+					'<ram:ID schemeID="VA">DE123456789</ram:ID>',
+				);
 
 				expect(xml).toMatchSnapshot();
 			});

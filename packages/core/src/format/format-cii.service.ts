@@ -606,6 +606,7 @@ export const cacPartyTaxScheme: Transformation[] = [
 		fxProfileMask: FX_MASK_MINIMUM,
 	},
 ];
+
 export const cacSupplierPartyTaxScheme: Transformation[] = [
 	{
 		type: 'string',
@@ -727,6 +728,29 @@ export const cacAccountingSupplierParty: Transformation[] = [
 		src: ['cac:PartyTaxScheme'],
 		dest: ['ram:SpecifiedTaxRegistration'],
 		children: cacSupplierPartyTaxScheme,
+		fxProfileMask: FX_MASK_MINIMUM,
+	},
+];
+
+export const cacTaxRepresentativeParty: Transformation[] = [
+	{
+		type: 'string',
+		src: ['cac:PartyName', 'cbc:Name'],
+		dest: ['ram:Name'],
+		fxProfileMask: FX_MASK_BASIC_WL,
+	},
+	{
+		type: 'object',
+		src: ['cac:PostalAddress'],
+		dest: ['ram:PostalTradeAddress'],
+		children: cacPostalAddress,
+		fxProfileMask: FX_MASK_MINIMUM,
+	},
+	{
+		type: 'object',
+		src: ['cac:PartyTaxScheme'],
+		dest: ['ram:SpecifiedTaxRegistration'],
+		children: cacPartyTaxScheme,
 		fxProfileMask: FX_MASK_MINIMUM,
 	},
 ];
@@ -1443,6 +1467,16 @@ export const ublInvoice: Transformation = {
 				},
 				{
 					type: 'object',
+					src: ['cac:TaxRepresentativeParty'],
+					dest: [
+						'ram:ApplicableHeaderTradeAgreement',
+						'ram:SellerTaxRepresentativeTradeParty',
+					],
+					children: cacTaxRepresentativeParty,
+					fxProfileMask: FX_MASK_BASIC_WL,
+				},
+				{
+					type: 'object',
 					src: ['cac:AccountingCustomerParty', 'cac:Party'],
 					dest: [
 						'ram:ApplicableHeaderTradeAgreement',
@@ -2135,7 +2169,7 @@ export class FormatCIIService
 					path: childSrcPath,
 					json: invoice,
 				}) as string[];
-				if (Array.isArray(srcs) && srcs.length === 0) {
+				if (srcs.length === 0) {
 					continue;
 				}
 				src = srcs[0];

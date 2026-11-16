@@ -13,7 +13,7 @@ export class FormatXMLService {
 		return 'application/xml';
 	}
 
-	renderXML(data: object): string {
+	renderXML(data: ExpandObject): string {
 		this.cleanAttributes(data);
 
 		return create({ encoding: 'utf-8' }, data).end({
@@ -22,7 +22,7 @@ export class FormatXMLService {
 		});
 	}
 
-	private cleanAttributes(data: { [key: string]: ExpandObject }) {
+	private cleanAttributes(data: ExpandObject) {
 		for (const property in data) {
 			const [elem, attr] = property.split('@', 2);
 
@@ -38,7 +38,7 @@ export class FormatXMLService {
 			}
 
 			if (typeof data[property] === 'object') {
-				this.cleanAttributes(data[property] as { [key: string]: ExpandObject });
+				this.cleanAttributes(data[property] as ExpandObject);
 			}
 		}
 	}
