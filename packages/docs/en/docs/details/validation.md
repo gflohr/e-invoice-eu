@@ -141,7 +141,7 @@ check all legal requirements before you use them.
 | [Practical Peppol](https://peppol.helger.com/public/locale-en_US/menuitem-validation-ws2 ) | ✅&nbsp;<sup>1</sup> | ✅ | ✅&nbsp;<sup>2</sup> | |
 | [Ecosio](https://ecosio.com/en/peppol-and-xml-document-validator/) | ✅&nbsp;<sup>1</sup> | ✅ | ❌ | based on [Practical Peppol](#practical-peppol) validator |
 | [portinvoice](https://www.portinvoice.com/) | ✅ | ✅ | ❌ | |
-| [xmlvalid](https://xmlvalid.com/validate) | ✅ | ✅ | ✅ | runs in the browser, invoice not uploaded; also CLI and GitHub Action |
+| [xmlvalid](https://xmlvalid.com/validate) | ✅ | ✅ | ✅ | runs in the browser, invoice not uploaded<sup>3</sup>; also CLI and GitHub Action |
 | [XSDHub](https://xsdhub.com/) | ✅ | ✅ | ✅ | XML extracted from the PDF in the browser; per-rule explanation pages |
 | [ZUGFeRD Community](https://www.zugferd-community.net/en/login) | ✅ | ✅ | ❌ | Registration required |
 | [FNFE Service Validator](https://services.fnfe-mpe.org/) | ✅ | ✅ | ❌ | Registration required |
@@ -149,7 +149,7 @@ check all legal requirements before you use them.
 
 <sup>1</sup> Invoice XML must be extracted for upload<br />
 <sup>2</sup> SOAP (not REST)
-
+<sup>3</sup> The optional PDF/A check, CLI, and GitHub Action send the PDF to xmlvalid’s server API.
 ### Offline Validators
 
 By far the easiest way to validate e-invoices locally, without third-party
