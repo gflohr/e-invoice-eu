@@ -38,7 +38,7 @@ WORKDIR /app
 ARG WITH_LIBREOFFICE=true
 RUN if [ "$WITH_LIBREOFFICE" != "false" ]; then \
 	apk add --no-cache \
-		libreoffice \
+		libreoffice-calc libreoffice-writer \
 		openjdk8-jre \
 		ttf-freefont \
 		font-noto \
