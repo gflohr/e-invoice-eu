@@ -2027,19 +2027,36 @@ export class FormatCIIService
 			return;
 		}
 
-		const entries = Object.entries(tradeAgreement);
+		const entries = Object.entries(tradeAgreement).filter(
+			([key]) => key !== 'x:AdditionalReferencedDocument',
+		);
 		for (const key of Object.keys(tradeAgreement)) {
 			delete tradeAgreement[key];
 		}
 
+		let inserted = false;
 		for (const [key, value] of entries) {
-			if (key === 'x:AdditionalReferencedDocument') {
+			if (!inserted && key === 'ram:SpecifiedProcuringProject') {
 				tradeAgreement['ram:AdditionalReferencedDocument'] = [
 					normalizedLotReference,
 				];
-			} else {
-				tradeAgreement[key] = value;
+				inserted = true;
 			}
+
+			tradeAgreement[key] = value;
+
+			if (!inserted && key === 'ram:ContractReferencedDocument') {
+				tradeAgreement['ram:AdditionalReferencedDocument'] = [
+					normalizedLotReference,
+				];
+				inserted = true;
+			}
+		}
+
+		if (!inserted) {
+			tradeAgreement['ram:AdditionalReferencedDocument'] = [
+				normalizedLotReference,
+			];
 		}
 	}
 
