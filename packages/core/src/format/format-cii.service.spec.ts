@@ -1249,6 +1249,7 @@ describe('CII', () => {
 				expect(xml).toContain(
 					'<ram:IssuerAssignedID>PPID-123</ram:IssuerAssignedID>',
 				);
+				expect(xml).toContain('<ram:TypeCode>50</ram:TypeCode>');
 
 				expect(xml).toMatchSnapshot();
 			});
@@ -1304,6 +1305,11 @@ describe('CII', () => {
 					invoice,
 					{} as InvoiceServiceOptions,
 				)) as string;
+
+				expect(xml).toContain(
+					'<ram:IssuerAssignedID>PPID-123</ram:IssuerAssignedID>',
+				);
+				expect(xml).toContain('<ram:TypeCode>50</ram:TypeCode>');
 
 				const additionalDocIndex = xml.indexOf(
 					'<ram:AdditionalReferencedDocument>',

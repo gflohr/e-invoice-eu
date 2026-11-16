@@ -590,6 +590,7 @@ exports[`CII > Regressions > #685 Various Fields Missing > should map BT-17 refe
 		<ram:ApplicableHeaderTradeAgreement>
 			<ram:AdditionalReferencedDocument>
 				<ram:IssuerAssignedID>PPID-123</ram:IssuerAssignedID>
+				<ram:TypeCode>50</ram:TypeCode>
 			</ram:AdditionalReferencedDocument>
 		</ram:ApplicableHeaderTradeAgreement>
 	</rsm:SupplyChainTradeTransaction>
@@ -609,6 +610,7 @@ exports[`CII > Regressions > #685 Various Fields Missing > should merge BT-17 wi
 			</ram:AdditionalReferencedDocument>
 			<ram:AdditionalReferencedDocument>
 				<ram:IssuerAssignedID>PPID-123</ram:IssuerAssignedID>
+				<ram:TypeCode>50</ram:TypeCode>
 			</ram:AdditionalReferencedDocument>
 		</ram:ApplicableHeaderTradeAgreement>
 	</rsm:SupplyChainTradeTransaction>
@@ -635,6 +637,7 @@ exports[`CII > Regressions > #685 Various Fields Missing > should place BT-17 be
 		<ram:ApplicableHeaderTradeAgreement>
 			<ram:AdditionalReferencedDocument>
 				<ram:IssuerAssignedID>PPID-123</ram:IssuerAssignedID>
+				<ram:TypeCode>50</ram:TypeCode>
 			</ram:AdditionalReferencedDocument>
 			<ram:SpecifiedProcuringProject>
 				<ram:ID>PROJ-999</ram:ID>

@@ -2000,17 +2000,33 @@ export class FormatCIIService
 		const lotReference = tradeAgreement['x:AdditionalReferencedDocument'];
 		if (!lotReference) return;
 
+		// BT-17 requires ram:TypeCode = '50' in CII.
+		// Rebuild keys to ensure 'ram:TypeCode' appears in valid D16B sequence
+		// (after IssuerAssignedID/URIID and before
+		// Name/AttachmentBinaryObject/ReferenceTypeCode).
+		const normalizedLotReference: ExpandObject = {};
+		if (lotReference['ram:IssuerAssignedID'] !== undefined) {
+			normalizedLotReference['ram:IssuerAssignedID'] =
+				lotReference['ram:IssuerAssignedID'];
+		}
+		if (lotReference['ram:URIID'] !== undefined) {
+			normalizedLotReference['ram:URIID'] = lotReference['ram:URIID'];
+		}
+		normalizedLotReference['ram:TypeCode'] = '50';
+		for (const [key, value] of Object.entries(lotReference)) {
+			if (!(key in normalizedLotReference)) {
+				normalizedLotReference[key] = value;
+			}
+		}
+
 		if (tradeAgreement['ram:AdditionalReferencedDocument']) {
 			delete tradeAgreement['x:AdditionalReferencedDocument'];
 			tradeAgreement['ram:AdditionalReferencedDocument'].push(
-				lotReference,
+				normalizedLotReference,
 			);
 			return;
 		}
 
-		// Rebuild keys in-place so 'ram:AdditionalReferencedDocument' occupies
-		// the exact schema position of 'x:AdditionalReferencedDocument'
-		// (before SpecifiedProcuringProject).
 		const entries = Object.entries(tradeAgreement);
 		for (const key of Object.keys(tradeAgreement)) {
 			delete tradeAgreement[key];
@@ -2019,7 +2035,7 @@ export class FormatCIIService
 		for (const [key, value] of entries) {
 			if (key === 'x:AdditionalReferencedDocument') {
 				tradeAgreement['ram:AdditionalReferencedDocument'] = [
-					lotReference,
+					normalizedLotReference,
 				];
 			} else {
 				tradeAgreement[key] = value;
